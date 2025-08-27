@@ -1,0 +1,19 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\Event;
+
+use Symfony\Contracts\EventDispatcher\Event;
+
+class ProgressFinishedEvent extends Event
+{
+    final public const NAME = self::class;
+
+    public function __construct(private readonly string $message)
+    {
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+}

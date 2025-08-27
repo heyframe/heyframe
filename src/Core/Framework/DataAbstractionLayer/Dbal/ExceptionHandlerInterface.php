@@ -1,0 +1,16 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal;
+
+interface ExceptionHandlerInterface
+{
+    public const PRIORITY_DEFAULT = 0;
+
+    public const PRIORITY_LATE = -10;
+
+    public const PRIORITY_EARLY = 10;
+
+    public function getPriority(): int;
+
+    public function matchException(\Throwable $e): ?\Throwable;
+}

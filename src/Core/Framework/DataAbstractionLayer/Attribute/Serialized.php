@@ -1,0 +1,20 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\DataAbstractionLayer\Attribute;
+
+use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\StringFieldSerializer;
+
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
+final class Serialized extends Field
+{
+    public const TYPE = 'serialized';
+
+    public function __construct(
+        public string $serializer = StringFieldSerializer::class,
+        public bool|array $api = false,
+        public bool $translated = false,
+        public ?string $column = null
+    ) {
+        parent::__construct(type: self::TYPE, translated: $translated, api: $api, column: $column);
+    }
+}

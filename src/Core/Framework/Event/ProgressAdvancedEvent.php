@@ -1,0 +1,19 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\Event;
+
+use Symfony\Contracts\EventDispatcher\Event;
+
+class ProgressAdvancedEvent extends Event
+{
+    final public const NAME = self::class;
+
+    public function __construct(private readonly int $step = 1)
+    {
+    }
+
+    public function getStep(): int
+    {
+        return $this->step;
+    }
+}
