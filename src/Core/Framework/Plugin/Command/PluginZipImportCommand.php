@@ -6,6 +6,7 @@ use Composer\IO\ConsoleIO;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheClearer;
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\NoPluginFoundInZipException;
 use HeyFrame\Core\Framework\Plugin\PluginManagementService;
 use HeyFrame\Core\Framework\Plugin\PluginService;
@@ -21,6 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'plugin:zip-import',
     description: 'Imports a plugin from a zip file',
 )]
+#[Package('framework')]
 class PluginZipImportCommand extends Command
 {
     /**
@@ -39,7 +41,7 @@ class PluginZipImportCommand extends Command
      */
     protected function configure(): void
     {
-        $this->addArgument('zip-file', InputArgument::REQUIRED, 'Zip file that contains a shopware platform plugin.')
+        $this->addArgument('zip-file', InputArgument::REQUIRED, 'Zip file that contains a heyframe platform plugin.')
             ->addOption('no-refresh', null, InputOption::VALUE_OPTIONAL, 'Do not refresh plugin list.')
             ->addOption('delete', null, InputOption::VALUE_OPTIONAL, 'Delete the zip file after importing successfully.');
     }

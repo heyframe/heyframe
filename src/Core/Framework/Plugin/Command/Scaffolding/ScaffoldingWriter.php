@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class ScaffoldingWriter
 {
     public function __construct(private readonly Filesystem $filesystem)

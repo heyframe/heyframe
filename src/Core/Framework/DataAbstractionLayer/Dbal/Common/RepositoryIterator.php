@@ -9,10 +9,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @template TEntityCollection of EntityCollection
  */
+#[Package('framework')]
 class RepositoryIterator
 {
     private readonly Criteria $criteria;

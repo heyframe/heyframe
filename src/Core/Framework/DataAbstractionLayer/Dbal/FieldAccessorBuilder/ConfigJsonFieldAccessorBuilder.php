@@ -5,10 +5,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ConfigJsonField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class ConfigJsonFieldAccessorBuilder extends JsonFieldAccessorBuilder
 {
     public function buildAccessor(string $root, Field $field, Context $context, string $accessor): ?string

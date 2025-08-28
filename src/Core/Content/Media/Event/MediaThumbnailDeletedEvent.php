@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Content\Media\Event;
 
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[Package('discovery')]
 class MediaThumbnailDeletedEvent extends Event
 {
     final public const EVENT_NAME = 'media_thumbnail.after_delete';

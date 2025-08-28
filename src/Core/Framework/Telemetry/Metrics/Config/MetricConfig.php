@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics\Config;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\Type;
 
 /**
@@ -20,6 +21,7 @@ use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\Type;
  *
  * @codeCoverageIgnore
  */
+#[Package('framework')]
 readonly class MetricConfig
 {
     /**

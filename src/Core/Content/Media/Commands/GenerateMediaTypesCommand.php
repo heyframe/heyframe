@@ -11,6 +11,7 @@ use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,6 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'media:generate-media-types',
     description: 'Generates media types for all media files',
 )]
+#[Package('discovery')]
 class GenerateMediaTypesCommand extends Command
 {
     private HeyFrameStyle $io;

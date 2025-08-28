@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Query;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class ScoreQuery extends Filter
 {
     public function __construct(

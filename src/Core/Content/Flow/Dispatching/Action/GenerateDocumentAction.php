@@ -10,11 +10,13 @@ use HeyFrame\Core\Content\Flow\Dispatching\DelayableAction;
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\OrderAware;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Log\LoggerInterface;
 
 /**
  * @internal
  */
+#[Package('after-sales')]
 class GenerateDocumentAction extends FlowAction implements DelayableAction
 {
     /**

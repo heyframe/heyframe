@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Struct;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 abstract class Struct implements \JsonSerializable, ExtendableInterface
 {
     // allows to assign array data to this object

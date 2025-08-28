@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Content\Flow\Dispatching\Action;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('after-sales')]
 trait CustomFieldActionTrait
 {
     /**

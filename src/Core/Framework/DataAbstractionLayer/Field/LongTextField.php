@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\LongTextFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class LongTextField extends Field implements StorageAware
 {
     public function __construct(

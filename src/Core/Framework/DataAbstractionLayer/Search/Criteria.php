@@ -11,6 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Grouping\FieldGrouping;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Parser\AggregationParser;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Query\ScoreQuery;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 use HeyFrame\Core\Framework\Struct\Struct;
 use HeyFrame\Core\Framework\Util\Json;
@@ -18,6 +19,7 @@ use HeyFrame\Core\Framework\Util\Json;
 /**
  * @final
  */
+#[Package('framework')]
 class Criteria extends Struct implements \Stringable
 {
     use StateAwareTrait;

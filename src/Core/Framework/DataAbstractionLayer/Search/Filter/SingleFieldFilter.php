@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  */
+#[Package('framework')]
 abstract class SingleFieldFilter extends Filter
 {
     protected bool $isPrimary = false;

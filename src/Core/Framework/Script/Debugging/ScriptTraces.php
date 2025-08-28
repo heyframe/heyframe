@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Script\Debugging;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\FunctionHook;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
 use HeyFrame\Core\Framework\Script\Execution\Script;
@@ -14,6 +15,7 @@ use Symfony\Contracts\Service\ResetInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class ScriptTraces extends AbstractDataCollector implements ResetInterface
 {
     /**

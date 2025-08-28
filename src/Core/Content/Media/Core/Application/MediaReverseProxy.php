@@ -2,10 +2,13 @@
 
 namespace HeyFrame\Core\Content\Media\Core\Application;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Used to invalidate the cached media urls from the reverse proxy
- * If you are using fastly as cdn, you should configure shopware.cdn.fastly.enabled to true
+ * If you are using fastly as cdn, you should configure heyframe.cdn.fastly.enabled to true
  */
+#[Package('discovery')]
 interface MediaReverseProxy
 {
     public function enabled(): bool;

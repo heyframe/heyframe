@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @phpstan-type ErrorData array{status: string, code: string, title: string, detail: string, meta: array{parameters: array<string, mixed>}, trace?: array<int, mixed>}
  */
+#[Package('framework')]
 abstract class HeyFrameHttpException extends HttpException implements HeyFrameException
 {
     /**

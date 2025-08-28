@@ -13,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskDefinition;
@@ -23,6 +24,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 /**
  * @final
  */
+#[Package('framework')]
 class TaskScheduler
 {
     /**

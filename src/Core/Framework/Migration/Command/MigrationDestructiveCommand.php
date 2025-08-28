@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Migration\Command;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationCollection;
 use HeyFrame\Core\Framework\Migration\MigrationCollectionLoader;
 use HeyFrame\Core\Framework\Migration\MigrationException;
@@ -13,6 +14,7 @@ use Symfony\Component\Console\Input\InputOption;
     name: 'database:migrate-destructive',
     description: 'Executes all migrations',
 )]
+#[Package('framework')]
 class MigrationDestructiveCommand extends MigrationCommand
 {
     protected function configure(): void
@@ -49,7 +51,7 @@ class MigrationDestructiveCommand extends MigrationCommand
                 throw MigrationException::invalidVersionSelectionMode($mode);
             }
 
-            return $this->loader->collectAllForVersion($this->shopwareVersion, $mode);
+            return $this->loader->collectAllForVersion($this->heyframeVersion, $mode);
         }
 
         return $this->loader->collect($identifier);

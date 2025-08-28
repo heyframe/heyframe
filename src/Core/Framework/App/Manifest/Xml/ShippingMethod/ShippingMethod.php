@@ -5,11 +5,13 @@ namespace HeyFrame\Core\Framework\App\Manifest\Xml\ShippingMethod;
 use HeyFrame\Core\Checkout\Shipping\ShippingMethodEntity;
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
 use HeyFrame\Core\Framework\App\Manifest\XmlParserUtils;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Config\Util\XmlUtils;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class ShippingMethod extends XmlElement
 {
     protected const REQUIRED_FIELDS = [

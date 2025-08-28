@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\Adapter\Messenger\Middleware;
 
 use HeyFrame\Core\Framework\Adapter\Messenger\Stamp\SentAtStamp;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 
+#[Package('framework')]
 class QueuedTimeMiddleware implements MiddlewareInterface
 {
     public function handle(Envelope $envelope, StackInterface $stack): Envelope

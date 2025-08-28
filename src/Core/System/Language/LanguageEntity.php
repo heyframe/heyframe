@@ -27,7 +27,7 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollectio
 use HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfig\ProductSearchConfigEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationCollection;
-use HeyFrame\Core\Content\Product\SalesChannel\Sorting\ProductSortingTranslationCollection;
+use HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingTranslationCollection;
 use HeyFrame\Core\Content\ProductStream\Aggregate\ProductStreamTranslation\ProductStreamTranslationCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOptionTranslation\PropertyGroupOptionTranslationCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupTranslation\PropertyGroupTranslationCollection;
@@ -41,8 +41,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Aggregate\PluginTranslation\PluginTranslationCollection;
 use HeyFrame\Core\Framework\Struct\Collection;
+use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainCollection;
+use HeyFrame\Core\System\Channel\Aggregate\ChannelTranslation\ChannelTranslationCollection;
+use HeyFrame\Core\System\Channel\Aggregate\ChannelTypeTranslation\ChannelTypeTranslationCollection;
+use HeyFrame\Core\System\Channel\ChannelCollection;
 use HeyFrame\Core\System\Country\Aggregate\CountryStateTranslation\CountryStateTranslationCollection;
 use HeyFrame\Core\System\Country\Aggregate\CountryTranslation\CountryTranslationCollection;
 use HeyFrame\Core\System\Currency\Aggregate\CurrencyTranslation\CurrencyTranslationCollection;
@@ -51,10 +56,6 @@ use HeyFrame\Core\System\Locale\Aggregate\LocaleTranslation\LocaleTranslationCol
 use HeyFrame\Core\System\Locale\LocaleEntity;
 use HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeTranslation\NumberRangeTranslationCollection;
 use HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeTypeTranslation\NumberRangeTypeTranslationCollection;
-use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelDomain\SalesChannelDomainCollection;
-use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelTranslation\SalesChannelTranslationCollection;
-use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelTypeTranslation\SalesChannelTypeTranslationCollection;
-use HeyFrame\Core\System\SalesChannel\SalesChannelCollection;
 use HeyFrame\Core\System\Salutation\Aggregate\SalutationTranslation\SalutationTranslationCollection;
 use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateTranslationCollection;
 use HeyFrame\Core\System\StateMachine\StateMachineTranslationCollection;
@@ -62,6 +63,7 @@ use HeyFrame\Core\System\Tax\Aggregate\TaxRuleTypeTranslation\TaxRuleTypeTransla
 use HeyFrame\Core\System\TaxProvider\Aggregate\TaxProviderTranslation\TaxProviderTranslationCollection;
 use HeyFrame\Core\System\Unit\Aggregate\UnitTranslation\UnitTranslationCollection;
 
+#[Package('fundamentals@discovery')]
 class LanguageEntity extends Entity
 {
     use EntityCustomFieldsTrait;
@@ -85,11 +87,11 @@ class LanguageEntity extends Entity
 
     protected ?LanguageCollection $children = null;
 
-    protected ?SalesChannelCollection $salesChannels = null;
+    protected ?ChannelCollection $channels = null;
 
     protected ?CustomerCollection $customers = null;
 
-    protected ?SalesChannelCollection $salesChannelDefaultAssignments = null;
+    protected ?ChannelCollection $channelDefaultAssignments = null;
 
     protected ?CategoryTranslationCollection $categoryTranslations = null;
 
@@ -119,13 +121,13 @@ class LanguageEntity extends Entity
 
     protected ?PropertyGroupOptionTranslationCollection $propertyGroupOptionTranslations = null;
 
-    protected ?SalesChannelTranslationCollection $salesChannelTranslations = null;
+    protected ?ChannelTranslationCollection $channelTranslations = null;
 
-    protected ?SalesChannelTypeTranslationCollection $salesChannelTypeTranslations = null;
+    protected ?ChannelTypeTranslationCollection $channelTypeTranslations = null;
 
     protected ?SalutationTranslationCollection $salutationTranslations = null;
 
-    protected ?SalesChannelDomainCollection $salesChannelDomains = null;
+    protected ?ChannelDomainCollection $channelDomains = null;
 
     protected ?PluginTranslationCollection $pluginTranslations = null;
 
@@ -419,19 +421,19 @@ class LanguageEntity extends Entity
         $this->unitTranslations = $unitTranslations;
     }
 
-    public function getSalesChannels(): ?SalesChannelCollection
+    public function getChannels(): ?ChannelCollection
     {
-        return $this->salesChannels;
+        return $this->channels;
     }
 
-    public function setSalesChannels(SalesChannelCollection $salesChannels): void
+    public function setChannels(ChannelCollection $channels): void
     {
-        $this->salesChannels = $salesChannels;
+        $this->channels = $channels;
     }
 
-    public function getSalesChannelDefaultAssignments(): ?SalesChannelCollection
+    public function getChannelDefaultAssignments(): ?ChannelCollection
     {
-        return $this->salesChannelDefaultAssignments;
+        return $this->channelDefaultAssignments;
     }
 
     public function getCustomers(): ?CustomerCollection
@@ -444,9 +446,9 @@ class LanguageEntity extends Entity
         $this->customers = $customers;
     }
 
-    public function setSalesChannelDefaultAssignments(SalesChannelCollection $salesChannelDefaultAssignments): void
+    public function setChannelDefaultAssignments(ChannelCollection $channelDefaultAssignments): void
     {
-        $this->salesChannelDefaultAssignments = $salesChannelDefaultAssignments;
+        $this->channelDefaultAssignments = $channelDefaultAssignments;
     }
 
     public function getSalutationTranslations(): ?SalutationTranslationCollection
@@ -479,34 +481,34 @@ class LanguageEntity extends Entity
         $this->propertyGroupOptionTranslations = $propertyGroupOptionTranslationCollection;
     }
 
-    public function getSalesChannelTranslations(): ?SalesChannelTranslationCollection
+    public function getChannelTranslations(): ?ChannelTranslationCollection
     {
-        return $this->salesChannelTranslations;
+        return $this->channelTranslations;
     }
 
-    public function setSalesChannelTranslations(SalesChannelTranslationCollection $salesChannelTranslations): void
+    public function setChannelTranslations(ChannelTranslationCollection $channelTranslations): void
     {
-        $this->salesChannelTranslations = $salesChannelTranslations;
+        $this->channelTranslations = $channelTranslations;
     }
 
-    public function getSalesChannelTypeTranslations(): ?SalesChannelTypeTranslationCollection
+    public function getChannelTypeTranslations(): ?ChannelTypeTranslationCollection
     {
-        return $this->salesChannelTypeTranslations;
+        return $this->channelTypeTranslations;
     }
 
-    public function setSalesChannelTypeTranslations(SalesChannelTypeTranslationCollection $salesChannelTypeTranslations): void
+    public function setChannelTypeTranslations(ChannelTypeTranslationCollection $channelTypeTranslations): void
     {
-        $this->salesChannelTypeTranslations = $salesChannelTypeTranslations;
+        $this->channelTypeTranslations = $channelTypeTranslations;
     }
 
-    public function getSalesChannelDomains(): ?SalesChannelDomainCollection
+    public function getChannelDomains(): ?ChannelDomainCollection
     {
-        return $this->salesChannelDomains;
+        return $this->channelDomains;
     }
 
-    public function setSalesChannelDomains(SalesChannelDomainCollection $salesChannelDomains): void
+    public function setChannelDomains(ChannelDomainCollection $channelDomains): void
     {
-        $this->salesChannelDomains = $salesChannelDomains;
+        $this->channelDomains = $channelDomains;
     }
 
     public function getPluginTranslations(): ?PluginTranslationCollection

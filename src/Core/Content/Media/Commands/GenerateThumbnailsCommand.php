@@ -15,6 +15,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,6 +27,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
     name: 'media:generate-thumbnails',
     description: 'Generates thumbnails for all media files',
 )]
+#[Package('discovery')]
 class GenerateThumbnailsCommand extends Command
 {
     private HeyFrameStyle $io;

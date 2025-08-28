@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\ScheduledTask\MessageQueue;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Registry\TaskRegistry;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
@@ -11,6 +12,7 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
  * @internal
  */
 #[AsMessageHandler]
+#[Package('framework')]
 class RegisterScheduledTaskHandler
 {
     /**

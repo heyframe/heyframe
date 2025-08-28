@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class RuleAreas extends Flag
 {
     final public const PRODUCT_AREA = 'product';

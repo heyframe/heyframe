@@ -3,7 +3,7 @@
 namespace HeyFrame\Core\Content\Flow\Dispatching\Action;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Checkout\Order\SalesChannel\OrderService;
+use HeyFrame\Core\Checkout\Order\Channel\OrderService;
 use HeyFrame\Core\Content\Flow\Dispatching\DelayableAction;
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Content\Flow\Dispatching\TransactionalAction;
@@ -14,6 +14,7 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\StateMachine\Exception\IllegalTransitionException;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -21,6 +22,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 /**
  * @internal
  */
+#[Package('after-sales')]
 class SetOrderStateAction extends FlowAction implements DelayableAction, TransactionalAction
 {
     final public const FORCE_TRANSITION = 'force_transition';

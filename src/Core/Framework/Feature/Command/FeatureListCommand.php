@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Feature\Command;
 
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * @internal
  */
+#[Package('framework')]
 #[AsCommand(name: 'feature:list', description: 'List all registered features')]
 final class FeatureListCommand extends Command
 {

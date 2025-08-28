@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\System\User\Aggregate\UserAccessKey;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<UserAccessKeyEntity>
  */
+#[Package('fundamentals@framework')]
 class UserAccessKeyCollection extends EntityCollection
 {
     public function getUserIds(): array

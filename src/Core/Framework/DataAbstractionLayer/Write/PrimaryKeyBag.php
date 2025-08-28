@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class PrimaryKeyBag
 {
     /**

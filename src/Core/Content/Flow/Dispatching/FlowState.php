@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use HeyFrame\Core\Content\Flow\Dispatching\Struct\Sequence;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class FlowState
 {
     public string $flowId;

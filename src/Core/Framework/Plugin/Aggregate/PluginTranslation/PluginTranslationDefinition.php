@@ -9,8 +9,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginDefinition;
 
+#[Package('framework')]
 class PluginTranslationDefinition extends EntityTranslationDefinition
 {
     final public const ENTITY_NAME = 'plugin_translation';

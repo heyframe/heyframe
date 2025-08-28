@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\FieldType;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('checkout')]
 class DateInterval extends \DateInterval implements \Stringable
 {
     public const FORMAT = 'P%yY%mM%dDT%hH%iM%sS';

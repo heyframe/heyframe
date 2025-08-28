@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\App\Manifest\Xml\Webhook;
 
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
 use HeyFrame\Core\Framework\App\Manifest\XmlParserUtils;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class Webhook extends XmlElement
 {
     protected string $name;

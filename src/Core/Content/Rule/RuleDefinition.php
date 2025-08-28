@@ -39,9 +39,11 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationFiel
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Tag\TagDefinition;
 use HeyFrame\Core\System\TaxProvider\TaxProviderDefinition;
 
+#[Package('fundamentals@after-sales')]
 class RuleDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'rule';

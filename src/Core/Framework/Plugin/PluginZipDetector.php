@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Plugin;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginExtractionException;
 use HeyFrame\Core\Framework\Plugin\Util\ZipUtils;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class PluginZipDetector
 {
     /**

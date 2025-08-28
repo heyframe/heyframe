@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @final
  */
+#[Package('framework')]
 class EqualsFilter extends SingleFieldFilter
 {
     public function __construct(

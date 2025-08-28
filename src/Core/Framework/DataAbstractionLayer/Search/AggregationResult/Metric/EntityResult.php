@@ -5,12 +5,14 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\AggregationResult;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  *
  * @template TEntityCollection of EntityCollection
  */
+#[Package('framework')]
 class EntityResult extends AggregationResult
 {
     /**

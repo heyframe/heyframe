@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Attribute;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 enum OnDelete: string
 {
     case CASCADE = 'CASCADE';

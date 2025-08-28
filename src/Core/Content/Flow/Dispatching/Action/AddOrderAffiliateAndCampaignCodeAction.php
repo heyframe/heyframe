@@ -9,11 +9,13 @@ use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\Event\OrderAware;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
  */
+#[Package('after-sales')]
 class AddOrderAffiliateAndCampaignCodeAction extends FlowAction implements DelayableAction
 {
     /**

@@ -17,9 +17,11 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Integration\IntegrationDefinition;
 use HeyFrame\Core\System\User\UserDefinition;
 
+#[Package('framework')]
 class NotificationDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'notification';

@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Content\Flow\Api;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('after-sales')]
 class FlowActionDefinition extends Struct
 {
     /**

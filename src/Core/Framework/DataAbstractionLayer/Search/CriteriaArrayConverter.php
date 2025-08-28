@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Parser\AggregationParser;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParser;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class CriteriaArrayConverter
 {
     /**

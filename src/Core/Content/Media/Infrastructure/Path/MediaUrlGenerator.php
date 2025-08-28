@@ -4,11 +4,13 @@ namespace HeyFrame\Core\Content\Media\Infrastructure\Path;
 
 use HeyFrame\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\FilesystemOperator;
 
 /**
  * @internal Concrete implementations of this class should not be extended or used as a base class/type hint.
  */
+#[Package('discovery')]
 class MediaUrlGenerator extends AbstractMediaUrlGenerator
 {
     public function __construct(private readonly FilesystemOperator $filesystem)

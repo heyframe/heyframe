@@ -1,0 +1,17 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\Changelog;
+
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
+enum ChangelogSection: string
+{
+    case core = 'Core';
+    case api = 'API';
+    case administration = 'Administration';
+    case storefront = 'Storefront';
+    case elasticsearch = 'Elasticsearch';
+    case upgrade = 'Upgrade Information';
+    case major = 'Next Major Version Changes';
+}

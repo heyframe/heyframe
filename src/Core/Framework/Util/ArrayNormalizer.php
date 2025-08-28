@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Flattens or expands arrays by concatenating string keys
  */
+#[Package('framework')]
 class ArrayNormalizer
 {
     /**

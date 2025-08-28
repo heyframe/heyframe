@@ -6,6 +6,7 @@ use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionValidator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,6 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'dal:validate',
     description: 'Validates the DAL definitions',
 )]
+#[Package('framework')]
 class DataAbstractionLayerValidateCommand extends Command
 {
     /**

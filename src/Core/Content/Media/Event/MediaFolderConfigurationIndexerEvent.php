@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Content\Media\Event;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\NestedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaFolderConfigurationIndexerEvent extends NestedEvent
 {
     public function __construct(

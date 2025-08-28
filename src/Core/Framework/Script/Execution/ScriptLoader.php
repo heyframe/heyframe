@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheCompressor;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\ScriptPersister;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -16,9 +17,10 @@ use Twig\Cache\FilesystemCache;
  *
  * @phpstan-type ScriptInfo = array{app_id: ?string, scriptName: string, script: string, hook: string, appName: ?string, appVersion: ?string, integrationId: ?string, lastModified: string, active: bool}
  */
+#[Package('framework')]
 class ScriptLoader implements EventSubscriberInterface
 {
-    final public const CACHE_KEY = 'shopware-executable-app-scripts';
+    final public const CACHE_KEY = 'heyframe-executable-app-scripts';
 
     private readonly string $cacheDir;
 

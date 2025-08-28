@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\System\Language;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 
@@ -10,9 +11,10 @@ use Symfony\Contracts\Cache\CacheInterface;
  *
  * @phpstan-import-type LanguageData from LanguageLoaderInterface
  */
+#[Package('fundamentals@discovery')]
 class CachedLanguageLoader implements LanguageLoaderInterface, EventSubscriberInterface
 {
-    private const CACHE_KEY = 'shopware.languages';
+    private const CACHE_KEY = 'heyframe.languages';
 
     /**
      * @internal

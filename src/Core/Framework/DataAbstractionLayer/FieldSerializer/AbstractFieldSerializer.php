@@ -12,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\HtmlSanitizer;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\Validator\Constraint;
@@ -22,6 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 abstract class AbstractFieldSerializer implements FieldSerializerInterface
 {
     /**

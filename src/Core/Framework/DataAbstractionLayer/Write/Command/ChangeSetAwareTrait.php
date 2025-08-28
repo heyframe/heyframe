@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  */
+#[Package('framework')]
 trait ChangeSetAwareTrait
 {
     protected bool $requireChangeSet = false;

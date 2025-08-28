@@ -7,10 +7,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelpe
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Exception\FieldNotStorageAwareException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StorageAware;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class DefaultFieldAccessorBuilder implements FieldAccessorBuilderInterface
 {
     public function buildAccessor(string $root, Field $field, Context $context, string $accessor): string

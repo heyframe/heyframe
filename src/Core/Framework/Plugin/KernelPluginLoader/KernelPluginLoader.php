@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Plugin\KernelPluginLoader;
 
 use Composer\Autoload\ClassLoader;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Parameter\AdditionalBundleParameters;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Framework\Plugin\Exception\KernelPluginLoaderException;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * @phpstan-type PluginInfo array{ baseClass: string, name: string, active: bool, path: string, version: string|null, autoload: array<string, string[]>, managedByComposer: bool, composerName: string }
  */
+#[Package('framework')]
 abstract class KernelPluginLoader extends Bundle
 {
     /**

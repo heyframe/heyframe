@@ -7,12 +7,14 @@ use HeyFrame\Core\Content\Media\Thumbnail\ThumbnailService;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**
  * @internal
  */
 #[AsMessageHandler]
+#[Package('discovery')]
 final readonly class GenerateThumbnailsHandler
 {
     /**

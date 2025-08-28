@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
@@ -17,6 +18,7 @@ use Symfony\Component\Validator\Constraints\Type;
 /**
  * @internal
  */
+#[Package('framework')]
 class IntFieldSerializer extends AbstractFieldSerializer
 {
     public function encode(

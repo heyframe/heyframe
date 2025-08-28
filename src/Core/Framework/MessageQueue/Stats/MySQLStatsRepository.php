@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\MessageQueue\Stats;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\Stats\Entity\MessageStatsEntity;
 use HeyFrame\Core\Framework\MessageQueue\Stats\Entity\MessageTypeStatsCollection;
 use HeyFrame\Core\Framework\MessageQueue\Stats\Entity\MessageTypeStatsEntity;
@@ -13,6 +14,7 @@ use HeyFrame\Core\Framework\MessageQueue\Stats\Entity\MessageTypeStatsEntity;
  *
  * @codeCoverageIgnore tested via an integration test
  */
+#[Package('framework')]
 class MySQLStatsRepository extends AbstractStatsRepository
 {
     private const MESSAGE_TYPES_LIMIT = 100;

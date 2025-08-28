@@ -6,6 +6,7 @@ use Composer\IO\NullIO;
 use GuzzleHttp\Client;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheClearer;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Struct\PluginDownloadDataStruct;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @internal
  */
+#[Package('framework')]
 class PluginManagementService
 {
     final public const PLUGIN = 'plugin';

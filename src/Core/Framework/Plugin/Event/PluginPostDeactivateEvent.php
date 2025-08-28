@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Context\DeactivateContext;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
 
+#[Package('framework')]
 class PluginPostDeactivateEvent extends PluginLifecycleEvent
 {
     public function __construct(

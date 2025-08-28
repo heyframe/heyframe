@@ -9,7 +9,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaTranslationDefinition extends EntityTranslationDefinition
 {
     final public const ENTITY_NAME = 'media_translation';

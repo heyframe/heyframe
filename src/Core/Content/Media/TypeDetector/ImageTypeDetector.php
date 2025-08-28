@@ -6,7 +6,9 @@ use HeyFrame\Core\Content\Media\File\MediaFile;
 use HeyFrame\Core\Content\Media\MediaException;
 use HeyFrame\Core\Content\Media\MediaType\ImageType;
 use HeyFrame\Core\Content\Media\MediaType\MediaType;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class ImageTypeDetector implements TypeDetectorInterface
 {
     protected const SUPPORTED_FILE_EXTENSIONS = [

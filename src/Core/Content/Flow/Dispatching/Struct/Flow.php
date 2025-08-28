@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Content\Flow\Dispatching\Struct;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @internal not intended for decoration or replacement
  */
+#[Package('after-sales')]
 class Flow extends Struct
 {
     /**

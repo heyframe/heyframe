@@ -9,10 +9,12 @@ use Doctrine\DBAL\Driver\Middleware;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Tools\DsnParser;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class MySQLFactory
 {
     /**
@@ -25,7 +27,7 @@ class MySQLFactory
 
         $url = (string) EnvironmentHelper::getVariable('DATABASE_URL', getenv('DATABASE_URL'));
         if ($url === '') {
-            $url = 'mysql://root:shopware@127.0.0.1:3306/shopware';
+            $url = 'mysql://root:heyframe@127.0.0.1:3306/heyframe';
         }
 
         $replicaUrl = (string) EnvironmentHelper::getVariable('DATABASE_REPLICA_0_URL');
@@ -43,7 +45,7 @@ class MySQLFactory
         ], $dsnParameters); // adding parameters that are not in the DSN
 
         $initCommands = [
-            'SET @@session.time_zone = \'+00:00\'',
+            'SET @@session.time_zone = \'+08:00\'',
             'SET @@group_concat_max_len = CAST(IF(@@group_concat_max_len > 320000, @@group_concat_max_len, 320000) AS UNSIGNED)',
             'SET sql_mode=(SELECT REPLACE(@@sql_mode,\'ONLY_FULL_GROUP_BY\',\'\'))',
         ];

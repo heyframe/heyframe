@@ -10,8 +10,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Tag\TagDefinition;
 
+#[Package('discovery')]
 class MediaTagDefinition extends MappingEntityDefinition
 {
     final public const ENTITY_NAME = 'media_tag';

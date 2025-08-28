@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Rule\Api;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\PlatformRequest;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('fundamentals@after-sales')]
 class RuleConfigController extends AbstractController
 {
     /**

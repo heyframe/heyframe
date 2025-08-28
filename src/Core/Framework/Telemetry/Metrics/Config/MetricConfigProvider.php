@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics\Config;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\TelemetryException;
 
 /**
@@ -9,6 +10,7 @@ use HeyFrame\Core\Framework\Telemetry\TelemetryException;
  *
  * @phpstan-import-type MetricDefinition from MetricConfig
  */
+#[Package('framework')]
 class MetricConfigProvider
 {
     /**

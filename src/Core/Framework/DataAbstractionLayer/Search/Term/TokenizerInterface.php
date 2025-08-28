@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 interface TokenizerInterface
 {
     /**

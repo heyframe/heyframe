@@ -213,6 +213,7 @@
             <xs:element name="create" maxOccurs="unbounded" type="xs:string"/>
             <xs:element name="update" maxOccurs="unbounded" type="xs:string"/>
             <xs:element name="delete" maxOccurs="unbounded" type="xs:string"/>
+            <xs:element name="crud" maxOccurs="unbounded" type="xs:string"/>
             <xs:element name="permission" maxOccurs="unbounded" type="xs:string"/>
         </xs:choice>
     </xs:complexType>
@@ -426,7 +427,7 @@
             <xs:element name="customer_address" type="empty" minOccurs="0"/>
             <xs:element name="media" type="empty" minOccurs="0"/>
             <xs:element name="product_manufacturer" type="empty" minOccurs="0"/>
-            <xs:element name="sales_channel" type="empty" minOccurs="0"/>
+            <xs:element name="channel" type="empty" minOccurs="0"/>
             <xs:element name="landing_page" type="empty" minOccurs="0"/>
             <xs:element name="promotion" type="empty" minOccurs="0"/>
             <xs:element name="product_stream" type="empty" minOccurs="0"/>

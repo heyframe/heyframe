@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\Notification\Api;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Notification\NotificationService;
 use HeyFrame\Core\Framework\RateLimiter\Exception\RateLimitExceededException;
 use HeyFrame\Core\Framework\RateLimiter\RateLimiter;
@@ -23,7 +24,7 @@ use Symfony\Component\Routing\Attribute\Route;
  * @internal
  */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('framework')]
 class NotificationController extends AbstractController
 {
     final public const NOTIFICATION = 'notification';

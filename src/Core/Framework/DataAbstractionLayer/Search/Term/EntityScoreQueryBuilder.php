@@ -17,10 +17,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Query\ScoreQuery;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class EntityScoreQueryBuilder
 {
     /**

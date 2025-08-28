@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 abstract class HttpException extends HeyFrameHttpException
 {
     protected static string $couldNotFindMessage = 'Could not find {{ entity }} with {{ field }} "{{ value }}"';

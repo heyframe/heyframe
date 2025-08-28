@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\Flow\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\CustomFieldRule;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
 use HeyFrame\Core\Framework\Rule\FlowRule;
@@ -10,6 +11,7 @@ use HeyFrame\Core\Framework\Rule\RuleScope;
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class OrderCustomFieldRule extends FlowRule
 {
     final public const RULE_NAME = 'orderCustomField';

@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Content\Flow\Exception;
 
 use HeyFrame\Core\Content\Flow\FlowException;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class ExecuteSequenceException extends FlowException
 {
     final public const SEQUENCE_EXECUTION_FAILED = 'SEQUENCE_EXECUTION_FAILED';

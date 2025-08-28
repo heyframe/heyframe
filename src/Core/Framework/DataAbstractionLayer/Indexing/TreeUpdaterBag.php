@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Indexing;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class TreeUpdaterBag
 {
     private array $entities = [];

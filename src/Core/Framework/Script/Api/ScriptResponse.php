@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\Framework\Script\Facade\ArrayFacade;
 use HeyFrame\Core\Framework\Script\ScriptException;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class ScriptResponse
 {
     private ArrayFacade $body;

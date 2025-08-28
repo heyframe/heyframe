@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\RateLimiter;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\RateLimiter\Policy\SystemConfigLimiter;
 use HeyFrame\Core\Framework\RateLimiter\Policy\TimeBackoffLimiter;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
@@ -24,6 +25,7 @@ use Symfony\Component\RateLimiter\Storage\StorageInterface;
  *  rate?: array<string, string>
  * }
  */
+#[Package('framework')]
 class RateLimiterFactory
 {
     /**

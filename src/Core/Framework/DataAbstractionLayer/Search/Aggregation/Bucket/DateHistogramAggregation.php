@@ -5,10 +5,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Aggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class DateHistogramAggregation extends BucketAggregation
 {
     final public const PER_MINUTE = 'minute';

@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\Constraint\ArrayOfType;
 use HeyFrame\Core\Framework\Validation\Constraint\ArrayOfUuid;
 use Symfony\Component\Validator\Constraint;
@@ -10,6 +11,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Type;
 
+#[Package('fundamentals@after-sales')]
 class RuleConstraints
 {
     /**

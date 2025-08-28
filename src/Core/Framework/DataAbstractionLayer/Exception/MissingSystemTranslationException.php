@@ -5,10 +5,12 @@ namespace HeyFrame\Core\System\Exception;
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
+#[Package('framework')]
 class MissingSystemTranslationException extends WriteConstraintViolationException
 {
     final public const VIOLATION_MISSING_SYSTEM_TRANSLATION = 'MISSING-SYSTEM-TRANSLATION';

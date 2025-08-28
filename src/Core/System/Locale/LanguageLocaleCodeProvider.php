@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\System\Locale;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Language\LanguageLoaderInterface;
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * @phpstan-import-type LanguageData from LanguageLoaderInterface
  */
+#[Package('discovery')]
 class LanguageLocaleCodeProvider implements ResetInterface
 {
     /**

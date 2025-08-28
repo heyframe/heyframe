@@ -24,11 +24,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\JsonUpdateCommand
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\UpdateCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommandQueue;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class EntityWriteResultFactory
 {
     /**

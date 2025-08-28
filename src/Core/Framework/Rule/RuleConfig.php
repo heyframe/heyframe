@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('fundamentals@after-sales')]
 final class RuleConfig extends Struct
 {
     public const OPERATOR_SET_DEFAULT = [Rule::OPERATOR_EQ, Rule::OPERATOR_NEQ, Rule::OPERATOR_GTE, Rule::OPERATOR_LTE];

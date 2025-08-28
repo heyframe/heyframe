@@ -9,10 +9,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\Event\CustomerAware;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('after-sales')]
 class RemoveCustomerTagAction extends FlowAction implements DelayableAction
 {
     /**

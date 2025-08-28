@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Content\Media\Core\Application;
 use HeyFrame\Core\Content\Media\Core\Params\MediaLocationStruct;
 use HeyFrame\Core\Content\Media\Core\Params\ThumbnailLocationStruct;
 use HeyFrame\Core\Content\Media\MediaException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 
 /**
@@ -13,6 +14,7 @@ use HeyFrame\Core\Framework\Util\Hasher;
  * A media path strategy is responsible to generate the path for a media or thumbnail.
  * It has to define a unique name, which can be used to configure this strategy in the configuration.
  */
+#[Package('discovery')]
 abstract class AbstractMediaPathStrategy
 {
     /**

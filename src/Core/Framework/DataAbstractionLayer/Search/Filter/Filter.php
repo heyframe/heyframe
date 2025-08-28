@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaPartInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @internal
  */
+#[Package('framework')]
 abstract class Filter extends Struct implements CriteriaPartInterface
 {
     /**

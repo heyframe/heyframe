@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Webhook\Service;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Webhook\AclPrivilegeCollection;
 use HeyFrame\Core\Framework\Webhook\Webhook;
@@ -13,6 +14,7 @@ use HeyFrame\Core\Framework\Webhook\Webhook;
  *
  * @codeCoverageIgnore @see \HeyFrame\Tests\Integration\Core\Framework\Webhook\Service\WebhookLoaderTest
  */
+#[Package('framework')]
 class WebhookLoader
 {
     public function __construct(private readonly Connection $connection)

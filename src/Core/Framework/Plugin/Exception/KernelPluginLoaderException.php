@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\Plugin\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @deprecated tag:v6.8.0 - reason:remove-exception - Will be removed. Use \HeyFrame\Core\Framework\Plugin\PluginException::kernelPluginLoaderError instead
  */
+#[Package('framework')]
 class KernelPluginLoaderException extends HeyFrameHttpException
 {
     public function __construct(

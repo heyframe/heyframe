@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\RateLimiter\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class RateLimitExceededException extends HeyFrameHttpException
 {
     private readonly int $now;

@@ -14,8 +14,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Inherited;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyIdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('framework')]
 class ManyToManyIdFieldUpdater
 {
     /**

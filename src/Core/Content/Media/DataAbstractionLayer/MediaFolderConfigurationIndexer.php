@@ -13,10 +13,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEve
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+#[Package('discovery')]
 class MediaFolderConfigurationIndexer extends EntityIndexer
 {
     /**

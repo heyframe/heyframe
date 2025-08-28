@@ -2,16 +2,17 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
+use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\ChannelRepositoryFacadeHookFactory;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryFacadeHookFactory;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryWriterFacadeHookFactory;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\SalesChannelRepositoryFacadeHookFactory;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\Facade\RequestFacadeFactory;
-use HeyFrame\Core\Framework\Script\Execution\Awareness\SalesChannelContextAware;
+use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAware;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\ScriptResponseAwareTrait;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\StoppableHook;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\StoppableHookTrait;
 use HeyFrame\Core\Framework\Script\Execution\FunctionHook;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\SystemConfig\Facade\SystemConfigFacadeHookFactory;
 
 /**
@@ -24,7 +25,8 @@ use HeyFrame\Core\System\SystemConfig\Facade\SystemConfigFacadeHookFactory;
  *
  * @final
  */
-class StoreApiResponseHook extends FunctionHook implements SalesChannelContextAware, StoppableHook
+#[Package('framework')]
+class StoreApiResponseHook extends FunctionHook implements ChannelContextAware, StoppableHook
 {
     use ScriptResponseAwareTrait;
     use StoppableHookTrait;
@@ -39,9 +41,9 @@ class StoreApiResponseHook extends FunctionHook implements SalesChannelContextAw
         private readonly string $name,
         private readonly array $request,
         private readonly array $query,
-        private readonly SalesChannelContext $salesChannelContext
+        private readonly ChannelContext $channelContext
     ) {
-        parent::__construct($salesChannelContext->getContext());
+        parent::__construct($channelContext->getContext());
     }
 
     /**
@@ -60,9 +62,9 @@ class StoreApiResponseHook extends FunctionHook implements SalesChannelContextAw
         return $this->query;
     }
 
-    public function getSalesChannelContext(): SalesChannelContext
+    public function getChannelContext(): ChannelContext
     {
-        return $this->salesChannelContext;
+        return $this->channelContext;
     }
 
     public function getName(): string
@@ -80,7 +82,7 @@ class StoreApiResponseHook extends FunctionHook implements SalesChannelContextAw
         return [
             RepositoryFacadeHookFactory::class,
             SystemConfigFacadeHookFactory::class,
-            SalesChannelRepositoryFacadeHookFactory::class,
+            ChannelRepositoryFacadeHookFactory::class,
             RepositoryWriterFacadeHookFactory::class,
             ScriptResponseFactoryFacadeHookFactory::class,
             RequestFacadeFactory::class,

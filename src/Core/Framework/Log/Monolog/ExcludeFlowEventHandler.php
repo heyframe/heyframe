@@ -2,10 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Log\Monolog;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Monolog\Handler\AbstractHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\LogRecord;
 
+#[Package('framework')]
 class ExcludeFlowEventHandler extends AbstractHandler
 {
     /**

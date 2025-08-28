@@ -30,6 +30,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommandQueue
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\DataStack;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\WriteFieldException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -41,6 +42,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
  *
  * Contains recursive calls from extract->map->AssociationInterface->extract->map->....
  */
+#[Package('framework')]
 class WriteCommandExtractor
 {
     /**

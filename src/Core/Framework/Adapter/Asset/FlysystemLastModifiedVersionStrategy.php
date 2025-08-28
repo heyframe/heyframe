@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Asset;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use League\Flysystem\FilesystemOperator;
 use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 
+#[Package('framework')]
 class FlysystemLastModifiedVersionStrategy implements VersionStrategyInterface
 {
     /**

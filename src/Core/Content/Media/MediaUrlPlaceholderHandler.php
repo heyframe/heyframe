@@ -8,9 +8,11 @@ use HeyFrame\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
 use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
 use HeyFrame\Core\Content\Media\Core\Params\UrlParamsSource;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\QueryBuilder;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Profiling\Profiler;
 
+#[Package('discovery')]
 class MediaUrlPlaceholderHandler implements MediaUrlPlaceholderHandlerInterface
 {
     final public const DOMAIN_PLACEHOLDER = '124c71d524604ccbad6042edce3ac799';

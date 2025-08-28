@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Api;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\MessageQueueException;
 use HeyFrame\Core\Framework\MessageQueue\Subscriber\CountHandledMessagesListener;
 use HeyFrame\Core\Framework\MessageQueue\Subscriber\EarlyReturnMessagesListener;
@@ -24,7 +25,7 @@ use Symfony\Component\Messenger\Worker;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('framework')]
 class ConsumeMessagesController extends AbstractController
 {
     /**

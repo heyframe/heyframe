@@ -5,12 +5,14 @@ namespace HeyFrame\Core\Framework\Webhook\Hookable;
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\BusinessEventEncoder;
 use HeyFrame\Core\Framework\Webhook\Hookable;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class HookableEventFactory
 {
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace HeyFrame\Core\Framework\SystemCheck\Command;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\SystemCheck\Check\Result;
 use HeyFrame\Core\Framework\SystemCheck\Check\SystemCheckExecutionContext;
 use HeyFrame\Core\Framework\SystemCheck\SystemChecker;
@@ -18,7 +19,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @codeCoverageIgnore all the underlying dependencies are tested.
  */
-#[AsCommand(name: 'system:check', description: 'Check the shopware application system health')]
+#[AsCommand(name: 'system:check', description: 'Check the heyframe application system health')]
+#[Package('framework')]
 class SystemCheckCommand extends Command
 {
     private const OUTPUT_FORMATS = ['table', 'json'];

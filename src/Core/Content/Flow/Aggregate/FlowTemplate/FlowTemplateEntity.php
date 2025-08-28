@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Content\Flow\Aggregate\FlowTemplate;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class FlowTemplateEntity extends Entity
 {
     use EntityIdTrait;

@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 interface LowPriorityMessageInterface
 {
 }

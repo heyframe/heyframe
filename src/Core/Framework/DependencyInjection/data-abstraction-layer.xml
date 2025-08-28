@@ -2,12 +2,17 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
         <parameter key="env(HEYFRAME_DBAL_TIMEZONE_SUPPORT_ENABLED)" type="string">0</parameter>
         <parameter key="heyframe.dbal.time_zone_support_enabled">%env(bool:HEYFRAME_DBAL_TIMEZONE_SUPPORT_ENABLED)%</parameter>
-  </parameters>
+
+        <!-- @deprecated tag:v6.8.0 Will be removed -->
+        <parameter key="env(HEYFRAME_DBAL_TOKEN_MINIMUM_LENGTH)" type="string">3</parameter>
+        <!-- @deprecated tag:v6.8.0 Will be removed -->
+        <parameter key="heyframe.dbal.token_minimum_length">%env(int:HEYFRAME_DBAL_TOKEN_MINIMUM_LENGTH)%</parameter>
+    </parameters>
 
     <services>
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\EntityGenerator"/>
@@ -53,6 +58,8 @@
             <argument>%kernel.project_dir%</argument>
         </service>
 
+        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator" public="true" />
+
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper">
         </service>
 
@@ -79,6 +86,18 @@
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\EntityScoreQueryBuilder"/>
 
+        <service id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchTermInterpreter">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Tokenizer"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\TokenFilter"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\KeywordLoader"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\SearchKeyword\KeywordLoader">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
 
         <service id="api.request_criteria_builder" class="HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Parser\AggregationParser"/>
@@ -126,8 +145,8 @@
             <argument type="service" id="HeyFrame\Core\Framework\Api\Sync\SyncService"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Facade\SalesChannelRepositoryFacadeHookFactory" public="true">
-            <argument type="service" id="HeyFrame\Core\System\SalesChannel\Entity\SalesChannelDefinitionInstanceRegistry"/>
+        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Facade\ChannelRepositoryFacadeHookFactory" public="true">
+            <argument type="service" id="HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInstanceRegistry"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder"/>
         </service>
 

@@ -8,10 +8,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionDataPayloadField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class VersionDataPayloadFieldSerializer implements FieldSerializerInterface
 {
     public function normalize(Field $field, array $data, WriteParameterBag $parameters): array

@@ -7,8 +7,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver\AbstractFiel
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\DefinitionNotFoundException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\EntityRepositoryNotFoundException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\FieldSerializerInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+#[Package('framework')]
 class DefinitionInstanceRegistry
 {
     /**

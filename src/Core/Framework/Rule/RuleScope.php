@@ -3,13 +3,15 @@
 namespace HeyFrame\Core\Framework\Rule;
 
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\System\Channel\ChannelContext;
 
+#[Package('fundamentals@after-sales')]
 abstract class RuleScope
 {
     abstract public function getContext(): Context;
 
-    abstract public function getSalesChannelContext(): SalesChannelContext;
+    abstract public function getChannelContext(): ChannelContext;
 
     public function getCurrentTime(): \DateTimeImmutable
     {

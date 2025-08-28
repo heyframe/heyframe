@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @deprecated tag:v6.8.0 - reason:remove-exception - Will be removed, use {DomainException}::associationNotFound() instead
  */
+#[Package('framework')]
 class AssociationNotFoundException extends HeyFrameHttpException
 {
     public function __construct(string $field)

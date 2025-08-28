@@ -9,8 +9,10 @@ use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use HeyFrame\Core\Content\Media\Core\Application\MediaReverseProxy;
 use HeyFrame\Core\Content\Media\MediaException;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Log\LoggerInterface;
 
+#[Package('discovery')]
 class FastlyMediaReverseProxy implements MediaReverseProxy
 {
     private const API_URL = 'https://api.fastly.com';

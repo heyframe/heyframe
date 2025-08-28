@@ -2,15 +2,17 @@
 
 namespace HeyFrame\Core\Framework\Api\Controller;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class FallbackController extends AbstractController
 {
     public function rootFallback(): Response
     {
         $page = <<<HTML
-<html lang="zh">
+<html lang="en">
     <head>
         <meta name="robots" content="noindex, nofollow">
     </head>

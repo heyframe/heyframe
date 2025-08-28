@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Command;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Registry\TaskRegistry;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -12,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'scheduled-task:register',
     description: 'Registers all scheduled tasks',
 )]
+#[Package('framework')]
 class RegisterScheduledTasksCommand extends Command
 {
     /**

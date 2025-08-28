@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Subscriber;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\MessageQueueException;
 use HeyFrame\Core\Framework\MessageQueue\Service\MessageSizeCalculator;
 use Symfony\Component\Messenger\Event\SendMessageToTransportsEvent;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransport;
 
+#[Package('framework')]
 readonly class MessageQueueSizeRestrictListener
 {
     /**

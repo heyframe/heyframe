@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Rule\Container;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Validation\Constraint\ArrayOfType;
 
 /**
  * AbstractContainer implements setRules and addRule of the container interface
  */
+#[Package('fundamentals@after-sales')]
 abstract class Container extends Rule implements ContainerInterface
 {
     /**

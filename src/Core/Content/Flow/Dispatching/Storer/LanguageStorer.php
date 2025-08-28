@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Content\Flow\Dispatching\Storer;
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\LanguageAware;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class LanguageStorer extends FlowStorer
 {
     /**

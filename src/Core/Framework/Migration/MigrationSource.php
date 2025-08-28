@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Migration;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class MigrationSource
 {
     private const PHP_CLASS_NAME_REGEX = '[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$';

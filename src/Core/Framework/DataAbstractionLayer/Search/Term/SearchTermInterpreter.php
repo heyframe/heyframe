@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class SearchTermInterpreter
 {
     /**

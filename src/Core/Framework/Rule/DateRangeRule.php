@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraints\DateTime as DateTimeConstraint;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -10,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Type;
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class DateRangeRule extends Rule
 {
     final public const RULE_NAME = 'dateRange';
@@ -38,7 +40,7 @@ class DateRangeRule extends Rule
     public function match(RuleScope $scope): bool
     {
         if (\is_string($this->toDate) || \is_string($this->fromDate)) {
-            throw new \LogicException('fromDate or toDate cannot be a string at this point.');
+            throw RuleException::invalidDateRangeUsage('fromDate or toDate cannot be a string at this point');
         }
         $toDate = $this->toDate;
         $fromDate = $this->fromDate;
@@ -71,8 +73,8 @@ class DateRangeRule extends Rule
     public function getConstraints(): array
     {
         return [
-            'fromDate' => [new NotBlank(), new DateTimeConstraint(['format' => \DateTime::ATOM])],
-            'toDate' => [new NotBlank(), new DateTimeConstraint(['format' => \DateTime::ATOM])],
+            'fromDate' => [new NotBlank(), new DateTimeConstraint(format: \DateTime::ATOM)],
+            'toDate' => [new NotBlank(), new DateTimeConstraint(format: \DateTime::ATOM)],
             'useTime' => [new NotNull(), new Type('bool')],
         ];
     }

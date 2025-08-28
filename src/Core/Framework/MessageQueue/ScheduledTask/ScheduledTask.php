@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\ScheduledTask;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
+#[Package('framework')]
 abstract class ScheduledTask implements AsyncMessageInterface
 {
     protected const MINUTELY = 60;

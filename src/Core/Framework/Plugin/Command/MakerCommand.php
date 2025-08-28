@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Plugin\Command;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator\ScaffoldingGenerator;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\PluginScaffoldConfiguration;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\ScaffoldingCollector;
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[Package('framework')]
 class MakerCommand extends Command
 {
     public function __construct(

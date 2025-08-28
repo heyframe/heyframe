@@ -2,17 +2,29 @@
 
 namespace HeyFrame\Core\Framework\RateLimiter;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\RateLimiter\Exception\RateLimitExceededException;
 
+#[Package('framework')]
 class RateLimiter
 {
     final public const LOGIN_ROUTE = 'login';
+
+    final public const GUEST_LOGIN = 'guest_login';
 
     final public const RESET_PASSWORD = 'reset_password';
 
     final public const OAUTH = 'oauth';
 
-    /*
+    final public const USER_RECOVERY = 'user_recovery';
+
+    final public const CONTACT_FORM = 'contact_form';
+
+    final public const NEWSLETTER_FORM = 'newsletter_form';
+
+    final public const CART_ADD_LINE_ITEM = 'cart_add_line_item';
+
+    /**
      * @var array<string, RateLimiterFactory>
      */
     private array $factories;

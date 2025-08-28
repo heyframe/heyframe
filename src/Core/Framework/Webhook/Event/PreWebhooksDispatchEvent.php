@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Webhook\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\Webhook;
 
 /**
@@ -9,6 +10,7 @@ use HeyFrame\Core\Framework\Webhook\Webhook;
  *
  * @codeCoverageIgnore
  */
+#[Package('framework')]
 class PreWebhooksDispatchEvent
 {
     /**

@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Filesystem;
 
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
@@ -21,6 +22,7 @@ use League\MimeTypeDetection\MimeTypeDetector;
  *
  * @see https://github.com/thephpleague/flysystem/issues/1477
  */
+#[Package('framework')]
 class MemoryFilesystemAdapter implements FilesystemAdapter
 {
     final public const DUMMY_FILE_FOR_FORCED_LISTING_IN_FLYSYSTEM_TEST = '______DUMMY_FILE_FOR_FORCED_LISTING_IN_FLYSYSTEM_TEST';

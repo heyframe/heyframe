@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Content\Media\Metadata\MetadataLoader;
 
 use HeyFrame\Core\Content\Media\MediaType\MediaType;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 interface MetadataLoaderInterface
 {
     /**

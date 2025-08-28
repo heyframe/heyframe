@@ -11,8 +11,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedAtField;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Language\LanguageDefinition;
 
+#[Package('framework')]
 abstract class EntityTranslationDefinition extends EntityDefinition
 {
     public function getParentDefinition(): EntityDefinition

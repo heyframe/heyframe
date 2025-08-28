@@ -8,7 +8,9 @@ use HeyFrame\Core\Content\Media\MediaType\BinaryType;
 use HeyFrame\Core\Content\Media\MediaType\ImageType;
 use HeyFrame\Core\Content\Media\MediaType\MediaType;
 use HeyFrame\Core\Content\Media\MediaType\VideoType;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class DefaultTypeDetector implements TypeDetectorInterface
 {
     public function detect(MediaFile $mediaFile, ?MediaType $previouslyDetectedType): ?MediaType

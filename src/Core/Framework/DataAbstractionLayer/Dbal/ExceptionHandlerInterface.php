@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 interface ExceptionHandlerInterface
 {
     public const PRIORITY_DEFAULT = 0;

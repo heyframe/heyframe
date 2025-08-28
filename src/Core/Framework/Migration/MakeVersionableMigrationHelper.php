@@ -8,11 +8,13 @@ use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Index\IndexedColumn;
 use Doctrine\DBAL\Schema\Name\UnqualifiedName;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @phpstan-type RelationData array{TABLE_NAME: string, COLUMN_NAME: string, CONSTRAINT_NAME: string, REFERENCED_TABLE_NAME: string, REFERENCED_COLUMN_NAME: string}
  * @phpstan-type ForeignKeyData array{TABLE_NAME: string, COLUMN_NAME: list<string>, REFERENCED_TABLE_NAME: string, REFERENCED_COLUMN_NAME: list<string>}
  */
+#[Package('framework')]
 class MakeVersionableMigrationHelper
 {
     private const DROP_FOREIGN_KEY = 'ALTER TABLE `%s` DROP FOREIGN KEY `%s`';

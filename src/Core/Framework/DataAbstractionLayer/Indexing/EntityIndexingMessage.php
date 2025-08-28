@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Indexing;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
 use HeyFrame\Core\Framework\MessageQueue\DeduplicatableMessageInterface;
 use HeyFrame\Core\Framework\Util\Hasher;
 
+#[Package('framework')]
 class EntityIndexingMessage implements AsyncMessageInterface, DeduplicatableMessageInterface
 {
     protected string $indexer;

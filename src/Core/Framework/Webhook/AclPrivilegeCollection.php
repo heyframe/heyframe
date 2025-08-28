@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Webhook;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @final
  */
+#[Package('framework')]
 class AclPrivilegeCollection
 {
     /**

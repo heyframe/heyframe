@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\Log;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
+#[Package('framework')]
 class LogEntryEntity extends Entity
 {
     use EntityIdTrait;

@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Event;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Event\NestedEventCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class EntityLoadedContainerEvent extends NestedEvent
 {
     public function __construct(

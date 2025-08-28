@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Container\Container;
 use HeyFrame\Core\Framework\Struct\Collection;
 
 /**
  * @extends Collection<Rule>
  */
+#[Package('fundamentals@after-sales')]
 class RuleCollection extends Collection
 {
     /**

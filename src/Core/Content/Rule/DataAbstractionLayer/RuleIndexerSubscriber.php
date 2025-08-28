@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Cart\CartRuleLoader;
 use HeyFrame\Core\Content\Rule\RuleEvents;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostActivateEvent;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostDeactivateEvent;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostInstallEvent;
@@ -16,6 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('fundamentals@after-sales')]
 class RuleIndexerSubscriber implements EventSubscriberInterface
 {
     /**

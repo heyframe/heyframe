@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Content\Flow\Aggregate\FlowTemplate;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<FlowTemplateEntity>
  */
+#[Package('after-sales')]
 class FlowTemplateCollection extends EntityCollection
 {
     public function getApiAlias(): string

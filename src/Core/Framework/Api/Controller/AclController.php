@@ -6,6 +6,7 @@ use HeyFrame\Core\Framework\Api\Acl\Event\AclGetAdditionalPrivilegesEvent;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\RouterInterface;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
+#[Package('fundamentals@framework')]
 class AclController extends AbstractController
 {
     /**
@@ -27,7 +29,7 @@ class AclController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/api/_action/acl/privileges', name: 'api.acl.privileges.get', defaults: ['auth_required' => true, '_acl' => ['api_acl_privileges_get'], '_httpCache' => true], methods: ['GET'])]
+    #[Route(path: '/api/_action/acl/privileges', name: 'api.acl.privileges.get', methods: ['GET'], defaults: ['auth_required' => true, '_acl' => ['api_acl_privileges_get'], '_httpCache' => true])]
     public function getPrivileges(): JsonResponse
     {
         $privileges = $this->getFromRoutes();
@@ -37,7 +39,7 @@ class AclController extends AbstractController
         return new JsonResponse($privileges);
     }
 
-    #[Route(path: '/api/_action/acl/additional_privileges', name: 'api.acl.privileges.additional.get', defaults: ['auth_required' => true, '_acl' => ['api_acl_privileges_additional_get']], methods: ['GET'])]
+    #[Route(path: '/api/_action/acl/additional_privileges', name: 'api.acl.privileges.additional.get', methods: ['GET'], defaults: ['auth_required' => true, '_acl' => ['api_acl_privileges_additional_get']])]
     public function getAdditionalPrivileges(Context $context): JsonResponse
     {
         $privileges = $this->getFromRoutes();

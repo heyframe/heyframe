@@ -4,11 +4,13 @@ namespace HeyFrame\Core\Framework\Notification;
 
 use HeyFrame\Administration\Notification\NotificationEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 if (class_exists(\HeyFrame\Administration\Notification\NotificationCollection::class)) {
     /**
      * @deprecated tag:v6.8.0 - reason:class-hierarchy-change - Will not extend from `\HeyFrame\Administration\Notification\NotificationCollection` and will instead extend directly from `\HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection`.
      */
+    #[Package('framework')]
     class NotificationCollection extends \HeyFrame\Administration\Notification\NotificationCollection
     {
         protected function getExpectedClass(): string
@@ -20,6 +22,7 @@ if (class_exists(\HeyFrame\Administration\Notification\NotificationCollection::c
     /**
      * @extends EntityCollection<NotificationEntity>
      */
+    #[Package('framework')]
     class NotificationCollection extends EntityCollection
     {
         protected function getExpectedClass(): string

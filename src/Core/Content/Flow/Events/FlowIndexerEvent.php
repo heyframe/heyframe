@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Content\Flow\Events;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\NestedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class FlowIndexerEvent extends NestedEvent
 {
     public function __construct(

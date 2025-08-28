@@ -3,20 +3,22 @@
 namespace HeyFrame\Core\Content\Media\Cms\Type;
 
 use HeyFrame\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
+use HeyFrame\Core\Content\Cms\Channel\Struct\ImageSliderItemStruct;
+use HeyFrame\Core\Content\Cms\Channel\Struct\ImageSliderStruct;
 use HeyFrame\Core\Content\Cms\DataResolver\CriteriaCollection;
 use HeyFrame\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
 use HeyFrame\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use HeyFrame\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
 use HeyFrame\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
-use HeyFrame\Core\Content\Cms\SalesChannel\Struct\ImageSliderItemStruct;
-use HeyFrame\Core\Content\Cms\SalesChannel\Struct\ImageSliderStruct;
 use HeyFrame\Core\Content\Media\Cms\AbstractDefaultMediaResolver;
 use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
 use HeyFrame\Core\Content\Product\ProductEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class ImageSliderTypeDataResolver extends AbstractCmsElementResolver
 {
     /**

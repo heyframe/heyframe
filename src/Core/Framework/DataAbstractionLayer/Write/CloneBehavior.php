@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class CloneBehavior
 {
     public function __construct(

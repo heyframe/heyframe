@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace {{ namespace }}\Core\Content\Example\SalesChannel;
+namespace {{ namespace }}\Core\Content\Example\Channel;
 
 use HeyFrame\Core\Content\Product\ProductCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use HeyFrame\Core\System\SalesChannel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\StoreApiResponse;
 
 /**
  * @property EntitySearchResult $object

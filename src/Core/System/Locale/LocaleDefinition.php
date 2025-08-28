@@ -15,10 +15,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Language\LanguageDefinition;
 use HeyFrame\Core\System\Locale\Aggregate\LocaleTranslation\LocaleTranslationDefinition;
 use HeyFrame\Core\System\User\UserDefinition;
 
+#[Package('discovery')]
 class LocaleDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'locale';

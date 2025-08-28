@@ -8,11 +8,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class VersionFieldSerializer implements FieldSerializerInterface
 {
     public function normalize(Field $field, array $data, WriteParameterBag $parameters): array

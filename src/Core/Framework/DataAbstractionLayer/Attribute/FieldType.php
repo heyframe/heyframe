@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Attribute;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 enum FieldType: string
 {
     public const UUID = 'uuid';

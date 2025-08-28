@@ -23,8 +23,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Query\ScoreQuery;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\CountSorting;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use HeyFrame\Core\Framework\FrameworkException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Request;
 
+#[Package('framework')]
 class RequestCriteriaBuilder
 {
     private const TOTAL_COUNT_MODE_MAPPING = [

@@ -5,9 +5,11 @@ namespace HeyFrame\Core\Framework\Api\Acl\Role;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Integration\IntegrationCollection;
 use HeyFrame\Core\System\User\UserCollection;
 
+#[Package('framework')]
 class AclRoleEntity extends Entity
 {
     use EntityIdTrait;

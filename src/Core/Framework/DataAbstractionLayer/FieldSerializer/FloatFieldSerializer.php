@@ -9,12 +9,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StorageAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class FloatFieldSerializer extends AbstractFieldSerializer
 {
     public function encode(Field $field, EntityExistence $existence, KeyValuePair $data, WriteParameterBag $parameters): \Generator

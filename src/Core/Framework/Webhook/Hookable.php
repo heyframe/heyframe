@@ -10,9 +10,11 @@ use HeyFrame\Core\Framework\App\Event\AppDeletedEvent;
 use HeyFrame\Core\Framework\App\Event\AppInstalledEvent;
 use HeyFrame\Core\Framework\App\Event\AppPermissionsUpdated;
 use HeyFrame\Core\Framework\App\Event\AppUpdatedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Update\Event\UpdatePostFinishEvent;
 use HeyFrame\Core\System\SystemConfig\Event\SystemConfigChangedHook;
 
+#[Package('framework')]
 interface Hookable
 {
     public const HOOKABLE_EVENTS = [
@@ -35,7 +37,7 @@ interface Hookable
         AppInstalledEvent::class => 'Fires when an app is installed',
         AppUpdatedEvent::class => 'Fires when an app is updated',
         AppPermissionsUpdated::class => 'Fires when an apps permissions were updated with a list of the currently accepted permissions, eg after new were accepted or revoked',
-        UpdatePostFinishEvent::class => 'Fires after an shopware update has been finished',
+        UpdatePostFinishEvent::class => 'Fires after an heyframe update has been finished',
         SystemConfigChangedHook::class => 'Fires when a system config value is changed',
     ];
 

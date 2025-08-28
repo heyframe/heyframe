@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\RemoteAddressField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class RemoteAddressFieldSerializer extends AbstractFieldSerializer
 {
     protected const CONFIG_KEY = 'core.loginRegistration.customerIpAddressesNotAnonymously';

@@ -10,6 +10,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\CascadeDeleteComm
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\DeleteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,6 +21,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * @internal
  */
+#[Package('fundamentals@discovery')]
 class TranslationValidator implements EventSubscriberInterface
 {
     final public const VIOLATION_DELETE_SYSTEM_TRANSLATION = 'delete-system-translation-violation';

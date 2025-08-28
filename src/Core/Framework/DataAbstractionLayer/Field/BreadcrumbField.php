@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Breadcrumbs are stored as JSON objects in the DB, but represented as plain array in the API, therefore we need a specific type
  */
+#[Package('framework')]
 class BreadcrumbField extends JsonField
 {
     /**

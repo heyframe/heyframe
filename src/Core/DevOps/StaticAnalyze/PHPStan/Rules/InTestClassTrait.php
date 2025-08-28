@@ -1,0 +1,24 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
+
+use HeyFrame\Core\Framework\Log\Package;
+use PHPStan\Analyser\Scope;
+
+/**
+ * @internal
+ */
+#[Package('framework')]
+trait InTestClassTrait
+{
+    protected function isInTestClass(Scope $scope): bool
+    {
+        if (!$scope->isInClass()) {
+            return false;
+        }
+
+        $className = $scope->getClassReflection()->getNativeReflection()->getName();
+
+        return str_contains(\strtolower($className), 'test') || \str_contains(\strtolower($className), 'tests');
+    }
+}

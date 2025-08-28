@@ -7,10 +7,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 interface EntityReaderInterface
 {
     /**

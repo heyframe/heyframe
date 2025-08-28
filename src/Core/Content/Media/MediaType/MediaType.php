@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Content\Media\MediaType;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('discovery')]
 abstract class MediaType extends Struct
 {
     protected string $name;

@@ -5,11 +5,13 @@ namespace HeyFrame\Core\Content\Media\Subscriber;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolderConfiguration\MediaFolderConfigurationEntity;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @internal
  */
+#[Package('discovery')]
 class MediaFolderConfigLoadedSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array

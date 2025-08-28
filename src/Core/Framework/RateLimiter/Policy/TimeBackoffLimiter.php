@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\RateLimiter\Policy;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Lock\LockInterface;
 use Symfony\Component\Lock\NoLock;
 use Symfony\Component\RateLimiter\Exception\ReserveNotSupportedException;
@@ -17,6 +18,7 @@ use Symfony\Component\RateLimiter\Util\TimeUtil;
  *
  * @phpstan-import-type TimeBackoffLimit from TimeBackoff
  */
+#[Package('framework')]
 class TimeBackoffLimiter implements LimiterInterface
 {
     use ResetLimiterTrait;

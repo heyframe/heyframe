@@ -1,0 +1,36 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\Adapter\Command;
+
+use HeyFrame\Core\Framework\Adapter\Cache\CacheClearer;
+use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
+use HeyFrame\Core\Framework\Log\Package;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+#[Package('framework')]
+#[AsCommand(name: 'cache:clear:http', description: 'Clear only the HTTP cache')]
+class CacheClearHttpCommand extends Command
+{
+    /**
+     * @internal
+     */
+    public function __construct(
+        private readonly CacheClearer $cacheClearer,
+    ) {
+        parent::__construct();
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $io = new HeyFrameStyle($input, $output);
+
+        $io->comment('Clearing the HTTP cache');
+
+        $this->cacheClearer->clearHttpCache();
+
+        return self::SUCCESS;
+    }
+}

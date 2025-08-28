@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\CreatedAtFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class CreatedAtField extends DateTimeField
 {
     public function __construct()

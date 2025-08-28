@@ -7,7 +7,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class AttributeMappingDefinition extends MappingEntityDefinition
 {
     /**

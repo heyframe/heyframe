@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Notification;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\BulkEntityExtension;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Integration\IntegrationDefinition;
 use HeyFrame\Core\System\User\UserDefinition;
 
@@ -12,6 +13,7 @@ use HeyFrame\Core\System\User\UserDefinition;
  *
  * @codeCoverageIgnore
  */
+#[Package('framework')]
 class NotificationBulkEntityExtension extends BulkEntityExtension
 {
     public function collect(): \Generator

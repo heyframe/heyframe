@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\System\Currency\CurrencyDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Currency\Aggregate\CurrencyCountryRounding\CurrencyCountryRoundingDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Currency\Channel\ChannelCurrencyDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Currency\Aggregate\CurrencyTranslation\CurrencyTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Currency\CurrencyLoadSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Currency\CurrencyValidator">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Currency\Rule\CurrencyRule">
+            <tag name="heyframe.rule.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Currency\CurrencyFormatter" public="true">
+            <argument type="service" id="HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider"/>
+
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Currency\Channel\CurrencyRoute" public="true">
+            <argument type="service" id="channel.currency.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+    </services>
+</container>

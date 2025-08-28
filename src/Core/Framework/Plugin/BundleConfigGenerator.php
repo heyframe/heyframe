@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Plugin;
 
 use HeyFrame\Core\Framework\App\ActiveAppsLoader;
 use HeyFrame\Core\Framework\Bundle;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Kernel;
 use HeyFrame\Storefront\Theme\StorefrontPluginRegistry;
@@ -13,6 +14,7 @@ use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
 /**
  * @phpstan-import-type BundleConfig from BundleConfigGeneratorInterface
  */
+#[Package('framework')]
 class BundleConfigGenerator implements BundleConfigGeneratorInterface
 {
     private readonly string $projectDir;
@@ -50,7 +52,7 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
 
         $bundles = [];
         foreach ($kernelBundles as $bundle) {
-            // only include shopware bundles
+            // only include heyframe bundles
             if (!$bundle instanceof Bundle) {
                 continue;
             }

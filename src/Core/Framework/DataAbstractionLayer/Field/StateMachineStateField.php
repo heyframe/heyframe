@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\StateMachineStateFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateDefinition;
 
+#[Package('framework')]
 class StateMachineStateField extends FkField
 {
     /**

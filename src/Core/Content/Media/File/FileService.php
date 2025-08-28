@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Content\Media\File;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  */
+#[Package('discovery')]
 class FileService
 {
     private const ALLOWED_PROTOCOLS = ['http', 'https', 'ftp', 'sftp'];

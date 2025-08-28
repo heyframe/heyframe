@@ -1,13 +1,17 @@
 {
     "name": "heyframe/core",
     "type": "library",
-    "description": "HeyFrame platform is the core for all HeyFrame platform products.",
+    "description": "HeyFrame platform is the core for all HeyFrame ecommerce products.",
     "keywords": [
-        "heyframe"
+        "heyframe",
+        "shop"
     ],
     "homepage": "https://www.heyframe.net",
     "license": "Apache-2.0",
     "autoload": {
+        "files": [
+            "Framework/Adapter/Doctrine/Patch/AbstractAsset.php"
+        ],
         "exclude-from-classmap": [
             "*/Test/"
         ],

@@ -9,6 +9,7 @@ use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
 use HeyFrame\Core\Content\Media\Extension\ResolveRemoteThumbnailUrlExtension;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use League\Flysystem\FilesystemOperator;
 use Symfony\Contracts\Service\ResetInterface;
@@ -18,6 +19,7 @@ use Symfony\Contracts\Service\ResetInterface;
  *
  * @final
  */
+#[Package('discovery')]
 class RemoteThumbnailLoader implements ResetInterface
 {
     /**

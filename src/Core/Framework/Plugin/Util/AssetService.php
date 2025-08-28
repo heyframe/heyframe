@@ -7,6 +7,7 @@ use HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatch;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatchInput;
 use HeyFrame\Core\Framework\App\Source\SourceResolver;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Parameter\AdditionalBundleParameters;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginNotFoundException;
@@ -27,6 +28,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
+#[Package('framework')]
 class AssetService
 {
     private const EXTENSION_RESOURCES_DIRECTORY = 'Resources/public';
@@ -193,7 +195,7 @@ class AssetService
         $manifest[$bundleOrAppName] = $localBundleManifest;
         $this->writeManifest($manifest);
 
-        if (!EnvironmentHelper::getVariable('SHOPWARE_SKIP_ASSET_INSTALL_CACHE_INVALIDATION', false)) {
+        if (!EnvironmentHelper::getVariable('HEYFRAME_SKIP_ASSET_INSTALL_CACHE_INVALIDATION', false)) {
             $this->cacheInvalidator->invalidate(['asset-metaData'], true);
         }
     }
@@ -268,7 +270,7 @@ class AssetService
             $batches[] = new CopyBatchInput(
                 Path::join($originDir, $file),
                 [Path::join($targetDirectory, $file)],
-                $this->parameterBag->get('shopware.filesystem.asset.config')['visibility'] ?? Visibility::PUBLIC,
+                $this->parameterBag->get('heyframe.filesystem.asset.config')['visibility'] ?? Visibility::PUBLIC,
             );
         }
 
@@ -347,6 +349,6 @@ class AssetService
 
     private function areAssetsStoredLocally(): bool
     {
-        return $this->parameterBag->get('shopware.filesystem.asset.type') === 'local';
+        return $this->parameterBag->get('heyframe.filesystem.asset.type') === 'local';
     }
 }

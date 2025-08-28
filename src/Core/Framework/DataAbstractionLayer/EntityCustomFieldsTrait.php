@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Attribute\CustomFields;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 trait EntityCustomFieldsTrait
 {
     /**

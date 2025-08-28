@@ -10,6 +10,7 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\FlowLogEvent;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -19,6 +20,7 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * @internal not intended for decoration or replacement
  */
+#[Package('after-sales')]
 class FlowDispatcher implements EventDispatcherInterface, ServiceSubscriberInterface
 {
     public function __construct(

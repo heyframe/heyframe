@@ -10,7 +10,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StorageAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class CompiledFieldCollection extends FieldCollection
 {
     /**

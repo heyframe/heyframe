@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\MessageQueue\IterateEn
 use HeyFrame\Core\Framework\Event\ProgressAdvancedEvent;
 use HeyFrame\Core\Framework\Event\ProgressFinishedEvent;
 use HeyFrame\Core\Framework\Event\ProgressStartedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -18,6 +19,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * @final
  */
 #[AsMessageHandler]
+#[Package('framework')]
 class EntityIndexerRegistry
 {
     final public const EXTENSION_INDEXER_SKIP = 'indexer-skip';

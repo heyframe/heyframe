@@ -6,15 +6,17 @@ use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Cart\Rule\CartRuleScope;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RuleAreas;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 
 /**
  * @extends EntityCollection<RuleEntity>
  */
+#[Package('fundamentals@after-sales')]
 class RuleCollection extends EntityCollection
 {
-    public function filterMatchingRules(Cart $cart, SalesChannelContext $context): self
+    public function filterMatchingRules(Cart $cart, ChannelContext $context): self
     {
         return $this->filter(
             function (RuleEntity $rule) use ($cart, $context) {

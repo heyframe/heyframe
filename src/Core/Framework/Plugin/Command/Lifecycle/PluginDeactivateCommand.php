@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Plugin\Command\Lifecycle;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginNotActivatedException;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginNotInstalledException;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -14,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'plugin:deactivate',
     description: 'Deactivates a plugin',
 )]
+#[Package('framework')]
 class PluginDeactivateCommand extends AbstractPluginLifecycleCommand
 {
     private const LIFECYCLE_METHOD = 'deactivate';

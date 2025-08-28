@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Rule\Container;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\RuleScope;
 
 /**
  * XorRule returns true, if exactly one child rule is true
  */
+#[Package('fundamentals@after-sales')]
 class XorRule extends Container
 {
     final public const RULE_NAME = 'xorContainer';

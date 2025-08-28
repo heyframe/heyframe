@@ -6,7 +6,9 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Event\NestedEventCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class EntityWrittenContainerEvent extends NestedEvent
 {
     protected bool $cloned = false;

@@ -7,6 +7,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 /**
  * @extends EntityCollection<LogEntryEntity>
  */
+#[Package('framework')]
 class LogEntryCollection extends EntityCollection
 {
     public function getApiAlias(): string

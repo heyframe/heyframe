@@ -2,15 +2,17 @@
 
 namespace HeyFrame\Core\Framework\App\Hmac;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+#[Package('framework')]
 class RequestSigner
 {
-    final public const SHOPWARE_APP_SIGNATURE = 'heyframe-app-signature';
+    final public const HEYFRAME_APP_SIGNATURE = 'heyframe-app-signature';
 
-    final public const SHOPWARE_SHOP_SIGNATURE = 'heyframe-shop-signature';
+    final public const HEYFRAME_SHOP_SIGNATURE = 'heyframe-shop-signature';
 
     public function signRequest(RequestInterface $request, string $secret): RequestInterface
     {
@@ -26,16 +28,16 @@ class RequestSigner
             return clone $request;
         }
 
-        return $request->withAddedHeader(self::SHOPWARE_SHOP_SIGNATURE, $this->signPayload($body, $secret));
+        return $request->withAddedHeader(self::HEYFRAME_SHOP_SIGNATURE, $this->signPayload($body, $secret));
     }
 
     public function isResponseAuthentic(ResponseInterface $response, string $secret): bool
     {
-        if (!$response->hasHeader(self::SHOPWARE_APP_SIGNATURE)) {
+        if (!$response->hasHeader(self::HEYFRAME_APP_SIGNATURE)) {
             return false;
         }
 
-        $responseSignature = $response->getHeaderLine(self::SHOPWARE_APP_SIGNATURE);
+        $responseSignature = $response->getHeaderLine(self::HEYFRAME_APP_SIGNATURE);
         $compareSignature = $this->signPayload($response->getBody()->getContents(), $secret);
 
         $response->getBody()->rewind();

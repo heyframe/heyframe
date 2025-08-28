@@ -7,6 +7,7 @@ use HeyFrame\Core\Content\Media\Event\UnusedMediaSearchStartEvent;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Content\Media\UnusedMediaPurger;
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\MemorySizeCalculator;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -21,6 +22,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     name: 'media:delete-unused',
     description: 'Deletes all media files which are not used in any entity',
 )]
+#[Package('discovery')]
 class DeleteNotUsedMediaCommand extends Command
 {
     /**

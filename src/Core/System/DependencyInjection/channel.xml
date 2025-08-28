@@ -2,6 +2,289 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <services>
+        <service id="HeyFrame\Core\System\Channel\ChannelDefinition">
+            <tag name="heyframe.entity.definition"/>
+            <tag name="heyframe.entity.hookable"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelTranslation\ChannelTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelCountry\ChannelCountryDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelCurrency\ChannelCurrencyDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainDefinition">
+            <tag name="heyframe.entity.definition"/>
+            <tag name="heyframe.entity.hookable"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelLanguage\ChannelLanguageDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelPaymentMethod\ChannelPaymentMethodDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelShippingMethod\ChannelShippingMethodDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelType\ChannelTypeDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelTypeTranslation\ChannelTypeTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Aggregate\ChannelAnalytics\ChannelAnalyticsDefinition">
+            <tag name="heyframe.entity.definition" entity="channel_analytics" />
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="string">%heyframe.api.store.context_lifetime%</argument>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\ChannelContextFactory" public="true">
+            <argument type="service" id="customer.repository"/>
+            <argument type="service" id="customer_group.repository"/>
+            <argument type="service" id="customer_address.repository"/>
+            <argument type="service" id="payment_method.repository"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxDetector"/>
+            <argument type="tagged_iterator" tag="tax.rule_type_filter"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="currency_country_rounding.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\BaseChannelContextFactory"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\BaseChannelContextFactory">
+            <argument type="service" id="channel.repository"/>
+            <argument type="service" id="currency.repository"/>
+            <argument type="service" id="customer_group.repository"/>
+            <argument type="service" id="country.repository"/>
+            <argument type="service" id="tax.repository"/>
+            <argument type="service" id="payment_method.repository"/>
+            <argument type="service" id="shipping_method.repository"/>
+            <argument type="service" id="country_state.repository"/>
+            <argument type="service" id="currency_country_rounding.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ContextFactory"/>
+            <argument type="service" id="language.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\ContextFactory">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\CachedBaseChannelContextFactory"
+                 decorates="HeyFrame\Core\System\Channel\Context\BaseChannelContextFactory">
+            <argument type="service" id=".inner"/>
+            <argument type="service" id="cache.object"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\CachedChannelContextFactory"
+                 decorates="HeyFrame\Core\System\Channel\Context\ChannelContextFactory"
+                 decoration-priority="-1000" public="true">
+            <argument type="service" id=".inner"/>
+            <argument type="service" id="cache.object"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\ChannelContextService">
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextFactory"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartRuleLoader"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartService"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="Symfony\Component\HttpFoundation\RequestStack"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\ChannelContextRestorer">
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextFactory"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartRuleLoader"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Order\OrderConverter"/>
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\CartRestorer">
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextFactory"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartService"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartRuleLoader"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="Symfony\Component\HttpFoundation\RequestStack" />
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Channel\StoreApiInfoController" public="true">
+            <argument type="service" id="HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService"/>
+            <argument type="service" id="twig"/>
+            <argument>%heyframe.security.csp_templates%</argument>
+            <argument type="service" id="HeyFrame\Core\Framework\Api\Route\ApiRouteInfoResolver"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Channel\ChannelContextSwitcher">
+            <argument type="service" id="HeyFrame\Core\System\Channel\Channel\ContextSwitchRoute"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Channel\ContextSwitchRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Channel\ContextRoute" public="true"/>
+
+        <service id="HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInstanceRegistry" public="true">
+            <argument type="string"/>
+            <argument type="service" id="service_container" />
+            <argument type="collection"/>
+            <argument type="collection"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Entity\DefinitionRegistryChain">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInstanceRegistry"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\ChannelContextValueResolver">
+            <tag name="controller.argument_value_resolver" priority="1000"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\ChannelExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Api\StoreApiResponseListener">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Api\StructEncoder"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface"/>
+            <argument type="service" id="HeyFrame\Core\Content\Media\MediaUrlPlaceholderHandlerInterface"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Api\StructEncoder">
+            <argument type="service" id="HeyFrame\Core\System\Channel\Entity\DefinitionRegistryChain"/>
+            <argument type="service" id="serializer"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\DataAbstractionLayer\ChannelIndexer">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="channel.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ManyToManyIdFieldUpdater"/>
+            <tag name="heyframe.entity_indexer"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\Cleanup\CleanupChannelContextTask">
+            <tag name="heyframe.scheduled.task"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Context\Cleanup\CleanupChannelContextTaskHandler">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument>%heyframe.channel_context.expire_days%</argument>
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Validation\ChannelValidator">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Subscriber\ChannelTypeValidator">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\Subscriber\ChannelAnalyticsLoader">
+            <argument type="service" id="channel_analytics.repository"/>
+
+            <tag name="kernel.event_listener" event="HeyFrame\Storefront\Event\StorefrontRenderEvent" method="loadAnalytics" priority="2000" />
+        </service>
+
+        <service id="HeyFrame\Core\System\Channel\StoreApiCustomFieldMapper">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <!-- Context Gateway -->
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Channel\ContextGatewayRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Framework\App\Context\Gateway\AppContextGateway"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Executor\ContextGatewayCommandValidator">
+            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Executor\ContextGatewayCommandExecutor">
+            <argument type="service" id="HeyFrame\Core\System\Channel\Channel\ContextSwitchRoute"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Gateway\Context\Command\Registry\ContextGatewayCommandRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Gateway\Context\Command\Executor\ContextGatewayCommandValidator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextService"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Registry\ContextGatewayCommandRegistry">
+            <argument type="tagged_iterator" tag="heyframe.context.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\AddCustomerMessageCommandHandler">
+            <tag name="heyframe.context.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\ChangeAddressCommandHandler">
+            <tag name="heyframe.context.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\ChangeCheckoutOptionsCommandHandler">
+            <argument type="service" id="payment_method.repository"/>
+            <argument type="service" id="shipping_method.repository"/>
+            <tag name="heyframe.context.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\ChangeCurrencyCommandHandler">
+            <argument type="service" id="currency.repository"/>
+            <tag name="heyframe.context.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\ChangeLanguageCommandHandler">
+            <argument type="service" id="language.repository"/>
+            <tag name="heyframe.context.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\ChangeShippingLocationCommandHandler">
+            <argument type="service" id="country.repository"/>
+            <argument type="service" id="country_state.repository"/>
+            <tag name="heyframe.context.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\LoginCustomerCommandHandler">
+            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Channel\AccountService"/>
+            <tag name="heyframe.context.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\RegisterCustomerCommandHandler">
+            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Channel\RegisterRoute"/>
+            <tag name="heyframe.context.gateway.command"/>
+        </service>
+    </services>
 </container>

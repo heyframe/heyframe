@@ -2,6 +2,8 @@
 
 namespace HeyFrame\Core\Content\Media\Core\Application;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Updater for the storage path of media and thumbnails
  *
@@ -12,6 +14,7 @@ namespace HeyFrame\Core\Content\Media\Core\Application;
  *
  * @final
  */
+#[Package('discovery')]
 class MediaPathUpdater
 {
     /**

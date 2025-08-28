@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\App\Manifest\Xml\CustomField\CustomFieldTypes;
 
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
 use HeyFrame\Core\Framework\App\Manifest\XmlParserUtils;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\XmlReader;
 
 /**
@@ -11,6 +12,7 @@ use HeyFrame\Core\Framework\Util\XmlReader;
  *
  * @phpstan-type CustomFieldTypeArray array{name: string, config: array{label: array<string, string>, helpText: array<string, string>, customFieldPosition: int, validation?: 'required'}, allowCustomerWrite?: true, allowCartExpose?: true}
  */
+#[Package('framework')]
 abstract class CustomFieldType extends XmlElement
 {
     protected const TRANSLATABLE_FIELDS = [

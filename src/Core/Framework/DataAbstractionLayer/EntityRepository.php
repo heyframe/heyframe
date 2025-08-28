@@ -19,6 +19,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\IdSearchResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\CloneBehavior;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteContext;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
@@ -31,6 +32,7 @@ use Symfony\Component\VarExporter\LazyGhostTrait;
  *
  * @template TEntityCollection of EntityCollection
  */
+#[Package('framework')]
 class EntityRepository
 {
     use LazyGhostTrait;

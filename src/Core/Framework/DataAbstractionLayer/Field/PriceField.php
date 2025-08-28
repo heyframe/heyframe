@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder\PriceFieldAccessorBuilder;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\PriceFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class PriceField extends JsonField
 {
     public function __construct(

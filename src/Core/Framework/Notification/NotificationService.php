@@ -10,12 +10,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  *
  * @phpstan-type Notification array{id: non-empty-string, status: string, message: string, adminOnly?: bool, requiredPrivileges: array<int, string>, createdByIntegrationId?: string|null, createdByUserId?: string|null}
  */
+#[Package('framework')]
 class NotificationService
 {
     /**

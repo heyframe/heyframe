@@ -10,8 +10,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedAtField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\User\UserDefinition;
 
+#[Package('framework')]
 class AclUserRoleDefinition extends MappingEntityDefinition
 {
     final public const ENTITY_NAME = 'acl_user_role';

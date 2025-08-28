@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Script\Api;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
+#[Package('checkout')]
 class ResponseHook extends Hook
 {
     final public const HOOK_NAME = 'response';

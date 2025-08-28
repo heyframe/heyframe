@@ -11,8 +11,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\User\UserDefinition;
 
+#[Package('fundamentals@framework')]
 class UserConfigDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'user_config';

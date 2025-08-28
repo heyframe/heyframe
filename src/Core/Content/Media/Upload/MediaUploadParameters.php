@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Content\Media\Upload;
 
 use HeyFrame\Core\Content\Media\MediaException;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('discovery')]
 class MediaUploadParameters
 {
     public function __construct(

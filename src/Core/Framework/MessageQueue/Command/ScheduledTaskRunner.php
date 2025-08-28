@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Command;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Scheduler\TaskScheduler;
 use HeyFrame\Core\Framework\Util\MemorySizeCalculator;
 use Psr\Cache\CacheItemPoolInterface;
@@ -16,6 +17,7 @@ use Symfony\Component\Messenger\EventListener\StopWorkerOnRestartSignalListener;
     name: 'scheduled-task:run',
     description: 'Runs scheduled tasks',
 )]
+#[Package('framework')]
 class ScheduledTaskRunner extends Command
 {
     private bool $shouldStop = false;

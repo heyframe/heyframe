@@ -10,6 +10,7 @@ use HeyFrame\Core\Framework\Adapter\Database\MySQLFactory;
 use HeyFrame\Core\Framework\Api\Controller\FallbackController;
 use HeyFrame\Core\Framework\Bundle as HeyFrameBundle;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Parameter\AdditionalBundleParameters;
 use HeyFrame\Core\Framework\Plugin\KernelPluginCollection;
 use HeyFrame\Core\Framework\Plugin\KernelPluginLoader\KernelPluginLoader;
@@ -29,6 +30,7 @@ use Symfony\Component\HttpKernel\Kernel as HttpKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Routing\Route;
 
+#[Package('framework')]
 class Kernel extends HttpKernel
 {
     use MicroKernelTrait;
@@ -38,13 +40,13 @@ class Kernel extends HttpKernel
     /**
      * @var string Fallback version if nothing is provided via kernel constructor
      */
-    final public const SHOPWARE_FALLBACK_VERSION = '6.7.9999999-dev';
+    final public const HEYFRAME_FALLBACK_VERSION = '6.7.9999999-dev';
 
     protected static ?Connection $connection = null;
 
-    protected string $shopwareVersion;
+    protected string $heyframeVersion;
 
-    protected ?string $shopwareVersionRevision;
+    protected ?string $heyframeVersionRevision;
 
     private bool $rebooting = false;
 
@@ -62,14 +64,14 @@ class Kernel extends HttpKernel
         Connection $connection,
         protected string $projectDir,
     ) {
-        date_default_timezone_set('UTC');
+        date_default_timezone_set('Asia/Shanghai');
 
         parent::__construct($environment, $debug);
         self::$connection = $connection;
 
         $versionArray = VersionParser::parseHeyFrameVersion($version);
-        $this->shopwareVersion = $versionArray['version'];
-        $this->shopwareVersionRevision = $versionArray['revision'];
+        $this->heyframeVersion = $versionArray['version'];
+        $this->heyframeVersionRevision = $versionArray['revision'];
 
         $this->cacheRootDir = EnvironmentHelper::getVariable('APP_CACHE_DIR', $this->getProjectDir()) . '/var/cache';
     }
@@ -271,9 +273,9 @@ class Kernel extends HttpKernel
             $parameters,
             [
                 'kernel.cache.hash' => $this->getCacheHash(),
-                'kernel.shopware_version' => $this->shopwareVersion,
-                'kernel.shopware_version_revision' => $this->shopwareVersionRevision,
-                'kernel.shopware_core_dir' => $coreDir,
+                'kernel.heyframe_version' => $this->heyframeVersion,
+                'kernel.heyframe_version_revision' => $this->heyframeVersionRevision,
+                'kernel.heyframe_core_dir' => $coreDir,
                 'kernel.plugin_dir' => $pluginDir,
                 'kernel.app_dir' => rtrim($this->getProjectDir(), '/') . '/custom/apps',
                 'kernel.active_plugins' => $activePluginMeta,
@@ -300,7 +302,7 @@ class Kernel extends HttpKernel
 
         return Hasher::hash([
             $this->cacheId,
-            (string) $this->shopwareVersionRevision,
+            (string) $this->heyframeVersionRevision,
             $plugins,
         ]);
     }
@@ -382,7 +384,7 @@ PHP;
         $route = new Route('/');
         $route->setMethods(['GET']);
         $route->setDefault('_controller', FallbackController::class . '::rootFallback');
-        $route->setDefault(PlatformRequest::ATTRIBUTE_ROUTE_SCOPE, ['frontend']);
+        $route->setDefault(PlatformRequest::ATTRIBUTE_ROUTE_SCOPE, ['storefront']);
 
         $routes->add('root.fallback', $route->getPath());
     }

@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\PriceDefinitionFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class PriceDefinitionField extends JsonField
 {
     public function __construct(

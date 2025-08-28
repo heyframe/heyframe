@@ -11,9 +11,11 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\SynchronousPostUpdateIndexer;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('discovery')]
 class MediaPathPostUpdater extends SynchronousPostUpdateIndexer
 {
     /**

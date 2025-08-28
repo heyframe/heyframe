@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics\Metric;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Config\MetricConfig;
 
+#[Package('framework')]
 readonly class Metric
 {
     final private function __construct(

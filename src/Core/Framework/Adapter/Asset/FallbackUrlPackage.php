@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\Adapter\Asset;
 
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Asset\UrlPackage;
 use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+#[Package('framework')]
 class FallbackUrlPackage extends UrlPackage
 {
     /**

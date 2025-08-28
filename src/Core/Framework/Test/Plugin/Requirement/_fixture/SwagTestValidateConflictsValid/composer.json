@@ -1,0 +1,24 @@
+{
+    "name": "swag/test-validate-conflicts-valid",
+    "description": "Test conflict handling",
+    "version": "v1.0.0",
+    "type": "heyframe-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "heyframe AG",
+            "role": "Manufacturer"
+        }
+    ],
+    "conflict": {
+        "heyframe/storefront": "< 6.1.0"
+    },
+    "extra": {
+        "heyframe-plugin-class": "SwagTestValidateConflictsValid\\SwagTestValidateConflictsValid",
+        "copyright": "(c) by heyframe AG",
+        "label": {
+            "de-DE": "Test für Konflikte-Handling",
+            "en-GB": "Test for conflict handling"
+        }
+    }
+}

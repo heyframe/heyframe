@@ -17,6 +17,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Collector\RuleConditionRegistry;
 use HeyFrame\Core\Framework\Rule\Container\Container;
 use HeyFrame\Core\Framework\Rule\Rule;
@@ -28,6 +29,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class PriceDefinitionFieldSerializer extends JsonFieldSerializer
 {
     /**

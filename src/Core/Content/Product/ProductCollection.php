@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Content\Product;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<ProductEntity>
  */
+#[Package('inventory')]
 class ProductCollection extends EntityCollection
 {
     public function getApiAlias(): string

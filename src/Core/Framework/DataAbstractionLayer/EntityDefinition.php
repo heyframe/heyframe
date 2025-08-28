@@ -25,8 +25,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedAtField;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
 
+#[Package('framework')]
 abstract class EntityDefinition
 {
     protected ?CompiledFieldCollection $fields = null;

@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class UnsupportedCommandTypeException extends HttpException
 {
     public function __construct(WriteCommand $command)

@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Command;
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\RefreshIndexEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,6 +22,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     name: 'dal:refresh:index',
     description: 'Refreshes the index for a given entity',
 )]
+#[Package('framework')]
 class RefreshIndexCommand extends Command implements EventSubscriberInterface
 {
     use ConsoleProgressTrait;

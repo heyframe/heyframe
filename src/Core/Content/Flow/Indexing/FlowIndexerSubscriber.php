@@ -8,6 +8,7 @@ use HeyFrame\Core\Framework\App\Event\AppDeletedEvent;
 use HeyFrame\Core\Framework\App\Event\AppInstalledEvent;
 use HeyFrame\Core\Framework\App\Event\AppUpdatedEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\MessageQueue\IterateEntityIndexerMessage;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostActivateEvent;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostDeactivateEvent;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostInstallEvent;
@@ -19,6 +20,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 /**
  * @internal
  */
+#[Package('after-sales')]
 class FlowIndexerSubscriber implements EventSubscriberInterface
 {
     public function __construct(private readonly MessageBusInterface $messageBus)

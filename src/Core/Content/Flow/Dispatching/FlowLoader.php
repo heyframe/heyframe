@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -11,6 +12,7 @@ use Psr\Log\LoggerInterface;
  *
  * @phpstan-import-type EventGroupedFlowHolders from AbstractFlowLoader
  */
+#[Package('after-sales')]
 class FlowLoader extends AbstractFlowLoader
 {
     public function __construct(

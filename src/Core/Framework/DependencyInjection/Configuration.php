@@ -3,17 +3,19 @@
 namespace HeyFrame\Core\Framework\DependencyInjection;
 
 use HeyFrame\Core\Content\Media\File\DownloadResponseGenerator;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\Type;
 use HeyFrame\Core\Framework\Util\MemorySizeCalculator;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+#[Package('framework')]
 class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('shopware');
+        $treeBuilder = new TreeBuilder('heyframe');
 
         $rootNode = $treeBuilder->getRootNode();
         $rootNode
@@ -26,7 +28,7 @@ class Configuration implements ConfigurationInterface
                 ->append($this->createApiSection())
                 ->append($this->createStoreSection())
                 ->append($this->createCartSection())
-                ->append($this->createSalesChannelContextSection())
+                ->append($this->createChannelContextSection())
                 ->append($this->createAdminWorkerSection())
                 ->append($this->createAutoUpdateSection())
                 ->append($this->createSitemapSection())
@@ -274,7 +276,7 @@ class Configuration implements ConfigurationInterface
                                 ])
                             ->end()
                             ->floatNode('priority')->end()
-                            ->scalarNode('salesChannelId')->end()
+                            ->scalarNode('channelId')->end()
                         ->end()
                     ->end()
                 ->end()
@@ -283,7 +285,7 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('resource')->end()
                             ->scalarNode('identifier')->end()
-                            ->scalarNode('salesChannelId')->end()
+                            ->scalarNode('channelId')->end()
                         ->end()
                     ->end()
                 ->end()
@@ -428,87 +430,87 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         // @deprecated tag:v6.8.0 - remove all route specific invalidation options
                         ->arrayNode('product_listing_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('product_detail_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('product_search_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('product_suggest_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('product_cross_selling_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('payment_method_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('shipping_method_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('navigation_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('category_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('landing_page_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('language_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('currency_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('country_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('country_state_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('salutation_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('product_review_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
                         ->arrayNode('sitemap_route')
-                            ->setDeprecated('shopware/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
+                            ->setDeprecated('heyframe/core', '6.8.0', 'The "%node%" option is deprecated and will be removed in 6.8.0 as it has no effect anymore.')
                             ->performNoDeepMerging()
                             ->prototype('scalar')->end()
                         ->end()
@@ -555,6 +557,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('compress')->defaultFalse()->end()
                 ->scalarNode('compression_method')->defaultValue('gzip')->end()
+                ->variableNode('serialization_max_mb_size')->defaultNull()->end()
                 ->integerNode('expire_days')
                     ->min(1)
                     ->defaultValue(120)
@@ -595,9 +598,9 @@ class Configuration implements ConfigurationInterface
         return $rootNode;
     }
 
-    private function createSalesChannelContextSection(): ArrayNodeDefinition
+    private function createChannelContextSection(): ArrayNodeDefinition
     {
-        $treeBuilder = new TreeBuilder('sales_channel_context');
+        $treeBuilder = new TreeBuilder('channel_context');
 
         $rootNode = $treeBuilder->getRootNode();
         $rootNode
@@ -834,7 +837,7 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('show_banner')->defaultTrue()->end()
                     ->end()
                 ->end()
-                ->arrayNode('sales_channel')
+                ->arrayNode('channel')
                     ->children()
                         ->arrayNode('domain_rewrite')
                             ->arrayPrototype()

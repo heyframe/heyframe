@@ -2,10 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Rule\Collector;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Exception\InvalidConditionException;
 use HeyFrame\Core\Framework\Rule\FlowRule;
 use HeyFrame\Core\Framework\Rule\Rule;
 
+#[Package('fundamentals@after-sales')]
 class RuleConditionRegistry
 {
     /**

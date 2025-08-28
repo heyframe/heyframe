@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Flow\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @deprecated tag:v6.8.0 - reason:remove-exception - Will be removed, use FlowException::customTriggerByNameNotFound() instead
  */
+#[Package('after-sales')]
 class CustomTriggerByNameNotFoundException extends HeyFrameHttpException
 {
     public function __construct(string $eventName)

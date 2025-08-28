@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Webhook;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\Hookable\HookableEventFactory;
 use HeyFrame\Core\Framework\Webhook\Service\WebhookManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -10,6 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class WebhookDispatcher implements EventDispatcherInterface
 {
     /**

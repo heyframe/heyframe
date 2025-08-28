@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class SetNullOnDeleteCommand extends UpdateCommand
 {
     /**

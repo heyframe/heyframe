@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Flag a text column that an empty string should not be considered as null
  */
+#[Package('framework')]
 class AllowEmptyString extends Flag
 {
     public function parse(): \Generator

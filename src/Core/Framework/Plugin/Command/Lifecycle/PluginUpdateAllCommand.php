@@ -6,6 +6,7 @@ use Composer\IO\ConsoleIO;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginCollection;
 use HeyFrame\Core\Framework\Plugin\PluginLifecycleService;
 use HeyFrame\Core\Framework\Plugin\PluginService;
@@ -16,6 +17,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[Package('framework')]
 #[AsCommand(name: 'plugin:update:all', description: 'Install all available plugin updates')]
 class PluginUpdateAllCommand extends Command
 {

@@ -10,7 +10,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotEqualsFilter;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 abstract class FileNameProvider
 {
     /**

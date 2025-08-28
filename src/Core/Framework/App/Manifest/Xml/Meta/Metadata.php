@@ -7,10 +7,12 @@ use Composer\Semver\Constraint\ConstraintInterface;
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
 use HeyFrame\Core\Framework\App\Manifest\XmlParserUtils;
 use HeyFrame\Core\Framework\App\Validation\Error\MissingTranslationError;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class Metadata extends XmlElement
 {
     protected const REQUIRED_FIELDS = [

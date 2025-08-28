@@ -7,6 +7,7 @@ use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MigrationFileRenderer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MigrationQueryGenerator;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
     name: 'dal:migration:create',
     description: 'Creates migration for entity schema',
 )]
+#[Package('framework')]
 class CreateMigrationCommand extends Command
 {
     /**

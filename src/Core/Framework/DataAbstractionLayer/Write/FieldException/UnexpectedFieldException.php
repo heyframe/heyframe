@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class UnexpectedFieldException extends HeyFrameHttpException implements WriteFieldException
 {
     private readonly string $fieldName;

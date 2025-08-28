@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\MessageQueue\Command;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Scheduler\TaskRunner;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -14,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'scheduled-task:run-single',
     description: 'Allows to run one single scheduled task regardless of its schedule.',
 )]
+#[Package('framework')]
 class RunSingleScheduledTaskCommand extends Command
 {
     /**

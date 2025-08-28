@@ -14,11 +14,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\ExpectedArrayException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteCommandExtractor;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class TranslationsAssociationFieldSerializer implements FieldSerializerInterface
 {
     /**

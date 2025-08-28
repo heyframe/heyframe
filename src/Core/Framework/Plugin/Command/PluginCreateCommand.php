@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator\ScaffoldingGenerator;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\PluginScaffoldConfiguration;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\ScaffoldingCollector;
@@ -18,6 +19,7 @@ use Symfony\Component\Filesystem\Filesystem;
     name: 'plugin:create',
     description: 'Creates a new plugin',
 )]
+#[Package('framework')]
 class PluginCreateCommand extends Command
 {
     /**

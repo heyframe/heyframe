@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\TranslationsAssociationFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class TranslationsAssociationField extends OneToManyAssociationField
 {
     final public const PRIORITY = 90;

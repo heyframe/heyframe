@@ -8,7 +8,8 @@ use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Content\Media\MediaException;
 use HeyFrame\Core\Content\Media\MediaService;
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\UnableToGenerateTemporaryUrl;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+#[Package('discovery')]
 class DownloadResponseGenerator
 {
     final public const X_SENDFILE_DOWNLOAD_STRATEGY = 'x-sendfile';
@@ -40,7 +42,7 @@ class DownloadResponseGenerator
 
     public function getResponse(
         MediaEntity $media,
-        SalesChannelContext $context,
+        ChannelContext $context,
         string $expiration = self::EXPIRATION_TIME
     ): Response {
         $fileSystem = $this->getFileSystem($media);
@@ -57,7 +59,7 @@ class DownloadResponseGenerator
         return $this->getDefaultResponse($media, $context, $fileSystem);
     }
 
-    private function getDefaultResponse(MediaEntity $media, SalesChannelContext $context, FilesystemOperator $fileSystem): Response
+    private function getDefaultResponse(MediaEntity $media, ChannelContext $context, FilesystemOperator $fileSystem): Response
     {
         if (!$media->isPrivate()) {
             $url = $this->mediaUrlGenerator->generate([UrlParams::fromMedia($media)]);
@@ -98,7 +100,7 @@ class DownloadResponseGenerator
         }
     }
 
-    private function createStreamedResponse(MediaEntity $media, SalesChannelContext $context): StreamedResponse
+    private function createStreamedResponse(MediaEntity $media, ChannelContext $context): StreamedResponse
     {
         $stream = $context->getContext()->scope(
             Context::SYSTEM_SCOPE,

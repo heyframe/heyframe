@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\Script;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
 use HeyFrame\Core\Framework\Script\Execution\Script;
 use HeyFrame\Core\Framework\Script\Execution\ScriptAppInformation;
@@ -13,6 +14,7 @@ use HeyFrame\Core\Framework\Uuid\Uuid;
 /**
  * @internal
  */
+#[Package('framework')]
 class AppContextCreator
 {
     /**

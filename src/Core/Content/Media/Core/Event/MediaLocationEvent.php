@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Media\Core\Event;
 
 use HeyFrame\Core\Content\Media\Core\Params\MediaLocationStruct;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * The event is dispatched, when location for a media should be generated afterward and can be used
@@ -10,6 +11,7 @@ use HeyFrame\Core\Content\Media\Core\Params\MediaLocationStruct;
  *
  * @implements \IteratorAggregate<array-key, MediaLocationStruct>
  */
+#[Package('discovery')]
 class MediaLocationEvent implements \IteratorAggregate
 {
     /**

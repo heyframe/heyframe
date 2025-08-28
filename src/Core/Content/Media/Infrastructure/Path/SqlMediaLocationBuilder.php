@@ -9,6 +9,7 @@ use HeyFrame\Core\Content\Media\Core\Event\MediaLocationEvent;
 use HeyFrame\Core\Content\Media\Core\Event\ThumbnailLocationEvent;
 use HeyFrame\Core\Content\Media\Core\Params\MediaLocationStruct;
 use HeyFrame\Core\Content\Media\Core\Params\ThumbnailLocationStruct;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -19,6 +20,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  *
  * @see \HeyFrame\Tests\Integration\Core\Content\Media\Infrastructure\Path\MediaLocationBuilderTest
  */
+#[Package('discovery')]
 class SqlMediaLocationBuilder implements MediaLocationBuilder
 {
     /**

@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\AbstractTokenFilter;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class Tokenizer implements TokenizerInterface
 {
     /**

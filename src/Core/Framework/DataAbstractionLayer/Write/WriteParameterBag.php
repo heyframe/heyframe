@@ -6,11 +6,13 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommandQueue;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class WriteParameterBag
 {
     private ?string $currentWriteLanguageId = null;

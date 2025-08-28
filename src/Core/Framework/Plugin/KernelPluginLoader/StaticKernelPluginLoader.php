@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\Plugin\KernelPluginLoader;
 
 use Composer\Autoload\ClassLoader;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class StaticKernelPluginLoader extends KernelPluginLoader
 {
     public function __construct(

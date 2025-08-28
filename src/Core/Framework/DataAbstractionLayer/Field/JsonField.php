@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder\JsonFieldAccessorBuilder;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class JsonField extends Field implements StorageAware
 {
     /**

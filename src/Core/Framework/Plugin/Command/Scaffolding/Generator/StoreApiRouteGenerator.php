@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\PluginScaffoldConfiguration;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Stub;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\StubCollection;
@@ -11,6 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * @internal
  */
+#[Package('framework')]
 class StoreApiRouteGenerator implements ScaffoldingGenerator
 {
     use AddScaffoldConfigDefaultBehaviour;
@@ -22,7 +24,7 @@ class StoreApiRouteGenerator implements ScaffoldingGenerator
 
     private string $servicesXmlEntry = <<<'EOL'
 
-            <service id="{{ namespace }}\Core\Content\Example\SalesChannel\ExampleRoute">
+            <service id="{{ namespace }}\Core\Content\Example\Channel\ExampleRoute">
                 <argument type="service" id="product.repository"/>
             </service>
 
@@ -84,7 +86,7 @@ class StoreApiRouteGenerator implements ScaffoldingGenerator
     private function createAbstractStoreApiRoute(PluginScaffoldConfiguration $configuration): Stub
     {
         return Stub::template(
-            'src/Core/Content/Example/SalesChannel/AbstractExampleRoute.php',
+            'src/Core/Content/Example/Channel/AbstractExampleRoute.php',
             self::STUB_DIRECTORY . '/store-api-abstract-route.stub',
             [
                 'namespace' => $configuration->namespace,
@@ -95,7 +97,7 @@ class StoreApiRouteGenerator implements ScaffoldingGenerator
     private function createStoreApiRoute(PluginScaffoldConfiguration $configuration): Stub
     {
         return Stub::template(
-            'src/Core/Content/Example/SalesChannel/ExampleRoute.php',
+            'src/Core/Content/Example/Channel/ExampleRoute.php',
             self::STUB_DIRECTORY . '/store-api-route.stub',
             [
                 'namespace' => $configuration->namespace,
@@ -106,7 +108,7 @@ class StoreApiRouteGenerator implements ScaffoldingGenerator
     private function createStoreApiRouteResponse(PluginScaffoldConfiguration $configuration): Stub
     {
         return Stub::template(
-            'src/Core/Content/Example/SalesChannel/ExampleRouteResponse.php',
+            'src/Core/Content/Example/Channel/ExampleRouteResponse.php',
             self::STUB_DIRECTORY . '/store-api-response.stub',
             [
                 'namespace' => $configuration->namespace,

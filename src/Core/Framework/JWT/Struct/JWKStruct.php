@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\JWT\Struct;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Type;
@@ -9,6 +10,7 @@ use Symfony\Component\Validator\Constraints\Type;
 /**
  * @phpstan-type JSONWebKey array{kty: string, kid: string, use: string, alg: string, n: string, e: string}
  */
+#[Package('checkout')]
 class JWKStruct
 {
     #[NotNull, NotBlank, Type('string')]

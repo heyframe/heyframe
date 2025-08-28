@@ -8,9 +8,11 @@ use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Exception\LockWaitTimeoutException;
 use Doctrine\DBAL\Exception\RetryableException;
 use Doctrine\DBAL\Exception\TransactionRolledBack;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\MeterProvider;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\ConfiguredMetric;
 
+#[Package('framework')]
 class RetryableTransaction
 {
     /**

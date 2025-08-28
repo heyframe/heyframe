@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Api\Acl\Role;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class AclRoleEvents
 {
     final public const ACL_ROLE_WRITTEN_EVENT = 'acl_role.written';

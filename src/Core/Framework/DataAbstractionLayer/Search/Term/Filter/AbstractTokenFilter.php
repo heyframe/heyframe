@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\Service\ResetInterface;
 
+#[Package('framework')]
 abstract class AbstractTokenFilter implements ResetInterface
 {
     final public const DEFAULT_MIN_SEARCH_TERM_LENGTH = 2;

@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Version\Aggregate\VersionCommit;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<VersionCommitEntity>
  */
+#[Package('framework')]
 class VersionCommitCollection extends EntityCollection
 {
     /**

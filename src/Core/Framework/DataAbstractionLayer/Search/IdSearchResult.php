@@ -3,12 +3,14 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @final
  */
+#[Package('framework')]
 class IdSearchResult extends Struct
 {
     use StateAwareTrait;

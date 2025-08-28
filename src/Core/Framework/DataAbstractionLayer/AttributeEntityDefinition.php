@@ -6,7 +6,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityHydrator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class AttributeEntityDefinition extends EntityDefinition
 {
     /**

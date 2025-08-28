@@ -25,6 +25,7 @@ use HeyFrame\Core\Framework\Event\EventData\MailRecipientStruct;
 use HeyFrame\Core\Framework\Event\LanguageAware;
 use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Event\OrderAware;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\DataBag\DataBag;
 use HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider;
@@ -34,6 +35,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 /**
  * @internal
  */
+#[Package('after-sales')]
 class SendMailAction extends FlowAction implements DelayableAction
 {
     final public const ACTION_NAME = 'action.mail.send';
@@ -92,7 +94,7 @@ class SendMailAction extends FlowAction implements DelayableAction
             return;
         }
 
-        if (!$flow->hasData(MailAware::MAIL_STRUCT) || !$flow->hasData(MailAware::SALES_CHANNEL_ID)) {
+        if (!$flow->hasData(MailAware::MAIL_STRUCT) || !$flow->hasData(MailAware::CHANNEL_ID)) {
             throw new MailEventConfigurationException('Not have data from MailAware', $flow::class);
         }
 
@@ -111,7 +113,7 @@ class SendMailAction extends FlowAction implements DelayableAction
             return;
         }
 
-        $injectedTranslator = $this->injectTranslator($flow->getContext(), $flow->getData(MailAware::SALES_CHANNEL_ID));
+        $injectedTranslator = $this->injectTranslator($flow->getContext(), $flow->getData(MailAware::CHANNEL_ID));
 
         $data = new DataBag();
 
@@ -130,7 +132,7 @@ class SendMailAction extends FlowAction implements DelayableAction
 
         $data->set('recipients', $recipients);
         $data->set('senderName', $mailTemplate->getTranslation('senderName'));
-        $data->set('salesChannelId', $flow->getData(MailAware::SALES_CHANNEL_ID));
+        $data->set('channelId', $flow->getData(MailAware::CHANNEL_ID));
         $data->set('languageId', $flow->getData(LanguageAware::LANGUAGE_ID));
         $data->set('timezone', $flow->getData(MailAware::TIMEZONE));
 
@@ -277,9 +279,9 @@ class SendMailAction extends FlowAction implements DelayableAction
         return $this->mailTemplateRepository->search($criteria, $context)->getEntities()->first();
     }
 
-    private function injectTranslator(Context $context, ?string $salesChannelId): bool
+    private function injectTranslator(Context $context, ?string $channelId): bool
     {
-        if ($salesChannelId === null) {
+        if ($channelId === null) {
             return false;
         }
 
@@ -288,7 +290,7 @@ class SendMailAction extends FlowAction implements DelayableAction
         }
 
         $this->translator->injectSettings(
-            $salesChannelId,
+            $channelId,
             $context->getLanguageId(),
             $this->languageLocaleProvider->getLocaleForLanguageId($context->getLanguageId()),
             $context

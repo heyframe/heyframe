@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\System\User\Api;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\Framework\Routing\RoutingException;
 use HeyFrame\Core\PlatformRequest;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('fundamentals@framework')]
 class UserValidationController extends AbstractController
 {
     /**

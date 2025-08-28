@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Telemetry;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\Service\MessageSizeCalculator;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Meter;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\ConfiguredMetric;
@@ -11,6 +12,7 @@ use Symfony\Component\Messenger\Event\WorkerMessageReceivedEvent;
 /**
  * @internal
  */
+#[Package('framework')]
 class MessageQueueTelemetrySubscriber implements EventSubscriberInterface
 {
     public function __construct(

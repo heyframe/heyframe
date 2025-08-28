@@ -19,6 +19,7 @@ use HeyFrame\Core\Framework\App\Event\AppFlowActionEvent;
 use HeyFrame\Core\Framework\App\Flow\Action\AppFlowActionProvider;
 use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,6 +29,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  *
  * @phpstan-import-type FlowHolder from AbstractFlowLoader
  */
+#[Package('after-sales')]
 class FlowExecutor
 {
     /**

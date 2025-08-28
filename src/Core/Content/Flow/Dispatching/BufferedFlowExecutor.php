@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -15,6 +16,7 @@ use Psr\Log\LoggerInterface;
  *
  * @experimental stableVersion:v6.8.0 feature:FLOW_EXECUTION_AFTER_BUSINESS_PROCESS
  */
+#[Package('after-sales')]
 class BufferedFlowExecutor
 {
     private const MAXIMUM_EXECUTION_DEPTH = 10;

@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\Bucket;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\AggregationResult;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @final
  */
+#[Package('framework')]
 class Bucket extends Struct
 {
     public function __construct(

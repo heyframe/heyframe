@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 abstract class AssociationField extends Field
 {
     protected string $referenceClass;

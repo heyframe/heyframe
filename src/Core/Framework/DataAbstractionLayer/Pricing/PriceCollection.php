@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Pricing;
 
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 
 /**
  * @extends Collection<Price>
  */
+#[Package('framework')]
 class PriceCollection extends Collection
 {
     public function add($element): void

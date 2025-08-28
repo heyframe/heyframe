@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Middleware;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\Messenger\Stamp\TransportNamesStamp;
 /**
  * @internal
  */
+#[Package('framework')]
 class RoutingOverwriteMiddleware implements MiddlewareInterface
 {
     /**

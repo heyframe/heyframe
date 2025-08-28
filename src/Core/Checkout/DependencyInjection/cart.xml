@@ -1,0 +1,548 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\Checkout\Cart\CreditCartProcessor">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\AbsolutePriceCalculator"/>
+
+            <tag name="heyframe.cart.processor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CustomCartProcessor">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+
+            <tag name="heyframe.cart.processor" priority="4000"/>
+            <tag name="heyframe.cart.collector"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartValueResolver">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartService"/>
+
+            <tag name="controller.argument_value_resolver" priority="1001"/>
+        </service>
+
+        <!-- Price calculation -->
+        <service id="HeyFrame\Core\Checkout\Cart\Price\AmountCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Cleanup\CleanupCartTask">
+            <tag name="heyframe.scheduled.task"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Cleanup\CleanupCartTaskHandler">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument>%heyframe.cart.expire_days%</argument>
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartPersister">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartSerializationCleaner"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCompressor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartLocker">
+            <argument type="service" id="lock.factory"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartSerializationCleaner">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Channel\CartService" public="true" lazy="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartLoadRoute"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartDeleteRoute"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartItemAddRoute"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartItemUpdateRoute"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartItemRemoveRoute"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartOrderRoute"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartFactory"/>
+
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartRuleLoader"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartContextHasher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartFactory">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Channel\CartItemUpdateRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItemFactoryRegistry"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartLocker"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Channel\CartLoadRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartFactory"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderProcessor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Channel\CartDeleteRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartLocker"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Channel\CartItemRemoveRoute" public="true">
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartLocker"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Channel\CartItemAddRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItemFactoryRegistry"/>
+            <argument type="service" id="heyframe.rate_limiter"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartLocker"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Channel\CartOrderRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCalculator"/>
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Order\OrderPersister"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\PaymentProcessor"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderProcessor"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Gateway\Channel\CheckoutGatewayRoute"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartContextHasher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartLocker"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\GrossPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\NetPriceCalculator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Price\GrossPriceCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Price\NetPriceCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Price\PercentagePriceCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Price\AbsolutePriceCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Price\CurrencyPriceCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartContextHasher">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <!-- Tax calculation -->
+        <service id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Tax\TaxDetector"/>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator"/>
+
+        <!-- Tax providers -->
+        <!-- ==================================================================================================================== -->
+
+        <service id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderProcessor">
+            <argument type="service" id="tax_provider.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustment"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Framework\App\TaxProvider\Payload\TaxProviderPayloadService"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderRegistry" public="true">
+            <argument type="tagged_iterator" tag="heyframe.tax.provider"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustmentCalculator"/>
+
+        <service id="heyframe.tax.adjustment_calculator" class="HeyFrame\Core\Checkout\Cart\Price\AmountCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustmentCalculator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustment">
+            <argument type="service" id="heyframe.tax.adjustment_calculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
+        </service>
+
+        <!-- ==================================================================================================================== -->
+
+        <!-- Checkout gateway -->
+        <!-- ==================================================================================================================== -->
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Channel\CheckoutGatewayRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Channel\PaymentMethodRoute"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Shipping\Channel\ShippingMethodRoute"/>
+            <argument type="service" id="HeyFrame\Core\Framework\App\Checkout\Gateway\AppCheckoutGateway"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Registry\CheckoutGatewayCommandRegistry">
+            <argument type="tagged_iterator" tag="heyframe.checkout.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Executor\CheckoutGatewayCommandExecutor">
+            <argument type="service" id="HeyFrame\Core\Checkout\Gateway\Command\Registry\CheckoutGatewayCommandRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\AddCartErrorCommandHandler">
+            <tag name="heyframe.checkout.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\AddPaymentMethodCommandHandler">
+            <argument type="service" id="payment_method.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
+
+            <tag name="heyframe.checkout.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\AddPaymentMethodExtensionsCommandHandler">
+            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
+
+            <tag name="heyframe.checkout.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\RemovePaymentMethodCommandHandler">
+            <tag name="heyframe.checkout.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\AddShippingMethodCommandHandler">
+            <argument type="service" id="payment_method.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
+
+            <tag name="heyframe.checkout.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\AddShippingMethodExtensionsCommandHandler">
+            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
+
+            <tag name="heyframe.checkout.gateway.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\RemoveShippingMethodCommandHandler">
+            <tag name="heyframe.checkout.gateway.command"/>
+        </service>
+
+        <!-- ==================================================================================================================== -->
+
+        <service id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryBuilder"/>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryCalculator">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\PriceActionController" public="true">
+            <argument type="service" id="tax.repository"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\NetPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\GrossPriceCalculator"/>
+            <argument type="service" id="currency.repository"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Calculator" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\PercentagePriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\AbsolutePriceCalculator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryProcessor">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryCalculator"/>
+            <argument type="service" id="shipping_method.repository"/>
+
+            <tag name="heyframe.cart.processor" priority="-5000"/>
+            <tag name="heyframe.cart.collector" priority="-5000"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryValidator">
+            <tag name="heyframe.cart.validator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\LineItemValidator">
+            <tag name="heyframe.cart.validator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Address\AddressValidator">
+            <argument type="service" id="channel_country.repository"/>
+            <tag name="heyframe.cart.validator"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Validator">
+            <argument type="tagged_iterator" tag="heyframe.cart.validator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cart\ProductLineItemValidator">
+            <tag name="heyframe.cart.validator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Processor">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Validator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\AmountCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Transaction\TransactionProcessor"/>
+            <argument type="tagged_iterator" tag="heyframe.cart.processor"/>
+            <argument type="tagged_iterator" tag="heyframe.cart.collector"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cart\ProductCartProcessor">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Cart\ProductGateway"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Cart\ProductFeatureBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Price\ProductPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+
+            <tag name="heyframe.cart.processor" priority="5000"/>
+            <tag name="heyframe.cart.collector" priority="5000"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cart\ProductFeatureBuilder">
+            <argument type="service" id="custom_field.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Transaction\TransactionProcessor"/>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Order\Api\OrderConverterController" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Order\OrderConverter"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="order.repository"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Order\Api\OrderRecalculationController" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Order\RecalculationService"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\OrderAddressService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Order\RecalculationService">
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Order\OrderConverter"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartService"/>
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="order_address.repository"/>
+            <argument type="service" id="customer_address.repository"/>
+            <argument type="service" id="order_line_item.repository"/>
+            <argument type="service" id="order_delivery.repository"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Processor"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartRuleLoader"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Promotion\Cart\PromotionItemBuilder"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartRuleLoader">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Processor"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="cache.object"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\RuleLoader"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxDetector"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartFactory"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CachedRuleLoader" decorates="HeyFrame\Core\Checkout\Cart\RuleLoader"
+                 decoration-priority="-1000">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CachedRuleLoader.inner"/>
+            <argument type="service" id="cache.object"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\RuleLoader">
+            <argument type="service" id="rule.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\LineItemQuantitySplitter">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\PriceDefinitionFactory"/>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItemFactoryRegistry">
+            <argument type="tagged_iterator" tag="heyframe.cart.line_item.factory"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItemFactoryHandler\ProductLineItemFactory">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\PriceDefinitionFactory"/>
+            <tag name="heyframe.cart.line_item.factory"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItemFactoryHandler\PromotionLineItemFactory">
+            <tag name="heyframe.cart.line_item.factory"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItemFactoryHandler\CreditLineItemFactory">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\PriceDefinitionFactory"/>
+            <argument type="service" id="media.repository"/>
+            <tag name="heyframe.cart.line_item.factory"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItemFactoryHandler\CustomLineItemFactory">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\PriceDefinitionFactory"/>
+            <argument type="service" id="media.repository"/>
+            <tag name="heyframe.cart.line_item.factory"/>
+        </service>
+
+        <!-- LINE ITEM GROUPS -->
+        <!-- ==================================================================================================================== -->
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\RulesMatcher\AbstractAnyRuleLineItemMatcher"
+                 class="HeyFrame\Core\Checkout\Cart\LineItem\Group\RulesMatcher\AnyRuleLineItemMatcher"/>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\AbstractProductLineItemProvider"
+                 class="HeyFrame\Core\Checkout\Cart\LineItem\Group\ProductLineItemProvider"/>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\LineItemGroupBuilder">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItem\Group\LineItemGroupServiceRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItem\Group\RulesMatcher\AnyRuleMatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItem\LineItemQuantitySplitter"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItem\Group\AbstractProductLineItemProvider"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\LineItemGroupServiceRegistry">
+            <argument type="tagged_iterator" tag="lineitem.group.packager"/>
+            <argument type="tagged_iterator" tag="lineitem.group.sorter"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\Packager\LineItemGroupCountPackager">
+            <tag name="lineitem.group.packager"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\Packager\LineItemGroupUnitPriceGrossPackager">
+            <tag name="lineitem.group.packager"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\Packager\LineItemGroupUnitPriceNetPackager">
+            <tag name="lineitem.group.packager"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\Sorter\LineItemGroupPriceAscSorter">
+            <tag name="lineitem.group.sorter"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\Sorter\LineItemGroupPriceDescSorter">
+            <tag name="lineitem.group.sorter"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\RulesMatcher\AnyRuleMatcher">
+            <argument type="service"
+                      id="HeyFrame\Core\Checkout\Cart\LineItem\Group\RulesMatcher\AbstractAnyRuleLineItemMatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Facade\CartFacadeHookFactory" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Facade\CartFacadeHelper"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Facade\ScriptPriceStubs"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Facade\PriceFactoryFactory" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Facade\ScriptPriceStubs"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Facade\ScriptPriceStubs">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\PercentagePriceCalculator"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Facade\CartFacadeHelper">
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItemFactoryRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Processor"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Facade\ScriptPriceStubs"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Processor\ContainerCartProcessor">
+            <tag name="heyframe.cart.processor" priority="3800"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\PercentagePriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CurrencyPriceCalculator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Processor\DiscountCartProcessor">
+            <tag name="heyframe.cart.processor" priority="3700"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\PercentagePriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CurrencyPriceCalculator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\CartCompressor">
+            <argument>%heyframe.cart.compress%</argument>
+            <argument>%heyframe.cart.compression_method%</argument>
+            <argument>%heyframe.cart.serialization_max_mb_size%</argument>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\RedisCartPersister">
+            <argument type="service" id="heyframe.cart.redis"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartSerializationCleaner"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCompressor"/>
+            <argument>%heyframe.cart.expire_days%</argument>
+        </service>
+
+        <service id="heyframe.cart.redis" class="Redis">
+            <factory service="HeyFrame\Core\Framework\Adapter\Redis\RedisConnectionProvider" method="getConnection"/>
+            <argument>%heyframe.cart.storage.config.connection%</argument>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Cart\Command\CartMigrateCommand">
+            <argument type="service" id="heyframe.cart.redis" on-invalid="null"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument>%heyframe.cart.expire_days%</argument>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\RedisConnectionFactory"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCompressor"/>
+            <tag name="console.command"/>
+        </service>
+    </services>
+</container>

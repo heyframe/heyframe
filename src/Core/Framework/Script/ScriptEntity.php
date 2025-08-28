@@ -5,10 +5,12 @@ namespace HeyFrame\Core\Framework\Script;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class ScriptEntity extends Entity
 {
     use EntityIdTrait;

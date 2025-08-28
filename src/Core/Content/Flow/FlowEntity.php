@@ -8,7 +8,9 @@ use HeyFrame\Core\Framework\App\Aggregate\FlowEvent\AppFlowEventEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class FlowEntity extends Entity
 {
     use EntityCustomFieldsTrait;

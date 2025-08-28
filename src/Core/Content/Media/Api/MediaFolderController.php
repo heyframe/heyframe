@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Content\Media\Api;
 
 use HeyFrame\Core\Content\Media\MediaFolderService;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('discovery')]
 class MediaFolderController extends AbstractController
 {
     /**

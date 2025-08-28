@@ -7,11 +7,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\QueryBuilder;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaPartInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class FieldResolverContext extends Struct
 {
     public function __construct(

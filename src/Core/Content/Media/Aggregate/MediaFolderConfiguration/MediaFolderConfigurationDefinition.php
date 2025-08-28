@@ -18,7 +18,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaFolderConfigurationDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'media_folder_configuration';

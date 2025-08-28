@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\Adapter\Filesystem\Exception;
 
 use HeyFrame\Core\Framework\Adapter\AdapterException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class DuplicateFilesystemFactoryException extends AdapterException
 {
     public function __construct(string $type)

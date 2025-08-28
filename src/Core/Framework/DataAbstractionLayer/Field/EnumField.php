@@ -5,10 +5,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 use Doctrine\DBAL\Types\Types;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\EnumFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * Stores a PHP Enum
  */
+#[Package('framework')]
 class EnumField extends Field implements StorageAware
 {
     /**

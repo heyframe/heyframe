@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Content\Flow\Events;
 use HeyFrame\Core\Content\Flow\Api\FlowActionCollectorResponse;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\NestedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class FlowActionCollectorEvent extends NestedEvent
 {
     public function __construct(

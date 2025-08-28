@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  */
+#[Package('framework')]
 class MigrationFileRenderer
 {
     /**

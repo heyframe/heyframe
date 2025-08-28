@@ -3,12 +3,14 @@
 namespace HeyFrame\Core\Framework\MessageQueue\Stats;
 
 use HeyFrame\Core\Framework\Adapter\Messenger\Stamp\SentAtStamp;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\Stats\Entity\MessageStatsResponseEntity;
 use Symfony\Component\Messenger\Envelope;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class StatsService
 {
     public function __construct(

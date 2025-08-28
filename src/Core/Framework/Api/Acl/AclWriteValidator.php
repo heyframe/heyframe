@@ -6,12 +6,13 @@ use HeyFrame\Core\Framework\Api\Acl\Event\CommandAclValidationEvent;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
-use HeyFrame\Core\Framework\Api\Context\AdminSalesChannelApiSource;
+use HeyFrame\Core\Framework\Api\Context\AdminChannelApiSource;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -19,6 +20,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 /**
  * @internal
  */
+#[Package('fundamentals@framework')]
 class AclWriteValidator implements EventSubscriberInterface
 {
     /**
@@ -42,7 +44,7 @@ class AclWriteValidator implements EventSubscriberInterface
     {
         $context = $event->getContext();
         $source = $event->getContext()->getSource();
-        if ($source instanceof AdminSalesChannelApiSource) {
+        if ($source instanceof AdminChannelApiSource) {
             $context = $source->getOriginalContext();
             $source = $context->getSource();
         }

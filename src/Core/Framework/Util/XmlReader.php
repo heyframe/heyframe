@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Config\Util\XmlUtils;
 
+#[Package('framework')]
 abstract class XmlReader
 {
     /**

@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\Plugin\KernelPluginLoader;
 
 use Composer\Autoload\ClassLoader;
 use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @phpstan-import-type PluginInfo from KernelPluginLoader
  */
+#[Package('framework')]
 class DbalKernelPluginLoader extends KernelPluginLoader
 {
     public function __construct(

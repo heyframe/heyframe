@@ -13,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearcherInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\IdSearchResult;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\NumberRange\DataAbstractionLayer\NumberRangeField;
 
 /**
@@ -22,6 +23,7 @@ use HeyFrame\Core\System\NumberRange\DataAbstractionLayer\NumberRangeField;
  *
  * @internal
  */
+#[Package('framework')]
 class EntitySearcher implements EntitySearcherInterface
 {
     public function __construct(

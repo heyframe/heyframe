@@ -10,12 +10,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class EntityProtectionValidator implements EventSubscriberInterface
 {
     public function __construct(private readonly DefinitionInstanceRegistry $definitionRegistry)

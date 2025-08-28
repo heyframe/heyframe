@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Content\Flow\Dispatching\Action;
 
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 abstract class FlowAction
 {
     /**

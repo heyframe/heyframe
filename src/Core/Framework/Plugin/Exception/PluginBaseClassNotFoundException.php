@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @codeCoverageIgnore
  */
+#[Package('framework')]
 class PluginBaseClassNotFoundException extends PluginException
 {
     public function __construct(string $baseClass)

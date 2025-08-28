@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\FieldSerializerInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class SerializedField extends Field implements StorageAware
 {
     /**

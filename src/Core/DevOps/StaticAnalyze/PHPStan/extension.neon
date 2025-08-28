@@ -1,0 +1,29 @@
+services:
+    -
+        class: HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Type\CollectionHasSpecifyingExtension
+        tags:
+            - phpstan.typeSpecifier.methodTypeSpecifyingExtension
+    -
+        factory: HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Configuration(%heyframe%)
+
+    -
+        class: HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\AclValidPermissionsHelper
+
+parameters:
+    heyframe:
+        allowedNonDomainExceptions:
+            - HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException
+            - HeyFrame\Core\Framework\Validation\Exception\ConstraintViolationException
+            - HeyFrame\Core\Framework\Api\Controller\Exception\PermissionDeniedException
+            - HeyFrame\Core\Content\MailTemplate\Exception\MailEventConfigurationException
+            - Twig\Error\LoaderError
+            - Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException
+            - Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException
+            - Symfony\Component\Messenger\Exception\RecoverableMessageHandlingException
+            - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+            - Symfony\Component\HttpFoundation\Exception\BadRequestException
+
+parametersSchema:
+    heyframe: structure([
+        allowedNonDomainExceptions: list(string),
+    ])

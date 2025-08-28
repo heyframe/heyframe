@@ -2,10 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Filesystem\Plugin;
 
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\FilesystemOperator;
 
+#[Package('framework')]
 class CopyBatch
 {
     public static function copy(FilesystemOperator $filesystem, CopyBatchInput ...$files): void

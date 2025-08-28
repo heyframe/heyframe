@@ -4,11 +4,13 @@ namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use HeyFrame\Core\Content\Flow\Dispatching\Struct\Flow;
 use HeyFrame\Core\Content\Flow\Dispatching\Struct\Sequence;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
 
 /**
  * @internal not intended for decoration or replacement
  */
+#[Package('after-sales')]
 class FlowBuilder
 {
     public function build(string $id, array $flowSequences): Flow

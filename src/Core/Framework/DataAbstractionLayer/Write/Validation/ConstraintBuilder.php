@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Blank;
 use Symfony\Component\Validator\Constraints\Choice;
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Type;
 
+#[Package('framework')]
 class ConstraintBuilder
 {
     /**

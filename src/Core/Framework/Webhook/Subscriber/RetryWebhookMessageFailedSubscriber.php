@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Webhook\Subscriber;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Webhook\EventLog\WebhookEventLogDefinition;
 use HeyFrame\Core\Framework\Webhook\Message\WebhookEventMessage;
@@ -14,6 +15,7 @@ use Symfony\Component\Messenger\Event\WorkerMessageFailedEvent;
 /**
  * @internal
  */
+#[Package('framework')]
 class RetryWebhookMessageFailedSubscriber implements EventSubscriberInterface
 {
     private const MAX_WEBHOOK_ERROR_COUNT = 10;

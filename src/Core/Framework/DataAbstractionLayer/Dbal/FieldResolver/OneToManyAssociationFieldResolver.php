@@ -7,10 +7,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Inherited;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ReverseInherited;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class OneToManyAssociationFieldResolver extends AbstractFieldResolver
 {
     public function join(FieldResolverContext $context): string

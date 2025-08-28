@@ -7,11 +7,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelpe
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\QueryBuilder;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @final
  */
+#[Package('framework')]
 class IteratorFactory
 {
     /**

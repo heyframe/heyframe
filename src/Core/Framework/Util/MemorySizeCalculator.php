@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class MemorySizeCalculator
 {
     /**

@@ -8,11 +8,13 @@ use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWriteEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\DeleteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @internal
  */
+#[Package('discovery')]
 class MediaCreationSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array

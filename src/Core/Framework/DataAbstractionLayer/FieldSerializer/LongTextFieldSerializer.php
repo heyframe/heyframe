@@ -12,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\HtmlSanitizer;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class LongTextFieldSerializer extends AbstractFieldSerializer
 {
     /**

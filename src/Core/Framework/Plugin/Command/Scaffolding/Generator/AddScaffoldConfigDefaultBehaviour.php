@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\PluginScaffoldConfiguration;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -9,6 +10,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * @internal
  */
+#[Package('framework')]
 trait AddScaffoldConfigDefaultBehaviour
 {
     protected bool $shouldAskCliQuestion = true;

@@ -4,8 +4,10 @@ namespace HeyFrame\Core\System\User\Aggregate\UserConfig;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\User\UserEntity;
 
+#[Package('fundamentals@framework')]
 class UserConfigEntity extends Entity
 {
     use EntityIdTrait;

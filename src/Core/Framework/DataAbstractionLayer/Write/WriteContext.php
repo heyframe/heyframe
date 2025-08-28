@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Language\LanguageDefinition;
@@ -13,6 +14,7 @@ use HeyFrame\Core\System\Language\LanguageLoaderInterface;
  *
  * @phpstan-import-type LanguageData from LanguageLoaderInterface
  */
+#[Package('framework')]
 class WriteContext
 {
     use StateAwareTrait;

@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Channel\ChannelPaymentMethodDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\DataAbstractionLayer\PaymentMethodValidator">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\PaymentProcessor">
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\Token\JWTFactoryV2"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\PaymentHandlerRegistry"/>
+            <argument type="service" id="order_transaction.repository"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\PaymentTransactionStructFactory"/>
+            <argument type="service" id="HeyFrame\Core\System\StateMachine\Loader\InitialStateIdLoader"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Controller\PaymentController" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\PaymentProcessor"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Order\OrderConverter"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\Token\JWTFactoryV2"/>
+            <argument type="service" id="order.repository"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentTransactionStructFactory"/>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentRefundProcessor" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefund\OrderTransactionCaptureRefundStateHandler"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\PaymentHandlerRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\PaymentTransactionStructFactory"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentRecurringProcessor" public="true">
+            <argument type="service" id="order_transaction.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\StateMachine\Loader\InitialStateIdLoader"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\PaymentHandlerRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\PaymentTransactionStructFactory"/>
+            <argument type="service" id="logger"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\Token\JWTFactoryV2">
+            <argument type="service" id="heyframe.jwt_config"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\PaymentHandlerRegistry">
+            <argument type="tagged_locator" tag="heyframe.payment.method"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\PrePayment">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\DebitPayment">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\CashPayment">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\InvoicePayment">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\DefaultPayment">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\DataAbstractionLayer\PaymentHandlerIdentifierSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\DataAbstractionLayer\PaymentDistinguishableNameSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\DataAbstractionLayer\PaymentMethodIndexer">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="payment_method.repository"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\DataAbstractionLayer\PaymentDistinguishableNameGenerator"/>
+
+            <tag name="heyframe.entity_indexer"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\DataAbstractionLayer\PaymentDistinguishableNameGenerator">
+            <argument type="service" id="payment_method.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentMethodValidator">
+            <tag name="heyframe.cart.validator"/>
+        </service>
+
+        <!-- Sales Channel API -->
+        <service id="HeyFrame\Core\Checkout\Payment\Channel\PaymentMethodRoute" public="true">
+            <argument type="service" id="channel.payment_method.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Rule\RuleIdMatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Channel\HandlePaymentMethodRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\PaymentProcessor"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextService"/>
+            <argument type="service" id="currency.repository"/>
+        </service>
+    </services>
+</container>

@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -15,6 +16,7 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
  *
  * @experimental stableVersion:v6.8.0 feature:FLOW_EXECUTION_AFTER_BUSINESS_PROCESS
  */
+#[Package('after-sales')]
 class BufferedFlowExecutionTriggersListener implements EventSubscriberInterface, ServiceSubscriberInterface
 {
     public function __construct(

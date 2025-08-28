@@ -3,7 +3,7 @@
 namespace {{ namespace }}\Storefront\Controller;
 
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Storefront\Controller\StorefrontController;
 use HeyFrame\Storefront\Framework\Routing\StorefrontRouteScope;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,7 @@ class ExampleController extends StorefrontController
         name: 'frontend.example.example',
         methods: ['GET']
     )]
-    public function showExample(Request $request, SalesChannelContext $context): Response
+    public function showExample(Request $request, ChannelContext $context): Response
     {
         return $this->renderStorefront('@{{ className }}/storefront/page/example.html.twig', [
             'example' => 'Hello world'

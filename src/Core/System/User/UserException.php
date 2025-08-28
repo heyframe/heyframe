@@ -3,17 +3,19 @@
 namespace HeyFrame\Core\System\User;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('fundamentals@framework')]
 class UserException extends HttpException
 {
-    final public const SALES_CHANNEL_NOT_FOUND = 'USER__SALES_CHANNEL_NOT_FOUND';
+    final public const CHANNEL_NOT_FOUND = 'USER__CHANNEL_NOT_FOUND';
 
-    public static function salesChannelNotFound(): HttpException
+    public static function channelNotFound(): HttpException
     {
         return new self(
             Response::HTTP_PRECONDITION_FAILED,
-            self::SALES_CHANNEL_NOT_FOUND,
+            self::CHANNEL_NOT_FOUND,
             'No sales channel found.',
         );
     }

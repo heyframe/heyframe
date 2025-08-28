@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class TreeBreadcrumbField extends JsonField
 {
     public function __construct(

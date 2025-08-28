@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\Cache\CacheInterface;
 
 /**
@@ -10,6 +11,7 @@ use Symfony\Contracts\Cache\CacheInterface;
  *
  * @phpstan-import-type SearchConfig from SearchConfigLoader
  */
+#[Package('framework')]
 class CachedSearchConfigLoader extends SearchConfigLoader
 {
     final public const CACHE_KEY = 'search-config';

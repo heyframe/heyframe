@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Media\Core\Event;
 
 use HeyFrame\Core\Content\Media\Core\Params\ThumbnailLocationStruct;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * The event is dispatched, when location for a thumbnail should be generated afterward and can be used
@@ -10,6 +11,7 @@ use HeyFrame\Core\Content\Media\Core\Params\ThumbnailLocationStruct;
  *
  * @implements \IteratorAggregate<array-key, ThumbnailLocationStruct>
  */
+#[Package('discovery')]
 class ThumbnailLocationEvent implements \IteratorAggregate
 {
     /**

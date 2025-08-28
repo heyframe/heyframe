@@ -12,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\UpdateCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\PostWriteValidationEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,6 +23,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * @internal
  */
+#[Package('fundamentals@discovery')]
 class LanguageValidator implements EventSubscriberInterface
 {
     final public const VIOLATION_PARENT_HAS_PARENT = 'parent_has_parent_violation';

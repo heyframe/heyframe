@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal;
 
 use Doctrine\DBAL\Query\QueryBuilder as DBALQueryBuilder;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class QueryBuilder extends DBALQueryBuilder
 {
     /**

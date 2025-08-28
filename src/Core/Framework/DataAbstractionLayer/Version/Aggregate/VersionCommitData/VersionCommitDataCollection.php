@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Version\Aggregate\Version
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<VersionCommitDataEntity>
  */
+#[Package('framework')]
 class VersionCommitDataCollection extends EntityCollection
 {
     public function filterByEntity(EntityDefinition $definition): self

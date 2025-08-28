@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Psr\Log\LoggerInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
  * @internal
  */
 #[AsMessageHandler(handles: LogCleanupTask::class)]
+#[Package('framework')]
 final class LogCleanupTaskHandler extends ScheduledTaskHandler
 {
     /**

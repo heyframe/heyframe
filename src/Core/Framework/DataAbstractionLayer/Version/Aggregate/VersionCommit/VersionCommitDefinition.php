@@ -18,7 +18,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\Aggregate\VersionCommitData\VersionCommitDataDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\VersionDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class VersionCommitDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'version_commit';

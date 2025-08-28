@@ -7,7 +7,9 @@ use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollectio
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaThumbnailSizeEntity extends Entity
 {
     use EntityCustomFieldsTrait;

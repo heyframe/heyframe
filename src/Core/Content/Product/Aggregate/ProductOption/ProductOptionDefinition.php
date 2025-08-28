@@ -1,0 +1,41 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Content\Product\Aggregate\ProductOption;
+
+use HeyFrame\Core\Content\Product\ProductDefinition;
+use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('inventory')]
+class ProductOptionDefinition extends MappingEntityDefinition
+{
+    final public const ENTITY_NAME = 'product_option';
+
+    public function getEntityName(): string
+    {
+        return self::ENTITY_NAME;
+    }
+
+    public function since(): ?string
+    {
+        return '6.0.0.0';
+    }
+
+    protected function defineFields(): FieldCollection
+    {
+        return new FieldCollection([
+            (new FkField('product_id', 'productId', ProductDefinition::class))->addFlags(new PrimaryKey(), new Required()),
+            (new ReferenceVersionField(ProductDefinition::class))->addFlags(new Required()),
+            (new FkField('property_group_option_id', 'optionId', PropertyGroupOptionDefinition::class))->addFlags(new PrimaryKey(), new Required()),
+            new ManyToOneAssociationField('product', 'product_id', ProductDefinition::class, 'id'),
+            new ManyToOneAssociationField('option', 'property_group_option_id', PropertyGroupOptionDefinition::class, 'id'),
+        ]);
+    }
+}

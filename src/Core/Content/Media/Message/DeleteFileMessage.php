@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Content\Media\Message;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
 use League\Flysystem\Visibility;
 
+#[Package('discovery')]
 class DeleteFileMessage implements AsyncMessageInterface
 {
     public function __construct(

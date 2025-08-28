@@ -2,12 +2,15 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics\Metric;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * All objects instantiated from this class should map to a metric that's preconfigured in `config/packages/telemetry.yaml`.
  * The mapping is done via the `name` property as an identifier.
  *
  * @experimental feature:TELEMETRY_METRICS stableVersion:v6.8.0
  */
+#[Package('framework')]
 readonly class ConfiguredMetric
 {
     public function __construct(

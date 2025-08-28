@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\PluginScaffoldConfiguration;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Stub;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\StubCollection;
@@ -12,6 +13,7 @@ use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
 /**
  * @internal
  */
+#[Package('framework')]
 class ComposerGenerator implements ScaffoldingGenerator
 {
     public function hasCommandOption(): bool

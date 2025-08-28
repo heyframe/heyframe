@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Content\Media\Message;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
 
+#[Package('discovery')]
 class GenerateThumbnailsMessage implements AsyncMessageInterface
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Migration;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class Trigger
 {
     final public const TIME_BEFORE = 'BEFORE';

@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Adapter\Redis;
 
 use HeyFrame\Core\Framework\Adapter\AdapterException;
 use HeyFrame\Core\Framework\Adapter\Cache\RedisConnectionFactory;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -15,6 +16,7 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @phpstan-type ConnectionConfiguration array{dsn: string}
  */
+#[Package('framework')]
 class RedisConnectionsCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
@@ -30,12 +32,12 @@ class RedisConnectionsCompilerPass implements CompilerPassInterface
      */
     public function prepareConnections(ContainerBuilder $container): array
     {
-        if (!$container->hasParameter('shopware.redis.connections')) {
+        if (!$container->hasParameter('heyframe.redis.connections')) {
             return [];
         }
 
         /** @var ConnectionConfiguration[] $connections */
-        $connections = $container->getParameter('shopware.redis.connections');
+        $connections = $container->getParameter('heyframe.redis.connections');
 
         $connectionServices = [];
         foreach ($connections as $name => $connection) {
@@ -45,7 +47,7 @@ class RedisConnectionsCompilerPass implements CompilerPassInterface
                 throw AdapterException::invalidRedisConnectionDsn($name);
             }
 
-            $serviceId = 'shopware.redis.connection.' . $name;
+            $serviceId = 'heyframe.redis.connection.' . $name;
             $definition = $this->createRedisDefinition($connection);
             $container->setDefinition($serviceId, $definition);
             $connectionServices[$serviceId] = new Reference($serviceId);

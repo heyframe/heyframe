@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\App\Manifest\Xml\CustomField\CustomFieldTypes;
 
 use HeyFrame\Core\Framework\App\Exception\CustomFieldTypeNotFoundException;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class CustomFieldTypeFactory
 {
     private const TAG_TO_CLASS_MAPPING = [

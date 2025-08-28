@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\ChangeSet;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * Contains the result of the entity write process
  */
+#[Package('framework')]
 class EntityWriteResult
 {
     final public const OPERATION_INSERT = 'insert';

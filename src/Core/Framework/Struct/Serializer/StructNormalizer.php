@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Struct\Serializer;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
@@ -9,6 +10,7 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+#[Package('framework')]
 class StructNormalizer implements DenormalizerInterface, NormalizerInterface
 {
     /**

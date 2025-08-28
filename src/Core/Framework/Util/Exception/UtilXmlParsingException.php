@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Util\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\UtilException;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class UtilXmlParsingException extends UtilException
 {
     public function __construct(

@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Migration\Command;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationException;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Framework\Plugin\KernelPluginCollection;
@@ -17,6 +18,7 @@ use Symfony\Component\Filesystem\Filesystem;
     name: 'database:create-migration',
     description: 'Creates a new migration file',
 )]
+#[Package('framework')]
 class CreateMigrationCommand extends Command
 {
     /**
@@ -25,7 +27,7 @@ class CreateMigrationCommand extends Command
     public function __construct(
         private readonly KernelPluginCollection $kernelPluginCollection,
         private readonly string $coreDir,
-        private readonly string $shopwareVersion
+        private readonly string $heyframeVersion
     ) {
         parent::__construct();
     }
@@ -83,7 +85,7 @@ class CreateMigrationCommand extends Command
         }
 
         // We create a core-migration in case no directory or plugin was given
-        [, $major] = explode('.', $this->shopwareVersion);
+        [, $major] = explode('.', $this->heyframeVersion);
         $directory = $this->coreDir . '/Migration/V6_' . $major;
         $namespace = 'HeyFrame\\Core\\Migration\\V6_' . $major;
         $params = [

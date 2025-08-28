@@ -12,10 +12,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FloatField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class JsonFieldAccessorBuilder implements FieldAccessorBuilderInterface
 {
     /**

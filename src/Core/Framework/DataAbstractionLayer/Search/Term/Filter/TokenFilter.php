@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 
+#[Package('framework')]
 class TokenFilter extends AbstractTokenFilter
 {
     /**

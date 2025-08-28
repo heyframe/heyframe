@@ -2,11 +2,14 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @description This class is used to build a select part of a SQL.
  *
  * @final
  */
+#[Package('framework')]
 class SqlHelper
 {
     /**

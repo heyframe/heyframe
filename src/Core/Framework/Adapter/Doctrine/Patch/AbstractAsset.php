@@ -17,6 +17,7 @@ use Doctrine\DBAL\Schema\Name\OptionallyQualifiedName;
 use Doctrine\DBAL\Schema\Name\Parser;
 use Doctrine\DBAL\Schema\Name\UnqualifiedName;
 use Doctrine\Deprecations\Deprecation;
+use HeyFrame\Core\Framework\Log\Package;
 
 if (class_exists('\\' . AbstractAsset::class, false)) {
     return;
@@ -30,6 +31,7 @@ if (class_exists('\\' . AbstractAsset::class, false)) {
  *
  * @deprecated tag:v6.8.0 - Should not be needed with DBAL 5.0 anymore: https://github.com/doctrine/dbal/pull/7031
  */
+#[Package('framework')]
 abstract class AbstractAsset
 {
     protected string $_name = '';
@@ -264,11 +266,11 @@ abstract class AbstractAsset
         }
 
         if (str_contains($name, '.')) {
-            // SHOPWARE FIX -- Start
+            // HEYFRAME FIX -- Start
             // This is the fix, just ignore if the name has more then one point in it, original line:
             // $parts = explode('.', $name);
             $parts = explode('.', $name, 2);
-            // SHOPWARE FIX -- End
+            // HEYFRAME FIX -- End
             $this->_namespace = $parts[0];
             $name = $parts[1];
         }
@@ -281,8 +283,8 @@ abstract class AbstractAsset
             try {
                 $parsedName = $this->getNameParser()->parse($input);
             } catch (\Throwable $e) {
-                // Mute as this will always happen with SHOPWARE current foreign keys, as they are not compatible
-                // with this parser, since they are not strict (e.g. `fk.shopware.order_address`).
+                // Mute as this will always happen with HEYFRAME current foreign keys, as they are not compatible
+                // with this parser, since they are not strict (e.g. `fk.heyframe.order_address`).
                 /*
                 Deprecation::trigger(
                     'doctrine/dbal',

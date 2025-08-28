@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\Api\Sync\SyncService;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * The `writer` service allows you to write data, that is stored inside heyframe.
@@ -16,6 +17,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEve
  *
  * @script-service custom_endpoint
  */
+#[Package('framework')]
 class RepositoryWriterFacade
 {
     /**

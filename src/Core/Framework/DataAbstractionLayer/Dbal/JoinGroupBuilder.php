@@ -13,11 +13,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\SingleFieldFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class JoinGroupBuilder
 {
     private const NOT_RELEVANT = 'not-relevant';

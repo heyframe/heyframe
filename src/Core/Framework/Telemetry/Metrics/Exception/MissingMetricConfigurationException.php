@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\TelemetryException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @codeCoverageIgnore
  */
+#[Package('framework')]
 class MissingMetricConfigurationException extends TelemetryException
 {
     final public const METRIC_MISSING_CONFIGURATION = 'TELEMETRY__MISSING_METRIC_CONFIGURATION';

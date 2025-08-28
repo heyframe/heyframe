@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Content\Media\Subscriber;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaLoadedSubscriber
 {
     /**

@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\KernelPluginLoader\ComposerPluginLoader;
 use HeyFrame\Core\Framework\Plugin\PluginCollection;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -21,6 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'plugin:list',
     description: 'Lists all plugins',
 )]
+#[Package('framework')]
 class PluginListCommand extends Command
 {
     /**

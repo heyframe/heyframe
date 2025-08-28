@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Adapter\Redis;
 
 use HeyFrame\Core\Framework\Adapter\AdapterException;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -10,6 +11,7 @@ use Psr\Container\ContainerInterface;
  *
  * @phpstan-type RedisConnection \Redis|\RedisArray|\RedisCluster|\Predis\ClientInterface|\Relay\Relay
  */
+#[Package('framework')]
 class RedisConnectionProvider
 {
     /**
@@ -39,6 +41,6 @@ class RedisConnectionProvider
 
     private function getServiceName(string $connectionName): string
     {
-        return 'shopware.redis.connection.' . $connectionName;
+        return 'heyframe.redis.connection.' . $connectionName;
     }
 }

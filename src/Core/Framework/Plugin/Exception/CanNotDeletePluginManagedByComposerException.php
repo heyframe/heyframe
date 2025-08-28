@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\Plugin\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class CanNotDeletePluginManagedByComposerException extends HeyFrameHttpException
 {
     public function __construct(string $reason)
@@ -16,6 +18,6 @@ class CanNotDeletePluginManagedByComposerException extends HeyFrameHttpException
 
     public function getErrorCode(): string
     {
-        return 'FRAMEWORK__STORE_CANNOT_DELETE_PLUGIN_MANAGED_BY_SHOPWARE';
+        return 'FRAMEWORK__STORE_CANNOT_DELETE_PLUGIN_MANAGED_BY_HEYFRAME';
     }
 }

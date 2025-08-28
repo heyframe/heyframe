@@ -5,10 +5,12 @@ namespace HeyFrame\Core\Content\Media\TypeDetector;
 use HeyFrame\Core\Content\Media\File\MediaFile;
 use HeyFrame\Core\Content\Media\MediaType\MediaType;
 use HeyFrame\Core\Content\Media\MediaType\SpatialObjectType;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @experimental stableVersion:v6.8.0 feature:SPATIAL_BASES
  */
+#[Package('discovery')]
 class SpatialObjectTypeDetector implements TypeDetectorInterface
 {
     protected const SUPPORTED_FILE_EXTENSIONS = [

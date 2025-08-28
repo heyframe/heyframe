@@ -8,10 +8,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedAtField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class UpdatedAtFieldSerializer extends DateTimeFieldSerializer
 {
     /**

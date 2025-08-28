@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Content\Media;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('discovery')]
 class MediaException extends HttpException
 {
     public const MEDIA_INVALID_CONTENT_LENGTH = 'CONTENT__MEDIA_INVALID_CONTENT_LENGTH';

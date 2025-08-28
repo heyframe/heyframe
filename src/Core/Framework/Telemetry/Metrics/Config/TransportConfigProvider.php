@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics\Config;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\Type;
 
 /**
@@ -9,6 +10,7 @@ use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\Type;
  *
  * @phpstan-import-type MetricDefinition from MetricConfig
  */
+#[Package('framework')]
 class TransportConfigProvider
 {
     public function __construct(private readonly MetricConfigProvider $metricConfigProvider)

@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Content\Media\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[Package('discovery')]
 class UnusedMediaSearchEvent extends Event
 {
     /**

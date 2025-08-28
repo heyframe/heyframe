@@ -4,11 +4,13 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\Subscriber;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class EntityIndexingSubscriber implements EventSubscriberInterface
 {
     public function __construct(private readonly EntityIndexerRegistry $indexerRegistry)

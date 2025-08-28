@@ -8,11 +8,13 @@ use HeyFrame\Core\Checkout\Cart\Delivery\DeliveryBuilder;
 use HeyFrame\Core\Checkout\Cart\Order\OrderConverter;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * @internal
  */
+#[Package('after-sales')]
 class FlowRuleScopeBuilder implements ResetInterface
 {
     /**
@@ -41,7 +43,7 @@ class FlowRuleScopeBuilder implements ResetInterface
             return $this->scopes[$order->getId()];
         }
 
-        $context = $this->orderConverter->assembleSalesChannelContext($order, $context);
+        $context = $this->orderConverter->assembleChannelContext($order, $context);
         $cart = $this->orderConverter->convertToCart($order, $context->getContext());
         $behavior = new CartBehavior($context->getPermissions());
 

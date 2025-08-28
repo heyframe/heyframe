@@ -24,6 +24,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteContext;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,6 +32,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Allows to hydrate database values into struct objects.
  */
+#[Package('framework')]
 class EntityHydrator
 {
     /**

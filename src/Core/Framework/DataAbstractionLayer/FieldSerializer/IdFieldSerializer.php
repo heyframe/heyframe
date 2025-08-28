@@ -11,12 +11,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StorageAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\Constraint\Uuid as UuidConstraint;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class IdFieldSerializer extends AbstractFieldSerializer
 {
     public function normalize(Field $field, array $data, WriteParameterBag $parameters): array

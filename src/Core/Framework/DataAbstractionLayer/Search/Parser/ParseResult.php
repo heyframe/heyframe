@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Parser;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\ParameterType;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class ParseResult
 {
     /**

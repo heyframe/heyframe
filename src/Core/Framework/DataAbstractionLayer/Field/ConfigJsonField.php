@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder\ConfigJsonFieldAccessorBuilder;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class ConfigJsonField extends JsonField
 {
     final public const STORAGE_KEY = '_value';

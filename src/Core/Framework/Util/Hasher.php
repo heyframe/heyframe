@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace HeyFrame\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class Hasher
 {
     public const ALGO = 'xxh128';

@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Content\Media\Infrastructure\Path;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Content\Media\Core\Application\MediaPathStorage;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Util\StatementHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
@@ -12,6 +13,7 @@ use HeyFrame\Core\Framework\Uuid\Uuid;
  *
  * @see \HeyFrame\Tests\Integration\Core\Content\Media\Infrastructure\Path\MediaPathStorageTest
  */
+#[Package('discovery')]
 class SqlMediaPathStorage implements MediaPathStorage
 {
     /**

@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Adapter\Asset;
 
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Adapter\AdapterException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Util\AssetService;
 use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\Asset\Package as AssetPackage;
@@ -11,6 +12,7 @@ use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\UrlPackage;
 use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 
+#[Package('framework')]
 class AssetPackageService
 {
     /**

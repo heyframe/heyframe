@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\Plugin\Struct;
 
 use Composer\Package\CompletePackageInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('framework')]
 class PluginFromFileSystemStruct extends Struct
 {
     protected string $baseClass;

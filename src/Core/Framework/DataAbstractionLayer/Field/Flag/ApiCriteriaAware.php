@@ -2,12 +2,15 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Allows to bypass the ApiAware flag.
  *
  * Right now a special case for price fields because the raw prices should not be exposed but
  * the field accessor builder of this fields handles the price calculation within sql
  */
+#[Package('framework')]
 class ApiCriteriaAware extends Flag
 {
     public function parse(): \Generator

@@ -8,12 +8,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\Event\GenericEvent;
 use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Event\NestedEventCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @template TEntity of Entity
  *
  * @implements \IteratorAggregate<array-key, TEntity>
  */
+#[Package('framework')]
 class EntityLoadedEvent extends NestedEvent implements GenericEvent, \IteratorAggregate
 {
     protected string $name;

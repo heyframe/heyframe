@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\PluginScaffoldConfiguration;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Stub;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\StubCollection;
@@ -12,6 +13,7 @@ use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
 /**
  * @internal
  */
+#[Package('framework')]
 class EntityGenerator implements ScaffoldingGenerator
 {
     use HasCommandOption;
@@ -22,7 +24,7 @@ class EntityGenerator implements ScaffoldingGenerator
     private string $servicesXmlEntry = <<<'EOL'
 
             <service id="{{ namespace }}\Core\Content\{{ entityName }}\{{ entityName }}Definition">
-                <tag name="shopware.entity.definition" entity="{{ tableName }}" />
+                <tag name="heyframe.entity.definition" entity="{{ tableName }}" />
             </service>
 
     EOL;

@@ -3,9 +3,11 @@
 namespace HeyFrame\Core\Framework\Adapter\Console;
 
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[Package('framework')]
 class HeyFrameStyle extends SymfonyStyle
 {
     public function createProgressBar(int $max = 0): ProgressBar

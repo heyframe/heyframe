@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\PasswordField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class PasswordFieldSerializer extends AbstractFieldSerializer
 {
     public const CONFIG_MIN_LENGTH_FOR = [

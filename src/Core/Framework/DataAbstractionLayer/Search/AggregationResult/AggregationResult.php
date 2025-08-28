@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @internal
  */
+#[Package('framework')]
 abstract class AggregationResult extends Struct
 {
     public function __construct(protected string $name)

@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Flow\Rule;
 
 use HeyFrame\Core\Checkout\Document\Aggregate\DocumentType\DocumentTypeDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\FlowRule;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Rule\RuleComparison;
@@ -13,6 +14,7 @@ use HeyFrame\Core\Framework\Rule\RuleScope;
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class OrderDocumentTypeSentRule extends FlowRule
 {
     public const RULE_NAME = 'orderDocumentTypeSent';

@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use Symfony\Component\Validator\Constraint;
 
+#[Package('fundamentals@after-sales')]
 abstract class Rule extends Struct
 {
     public const RULE_NAME = null;

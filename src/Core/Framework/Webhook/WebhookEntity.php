@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Framework\Webhook;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class WebhookEntity extends Entity
 {
     use EntityIdTrait;

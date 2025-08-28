@@ -9,8 +9,10 @@ use HeyFrame\Core\Framework\App\Aggregate\FlowAction\AppFlowActionCollection;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+#[Package('after-sales')]
 class FlowActionCollector
 {
     /**

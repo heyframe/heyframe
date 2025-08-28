@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Version;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class VersionEvents
 {
     final public const VERSION_WRITTEN_EVENT = 'version.written';

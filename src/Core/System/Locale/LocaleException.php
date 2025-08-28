@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\System\Locale;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('discovery')]
 class LocaleException extends HttpException
 {
     final public const LOCALE_DOES_NOT_EXISTS_EXCEPTION = 'SYSTEM__LOCALE_DOES_NOT_EXISTS';

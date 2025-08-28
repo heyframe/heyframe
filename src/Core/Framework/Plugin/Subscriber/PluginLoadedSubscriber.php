@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Plugin\Subscriber;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
 use HeyFrame\Core\Framework\Plugin\PluginEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -10,6 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class PluginLoadedSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array

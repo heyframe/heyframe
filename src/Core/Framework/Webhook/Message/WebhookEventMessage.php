@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Webhook\Message;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class WebhookEventMessage implements AsyncMessageInterface
 {
     /**
@@ -19,7 +21,7 @@ class WebhookEventMessage implements AsyncMessageInterface
         private readonly array $payload,
         private readonly ?string $appId,
         private readonly string $webhookId,
-        private readonly string $shopwareVersion,
+        private readonly string $heyframeVersion,
         private readonly string $url,
         private readonly ?string $secret,
         private readonly string $languageId,
@@ -47,7 +49,7 @@ class WebhookEventMessage implements AsyncMessageInterface
 
     public function getHeyFrameVersion(): string
     {
-        return $this->shopwareVersion;
+        return $this->heyframeVersion;
     }
 
     public function getUrl(): string

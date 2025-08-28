@@ -12,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\AtLeastOneOf;
 use Symfony\Component\Validator\Constraints\IsNull;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Constraints\Type;
 /**
  * @internal
  */
+#[Package('framework')]
 class EnumFieldSerializer extends AbstractFieldSerializer
 {
     public function encode(

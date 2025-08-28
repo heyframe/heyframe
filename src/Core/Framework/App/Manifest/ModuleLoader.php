@@ -4,7 +4,7 @@ namespace HeyFrame\Core\Framework\App\Manifest;
 
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppEntity;
-use HeyFrame\Core\Framework\App\Exception\AppUrlChangeDetectedException;
+use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\QuerySigner;
 use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
 use HeyFrame\Core\Framework\Context;
@@ -13,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only for use by the app-system
@@ -21,6 +22,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
  *
  * @phpstan-type AppModule array{name: string, label: array<string, string|null>, modules: list<Module>, mainModule: array{source: string}|null}
  */
+#[Package('framework')]
 class ModuleLoader
 {
     /**
@@ -62,7 +64,7 @@ class ModuleLoader
     {
         try {
             $this->shopIdProvider->getShopId();
-        } catch (AppUrlChangeDetectedException) {
+        } catch (ShopIdChangeSuggestedException) {
             return [];
         }
 

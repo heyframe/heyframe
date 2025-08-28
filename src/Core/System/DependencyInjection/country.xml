@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\System\Country\CountryDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Country\Channel\ChannelCountryDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Country\Aggregate\CountryState\CountryStateDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Country\Aggregate\CountryState\Channel\ChannelCountryStateDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Country\Aggregate\CountryStateTranslation\CountryStateTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Country\Aggregate\CountryTranslation\CountryTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Country\Channel\CountryRoute" public="true">
+            <argument type="service" id="channel.country.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Country\Channel\CountryStateRoute" public="true">
+            <argument type="service" id="country_state.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+    </services>
+</container>

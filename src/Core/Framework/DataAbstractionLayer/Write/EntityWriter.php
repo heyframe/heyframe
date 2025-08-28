@@ -26,6 +26,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommandQueue
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\RestrictDeleteViolation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\RestrictDeleteViolationException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Language\LanguageLoaderInterface;
 
@@ -36,6 +37,7 @@ use HeyFrame\Core\System\Language\LanguageLoaderInterface;
  * Builds first a command queue over the WriteCommandExtractor and let execute this queue
  * over the EntityWriteGateway (sql implementation in default).
  */
+#[Package('framework')]
 class EntityWriter implements EntityWriterInterface
 {
     /**

@@ -10,6 +10,7 @@ use HeyFrame\Core\Framework\Event\EventData\EntityCollectionType;
 use HeyFrame\Core\Framework\Event\EventData\EntityType;
 use HeyFrame\Core\Framework\Event\EventData\ObjectType;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\AclPrivilegeCollection;
 use HeyFrame\Core\Framework\Webhook\BusinessEventEncoder;
 use HeyFrame\Core\Framework\Webhook\Hookable;
@@ -17,6 +18,7 @@ use HeyFrame\Core\Framework\Webhook\Hookable;
 /**
  * @internal
  */
+#[Package('framework')]
 class HookableBusinessEvent implements Hookable
 {
     private function __construct(

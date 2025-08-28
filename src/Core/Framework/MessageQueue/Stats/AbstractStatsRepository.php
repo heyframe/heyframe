@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Stats;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\Stats\Entity\MessageStatsEntity;
 
 /**
  * @internal
  */
+#[Package('framework')]
 abstract class AbstractStatsRepository
 {
     public function __construct(protected int $timeSpan)

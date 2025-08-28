@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator\ScaffoldingGenerator;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class ScaffoldingCollector
 {
     private string $servicesXmlIntro = <<<'EOL'

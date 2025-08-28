@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\MessageQueue\Command;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Registry\TaskRegistry;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskDefinition;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -16,6 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'scheduled-task:schedule',
     description: 'Schedule a scheduled task',
 )]
+#[Package('framework')]
 class ScheduleScheduledTaskCommand extends Command
 {
     private const STATUSES_SUCCESS = [

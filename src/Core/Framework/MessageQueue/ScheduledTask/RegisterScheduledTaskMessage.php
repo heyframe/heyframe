@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\ScheduledTask;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
 
+#[Package('framework')]
 class RegisterScheduledTaskMessage implements AsyncMessageInterface
 {
 }

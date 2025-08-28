@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Script\Execution;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  */
+#[Package('framework')]
 class ScriptAppInformation
 {
     public function __construct(

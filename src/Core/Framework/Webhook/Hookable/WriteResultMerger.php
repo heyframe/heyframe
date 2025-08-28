@@ -6,10 +6,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityDeletedEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class WriteResultMerger
 {
     /**

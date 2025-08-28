@@ -8,6 +8,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelpe
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\InsertCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\ConstraintViolation;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * @internal
  */
+#[Package('framework')]
 class LockValidator implements EventSubscriberInterface
 {
     final public const VIOLATION_LOCKED = 'FRAMEWORK__ENTITY_IS_LOCKED';

@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Struct;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;
 
+#[Package('framework')]
 class ContextTokenStruct extends Struct
 {
     public function __construct(protected string $token)

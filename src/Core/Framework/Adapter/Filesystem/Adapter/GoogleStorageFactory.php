@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\Adapter\Filesystem\Adapter;
 
 use Google\Cloud\Storage\StorageClient;
 use HeyFrame\Core\Framework\Adapter\AdapterException;
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[Package('framework')]
 class GoogleStorageFactory implements AdapterFactoryInterface
 {
     /**

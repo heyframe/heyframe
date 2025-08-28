@@ -22,6 +22,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaPartInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
@@ -30,6 +31,7 @@ use HeyFrame\Core\Framework\Uuid\Uuid;
  *
  * @internal
  */
+#[Package('framework')]
 class EntityDefinitionQueryHelper
 {
     final public const HAS_TO_MANY_JOIN = 'has_to_many_join';

@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Content\Flow\Dispatching\Struct;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal not intended for decoration or replacement
  */
+#[Package('after-sales')]
 class ActionSequence extends Sequence
 {
     public string $action;

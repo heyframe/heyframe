@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\App\Event\AppScriptConditionEvents;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Collector\RuleConditionRegistry;
 use HeyFrame\Core\Framework\Rule\Container\AndRule;
 use HeyFrame\Core\Framework\Rule\Container\ContainerInterface;
@@ -20,6 +21,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('fundamentals@after-sales')]
 class RulePayloadUpdater implements EventSubscriberInterface
 {
     /**

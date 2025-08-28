@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Messenger\Stamp;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Messenger\Stamp\StampInterface;
 
+#[Package('framework')]
 readonly class SentAtStamp implements StampInterface
 {
     private \DateTimeInterface $sentAt;

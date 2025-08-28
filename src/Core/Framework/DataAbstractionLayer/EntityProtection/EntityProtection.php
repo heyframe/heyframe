@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 abstract class EntityProtection
 {
     /**

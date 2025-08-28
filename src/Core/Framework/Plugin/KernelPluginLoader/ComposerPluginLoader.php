@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace HeyFrame\Core\Framework\Plugin\KernelPluginLoader;
 
 use HeyFrame\Core\Framework\Adapter\Composer\ComposerInfoProvider;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Util\PluginFinder;
 
 /**
  * @phpstan-import-type PluginInfo from KernelPluginLoader
  */
+#[Package('framework')]
 class ComposerPluginLoader extends KernelPluginLoader
 {
     /**
@@ -37,10 +39,10 @@ class ComposerPluginLoader extends KernelPluginLoader
 
             $composerJson = \json_decode($composerJsonContent, true, 512, \JSON_THROW_ON_ERROR);
             \assert(\is_array($composerJson));
-            $pluginClass = $composerJson['extra']['shopware-plugin-class'] ?? '';
+            $pluginClass = $composerJson['extra']['heyframe-plugin-class'] ?? '';
 
             if (\defined('\STDERR') && ($pluginClass === '' || !\class_exists($pluginClass))) {
-                \fwrite(\STDERR, \sprintf('Skipped package %s due invalid "shopware-plugin-class" config', $composerPackage->name) . \PHP_EOL);
+                \fwrite(\STDERR, \sprintf('Skipped package %s due invalid "heyframe-plugin-class" config', $composerPackage->name) . \PHP_EOL);
 
                 continue;
             }

@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class MeterProvider
 {
     private static ?\Closure $meterProviderClosure = null;

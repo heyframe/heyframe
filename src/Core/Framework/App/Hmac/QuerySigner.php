@@ -8,6 +8,7 @@ use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
 use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Authentication\LocaleProvider;
 use HeyFrame\Core\Framework\Store\InAppPurchase;
 use Psr\Http\Message\UriInterface;
@@ -15,6 +16,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class QuerySigner
 {
     public function __construct(
@@ -40,8 +42,8 @@ class QuerySigner
             'sw-version' => $this->heyframeVersion,
             'app-version' => $app->getVersion(),
             'in-app-purchases' => \urlencode($this->inAppPurchase->getJWTByExtension($app->getName()) ?? ''),
-            AuthMiddleware::SHOPWARE_CONTEXT_LANGUAGE => $context->getLanguageId(),
-            AuthMiddleware::SHOPWARE_USER_LANGUAGE => $this->localeProvider->getLocaleFromContext($context),
+            AuthMiddleware::HEYFRAME_CONTEXT_LANGUAGE => $context->getLanguageId(),
+            AuthMiddleware::HEYFRAME_USER_LANGUAGE => $this->localeProvider->getLocaleFromContext($context),
         ]);
 
         return Uri::withQueryValue(

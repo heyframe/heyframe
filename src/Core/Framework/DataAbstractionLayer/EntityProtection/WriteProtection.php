@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class WriteProtection extends EntityProtection
 {
     final public const PROTECTION = 'write_protection';

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace HeyFrame\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\Service\ResetInterface;
 
+#[Package('framework')]
 class HtmlSanitizer implements ResetInterface
 {
     /**

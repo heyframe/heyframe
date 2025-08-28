@@ -3,12 +3,14 @@
 namespace HeyFrame\Core\Framework\Script\Api;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * The `acl` service allows you to check if your app has been granted the specified privilege.
  *
  * @script-service miscellaneous
  */
+#[Package('framework')]
 class AclFacade
 {
     public function __construct(private readonly Context $appContext)

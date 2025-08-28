@@ -163,7 +163,7 @@ heyframe:
 
     cdn:
         url: ''
-        strategy: "%env(string:default:default_cdn_strategy:SHOPWARE_CDN_STRATEGY_DEFAULT)%"
+        strategy: "%env(string:default:default_cdn_strategy:HEYFRAME_CDN_STRATEGY_DEFAULT)%"
         fastly:
             api_key: ''
             soft_purge: false
@@ -337,6 +337,7 @@ heyframe:
 
     cart:
         compress: false
+        serialization_max_mb_size:
         expire_days: 120
         storage:
             # supported types: mysql, redis
@@ -350,7 +351,7 @@ heyframe:
         # config:
             # dsn: 'redis://localhost'
 
-    sales_channel_context:
+    channel_context:
         expire_days: 120
 
     html_sanitizer:
@@ -410,7 +411,7 @@ heyframe:
         exclude_exception:
             - League\OAuth2\Server\Exception\OAuthServerException
             - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-            - Shopware\Core\Framework\Routing\Exception\LanguageNotFoundException
+            - HeyFrame\Core\Framework\Routing\Exception\LanguageNotFoundException
         exclude_events:
             - user.recovery.request
             - customer.recovery.request
@@ -486,10 +487,10 @@ heyframe:
             FRAMEWORK__APP_NOT_COMPATIBLE: notice
             FRAMEWORK__APP_INTEGRATION_NOT_FOUND: notice
             FRAMEWORK__API_INVALID_ACCESS_KEY: notice
-            FRAMEWORK__API_SALES_CHANNEL_MAINTENANCE_MODE: notice
+            FRAMEWORK__API_CHANNEL_MAINTENANCE_MODE: notice
             FRAMEWORK__CANNOT_CREATE_NEW_VERSION: notice
             FRAMEWORK__EXTENSION_THEME_STILL_IN_USE: notice
-            FRAMEWORK__INVALID_SALES_CHANNEL_MAPPING: notice
+            FRAMEWORK__INVALID_CHANNEL_MAPPING: notice
             FRAMEWORK__LANGUAGE_NOT_FOUND: notice
             FRAMEWORK__SYNC_ACTION_PROCESS_INTERRUPTED: notice
             FRAMEWORK__WRITE_TYPE_INTEND_ERROR: notice
@@ -497,7 +498,7 @@ heyframe:
             FRAMEWORK__INVALID_REQUEST_PARAMETER: notice
             FRAMEWORK__INVALID_TEMPLATE_SYNTAX: notice
             FRAMEWORK__RATE_LIMIT_EXCEEDED: notice
-            FRAMEWORK__SALES_CHANNEL_NOT_FOUND: notice
+            FRAMEWORK__CHANNEL_NOT_FOUND: notice
             PRODUCT__CATEGORY_NOT_FOUND: notice
             PRODUCT_CONFIGURATION_OPTION_EXISTS_ALREADY: notice
             PRODUCT_EXPORT__RENDER_FOOTER_EXCEPTION: notice
@@ -508,12 +509,12 @@ heyframe:
             PROMOTION__INDIVIDUAL_CODES_PATTERN_INSUFFICIENTLY_COMPLEX: notice
             SYSTEM__SCOPE_NOT_FOUND: notice
             SYSTEM__STATE_MACHINE_INVALID_ENTITY_ID: notice
-            SYSTEM__SALES_CHANNEL_DOES_NOT_EXISTS: notice
+            SYSTEM__CHANNEL_DOES_NOT_EXISTS: notice
             SYSTEM__LANGUAGE_INVALID_EXCEPTION: notice
             SYSTEM__COUNTRY_DOES_NOT_EXISTS_EXCEPTION: notice
             SYSTEM__CURRENCY_DOES_NOT_EXISTS_EXCEPTION: notice
             SYSTEM__COUNTRY_STATE_DOES_NOT_EXISTS_EXCEPTION: notice
-            SYSTEM__SALES_CHANNEL_LANGUAGE_NOT_AVAILABLE_EXCEPTION: notice
+            SYSTEM__CHANNEL_LANGUAGE_NOT_AVAILABLE_EXCEPTION: notice
             SYSTEM__NO_CONTEXT_DATA_EXCEPTION: notice
 
     cache:
@@ -538,7 +539,7 @@ heyframe:
         collection_enabled: true
         gateway:
             dispatch_enabled: true
-            base_uri: 'https://data.shopware.io'
+            base_uri: 'https://data.heyframe.io'
             batch_size: 50
 
     feature_toggle:
@@ -556,7 +557,7 @@ heyframe:
             show_banner: true
         administration:
             show_banner: true
-        sales_channel:
+        channel:
             domain_rewrite: []
         elasticsearch:
             check_for_existence: true

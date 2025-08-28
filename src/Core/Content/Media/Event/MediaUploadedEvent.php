@@ -9,10 +9,12 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\EventData\EventDataCollection;
 use HeyFrame\Core\Framework\Event\EventData\ScalarValueType;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\AclPrivilegeCollection;
 use HeyFrame\Core\Framework\Webhook\Hookable;
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[Package('discovery')]
 class MediaUploadedEvent extends Event implements ScalarValuesAware, FlowEventAware, Hookable
 {
     public const EVENT_NAME = 'media.uploaded';

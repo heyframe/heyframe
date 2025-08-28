@@ -2,10 +2,12 @@
 
 namespace HeyFrame\Core\Framework\RateLimiter\Policy;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Lock\LockInterface;
 use Symfony\Component\RateLimiter\Storage\StorageInterface;
 
+#[Package('framework')]
 class SystemConfigLimiter extends TimeBackoffLimiter
 {
     /**

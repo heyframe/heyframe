@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\Api\Acl\Event;
 
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[Package('framework')]
 class CommandAclValidationEvent extends Event
 {
     /**

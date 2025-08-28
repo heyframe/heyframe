@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Content\Flow\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('after-sales')]
 class CustomerDeletedException extends \Exception
 {
     public function __construct(string $orderId)

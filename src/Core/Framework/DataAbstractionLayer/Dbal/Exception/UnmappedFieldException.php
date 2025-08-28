@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Exception;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class UnmappedFieldException extends HeyFrameHttpException
 {
     public function __construct(

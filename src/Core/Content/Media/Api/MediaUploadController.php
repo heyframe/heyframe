@@ -10,6 +10,7 @@ use HeyFrame\Core\Content\Media\MediaException;
 use HeyFrame\Core\Content\Media\MediaService;
 use HeyFrame\Core\Framework\Api\Response\ResponseFactoryInterface;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('discovery')]
 class MediaUploadController extends AbstractController
 {
     /**

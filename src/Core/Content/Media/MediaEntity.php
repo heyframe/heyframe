@@ -29,6 +29,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Tag\TagCollection;
 use HeyFrame\Core\System\User\UserCollection;
 use HeyFrame\Core\System\User\UserEntity;
@@ -37,6 +38,7 @@ use HeyFrame\Storefront\Theme\ThemeCollection;
 /**
  * @phpstan-type MediaConfig array{'spatialObject': array{'arReady': bool, 'arPlacement': string}}
  */
+#[Package('discovery')]
 class MediaEntity extends Entity
 {
     use EntityCustomFieldsTrait;
@@ -128,6 +130,8 @@ class MediaEntity extends Entity
     protected ?CmsPageCollection $cmsPages = null;
 
     protected ?DocumentCollection $documents = null;
+
+    protected ?DocumentCollection $a11yDocuments = null;
 
     protected ?AppPaymentMethodCollection $appPaymentMethods = null;
 
@@ -579,6 +583,16 @@ class MediaEntity extends Entity
     public function setDocuments(DocumentCollection $documents): void
     {
         $this->documents = $documents;
+    }
+
+    public function getA11yDocuments(): ?DocumentCollection
+    {
+        return $this->a11yDocuments;
+    }
+
+    public function setA11yDocuments(DocumentCollection $a11yDocuments): void
+    {
+        $this->a11yDocuments = $a11yDocuments;
     }
 
     public function getAppPaymentMethods(): ?AppPaymentMethodCollection

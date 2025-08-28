@@ -20,6 +20,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StorageAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Language\LanguageDefinition;
@@ -30,6 +31,7 @@ use HeyFrame\Core\System\Language\LanguageDefinition;
  *
  * @internal
  */
+#[Package('framework')]
 class EntityForeignKeyResolver
 {
     /**

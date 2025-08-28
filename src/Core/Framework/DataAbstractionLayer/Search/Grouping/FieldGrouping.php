@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Grouping;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaPartInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @final
  */
+#[Package('framework')]
 class FieldGrouping extends Struct implements CriteriaPartInterface
 {
     public function __construct(protected readonly string $field)

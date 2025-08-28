@@ -9,8 +9,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelpe
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableTransaction;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('framework')]
 class ChildCountUpdater
 {
     /**

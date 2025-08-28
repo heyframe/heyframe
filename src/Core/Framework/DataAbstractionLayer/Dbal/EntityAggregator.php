@@ -50,12 +50,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\EntityScoreQueryBuilder;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\SearchTermInterpreter;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * Allows to execute aggregated queries for all entities in the system
  *
  * @internal
  */
+#[Package('framework')]
 class EntityAggregator implements EntityAggregatorInterface
 {
     /**

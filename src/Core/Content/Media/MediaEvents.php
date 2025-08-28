@@ -6,7 +6,9 @@ use HeyFrame\Core\Content\Media\Event\MediaFolderConfigurationIndexerEvent;
 use HeyFrame\Core\Content\Media\Event\MediaFolderIndexerEvent;
 use HeyFrame\Core\Content\Media\Event\MediaIndexerEvent;
 use HeyFrame\Core\Content\Media\Event\MediaUploadedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaEvents
 {
     final public const MEDIA_WRITTEN_EVENT = 'media.written';

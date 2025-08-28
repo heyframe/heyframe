@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * In case the referenced association data will be deleted, the related data will be deleted too
  */
+#[Package('framework')]
 class CascadeDelete extends Flag
 {
     public function __construct(protected bool $cloneRelevant = true)

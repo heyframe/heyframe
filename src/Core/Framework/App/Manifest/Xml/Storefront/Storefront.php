@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\App\Manifest\Xml\Storefront;
 
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Config\Util\XmlUtils;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class Storefront extends XmlElement
 {
     protected int $templateLoadPriority = 0;

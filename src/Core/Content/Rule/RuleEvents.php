@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Content\Rule;
 
 use HeyFrame\Core\Content\Rule\Event\RuleIndexerEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('fundamentals@after-sales')]
 class RuleEvents
 {
     final public const RULE_WRITTEN_EVENT = 'rule.written';

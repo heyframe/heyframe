@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Content\Media\Infrastructure\Command;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Content\Media\Core\Application\MediaPathUpdater;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -17,6 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'media:update-path',
     description: 'Iterates over the media and updates the path column.',
 )]
+#[Package('discovery')]
 class UpdatePathCommand extends Command
 {
     /**

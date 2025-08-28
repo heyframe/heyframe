@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Version;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<VersionEntity>
  */
+#[Package('framework')]
 class VersionCollection extends EntityCollection
 {
     public function getApiAlias(): string

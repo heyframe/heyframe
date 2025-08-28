@@ -6,7 +6,9 @@ use HeyFrame\Core\Checkout\Payment\PaymentException;
 use HeyFrame\Core\Checkout\Shipping\ShippingException;
 use HeyFrame\Core\Content\ImportExport\ImportExportException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\ExceptionHandlerInterface;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('checkout')]
 class TechnicalNameExceptionHandler implements ExceptionHandlerInterface
 {
     public function getPriority(): int

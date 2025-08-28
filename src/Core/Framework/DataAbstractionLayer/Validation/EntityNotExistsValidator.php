@@ -5,10 +5,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Validation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearcherInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[Package('framework')]
 class EntityNotExistsValidator extends ConstraintValidator
 {
     /**

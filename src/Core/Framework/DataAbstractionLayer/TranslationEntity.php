@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Language\LanguageEntity;
 
+#[Package('framework')]
 class TranslationEntity extends Entity
 {
     protected string $languageId;

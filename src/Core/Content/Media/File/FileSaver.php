@@ -23,11 +23,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotEqualsFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\UnableToDeleteFile;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
+#[Package('discovery')]
 class FileSaver
 {
     private readonly FileNameValidator $fileNameValidator;

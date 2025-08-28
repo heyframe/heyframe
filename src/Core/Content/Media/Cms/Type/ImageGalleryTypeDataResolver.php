@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Content\Media\Cms\Type;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('discovery')]
 class ImageGalleryTypeDataResolver extends ImageSliderTypeDataResolver
 {
     public function getType(): string

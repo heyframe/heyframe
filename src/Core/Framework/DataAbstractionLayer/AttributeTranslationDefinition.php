@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class AttributeTranslationDefinition extends EntityTranslationDefinition
 {
     /**

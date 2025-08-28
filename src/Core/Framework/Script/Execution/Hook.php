@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\Script\Execution;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only rely on the concrete hook implementations
  */
+#[Package('framework')]
 abstract class Hook
 {
     /**

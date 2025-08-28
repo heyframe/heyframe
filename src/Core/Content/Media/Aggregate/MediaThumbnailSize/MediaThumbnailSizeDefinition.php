@@ -15,7 +15,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaThumbnailSizeDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'media_thumbnail_size';

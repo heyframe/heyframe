@@ -11,6 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginCollection;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
 use HeyFrame\Core\Framework\Plugin\PluginLifecycleService;
@@ -24,6 +25,7 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[Package('framework')]
 abstract class AbstractPluginLifecycleCommand extends Command
 {
     /**

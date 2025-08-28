@@ -6,10 +6,12 @@ use HeyFrame\Core\Content\Flow\Dispatching\Storer\FlowStorer;
 use HeyFrame\Core\Framework\Api\Context\SystemSource;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('after-sales')]
 class FlowFactory
 {
     /**

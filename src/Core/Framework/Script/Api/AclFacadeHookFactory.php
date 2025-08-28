@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\AppContextCreator;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\HookServiceFactory;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
@@ -10,6 +11,7 @@ use HeyFrame\Core\Framework\Script\Execution\Script;
 /**
  * @internal
  */
+#[Package('framework')]
 class AclFacadeHookFactory extends HookServiceFactory
 {
     /**

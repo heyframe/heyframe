@@ -3,9 +3,11 @@
 namespace HeyFrame\Core\Content\Media\Cms;
 
 use HeyFrame\Core\Content\Media\MediaEntity;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use League\Flysystem\FilesystemOperator;
 
+#[Package('discovery')]
 class DefaultMediaResolver extends AbstractDefaultMediaResolver
 {
     /**

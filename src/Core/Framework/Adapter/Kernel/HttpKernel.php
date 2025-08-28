@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Adapter\Kernel;
 
 use HeyFrame\Core\Framework\Event\BeforeSendRedirectResponseEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\CanonicalRedirectService;
 use HeyFrame\Core\Framework\Routing\RequestTransformerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,6 +21,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class HttpKernel extends SymfonyHttpKernel
 {
     protected EventDispatcherInterface $dispatcher;

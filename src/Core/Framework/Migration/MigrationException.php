@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace HeyFrame\Core\Framework\Migration;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\Exception\UnknownMigrationSourceException;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 /**
  * @codeCoverageIgnore
  */

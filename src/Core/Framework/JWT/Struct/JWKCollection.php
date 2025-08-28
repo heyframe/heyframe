@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\JWT\Struct;
 
 use HeyFrame\Core\Framework\JWT\JWTException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\AssignArrayTrait;
 use HeyFrame\Core\Framework\Struct\Collection;
 use HeyFrame\Core\Framework\Validation\ValidatorFactory;
@@ -12,6 +13,7 @@ use HeyFrame\Core\Framework\Validation\ValidatorFactory;
  *
  * @extends Collection<JWKStruct>
  */
+#[Package('checkout')]
 class JWKCollection extends Collection
 {
     use AssignArrayTrait;

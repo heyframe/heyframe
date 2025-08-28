@@ -6,8 +6,10 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityHydrator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('discovery')]
 class MediaHydrator extends EntityHydrator
 {
     protected function assign(EntityDefinition $definition, Entity $entity, string $root, array $row, Context $context): Entity

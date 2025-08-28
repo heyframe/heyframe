@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Stats\Entity;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 
 /**
@@ -9,6 +10,7 @@ use HeyFrame\Core\Framework\Struct\Collection;
  *
  * @extends Collection<MessageTypeStatsEntity>
  */
+#[Package('framework')]
 class MessageTypeStatsCollection extends Collection
 {
     protected function getExpectedClass(): ?string

@@ -2,11 +2,130 @@
 
 namespace HeyFrame\Core\Installer;
 
-use Symfony\Component\HttpKernel\HttpKernel;
+use Composer\InstalledVersions;
+use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Util\VersionParser;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symfony\Component\HttpKernel\Kernel as HttpKernel;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class InstallerKernel extends HttpKernel
 {
+    use MicroKernelTrait;
+
+    private readonly string $heyframeVersion;
+
+    private readonly ?string $heyframeVersionRevision;
+
+    public function __construct(
+        string $environment,
+        bool $debug
+    ) {
+        parent::__construct($environment, $debug);
+
+        // @codeCoverageIgnoreStart - not testable, as static calls cannot be mocked
+        if (InstalledVersions::isInstalled('heyframe/platform')) {
+            $version = InstalledVersions::getVersion('heyframe/platform')
+                . '@' . InstalledVersions::getReference('heyframe/platform');
+        } else {
+            $version = InstalledVersions::getVersion('heyframe/core')
+                . '@' . InstalledVersions::getReference('heyframe/core');
+        }
+        // @codeCoverageIgnoreEnd
+
+        $version = VersionParser::parseHeyFrameVersion($version);
+        $this->heyframeVersion = $version['version'];
+        $this->heyframeVersionRevision = $version['revision'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function boot(): void
+    {
+        parent::boot();
+        $this->ensureComposerHomeVarIsSet();
+    }
+
+    /**
+     * @return \Generator<BundleInterface>
+     */
+    public function registerBundles(): \Generator
+    {
+        yield new FrameworkBundle();
+        yield new TwigBundle();
+        yield new Installer();
+    }
+
+    public function getProjectDir(): string
+    {
+        $r = new \ReflectionObject($this);
+
+        $file = $r->getFileName();
+        if (!$file || !\is_file($file)) {
+            throw new \LogicException(\sprintf('Cannot auto-detect project dir for kernel of class "%s".', $r->name));
+        }
+
+        $dir = $rootDir = \dirname($file);
+        while (!\is_dir($dir . '/vendor')) {
+            if ($dir === \dirname($dir)) {
+                return $rootDir;
+            }
+            $dir = \dirname($dir);
+        }
+
+        return $dir;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return array<string, mixed>
+     */
+    protected function getKernelParameters(): array
+    {
+        $parameters = parent::getKernelParameters();
+
+        return array_merge(
+            $parameters,
+            [
+                'kernel.heyframe_version' => $this->heyframeVersion,
+                'kernel.heyframe_version_revision' => $this->heyframeVersionRevision,
+                'kernel.secret' => 'noSecr3t',
+            ]
+        );
+    }
+
+    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
+    {
+        // use hard coded default config for loaded bundles
+        $loader->load(__DIR__ . '/../Framework/Resources/config/packages/installer.yaml');
+    }
+
+    protected function configureRoutes(RoutingConfigurator $routes): void
+    {
+        $routes->import(__DIR__ . '/Resources/config/routes.xml');
+    }
+
+    /**
+     * We check the requirements via composer, and composer will fail if the composer home is not set
+     */
+    private function ensureComposerHomeVarIsSet(): void
+    {
+        if (!EnvironmentHelper::getVariable('COMPOSER_HOME')) {
+            // The same location is also used in EnvConfigWriter and SystemSetupCommand
+            $fallbackComposerHome = $this->getProjectDir() . '/var/cache/composer';
+            $_ENV['COMPOSER_HOME'] = $_SERVER['COMPOSER_HOME'] = $fallbackComposerHome;
+        }
+    }
 }

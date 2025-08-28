@@ -13,10 +13,12 @@ use HeyFrame\Core\Framework\Event\EventData\EntityType;
 use HeyFrame\Core\Framework\Event\EventData\ObjectType;
 use HeyFrame\Core\Framework\Event\EventData\ScalarValueType;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class BusinessEventEncoder
 {
     /**

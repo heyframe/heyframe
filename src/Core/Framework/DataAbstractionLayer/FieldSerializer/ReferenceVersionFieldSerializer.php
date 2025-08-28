@@ -11,11 +11,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class ReferenceVersionFieldSerializer implements FieldSerializerInterface
 {
     public function normalize(Field $field, array $data, WriteParameterBag $parameters): array

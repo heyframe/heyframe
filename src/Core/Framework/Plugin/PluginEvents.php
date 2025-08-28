@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Plugin;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class PluginEvents
 {
     final public const PLUGIN_WRITTEN_EVENT = 'plugin.written';

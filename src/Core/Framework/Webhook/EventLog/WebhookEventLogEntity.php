@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Framework\Webhook\EventLog;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class WebhookEventLogEntity extends Entity
 {
     use EntityCustomFieldsTrait;

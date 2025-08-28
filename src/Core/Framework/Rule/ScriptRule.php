@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\Adapter\Twig\Filter\ReplaceRecursiveFilter;
 use HeyFrame\Core\Framework\Adapter\Twig\SecurityExtension;
 use HeyFrame\Core\Framework\Adapter\Twig\TwigEnvironment;
 use HeyFrame\Core\Framework\App\Event\Hooks\AppScriptConditionHook;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Debugging\Debug;
 use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
@@ -24,6 +25,7 @@ use Twig\Extension\DebugExtension;
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class ScriptRule extends Rule
 {
     final public const RULE_NAME = 'scriptRule';

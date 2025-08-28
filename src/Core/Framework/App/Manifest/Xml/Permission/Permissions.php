@@ -4,17 +4,19 @@ namespace HeyFrame\Core\Framework\App\Manifest\Xml\Permission;
 
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class Permissions extends XmlElement
 {
     /**
      * CRUD permissions in the format
      * [
      *      ['customer' => ['read', 'update']],
-     *      ['sales_channel' => ['read', 'delete']],
+     *      ['channel' => ['read', 'delete']],
      *      ['category' => ['read']],
      * ]
      *
@@ -58,8 +60,8 @@ class Permissions extends XmlElement
      * [
      *     'customer:read',
      *     'customer:update',
-     *     'sales_channel:read',
-     *     'sales_channel:delete',
+     *     'channel:read',
+     *     'channel:delete',
      *     'category:read',
      * ]
      *
@@ -89,6 +91,15 @@ class Permissions extends XmlElement
 
             if ($child->tagName === 'permission') {
                 $additionalPrivileges[] = $child->nodeValue;
+
+                continue;
+            }
+
+            if ($child->tagName === 'crud') {
+                $permissions[$child->nodeValue][] = AclRoleDefinition::PRIVILEGE_READ;
+                $permissions[$child->nodeValue][] = AclRoleDefinition::PRIVILEGE_CREATE;
+                $permissions[$child->nodeValue][] = AclRoleDefinition::PRIVILEGE_UPDATE;
+                $permissions[$child->nodeValue][] = AclRoleDefinition::PRIVILEGE_DELETE;
 
                 continue;
             }

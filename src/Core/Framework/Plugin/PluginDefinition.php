@@ -21,8 +21,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Aggregate\PluginTranslation\PluginTranslationDefinition;
 
+#[Package('framework')]
 class PluginDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'plugin';

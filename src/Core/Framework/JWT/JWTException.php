@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\JWT;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @codeCoverageIgnore
  */
+#[Package('checkout')]
 class JWTException extends HttpException
 {
     private const INVALID_JWT = 'UTIL__INVALID_JWT';

@@ -15,6 +15,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\UnexpectedFieldException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\WriteFieldException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Type;
@@ -22,6 +23,7 @@ use Symfony\Component\Validator\Constraints\Type;
 /**
  * @internal
  */
+#[Package('framework')]
 class JsonFieldSerializer extends AbstractFieldSerializer
 {
     public function encode(

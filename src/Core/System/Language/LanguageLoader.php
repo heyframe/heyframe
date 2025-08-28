@@ -4,10 +4,12 @@ namespace HeyFrame\Core\System\Language;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @phpstan-import-type LanguageData from LanguageLoaderInterface
  */
+#[Package('fundamentals@discovery')]
 class LanguageLoader implements LanguageLoaderInterface
 {
     /**

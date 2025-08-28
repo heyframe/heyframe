@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Rule\Exception;
 
 use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @deprecated tag:v6.8.0 - reason:remove-exception - Will be removed, use CartException::unsupportedValue() or CustomerException::unsupportedValue() or RuleException::unsupportedValue() instead
  */
+#[Package('fundamentals@after-sales')]
 class UnsupportedValueException extends HeyFrameHttpException
 {
     public function __construct(

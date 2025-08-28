@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Requirement\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class ComposerNameMissingException extends RequirementException
 {
     public function __construct(

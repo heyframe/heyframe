@@ -17,8 +17,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('framework')]
 class InheritanceUpdater
 {
     /**

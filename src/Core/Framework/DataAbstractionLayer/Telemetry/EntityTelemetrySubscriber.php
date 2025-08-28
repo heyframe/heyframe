@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Telemetry;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntitySearchedEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Meter;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\ConfiguredMetric;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class EntityTelemetrySubscriber implements EventSubscriberInterface
 {
     /**

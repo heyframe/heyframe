@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use HeyFrame\Core\Content\Flow\FlowEvents;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheValueCompressor;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -14,6 +15,7 @@ use Symfony\Contracts\Service\ResetInterface;
  *
  * @phpstan-import-type EventGroupedFlowHolders from AbstractFlowLoader
  */
+#[Package('after-sales')]
 class CachedFlowLoader extends AbstractFlowLoader implements EventSubscriberInterface, ResetInterface
 {
     final public const KEY = 'flow-loader';

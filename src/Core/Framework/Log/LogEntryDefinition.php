@@ -13,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 
+#[Package('framework')]
 class LogEntryDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'log_entry';

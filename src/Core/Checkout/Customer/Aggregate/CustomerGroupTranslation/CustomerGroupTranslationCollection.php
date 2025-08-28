@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupTranslation;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<CustomerGroupTranslationEntity>
  */
+#[Package('discovery')]
 class CustomerGroupTranslationCollection extends EntityCollection
 {
     /**

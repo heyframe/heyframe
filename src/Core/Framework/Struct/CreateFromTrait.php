@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Struct;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 trait CreateFromTrait
 {
     public static function createFrom(Struct $object): static

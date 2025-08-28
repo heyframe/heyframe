@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Content\Media\Message;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @codeCoverageIgnore
  */
+#[Package('discovery')]
 class UpdateThumbnailsMessage extends GenerateThumbnailsMessage
 {
     private bool $strict = false;

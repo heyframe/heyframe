@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver\TranslationFieldResolver;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\TranslatedFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Language\LanguageDefinition;
 
+#[Package('framework')]
 class TranslatedField extends Field
 {
     final public const PRIORITY = 100;

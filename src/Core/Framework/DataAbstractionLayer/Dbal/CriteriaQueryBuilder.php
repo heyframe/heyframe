@@ -16,10 +16,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\CountSorting;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\EntityScoreQueryBuilder;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\SearchTermInterpreter;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class CriteriaQueryBuilder
 {
     public function __construct(

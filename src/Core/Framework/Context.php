@@ -2,15 +2,18 @@
 
 namespace HeyFrame\Core\Framework;
 
+use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Context\ContextSource;
 use HeyFrame\Core\Framework\Api\Context\SystemSource;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 use HeyFrame\Core\Framework\Struct\Struct;
 use Symfony\Component\Serializer\Attribute\Ignore;
 
+#[Package('framework')]
 class Context extends Struct
 {
     use StateAwareTrait;
@@ -18,6 +21,7 @@ class Context extends Struct
     final public const SYSTEM_SCOPE = 'system';
     final public const USER_SCOPE = 'user';
     final public const CRUD_API_SCOPE = 'crud';
+
     final public const SKIP_TRIGGER_FLOW = 'skipTriggerFlow';
 
     protected string $scope = self::USER_SCOPE;
@@ -39,11 +43,16 @@ class Context extends Struct
         protected string $versionId = Defaults::LIVE_VERSION,
         protected float $currencyFactor = 1.0,
         protected bool $considerInheritance = false,
+        /**
+         * @see CartPrice::TAX_STATE_GROSS, CartPrice::TAX_STATE_NET, CartPrice::TAX_STATE_FREE
+         */
+        protected string $taxState = CartPrice::TAX_STATE_GROSS,
         protected CashRoundingConfig $rounding = new CashRoundingConfig(2, 0.01, true)
     ) {
         if ($source instanceof SystemSource) {
             $this->scope = self::SYSTEM_SCOPE;
         }
+
         // Should be already a valid language chain, but we will ensure it anyway
         $languageIdChain = array_values(array_filter($languageIdChain));
         if (empty($languageIdChain)) {
@@ -69,6 +78,7 @@ class Context extends Struct
             $this->versionId,
             $this->currencyFactor,
             $this->considerInheritance,
+            $this->taxState,
             $this->rounding,
             $this->scope,
             $this->states,
@@ -88,6 +98,7 @@ class Context extends Struct
             $this->versionId,
             $this->currencyFactor,
             $this->considerInheritance,
+            $this->taxState,
             $this->rounding,
             $this->scope,
             $this->states,
@@ -109,6 +120,11 @@ class Context extends Struct
         return self::createDefaultContext($source);
     }
 
+    public function getSource(): ContextSource
+    {
+        return $this->source;
+    }
+
     public function getVersionId(): string
     {
         return $this->versionId;
@@ -117,11 +133,6 @@ class Context extends Struct
     public function getLanguageId(): string
     {
         return $this->languageIdChain[0];
-    }
-
-    public function getSource(): ContextSource
-    {
-        return $this->source;
     }
 
     public function getCurrencyId(): string
@@ -160,6 +171,7 @@ class Context extends Struct
             $versionId,
             $this->currencyFactor,
             $this->considerInheritance,
+            $this->taxState,
             $this->rounding
         );
         $context->scope = $this->scope;
@@ -210,6 +222,11 @@ class Context extends Struct
     public function getTaxState(): string
     {
         return $this->taxState;
+    }
+
+    public function setTaxState(string $taxState): void
+    {
+        $this->taxState = $taxState;
     }
 
     public function isAllowed(string $privilege): bool

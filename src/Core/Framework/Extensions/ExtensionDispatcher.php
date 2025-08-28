@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Extensions;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+#[Package('framework')]
 final readonly class ExtensionDispatcher
 {
     /**

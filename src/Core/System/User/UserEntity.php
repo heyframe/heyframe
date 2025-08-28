@@ -3,16 +3,22 @@
 namespace HeyFrame\Core\System\User;
 
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
+use HeyFrame\Core\Checkout\Order\OrderCollection;
+use HeyFrame\Core\Content\ImportExport\Aggregate\ImportExportLog\ImportExportLogCollection;
 use HeyFrame\Core\Content\Media\MediaCollection;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Locale\LocaleEntity;
+use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineHistory\StateMachineHistoryCollection;
 use HeyFrame\Core\System\User\Aggregate\UserAccessKey\UserAccessKeyCollection;
 use HeyFrame\Core\System\User\Aggregate\UserConfig\UserConfigCollection;
+use HeyFrame\Core\System\User\Aggregate\UserRecovery\UserRecoveryEntity;
 
+#[Package('fundamentals@framework')]
 class UserEntity extends Entity
 {
     use EntityCustomFieldsTrait;
@@ -29,9 +35,11 @@ class UserEntity extends Entity
      */
     protected string $password;
 
-    protected string $name;
+    protected string $firstName;
 
-    protected string $phoneNumber;
+    protected string $lastName;
+
+    protected ?string $title = null;
 
     protected string $email;
 
@@ -51,6 +59,12 @@ class UserEntity extends Entity
 
     protected ?UserConfigCollection $configs = null;
 
+    protected ?StateMachineHistoryCollection $stateMachineHistoryEntries = null;
+
+    protected ?ImportExportLogCollection $importExportLogEntries = null;
+
+    protected ?UserRecoveryEntity $recoveryUser = null;
+
     /**
      * @internal
      */
@@ -58,11 +72,35 @@ class UserEntity extends Entity
 
     protected ?\DateTimeInterface $lastUpdatedPasswordAt = null;
 
+    protected ?OrderCollection $createdOrders = null;
+
+    protected ?OrderCollection $updatedOrders = null;
+
     protected ?CustomerCollection $createdCustomers = null;
 
     protected ?CustomerCollection $updatedCustomers = null;
 
     protected string $timeZone;
+
+    public function getStateMachineHistoryEntries(): ?StateMachineHistoryCollection
+    {
+        return $this->stateMachineHistoryEntries;
+    }
+
+    public function setStateMachineHistoryEntries(StateMachineHistoryCollection $stateMachineHistoryEntries): void
+    {
+        $this->stateMachineHistoryEntries = $stateMachineHistoryEntries;
+    }
+
+    public function getImportExportLogEntries(): ?ImportExportLogCollection
+    {
+        return $this->importExportLogEntries;
+    }
+
+    public function setImportExportLogEntries(ImportExportLogCollection $importExportLogEntries): void
+    {
+        $this->importExportLogEntries = $importExportLogEntries;
+    }
 
     public function getLocaleId(): string
     {
@@ -202,6 +240,16 @@ class UserEntity extends Entity
         $this->configs = $configs;
     }
 
+    public function getRecoveryUser(): ?UserRecoveryEntity
+    {
+        return $this->recoveryUser;
+    }
+
+    public function setRecoveryUser(UserRecoveryEntity $recoveryUser): void
+    {
+        $this->recoveryUser = $recoveryUser;
+    }
+
     /**
      * @internal
      */
@@ -250,6 +298,26 @@ class UserEntity extends Entity
         $this->title = $title;
     }
 
+    public function getCreatedOrders(): ?OrderCollection
+    {
+        return $this->createdOrders;
+    }
+
+    public function setCreatedOrders(OrderCollection $createdOrders): void
+    {
+        $this->createdOrders = $createdOrders;
+    }
+
+    public function getUpdatedOrders(): ?OrderCollection
+    {
+        return $this->updatedOrders;
+    }
+
+    public function setUpdatedOrders(OrderCollection $updatedOrders): void
+    {
+        $this->updatedOrders = $updatedOrders;
+    }
+
     public function getCreatedCustomers(): ?CustomerCollection
     {
         return $this->createdCustomers;
@@ -288,25 +356,5 @@ class UserEntity extends Entity
     public function setTimeZone(string $timeZone): void
     {
         $this->timeZone = $timeZone;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function getPhoneNumber(): string
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(string $phoneNumber): void
-    {
-        $this->phoneNumber = $phoneNumber;
     }
 }

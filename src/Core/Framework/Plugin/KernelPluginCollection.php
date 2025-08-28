@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Plugin;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
 
+#[Package('framework')]
 class KernelPluginCollection
 {
     /**

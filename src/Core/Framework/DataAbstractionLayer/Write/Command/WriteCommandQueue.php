@@ -10,11 +10,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\NoConstraint;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StorageAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class WriteCommandQueue
 {
     /**

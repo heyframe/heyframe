@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Content\Media\File;
 
 use HeyFrame\Core\Content\Media\MediaException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Mime\MimeTypes;
 
 /**
  * @internal
  */
+#[Package('discovery')]
 class FileInfoHelper
 {
     private const MIME_TYPE_FOR_UNDETECTED_FORMATS = 'application/octet-stream';

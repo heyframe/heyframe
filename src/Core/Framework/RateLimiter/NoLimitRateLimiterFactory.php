@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace HeyFrame\Core\Framework\RateLimiter;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Test\RateLimiter\DisableRateLimiterCompilerPass;
 use Symfony\Component\RateLimiter\LimiterInterface;
 use Symfony\Component\RateLimiter\Policy\NoLimiter;
 
+#[Package('framework')]
 class NoLimitRateLimiterFactory extends RateLimiterFactory
 {
     public function __construct(private readonly RateLimiterFactory $rateLimiterFactory)

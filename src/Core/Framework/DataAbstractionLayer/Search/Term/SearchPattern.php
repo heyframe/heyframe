@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @final
  */
+#[Package('framework')]
 class SearchPattern
 {
     final public const BOOLEAN_CLAUSE_AND = 'boolean_clause_and';

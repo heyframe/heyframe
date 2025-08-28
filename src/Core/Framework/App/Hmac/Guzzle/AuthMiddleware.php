@@ -8,9 +8,11 @@ use GuzzleHttp\Promise\PromiseInterface;
 use HeyFrame\Core\Framework\App\AppLocaleProvider;
 use HeyFrame\Core\Framework\App\Hmac\RequestSigner;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+#[Package('framework')]
 class AuthMiddleware
 {
     final public const APP_REQUEST_TYPE = 'request_type';
@@ -21,9 +23,9 @@ class AuthMiddleware
 
     final public const APP_REQUEST_CONTEXT = 'app_request_context';
 
-    final public const SHOPWARE_CONTEXT_LANGUAGE = 'sw-context-language';
+    final public const HEYFRAME_CONTEXT_LANGUAGE = 'sw-context-language';
 
-    final public const SHOPWARE_USER_LANGUAGE = 'sw-user-language';
+    final public const HEYFRAME_USER_LANGUAGE = 'sw-user-language';
 
     /**
      * @internal
@@ -110,8 +112,8 @@ class AuthMiddleware
 
     private function getLanguageHeaderRequest(RequestInterface $request, Context $context): RequestInterface
     {
-        $request = $request->withAddedHeader(self::SHOPWARE_CONTEXT_LANGUAGE, $context->getLanguageId());
+        $request = $request->withAddedHeader(self::HEYFRAME_CONTEXT_LANGUAGE, $context->getLanguageId());
 
-        return $request->withAddedHeader(self::SHOPWARE_USER_LANGUAGE, $this->localeProvider->getLocaleFromContext($context));
+        return $request->withAddedHeader(self::HEYFRAME_USER_LANGUAGE, $this->localeProvider->getLocaleFromContext($context));
     }
 }

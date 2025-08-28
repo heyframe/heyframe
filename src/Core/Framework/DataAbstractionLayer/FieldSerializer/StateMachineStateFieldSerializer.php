@@ -8,6 +8,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StateMachineStateField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * @internal
  */
+#[Package('framework')]
 class StateMachineStateFieldSerializer extends FkFieldSerializer
 {
     public function encode(

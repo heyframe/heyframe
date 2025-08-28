@@ -9,8 +9,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotEqualsFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\User\UserCollection;
 
+#[Package('fundamentals@framework')]
 class UserValidationService
 {
     /**

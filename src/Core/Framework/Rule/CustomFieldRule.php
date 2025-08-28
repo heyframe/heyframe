@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Rule;
 
 use HeyFrame\Core\Framework\App\Manifest\Xml\CustomField\CustomFieldTypes\MultiEntitySelectField;
 use HeyFrame\Core\Framework\App\Manifest\Xml\CustomField\CustomFieldTypes\MultiSelectField;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\ArrayComparator;
 use HeyFrame\Core\Framework\Util\FloatComparator;
 use HeyFrame\Core\System\CustomField\CustomFieldTypes;
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @internal
  * The helper to provider static methods for custom fields rule.
  */
+#[Package('fundamentals@after-sales')]
 class CustomFieldRule
 {
     /**

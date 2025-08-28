@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Content\Media\Core\Application;
 
 use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * The media url loader is responsible for generating the urls for media and thumbnail entities.
@@ -13,6 +14,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
  *
  * @final
  */
+#[Package('discovery')]
 class MediaUrlLoader
 {
     /**

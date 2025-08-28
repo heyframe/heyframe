@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityWriteResult;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class WriteResult
 {
     /**

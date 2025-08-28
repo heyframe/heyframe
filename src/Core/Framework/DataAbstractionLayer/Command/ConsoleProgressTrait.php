@@ -5,9 +5,11 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Command;
 use HeyFrame\Core\Framework\Event\ProgressAdvancedEvent;
 use HeyFrame\Core\Framework\Event\ProgressFinishedEvent;
 use HeyFrame\Core\Framework\Event\ProgressStartedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[Package('framework')]
 trait ConsoleProgressTrait
 {
     protected ?SymfonyStyle $io = null;

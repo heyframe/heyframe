@@ -22,11 +22,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\SingleFieldFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\SuffixFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Query\ScoreQuery;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class SqlQueryParser
 {
     /**

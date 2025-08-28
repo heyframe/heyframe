@@ -2,11 +2,14 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * EntityDefinitions allow only regular EntityExtension, this class maps BulkyEntityExtensions to EntityExtensions
  *
  * @internal
  */
+#[Package('framework')]
 class FilteredBulkEntityExtension extends EntityExtension
 {
     public function __construct(private readonly string $entityName, private readonly BulkEntityExtension $bulkExtension)

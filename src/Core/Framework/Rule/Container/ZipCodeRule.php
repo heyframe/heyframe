@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Rule\Container;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressEntity;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Rule\RuleException;
 use HeyFrame\Core\Framework\Util\FloatComparator;
@@ -10,6 +11,7 @@ use HeyFrame\Core\Framework\Validation\Constraint\ArrayOfType;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+#[Package('fundamentals@after-sales')]
 abstract class ZipCodeRule extends Rule
 {
     /**

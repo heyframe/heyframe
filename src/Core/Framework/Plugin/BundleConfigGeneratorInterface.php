@@ -2,6 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Plugin;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @phpstan-type BundleConfig array{
  *         basePath: string,
@@ -20,6 +22,7 @@ namespace HeyFrame\Core\Framework\Plugin;
  *         }
  *     }
  */
+#[Package('framework')]
 interface BundleConfigGeneratorInterface
 {
     /**

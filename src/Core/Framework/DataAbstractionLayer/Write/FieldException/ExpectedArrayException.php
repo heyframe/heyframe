@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class ExpectedArrayException extends DataAbstractionLayerException implements WriteFieldException
 {
     public function __construct(string $path)

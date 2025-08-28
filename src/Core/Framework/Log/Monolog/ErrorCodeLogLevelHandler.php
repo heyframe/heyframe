@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Log\Monolog;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Monolog\Handler\AbstractHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Level;
@@ -10,6 +11,7 @@ use Monolog\LogRecord;
 use Psr\Log\LogLevel;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
+#[Package('framework')]
 class ErrorCodeLogLevelHandler extends AbstractHandler
 {
     /**

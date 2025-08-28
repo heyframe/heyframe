@@ -15,10 +15,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+#[Package('discovery')]
 class MediaFolderIndexer extends EntityIndexer
 {
     final public const CHILD_COUNT_UPDATER = 'media_folder.child-count';

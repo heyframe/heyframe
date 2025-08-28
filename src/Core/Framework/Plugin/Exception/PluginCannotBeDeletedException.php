@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\Plugin\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class PluginCannotBeDeletedException extends HeyFrameHttpException
 {
     public function __construct(string $reason)

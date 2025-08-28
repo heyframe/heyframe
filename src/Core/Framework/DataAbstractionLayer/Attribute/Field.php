@@ -2,11 +2,14 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Attribute;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * This attribute class is intentionally not final, as it's extended by other field attributes
  *
  * @phpstan-ignore heyframe.attributeNotFinal
  */
+#[Package('framework')]
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class Field
 {

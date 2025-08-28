@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\SystemCheck\Check;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @codeCoverageIgnore
  */
+#[Package('framework')]
 class Result
 {
     /**

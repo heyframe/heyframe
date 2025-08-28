@@ -39,10 +39,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldType\CronInterval;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldType\DateInterval;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\Price;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class EntityGenerator
 {
     private string $classTemplate = <<<EOF

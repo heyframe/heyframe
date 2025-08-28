@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Script\Execution;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Twig\Error\LoaderError;
 use Twig\Loader\LoaderInterface;
 use Twig\Source;
@@ -9,6 +10,7 @@ use Twig\Source;
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class ScriptTwigLoader implements LoaderInterface
 {
     public function __construct(private readonly Script $script)

@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Webhook;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\Service\WebhookManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Service\ResetInterface;
@@ -9,6 +10,7 @@ use Symfony\Contracts\Service\ResetInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class WebhookCacheClearer implements EventSubscriberInterface, ResetInterface
 {
     /**

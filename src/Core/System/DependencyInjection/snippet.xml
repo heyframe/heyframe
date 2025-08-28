@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\System\Snippet\Aggregate\SnippetSet\SnippetSetDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\SnippetDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\SnippetValidatorInterface" class="HeyFrame\Core\System\Snippet\SnippetValidator">
+            <argument type="service" id="HeyFrame\Core\System\Snippet\Files\SnippetFileCollection" />
+            <argument type="service" id="HeyFrame\Core\System\Snippet\SnippetFileHandler" />
+            <argument>%kernel.project_dir%/</argument>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\SnippetValidator">
+            <argument type="service" id="HeyFrame\Core\System\Snippet\Files\SnippetFileCollection" />
+            <argument type="service" id="HeyFrame\Core\System\Snippet\SnippetFileHandler" />
+            <argument>%kernel.project_dir%/</argument>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\SnippetFixer">
+            <argument type="service" id="HeyFrame\Core\System\Snippet\SnippetFileHandler" />
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\Command\ValidateSnippetsCommand">
+            <argument type="service" id="HeyFrame\Core\System\Snippet\SnippetValidator" />
+            <argument type="service" id="HeyFrame\Core\System\Snippet\SnippetFixer" />
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\Command\InstallTranslationCommand">
+            <argument type="service" id="HeyFrame\Core\System\Snippet\Service\TranslationLoader"/>
+            <argument type="service" id="HeyFrame\Core\System\Snippet\Struct\TranslationConfig"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="heyframe.translation.client" class="GuzzleHttp\Client"/>
+
+        <service id="HeyFrame\Core\System\Snippet\Service\TranslationConfigLoader">
+            <argument type="service" id="filesystem"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\Struct\TranslationConfig" lazy="true" public="true">
+            <factory service="HeyFrame\Core\System\Snippet\Service\TranslationConfigLoader" method="load"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\Service\TranslationLoader">
+            <argument type="service" id="heyframe.filesystem.private"/>
+            <argument type="service" id="language.repository"/>
+            <argument type="service" id="locale.repository"/>
+            <argument type="service" id="snippet_set.repository"/>
+            <argument type="service" id="heyframe.translation.client"/>
+            <argument type="service" id="HeyFrame\Core\System\Snippet\Struct\TranslationConfig"/>
+            <argument type="service" id="validator"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\SnippetFileHandler">
+            <argument type="service" id="filesystem"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\Subscriber\CustomFieldSubscriber">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</container>

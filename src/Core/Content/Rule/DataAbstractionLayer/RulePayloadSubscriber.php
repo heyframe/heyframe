@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Content\Rule\DataAbstractionLayer;
 use HeyFrame\Core\Content\Rule\RuleEntity;
 use HeyFrame\Core\Content\Rule\RuleEvents;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Container\Container;
 use HeyFrame\Core\Framework\Rule\Container\FilterRule;
 use HeyFrame\Core\Framework\Rule\Rule;
@@ -15,6 +16,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('fundamentals@after-sales')]
 class RulePayloadSubscriber implements EventSubscriberInterface
 {
     /**

@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupRegistrationSalesChannel\CustomerGroupRegistrationSalesChannelDefinition;
+use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupRegistrationChannel\CustomerGroupRegistrationChannelDefinition;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupTranslation\CustomerGroupTranslationDefinition;
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -18,8 +18,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
-use HeyFrame\Core\System\SalesChannel\SalesChannelDefinition;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\System\Channel\ChannelDefinition;
 
+#[Package('discovery')]
 class CustomerGroupDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'customer_group';
@@ -58,9 +60,9 @@ class CustomerGroupDefinition extends EntityDefinition
             (new TranslatedField('registrationOnlyCompanyRegistration'))->addFlags(new ApiAware()),
             (new TranslatedField('registrationSeoMetaDescription'))->addFlags(new ApiAware()),
             (new OneToManyAssociationField('customers', CustomerDefinition::class, 'customer_group_id', 'id'))->addFlags(new RestrictDelete()),
-            (new OneToManyAssociationField('salesChannels', SalesChannelDefinition::class, 'customer_group_id', 'id'))->addFlags(new RestrictDelete()),
+            (new OneToManyAssociationField('channels', ChannelDefinition::class, 'customer_group_id', 'id'))->addFlags(new RestrictDelete()),
             (new TranslationsAssociationField(CustomerGroupTranslationDefinition::class, 'customer_group_id'))->addFlags(new Required()),
-            new ManyToManyAssociationField('registrationSalesChannels', SalesChannelDefinition::class, CustomerGroupRegistrationSalesChannelDefinition::class, 'customer_group_id', 'sales_channel_id'),
+            new ManyToManyAssociationField('registrationChannels', ChannelDefinition::class, CustomerGroupRegistrationChannelDefinition::class, 'customer_group_id', 'channel_id'),
         ]);
     }
 }

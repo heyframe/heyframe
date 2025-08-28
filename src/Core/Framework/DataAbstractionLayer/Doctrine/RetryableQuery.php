@@ -6,9 +6,11 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\RetryableException;
 use Doctrine\DBAL\Statement;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Util\StatementHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\MeterProvider;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\ConfiguredMetric;
 
+#[Package('framework')]
 class RetryableQuery
 {
     public function __construct(

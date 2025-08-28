@@ -7,6 +7,7 @@ use HeyFrame\Core\Framework\Adapter\AdapterException;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\AdapterFactoryInterface;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Exception\AdapterFactoryNotFoundException;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\Config;
 use League\Flysystem\Filesystem as LeagueFilesystem;
 use League\Flysystem\FilesystemOperator;
@@ -14,6 +15,7 @@ use League\Flysystem\Visibility;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[Package('framework')]
 class FilesystemFactory
 {
     /**

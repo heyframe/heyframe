@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class Deprecated extends Flag
 {
     public function __construct(

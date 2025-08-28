@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\Util;
 
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Kernel;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class VersionParser
 {
     /**
@@ -21,11 +23,11 @@ class VersionParser
     public static function parseHeyFrameVersion(?string $version): array
     {
         /**
-         * The SW_FAKE_VERSION environment variable can be used to fake the current version of shopware
+         * The SW_FAKE_VERSION environment variable can be used to fake the current version of heyframe
          * It's useful to simulate an update to a version which might not exist, or to perform an update without running migrations, etc.
          * eg: SW_FAKE_VERSION=6.7.0.3 bin/console system:update:finish
          **/
-        $fallbackVersion = (string) EnvironmentHelper::getVariable('SW_FAKE_VERSION', Kernel::SHOPWARE_FALLBACK_VERSION);
+        $fallbackVersion = (string) EnvironmentHelper::getVariable('SW_FAKE_VERSION', Kernel::HEYFRAME_FALLBACK_VERSION);
 
         // does not come from composer, was set manually
         if ($version === null || mb_strpos($version, '@') === false) {

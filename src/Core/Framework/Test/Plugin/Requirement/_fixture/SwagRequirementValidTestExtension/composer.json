@@ -1,0 +1,25 @@
+{
+  "name": "swag/requirement-valid-test-extension",
+  "description": "Test requirement validator",
+  "version": "v1.0.0",
+  "type": "heyframe-platform-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "heyframe AG",
+      "role": "Manufacturer"
+    }
+  ],
+  "require": {
+    "ext-json": "*",
+    "swag/requirement-valid-test": "*"
+  },
+  "extra": {
+    "heyframe-plugin-class": "SwagRequirementValidTestExtension\\SwagRequirementValidTestExtension",
+    "copyright": "(c) by heyframe AG",
+    "label": {
+      "de-DE": "Test für Requirement Validator",
+      "en-GB": "Test for requirement validator"
+    }
+  }
+}

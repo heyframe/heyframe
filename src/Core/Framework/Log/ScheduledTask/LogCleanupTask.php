@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Log\ScheduledTask;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 
+#[Package('framework')]
 class LogCleanupTask extends ScheduledTask
 {
     public static function getTaskName(): string

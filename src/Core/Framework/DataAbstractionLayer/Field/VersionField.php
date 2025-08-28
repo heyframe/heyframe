@@ -6,7 +6,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\VersionFieldSerializer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\VersionDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class VersionField extends FkField
 {
     public function __construct()

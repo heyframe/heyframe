@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 
 /**
  * @extends Collection<Field>
  */
+#[Package('framework')]
 class FieldCollection extends Collection
 {
     public function compile(DefinitionInstanceRegistry $registry): CompiledFieldCollection

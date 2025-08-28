@@ -17,6 +17,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\UpdateCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Collector\RuleConditionRegistry;
 use HeyFrame\Core\Framework\Rule\Exception\InvalidConditionException;
 use HeyFrame\Core\Framework\Rule\ScriptRule;
@@ -32,6 +33,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @internal
  */
+#[Package('fundamentals@after-sales')]
 class RuleValidator implements EventSubscriberInterface
 {
     /**

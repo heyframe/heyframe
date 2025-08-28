@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Attribute;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityHydrator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 #[\Attribute(\Attribute::TARGET_CLASS)]
 final class Entity
 {

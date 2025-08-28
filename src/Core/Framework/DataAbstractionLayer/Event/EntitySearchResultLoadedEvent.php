@@ -8,10 +8,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\Event\GenericEvent;
 use HeyFrame\Core\Framework\Event\NestedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @template TEntityCollection of EntityCollection
  */
+#[Package('framework')]
 class EntitySearchResultLoadedEvent extends NestedEvent implements GenericEvent
 {
     protected string $name;

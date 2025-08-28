@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Content\Media\Core\Application;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal Just for abstraction between domain and infrastructure. No public API!
  */
+#[Package('discovery')]
 interface MediaPathStorage
 {
     /**

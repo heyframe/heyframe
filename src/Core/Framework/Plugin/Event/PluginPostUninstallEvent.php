@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Context\UninstallContext;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
 
+#[Package('framework')]
 class PluginPostUninstallEvent extends PluginLifecycleEvent
 {
     public function __construct(

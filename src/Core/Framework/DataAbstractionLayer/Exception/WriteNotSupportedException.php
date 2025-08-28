@@ -5,8 +5,10 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class WriteNotSupportedException extends HeyFrameHttpException
 {
     private readonly Field $field;

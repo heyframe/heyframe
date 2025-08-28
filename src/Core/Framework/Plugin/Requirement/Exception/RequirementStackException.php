@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\Plugin\Requirement\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class RequirementStackException extends HeyFrameHttpException
 {
     /**

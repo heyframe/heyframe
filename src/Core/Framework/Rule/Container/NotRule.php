@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Rule\Container;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Rule\RuleException;
 use HeyFrame\Core\Framework\Rule\RuleScope;
@@ -9,6 +10,7 @@ use HeyFrame\Core\Framework\Rule\RuleScope;
 /**
  * NotRule inverses the return value of the child rule. Only one child is possible
  */
+#[Package('fundamentals@after-sales')]
 class NotRule extends Container
 {
     final public const RULE_NAME = 'notContainer';

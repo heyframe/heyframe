@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('framework')]
 class ChangeSet extends Struct
 {
     /**

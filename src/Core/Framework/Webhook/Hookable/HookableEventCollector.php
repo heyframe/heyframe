@@ -10,12 +10,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\Event\BusinessEventCollector;
 use HeyFrame\Core\Framework\Event\BusinessEventDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\Hookable;
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class HookableEventCollector implements ResetInterface
 {
     private const PRIVILEGES = 'privileges';
@@ -89,7 +91,7 @@ class HookableEventCollector implements ResetInterface
     }
 
     /**
-     * Dynamically discovers all hookable entities by checking for services tagged with 'shopware.entity.hookable'.
+     * Dynamically discovers all hookable entities by checking for services tagged with 'heyframe.entity.hookable'.
      *
      * @return array<string>
      */

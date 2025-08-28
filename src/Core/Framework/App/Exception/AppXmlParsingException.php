@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\App\Exception;
 
 use HeyFrame\Core\Framework\App\AppException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class AppXmlParsingException extends AppException
 {
     public static function cannotParseFile(string $xmlFile, string $message): self

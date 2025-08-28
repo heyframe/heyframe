@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Notification;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Integration\IntegrationEntity;
 use HeyFrame\Core\System\User\UserEntity;
 
@@ -11,6 +12,7 @@ if (class_exists(\HeyFrame\Administration\Notification\NotificationEntity::class
     /**
      * @deprecated tag:v6.8.0 - reason:class-hierarchy-change - Will not extend from `\HeyFrame\Administration\Notification\NotificationEntity` and will instead extend directly from `\HeyFrame\Core\Framework\DataAbstractionLayer\Entity`
      */
+    #[Package('framework')]
     class NotificationEntity extends \HeyFrame\Administration\Notification\NotificationEntity
     {
         use EntityIdTrait;
@@ -121,6 +123,7 @@ if (class_exists(\HeyFrame\Administration\Notification\NotificationEntity::class
         }
     }
 } else {
+    #[Package('framework')]
     class NotificationEntity extends Entity
     {
         use EntityIdTrait;

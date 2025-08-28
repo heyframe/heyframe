@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\MessageQueue\ScheduledTask\SymfonyBridge;
 
 use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskDefinition;
 use Symfony\Component\Lock\LockFactory;
@@ -14,6 +15,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 /**
  * @experimental stableVersion:v6.8.0 feature:SYMFONY_SCHEDULER
  */
+#[Package('framework')]
 class ScheduleProvider implements ScheduleProviderInterface
 {
     /**
@@ -49,7 +51,7 @@ class ScheduleProvider implements ScheduleProviderInterface
             $schedules[] = RecurringMessage::every($interval, $task);
         }
 
-        $lock = $this->lockFactory->createLock('scheduled-task-shopware');
+        $lock = $this->lockFactory->createLock('scheduled-task-heyframe');
 
         return (new Schedule())
             ->with(...$schedules)

@@ -5,8 +5,10 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\Event\HeyFrameEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[Package('framework')]
 class WriteCommandExceptionEvent extends Event implements HeyFrameEvent
 {
     /**

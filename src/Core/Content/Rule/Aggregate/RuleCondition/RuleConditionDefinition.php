@@ -18,7 +18,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('fundamentals@after-sales')]
 class RuleConditionDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'rule_condition';

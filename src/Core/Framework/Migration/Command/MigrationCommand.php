@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Migration\Command;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\Exception\UnknownMigrationSourceException;
 use HeyFrame\Core\Framework\Migration\MigrationCollection;
 use HeyFrame\Core\Framework\Migration\MigrationCollectionLoader;
@@ -20,6 +21,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'database:migrate',
     description: 'Executes all migrations',
 )]
+#[Package('framework')]
 class MigrationCommand extends Command
 {
     protected SymfonyStyle $io;
@@ -30,7 +32,7 @@ class MigrationCommand extends Command
     public function __construct(
         protected readonly MigrationCollectionLoader $loader,
         private readonly TagAwareAdapterInterface $cache,
-        protected readonly string $shopwareVersion
+        protected readonly string $heyframeVersion
     ) {
         parent::__construct();
     }
@@ -86,7 +88,7 @@ class MigrationCommand extends Command
 
         if ($total > 0) {
             $this->cache->clear();
-            $this->io->writeln('cleared the shopware cache');
+            $this->io->writeln('cleared the heyframe cache');
         }
 
         return self::SUCCESS;
@@ -95,7 +97,7 @@ class MigrationCommand extends Command
     protected function collectMigrations(InputInterface $input, string $identifier): MigrationCollection
     {
         if ($identifier === 'core') {
-            return $this->loader->collectAllForVersion($this->shopwareVersion);
+            return $this->loader->collectAllForVersion($this->heyframeVersion);
         }
 
         return $this->loader->collect($identifier);

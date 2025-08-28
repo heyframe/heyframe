@@ -3,9 +3,11 @@
 namespace HeyFrame\Core\Content\Media\File;
 
 use HeyFrame\Core\Content\Media\MediaException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use Symfony\Component\HttpFoundation\Request;
 
+#[Package('discovery')]
 class FileFetcher
 {
     /**

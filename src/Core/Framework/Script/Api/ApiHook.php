@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\Script\Api;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryFacadeHookFactory;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryWriterFacadeHookFactory;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\ScriptResponseAwareTrait;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\StoppableHook;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\StoppableHookTrait;
@@ -20,6 +21,7 @@ use HeyFrame\Core\System\SystemConfig\Facade\SystemConfigFacadeHookFactory;
  *
  * @final
  */
+#[Package('framework')]
 class ApiHook extends Hook implements StoppableHook
 {
     use ScriptResponseAwareTrait;

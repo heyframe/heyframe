@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Version\Cleanup;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 
+#[Package('framework')]
 class CleanupVersionTask extends ScheduledTask
 {
     public static function getTaskName(): string

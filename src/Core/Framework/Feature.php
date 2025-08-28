@@ -4,12 +4,14 @@ namespace HeyFrame\Core\Framework;
 
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Feature\FeatureException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @phpstan-type FeatureFlagConfig array{name?: string, default?: boolean, major?: boolean, description?: string, active?: bool, static?: bool}
  */
+#[Package('framework')]
 class Feature
 {
     final public const ALL_MAJOR = 'major';
@@ -250,7 +252,7 @@ class Feature
             return;
         }
 
-        trigger_deprecation('shopware/core', '', $message);
+        trigger_deprecation('heyframe/core', '', $message);
     }
 
     public static function deprecatedMethodMessage(string $class, string $method, string $majorVersion, ?string $replacement = null): string

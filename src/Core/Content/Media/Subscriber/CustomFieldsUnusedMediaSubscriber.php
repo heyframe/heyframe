@@ -7,6 +7,7 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Content\Media\Event\UnusedMediaSearchEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -14,6 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  *  * @codeCoverageIgnore This would be useless as a unit test. It is integration tested here: \HeyFrame\Tests\Integration\Core\Content\Media\Subscriber\CustomFieldsUnusedMediaSubscriberTest
  */
+#[Package('discovery')]
 class CustomFieldsUnusedMediaSubscriber implements EventSubscriberInterface
 {
     public function __construct(

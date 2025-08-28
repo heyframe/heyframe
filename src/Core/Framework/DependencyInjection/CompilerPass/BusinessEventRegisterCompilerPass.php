@@ -3,9 +3,11 @@
 namespace HeyFrame\Core\Framework\DependencyInjection\CompilerPass;
 
 use HeyFrame\Core\Framework\Event\BusinessEventRegistry;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+#[Package('framework')]
 class BusinessEventRegisterCompilerPass implements CompilerPassInterface
 {
     /**

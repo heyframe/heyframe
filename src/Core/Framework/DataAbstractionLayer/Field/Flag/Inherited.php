@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Defines that the data of this field can be inherited by the parent record
  */
+#[Package('framework')]
 class Inherited extends Flag
 {
     public function __construct(

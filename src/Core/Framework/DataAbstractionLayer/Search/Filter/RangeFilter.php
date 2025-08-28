@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class RangeFilter extends SingleFieldFilter
 {
     final public const LTE = 'lte';

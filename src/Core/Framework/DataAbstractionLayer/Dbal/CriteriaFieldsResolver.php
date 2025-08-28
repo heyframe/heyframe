@@ -6,10 +6,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class CriteriaFieldsResolver
 {
     /**

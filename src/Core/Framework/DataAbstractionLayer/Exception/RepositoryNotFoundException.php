@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class RepositoryNotFoundException extends HeyFrameHttpException
 {
     public function __construct(string $entity)

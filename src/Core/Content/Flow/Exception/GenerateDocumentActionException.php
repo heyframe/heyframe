@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Content\Flow\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class GenerateDocumentActionException extends HeyFrameHttpException
 {
     public function __construct(string $message)

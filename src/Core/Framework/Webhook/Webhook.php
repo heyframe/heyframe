@@ -2,6 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Webhook;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Simple DTO for internal use
  *
@@ -9,6 +11,7 @@ namespace HeyFrame\Core\Framework\Webhook;
  *
  * @codeCoverageIgnore
  */
+#[Package('framework')]
 final readonly class Webhook
 {
     public function __construct(

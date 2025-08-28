@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Plugin\Command\Lifecycle;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginNotInstalledException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'plugin:activate',
     description: 'Activate a plugin',
 )]
+#[Package('framework')]
 class PluginActivateCommand extends AbstractPluginLifecycleCommand
 {
     private const LIFECYCLE_METHOD = 'activate';

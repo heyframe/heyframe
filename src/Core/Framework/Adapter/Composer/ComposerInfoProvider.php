@@ -3,11 +3,12 @@
 namespace HeyFrame\Core\Framework\Adapter\Composer;
 
 use Composer\InstalledVersions;
-use Shopware\Core\Framework\Adapter\Composer\ComposerPackage;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class ComposerInfoProvider
 {
     /**

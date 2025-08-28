@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  */
+#[Package('framework')]
 class Stub
 {
     public const TYPE_TEMPLATE = 'template';

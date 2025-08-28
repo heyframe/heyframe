@@ -14,6 +14,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotEqualsFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Composer\Factory;
 use HeyFrame\Core\Framework\Plugin\PluginCollection;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
@@ -24,11 +25,12 @@ use HeyFrame\Core\Framework\Plugin\Requirement\Exception\RequirementStackExcepti
 use HeyFrame\Core\Framework\Plugin\Requirement\Exception\VersionMismatchException;
 use HeyFrame\Core\Framework\Plugin\Util\PluginFinder;
 
+#[Package('framework')]
 class RequirementsValidator
 {
     private Composer $pluginComposer;
 
-    private Composer $shopwareProjectComposer;
+    private Composer $heyframeProjectComposer;
 
     /**
      * @internal
@@ -53,7 +55,7 @@ class RequirementsValidator
             return;
         }
 
-        $this->shopwareProjectComposer = $this->getComposer($this->projectDir);
+        $this->heyframeProjectComposer = $this->getComposer($this->projectDir);
         $exceptionStack = new RequirementExceptionStack();
 
         $pluginDependencies = $this->getPluginDependencies($plugin);
@@ -131,7 +133,7 @@ class RequirementsValidator
         return $this->checkComposerDependencies(
             $pluginDependencies,
             $exceptionStack,
-            $this->shopwareProjectComposer
+            $this->heyframeProjectComposer
         );
     }
 
@@ -258,7 +260,7 @@ class RequirementsValidator
      */
     private function getComposerPackagesFromPlugins(): array
     {
-        $packages = $this->shopwareProjectComposer->getRepositoryManager()->getLocalRepository()->getPackages();
+        $packages = $this->heyframeProjectComposer->getRepositoryManager()->getLocalRepository()->getPackages();
         $pluginPackages = array_filter($packages, static fn (PackageInterface $package) => $package->getType() === PluginFinder::COMPOSER_TYPE);
 
         $pluginPackagesWithNameAsKey = [];

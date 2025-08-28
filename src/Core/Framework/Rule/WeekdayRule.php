@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
 
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class WeekdayRule extends Rule
 {
     final public const RULE_NAME = 'dayOfWeek';

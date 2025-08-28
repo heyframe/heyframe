@@ -18,11 +18,13 @@ use HeyFrame\Core\Framework\App\Manifest\Xml\ShippingMethod\ShippingMethods;
 use HeyFrame\Core\Framework\App\Manifest\Xml\Storefront\Storefront;
 use HeyFrame\Core\Framework\App\Manifest\Xml\Tax\Tax;
 use HeyFrame\Core\Framework\App\Manifest\Xml\Webhook\Webhooks;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Config\Util\XmlUtils;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class Manifest
 {
     private const XSD_FILE = __DIR__ . '/Schema/manifest-3.0.xsd';

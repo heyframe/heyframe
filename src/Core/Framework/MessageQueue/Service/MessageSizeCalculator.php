@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Service;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Stamp\SerializedMessageStamp;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
@@ -9,6 +10,7 @@ use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class MessageSizeCalculator
 {
     /**

@@ -9,8 +9,10 @@ use HeyFrame\Core\Content\Flow\Dispatching\FlowBuilder;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('after-sales')]
 class FlowPayloadUpdater
 {
     /**

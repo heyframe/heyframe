@@ -2,10 +2,13 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Defines the current state of an entity in relation to the parent-child inheritance and
  * existence in the storage or command queue.
  */
+#[Package('framework')]
 class EntityExistence
 {
     /**

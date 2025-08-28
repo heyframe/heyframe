@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
-use HeyFrame\Core\System\SalesChannel\Api\ResponseFields;
-use HeyFrame\Core\System\SalesChannel\Api\StructEncoder;
+use HeyFrame\Core\System\Channel\Api\ResponseFields;
+use HeyFrame\Core\System\Channel\Api\StructEncoder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class ScriptResponseEncoder
 {
     /**

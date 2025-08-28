@@ -6,8 +6,10 @@ use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Content\MailTemplate\MailTemplateEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\HeyFrameEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\DataBag\DataBag;
 
+#[Package('after-sales')]
 class FlowSendMailActionEvent implements HeyFrameEvent
 {
     public function __construct(

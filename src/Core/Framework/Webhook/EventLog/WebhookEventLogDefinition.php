@@ -16,7 +16,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class WebhookEventLogDefinition extends EntityDefinition
 {
     final public const STATUS_QUEUED = 'queued';

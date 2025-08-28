@@ -6,12 +6,14 @@ use HeyFrame\Core\Framework\Adapter\Filesystem\Exception\AdapterFactoryNotFoundE
 use HeyFrame\Core\Framework\Adapter\Filesystem\Exception\DuplicateFilesystemFactoryException;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
 use Symfony\Component\Asset\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Source;
 
+#[Package('checkout')]
 class AdapterException extends HttpException
 {
     public const UNEXPECTED_TWIG_EXPRESSION = 'FRAMEWORK__UNEXPECTED_TWIG_EXPRESSION';
@@ -137,7 +139,7 @@ class AdapterException extends HttpException
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::REDIS_UNKNOWN_CONNECTION,
-            'Can\'t provide connection "{{ connectionName }}", check if it\'s configured under shopware.redis.connections.',
+            'Can\'t provide connection "{{ connectionName }}", check if it\'s configured under heyframe.redis.connections.',
             [
                 'connectionName' => $connectionName,
             ],
@@ -149,7 +151,7 @@ class AdapterException extends HttpException
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::REDIS_UNKNOWN_CONNECTION,
-            'shopware.redis.connections dsn of "%s" connection must be a string.',
+            'heyframe.redis.connections dsn of "%s" connection must be a string.',
             [
                 'connectionName' => $connectionName,
             ],

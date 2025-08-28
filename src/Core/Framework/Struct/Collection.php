@@ -3,12 +3,14 @@
 namespace HeyFrame\Core\Framework\Struct;
 
 use HeyFrame\Core\Framework\FrameworkException;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @template TElement
  *
  * @implements \IteratorAggregate<array-key, TElement>
  */
+#[Package('framework')]
 abstract class Collection extends Struct implements \IteratorAggregate, \Countable
 {
     /**

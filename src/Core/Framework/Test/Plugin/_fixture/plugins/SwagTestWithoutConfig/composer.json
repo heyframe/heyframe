@@ -1,0 +1,27 @@
+{
+    "name": "swag/test-without-config",
+    "description": "Test description",
+    "version": "1.0.0",
+    "type": "heyframe-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "heyframe AG"
+        }
+    ],
+    "require": {
+        "heyframe/core": ">=6.0"
+    },
+    "extra": {
+        "heyframe-plugin-class": "SwagTestWithoutConfig\\SwagTestWithoutConfig",
+        "label": {
+            "de-DE": "Deutscher Pluginname",
+            "en-GB": "English plugin name"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+           "SwagTestWithoutConfig\\": "src"
+        }
+    }
+}

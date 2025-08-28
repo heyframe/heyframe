@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @phpstan-ignore-next-line cannot be final, as it is extended, also designed to be used directly
  */
+#[Package('framework')]
 class MultiFilter extends Filter
 {
     public const CONNECTION_AND = 'AND';

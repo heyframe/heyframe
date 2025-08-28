@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\Flow\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\FlowRule;
 use HeyFrame\Core\Framework\Rule\RuleConfig;
 use HeyFrame\Core\Framework\Rule\RuleConstraints;
@@ -10,6 +11,7 @@ use HeyFrame\Core\Framework\Rule\RuleScope;
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class OrderTrackingCodeRule extends FlowRule
 {
     public const RULE_NAME = 'orderTrackingCode';

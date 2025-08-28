@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Content\Flow\Dispatching\Action;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('after-sales')]
 final class FlowMailVariables
 {
     public const URL = 'url';

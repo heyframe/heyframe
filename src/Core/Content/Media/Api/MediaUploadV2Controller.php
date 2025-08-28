@@ -6,6 +6,7 @@ use HeyFrame\Core\Content\Media\MediaException;
 use HeyFrame\Core\Content\Media\Upload\MediaUploadParameters;
 use HeyFrame\Core\Content\Media\Upload\MediaUploadService;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
  * @internal
  */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('discovery')]
 readonly class MediaUploadV2Controller
 {
     public function __construct(private MediaUploadService $mediaUploadService)

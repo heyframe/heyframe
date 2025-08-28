@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\App\Manifest;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\XmlReader;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class XmlParserUtils
 {
     private const FALLBACK_LOCALE = 'en-GB';

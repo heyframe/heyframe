@@ -2,12 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
-use HeyFrame\Core\Framework\Script\Execution\Awareness\SalesChannelContextAware;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAware;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\ScriptResponseAwareTrait;
 use HeyFrame\Core\Framework\Script\Execution\FunctionHook;
 use HeyFrame\Core\Framework\Script\Execution\InterfaceHook;
 use HeyFrame\Core\Framework\Script\ScriptException;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 
 /**
  * Triggered when the api endpoint /store-api/script/{hook} is called. Used to execute your logic and provide a response to the request.
@@ -18,7 +19,8 @@ use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
  *
  * @final
  */
-class StoreApiHook extends InterfaceHook implements SalesChannelContextAware
+#[Package('framework')]
+class StoreApiHook extends InterfaceHook implements ChannelContextAware
 {
     use ScriptResponseAwareTrait;
 
@@ -39,9 +41,9 @@ class StoreApiHook extends InterfaceHook implements SalesChannelContextAware
          * @var array<string, mixed>
          */
         private readonly array $query,
-        private readonly SalesChannelContext $salesChannelContext
+        private readonly ChannelContext $channelContext
     ) {
-        parent::__construct($salesChannelContext->getContext());
+        parent::__construct($channelContext->getContext());
     }
 
     /**
@@ -60,9 +62,9 @@ class StoreApiHook extends InterfaceHook implements SalesChannelContextAware
         return $this->query;
     }
 
-    public function getSalesChannelContext(): SalesChannelContext
+    public function getChannelContext(): ChannelContext
     {
-        return $this->salesChannelContext;
+        return $this->channelContext;
     }
 
     public function getName(): string
@@ -82,6 +84,6 @@ class StoreApiHook extends InterfaceHook implements SalesChannelContextAware
 
         $functionHook = self::FUNCTIONS[$name];
 
-        return new $functionHook($this->getName(), $this->request, $this->query, $this->salesChannelContext);
+        return new $functionHook($this->getName(), $this->request, $this->query, $this->channelContext);
     }
 }

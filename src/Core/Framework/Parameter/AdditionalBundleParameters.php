@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\Parameter;
 
 use Composer\Autoload\ClassLoader;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\KernelPluginCollection;
 
+#[Package('framework')]
 final class AdditionalBundleParameters
 {
     public function __construct(

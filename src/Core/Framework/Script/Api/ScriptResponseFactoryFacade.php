@@ -2,8 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\ScriptException;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Storefront\Controller\ScriptController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,7 @@ use Symfony\Component\Routing\RouterInterface;
  *
  * @script-service custom_endpoint
  */
+#[Package('framework')]
 class ScriptResponseFactoryFacade
 {
     /**
@@ -22,7 +24,7 @@ class ScriptResponseFactoryFacade
     public function __construct(
         private readonly RouterInterface $router,
         private readonly ?ScriptController $scriptController,
-        private readonly ?SalesChannelContext $salesChannelContext
+        private readonly ?ChannelContext $channelContext
     ) {
     }
 
@@ -71,7 +73,7 @@ class ScriptResponseFactoryFacade
     /**
      * The `render()` method allows you to render a twig view with the parameters you provide and create a StorefrontResponse.
      *
-     * Note that the `render()` method will throw an exception if it is called from outside a `SalesChannelContext` (e.g. from an `/api` route)
+     * Note that the `render()` method will throw an exception if it is called from outside a `ChannelContext` (e.g. from an `/api` route)
      * or if the Storefront-bundle is not installed.
      *
      * @param string $view The name of the twig template you want to render e.g. `@Storefront/storefront/page/content/detail.html.twig`
@@ -87,8 +89,8 @@ class ScriptResponseFactoryFacade
             throw ScriptException::storefrontBundleMissingForHookMethod(__METHOD__);
         }
 
-        if ($this->salesChannelContext === null) {
-            throw ScriptException::hookMethodOutsideOfSalesChannelContext(__METHOD__);
+        if ($this->channelContext === null) {
+            throw ScriptException::hookMethodOutsideOfChannelContext(__METHOD__);
         }
 
         $inner = $this->scriptController->renderStorefrontForScript($view, $parameters);

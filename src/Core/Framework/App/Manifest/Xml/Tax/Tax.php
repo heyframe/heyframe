@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\App\Manifest\Xml\Tax;
 
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class Tax extends XmlElement
 {
     /**

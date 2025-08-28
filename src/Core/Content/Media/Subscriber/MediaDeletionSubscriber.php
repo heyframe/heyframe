@@ -17,6 +17,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityDeleteEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use League\Flysystem\Visibility;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -26,6 +27,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 /**
  * @internal
  */
+#[Package('discovery')]
 class MediaDeletionSubscriber implements EventSubscriberInterface
 {
     final public const SYNCHRONE_FILE_DELETE = 'synchrone-file-delete';

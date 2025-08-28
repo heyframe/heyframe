@@ -2,11 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Struct;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @template TElement of Struct
  *
  * @extends Collection<TElement>
  */
+#[Package('framework')]
 class StructCollection extends Collection
 {
     public function getApiAlias(): string

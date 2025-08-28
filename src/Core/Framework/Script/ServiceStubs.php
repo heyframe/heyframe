@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Script;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
 
 /**
@@ -14,13 +15,14 @@ use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
  * @method \HeyFrame\Core\Checkout\Cart\Facade\PriceFactory price()
  * @method \HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryFacade repository()
  * @method \HeyFrame\Core\System\SystemConfig\Facade\SystemConfigFacade config()
- * @method \HeyFrame\Core\Framework\DataAbstractionLayer\Facade\SalesChannelRepositoryFacade store()
+ * @method \HeyFrame\Core\Framework\DataAbstractionLayer\Facade\ChannelRepositoryFacade store()
  * @method \HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryWriterFacade writer()
  * @method \HeyFrame\Core\Framework\Routing\Facade\RequestFacade request()
  * @method \HeyFrame\Core\Framework\Script\Api\ScriptResponseFactoryFacade response()
  * @method \HeyFrame\Core\Framework\Adapter\Cache\Script\Facade\CacheInvalidatorFacade cache()
  * @method \HeyFrame\Core\Framework\Script\Api\AclFacade acl()
  */
+#[Package('framework')]
 final class ServiceStubs
 {
     /**

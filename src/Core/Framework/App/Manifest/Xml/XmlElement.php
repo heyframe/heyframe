@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\App\Manifest\Xml;
 
 use HeyFrame\Core\Framework\App\AppException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
@@ -11,6 +12,7 @@ use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
  *
  * @phpstan-consistent-constructor
  */
+#[Package('framework')]
 abstract class XmlElement extends Struct
 {
     protected const REQUIRED_FIELDS = [];

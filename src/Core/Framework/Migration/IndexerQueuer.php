@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\Migration;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('framework')]
 class IndexerQueuer
 {
     final public const INDEXER_KEY = 'core.scheduled_indexers';
@@ -130,7 +132,7 @@ class IndexerQueuer
             'SELECT id, configuration_value
              FROM system_config
              WHERE configuration_key = :key
-             AND sales_channel_id IS NULL',
+             AND channel_id IS NULL',
             ['key' => self::INDEXER_KEY]
         );
 

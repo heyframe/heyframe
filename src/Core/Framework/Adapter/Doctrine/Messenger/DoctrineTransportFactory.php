@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Adapter\Doctrine\Messenger;
 
 use Doctrine\DBAL\Connection as DBALConnection;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Messenger\Bridge\Doctrine\Transport\Connection;
 use Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 /**
  * @implements TransportFactoryInterface<DoctrineTransport>
  */
+#[Package('framework')]
 class DoctrineTransportFactory implements TransportFactoryInterface
 {
     public function __construct(private readonly DBALConnection $connection)

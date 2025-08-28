@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\Increment;
 
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 abstract class AbstractIncrementer
 {
     protected string $poolName;

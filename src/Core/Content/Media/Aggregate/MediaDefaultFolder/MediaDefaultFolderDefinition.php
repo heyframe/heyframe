@@ -11,7 +11,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaDefaultFolderDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'media_default_folder';

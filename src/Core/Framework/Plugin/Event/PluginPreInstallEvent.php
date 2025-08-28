@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Context\InstallContext;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
 
+#[Package('framework')]
 class PluginPreInstallEvent extends PluginLifecycleEvent
 {
     public function __construct(

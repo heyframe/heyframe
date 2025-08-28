@@ -8,6 +8,7 @@ use HeyFrame\Core\Framework\Adapter\Twig\Filter\ReplaceRecursiveFilter;
 use HeyFrame\Core\Framework\Adapter\Twig\SecurityExtension;
 use HeyFrame\Core\Framework\Adapter\Twig\TwigEnvironment;
 use HeyFrame\Core\Framework\App\Event\Hooks\AppLifecycleHook;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Api\AclFacadeHookFactory;
 use HeyFrame\Core\Framework\Script\Debugging\Debug;
 use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
@@ -26,6 +27,7 @@ use Twig\Extension\DebugExtension;
 /**
  * @codeCoverageIgnore This class is fully tested by @see \HeyFrame\Tests\Integration\Core\Framework\Script\Execution\ScriptExecutorTest
  */
+#[Package('framework')]
 class ScriptExecutor
 {
     public static bool $isInScriptExecutionContext = false;
@@ -45,7 +47,7 @@ class ScriptExecutor
         private readonly ScriptTraces $traces,
         private readonly ContainerInterface $container,
         private readonly TranslationExtension $translationExtension,
-        private readonly string $shopwareVersion,
+        private readonly string $heyframeVersion,
     ) {
     }
 
@@ -149,8 +151,8 @@ class ScriptExecutor
             $twig->addExtension(new DebugExtension());
         }
 
-        $twig->addGlobal('shopware', new ArrayStruct([
-            'version' => $this->shopwareVersion,
+        $twig->addGlobal('heyframe', new ArrayStruct([
+            'version' => $this->heyframeVersion,
         ]));
 
         return $twig;

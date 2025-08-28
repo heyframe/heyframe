@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Script\Execution;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use Twig\Cache\FilesystemCache;
 
@@ -10,6 +11,7 @@ use Twig\Cache\FilesystemCache;
  *
  * @phpstan-type TwigOptions array{cache?: FilesystemCache, debug?: bool, auto_reload?: bool}
  */
+#[Package('framework')]
 class Script extends Struct
 {
     /**

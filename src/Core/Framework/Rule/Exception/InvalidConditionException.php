@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\Rule\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('fundamentals@after-sales')]
 class InvalidConditionException extends HeyFrameHttpException
 {
     public function __construct(string $conditionName)

@@ -18,10 +18,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationFiel
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Integration\Aggregate\IntegrationRole\IntegrationRoleDefinition;
 use HeyFrame\Core\System\Integration\IntegrationDefinition;
 use HeyFrame\Core\System\User\UserDefinition;
 
+#[Package('framework')]
 class AclRoleDefinition extends EntityDefinition
 {
     final public const PRIVILEGE_READ = 'read';

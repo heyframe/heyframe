@@ -3,14 +3,16 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
-use HeyFrame\Core\Framework\Api\Context\SalesChannelApiSource;
+use HeyFrame\Core\Framework\Api\Context\ChannelApiSource;
 use HeyFrame\Core\Framework\Api\Context\SystemSource;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class ApiAware extends Flag
 {
     private const BASE_URLS = [
         AdminApiSource::class => '/api/',
-        SalesChannelApiSource::class => '/store-api/',
+        ChannelApiSource::class => '/store-api/',
     ];
 
     /**

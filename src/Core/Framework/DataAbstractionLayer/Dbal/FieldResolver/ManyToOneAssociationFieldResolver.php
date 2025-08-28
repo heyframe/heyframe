@@ -17,10 +17,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ReverseInherited;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class ManyToOneAssociationFieldResolver extends AbstractFieldResolver
 {
     public function __construct(

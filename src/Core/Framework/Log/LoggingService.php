@@ -10,6 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class LoggingService implements EventSubscriberInterface
 {
     /**

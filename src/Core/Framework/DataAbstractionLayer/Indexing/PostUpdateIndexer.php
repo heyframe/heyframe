@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Indexing;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 abstract class PostUpdateIndexer extends EntityIndexer
 {
     final public function update(EntityWrittenContainerEvent $event): ?EntityIndexingMessage

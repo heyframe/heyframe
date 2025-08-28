@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\ReferenceVersionFieldSerializer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\VersionDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class ReferenceVersionField extends FkField
 {
     protected string $versionReferenceClass;

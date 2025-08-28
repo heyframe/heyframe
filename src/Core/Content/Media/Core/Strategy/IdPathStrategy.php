@@ -5,10 +5,12 @@ namespace HeyFrame\Core\Content\Media\Core\Strategy;
 use HeyFrame\Core\Content\Media\Core\Application\AbstractMediaPathStrategy;
 use HeyFrame\Core\Content\Media\Core\Params\MediaLocationStruct;
 use HeyFrame\Core\Content\Media\Core\Params\ThumbnailLocationStruct;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal Concrete implementation is not allowed to be decorated or extended. The implementation details can change
  */
+#[Package('discovery')]
 class IdPathStrategy extends AbstractMediaPathStrategy
 {
     public function name(): string

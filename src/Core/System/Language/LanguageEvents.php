@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\System\Language;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('fundamentals@discovery')]
 class LanguageEvents
 {
     final public const LANGUAGE_WRITTEN_EVENT = 'language.written';

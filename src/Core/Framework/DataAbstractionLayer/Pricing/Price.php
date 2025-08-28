@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Pricing;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('framework')]
 class Price extends Struct
 {
     public function __construct(

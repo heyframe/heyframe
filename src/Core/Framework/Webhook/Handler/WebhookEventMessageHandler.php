@@ -10,6 +10,7 @@ use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteTypeIntendException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
 use HeyFrame\Core\Framework\Webhook\EventLog\WebhookEventLogDefinition;
 use HeyFrame\Core\Framework\Webhook\Message\WebhookEventMessage;
@@ -21,6 +22,7 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
  * @internal
  */
 #[AsMessageHandler]
+#[Package('framework')]
 final readonly class WebhookEventMessageHandler
 {
     private const TIMEOUT = 20;
@@ -40,7 +42,7 @@ final readonly class WebhookEventMessageHandler
 
     public function __invoke(WebhookEventMessage $message): void
     {
-        $shopwareVersion = $message->getHeyFrameVersion();
+        $heyframeVersion = $message->getHeyFrameVersion();
 
         $payload = $message->getPayload();
         $url = $message->getUrl();
@@ -51,11 +53,11 @@ final readonly class WebhookEventMessageHandler
         $jsonPayload = json_encode($payload, \JSON_THROW_ON_ERROR);
 
         $headers = ['Content-Type' => 'application/json',
-            'sw-version' => $shopwareVersion, ];
+            'sw-version' => $heyframeVersion, ];
 
         // LanguageId and UserLocale will be required from 6.5.0 onward
         if ($message->getLanguageId() && $message->getUserLocale()) {
-            $headers = array_merge($headers, [AuthMiddleware::SHOPWARE_CONTEXT_LANGUAGE => $message->getLanguageId(), AuthMiddleware::SHOPWARE_USER_LANGUAGE => $message->getUserLocale()]);
+            $headers = array_merge($headers, [AuthMiddleware::HEYFRAME_CONTEXT_LANGUAGE => $message->getLanguageId(), AuthMiddleware::HEYFRAME_USER_LANGUAGE => $message->getUserLocale()]);
         }
 
         $requestContent = [

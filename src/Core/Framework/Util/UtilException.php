@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\Util;
 
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Exception\ComparatorException;
 use HeyFrame\Core\Framework\Util\Exception\UtilXmlParsingException;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class UtilException extends HttpException
 {
     public const INVALID_JSON = 'UTIL_INVALID_JSON';

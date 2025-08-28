@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class PropertyNotFoundException extends DataAbstractionLayerException
 {
     public function __construct(string $property, string $entityClassName)

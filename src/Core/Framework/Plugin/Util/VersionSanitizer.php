@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class VersionSanitizer
 {
     public function sanitizePluginVersion(string $version): string

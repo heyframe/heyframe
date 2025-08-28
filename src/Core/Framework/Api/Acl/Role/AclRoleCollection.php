@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\Api\Acl\Role;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<AclRoleEntity>
  */
+#[Package('framework')]
 class AclRoleCollection extends EntityCollection
 {
     public function getApiAlias(): string

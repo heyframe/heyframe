@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder\CustomFieldsAccessorBuilder;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\CustomFieldsSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class CustomFields extends JsonField
 {
     public function __construct(

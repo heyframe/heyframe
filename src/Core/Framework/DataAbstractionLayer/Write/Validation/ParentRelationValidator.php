@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * @internal
  */
+#[Package('framework')]
 class ParentRelationValidator implements EventSubscriberInterface
 {
     final public const VIOLATION_PARENT_RELATION_DOES_NOT_ALLOW_SELF_REFERENCES = 'FRAMEWORK__PARENT_RELATION_DOES_NOT_ALLOW_SELF_REFERENCES';

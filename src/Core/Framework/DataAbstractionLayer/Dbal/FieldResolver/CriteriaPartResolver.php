@@ -22,10 +22,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\SingleFieldFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Parser\SqlQueryParser;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal This class is not intended for service decoration
  */
+#[Package('framework')]
 class CriteriaPartResolver
 {
     public function __construct(

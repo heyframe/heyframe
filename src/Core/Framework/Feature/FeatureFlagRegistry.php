@@ -7,6 +7,7 @@ use HeyFrame\Core\Framework\Adapter\Storage\AbstractKeyValueStorage;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Feature\Event\BeforeFeatureFlagToggleEvent;
 use HeyFrame\Core\Framework\Feature\Event\FeatureFlagToggledEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -14,6 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  *
  * @phpstan-import-type FeatureFlagConfig from Feature
  */
+#[Package('framework')]
 class FeatureFlagRegistry
 {
     public const STORAGE_KEY = 'feature.flags';

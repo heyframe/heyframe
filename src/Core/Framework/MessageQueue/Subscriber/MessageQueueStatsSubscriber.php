@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\MessageQueue\Subscriber;
 
 use HeyFrame\Core\Framework\Increment\IncrementGatewayRegistry;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\Stats\StatsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Envelope;
@@ -13,6 +14,7 @@ use Symfony\Component\Messenger\Event\WorkerMessageHandledEvent;
 /**
  * @internal
  */
+#[Package('framework')]
 class MessageQueueStatsSubscriber implements EventSubscriberInterface
 {
     /**

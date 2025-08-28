@@ -13,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\IdSearchResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * The `repository` service allows you to query data, that is stored inside heyframe.
@@ -20,6 +21,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder;
  *
  * @script-service data_loading
  */
+#[Package('framework')]
 class RepositoryFacade
 {
     /**

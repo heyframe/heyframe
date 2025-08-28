@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @deprecated tag:v6.8.0 - reason:remove-exception - Will be removed, use CartException::invalidPriceFieldTypeException() instead
  */
+#[Package('framework')]
 class InvalidPriceFieldTypeException extends HeyFrameHttpException
 {
     public function __construct(string $type)

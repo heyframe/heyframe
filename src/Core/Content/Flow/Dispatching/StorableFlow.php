@@ -4,11 +4,13 @@ namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use HeyFrame\Core\Content\Flow\FlowException;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @final
  */
+#[Package('after-sales')]
 class StorableFlow extends Struct
 {
     private ?FlowState $state = null;

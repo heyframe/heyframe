@@ -3,12 +3,14 @@
 namespace HeyFrame\Core\Framework\Increment;
 
 use HeyFrame\Core\Framework\Adapter\Cache\RedisConnectionFactory;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  *
  * @phpstan-import-type RedisTypeHint from RedisConnectionFactory
  */
+#[Package('framework')]
 class RedisIncrementer extends AbstractIncrementer
 {
     /**
@@ -17,7 +19,7 @@ class RedisIncrementer extends AbstractIncrementer
      * @param RedisTypeHint $redis
      */
     public function __construct(
-        /** @phpstan-ignore shopware.propertyNativeType (Cannot type natively, as Symfony might change the implementation in the future) */
+        /** @phpstan-ignore heyframe.propertyNativeType (Cannot type natively, as Symfony might change the implementation in the future) */
         private $redis
     ) {
     }

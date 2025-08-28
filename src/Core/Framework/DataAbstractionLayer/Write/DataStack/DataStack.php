@@ -2,6 +2,8 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  *
@@ -29,6 +31,7 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack;
  *
  *      $resultSet = $stack->getResultAsArray();
  */
+#[Package('framework')]
 class DataStack
 {
     /**

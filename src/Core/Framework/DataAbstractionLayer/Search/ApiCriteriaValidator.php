@@ -11,10 +11,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiCriteriaAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class ApiCriteriaValidator
 {
     /**

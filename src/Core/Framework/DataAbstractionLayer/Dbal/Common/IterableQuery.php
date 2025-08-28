@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\QueryBuilder;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 interface IterableQuery
 {
     /**

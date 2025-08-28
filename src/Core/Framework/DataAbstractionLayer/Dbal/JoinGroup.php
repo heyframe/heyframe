@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\SingleFieldFilter;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class JoinGroup extends Filter
 {
     /**

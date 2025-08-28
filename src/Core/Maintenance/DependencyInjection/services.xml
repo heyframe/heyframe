@@ -2,7 +2,160 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="env(APP_URL_CHECK_DISABLED)" type="string">false</parameter>
+    </parameters>
+    <services>
+        <service id="HeyFrame\Core\Maintenance\System\Service\DatabaseConnectionFactory"/>
 
+        <service id="HeyFrame\Core\Maintenance\System\Command\SystemInstallCommand">
+            <argument>%kernel.project_dir%</argument>
+            <argument type="service" id="HeyFrame\Core\Maintenance\System\Service\SetupDatabaseAdapter"/>
+            <argument type="service" id="HeyFrame\Core\Maintenance\System\Service\DatabaseConnectionFactory"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheClearer"/>
+            <tag name="console.command"/>
+        </service>
 
+        <service id="HeyFrame\Core\Maintenance\System\Command\SystemIsInstalledCommand">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\System\Command\SystemGenerateAppSecretCommand">
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\System\Command\SystemSetupCommand">
+            <argument>%kernel.project_dir%</argument>
+            <argument type="service" id="Symfony\Component\Dotenv\Command\DotenvDumpCommand"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Symfony\Component\Dotenv\Command\DotenvDumpCommand">
+            <argument>%kernel.project_dir%</argument>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\System\Command\SystemUpdatePrepareCommand">
+            <argument type="service" id="service_container"/>
+            <argument>%kernel.heyframe_version%</argument>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\System\Command\SystemUpdateFinishCommand">
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument>%kernel.heyframe_version%</argument>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Channel\Command\ChannelUpdateDomainCommand">
+            <argument type="service" id="channel_domain.repository"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\System\Command\SystemConfigureShopCommand">
+            <argument type="service" id="HeyFrame\Core\Maintenance\System\Service\ShopConfigurator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheClearer"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\System\Service\AppUrlVerifier">
+            <argument type="service" id="heyframe.maintenance.client"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument>%kernel.environment%</argument>
+            <argument>%env(bool:APP_URL_CHECK_DISABLED)%</argument>
+        </service>
+
+        <service id="heyframe.maintenance.client" class="GuzzleHttp\Client"/>
+
+        <service id="HeyFrame\Core\Maintenance\System\Service\ShopConfigurator">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Symfony\Component\EventDispatcher\EventDispatcherInterface"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Channel\Command\ChannelCreateCommand">
+            <argument type="service" id="HeyFrame\Core\Maintenance\Channel\Service\ChannelCreator"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Channel\Service\ChannelCreator" public="true">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="channel.repository"/>
+            <argument type="service" id="payment_method.repository"/>
+            <argument type="service" id="shipping_method.repository"/>
+            <argument type="service" id="country.repository"/>
+            <argument type="service" id="category.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Channel\Command\ChannelListCommand">
+            <argument type="service" id="channel.repository"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Channel\Command\ChannelMaintenanceEnableCommand">
+            <argument type="service" id="channel.repository"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Channel\Command\ChannelMaintenanceDisableCommand">
+            <argument type="service" id="channel.repository"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\User\Command\UserCreateCommand">
+            <argument type="service" id="HeyFrame\Core\Maintenance\User\Service\UserProvisioner"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\User\Command\UserChangePasswordCommand">
+            <argument type="service" id="user.repository"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\User\Command\UserListCommand">
+            <argument type="service" id="user.repository"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\User\Service\UserProvisioner" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\System\Service\SetupDatabaseAdapter"/>
+
+        <service id="HeyFrame\Core\Maintenance\Staging\Command\SystemSetupStagingCommand">
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument>%heyframe.staging.mailing.disable_delivery%</argument>
+            <argument>%heyframe.staging.channel.domain_rewrite%</argument>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Staging\Handler\StagingAppHandler">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Framework\App\ShopId\ShopIdProvider"/>
+
+            <tag name="kernel.event_listener"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Staging\Handler\StagingMailHandler">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+
+            <tag name="kernel.event_listener"/>
+        </service>
+
+        <service id="HeyFrame\Core\Maintenance\Staging\Handler\StagingChannelHandler">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+
+            <tag name="kernel.event_listener"/>
+        </service>
+    </services>
 </container>

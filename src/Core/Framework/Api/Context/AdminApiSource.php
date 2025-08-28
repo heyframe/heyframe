@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Api\Context;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\JsonSerializableTrait;
 
+#[Package('framework')]
 class AdminApiSource implements ContextSource, \JsonSerializable
 {
     use JsonSerializableTrait;

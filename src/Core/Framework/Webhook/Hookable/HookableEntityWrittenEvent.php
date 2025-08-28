@@ -6,12 +6,14 @@ use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityDeletedEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\AclPrivilegeCollection;
 use HeyFrame\Core\Framework\Webhook\Hookable;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class HookableEntityWrittenEvent implements Hookable
 {
     private function __construct(private readonly EntityWrittenEvent $event)

@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\MessageQueueException;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
@@ -16,6 +17,7 @@ use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskDefinition;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskEntity;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
+#[Package('framework')]
 class TaskRegistry
 {
     /**

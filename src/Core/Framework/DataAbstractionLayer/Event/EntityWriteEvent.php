@@ -6,6 +6,7 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteContext;
 use HeyFrame\Core\Framework\Event\HeyFrameEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -14,6 +15,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  *
  * You can use this event to capture state and perform actions and sync data after an entity is written. It could be used for example, to synchronize images to a CDN when they are written, updated or deleted. This event is useful when you need the before state of the entity. For example, the old filename.
  */
+#[Package('framework')]
 class EntityWriteEvent extends Event implements HeyFrameEvent
 {
     /**

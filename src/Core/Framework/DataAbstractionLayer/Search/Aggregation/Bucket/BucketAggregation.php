@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Aggregation;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @phpstan-ignore-next-line cannot be final, as it is extended, also designed to be used directly
  */
+#[Package('framework')]
 class BucketAggregation extends Aggregation
 {
     public function __construct(

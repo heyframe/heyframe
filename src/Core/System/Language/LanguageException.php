@@ -4,12 +4,14 @@ namespace HeyFrame\Core\System\Language;
 
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedValueException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @codeCoverageIgnore
  */
+#[Package('fundamentals@discovery')]
 class LanguageException extends HttpException
 {
     public const VALUE_NOT_SUPPORTED = 'LANGUAGE__RULE_VALUE_NOT_SUPPORTED';

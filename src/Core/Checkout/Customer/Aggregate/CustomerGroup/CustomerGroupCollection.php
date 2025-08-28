@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<CustomerGroupEntity>
  */
+#[Package('discovery')]
 class CustomerGroupCollection extends EntityCollection
 {
     public function getApiAlias(): string

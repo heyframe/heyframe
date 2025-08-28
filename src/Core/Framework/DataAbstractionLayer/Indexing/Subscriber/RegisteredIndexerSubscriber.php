@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\Subscriber;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\SynchronousPostUpdateIndexer;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\IndexerQueuer;
 use HeyFrame\Core\Framework\Store\Event\FirstRunWizardFinishedEvent;
 use HeyFrame\Core\Framework\Update\Event\UpdatePostFinishEvent;
@@ -12,6 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class RegisteredIndexerSubscriber implements EventSubscriberInterface
 {
     /**

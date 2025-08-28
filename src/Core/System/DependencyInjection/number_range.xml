@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\System\NumberRange\NumberRangeDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeChannel\NumberRangeChannelDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeState\NumberRangeStateDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeType\NumberRangeTypeDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeTypeTranslation\NumberRangeTypeTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeTranslation\NumberRangeTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <!-- Value Generator -->
+        <service id="HeyFrame\Core\System\NumberRange\Command\MigrateIncrementStorageCommand">
+            <argument type="service" id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\IncrementStorage\IncrementStorageRegistry"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\IncrementStorage\IncrementSqlStorage">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+
+            <tag name="heyframe.value_generator_connector" storage="mysql"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\IncrementStorage\AbstractIncrementStorage">
+            <factory service="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\IncrementStorage\IncrementStorageRegistry"
+                     method="getStorage"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\IncrementStorage\IncrementRedisStorage">
+            <argument type="service" id="heyframe.number_range.redis"/>
+            <argument type="service" id="lock.factory"/>
+            <argument type="service" id="number_range.repository"/>
+
+            <tag name="heyframe.value_generator_connector" storage="redis"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\IncrementStorage\IncrementStorageRegistry">
+            <argument type="tagged_iterator" tag="heyframe.value_generator_connector" index-by="storage"/>
+            <argument>%heyframe.number_range.increment_storage%</argument>
+        </service>
+
+        <service id="heyframe.number_range.redis" class="Redis">
+            <factory service="HeyFrame\Core\Framework\Adapter\Redis\RedisConnectionProvider" method="getConnection"/>
+            <argument>%heyframe.number_range.config.connection%</argument>
+        </service>
+
+        <service class="HeyFrame\Core\System\NumberRange\ValueGenerator\NumberRangeValueGenerator"
+                 id="HeyFrame\Core\System\NumberRange\ValueGenerator\NumberRangeValueGeneratorInterface"
+                 public="true">
+            <argument type="service" id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\ValueGeneratorPatternRegistry" />
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\ValueGeneratorPatternRegistry">
+            <argument type="tagged_iterator" tag="heyframe.value_generator_pattern"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\ValueGeneratorPatternIncrement">
+            <argument type="service" id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\IncrementStorage\AbstractIncrementStorage" />
+            <tag name="heyframe.value_generator_pattern"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\ValueGeneratorPatternDate">
+            <tag name="heyframe.value_generator_pattern"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\NumberRange\Api\NumberRangeController" public="true">
+            <argument type="service" id="HeyFrame\Core\System\NumberRange\ValueGenerator\NumberRangeValueGeneratorInterface" />
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+    </services>
+</container>

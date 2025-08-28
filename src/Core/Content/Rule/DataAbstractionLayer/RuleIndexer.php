@@ -10,12 +10,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class RuleIndexer extends EntityIndexer
 {
     final public const PAYLOAD_UPDATER = 'rule.payload';

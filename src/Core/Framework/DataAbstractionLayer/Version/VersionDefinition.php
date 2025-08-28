@@ -12,7 +12,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\Aggregate\VersionCommit\VersionCommitDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class VersionDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'version';

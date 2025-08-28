@@ -21,6 +21,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\PrefixFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\SuffixFilter;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
@@ -35,6 +36,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\SuffixFilter;
  * @phpstan-type EqualsAnyFilterType array{type: 'equalsAny', field: string, value: mixed}
  * @phpstan-type Query array{type: string, field?: string, value?: mixed, parameters?: array{operator: RangeFilter::*}, queries?: list<array{type: string, field?: string, value?: mixed}>}
  */
+#[Package('framework')]
 class QueryStringParser
 {
     /**

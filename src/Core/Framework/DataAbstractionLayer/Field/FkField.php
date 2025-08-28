@@ -5,7 +5,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\FkFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class FkField extends Field implements StorageAware
 {
     final public const PRIORITY = 70;

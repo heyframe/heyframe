@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Subscriber;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Event\WorkerMessageReceivedEvent;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class CountHandledMessagesListener implements EventSubscriberInterface
 {
     private int $handledMessages = 0;

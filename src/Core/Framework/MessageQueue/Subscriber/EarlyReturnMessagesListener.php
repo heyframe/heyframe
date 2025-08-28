@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Subscriber;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Event\WorkerMessageHandledEvent;
 use Symfony\Component\Messenger\Event\WorkerRunningEvent;
@@ -9,6 +10,7 @@ use Symfony\Component\Messenger\Event\WorkerRunningEvent;
 /**
  * @internal
  */
+#[Package('framework')]
 class EarlyReturnMessagesListener implements EventSubscriberInterface
 {
     private bool $handled = false;

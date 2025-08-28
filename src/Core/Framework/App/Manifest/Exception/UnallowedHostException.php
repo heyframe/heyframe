@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\App\Manifest\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class UnallowedHostException extends \RuntimeException
 {
     /**

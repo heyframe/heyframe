@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Aggregation;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * Allow to aggregate data on predefined ranges values
@@ -11,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Aggregation;
  *    the "from" will be compared with greater than or equal
  *    the "to" will be compared with lower than
  */
+#[Package('framework')]
 final class RangeAggregation extends Aggregation
 {
     /**

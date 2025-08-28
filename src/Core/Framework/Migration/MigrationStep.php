@@ -8,12 +8,14 @@ use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 abstract class MigrationStep
 {
     use AddColumnTrait;
 
-    final public const INSTALL_ENVIRONMENT_VARIABLE = 'SHOPWARE_INSTALL';
+    final public const INSTALL_ENVIRONMENT_VARIABLE = 'HEYFRAME_INSTALL';
 
     private const MAX_INT_32_BIT = 2147483647;
 

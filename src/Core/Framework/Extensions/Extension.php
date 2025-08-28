@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Extensions;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ExtendableTrait;
 use Psr\EventDispatcher\StoppableEventInterface;
 
 /**
  * @template TResultType
  */
+#[Package('framework')]
 abstract class Extension implements StoppableEventInterface
 {
     use ExtendableTrait;

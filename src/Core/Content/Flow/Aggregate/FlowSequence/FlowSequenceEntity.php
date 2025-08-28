@@ -9,7 +9,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\IdAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class FlowSequenceEntity extends Entity implements IdAware
 {
     use EntityCustomFieldsTrait;

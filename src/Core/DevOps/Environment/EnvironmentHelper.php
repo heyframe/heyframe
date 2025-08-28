@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\DevOps\Environment;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class EnvironmentHelper
 {
     /**

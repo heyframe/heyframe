@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Feature\Command;
 
 use HeyFrame\Core\Framework\Adapter\Cache\CacheClearer;
 use HeyFrame\Core\Framework\Feature\FeatureFlagRegistry;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,6 +15,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * @internal
  */
+#[Package('framework')]
 #[AsCommand(name: 'feature:disable', description: 'Disable feature flags')]
 final class FeatureDisableCommand extends Command
 {

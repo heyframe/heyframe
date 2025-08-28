@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\Struct;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldVisibility;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @implements \ArrayAccess<string, mixed>
  */
+#[Package('framework')]
 class ArrayEntity extends Entity implements \ArrayAccess
 {
     protected ?string $_entityName = 'array-entity';

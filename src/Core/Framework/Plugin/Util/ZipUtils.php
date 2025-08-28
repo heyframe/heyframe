@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginException;
 
+#[Package('framework')]
 class ZipUtils
 {
     private const HEADER_SIGNATURE = '504b0304';

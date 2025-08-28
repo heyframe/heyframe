@@ -6,9 +6,11 @@ use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Framework\Plugin\Aggregate\PluginTranslation\PluginTranslationCollection;
 
+#[Package('framework')]
 class PluginEntity extends Entity
 {
     use EntityCustomFieldsTrait;

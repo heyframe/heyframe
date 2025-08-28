@@ -9,12 +9,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\FieldType\DateInterval;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Type;
 
 /**
  * @internal
  */
+#[Package('checkout')]
 class DateIntervalFieldSerializer extends AbstractFieldSerializer
 {
     public function encode(

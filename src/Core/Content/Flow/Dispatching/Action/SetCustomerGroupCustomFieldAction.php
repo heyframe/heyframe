@@ -10,10 +10,12 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Event\CustomerGroupAware;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('after-sales')]
 class SetCustomerGroupCustomFieldAction extends FlowAction implements DelayableAction
 {
     use CustomFieldActionTrait;

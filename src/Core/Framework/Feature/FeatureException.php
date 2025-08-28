@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\Feature;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class FeatureException extends HttpException
 {
     final public const FEATURE_NOT_REGISTERED = 'FRAMEWORK__FEATURE_NOT_REGISTERED';

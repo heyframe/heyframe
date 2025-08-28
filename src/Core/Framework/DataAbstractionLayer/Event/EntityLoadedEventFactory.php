@@ -7,14 +7,16 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
-use HeyFrame\Core\System\SalesChannel\Entity\PartialSalesChannelEntityLoadedEvent;
-use HeyFrame\Core\System\SalesChannel\Entity\SalesChannelEntityLoadedEvent;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
+use HeyFrame\Core\System\Channel\Entity\ChannelEntityLoadedEvent;
+use HeyFrame\Core\System\Channel\Entity\PartialChannelEntityLoadedEvent;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class EntityLoadedEventFactory
 {
     public function __construct(private readonly DefinitionInstanceRegistry $registry)
@@ -54,7 +56,7 @@ class EntityLoadedEventFactory
      *
      * @return EntityLoadedContainerEvent[]
      */
-    public function createForSalesChannel(array $entities, SalesChannelContext $context): array
+    public function createForChannel(array $entities, ChannelContext $context): array
     {
         $mapping = [];
 
@@ -62,7 +64,7 @@ class EntityLoadedEventFactory
 
         $generator = fn (EntityDefinition $definition, array $entities) => new EntityLoadedEvent($definition, $entities, $context->getContext());
 
-        $salesGenerator = fn (EntityDefinition $definition, array $entities) => new SalesChannelEntityLoadedEvent($definition, $entities, $context);
+        $salesGenerator = fn (EntityDefinition $definition, array $entities) => new ChannelEntityLoadedEvent($definition, $entities, $context);
 
         return [
             $this->buildEvents($mapping, $generator, $context->getContext()),
@@ -75,7 +77,7 @@ class EntityLoadedEventFactory
      *
      * @return EntityLoadedContainerEvent[]
      */
-    public function createPartialForSalesChannel(array $entities, SalesChannelContext $context): array
+    public function createPartialForChannel(array $entities, ChannelContext $context): array
     {
         $mapping = [];
 
@@ -83,7 +85,7 @@ class EntityLoadedEventFactory
 
         $generator = fn (EntityDefinition $definition, array $entities) => new PartialEntityLoadedEvent($definition, $entities, $context->getContext());
 
-        $salesGenerator = fn (EntityDefinition $definition, array $entities) => new PartialSalesChannelEntityLoadedEvent($definition, $entities, $context);
+        $salesGenerator = fn (EntityDefinition $definition, array $entities) => new PartialChannelEntityLoadedEvent($definition, $entities, $context);
 
         return [
             $this->buildEvents($mapping, $generator, $context->getContext()),

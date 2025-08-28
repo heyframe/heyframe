@@ -5,10 +5,12 @@ namespace HeyFrame\Core\System\Locale;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Language\LanguageCollection;
 use HeyFrame\Core\System\Locale\Aggregate\LocaleTranslation\LocaleTranslationCollection;
 use HeyFrame\Core\System\User\UserCollection;
 
+#[Package('discovery')]
 class LocaleEntity extends Entity
 {
     use EntityCustomFieldsTrait;

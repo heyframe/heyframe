@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Content\Media\Core\Strategy;
 
 use HeyFrame\Core\Content\Media\Core\Application\AbstractMediaPathStrategy;
 use HeyFrame\Core\Content\Media\MediaException;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal Factory is only used for DI container construction to find configured strategy
  */
+#[Package('discovery')]
 class PathStrategyFactory
 {
     /**

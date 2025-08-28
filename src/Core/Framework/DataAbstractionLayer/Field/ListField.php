@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\ListFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * Stores a JSON formatted value list. This can be typed using the third constructor parameter.
@@ -23,6 +24,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\ListFieldSerial
  *      // single type values
  *      [12,55,192,22]
  */
+#[Package('framework')]
 class ListField extends JsonField
 {
     public function __construct(

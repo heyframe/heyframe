@@ -44,6 +44,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityWriteGatewayInterfa
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityWriterInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteContext;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteResult;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\Framework\Uuid\Uuid;
@@ -54,6 +55,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class VersionManager
 {
     final public const DISABLE_AUDIT_LOG = 'disable-audit-log';

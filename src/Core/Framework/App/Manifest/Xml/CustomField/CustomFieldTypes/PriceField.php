@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\App\Manifest\Xml\CustomField\CustomFieldTypes;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\CustomField\CustomFieldTypes;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class PriceField extends CustomFieldType
 {
     protected function toEntityArray(): array

@@ -7,10 +7,12 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class MySQLIncrementer extends AbstractIncrementer
 {
     /**

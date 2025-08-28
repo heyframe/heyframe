@@ -3,6 +3,8 @@
 namespace HeyFrame\Core\System\User;
 
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
+use HeyFrame\Core\Checkout\Order\OrderDefinition;
+use HeyFrame\Core\Content\ImportExport\Aggregate\ImportExportLog\ImportExportLogDefinition;
 use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclUserRoleDefinition;
@@ -25,14 +27,19 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\PasswordField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TimeZoneField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Locale\LocaleDefinition;
+use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineHistory\StateMachineHistoryDefinition;
 use HeyFrame\Core\System\User\Aggregate\UserAccessKey\UserAccessKeyDefinition;
 use HeyFrame\Core\System\User\Aggregate\UserConfig\UserConfigDefinition;
+use HeyFrame\Core\System\User\Aggregate\UserRecovery\UserRecoveryDefinition;
 
+#[Package('fundamentals@framework')]
 class UserDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'user';
@@ -76,8 +83,9 @@ class UserDefinition extends EntityDefinition
             (new FkField('locale_id', 'localeId', LocaleDefinition::class))->addFlags(new Required()),
             (new StringField('username', 'username'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             (new PasswordField('password', 'password', \PASSWORD_DEFAULT, [], PasswordField::FOR_ADMIN))->removeFlag(ApiAware::class)->addFlags(new Required()),
-            (new StringField('name', 'name'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
-            (new StringField('phone_number', 'phoneNumber'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new StringField('first_name', 'firstName'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new StringField('last_name', 'lastName'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new StringField('title', 'title'))->addFlags(new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
             (new EmailField('email', 'email'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             new BoolField('active', 'active'),
             new BoolField('admin', 'admin'),
@@ -90,8 +98,13 @@ class UserDefinition extends EntityDefinition
             (new OneToManyAssociationField('media', MediaDefinition::class, 'user_id'))->addFlags(new SetNullOnDelete()),
             (new OneToManyAssociationField('accessKeys', UserAccessKeyDefinition::class, 'user_id', 'id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('configs', UserConfigDefinition::class, 'user_id', 'id'))->addFlags(new CascadeDelete()),
+            new OneToManyAssociationField('stateMachineHistoryEntries', StateMachineHistoryDefinition::class, 'user_id', 'id'),
+            (new OneToManyAssociationField('importExportLogEntries', ImportExportLogDefinition::class, 'user_id', 'id'))->addFlags(new SetNullOnDelete()),
             new ManyToManyAssociationField('aclRoles', AclRoleDefinition::class, AclUserRoleDefinition::class, 'user_id', 'acl_role_id'),
+            new OneToOneAssociationField('recoveryUser', 'id', 'user_id', UserRecoveryDefinition::class, false),
             (new StringField('store_token', 'storeToken'))->removeFlag(ApiAware::class),
+            new OneToManyAssociationField('createdOrders', OrderDefinition::class, 'created_by_id', 'id'),
+            new OneToManyAssociationField('updatedOrders', OrderDefinition::class, 'updated_by_id', 'id'),
             new OneToManyAssociationField('createdCustomers', CustomerDefinition::class, 'created_by_id', 'id'),
             new OneToManyAssociationField('updatedCustomers', CustomerDefinition::class, 'updated_by_id', 'id'),
         ]);

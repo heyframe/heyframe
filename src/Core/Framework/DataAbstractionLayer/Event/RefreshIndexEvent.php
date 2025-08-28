@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class RefreshIndexEvent extends Event
 {
     /**

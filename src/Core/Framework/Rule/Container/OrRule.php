@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Rule\Container;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\RuleScope;
 
+#[Package('fundamentals@after-sales')]
 class OrRule extends Container
 {
     final public const RULE_NAME = 'orContainer';

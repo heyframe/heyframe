@@ -6,6 +6,7 @@ use HeyFrame\Core\Framework\Event\IsFlowEventAware;
 use Monolog\Level;
 
 #[IsFlowEventAware]
+#[Package('framework')]
 interface LogAware
 {
     /**

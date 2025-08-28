@@ -6,12 +6,14 @@ use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleEntity;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleEvents;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\KernelPluginCollection;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class PluginAclPrivilegesSubscriber implements EventSubscriberInterface
 {
     /**

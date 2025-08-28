@@ -12,13 +12,14 @@ use HeyFrame\Core\Framework\App\Event\AppChangedEvent;
 use HeyFrame\Core\Framework\App\Event\AppDeletedEvent;
 use HeyFrame\Core\Framework\App\Event\AppFlowActionEvent;
 use HeyFrame\Core\Framework\App\Event\AppPermissionsUpdated;
-use HeyFrame\Core\Framework\App\Exception\AppUrlChangeDetectedException;
+use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
 use HeyFrame\Core\Framework\App\Hmac\RequestSigner;
 use HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Webhook\AclPrivilegeCollection;
 use HeyFrame\Core\Framework\Webhook\Event\PreWebhooksDispatchEvent;
@@ -36,6 +37,7 @@ use Symfony\Contracts\Service\ResetInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class WebhookManager implements ResetInterface
 {
     /**
@@ -58,7 +60,7 @@ class WebhookManager implements ResetInterface
         private readonly Client $guzzle,
         private readonly MessageBusInterface $bus,
         private readonly string $shopUrl,
-        private readonly string $shopwareVersion,
+        private readonly string $heyframeVersion,
         private readonly bool $isAdminWorkerEnabled,
     ) {
     }
@@ -140,7 +142,7 @@ class WebhookManager implements ResetInterface
 
             try {
                 $webhookData = $this->getPayloadForWebhook($webhook, $event);
-            } catch (AppUrlChangeDetectedException) {
+            } catch (ShopIdChangeSuggestedException) {
                 // don't dispatch webhooks for apps if url changed
                 continue;
             }
@@ -150,7 +152,7 @@ class WebhookManager implements ResetInterface
                 $webhookData,
                 $webhook->appId,
                 $webhook->id,
-                $this->shopwareVersion,
+                $this->heyframeVersion,
                 $webhook->url,
                 $webhook->appSecret,
                 $languageId,
@@ -199,7 +201,7 @@ class WebhookManager implements ResetInterface
 
             try {
                 $webhookData = $this->getPayloadForWebhook($webhook, $event);
-            } catch (AppUrlChangeDetectedException) {
+            } catch (ShopIdChangeSuggestedException) {
                 // don't dispatch webhooks for apps if url changed
                 continue;
             }
@@ -211,9 +213,9 @@ class WebhookManager implements ResetInterface
 
             $headers = [
                 'Content-Type' => 'application/json',
-                'sw-version' => $this->shopwareVersion,
-                AuthMiddleware::SHOPWARE_CONTEXT_LANGUAGE => $languageId,
-                AuthMiddleware::SHOPWARE_USER_LANGUAGE => $userLocale,
+                'sw-version' => $this->heyframeVersion,
+                AuthMiddleware::HEYFRAME_CONTEXT_LANGUAGE => $languageId,
+                AuthMiddleware::HEYFRAME_USER_LANGUAGE => $userLocale,
             ];
 
             if ($event instanceof AppFlowActionEvent) {
@@ -229,7 +231,7 @@ class WebhookManager implements ResetInterface
 
             if ($webhook->appId !== null && $webhook->appSecret !== null) {
                 $request = $request->withHeader(
-                    RequestSigner::SHOPWARE_SHOP_SIGNATURE,
+                    RequestSigner::HEYFRAME_SHOP_SIGNATURE,
                     (new RequestSigner())->signPayload($jsonPayload, $webhook->appSecret)
                 );
             }

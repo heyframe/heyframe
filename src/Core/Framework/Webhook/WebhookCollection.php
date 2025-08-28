@@ -4,11 +4,13 @@ namespace HeyFrame\Core\Framework\Webhook;
 
 use HeyFrame\Core\Framework\App\Event\ManifestChangedEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @extends EntityCollection<WebhookEntity>
  */
+#[Package('framework')]
 class WebhookCollection extends EntityCollection
 {
     /**

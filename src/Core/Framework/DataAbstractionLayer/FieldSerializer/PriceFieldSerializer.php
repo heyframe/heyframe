@@ -12,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\Framework\Validation\Constraint\Uuid;
 use Symfony\Component\Validator\Constraints\Collection;
@@ -24,6 +25,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * @internal
  */
+#[Package('framework')]
 class PriceFieldSerializer extends AbstractFieldSerializer
 {
     public function encode(
@@ -171,42 +173,42 @@ class PriceFieldSerializer extends AbstractFieldSerializer
     protected function getConstraints(Field $field): array
     {
         $constraints = [
-            new Collection([
-                'allowExtraFields' => true,
-                'allowMissingFields' => false,
-                'fields' => [
+            new Collection(
+                fields: [
                     'currencyId' => [new NotBlank(), new Uuid()],
                     'gross' => [new NotBlank(), new Type(type: 'numeric')],
                     'net' => [new NotBlank(), new Type(type: 'numeric')],
                     'linked' => [new Type(type: 'boolean')],
                     'listPrice' => [
                         new Optional(
-                            new Collection([
-                                'allowExtraFields' => true,
-                                'allowMissingFields' => false,
-                                'fields' => [
+                            new Collection(
+                                fields: [
                                     'gross' => [new NotBlank(), new Type(type: 'numeric')],
                                     'net' => [new NotBlank(), new Type('numeric')],
                                     'linked' => [new Type(type: 'boolean')],
                                 ],
-                            ])
+                                allowExtraFields: true,
+                                allowMissingFields: false
+                            )
                         ),
                     ],
                     'regulationPrice' => [
                         new Optional(
-                            new Collection([
-                                'allowExtraFields' => true,
-                                'allowMissingFields' => false,
-                                'fields' => [
+                            new Collection(
+                                fields: [
                                     'gross' => [new NotBlank(), new Type(type: 'numeric')],
                                     'net' => [new NotBlank(), new Type('numeric')],
                                     'linked' => [new Type(type: 'boolean')],
                                 ],
-                            ])
+                                allowExtraFields: true,
+                                allowMissingFields: false
+                            )
                         ),
                     ],
                 ],
-            ]),
+                allowExtraFields: true,
+                allowMissingFields: false
+            ),
         ];
 
         return $constraints;

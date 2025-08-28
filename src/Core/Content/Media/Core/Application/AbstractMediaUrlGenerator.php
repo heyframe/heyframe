@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Media\Core\Application;
 
 use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * Url generator for media and thumbnails
@@ -10,6 +11,7 @@ use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
  * The url generator is called at runtime to generate the absolute urls for the media and thumbnails.
  * Generated urls are based on the stored paths in the database.
  */
+#[Package('discovery')]
 abstract class AbstractMediaUrlGenerator
 {
     /**

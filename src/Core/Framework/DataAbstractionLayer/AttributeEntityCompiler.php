@@ -3,7 +3,7 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
-use HeyFrame\Core\Framework\Api\Context\SalesChannelApiSource;
+use HeyFrame\Core\Framework\Api\Context\ChannelApiSource;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Attribute\AllowEmptyString as AllowEmptyStringAttr;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Attribute\AllowHtml as AllowHtmlAttr;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Attribute\AutoIncrement;
@@ -62,12 +62,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TimeZoneField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 /**
  * @phpstan-type FieldArray array{type?: string, name?: string, class: class-string<DalField>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}
  */
+#[Package('framework')]
 class AttributeEntityCompiler
 {
     private const FIELD_ATTRIBUTES = [
@@ -310,7 +312,7 @@ class AttributeEntityCompiler
                     $aware[] = AdminApiSource::class;
                 }
                 if (isset($field->api['store-api']) && $field->api['store-api'] === true) {
-                    $aware[] = SalesChannelApiSource::class;
+                    $aware[] = ChannelApiSource::class;
                 }
             }
 

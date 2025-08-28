@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * In case the referenced association data will be deleted, the related data will be set to null and an Written event will be thrown
  */
+#[Package('framework')]
 class SetNullOnDelete extends Flag
 {
     /**

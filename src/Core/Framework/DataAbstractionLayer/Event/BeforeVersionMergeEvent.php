@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -16,6 +17,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  *     delete: WriteOperation
  * }
  */
+#[Package('framework')]
 class BeforeVersionMergeEvent extends Event
 {
     /**

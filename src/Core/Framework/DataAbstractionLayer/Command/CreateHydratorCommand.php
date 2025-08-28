@@ -31,6 +31,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -42,6 +43,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'dal:create:hydrators',
     description: 'Creates the hydrator classes',
 )]
+#[Package('framework')]
 class CreateHydratorCommand extends Command
 {
     private readonly string $dir;

@@ -32,6 +32,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Parser\SqlQueryParser;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Psr\Log\LoggerInterface;
@@ -41,6 +42,7 @@ use function Symfony\Component\String\u;
 /**
  * @internal
  */
+#[Package('framework')]
 class EntityReader implements EntityReaderInterface
 {
     final public const INTERNAL_MAPPING_STORAGE = 'internal_mapping_storage';

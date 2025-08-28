@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 
 /**
@@ -9,6 +10,7 @@ use HeyFrame\Core\Framework\Struct\Collection;
  *
  * @extends Collection<Stub>
  */
+#[Package('framework')]
 class StubCollection extends Collection
 {
     /**

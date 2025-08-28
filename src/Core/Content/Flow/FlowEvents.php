@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Content\Flow;
 
 use HeyFrame\Core\Content\Flow\Events\FlowIndexerEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('after-sales')]
 class FlowEvents
 {
     final public const FLOW_WRITTEN_EVENT = 'flow.written';

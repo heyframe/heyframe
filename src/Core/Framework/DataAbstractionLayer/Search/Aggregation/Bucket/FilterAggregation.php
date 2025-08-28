@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Aggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @final
  */
+#[Package('framework')]
 class FilterAggregation extends BucketAggregation
 {
     /**

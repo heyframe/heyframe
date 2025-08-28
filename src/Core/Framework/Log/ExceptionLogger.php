@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\Log;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
+#[Package('checkout')]
 class ExceptionLogger
 {
     /**

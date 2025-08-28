@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 
 /**
  * @extends Collection<EntityProtection>
  */
+#[Package('framework')]
 class EntityProtectionCollection extends Collection
 {
     /**

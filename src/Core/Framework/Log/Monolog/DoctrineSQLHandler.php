@@ -4,11 +4,13 @@ namespace HeyFrame\Core\Framework\Log\Monolog;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Level;
 use Monolog\LogRecord;
 
+#[Package('framework')]
 class DoctrineSQLHandler extends AbstractProcessingHandler
 {
     /**

@@ -11,11 +11,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Event\A11yRenderedDocumentAware;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @phpstan-type A11yDocument array{documentId: string, deepLinkCode: string, fileExtension: string|null}
  */
+#[Package('after-sales')]
 class A11yRenderedDocumentStorer extends FlowStorer
 {
     /**

@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Webhook\Service;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Webhook\EventLog\WebhookEventLogDefinition;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Psr\Clock\ClockInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\Clock\NativeClock;
 /**
  * @internal
  */
+#[Package('framework')]
 class WebhookCleanup
 {
     private const BATCH_SIZE = 500;

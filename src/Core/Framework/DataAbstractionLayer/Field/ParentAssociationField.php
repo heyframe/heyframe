@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class ParentAssociationField extends ManyToOneAssociationField
 {
     public function __construct(

@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Util;
 
 use Doctrine\DBAL\Result;
 use Doctrine\DBAL\Statement;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 final class StatementHelper
 {
     /**

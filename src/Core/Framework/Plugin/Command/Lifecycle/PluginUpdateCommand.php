@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Plugin\Command\Lifecycle;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'plugin:update',
     description: 'Updates a plugin',
 )]
+#[Package('framework')]
 class PluginUpdateCommand extends AbstractPluginLifecycleCommand
 {
     private const LIFECYCLE_METHOD = 'update';

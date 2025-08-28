@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\SystemCheck;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\SystemCheck\Check\Category;
 use HeyFrame\Core\Framework\SystemCheck\Check\Result;
 use HeyFrame\Core\Framework\SystemCheck\Check\Status;
@@ -10,6 +11,7 @@ use HeyFrame\Core\Framework\SystemCheck\Check\SystemCheckExecutionContext;
 /**
  * @internal
  */
+#[Package('framework')]
 class SystemChecker
 {
     /**

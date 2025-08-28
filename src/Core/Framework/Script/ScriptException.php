@@ -3,13 +3,15 @@
 namespace HeyFrame\Core\Framework\Script;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Exception\ScriptExecutionFailedException;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\HookServiceFactory;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class ScriptException extends HttpException
 {
-    public const HOOK_METHOD_OUTSIDE_SALES_CHANNEL_CONTEXT = 'FRAMEWORK__HOOK_METHOD_OUTSIDE_SALES_CHANNEL_CONTEXT';
+    public const HOOK_METHOD_OUTSIDE_CHANNEL_CONTEXT = 'FRAMEWORK__HOOK_METHOD_OUTSIDE_CHANNEL_CONTEXT';
     public const HOOK_METHOD_STOREFRONT_BUNDLE_MISSING = 'FRAMEWORK__HOOK_METHOD_STOREFRONT_BUNDLE_MISSING';
     public const ACCESS_FROM_SCRIPT_EXECUTION_NOT_ALLOWED = 'FRAMEWORK__ACCESS_FROM_SCRIPT_EXECUTION_NOT_ALLOWED';
     public const FUNCTION_DOES_NOT_EXIST_IN_INTERFACE_HOOK = 'FRAMEWORK__FUNCTION_DOES_NOT_EXIST_IN_INTERFACE_HOOK';
@@ -25,12 +27,12 @@ class ScriptException extends HttpException
         return new ScriptExecutionFailedException($hook, $scriptName, $previous);
     }
 
-    public static function hookMethodOutsideOfSalesChannelContext(string $method): self
+    public static function hookMethodOutsideOfChannelContext(string $method): self
     {
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
-            self::HOOK_METHOD_OUTSIDE_SALES_CHANNEL_CONTEXT,
-            'Method "{{ method }}" can only be called from inside the `SalesChannelContext`.',
+            self::HOOK_METHOD_OUTSIDE_CHANNEL_CONTEXT,
+            'Method "{{ method }}" can only be called from inside the `ChannelContext`.',
             ['method' => $method]
         );
     }

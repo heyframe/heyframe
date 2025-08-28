@@ -10,12 +10,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\WriteFieldException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
 use Symfony\Component\Validator\Constraints\Type;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class ListFieldSerializer extends AbstractFieldSerializer
 {
     /**

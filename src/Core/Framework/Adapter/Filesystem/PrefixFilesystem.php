@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\Adapter\Filesystem;
 
 use HeyFrame\Core\Framework\Adapter\AdapterException;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\DirectoryListing;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\StorageAttributes;
 
+#[Package('framework')]
 class PrefixFilesystem implements FilesystemOperator
 {
     private readonly string $prefix;

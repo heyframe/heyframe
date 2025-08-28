@@ -4,11 +4,13 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\AggregationResultCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @final
  */
+#[Package('framework')]
 class AggregatorResult extends Struct
 {
     public function __construct(

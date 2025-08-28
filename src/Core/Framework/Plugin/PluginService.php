@@ -12,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\ExceptionCollection;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginComposerJsonInvalidException;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginNotFoundException;
@@ -23,6 +24,7 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * @internal
  */
+#[Package('framework')]
 class PluginService
 {
     final public const COMPOSER_AUTHOR_ROLE_MANUFACTURER = 'Manufacturer';
@@ -41,12 +43,12 @@ class PluginService
     ) {
     }
 
-    public function refreshPlugins(Context $shopwareContext, IOInterface $composerIO): ExceptionCollection
+    public function refreshPlugins(Context $heyframeContext, IOInterface $composerIO): ExceptionCollection
     {
         $errors = new ExceptionCollection();
         $pluginsFromFileSystem = $this->pluginFinder->findPlugins($this->pluginDir, $this->projectDir, $errors, $composerIO);
 
-        $installedPlugins = $this->getPlugins(new Criteria(), $shopwareContext);
+        $installedPlugins = $this->getPlugins(new Criteria(), $heyframeContext);
 
         $plugins = [];
         foreach ($pluginsFromFileSystem as $pluginFromFileSystem) {
@@ -91,7 +93,7 @@ class PluginService
                 'managedByComposer' => $pluginFromFileSystem->getManagedByComposer(),
             ];
 
-            $pluginData['translations'] = $this->getTranslations($shopwareContext, $extra);
+            $pluginData['translations'] = $this->getTranslations($heyframeContext, $extra);
 
             $currentPluginEntity = $installedPlugins->filterByProperty('baseClass', $baseClass)->first();
             if ($currentPluginEntity !== null) {
@@ -118,7 +120,7 @@ class PluginService
         if ($plugins !== []) {
             foreach ($plugins as $plugin) {
                 try {
-                    $this->pluginRepo->upsert([$plugin], $shopwareContext);
+                    $this->pluginRepo->upsert([$plugin], $heyframeContext);
                 } catch (HeyFrameHttpException $exception) {
                     $errors->set($plugin['name'], $exception);
                 }
@@ -132,7 +134,7 @@ class PluginService
             foreach ($deletePluginIds as $deletePluginId) {
                 $deletePlugins[] = ['id' => $deletePluginId];
             }
-            $this->pluginRepo->delete($deletePlugins, $shopwareContext);
+            $this->pluginRepo->delete($deletePlugins, $heyframeContext);
         }
 
         return $errors;
@@ -222,7 +224,7 @@ class PluginService
         /*
          * @example payload
          * {
-         *     "shopware-plugin-class":"Swag\\MyDemoData\\MyDemoData",
+         *     "heyframe-plugin-class":"Swag\\MyDemoData\\MyDemoData",
          *     "label":{
          *         "de-DE":"Label für das Plugin MyDemoData",
          *         "en-GB":"Label for the plugin MyDemoData"

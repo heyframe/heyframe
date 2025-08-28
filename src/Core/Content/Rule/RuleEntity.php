@@ -14,10 +14,12 @@ use HeyFrame\Core\Content\Rule\Aggregate\RuleCondition\RuleConditionCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\System\Tag\TagCollection;
 use HeyFrame\Core\System\TaxProvider\TaxProviderCollection;
 
+#[Package('fundamentals@after-sales')]
 class RuleEntity extends Entity
 {
     use EntityCustomFieldsTrait;

@@ -3,9 +3,11 @@
 namespace HeyFrame\Core\Framework\Plugin\Context;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationCollection;
 use HeyFrame\Core\Framework\Plugin;
 
+#[Package('framework')]
 class UninstallContext extends InstallContext
 {
     public function __construct(

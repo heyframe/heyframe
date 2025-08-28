@@ -7,7 +7,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\AggregationResultCollection;
 use HeyFrame\Core\Framework\Event\GenericEvent;
 use HeyFrame\Core\Framework\Event\NestedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class EntityAggregationResultLoadedEvent extends NestedEvent implements GenericEvent
 {
     protected string $name;

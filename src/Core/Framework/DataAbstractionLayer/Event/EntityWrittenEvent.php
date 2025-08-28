@@ -8,7 +8,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\Event\GenericEvent;
 use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Event\NestedEventCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class EntityWrittenEvent extends NestedEvent implements GenericEvent
 {
     protected ?array $ids = null;

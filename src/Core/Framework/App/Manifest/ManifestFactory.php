@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\App\Manifest;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  */
+#[Package('framework')]
 class ManifestFactory
 {
     public function createFromXmlFile(string $file): Manifest

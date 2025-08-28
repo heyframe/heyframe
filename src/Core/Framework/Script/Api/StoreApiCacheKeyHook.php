@@ -2,11 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
-use HeyFrame\Core\Framework\Script\Execution\Awareness\SalesChannelContextAware;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAware;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\StoppableHook;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\StoppableHookTrait;
 use HeyFrame\Core\Framework\Script\Execution\OptionalFunctionHook;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 
 /**
  * Triggered when the api endpoint /store-api/script/{hook} is called. Used to provide a cache-key based on the request.
@@ -18,7 +19,8 @@ use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
  *
  * @final
  */
-class StoreApiCacheKeyHook extends OptionalFunctionHook implements SalesChannelContextAware, StoppableHook
+#[Package('framework')]
+class StoreApiCacheKeyHook extends OptionalFunctionHook implements ChannelContextAware, StoppableHook
 {
     use StoppableHookTrait;
 
@@ -36,9 +38,9 @@ class StoreApiCacheKeyHook extends OptionalFunctionHook implements SalesChannelC
          * @var array<string, mixed>
          */
         private readonly array $query,
-        private readonly SalesChannelContext $salesChannelContext
+        private readonly ChannelContext $channelContext
     ) {
-        parent::__construct($salesChannelContext->getContext());
+        parent::__construct($channelContext->getContext());
     }
 
     /**
@@ -57,9 +59,9 @@ class StoreApiCacheKeyHook extends OptionalFunctionHook implements SalesChannelC
         return $this->query;
     }
 
-    public function getSalesChannelContext(): SalesChannelContext
+    public function getChannelContext(): ChannelContext
     {
-        return $this->salesChannelContext;
+        return $this->channelContext;
     }
 
     public function getCacheKey(): ?string

@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('framework')]
 class TaxFreeConfig extends Struct
 {
     public function __construct(

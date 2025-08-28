@@ -6,8 +6,10 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Event\HeyFrameEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[Package('framework')]
 class EntitySearchedEvent extends Event implements HeyFrameEvent
 {
     public function __construct(

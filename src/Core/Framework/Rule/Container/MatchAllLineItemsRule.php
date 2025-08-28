@@ -6,6 +6,7 @@ use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItemCollection;
 use HeyFrame\Core\Checkout\Cart\Rule\CartRuleScope;
 use HeyFrame\Core\Checkout\Cart\Rule\LineItemScope;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Rule\RuleScope;
 use Symfony\Component\Validator\Constraints\Type;
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Constraints\Type;
  *
  * MatchAllLineItemsRule returns true if all rules are true for all line items
  */
+#[Package('fundamentals@after-sales')]
 class MatchAllLineItemsRule extends Container
 {
     final public const RULE_NAME = 'allLineItemsContainer';
@@ -53,7 +55,7 @@ class MatchAllLineItemsRule extends Container
             return false;
         }
 
-        $context = $scope->getSalesChannelContext();
+        $context = $scope->getChannelContext();
 
         foreach ($this->rules as $rule) {
             $matched = 0;

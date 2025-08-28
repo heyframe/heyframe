@@ -5,9 +5,11 @@ namespace HeyFrame\Core\Framework\Routing;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Context\SystemSource;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\Request;
 
+#[Package('framework')]
 class ApiRouteScope extends AbstractRouteScope implements ApiContextRouteScopeDependant
 {
     final public const ID = 'api';

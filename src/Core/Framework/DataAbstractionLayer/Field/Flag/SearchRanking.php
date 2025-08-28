@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Defines the weight for a search query on the entity for this field
  */
+#[Package('framework')]
 class SearchRanking extends Flag
 {
     final public const ASSOCIATION_SEARCH_RANKING = 0.25;

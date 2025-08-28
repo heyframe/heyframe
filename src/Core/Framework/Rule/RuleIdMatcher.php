@@ -4,12 +4,14 @@ namespace HeyFrame\Core\Framework\Rule;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\IdAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\RuleIdAware;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 
 /**
  * This service filters the given input data, based on the given ruleIds.
  * It will return a filtered array of objects, which have a ruleId that is present in the given ruleIds array.
  */
+#[Package('framework')]
 class RuleIdMatcher
 {
     /**

@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\Adapter\Filesystem\Plugin;
 
 use HeyFrame\Core\Framework\Adapter\AdapterException;
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\Visibility;
 
 /**
  * @final
  */
+#[Package('framework')]
 class CopyBatchInput
 {
     /**

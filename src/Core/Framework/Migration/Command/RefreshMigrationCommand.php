@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Migration\Command;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -13,6 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'database:refresh-migration',
     description: 'Refreshes the migration state',
 )]
+#[Package('framework')]
 class RefreshMigrationCommand extends Command
 {
     protected function configure(): void

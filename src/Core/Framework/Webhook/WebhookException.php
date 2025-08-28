@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\Webhook;
 
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class WebhookException extends HttpException
 {
     public const WEBHOOK_FAILED = 'FRAMEWORK__WEBHOOK_FAILED';

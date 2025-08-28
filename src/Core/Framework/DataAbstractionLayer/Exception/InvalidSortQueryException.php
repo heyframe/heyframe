@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class InvalidSortQueryException extends DataAbstractionLayerException
 {
     public function __construct(?string $message = null, array $parameters = [])

@@ -2,12 +2,15 @@
 
 namespace HeyFrame\Core\Content\Media\Core\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @implements \IteratorAggregate<array-key, string>
  *
  * This event can be dispatch, to generate the path for a media afterward and store it in the database.
  * The `MediaSubscriber` will listen to this event and generate the path for the media.
  */
+#[Package('discovery')]
 class UpdateMediaPathEvent implements \IteratorAggregate
 {
     /**

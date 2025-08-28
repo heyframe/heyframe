@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\Plugin\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 
 /**
  * @extends Collection<HeyFrameHttpException>
  */
+#[Package('framework')]
 class ExceptionCollection extends Collection
 {
     public function getApiAlias(): string

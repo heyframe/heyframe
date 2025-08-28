@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\QueryBuilder;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class LastIdQuery implements IterableQuery
 {
     private ?int $lastId = null;

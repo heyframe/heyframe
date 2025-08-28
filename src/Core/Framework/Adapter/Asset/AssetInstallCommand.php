@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Adapter\Asset;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\App\ActiveAppsLoader;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Util\AssetService;
 use HeyFrame\Core\Installer\Installer;
 use League\Flysystem\FilesystemException;
@@ -21,6 +22,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
     name: 'assets:install',
     description: 'Installs bundles web assets under a public web directory',
 )]
+#[Package('framework')]
 class AssetInstallCommand extends Command
 {
     /**

@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use HeyFrame\Core\Content\Flow\Dispatching\Struct\Flow;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal not intended for decoration or replacement
@@ -10,6 +11,7 @@ use HeyFrame\Core\Content\Flow\Dispatching\Struct\Flow;
  * @phpstan-type FlowHolder array{id: string, name: string, payload: Flow}
  * @phpstan-type EventGroupedFlowHolders array<string, array<FlowHolder>>
  */
+#[Package('after-sales')]
 abstract class AbstractFlowLoader
 {
     /**

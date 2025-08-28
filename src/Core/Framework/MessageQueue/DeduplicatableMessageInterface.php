@@ -2,6 +2,8 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Implement on messages that can safely be deduplicated (has to be implemented in the middleware/transport).
  * It should prevent the same message from being processed multiple times during some time window.
@@ -13,6 +15,7 @@ namespace HeyFrame\Core\Framework\MessageQueue;
  *
  * @experimental stableVersion:v6.8.0 feature:DEDUPLICATABLE_MESSAGES
  */
+#[Package('framework')]
 interface DeduplicatableMessageInterface
 {
     /**

@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\System\Language;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Locale\LocaleCollection;
 
 /**
  * @extends EntityCollection<LanguageEntity>
  */
+#[Package('fundamentals@discovery')]
 class LanguageCollection extends EntityCollection
 {
     /**

@@ -5,8 +5,10 @@ namespace HeyFrame\Core\Framework\Plugin\Aggregate\PluginTranslation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\TranslationEntity;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
 
+#[Package('framework')]
 class PluginTranslationEntity extends TranslationEntity
 {
     use EntityCustomFieldsTrait;

@@ -10,8 +10,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\FieldSerializerInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('framework')]
 abstract class Field extends Struct
 {
     /**

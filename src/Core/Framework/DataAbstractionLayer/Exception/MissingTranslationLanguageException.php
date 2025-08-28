@@ -4,10 +4,12 @@ namespace HeyFrame\Core\System\Exception;
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
+#[Package('framework')]
 class MissingTranslationLanguageException extends WriteConstraintViolationException
 {
     final public const VIOLATION_MISSING_TRANSLATION_LANGUAGE = 'MISSING-TRANSLATION-LANGUAGE';

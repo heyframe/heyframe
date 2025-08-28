@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Computed;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class LockedField extends BoolField
 {
     public function __construct()

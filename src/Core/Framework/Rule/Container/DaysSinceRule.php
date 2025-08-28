@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Rule\Container;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Rule\RuleComparison;
 use HeyFrame\Core\Framework\Rule\RuleConfig;
@@ -9,6 +10,7 @@ use HeyFrame\Core\Framework\Rule\RuleConstraints;
 use HeyFrame\Core\Framework\Rule\RuleException;
 use HeyFrame\Core\Framework\Rule\RuleScope;
 
+#[Package('fundamentals@after-sales')]
 abstract class DaysSinceRule extends Rule
 {
     protected string $operator = Rule::OPERATOR_EQ;

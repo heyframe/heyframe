@@ -6,8 +6,10 @@ use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Log\LoggerInterface;
 
+#[Package('framework')]
 abstract class ScheduledTaskHandler
 {
     /**

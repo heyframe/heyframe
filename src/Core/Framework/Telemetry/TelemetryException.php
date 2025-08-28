@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Telemetry;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Exception\MetricNotSupportedException;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Exception\MissingMetricConfigurationException;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\Metric;
@@ -11,6 +12,7 @@ use HeyFrame\Core\Framework\Telemetry\Metrics\MetricTransportInterface;
 /**
  * @experimental feature:TELEMETRY_METRICS stableVersion:v6.8.0
  */
+#[Package('framework')]
 abstract class TelemetryException extends HttpException
 {
     public static function metricNotSupported(

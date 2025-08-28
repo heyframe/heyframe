@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace HeyFrame\Core\Content\Media\Thumbnail;
 
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeEntity;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @phpstan-import-type ImageSize from ThumbnailService
  *
  * @final
  */
+#[Package('discovery')]
 class ThumbnailSizeCalculator
 {
     /**

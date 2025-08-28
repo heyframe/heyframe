@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class AutoIncrementField extends IntField
 {
     public function __construct()

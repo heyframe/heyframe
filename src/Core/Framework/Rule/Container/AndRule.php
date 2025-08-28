@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Rule\Container;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\RuleScope;
 
 /**
  * AndRule returns true, if all child-rules are true
  */
+#[Package('fundamentals@after-sales')]
 class AndRule extends Container
 {
     final public const RULE_NAME = 'andContainer';

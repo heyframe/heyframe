@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Adapter\Kernel;
 
 use HeyFrame\Core\Framework\Event\BeforeSendResponseEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class HttpCacheKernel extends HttpCache
 {
     final public const MAINTENANCE_WHITELIST_HEADER = 'sw-maintenance-whitelist';

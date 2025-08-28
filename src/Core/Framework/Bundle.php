@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework;
 
 use HeyFrame\Core\Framework\Adapter\Filesystem\PrefixFilesystem;
 use HeyFrame\Core\Framework\DependencyInjection\CompilerPass\BusinessEventRegisterCompilerPass;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationSource;
 use HeyFrame\Core\Framework\Parameter\AdditionalBundleParameters;
 use HeyFrame\Core\Kernel;
@@ -27,6 +28,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle as SymfonyBundle;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
+#[Package('framework')]
 abstract class Bundle extends SymfonyBundle
 {
     public function build(ContainerBuilder $container): void
@@ -125,7 +127,7 @@ abstract class Bundle extends SymfonyBundle
         $container->register(MigrationSource::class . '_' . $this->getName(), MigrationSource::class)
             ->addArgument($this->getName())
             ->addArgument([$migrationPath => $this->getMigrationNamespace()])
-            ->addTag('shopware.migration_source');
+            ->addTag('heyframe.migration_source');
     }
 
     protected function buildDefaultConfig(ContainerBuilder $container): void
@@ -161,7 +163,7 @@ abstract class Bundle extends SymfonyBundle
     private function registerFilesystem(ContainerBuilder $container, string $key): void
     {
         $containerPrefix = $this->getContainerPrefix();
-        $parameterKey = \sprintf('shopware.filesystem.%s', $key);
+        $parameterKey = \sprintf('heyframe.filesystem.%s', $key);
         $serviceId = \sprintf('%s.filesystem.%s', $containerPrefix, $key);
 
         $filesystem = new Definition(

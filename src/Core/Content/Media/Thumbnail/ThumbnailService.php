@@ -24,6 +24,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use League\Flysystem\FilesystemOperator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -31,6 +32,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 /**
  * @phpstan-type ImageSize array{width: int<1, max>, height: int<1, max>}
  */
+#[Package('discovery')]
 class ThumbnailService
 {
     /**

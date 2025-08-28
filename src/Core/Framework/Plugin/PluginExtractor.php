@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Plugin;
 
 use HeyFrame\Core\Framework\App\Manifest\Manifest;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginExtractionException;
 use HeyFrame\Core\Framework\Plugin\Util\ZipUtils;
 use Symfony\Component\Filesystem\Filesystem;
@@ -10,6 +11,7 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * @internal
  */
+#[Package('framework')]
 class PluginExtractor
 {
     /**

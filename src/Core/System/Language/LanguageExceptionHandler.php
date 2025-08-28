@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\System\Language;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\ExceptionHandlerInterface;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('fundamentals@discovery')]
 /**
  * @deprecated tag:v6.8.0 - reason:remove-subscriber - Will be removed, as the exception handler is no longer needed, languages now also throw RestrictDeleteViolationException
  * @see RestrictDeleteViolationException is now thrown instead

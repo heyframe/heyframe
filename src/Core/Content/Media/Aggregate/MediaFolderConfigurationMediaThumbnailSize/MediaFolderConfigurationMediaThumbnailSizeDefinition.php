@@ -10,7 +10,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class MediaFolderConfigurationMediaThumbnailSizeDefinition extends MappingEntityDefinition
 {
     final public const ENTITY_NAME = 'media_folder_configuration_media_thumbnail_size';

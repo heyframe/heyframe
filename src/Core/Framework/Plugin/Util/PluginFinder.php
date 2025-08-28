@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\Plugin\Util;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Package\CompletePackageInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Composer\Factory;
 use HeyFrame\Core\Framework\Plugin\Composer\PackageProvider;
 use HeyFrame\Core\Framework\Plugin\Exception\ExceptionCollection;
@@ -13,10 +14,11 @@ use HeyFrame\Core\Framework\Plugin\Struct\PluginFromFileSystemStruct;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
+#[Package('framework')]
 class PluginFinder
 {
-    final public const COMPOSER_TYPE = 'shopware-platform-plugin';
-    private const SHOPWARE_PLUGIN_CLASS_EXTRA_IDENTIFIER = 'shopware-plugin-class';
+    final public const COMPOSER_TYPE = 'heyframe-platform-plugin';
+    private const HEYFRAME_PLUGIN_CLASS_EXTRA_IDENTIFIER = 'heyframe-plugin-class';
 
     /**
      * @internal
@@ -93,14 +95,14 @@ class PluginFinder
 
     private function isPluginComposerValid(CompletePackageInterface $package): bool
     {
-        return isset($package->getExtra()[self::SHOPWARE_PLUGIN_CLASS_EXTRA_IDENTIFIER])
-            && $package->getExtra()[self::SHOPWARE_PLUGIN_CLASS_EXTRA_IDENTIFIER] !== ''
+        return isset($package->getExtra()[self::HEYFRAME_PLUGIN_CLASS_EXTRA_IDENTIFIER])
+            && $package->getExtra()[self::HEYFRAME_PLUGIN_CLASS_EXTRA_IDENTIFIER] !== ''
             && !empty($package->getExtra()['label']);
     }
 
     private function getPluginNameFromPackage(CompletePackageInterface $pluginPackage): string
     {
-        return $pluginPackage->getExtra()[self::SHOPWARE_PLUGIN_CLASS_EXTRA_IDENTIFIER];
+        return $pluginPackage->getExtra()[self::HEYFRAME_PLUGIN_CLASS_EXTRA_IDENTIFIER];
     }
 
     /**
@@ -176,7 +178,7 @@ class PluginFinder
                 \sprintf(
                     'Plugin composer.json has invalid "type" (must be "%s"), or invalid "extra/%s" value, or missing extra.label property',
                     self::COMPOSER_TYPE,
-                    self::SHOPWARE_PLUGIN_CLASS_EXTRA_IDENTIFIER
+                    self::HEYFRAME_PLUGIN_CLASS_EXTRA_IDENTIFIER
                 ),
             ]
         ));

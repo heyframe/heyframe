@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class FloatComparator
 {
     private const EPSILON = 0.00000001;

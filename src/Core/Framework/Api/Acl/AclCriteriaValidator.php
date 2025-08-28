@@ -10,8 +10,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\FrameworkException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+#[Package('framework')]
 class AclCriteriaValidator
 {
     /**

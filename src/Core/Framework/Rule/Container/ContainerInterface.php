@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Rule\Container;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 
+#[Package('fundamentals@after-sales')]
 interface ContainerInterface
 {
     /**

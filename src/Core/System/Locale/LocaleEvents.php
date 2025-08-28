@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\System\Locale;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('discovery')]
 class LocaleEvents
 {
     final public const LOCALE_WRITTEN_EVENT = 'locale.written';

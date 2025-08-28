@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Increment\Controller;
 
 use HeyFrame\Core\Framework\Increment\IncrementException;
 use HeyFrame\Core\Framework\Increment\IncrementGatewayRegistry;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('framework')]
 class IncrementApiController
 {
     /**

@@ -10,6 +10,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\Constraint\Uuid as UuidConstraint;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -17,6 +18,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 /**
  * @internal
  */
+#[Package('framework')]
 class FkFieldSerializer extends AbstractFieldSerializer
 {
     public function normalize(Field $field, array $data, WriteParameterBag $parameters): array

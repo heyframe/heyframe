@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaPartInterface;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('framework')]
 class FieldSorting extends Struct implements CriteriaPartInterface
 {
     public const ASCENDING = 'ASC';

@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Context\ActivateContext;
 use HeyFrame\Core\Framework\Plugin\Context\DeactivateContext;
 use HeyFrame\Core\Framework\Plugin\Context\InstallContext;
@@ -11,6 +12,7 @@ use HeyFrame\Core\Framework\Plugin\PluginException;
 use HeyFrame\Core\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
+#[Package('framework')]
 abstract class Plugin extends Bundle
 {
     /**
@@ -93,8 +95,8 @@ abstract class Plugin extends Bundle
 
     public function removeMigrations(): void
     {
-        // namespace should not start with `shopware`
-        if (str_starts_with(mb_strtolower($this->getMigrationNamespace()), 'shopware') && !str_starts_with(mb_strtolower($this->getMigrationNamespace()), 'shopware\commercial')) {
+        // namespace should not start with `heyframe`
+        if (str_starts_with(mb_strtolower($this->getMigrationNamespace()), 'heyframe') && !str_starts_with(mb_strtolower($this->getMigrationNamespace()), 'heyframe\commercial')) {
             throw PluginException::cannotDeleteHeyFrameMigrations();
         }
 

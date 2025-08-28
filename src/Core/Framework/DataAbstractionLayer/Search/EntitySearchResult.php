@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\AggregationResultCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 
 /**
@@ -16,6 +17,7 @@ use HeyFrame\Core\Framework\Struct\StateAwareTrait;
  *
  * @extends EntityCollection<TElement>
  */
+#[Package('framework')]
 class EntitySearchResult extends EntityCollection
 {
     use StateAwareTrait;

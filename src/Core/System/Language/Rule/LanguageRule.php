@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\System\Language\Rule;
 
 use HeyFrame\Core\Checkout\Customer\CustomerException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedValueException;
 use HeyFrame\Core\Framework\Rule\Rule;
@@ -16,6 +17,7 @@ use HeyFrame\Core\System\Language\LanguageException;
 /**
  * @final
  */
+#[Package('fundamentals@discovery')]
 class LanguageRule extends Rule
 {
     final public const RULE_NAME = 'language';

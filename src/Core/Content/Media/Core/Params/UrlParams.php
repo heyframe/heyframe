@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Content\Media\Core\Params;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('discovery')]
 class UrlParams extends Struct
 {
     public function __construct(

@@ -6,7 +6,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\Aggregate\VersionCommitData\VersionCommitDataCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\VersionEntity;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class VersionCommitEntity extends Entity
 {
     use EntityIdTrait;

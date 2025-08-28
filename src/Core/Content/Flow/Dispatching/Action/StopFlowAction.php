@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Content\Flow\Dispatching\Action;
 
 use HeyFrame\Core\Content\Flow\Dispatching\DelayableAction;
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('after-sales')]
 class StopFlowAction extends FlowAction implements DelayableAction
 {
     public static function getName(): string

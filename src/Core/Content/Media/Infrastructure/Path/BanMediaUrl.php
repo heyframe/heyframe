@@ -7,7 +7,9 @@ use HeyFrame\Core\Content\Media\Core\Application\MediaReverseProxy;
 use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
 use HeyFrame\Core\Content\Media\Core\Params\UrlParamsSource;
 use HeyFrame\Core\Content\Media\Event\MediaPathChangedEvent;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class BanMediaUrl
 {
     /**

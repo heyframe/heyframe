@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Log\Monolog;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 use Symfony\Component\Console\Command\Command;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * @internal
  */
+#[Package('framework')]
 class AnnotatePackageProcessor implements ProcessorInterface
 {
     /**

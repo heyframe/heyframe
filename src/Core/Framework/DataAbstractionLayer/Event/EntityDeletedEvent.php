@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Event;
 
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class EntityDeletedEvent extends EntityWrittenEvent
 {
     public function __construct(

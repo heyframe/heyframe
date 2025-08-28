@@ -6,10 +6,12 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @phpstan-type DataRow array{data: array<string, mixed>, types: array<string, ParameterType>|null}
  */
+#[Package('framework')]
 class MultiInsertQueryQueue
 {
     /**

@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -10,6 +11,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  * That is a workaround for the issue with the SendEmailMessage class which is not json serializable.
  * See issue in symfony/symfony repository since 2019: https://github.com/symfony/symfony/issues/33394
  */
+#[Package('framework')]
 class SendEmailMessageJsonSerializer implements NormalizerInterface, DenormalizerInterface
 {
     /**

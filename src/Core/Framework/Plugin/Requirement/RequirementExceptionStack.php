@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Requirement;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Requirement\Exception\RequirementException;
 use HeyFrame\Core\Framework\Plugin\Requirement\Exception\RequirementStackException;
 
+#[Package('framework')]
 class RequirementExceptionStack
 {
     /**

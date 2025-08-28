@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Increment;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @final
  */
+#[Package('framework')]
 class IncrementGatewayRegistry
 {
     final public const MESSAGE_QUEUE_POOL = 'message_queue';

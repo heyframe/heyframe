@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -9,6 +10,7 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 /**
  * @internal
  */
+#[Package('framework')]
 class MessageHandlerCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void

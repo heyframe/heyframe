@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Filesystem\Filesystem as Io;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
@@ -14,6 +15,7 @@ use Symfony\Component\Finder\SplFileInfo;
  *
  * @see \HeyFrame\Tests\Integration\Core\Framework\Util\FilesystemTest
  */
+#[Package('framework')]
 class Filesystem
 {
     public function __construct(

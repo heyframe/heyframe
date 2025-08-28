@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Content\Media\File;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('discovery')]
 class MediaFile
 {
     public function __construct(

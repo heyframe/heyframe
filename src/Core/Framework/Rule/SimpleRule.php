@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class SimpleRule extends Rule
 {
     final public const RULE_NAME = 'simple';

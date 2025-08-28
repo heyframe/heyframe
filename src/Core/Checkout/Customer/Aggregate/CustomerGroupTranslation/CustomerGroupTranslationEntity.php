@@ -6,7 +6,9 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\TranslationEntity;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class CustomerGroupTranslationEntity extends TranslationEntity
 {
     use EntityCustomFieldsTrait;

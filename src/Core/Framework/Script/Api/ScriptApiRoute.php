@@ -5,13 +5,14 @@ namespace HeyFrame\Core\Framework\Script\Api;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Controller\Exception\PermissionDeniedException;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\Framework\Script\Execution\Script;
 use HeyFrame\Core\Framework\Script\Execution\ScriptAppInformation;
 use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\Framework\Script\Execution\ScriptLoader;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\System\SalesChannel\Api\ResponseFields;
+use HeyFrame\Core\System\Channel\Api\ResponseFields;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,7 +21,7 @@ use Symfony\Component\Routing\Attribute\Route;
  * @internal
  */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
-
+#[Package('framework')]
 class ScriptApiRoute
 {
     public function __construct(

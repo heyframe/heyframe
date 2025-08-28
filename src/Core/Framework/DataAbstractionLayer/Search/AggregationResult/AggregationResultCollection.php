@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 
 /**
  * @extends Collection<AggregationResult>
  */
+#[Package('framework')]
 class AggregationResultCollection extends Collection
 {
     use StateAwareTrait;

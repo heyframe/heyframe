@@ -14,10 +14,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TreeLevelField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TreePathField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Util\StatementHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidLengthException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
+#[Package('framework')]
 class TreeUpdater
 {
     /**

@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Stats\Entity;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class MessageStatsEntity extends Struct
 {
     public function __construct(

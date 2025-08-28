@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Script\Execution\Awareness;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Api\ScriptResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
  */
+#[Package('framework')]
 trait ScriptResponseAwareTrait
 {
     /**

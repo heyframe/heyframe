@@ -7,10 +7,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationFiel
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaPartInterface;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class RepositorySearchDetector
 {
     public static function isSearchRequired(EntityDefinition $definition, Criteria $criteria): bool

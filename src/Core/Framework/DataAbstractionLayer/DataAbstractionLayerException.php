@@ -22,12 +22,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\ExpectedArrayException;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use HeyFrame\Elasticsearch\Product\ElasticsearchProductException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationList;
 
+#[Package('framework')]
 class DataAbstractionLayerException extends HttpException
 {
     public const INVALID_FIELD_SERIALIZER_CODE = 'FRAMEWORK__INVALID_FIELD_SERIALIZER';

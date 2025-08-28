@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Script\Execution\Awareness;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal
  */
+#[Package('framework')]
 trait StoppableHookTrait
 {
     protected bool $isPropagationStopped = false;

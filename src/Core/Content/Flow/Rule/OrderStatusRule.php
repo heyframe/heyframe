@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\Flow\Rule;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\FlowRule;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Rule\RuleComparison;
@@ -13,6 +14,7 @@ use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState\StateMachine
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class OrderStatusRule extends FlowRule
 {
     public const RULE_NAME = 'orderStatus';

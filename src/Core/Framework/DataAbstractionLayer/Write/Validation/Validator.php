@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+#[Package('framework')]
 class Validator
 {
     private array $data = [];

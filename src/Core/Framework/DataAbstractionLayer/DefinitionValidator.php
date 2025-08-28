@@ -28,12 +28,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StorageAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
 use Symfony\Component\String\Inflector\EnglishInflector;
 
 /**
  * @final
  */
+#[Package('framework')]
 class DefinitionValidator
 {
     private const IGNORE_FIELDS = [
@@ -44,7 +46,7 @@ class DefinitionValidator
         'customer.activeShippingAddress',
         'customer.activeBillingAddress',
         'product_configurator_setting.selected',
-        'sales_channel.wishlists',
+        'channel.wishlists',
         'product.wishlists',
         'order.billingAddress',
         'product_search_config.excludedTerms',
@@ -90,7 +92,7 @@ class DefinitionValidator
         'app_config',
         'cart',
         'migration',
-        'sales_channel_api_context',
+        'channel_api_context',
         'elasticsearch_index_task',
         'increment',
         'messenger_messages',
@@ -128,7 +130,7 @@ class DefinitionValidator
     private const IGNORED_PARENT_DEFINITION = [
         // is a root definition, but is in aggregate namespace
         'customer_group',
-        'sales_channel_type',
+        'channel_type',
         'flow_template',
         'import_export_file',
         'import_export_log',
@@ -285,10 +287,10 @@ class DefinitionValidator
             }
 
             if ($property->isReadOnly()) {
-                $notices[] = \sprintf('Field %s in entity struct should not be readonly in %s, as it needs to be writable by the DAL, see https://developer.heyframe.com/docs/guides/plugins/plugins/framework/data-handling/add-custom-complex-data.html#entity-class', $property->getName(), $definition->getClass());
+                $notices[] = \sprintf('Field %s in entity struct should not be readonly in %s, as it needs to be writable by the DAL, see https://developer.heyframe.net/docs/guides/plugins/plugins/framework/data-handling/add-custom-complex-data.html#entity-class', $property->getName(), $definition->getClass());
             }
             if ($property->isPrivate()) {
-                $notices[] = \sprintf('Field %s in entity struct should not be private in %s, as it needs to be accessible by the DAL, see https://developer.heyframe.com/docs/guides/plugins/plugins/framework/data-handling/add-custom-complex-data.html#entity-class', $property->getName(), $definition->getClass());
+                $notices[] = \sprintf('Field %s in entity struct should not be private in %s, as it needs to be accessible by the DAL, see https://developer.heyframe.net/docs/guides/plugins/plugins/framework/data-handling/add-custom-complex-data.html#entity-class', $property->getName(), $definition->getClass());
             }
 
             $parentClass = $reflection->getParentClass();

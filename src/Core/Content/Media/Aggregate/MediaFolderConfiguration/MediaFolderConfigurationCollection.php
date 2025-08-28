@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Content\Media\Aggregate\MediaFolderConfiguration;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<MediaFolderConfigurationEntity>
  */
+#[Package('discovery')]
 class MediaFolderConfigurationCollection extends EntityCollection
 {
     public function getApiAlias(): string

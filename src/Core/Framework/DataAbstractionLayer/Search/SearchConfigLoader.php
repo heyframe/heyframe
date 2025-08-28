@@ -6,11 +6,13 @@ use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @phpstan-type SearchConfig array{and_logic: string, excluded_terms: array<string>, min_search_length: int, field: string, tokenize: int, ranking: float}
  */
+#[Package('framework')]
 class SearchConfigLoader
 {
     private const NOT_SUPPORTED_FIELDS = [

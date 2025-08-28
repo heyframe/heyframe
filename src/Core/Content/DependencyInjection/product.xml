@@ -2,6 +2,566 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <services>
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\ProductDefinition">
+            <tag name="heyframe.entity.definition"/>
+            <tag name="heyframe.entity.hookable"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductStreamMapping\ProductStreamMappingDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\ChannelProductDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCategory\ProductCategoryDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCustomFieldSet\ProductCustomFieldSetDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductTag\ProductTagDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceDefinition">
+            <tag name="heyframe.entity.definition"/>
+            <tag name="heyframe.entity.hookable"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductProperty\ProductPropertyDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductKeywordDictionary\ProductKeywordDictionaryDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductManufacturer\ProductManufacturerDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductManufacturerTranslation\ProductManufacturerTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductDownload\ProductDownloadDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductOption\ProductOptionDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCategoryTree\ProductCategoryTreeDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCrossSellingTranslation\ProductCrossSellingTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCrossSellingAssignedProducts\ProductCrossSellingAssignedProductsDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductFeatureSet\ProductFeatureSetDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductFeatureSetTranslation\ProductFeatureSetTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfig\ProductSearchConfigDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfigField\ProductSearchConfigFieldDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfigField\ProductSearchConfigFieldExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfig\ProductSearchConfigExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cart\ProductGateway">
+            <argument type="service" id="channel.product.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\AbstractPropertyGroupSorter" class="HeyFrame\Core\Content\Product\PropertyGroupSorter"/>
+
+        <service id="HeyFrame\Core\Content\Product\AbstractProductMaxPurchaseCalculator" class="HeyFrame\Core\Content\Product\ProductMaxPurchaseCalculator">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\AbstractIsNewDetector" class="HeyFrame\Core\Content\Product\IsNewDetector">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\ProductVariationBuilder"/>
+
+        <service id="HeyFrame\Core\Content\Product\Subscriber\ProductSubscriber">
+            <argument type="service" id="HeyFrame\Core\Content\Product\ProductVariationBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Price\ProductPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\AbstractPropertyGroupSorter"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\AbstractProductMaxPurchaseCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\AbstractIsNewDetector"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="HeyFrame\Core\Content\MeasurementSystem\ProductMeasurement\ProductMeasurementUnitBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Content\MeasurementSystem\Unit\MeasurementUnitConverter"/>
+            <argument type="service" id="request_stack"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Stock\OrderStockSubscriber">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Stock\StockStorage"/>
+            <argument>%heyframe.stock.enable_stock_management%</argument>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Stock\AvailableStockMirrorSubscriber">
+            <tag name="kernel.event_listener"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Stock\LoadProductStockSubscriber">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Stock\StockStorage"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchKeywordAnalyzer">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Tokenizer"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\TokenFilter"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Api\ProductActionController" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Util\VariantCombinationLoader"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Util\VariantCombinationLoader">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\ProductBoxCmsElementResolver">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <tag name="heyframe.cms.data_resolver" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\ProductListingCmsElementResolver">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingRoute" />
+            <argument type="service" id="product_sorting.repository" />
+            <tag name="heyframe.cms.data_resolver" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\ProductSliderCmsElementResolver">
+            <argument type="tagged_iterator" tag="heyframe.cms.product_slider.processor"/>
+            <argument type="service" id="logger"/>
+
+            <tag name="heyframe.cms.data_resolver"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\ProductSlider\StaticProductProcessor">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+
+            <tag name="heyframe.cms.product_slider.processor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\ProductSlider\ProductStreamProcessor">
+            <argument type="service" id="HeyFrame\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
+            <argument type="service" id="channel.product.repository"/>
+
+            <tag name="heyframe.cms.product_slider.processor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\ProductNameCmsElementResolver">
+            <tag name="heyframe.cms.data_resolver" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\ManufacturerLogoCmsElementResolver">
+            <tag name="heyframe.cms.data_resolver" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\CrossSellingCmsElementResolver">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\CrossSelling\ProductCrossSellingRoute"/>
+            <tag name="heyframe.cms.data_resolver"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\ProductDescriptionReviewsCmsElementResolver">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Review\ProductReviewLoader"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <tag name="heyframe.cms.data_resolver"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Price\ProductPriceCalculator">
+            <argument type="service" id="unit.repository"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Price\AppScriptProductPriceCalculator" decorates="HeyFrame\Core\Content\Product\Channel\Price\ProductPriceCalculator">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Price\AppScriptProductPriceCalculator.inner"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Facade\ScriptPriceStubs"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor">
+            <argument type="tagged_iterator" tag="heyframe.listing.processor" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\ManufacturerListingFilterHandler" />
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\PriceListingFilterHandler" />
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\RatingListingFilterHandler"/>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\ShippingFreeListingFilterHandler"/>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\PropertyListingFilterHandler">
+            <argument type="service" id="property_group.repository"/>
+            <argument type="service" id="property_group_option.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <instanceof id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\AbstractListingFilterHandler">
+            <tag name="heyframe.listing.filter.handler" />
+        </instanceof>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\SortingListingProcessor">
+            <tag name="heyframe.listing.processor"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="product_sorting.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\AggregationListingProcessor">
+            <argument type="tagged_iterator" tag="heyframe.listing.filter.handler" />
+            <argument type="service" id="event_dispatcher" />
+            <tag name="heyframe.listing.processor" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\AssociationLoadingListingProcessor">
+            <tag name="heyframe.listing.processor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\BehaviorListingProcessor">
+            <tag name="heyframe.listing.processor" priority="-1000"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\PagingListingProcessor">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <tag name="heyframe.listing.processor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface"
+                 class="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilder">
+            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchTermInterpreter"/>
+            <argument type="service" id="logger"/>
+            <argument>%heyframe.search.term_max_length%</argument>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cart\ProductLineItemCommandValidator">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Suggest\ResolvedCriteriaProductSuggestRoute"
+                 decorates="HeyFrame\Core\Content\Product\Channel\Suggest\ProductSuggestRoute"
+                 decoration-priority="-2000" public="true">
+
+            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Suggest\ResolvedCriteriaProductSuggestRoute.inner"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Suggest\ProductSuggestRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Search\ProductSearchRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Search\ResolvedCriteriaProductSearchRoute" decorates="HeyFrame\Core\Content\Product\Channel\Search\ProductSearchRoute" decoration-priority="-2000" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Search\ResolvedCriteriaProductSearchRoute.inner"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\ResolveCriteriaProductListingRoute" decorates="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingRoute" decoration-priority="-2000" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ResolveCriteriaProductListingRoute.inner"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\FindVariant\FindProductVariantRoute" public="true">
+            <argument type="service" id="channel.product.repository"/>
+        </service>
+
+        <!-- decorated by cached route -->
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader" />
+            <argument type="service" id="category.repository"/>
+            <argument type="service" id="HeyFrame\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductIndexer">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductCategoryDenormalizer"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\InheritanceUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\RatingAverageUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\SearchKeywordUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ManyToManyIdFieldUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Stock\StockStorage"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductStreamUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StatesUpdater"/>
+            <argument type="service" id="messenger.default_bus"/>
+            <tag name="heyframe.entity_indexer" priority="100"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductStreamUpdater">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\ProductDefinition"/>
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="messenger.default_bus"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ManyToManyIdFieldUpdater"/>
+            <argument>%heyframe.product_stream.indexing%</argument>
+            <tag name="heyframe.entity_indexer"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StatesUpdater">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingUpdater">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductCategoryDenormalizer">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceUpdater">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceQuantitySelector"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceQuantitySelector"/>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\RatingAverageUpdater">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\SearchKeywordUpdater">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="language.repository"/>
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchKeywordAnalyzer"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StockUpdate\StockUpdateFilterProvider">
+            <argument type="tagged_iterator" tag="heyframe.product.stock_filter"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Stock\StockStorage">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader">
+            <argument type="service" id="channel.product.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\ProductCloseoutFilterFactory"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Detail\ProductDetailRoute" public="true">
+            <argument type="service" id="channel.product.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Detail\ProductConfiguratorLoader"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\Service\CategoryBreadcrumbBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Content\Cms\Channel\ChannelCmsPageLoader"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\ChannelProductDefinition"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\ProductCloseoutFilterFactory"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Review\ProductReviewLoader">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Review\ProductReviewRoute"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Review\ProductReviewRoute" public="true">
+            <argument type="service" id="product_review.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Detail\ProductConfiguratorLoader">
+            <argument type="service" id="product_configurator_setting.repository"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Detail\AvailableCombinationLoader"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Detail\AvailableCombinationLoader">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Stock\StockStorage"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\CrossSelling\ProductCrossSellingRoute" public="true">
+            <argument type="service" id="product_cross_selling.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
+            <argument type="service" id="channel.product.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\ProductCloseoutFilterFactory"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Review\ProductReviewSaveRoute" public="true">
+            <argument type="service" id="product_review.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\ProductListRoute" public="true">
+            <argument type="service" id="channel.product.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cms\BuyBoxCmsElementResolver">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Detail\ProductConfiguratorLoader"/>
+            <argument type="service" id="product_review.repository"/>
+            <tag name="heyframe.cms.data_resolver"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\TokenFilter">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader"/>
+
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPriceAccessorBuilder">
+            <argument>%heyframe.dal.max_rule_prices%</argument>
+            <argument type="service" id="logger"/>
+
+            <tag name="heyframe.field_accessor_builder" priority="-200"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cleanup\CleanupProductKeywordDictionaryTask">
+            <tag name="heyframe.scheduled.task"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cleanup\CleanupProductKeywordDictionaryTaskHandler">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cleanup\CleanupUnusedDownloadMediaTask">
+            <tag name="heyframe.scheduled.task"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Cleanup\CleanupUnusedDownloadMediaTaskHandler">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="HeyFrame\Core\Content\Media\UnusedMediaPurger"/>
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\ProductCloseoutFilterFactory"/>
+
+        <service id="HeyFrame\Core\Content\Product\Api\ProductNumberFkResolver">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="heyframe.sync.fk_resolver"/>
+        </service>
+    </services>
 </container>

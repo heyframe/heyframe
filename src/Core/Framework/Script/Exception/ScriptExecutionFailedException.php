@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\Script\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\ScriptException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
+#[Package('framework')]
 class ScriptExecutionFailedException extends ScriptException
 {
     public const ERROR_CODE = 'FRAMEWORK_SCRIPT_EXECUTION_FAILED';

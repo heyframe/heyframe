@@ -3,11 +3,13 @@
 namespace HeyFrame\Core\Framework\Util\Exception;
 
 use HeyFrame\Core\Framework\HttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @deprecated tag:v6.8.0 - reason:remove-exception - Will be removed, use UtilException::operatorNotSupported()
  */
+#[Package('framework')]
 class ComparatorException extends HttpException
 {
     public const OPERATOR_NOT_SUPPORTED = 'CONTENT__OPERATOR_NOT_SUPPORTED';

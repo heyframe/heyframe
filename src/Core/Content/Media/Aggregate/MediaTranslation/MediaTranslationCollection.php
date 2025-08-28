@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Content\Media\Aggregate\MediaTranslation;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<MediaTranslationEntity>
  */
+#[Package('discovery')]
 class MediaTranslationCollection extends EntityCollection
 {
     /**

@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Content\Flow\Extension;
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Content\Flow\Dispatching\Struct\Flow;
 use HeyFrame\Core\Framework\Extensions\Extension;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @public
@@ -17,12 +18,13 @@ use HeyFrame\Core\Framework\Extensions\Extension;
  *
  * @codeCoverageIgnore
  */
+#[Package('after-sales')]
 final class FlowExecutorExtension extends Extension
 {
     public const NAME = 'flow.executor';
 
     /**
-     * @internal shopware owns the __constructor, but the properties are public API
+     * @internal heyframe owns the __constructor, but the properties are public API
      */
     public function __construct(
         public readonly Flow $flow,

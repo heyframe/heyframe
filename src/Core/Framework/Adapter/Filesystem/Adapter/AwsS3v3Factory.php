@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Adapter\Filesystem\Adapter;
 
 use AsyncAws\S3\S3Client;
 use HeyFrame\Core\Framework\Adapter\AdapterException;
+use HeyFrame\Core\Framework\Log\Package;
 use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
 use League\Flysystem\AsyncAwsS3\PortableVisibilityConverter;
 use League\Flysystem\FilesystemAdapter;
@@ -12,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @phpstan-type S3Config = array{bucket: string, region: string, root: string, credentials?: array{key: string, secret: string}, endpoint?: string, options: array<mixed>, use_path_style_endpoint?: bool, visibility?: string, url?: string}
  */
+#[Package('framework')]
 class AwsS3v3Factory implements AdapterFactoryInterface
 {
     /**

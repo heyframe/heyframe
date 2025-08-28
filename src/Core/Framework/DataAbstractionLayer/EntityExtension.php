@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection\EntityProtectionCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 abstract class EntityExtension
 {
     /**

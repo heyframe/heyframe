@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Feature\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[Package('framework')]
 class FeatureFlagToggledEvent extends Event
 {
     public function __construct(

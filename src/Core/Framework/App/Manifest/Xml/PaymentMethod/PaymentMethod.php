@@ -4,10 +4,12 @@ namespace HeyFrame\Core\Framework\App\Manifest\Xml\PaymentMethod;
 
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
 use HeyFrame\Core\Framework\App\Manifest\XmlParserUtils;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class PaymentMethod extends XmlElement
 {
     protected const REQUIRED_FIELDS = [

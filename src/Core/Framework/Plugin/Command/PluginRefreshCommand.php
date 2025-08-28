@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Framework\Plugin\Command;
 use Composer\IO\ConsoleIO;
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginService;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -19,6 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'plugin:refresh',
     description: 'Refreshes the plugin list',
 )]
+#[Package('framework')]
 class PluginRefreshCommand extends Command
 {
     /**

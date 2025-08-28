@@ -26,6 +26,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\ChangeSetAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\DeleteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Collector\RuleConditionRegistry;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,6 +34,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('fundamentals@after-sales')]
 class RuleAreaUpdater implements EventSubscriberInterface
 {
     public function __construct(

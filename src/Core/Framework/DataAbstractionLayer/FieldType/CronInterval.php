@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\FieldType;
 
 use Cron\CronExpression;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('checkout')]
 class CronInterval extends CronExpression
 {
     public const EMPTY_EXPRESSION = '* * * * *';

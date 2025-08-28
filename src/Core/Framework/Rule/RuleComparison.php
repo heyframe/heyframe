@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Framework\Rule;
 
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\FloatComparator;
 
+#[Package('fundamentals@after-sales')]
 class RuleComparison
 {
     public static function numeric(?float $itemValue, ?float $ruleValue, string $operator): bool

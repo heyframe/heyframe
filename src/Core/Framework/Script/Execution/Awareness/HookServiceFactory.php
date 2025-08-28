@@ -2,12 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Script\Execution\Awareness;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
 use HeyFrame\Core\Framework\Script\Execution\Script;
 
 /**
  * @internal not to be intended that plugin developers can provide services for hooks (atm)
  */
+#[Package('framework')]
 abstract class HookServiceFactory
 {
     /**

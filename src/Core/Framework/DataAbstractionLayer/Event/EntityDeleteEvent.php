@@ -7,6 +7,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\DeleteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteContext;
 use HeyFrame\Core\Framework\Event\HeyFrameEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -16,6 +17,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  * You can use this event to capture state and perform actions after an entity is removed. For example, you could collect the entity name before it is deleted, then after it is deleted,
  * use the name to remove the respective data from a third party system via an API call.
  */
+#[Package('framework')]
 class EntityDeleteEvent extends Event implements HeyFrameEvent
 {
     /**

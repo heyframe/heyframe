@@ -5,8 +5,10 @@ namespace HeyFrame\Core\System\User\Aggregate\UserAccessKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\User\UserEntity;
 
+#[Package('fundamentals@framework')]
 class UserAccessKeyEntity extends Entity
 {
     use EntityCustomFieldsTrait;

@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\PropertyNotFoundException;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+#[Package('framework')]
 class Entity extends Struct
 {
     protected string $_uniqueIdentifier;

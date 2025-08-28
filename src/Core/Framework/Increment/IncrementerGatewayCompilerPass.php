@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Framework\Increment;
 
 use HeyFrame\Core\Framework\Adapter\Redis\RedisConnectionProvider;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -11,13 +12,14 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @internal
  */
+#[Package('framework')]
 class IncrementerGatewayCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
         /** @var array{type?: string, config?: array<string, mixed>}[] $services */
-        $services = $container->getParameter('shopware.increment');
-        $tag = 'shopware.increment.gateway';
+        $services = $container->getParameter('heyframe.increment');
+        $tag = 'heyframe.increment.gateway';
 
         foreach ($services as $pool => $service) {
             $type = $service['type'] ?? null;
@@ -26,7 +28,7 @@ class IncrementerGatewayCompilerPass implements CompilerPassInterface
                 throw IncrementException::wrongGatewayType($pool);
             }
 
-            $active = \sprintf('shopware.increment.%s.gateway.%s', $pool, $type);
+            $active = \sprintf('heyframe.increment.%s.gateway.%s', $pool, $type);
             $config = [];
 
             // If service is not registered directly in the container, try to resolve them using fallback gateway
@@ -64,10 +66,10 @@ class IncrementerGatewayCompilerPass implements CompilerPassInterface
      */
     private function resolveTypeDefinition(ContainerBuilder $container, string $pool, string $type, array $config = []): string
     {
-        // shopware.increment.gateway.mysql is fallback gateway if custom gateway is not set
-        $fallback = \sprintf('shopware.increment.gateway.%s', $type);
+        // heyframe.increment.gateway.mysql is fallback gateway if custom gateway is not set
+        $fallback = \sprintf('heyframe.increment.gateway.%s', $type);
 
-        $gatewayServiceName = \sprintf('shopware.increment.%s.gateway.%s', $pool, $type);
+        $gatewayServiceName = \sprintf('heyframe.increment.%s.gateway.%s', $pool, $type);
 
         switch ($type) {
             case 'array':
@@ -90,7 +92,7 @@ class IncrementerGatewayCompilerPass implements CompilerPassInterface
                     return $gatewayServiceName;
                 }
 
-                $adapterServiceName = \sprintf('shopware.increment.%s.redis_adapter', $pool);
+                $adapterServiceName = \sprintf('heyframe.increment.%s.redis_adapter', $pool);
 
                 $container->setDefinition($adapterServiceName, $connectionDefinition);
 

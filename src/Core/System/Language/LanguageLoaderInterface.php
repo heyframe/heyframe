@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\System\Language;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @phpstan-type LanguageData array<string, array{id: string, code: string, parentId: string, parentCode?: ?string}>
  */
+#[Package('fundamentals@discovery')]
 interface LanguageLoaderInterface
 {
     /**

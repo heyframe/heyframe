@@ -13,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationCollection;
 use HeyFrame\Core\Framework\Migration\MigrationCollectionLoader;
 use HeyFrame\Core\Framework\Migration\MigrationSource;
@@ -55,6 +56,7 @@ use Symfony\Component\Messenger\EventListener\StopWorkerOnRestartSignalListener;
 /**
  * @internal
  */
+#[Package('framework')]
 class PluginLifecycleService
 {
     final public const STATE_SKIP_ASSET_BUILDING = 'skip-asset-building';
@@ -79,7 +81,7 @@ class PluginLifecycleService
         private readonly CommandExecutor $executor,
         private readonly RequirementsValidator $requirementValidator,
         private readonly CacheItemPoolInterface $restartSignalCachePool,
-        private readonly string $shopwareVersion,
+        private readonly string $heyframeVersion,
         private readonly SystemConfigService $systemConfigService,
         private readonly CustomEntityPersister $customEntityPersister,
         private readonly CustomEntitySchemaUpdater $customEntitySchemaUpdater,
@@ -92,7 +94,7 @@ class PluginLifecycleService
     /**
      * @throws RequirementStackException
      */
-    public function installPlugin(PluginEntity $plugin, Context $shopwareContext): InstallContext
+    public function installPlugin(PluginEntity $plugin, Context $heyframeContext): InstallContext
     {
         $pluginData = [];
         $pluginBaseClass = $this->getPluginBaseClass($plugin->getBaseClass());
@@ -100,8 +102,8 @@ class PluginLifecycleService
 
         $installContext = new InstallContext(
             $pluginBaseClass,
-            $shopwareContext,
-            $this->shopwareVersion,
+            $heyframeContext,
+            $this->heyframeVersion,
             $pluginVersion,
             $this->createMigrationCollection($pluginBaseClass)
         );
@@ -113,9 +115,9 @@ class PluginLifecycleService
         $didRunComposerRequire = false;
 
         if ($pluginBaseClass->executeComposerCommands()) {
-            $didRunComposerRequire = $this->executeComposerRequireWhenNeeded($plugin, $pluginBaseClass, $pluginVersion, $shopwareContext);
+            $didRunComposerRequire = $this->executeComposerRequireWhenNeeded($plugin, $pluginBaseClass, $pluginVersion, $heyframeContext);
         } else {
-            $this->requirementValidator->validateRequirements($plugin, $shopwareContext, 'install');
+            $this->requirementValidator->validateRequirements($plugin, $heyframeContext, 'install');
         }
 
         try {
@@ -145,13 +147,13 @@ class PluginLifecycleService
             $pluginData['installedAt'] = $installDate->format(Defaults::STORAGE_DATE_TIME_FORMAT);
             $plugin->setInstalledAt($installDate);
 
-            $this->updatePluginData($pluginData, $shopwareContext);
+            $this->updatePluginData($pluginData, $heyframeContext);
 
             $pluginBaseClass->postInstall($installContext);
 
             $this->eventDispatcher->dispatch(new PluginPostInstallEvent($plugin, $installContext));
         } catch (\Throwable $e) {
-            if ($didRunComposerRequire && $plugin->getComposerName() && !$this->container->getParameter('shopware.deployment.cluster_setup')) {
+            if ($didRunComposerRequire && $plugin->getComposerName() && !$this->container->getParameter('heyframe.deployment.cluster_setup')) {
                 $this->executor->remove($plugin->getComposerName(), $plugin->getName());
             }
 
@@ -166,7 +168,7 @@ class PluginLifecycleService
      */
     public function uninstallPlugin(
         PluginEntity $plugin,
-        Context $shopwareContext,
+        Context $heyframeContext,
         bool $keepUserData = false
     ): UninstallContext {
         if ($plugin->getInstalledAt() === null) {
@@ -174,7 +176,7 @@ class PluginLifecycleService
         }
 
         if ($plugin->getActive()) {
-            $this->deactivatePlugin($plugin, $shopwareContext);
+            $this->deactivatePlugin($plugin, $heyframeContext);
         }
 
         $pluginBaseClassString = $plugin->getBaseClass();
@@ -182,8 +184,8 @@ class PluginLifecycleService
 
         $uninstallContext = new UninstallContext(
             $pluginBaseClass,
-            $shopwareContext,
-            $this->shopwareVersion,
+            $heyframeContext,
+            $this->heyframeVersion,
             $plugin->getVersion(),
             $this->createMigrationCollection($pluginBaseClass),
             $keepUserData
@@ -192,7 +194,7 @@ class PluginLifecycleService
 
         $this->eventDispatcher->dispatch(new PluginPreUninstallEvent($plugin, $uninstallContext));
 
-        if (!$shopwareContext->hasState(self::STATE_SKIP_ASSET_BUILDING)) {
+        if (!$heyframeContext->hasState(self::STATE_SKIP_ASSET_BUILDING)) {
             $this->assetInstaller->removeAssetsOfBundle($pluginBaseClassString);
         }
 
@@ -215,7 +217,7 @@ class PluginLifecycleService
                 'active' => false,
                 'installedAt' => null,
             ],
-            $shopwareContext
+            $heyframeContext
         );
         $plugin->setActive(false);
         $plugin->setInstalledAt(null);
@@ -225,7 +227,7 @@ class PluginLifecycleService
         }
 
         if ($pluginBaseClass->executeComposerCommands()) {
-            $this->executeComposerRemoveCommand($plugin, $shopwareContext);
+            $this->executeComposerRemoveCommand($plugin, $heyframeContext);
         }
 
         $this->eventDispatcher->dispatch(new PluginPostUninstallEvent($plugin, $uninstallContext));
@@ -236,7 +238,7 @@ class PluginLifecycleService
     /**
      * @throws RequirementStackException
      */
-    public function updatePlugin(PluginEntity $plugin, Context $shopwareContext): UpdateContext
+    public function updatePlugin(PluginEntity $plugin, Context $heyframeContext): UpdateContext
     {
         if ($plugin->getInstalledAt() === null) {
             throw PluginException::notInstalled($plugin->getName());
@@ -247,21 +249,21 @@ class PluginLifecycleService
 
         $updateContext = new UpdateContext(
             $pluginBaseClass,
-            $shopwareContext,
-            $this->shopwareVersion,
+            $heyframeContext,
+            $this->heyframeVersion,
             $plugin->getVersion(),
             $this->createMigrationCollection($pluginBaseClass),
             $plugin->getUpgradeVersion() ?? $plugin->getVersion()
         );
 
         if ($pluginBaseClass->executeComposerCommands()) {
-            $this->executeComposerRequireWhenNeeded($plugin, $pluginBaseClass, $updateContext->getUpdatePluginVersion(), $shopwareContext);
+            $this->executeComposerRequireWhenNeeded($plugin, $pluginBaseClass, $updateContext->getUpdatePluginVersion(), $heyframeContext);
         } else {
             if ($plugin->getManagedByComposer() && $plugin->isLocatedInCustomDirectory()) {
                 // If the plugin was previously managed by composer, but should no longer due to the update, we need to remove the composer dependency
-                $this->executeComposerRemoveCommand($plugin, $shopwareContext);
+                $this->executeComposerRemoveCommand($plugin, $heyframeContext);
             }
-            $this->requirementValidator->validateRequirements($plugin, $shopwareContext, 'update');
+            $this->requirementValidator->validateRequirements($plugin, $heyframeContext, 'update');
         }
 
         $this->eventDispatcher->dispatch(new PluginPreUpdateEvent($plugin, $updateContext));
@@ -273,14 +275,14 @@ class PluginLifecycleService
         } catch (\Throwable $updateException) {
             if ($plugin->getActive()) {
                 try {
-                    $this->deactivatePlugin($plugin, $shopwareContext);
+                    $this->deactivatePlugin($plugin, $heyframeContext);
                 } catch (\Throwable) {
                     $this->updatePluginData(
                         [
                             'id' => $plugin->getId(),
                             'active' => false,
                         ],
-                        $shopwareContext
+                        $heyframeContext
                     );
                 }
             }
@@ -288,7 +290,7 @@ class PluginLifecycleService
             throw $updateException;
         }
 
-        if ($plugin->getActive() && !$shopwareContext->hasState(self::STATE_SKIP_ASSET_BUILDING)) {
+        if ($plugin->getActive() && !$heyframeContext->hasState(self::STATE_SKIP_ASSET_BUILDING)) {
             $this->assetInstaller->copyAssets($pluginBaseClass);
         }
 
@@ -303,7 +305,7 @@ class PluginLifecycleService
                 'upgradeVersion' => null,
                 'upgradedAt' => $updateDate->format(Defaults::STORAGE_DATE_TIME_FORMAT),
             ],
-            $shopwareContext
+            $heyframeContext
         );
         $plugin->setVersion($updateVersion);
         $plugin->setUpgradeVersion(null);
@@ -319,7 +321,7 @@ class PluginLifecycleService
     /**
      * @throws PluginNotInstalledException
      */
-    public function activatePlugin(PluginEntity $plugin, Context $shopwareContext, bool $reactivate = false): ActivateContext
+    public function activatePlugin(PluginEntity $plugin, Context $heyframeContext, bool $reactivate = false): ActivateContext
     {
         if ($plugin->getInstalledAt() === null) {
             throw PluginException::notInstalled($plugin->getName());
@@ -330,8 +332,8 @@ class PluginLifecycleService
 
         $activateContext = new ActivateContext(
             $pluginBaseClass,
-            $shopwareContext,
-            $this->shopwareVersion,
+            $heyframeContext,
+            $this->heyframeVersion,
             $plugin->getVersion(),
             $this->createMigrationCollection($pluginBaseClass)
         );
@@ -340,22 +342,22 @@ class PluginLifecycleService
             return $activateContext;
         }
 
-        $this->requirementValidator->validateRequirements($plugin, $shopwareContext, 'activate');
+        $this->requirementValidator->validateRequirements($plugin, $heyframeContext, 'activate');
 
         $this->eventDispatcher->dispatch(new PluginPreActivateEvent($plugin, $activateContext));
 
         $plugin->setActive(true);
 
         // only skip rebuild if plugin has overwritten rebuildContainer method and source is system source (CLI)
-        if ($pluginBaseClass->rebuildContainer() || !$shopwareContext->getSource() instanceof SystemSource) {
+        if ($pluginBaseClass->rebuildContainer() || !$heyframeContext->getSource() instanceof SystemSource) {
             $this->rebuildContainerWithNewPluginState($plugin, $pluginBaseClass->getNamespace());
         }
 
         $pluginBaseClass = $this->getPluginInstance($pluginBaseClassString);
         $activateContext = new ActivateContext(
             $pluginBaseClass,
-            $shopwareContext,
-            $this->shopwareVersion,
+            $heyframeContext,
+            $this->heyframeVersion,
             $plugin->getVersion(),
             $this->createMigrationCollection($pluginBaseClass)
         );
@@ -365,7 +367,7 @@ class PluginLifecycleService
 
         $this->runMigrations($activateContext);
 
-        if (!$shopwareContext->hasState(self::STATE_SKIP_ASSET_BUILDING)) {
+        if (!$heyframeContext->hasState(self::STATE_SKIP_ASSET_BUILDING)) {
             $this->assetInstaller->copyAssets($pluginBaseClass);
         }
 
@@ -374,7 +376,7 @@ class PluginLifecycleService
                 'id' => $plugin->getId(),
                 'active' => true,
             ],
-            $shopwareContext
+            $heyframeContext
         );
 
         $this->signalWorkerStopInOldCacheDir();
@@ -389,7 +391,7 @@ class PluginLifecycleService
      * @throws PluginNotActivatedException
      * @throws PluginHasActiveDependantsException
      */
-    public function deactivatePlugin(PluginEntity $plugin, Context $shopwareContext): DeactivateContext
+    public function deactivatePlugin(PluginEntity $plugin, Context $heyframeContext): DeactivateContext
     {
         if ($plugin->getInstalledAt() === null) {
             throw PluginException::notInstalled($plugin->getName());
@@ -399,7 +401,7 @@ class PluginLifecycleService
             throw PluginException::notActivated($plugin->getName());
         }
 
-        $dependantPlugins = array_values($this->getEntities($this->pluginCollection->all(), $shopwareContext)->getEntities()->getElements());
+        $dependantPlugins = array_values($this->getEntities($this->pluginCollection->all(), $heyframeContext)->getEntities()->getElements());
 
         $dependants = $this->requirementValidator->resolveActiveDependants(
             $plugin,
@@ -415,8 +417,8 @@ class PluginLifecycleService
 
         $deactivateContext = new DeactivateContext(
             $pluginBaseClass,
-            $shopwareContext,
-            $this->shopwareVersion,
+            $heyframeContext,
+            $this->heyframeVersion,
             $plugin->getVersion(),
             $this->createMigrationCollection($pluginBaseClass)
         );
@@ -427,14 +429,14 @@ class PluginLifecycleService
         try {
             $pluginBaseClass->deactivate($deactivateContext);
 
-            if (!$shopwareContext->hasState(self::STATE_SKIP_ASSET_BUILDING)) {
+            if (!$heyframeContext->hasState(self::STATE_SKIP_ASSET_BUILDING)) {
                 $this->assetInstaller->removeAssetsOfBundle($plugin->getName());
             }
 
             $plugin->setActive(false);
 
             // only skip rebuild if plugin has overwritten rebuildContainer method and source is system source (CLI)
-            if ($pluginBaseClass->rebuildContainer() || !$shopwareContext->getSource() instanceof SystemSource) {
+            if ($pluginBaseClass->rebuildContainer() || !$heyframeContext->getSource() instanceof SystemSource) {
                 $this->rebuildContainerWithNewPluginState($plugin, $pluginBaseClass->getNamespace());
             }
 
@@ -443,13 +445,13 @@ class PluginLifecycleService
                     'id' => $plugin->getId(),
                     'active' => false,
                 ],
-                $shopwareContext
+                $heyframeContext
             );
         } catch (\Throwable $exception) {
             $activateContext = new ActivateContext(
                 $pluginBaseClass,
-                $shopwareContext,
-                $this->shopwareVersion,
+                $heyframeContext,
+                $this->heyframeVersion,
                 $plugin->getVersion(),
                 $this->createMigrationCollection($pluginBaseClass)
             );
@@ -494,7 +496,7 @@ class PluginLifecycleService
 
     private function removePluginComposerDependency(PluginEntity $plugin, Context $context): void
     {
-        if ($this->container->getParameter('shopware.deployment.cluster_setup')) {
+        if ($this->container->getParameter('heyframe.deployment.cluster_setup')) {
             return;
         }
 
@@ -673,9 +675,9 @@ class PluginLifecycleService
         );
     }
 
-    private function executeComposerRequireWhenNeeded(PluginEntity $plugin, Plugin $pluginBaseClass, string $pluginVersion, Context $shopwareContext): bool
+    private function executeComposerRequireWhenNeeded(PluginEntity $plugin, Plugin $pluginBaseClass, string $pluginVersion, Context $heyframeContext): bool
     {
-        if ($this->container->getParameter('shopware.deployment.cluster_setup')) {
+        if ($this->container->getParameter('heyframe.deployment.cluster_setup')) {
             return false;
         }
 
@@ -706,22 +708,22 @@ class PluginLifecycleService
         $this->executor->require($pluginComposerName . ':' . $pluginVersion, $plugin->getName());
 
         // running composer require may have consequences for other plugins, when they are required by the plugin being installed
-        $this->pluginService->refreshPlugins($shopwareContext, new NullIO());
+        $this->pluginService->refreshPlugins($heyframeContext, new NullIO());
 
         return true;
     }
 
-    private function executeComposerRemoveCommand(PluginEntity $plugin, Context $shopwareContext): void
+    private function executeComposerRemoveCommand(PluginEntity $plugin, Context $heyframeContext): void
     {
         if (\PHP_SAPI === 'cli') {
             // only remove the plugin composer dependency directly when running in CLI
             // otherwise do it async in kernel.response
-            $this->removePluginComposerDependency($plugin, $shopwareContext);
+            $this->removePluginComposerDependency($plugin, $heyframeContext);
         /* @codeCoverageIgnoreStart -> code path can not be executed in unit tests as SAPI will always be CLI */
         } else {
             self::$pluginToBeDeleted = [
                 'plugin' => $plugin,
-                'context' => $shopwareContext,
+                'context' => $heyframeContext,
             ];
 
             if (!self::$registeredListener) {

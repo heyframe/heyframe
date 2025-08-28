@@ -7,8 +7,10 @@ use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
-use HeyFrame\Core\System\SalesChannel\SalesChannelCollection;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\System\Channel\ChannelCollection;
 
+#[Package('discovery')]
 class CustomerGroupEntity extends Entity
 {
     use EntityCustomFieldsTrait;
@@ -22,7 +24,7 @@ class CustomerGroupEntity extends Entity
 
     protected ?CustomerCollection $customers = null;
 
-    protected ?SalesChannelCollection $salesChannels = null;
+    protected ?ChannelCollection $channels = null;
 
     protected bool $registrationActive;
 
@@ -34,7 +36,7 @@ class CustomerGroupEntity extends Entity
 
     protected string $registrationSeoMetaDescription;
 
-    protected ?SalesChannelCollection $registrationSalesChannels = null;
+    protected ?ChannelCollection $registrationChannels = null;
 
     public function getName(): ?string
     {
@@ -76,14 +78,14 @@ class CustomerGroupEntity extends Entity
         $this->customers = $customers;
     }
 
-    public function getSalesChannels(): ?SalesChannelCollection
+    public function getChannels(): ?ChannelCollection
     {
-        return $this->salesChannels;
+        return $this->channels;
     }
 
-    public function setSalesChannels(SalesChannelCollection $salesChannels): void
+    public function setChannels(ChannelCollection $channels): void
     {
-        $this->salesChannels = $salesChannels;
+        $this->channels = $channels;
     }
 
     public function getRegistrationActive(): bool
@@ -136,13 +138,13 @@ class CustomerGroupEntity extends Entity
         $this->registrationSeoMetaDescription = $registrationSeoMetaDescription;
     }
 
-    public function getRegistrationSalesChannels(): ?SalesChannelCollection
+    public function getRegistrationChannels(): ?ChannelCollection
     {
-        return $this->registrationSalesChannels;
+        return $this->registrationChannels;
     }
 
-    public function setRegistrationSalesChannels(SalesChannelCollection $registrationSalesChannels): void
+    public function setRegistrationChannels(ChannelCollection $registrationChannels): void
     {
-        $this->registrationSalesChannels = $registrationSalesChannels;
+        $this->registrationChannels = $registrationChannels;
     }
 }

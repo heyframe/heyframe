@@ -72,11 +72,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedByField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VariantListingConfigField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionDataPayloadField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\NumberRange\DataAbstractionLayer\NumberRangeField;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class SchemaBuilder
 {
     /**

@@ -6,11 +6,13 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\CustomField\CustomFieldService;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class CustomFieldsAccessorBuilder extends JsonFieldAccessorBuilder
 {
     /**

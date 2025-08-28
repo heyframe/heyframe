@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\System\Locale\Aggregate\LocaleTranslation;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<LocaleTranslationEntity>
  */
+#[Package('discovery')]
 class LocaleTranslationCollection extends EntityCollection
 {
     public function getLocaleIds(): array

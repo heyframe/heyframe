@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Log\LoggerInterface;
 
+#[Package('framework')]
 class MigrationRuntime
 {
     /**

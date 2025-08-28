@@ -2,11 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Webhook\ScheduledTask;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class CleanupWebhookEventLogTask extends ScheduledTask
 {
     public static function getTaskName(): string

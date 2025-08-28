@@ -4,11 +4,12 @@ namespace HeyFrame\Core\Framework\Script\Api;
 
 use HeyFrame\Core\Framework\Adapter\Cache\CacheCompressor;
 use HeyFrame\Core\Framework\Adapter\Cache\Http\HttpCacheKeyGenerator;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
 use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\System\SalesChannel\Api\ResponseFields;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\Api\ResponseFields;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ use Symfony\Component\Routing\Attribute\Route;
  * @internal
  */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
-
+#[Package('framework')]
 class ScriptStoreApiRoute
 {
     public function __construct(
@@ -31,7 +32,7 @@ class ScriptStoreApiRoute
     }
 
     #[Route(path: '/store-api/script/{hook}', name: 'store-api.script_endpoint', methods: ['GET', 'POST'], requirements: ['hook' => '.+'])]
-    public function execute(string $hook, Request $request, SalesChannelContext $context): Response
+    public function execute(string $hook, Request $request, ChannelContext $context): Response
     {
         //  blog/update =>  blog-update
         $hookName = \str_replace('/', '-', $hook);
@@ -77,7 +78,7 @@ class ScriptStoreApiRoute
         return $symfonyResponse;
     }
 
-    private function readFromCache(?string $cacheKey, SalesChannelContext $context, Request $request): ?Response
+    private function readFromCache(?string $cacheKey, ChannelContext $context, Request $request): ?Response
     {
         if (!$cacheKey) {
             return null;

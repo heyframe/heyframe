@@ -10,6 +10,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StorageAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\Framework\Validation\Constraint\Uuid;
 use Symfony\Component\Validator\Constraints\Collection;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class VariantListingConfigFieldSerializer extends AbstractFieldSerializer
 {
     /**
@@ -71,27 +73,27 @@ class VariantListingConfigFieldSerializer extends AbstractFieldSerializer
     protected function getConstraints(Field $field): array
     {
         return [
-            new Collection([
-                'allowExtraFields' => true,
-                'allowMissingFields' => true,
-                'fields' => [
+            new Collection(
+                fields: [
                     'displayParent' => [new Type('boolean')],
                     'mainVariantId' => [new Uuid()],
                     'configuratorGroupConfig' => [
                         new Optional(
-                            new Collection([
-                                'allowExtraFields' => true,
-                                'allowMissingFields' => true,
-                                'fields' => [
+                            new Collection(
+                                fields: [
                                     'id' => [new NotBlank(), new Uuid()],
                                     'representation' => [new NotBlank(), new Type('string')],
                                     'expressionForListings' => [new NotBlank(), new Type('boolean')],
                                 ],
-                            ])
+                                allowExtraFields: true,
+                                allowMissingFields: true
+                            )
                         ),
                     ],
                 ],
-            ]),
+                allowExtraFields: true,
+                allowMissingFields: true
+            ),
         ];
     }
 }

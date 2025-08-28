@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics\Transport;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Config\TransportConfigProvider;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Factory\MetricTransportFactoryInterface;
 use HeyFrame\Core\Framework\Telemetry\Metrics\MetricTransportInterface;
@@ -13,6 +14,7 @@ use HeyFrame\Core\Framework\Telemetry\Metrics\MetricTransportInterface;
  *
  * @internal
  */
+#[Package('framework')]
 class TransportCollection implements \IteratorAggregate
 {
     /**

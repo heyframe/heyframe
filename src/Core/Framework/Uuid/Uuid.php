@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Uuid;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidLengthException;
@@ -9,6 +10,7 @@ use Ramsey\Uuid\BinaryUtils;
 use Ramsey\Uuid\Generator\RandomGeneratorFactory;
 use Ramsey\Uuid\Generator\UnixTimeGenerator;
 
+#[Package('framework')]
 class Uuid
 {
     /**

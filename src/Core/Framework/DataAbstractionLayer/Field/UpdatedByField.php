@@ -4,8 +4,10 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer\UpdatedByFieldSerializer;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\User\UserDefinition;
 
+#[Package('framework')]
 class UpdatedByField extends FkField
 {
     public function __construct(private readonly array $allowedWriteScopes = [Context::SYSTEM_SCOPE])

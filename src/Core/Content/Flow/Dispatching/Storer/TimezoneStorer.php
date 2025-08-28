@@ -5,8 +5,10 @@ namespace HeyFrame\Core\Content\Flow\Dispatching\Storer;
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\MailAware;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+#[Package('after-sales')]
 class TimezoneStorer extends FlowStorer
 {
     final public const TIMEZONE_COOKIE = 'timezone';

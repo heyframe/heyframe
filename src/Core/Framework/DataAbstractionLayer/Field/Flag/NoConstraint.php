@@ -2,6 +2,8 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * Only considered in FkField when resolving the write order of DAL commands.
  * You can flag a FkField as NoConstraint when the mysql storage has no real foreign key constraint for this column because you would
@@ -10,6 +12,7 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag;
  * Examples: `product <> cover <> product_media`
  *           `customer <> default_billing <> customer_address`
  */
+#[Package('framework')]
 class NoConstraint extends Flag
 {
     public function parse(): \Generator

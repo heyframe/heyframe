@@ -27,7 +27,7 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewDefinitio
 use HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfig\ProductSearchConfigDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationDefinition;
-use HeyFrame\Core\Content\Product\SalesChannel\Sorting\ProductSortingTranslationDefinition;
+use HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingTranslationDefinition;
 use HeyFrame\Core\Content\ProductStream\Aggregate\ProductStreamTranslation\ProductStreamTranslationDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOptionTranslation\PropertyGroupOptionTranslationDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupTranslation\PropertyGroupTranslationDefinition;
@@ -56,7 +56,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Aggregate\PluginTranslation\PluginTranslationDefinition;
+use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainDefinition;
+use HeyFrame\Core\System\Channel\Aggregate\ChannelLanguage\ChannelLanguageDefinition;
+use HeyFrame\Core\System\Channel\Aggregate\ChannelTranslation\ChannelTranslationDefinition;
+use HeyFrame\Core\System\Channel\Aggregate\ChannelTypeTranslation\ChannelTypeTranslationDefinition;
+use HeyFrame\Core\System\Channel\ChannelDefinition;
 use HeyFrame\Core\System\Country\Aggregate\CountryStateTranslation\CountryStateTranslationDefinition;
 use HeyFrame\Core\System\Country\Aggregate\CountryTranslation\CountryTranslationDefinition;
 use HeyFrame\Core\System\Currency\Aggregate\CurrencyTranslation\CurrencyTranslationDefinition;
@@ -65,11 +71,6 @@ use HeyFrame\Core\System\Locale\Aggregate\LocaleTranslation\LocaleTranslationDef
 use HeyFrame\Core\System\Locale\LocaleDefinition;
 use HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeTranslation\NumberRangeTranslationDefinition;
 use HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeTypeTranslation\NumberRangeTypeTranslationDefinition;
-use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelDomain\SalesChannelDomainDefinition;
-use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelLanguage\SalesChannelLanguageDefinition;
-use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelTranslation\SalesChannelTranslationDefinition;
-use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelTypeTranslation\SalesChannelTypeTranslationDefinition;
-use HeyFrame\Core\System\SalesChannel\SalesChannelDefinition;
 use HeyFrame\Core\System\Salutation\Aggregate\SalutationTranslation\SalutationTranslationDefinition;
 use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateTranslationDefinition;
 use HeyFrame\Core\System\StateMachine\StateMachineTranslationDefinition;
@@ -77,6 +78,7 @@ use HeyFrame\Core\System\Tax\Aggregate\TaxRuleTypeTranslation\TaxRuleTypeTransla
 use HeyFrame\Core\System\TaxProvider\Aggregate\TaxProviderTranslation\TaxProviderTranslationDefinition;
 use HeyFrame\Core\System\Unit\Aggregate\UnitTranslation\UnitTranslationDefinition;
 
+#[Package('fundamentals@discovery')]
 class LanguageDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'language';
@@ -124,11 +126,11 @@ class LanguageDefinition extends EntityDefinition
             (new ManyToOneAssociationField('locale', 'locale_id', LocaleDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new ManyToOneAssociationField('translationCode', 'translation_code_id', LocaleDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new ChildrenAssociationField(self::class))->addFlags(new ApiAware()),
-            new ManyToManyAssociationField('salesChannels', SalesChannelDefinition::class, SalesChannelLanguageDefinition::class, 'language_id', 'sales_channel_id'),
+            new ManyToManyAssociationField('channels', ChannelDefinition::class, ChannelLanguageDefinition::class, 'language_id', 'channel_id'),
 
             // api relevant associations, restrict delete
-            (new OneToManyAssociationField('salesChannelDefaultAssignments', SalesChannelDefinition::class, 'language_id', 'id'))->addFlags(new RestrictDelete()),
-            (new OneToManyAssociationField('salesChannelDomains', SalesChannelDomainDefinition::class, 'language_id'))->addFlags(new RestrictDelete()),
+            (new OneToManyAssociationField('channelDefaultAssignments', ChannelDefinition::class, 'language_id', 'id'))->addFlags(new RestrictDelete()),
+            (new OneToManyAssociationField('channelDomains', ChannelDomainDefinition::class, 'language_id'))->addFlags(new RestrictDelete()),
             (new OneToManyAssociationField('customers', CustomerDefinition::class, 'language_id'))->addFlags(new RestrictDelete()),
             (new OneToManyAssociationField('newsletterRecipients', NewsletterRecipientDefinition::class, 'language_id', 'id'))->addFlags(new RestrictDelete()),
             (new OneToManyAssociationField('orders', OrderDefinition::class, 'language_id', 'id'))->addFlags(new RestrictDelete()),
@@ -148,8 +150,8 @@ class LanguageDefinition extends EntityDefinition
             (new OneToManyAssociationField('unitTranslations', UnitTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('propertyGroupTranslations', PropertyGroupTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('propertyGroupOptionTranslations', PropertyGroupOptionTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('salesChannelTranslations', SalesChannelTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('salesChannelTypeTranslations', SalesChannelTypeTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
+            (new OneToManyAssociationField('channelTranslations', ChannelTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
+            (new OneToManyAssociationField('channelTypeTranslations', ChannelTypeTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('salutationTranslations', SalutationTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('pluginTranslations', PluginTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('productStreamTranslations', ProductStreamTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),

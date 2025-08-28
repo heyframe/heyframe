@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\MappingEntityClassesException;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 abstract class MappingEntityDefinition extends EntityDefinition
 {
     public function getCollectionClass(): string

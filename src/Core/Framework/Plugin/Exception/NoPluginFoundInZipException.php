@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Framework\Plugin\Exception;
 
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('framework')]
 class NoPluginFoundInZipException extends HeyFrameHttpException
 {
     public function __construct(string $archive)

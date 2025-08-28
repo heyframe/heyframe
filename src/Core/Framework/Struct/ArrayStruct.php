@@ -2,12 +2,15 @@
 
 namespace HeyFrame\Core\Framework\Struct;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @template TData of array = array<array-key, mixed>
  *
  * @implements \ArrayAccess<key-of<TData>, value-of<TData>>
  * @implements \IteratorAggregate<key-of<TData>, value-of<TData>>
  */
+#[Package('framework')]
 class ArrayStruct extends Struct implements \ArrayAccess, \IteratorAggregate, \Countable
 {
     /**

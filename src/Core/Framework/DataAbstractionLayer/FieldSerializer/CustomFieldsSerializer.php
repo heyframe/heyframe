@@ -11,6 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommandQueue
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\System\CustomField\CustomFieldService;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 class CustomFieldsSerializer extends JsonFieldSerializer
 {
     public function __construct(

@@ -90,10 +90,10 @@ The `messenger_stats` table contains the following columns:
 
 ### Configuration
 
-The message queue statistics can be configured in your `config/packages/shopware.yaml` file:
+The message queue statistics can be configured in your `config/packages/heyframe.yaml` file:
 
 ```yaml
-shopware:
+heyframe:
     messenger:
         stats:
             enabled: true    # Enable or disable message statistics collection

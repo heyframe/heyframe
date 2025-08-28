@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\Media\Core\Params;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
 /**
@@ -12,6 +13,7 @@ use HeyFrame\Core\Framework\Struct\Struct;
  *
  * @final
  */
+#[Package('discovery')]
 class ThumbnailLocationStruct extends Struct
 {
     public function __construct(

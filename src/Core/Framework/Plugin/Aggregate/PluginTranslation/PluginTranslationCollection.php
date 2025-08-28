@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\Framework\Plugin\Aggregate\PluginTranslation;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<PluginTranslationEntity>
  */
+#[Package('framework')]
 class PluginTranslationCollection extends EntityCollection
 {
     public function getApiAlias(): string

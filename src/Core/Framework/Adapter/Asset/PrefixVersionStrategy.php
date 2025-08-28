@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Asset;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 
+#[Package('framework')]
 class PrefixVersionStrategy implements VersionStrategyInterface
 {
     private readonly string $prefix;

@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Migration\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationException;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class UnknownMigrationSourceException extends MigrationException
 {
     public function __construct(string $name)

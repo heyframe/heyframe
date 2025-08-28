@@ -6,10 +6,12 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\Table;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\SchemaBuilder;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class MigrationQueryGenerator
 {
     public function __construct(private readonly Connection $connection, private readonly SchemaBuilder $schemaBuilder)

@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Increment;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class ArrayIncrementer extends AbstractIncrementer
 {
     /**

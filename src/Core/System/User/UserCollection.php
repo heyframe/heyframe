@@ -3,10 +3,12 @@
 namespace HeyFrame\Core\System\User;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @extends EntityCollection<UserEntity>
  */
+#[Package('fundamentals@framework')]
 class UserCollection extends EntityCollection
 {
     public function getLocaleIds(): array

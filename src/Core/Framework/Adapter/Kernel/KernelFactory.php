@@ -7,6 +7,7 @@ use Composer\InstalledVersions;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Adapter\Database\MySQLFactory;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\KernelPluginLoader\DbalKernelPluginLoader;
 use HeyFrame\Core\Framework\Plugin\KernelPluginLoader\KernelPluginLoader;
 use HeyFrame\Core\Kernel;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @final
  */
+#[Package('framework')]
 class KernelFactory
 {
     /**
@@ -37,12 +39,12 @@ class KernelFactory
         ?KernelPluginLoader $pluginLoader = null,
         ?Connection $connection = null
     ): HttpKernelInterface {
-        if (InstalledVersions::isInstalled('shopware/platform')) {
-            $shopwareVersion = InstalledVersions::getVersion('shopware/platform')
-                . '@' . InstalledVersions::getReference('shopware/platform');
+        if (InstalledVersions::isInstalled('heyframe/platform')) {
+            $heyframeVersion = InstalledVersions::getVersion('heyframe/platform')
+                . '@' . InstalledVersions::getReference('heyframe/platform');
         } else {
-            $shopwareVersion = InstalledVersions::getVersion('shopware/core')
-                . '@' . InstalledVersions::getReference('shopware/core');
+            $heyframeVersion = InstalledVersions::getVersion('heyframe/core')
+                . '@' . InstalledVersions::getReference('heyframe/core');
         }
 
         $middlewares = [];
@@ -55,7 +57,7 @@ class KernelFactory
 
         $pluginLoader = $pluginLoader ?? new DbalKernelPluginLoader($classLoader, null, $connection);
 
-        $cacheId = (string) EnvironmentHelper::getVariable('SHOPWARE_CACHE_ID', '');
+        $cacheId = (string) EnvironmentHelper::getVariable('HEYFRAME_CACHE_ID', '');
 
         /** @var KernelInterface $kernel */
         $kernel = new static::$kernelClass(
@@ -63,7 +65,7 @@ class KernelFactory
             $debug,
             $pluginLoader,
             $cacheId,
-            $shopwareVersion,
+            $heyframeVersion,
             $connection,
             self::getProjectDir()
         );

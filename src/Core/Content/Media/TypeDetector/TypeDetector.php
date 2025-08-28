@@ -4,7 +4,9 @@ namespace HeyFrame\Core\Content\Media\TypeDetector;
 
 use HeyFrame\Core\Content\Media\File\MediaFile;
 use HeyFrame\Core\Content\Media\MediaType\MediaType;
+use HeyFrame\Core\Framework\Log\Package;
 
+#[Package('discovery')]
 class TypeDetector implements TypeDetectorInterface
 {
     /**

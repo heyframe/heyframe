@@ -5,8 +5,10 @@ namespace HeyFrame\Core\Framework\Increment;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Increment\Exception\IncrementGatewayNotFoundException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Package('framework')]
 class IncrementException extends HttpException
 {
     public const KEY_PARAMETER_IS_MISSING = 'FRAMEWORK__KEY_PARAMETER_IS_MISSING';
@@ -54,7 +56,7 @@ class IncrementException extends HttpException
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::WRONG_GATEWAY_TYPE,
-            'shopware.increment.gateway type of {{ pool }} pool must be a string',
+            'heyframe.increment.gateway type of {{ pool }} pool must be a string',
             [
                 'pool' => $pool,
             ]

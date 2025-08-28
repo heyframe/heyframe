@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 class ResponseCacheConfiguration
 {
     private bool $enabled = true;

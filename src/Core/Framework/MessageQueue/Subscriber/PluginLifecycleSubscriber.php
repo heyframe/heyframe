@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Subscriber;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Registry\TaskRegistry;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostActivateEvent;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostDeactivateEvent;
@@ -13,6 +14,7 @@ use Symfony\Component\Messenger\EventListener\StopWorkerOnRestartSignalListener;
 /**
  * @internal
  */
+#[Package('framework')]
 final readonly class PluginLifecycleSubscriber implements EventSubscriberInterface
 {
     /**

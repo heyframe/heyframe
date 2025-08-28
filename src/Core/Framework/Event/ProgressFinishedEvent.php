@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Event;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[Package('framework')]
 class ProgressFinishedEvent extends Event
 {
     final public const NAME = self::class;

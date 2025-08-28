@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('framework')]
 interface HeyFrameException extends \Throwable
 {
     public function getErrorCode(): string;

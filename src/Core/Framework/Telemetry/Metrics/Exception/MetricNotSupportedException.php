@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\Metric;
 use HeyFrame\Core\Framework\Telemetry\Metrics\MetricTransportInterface;
 use HeyFrame\Core\Framework\Telemetry\TelemetryException;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @internal
  */
+#[Package('framework')]
 class MetricNotSupportedException extends TelemetryException
 {
     final public const METRIC_NOT_SUPPORTED = 'TELEMETRY__METRIC_NOT_SUPPORTED';

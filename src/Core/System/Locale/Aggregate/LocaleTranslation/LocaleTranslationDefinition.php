@@ -8,8 +8,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Locale\LocaleDefinition;
 
+#[Package('discovery')]
 class LocaleTranslationDefinition extends EntityTranslationDefinition
 {
     final public const ENTITY_NAME = 'locale_translation';

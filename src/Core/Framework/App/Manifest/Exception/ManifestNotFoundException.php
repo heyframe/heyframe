@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Core\Framework\App\Manifest\Exception;
 
+use HeyFrame\Core\Framework\Log\Package;
+
 /**
  * @internal only for use by the app-system
  */
+#[Package('framework')]
 class ManifestNotFoundException extends \RuntimeException
 {
     public function __construct(string $path)

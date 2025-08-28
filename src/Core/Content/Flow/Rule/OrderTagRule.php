@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Flow\Rule;
 
 use HeyFrame\Core\Checkout\Order\OrderEntity;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\FlowRule;
 use HeyFrame\Core\Framework\Rule\RuleComparison;
 use HeyFrame\Core\Framework\Rule\RuleConfig;
@@ -13,6 +14,7 @@ use HeyFrame\Core\System\Tag\TagDefinition;
 /**
  * @final
  */
+#[Package('fundamentals@after-sales')]
 class OrderTagRule extends FlowRule
 {
     final public const RULE_NAME = 'orderTag';

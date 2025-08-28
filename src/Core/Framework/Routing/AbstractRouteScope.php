@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Routing;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Request;
 
+#[Package('framework')]
 abstract class AbstractRouteScope
 {
     /**

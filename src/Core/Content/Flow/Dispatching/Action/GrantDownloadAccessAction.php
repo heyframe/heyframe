@@ -10,10 +10,12 @@ use HeyFrame\Core\Content\Product\State;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\Event\OrderAware;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('after-sales')]
 class GrantDownloadAccessAction extends FlowAction implements DelayableAction
 {
     /**

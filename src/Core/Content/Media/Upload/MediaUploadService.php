@@ -13,6 +13,7 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -23,6 +24,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * @final
  */
+#[Package('discovery')]
 readonly class MediaUploadService
 {
     /**

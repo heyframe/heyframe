@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\System\User;
 
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('fundamentals@framework')]
 class UserEvents
 {
     final public const USER_WRITTEN_EVENT = 'user.written';

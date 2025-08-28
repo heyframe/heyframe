@@ -20,10 +20,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\Stats
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\SumAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class AggregationParser
 {
     /**

@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\PluginScaffoldConfiguration;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Stub;
 use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\StubCollection;
@@ -9,6 +10,7 @@ use HeyFrame\Core\Framework\Plugin\Command\Scaffolding\StubCollection;
 /**
  * @internal
  */
+#[Package('framework')]
 class ScheduledTaskGenerator implements ScaffoldingGenerator
 {
     use AddScaffoldConfigDefaultBehaviour;
@@ -21,7 +23,7 @@ class ScheduledTaskGenerator implements ScaffoldingGenerator
     private string $servicesXmlEntry = <<<'EOL'
 
             <service id="{{ namespace }}\ScheduledTask\ExampleTask">
-                <tag name="shopware.scheduled.task"/>
+                <tag name="heyframe.scheduled.task"/>
             </service>
 
     EOL;

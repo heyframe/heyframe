@@ -37,12 +37,14 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValida
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\WriteCommandExceptionEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteContext;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @internal
  */
+#[Package('framework')]
 class EntityWriteGateway implements EntityWriteGatewayInterface
 {
     private ?PrimaryKeyBag $primaryKeyBag = null;

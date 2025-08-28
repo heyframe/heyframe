@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Subscriber;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Registry\TaskRegistry;
 use HeyFrame\Core\Framework\Update\Event\UpdatePostFinishEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -9,6 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
+#[Package('framework')]
 final readonly class UpdatePostFinishSubscriber implements EventSubscriberInterface
 {
     /**

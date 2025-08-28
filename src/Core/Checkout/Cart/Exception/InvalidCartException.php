@@ -1,0 +1,11 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Checkout\Cart\Exception;
+
+use HeyFrame\Core\Checkout\Cart\CartException;
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('checkout')]
+class InvalidCartException extends CartException
+{
+}

@@ -2,10 +2,12 @@
 
 namespace HeyFrame\Core\Framework\SystemCheck;
 
+use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\SystemCheck\Check\Category;
 use HeyFrame\Core\Framework\SystemCheck\Check\Result;
 use HeyFrame\Core\Framework\SystemCheck\Check\SystemCheckExecutionContext;
 
+#[Package('framework')]
 abstract class BaseCheck
 {
     abstract public function run(): Result;
