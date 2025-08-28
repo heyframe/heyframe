@@ -13,28 +13,21 @@ use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPri
 use HeyFrame\Core\Content\Product\Extension\ProductPriceCalculationExtension;
 use HeyFrame\Core\Content\Product\ProductException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\Price;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Unit\UnitCollection;
 
 #[Package('inventory')]
 class ProductPriceCalculator extends AbstractProductPriceCalculator
 {
-    private ?UnitCollection $units = null;
-
-    /**
+    /*
      * @internal
      *
-     * @param EntityRepository<UnitCollection> $unitRepository
      */
     public function __construct(
-        private readonly EntityRepository $unitRepository,
         private readonly QuantityPriceCalculator $calculator,
         private readonly ExtensionDispatcher $extensions,
     ) {
@@ -68,26 +61,23 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
      */
     private function _calculate(iterable $products, ChannelContext $context): void
     {
-        $units = $this->getUnits($context);
-
         foreach ($products as $product) {
-            $this->calculatePrice($product, $context, $units);
-            $this->calculateAdvancePrices($product, $context, $units);
-            $this->calculateCheapestPrice($product, $context, $units);
+            $this->calculatePrice($product, $context);
+            $this->calculateAdvancePrices($product, $context);
+            $this->calculateCheapestPrice($product, $context);
         }
     }
 
-    private function calculatePrice(Entity $product, ChannelContext $context, UnitCollection $units): void
+    private function calculatePrice(Entity $product, ChannelContext $context): void
     {
         $price = $product->get('price');
-        $taxId = $product->get('taxId');
 
-        if ($price === null || $taxId === null) {
+        if ($price === null) {
             return;
         }
         $reference = ReferencePriceDto::createFromEntity($product);
 
-        $definition = $this->buildDefinition($product, $price, $context, $units, $reference);
+        $definition = $this->buildDefinition($product, $price, $context, $reference);
 
         $price = $this->calculator->calculate($definition, $context);
 
@@ -96,7 +86,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         ]);
     }
 
-    private function calculateAdvancePrices(Entity $product, ChannelContext $context, UnitCollection $units): void
+    private function calculateAdvancePrices(Entity $product, ChannelContext $context): void
     {
         $prices = $product->get('prices');
 
@@ -121,7 +111,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         foreach ($prices as $price) {
             $quantity = $price->getQuantityEnd() ?? $price->getQuantityStart();
 
-            $definition = $this->buildDefinition($product, $price->getPrice(), $context, $units, $reference, $quantity);
+            $definition = $this->buildDefinition($product, $price->getPrice(), $context, $reference, $quantity);
 
             $calculated->add($this->calculator->calculate($definition, $context));
         }
@@ -129,13 +119,9 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         $product->assign(['calculatedPrices' => $calculated]);
     }
 
-    private function calculateCheapestPrice(Entity $product, ChannelContext $context, UnitCollection $units): void
+    private function calculateCheapestPrice(Entity $product, ChannelContext $context): void
     {
         $cheapest = $product->get('cheapestPrice');
-
-        if ($product->get('taxId') === null) {
-            return;
-        }
 
         if (!$cheapest instanceof CheapestPrice) {
             $price = $product->get('price');
@@ -145,7 +131,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
 
             $reference = ReferencePriceDto::createFromEntity($product);
 
-            $definition = $this->buildDefinition($product, $price, $context, $units, $reference);
+            $definition = $this->buildDefinition($product, $price, $context, $reference);
 
             $calculated = CalculatedCheapestPrice::createFrom(
                 $this->calculator->calculate($definition, $context)
@@ -164,7 +150,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
 
         $reference = ReferencePriceDto::createFromCheapestPrice($cheapest);
 
-        $definition = $this->buildDefinition($product, $cheapest->getPrice(), $context, $units, $reference);
+        $definition = $this->buildDefinition($product, $cheapest->getPrice(), $context, $reference);
 
         $calculated = CalculatedCheapestPrice::createFrom(
             $this->calculator->calculate($definition, $context)
@@ -180,7 +166,6 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         Entity $product,
         PriceCollection $prices,
         ChannelContext $context,
-        UnitCollection $units,
         ReferencePriceDto $reference,
         int $quantity = 1
     ): QuantityPriceDefinition {
@@ -189,7 +174,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         $taxId = $product->get('taxId');
         $definition = new QuantityPriceDefinition($price, $context->buildTaxRules($taxId), $quantity);
         $definition->setReferencePriceDefinition(
-            $this->buildReferencePriceDefinition($reference, $units)
+            $this->buildReferencePriceDefinition($reference)
         );
         $definition->setListPrice(
             $this->getListPrice($prices, $context)
@@ -263,7 +248,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         return $value;
     }
 
-    private function buildReferencePriceDefinition(ReferencePriceDto $definition, UnitCollection $units): ?ReferencePriceDefinition
+    private function buildReferencePriceDefinition(ReferencePriceDto $definition): ?ReferencePriceDefinition
     {
         if (
             $definition->getPurchase() === null
@@ -276,15 +261,9 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
             return null;
         }
 
-        $unit = $units->get($definition->getUnitId());
-        if ($unit === null) {
-            return null;
-        }
-
         return new ReferencePriceDefinition(
             $definition->getPurchase(),
             $definition->getReference(),
-            $unit->getTranslation('name')
         );
     }
 
@@ -299,21 +278,5 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         }
 
         return null;
-    }
-
-    private function getUnits(ChannelContext $context): UnitCollection
-    {
-        if ($this->units !== null) {
-            return $this->units;
-        }
-
-        $criteria = new Criteria();
-        $criteria->setTitle('product-price-calculator::units');
-
-        $units = $this->unitRepository
-            ->search($criteria, $context->getContext())
-            ->getEntities();
-
-        return $this->units = $units;
     }
 }

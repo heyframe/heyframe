@@ -4,8 +4,6 @@ namespace HeyFrame\Core\Content\Product\Channel;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection;
-use HeyFrame\Core\Content\Category\CategoryEntity;
-use HeyFrame\Core\Content\MeasurementSystem\Unit\ConvertedUnitSet;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CalculatedCheapestPrice;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPrice;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPriceContainer;
@@ -28,8 +26,6 @@ class ChannelProductEntity extends ProductEntity
 
     protected int $calculatedMaxPurchase;
 
-    protected ?CategoryEntity $seoCategory = null;
-
     /**
      * The container will be resolved on product.loaded event and
      * the detected cheapest price will be set for the current context rules
@@ -37,8 +33,6 @@ class ChannelProductEntity extends ProductEntity
     protected CheapestPrice|CheapestPriceContainer|null $cheapestPrice = null;
 
     protected ?CheapestPriceContainer $cheapestPriceContainer = null;
-
-    protected ?ConvertedUnitSet $measurements = null;
 
     public function setCalculatedPrices(PriceCollection $prices): void
     {
@@ -90,16 +84,6 @@ class ChannelProductEntity extends ProductEntity
         $this->calculatedMaxPurchase = $calculatedMaxPurchase;
     }
 
-    public function getSeoCategory(): ?CategoryEntity
-    {
-        return $this->seoCategory;
-    }
-
-    public function setSeoCategory(?CategoryEntity $category): void
-    {
-        $this->seoCategory = $category;
-    }
-
     public function getCalculatedCheapestPrice(): CalculatedCheapestPrice
     {
         return $this->calculatedCheapestPrice;
@@ -128,15 +112,5 @@ class ChannelProductEntity extends ProductEntity
     public function getCheapestPriceContainer(): ?CheapestPriceContainer
     {
         return $this->cheapestPriceContainer;
-    }
-
-    public function getMeasurements(): ?ConvertedUnitSet
-    {
-        return $this->measurements;
-    }
-
-    public function setMeasurements(ConvertedUnitSet $measurements): void
-    {
-        $this->measurements = $measurements;
     }
 }

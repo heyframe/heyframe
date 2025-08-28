@@ -3,10 +3,7 @@
 namespace HeyFrame\Core\System\Channel\Api;
 
 use HeyFrame\Core\Content\Media\MediaUrlPlaceholderHandlerInterface;
-use HeyFrame\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\StoreApiResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,7 +15,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * @internal
  */
 #[Package('framework')]
-class StoreApiResponseListener implements EventSubscriberInterface
+class FrontApiResponseListener implements EventSubscriberInterface
 {
     /**
      * @internal
@@ -26,7 +23,6 @@ class StoreApiResponseListener implements EventSubscriberInterface
     public function __construct(
         private readonly StructEncoder $encoder,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly SeoUrlPlaceholderHandlerInterface $seoUrlPlaceholderHandler,
         private readonly MediaUrlPlaceholderHandlerInterface $mediaUrlPlaceholderHandler,
     ) {
     }
@@ -64,10 +60,6 @@ class StoreApiResponseListener implements EventSubscriberInterface
 
         $content = $this->mediaUrlPlaceholderHandler->replace((string) $jsonResponse->getContent());
 
-        $channelContext = $event->getRequest()->attributes->get(PlatformRequest::ATTRIBUTE_CHANNEL_CONTEXT_OBJECT);
-        if ($channelContext instanceof ChannelContext) {
-            $content = $this->seoUrlPlaceholderHandler->replace($content, '', $channelContext);
-        }
 
         $jsonResponse->setContent($content);
 

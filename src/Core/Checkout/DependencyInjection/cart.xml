@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
         <service id="HeyFrame\Core\Checkout\Cart\CreditCartProcessor">
@@ -171,39 +171,12 @@
             <argument type="service" id="event_dispatcher"/>
         </service>
 
-        <!-- Tax calculation -->
-        <service id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
 
-        <service id="HeyFrame\Core\Checkout\Cart\Tax\TaxDetector"/>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator"/>
-
-        <!-- Tax providers -->
-        <!-- ==================================================================================================================== -->
-
-        <service id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderProcessor">
-            <argument type="service" id="tax_provider.repository"/>
-            <argument type="service" id="logger"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustment"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderRegistry"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\TaxProvider\Payload\TaxProviderPayloadService"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderRegistry" public="true">
-            <argument type="tagged_iterator" tag="heyframe.tax.provider"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustmentCalculator"/>
 
         <service id="heyframe.tax.adjustment_calculator" class="HeyFrame\Core\Checkout\Cart\Price\AmountCalculator">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustmentCalculator"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustment">
-            <argument type="service" id="heyframe.tax.adjustment_calculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
         </service>
 
         <!-- ==================================================================================================================== -->
@@ -289,27 +262,8 @@
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\AbsolutePriceCalculator"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryProcessor">
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryBuilder"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryCalculator"/>
-            <argument type="service" id="shipping_method.repository"/>
-
-            <tag name="heyframe.cart.processor" priority="-5000"/>
-            <tag name="heyframe.cart.collector" priority="-5000"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryValidator">
-            <tag name="heyframe.cart.validator"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\LineItem\LineItemValidator">
             <tag name="heyframe.cart.validator"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Address\AddressValidator">
-            <argument type="service" id="channel_country.repository"/>
-            <tag name="heyframe.cart.validator"/>
-            <tag name="kernel.reset" method="reset"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Validator">

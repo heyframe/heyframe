@@ -2,11 +2,6 @@
 
 namespace HeyFrame\Core\Content\Product\Subscriber;
 
-use HeyFrame\Core\Content\MeasurementSystem\MeasurementUnits;
-use HeyFrame\Core\Content\MeasurementSystem\MeasurementUnitTypeEnum;
-use HeyFrame\Core\Content\MeasurementSystem\ProductMeasurement\ProductMeasurementEnum;
-use HeyFrame\Core\Content\MeasurementSystem\ProductMeasurement\ProductMeasurementUnitBuilder;
-use HeyFrame\Core\Content\MeasurementSystem\Unit\AbstractMeasurementUnitConverter;
 use HeyFrame\Core\Content\Product\AbstractIsNewDetector;
 use HeyFrame\Core\Content\Product\AbstractProductMaxPurchaseCalculator;
 use HeyFrame\Core\Content\Product\AbstractProductVariationBuilder;
@@ -44,8 +39,6 @@ class ProductSubscriber implements EventSubscriberInterface
         private readonly AbstractProductMaxPurchaseCalculator $maxPurchaseCalculator,
         private readonly AbstractIsNewDetector $isNewDetector,
         private readonly SystemConfigService $systemConfigService,
-        private readonly ProductMeasurementUnitBuilder $measurementUnitBuilder,
-        private readonly AbstractMeasurementUnitConverter $measurementUnitConverter,
         private readonly RequestStack $requestStack
     ) {
     }
@@ -108,7 +101,6 @@ class ProductSubscriber implements EventSubscriberInterface
 
             $assigns['isNew'] = $this->isNewDetector->isNew($product, $event->getChannelContext());
 
-            $assigns['measurements'] = $this->measurementUnitBuilder->buildFromContext($product, $event->getChannelContext());
 
             $product->assign($assigns);
 

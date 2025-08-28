@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
         <service id="HeyFrame\Core\Content\Flow\FlowDefinition">
@@ -61,25 +61,6 @@
             <argument type="tagged_iterator" tag="flow.action" index-by="key" />
         </service>
 
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\AddOrderTagAction">
-            <argument type="service" id="order.repository" />
-            <tag name="flow.action" priority="1000" key="action.add.order.tag" />
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\AddCustomerTagAction">
-            <argument type="service" id="customer.repository" />
-            <tag name="flow.action" priority="900" key="action.add.customer.tag"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\RemoveOrderTagAction">
-            <argument type="service" id="order_tag.repository" />
-            <tag name="flow.action" priority="800" key="action.remove.order.tag"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\RemoveCustomerTagAction">
-            <argument type="service" id="customer_tag.repository" />
-            <tag name="flow.action" priority="700" key="action.remove.customer.tag"/>
-        </service>
 
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\ChangeCustomerGroupAction">
             <argument type="service" id="customer.repository" />
@@ -94,28 +75,6 @@
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\GrantDownloadAccessAction">
             <argument type="service" id="order_line_item_download.repository"/>
             <tag name="flow.action" priority="550" key="action.grant.download.access"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\SendMailAction">
-            <argument type="service" id="HeyFrame\Core\Content\Mail\Service\MailService"/>
-            <argument type="service" id="mail_template.repository"/>
-            <argument type="service" id="logger"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="mail_template_type.repository"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Translation\Translator"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Api\Serializer\JsonEntityEncoder"/>
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-            <argument>%heyframe.mail.update_mail_variables_on_send%</argument>
-            <tag name="flow.action" priority="500" key="action.mail.send"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\GenerateDocumentAction">
-            <argument type="service" id="HeyFrame\Core\Checkout\Document\Service\DocumentGenerator"/>
-            <argument type="service" id="logger"/>
-
-            <tag name="flow.action" priority="620" key="action.generate.document" />
         </service>
 
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\SetOrderStateAction">
@@ -142,11 +101,6 @@
             <tag name="flow.action" priority="350" key="action.set.customer.group.custom.field"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\AddCustomerAffiliateAndCampaignCodeAction">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="customer.repository" />
-            <tag name="flow.action" priority="350" key="action.add.customer.affiliate.and.campaign.code"/>
-        </service>
 
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\AddOrderAffiliateAndCampaignCodeAction">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
@@ -213,12 +167,6 @@
             <tag name="flow.storer"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Storer\A11yRenderedDocumentStorer">
-            <argument type="service" id="document.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-
-            <tag name="flow.storer"/>
-        </service>
 
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Storer\CustomerStorer">
             <argument type="service" id="customer.repository"/>
@@ -247,22 +195,8 @@
             <tag name="flow.storer"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Storer\CustomerRecoveryStorer">
-            <argument type="service" id="customer_recovery.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-
-            <tag name="flow.storer"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Storer\OrderTransactionStorer">
             <argument type="service" id="order_transaction.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-
-            <tag name="flow.storer"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Storer\NewsletterRecipientStorer">
-            <argument type="service" id="newsletter_recipient.repository"/>
             <argument type="service" id="event_dispatcher"/>
 
             <tag name="flow.storer"/>

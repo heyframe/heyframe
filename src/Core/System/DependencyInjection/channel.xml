@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
         <service id="HeyFrame\Core\System\Channel\ChannelDefinition">
@@ -74,12 +74,7 @@
             <argument type="service" id="channel.repository"/>
             <argument type="service" id="currency.repository"/>
             <argument type="service" id="customer_group.repository"/>
-            <argument type="service" id="country.repository"/>
-            <argument type="service" id="tax.repository"/>
             <argument type="service" id="payment_method.repository"/>
-            <argument type="service" id="shipping_method.repository"/>
-            <argument type="service" id="country_state.repository"/>
-            <argument type="service" id="currency_country_rounding.repository"/>
             <argument type="service" id="HeyFrame\Core\System\Channel\Context\ContextFactory"/>
             <argument type="service" id="language.repository"/>
         </service>
@@ -169,11 +164,10 @@
             <tag name="heyframe.dal.exception_handler"/>
         </service>
 
-        <service id="HeyFrame\Core\System\Channel\Api\StoreApiResponseListener">
+        <service id="HeyFrame\Core\System\Channel\Api\FrontApiResponseListener">
             <tag name="kernel.event_subscriber"/>
             <argument type="service" id="HeyFrame\Core\System\Channel\Api\StructEncoder"/>
             <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface"/>
             <argument type="service" id="HeyFrame\Core\Content\Media\MediaUrlPlaceholderHandlerInterface"/>
         </service>
 
@@ -257,7 +251,6 @@
 
         <service id="HeyFrame\Core\Framework\Gateway\Context\Command\Handler\ChangeCheckoutOptionsCommandHandler">
             <argument type="service" id="payment_method.repository"/>
-            <argument type="service" id="shipping_method.repository"/>
             <tag name="heyframe.context.gateway.command"/>
         </service>
 

@@ -3,9 +3,6 @@
 namespace HeyFrame\Core\Content\Product\Channel\Detail;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Content\Category\Service\CategoryBreadcrumbBuilder;
-use HeyFrame\Core\Content\Cms\Channel\ChannelCmsPageLoaderInterface;
-use HeyFrame\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Content\Product\Channel\AbstractProductCloseoutFilterFactory;
 use HeyFrame\Core\Content\Product\Channel\ChannelProductCollection;
@@ -48,8 +45,6 @@ class ProductDetailRoute extends AbstractProductDetailRoute
         private readonly SystemConfigService $config,
         private readonly Connection $connection,
         private readonly ProductConfiguratorLoader $configuratorLoader,
-        private readonly CategoryBreadcrumbBuilder $breadcrumbBuilder,
-        private readonly ChannelCmsPageLoaderInterface $cmsPageLoader,
         private readonly ChannelProductDefinition $productDefinition,
         private readonly AbstractProductCloseoutFilterFactory $productCloseoutFilterFactory,
         private readonly EventDispatcherInterface $dispatcher,
@@ -102,10 +97,6 @@ class ProductDetailRoute extends AbstractProductDetailRoute
             $parent = $product->getParentId() ?? $product->getId();
 
             $this->cacheTagCollector->addTag(EntityCacheKeyGenerator::buildProductTag($parent));
-
-            $product->setSeoCategory(
-                $this->breadcrumbBuilder->getProductSeoCategory($product, $context)
-            );
 
             $configurator = $this->configuratorLoader->load($product, $context);
 

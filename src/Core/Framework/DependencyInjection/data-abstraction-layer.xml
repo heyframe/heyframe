@@ -17,6 +17,11 @@
     <services>
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\EntityGenerator"/>
 
+        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Command\CreateEntitiesCommand">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\EntityGenerator"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
