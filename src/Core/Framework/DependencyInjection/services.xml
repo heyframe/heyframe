@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:monolog="http://symfony.com/schema/dic/monolog"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd http://symfony.com/schema/dic/monolog http://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
+
+    <services>
+        <!-- Database / Doctrine -->
+        <service id="Doctrine\DBAL\Connection" public="true">
+            <factory class="HeyFrame\Core\Kernel" method="getConnection"/>
+        </service>
+        
+        <!-- Migration -->
+        <service id="HeyFrame\Core\Framework\Migration\MigrationSource.core"
+                 class="HeyFrame\Core\Framework\Migration\MigrationSource">
+            <argument type="string">core</argument>
+            <tag name="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationSource.core.V6_3"
+                 class="HeyFrame\Core\Framework\Migration\MigrationSource">
+            <argument type="string">core.V6_3</argument>
+
+            <tag name="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationSource.core.V6_4"
+                 class="HeyFrame\Core\Framework\Migration\MigrationSource">
+            <argument type="string">core.V6_4</argument>
+            <tag name="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationSource.core.V6_5"
+                 class="HeyFrame\Core\Framework\Migration\MigrationSource">
+            <argument type="string">core.V6_5</argument>
+            <tag name="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationSource.core.V6_6"
+                 class="HeyFrame\Core\Framework\Migration\MigrationSource">
+            <argument type="string">core.V6_6</argument>
+            <tag name="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationSource.core.V6_7"
+                 class="HeyFrame\Core\Framework\Migration\MigrationSource">
+            <argument type="string">core.V6_7</argument>
+            <tag name="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationSource.core.V6_8"
+                 class="HeyFrame\Core\Framework\Migration\MigrationSource">
+            <argument type="string">core.V6_8</argument>
+            <tag name="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationSource.null"
+                 class="HeyFrame\Core\Framework\Migration\MigrationSource">
+            <argument type="string">null</argument>
+            <argument type="collection"/>
+
+            <tag name="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationRuntime">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="logger"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\MigrationCollectionLoader" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Migration\MigrationRuntime"/>
+            <argument type="service" id="logger"/>
+            <argument type="tagged_iterator" tag="heyframe.migration_source"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\Command\CreateMigrationCommand">
+            <argument type="service" id="HeyFrame\Core\Framework\Plugin\KernelPluginCollection"/>
+            <argument>%kernel.heyframe_core_dir%</argument>
+            <argument>%kernel.heyframe_version%</argument>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\Command\RefreshMigrationCommand">
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\Command\MigrationCommand">
+            <argument type="service" id="HeyFrame\Core\Framework\Migration\MigrationCollectionLoader"/>
+            <argument type="service" id="cache.object"/>
+            <argument type="string">%kernel.heyframe_version%</argument>
+
+            <tag name="console.command"/>
+        </service>
+        
+
+        <service id="HeyFrame\Core\Framework\Migration\Command\MigrationDestructiveCommand">
+            <argument type="service" id="HeyFrame\Core\Framework\Migration\MigrationCollectionLoader"/>
+            <argument type="service" id="cache.object"/>
+            <argument type="string">%kernel.heyframe_version%</argument>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Migration\IndexerQueuer" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+    </services>
+</container>

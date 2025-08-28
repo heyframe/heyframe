@@ -1,0 +1,32 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Content\Flow\Extension;
+
+use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
+use HeyFrame\Core\Content\Flow\Dispatching\Struct\Flow;
+use HeyFrame\Core\Framework\Extensions\Extension;
+
+/**
+ * @public
+ *
+ * @title Flow Executor Extension
+ *
+ * @description This extension allows you to control the flow of execution or to pre-load and post-load specific data, enabling added monitoring capabilities or the ability to trigger external services.
+ *
+ * @extends Extension<void>
+ *
+ * @codeCoverageIgnore
+ */
+final class FlowExecutorExtension extends Extension
+{
+    public const NAME = 'flow.executor';
+
+    /**
+     * @internal shopware owns the __constructor, but the properties are public API
+     */
+    public function __construct(
+        public readonly Flow $flow,
+        public readonly StorableFlow $event
+    ) {
+    }
+}

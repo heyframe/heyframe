@@ -1,0 +1,29 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\App\Exception;
+
+use HeyFrame\Core\Framework\App\AppException;
+use Symfony\Component\HttpFoundation\Response;
+
+class AppXmlParsingException extends AppException
+{
+    public static function cannotParseFile(string $xmlFile, string $message): self
+    {
+        return new self(
+            Response::HTTP_BAD_REQUEST,
+            self::XML_PARSE_ERROR,
+            'Unable to parse file "{{ file }}". Message: {{ message }}',
+            ['file' => $xmlFile, 'message' => $message],
+        );
+    }
+
+    public static function cannotParseContent(string $message): self
+    {
+        return new self(
+            Response::HTTP_BAD_REQUEST,
+            self::XML_PARSE_ERROR,
+            'Unable to parse XML content. Message: {{ message }}',
+            ['message' => $message],
+        );
+    }
+}

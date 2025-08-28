@@ -1,0 +1,99 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\System\User;
+
+use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
+use HeyFrame\Core\Content\Media\MediaDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Role\AclUserRoleDefinition;
+use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection\EntityProtectionCollection;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection\WriteProtection;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateTimeField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\EmailField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\PasswordField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TimeZoneField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\System\Locale\LocaleDefinition;
+use HeyFrame\Core\System\User\Aggregate\UserAccessKey\UserAccessKeyDefinition;
+use HeyFrame\Core\System\User\Aggregate\UserConfig\UserConfigDefinition;
+
+class UserDefinition extends EntityDefinition
+{
+    final public const ENTITY_NAME = 'user';
+
+    public function getEntityName(): string
+    {
+        return self::ENTITY_NAME;
+    }
+
+    public function getCollectionClass(): string
+    {
+        return UserCollection::class;
+    }
+
+    public function getEntityClass(): string
+    {
+        return UserEntity::class;
+    }
+
+    public function since(): ?string
+    {
+        return '6.0.0.0';
+    }
+
+    public function getDefaults(): array
+    {
+        return [
+            'timeZone' => 'UTC',
+        ];
+    }
+
+    protected function defineProtections(): EntityProtectionCollection
+    {
+        return new EntityProtectionCollection([new WriteProtection(Context::SYSTEM_SCOPE)]);
+    }
+
+    protected function defineFields(): FieldCollection
+    {
+        return new FieldCollection([
+            (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required()),
+            (new FkField('locale_id', 'localeId', LocaleDefinition::class))->addFlags(new Required()),
+            (new StringField('username', 'username'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new PasswordField('password', 'password', \PASSWORD_DEFAULT, [], PasswordField::FOR_ADMIN))->removeFlag(ApiAware::class)->addFlags(new Required()),
+            (new StringField('name', 'name'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new StringField('phone_number', 'phoneNumber'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new EmailField('email', 'email'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            new BoolField('active', 'active'),
+            new BoolField('admin', 'admin'),
+            new DateTimeField('last_updated_password_at', 'lastUpdatedPasswordAt'),
+            (new TimeZoneField('time_zone', 'timeZone'))->addFlags(new Required()),
+            new CustomFields(),
+            new ManyToOneAssociationField('locale', 'locale_id', LocaleDefinition::class, 'id', false),
+            new FkField('avatar_id', 'avatarId', MediaDefinition::class),
+            new ManyToOneAssociationField('avatarMedia', 'avatar_id', MediaDefinition::class),
+            (new OneToManyAssociationField('media', MediaDefinition::class, 'user_id'))->addFlags(new SetNullOnDelete()),
+            (new OneToManyAssociationField('accessKeys', UserAccessKeyDefinition::class, 'user_id', 'id'))->addFlags(new CascadeDelete()),
+            (new OneToManyAssociationField('configs', UserConfigDefinition::class, 'user_id', 'id'))->addFlags(new CascadeDelete()),
+            new ManyToManyAssociationField('aclRoles', AclRoleDefinition::class, AclUserRoleDefinition::class, 'user_id', 'acl_role_id'),
+            (new StringField('store_token', 'storeToken'))->removeFlag(ApiAware::class),
+            new OneToManyAssociationField('createdCustomers', CustomerDefinition::class, 'created_by_id', 'id'),
+            new OneToManyAssociationField('updatedCustomers', CustomerDefinition::class, 'updated_by_id', 'id'),
+        ]);
+    }
+}

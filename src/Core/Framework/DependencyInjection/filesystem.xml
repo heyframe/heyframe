@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Filesystem -->
+        <service id="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory">
+            <argument type="tagged_iterator" tag="heyframe.filesystem.factory"/>
+        </service>
+
+        <service class="League\Flysystem\FilesystemOperator" id="heyframe.filesystem.public" public="true">
+            <factory service="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory" method="factory"/>
+            <argument>%heyframe.filesystem.public%</argument>
+        </service>
+
+        <service class="League\Flysystem\FilesystemOperator" id="heyframe.filesystem.private" public="true">
+            <factory service="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory" method="privateFactory"/>
+            <argument>%heyframe.filesystem.private%</argument>
+        </service>
+
+        <service class="League\Flysystem\FilesystemOperator" id="heyframe.filesystem.temp" public="true">
+            <factory service="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory" method="privateFactory"/>
+            <argument>%heyframe.filesystem.temp%</argument>
+        </service>
+
+        <service class="League\Flysystem\FilesystemOperator" id="heyframe.filesystem.theme" public="true">
+            <factory service="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory" method="factory"/>
+            <argument>%heyframe.filesystem.theme%</argument>
+        </service>
+
+        <service class="League\Flysystem\FilesystemOperator" id="heyframe.filesystem.sitemap" public="true">
+            <factory service="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory" method="factory"/>
+            <argument>%heyframe.filesystem.sitemap%</argument>
+        </service>
+
+        <service class="League\Flysystem\FilesystemOperator" id="heyframe.filesystem.asset" public="true">
+            <factory service="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory" method="factory"/>
+            <argument>%heyframe.filesystem.asset%</argument>
+        </service>
+
+        <service class="HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\LocalFactory" id="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory.local">
+            <tag name="heyframe.filesystem.factory"/>
+        </service>
+
+        <service class="HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\AwsS3v3Factory" id="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory.amazon_s3">
+            <argument>%heyframe.filesystem.batch_write_size%</argument>
+            <tag name="heyframe.filesystem.factory"/>
+        </service>
+
+        <service class="HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\GoogleStorageFactory" id="HeyFrame\Core\Framework\Adapter\Filesystem\FilesystemFactory.google_storage">
+            <tag name="heyframe.filesystem.factory"/>
+        </service>
+
+        <service id="console.command.assets_install" class="HeyFrame\Core\Framework\Adapter\Asset\AssetInstallCommand">
+            <argument type="service" id="kernel"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Plugin\Util\AssetService"/>
+            <argument type="service" id="HeyFrame\Core\Framework\App\ActiveAppsLoader"/>
+            <tag name="console.command"/>
+        </service>
+
+        <!-- Assets -->
+        <service id="heyframe.asset.public" class="HeyFrame\Core\Framework\Adapter\Asset\FallbackUrlPackage" lazy="true">
+            <argument type="collection">
+                <argument>%heyframe.filesystem.public.url%</argument>
+            </argument>
+            <argument type="service" id="assets.empty_version_strategy"/>
+            <argument type="service" id="request_stack" on-invalid="null"/>
+            <tag name="heyframe.asset" asset="public"/>
+        </service>
+
+        <service id="heyframe.asset.public.version_strategy" class="HeyFrame\Core\Framework\Adapter\Asset\FlysystemLastModifiedVersionStrategy">
+            <argument>theme-metaData</argument>
+            <argument type="service" id="heyframe.filesystem.public"/>
+            <argument type="service" id="cache.object"/>
+        </service>
+
+        <service id="heyframe.asset.theme.version_strategy" class="HeyFrame\Core\Framework\Adapter\Asset\FlysystemLastModifiedVersionStrategy">
+            <argument>theme-metaData</argument>
+            <argument type="service" id="heyframe.filesystem.theme"/>
+            <argument type="service" id="cache.object"/>
+        </service>
+
+        <service id="heyframe.asset.asset.version_strategy" class="HeyFrame\Core\Framework\Adapter\Asset\FlysystemLastModifiedVersionStrategy">
+            <argument>asset-metaData</argument>
+            <argument type="service" id="heyframe.filesystem.asset"/>
+            <argument type="service" id="cache.object"/>
+        </service>
+
+        <service id="heyframe.asset.asset" class="HeyFrame\Core\Framework\Adapter\Asset\FallbackUrlPackage" lazy="true">
+            <argument type="collection">
+                <argument>%heyframe.filesystem.asset.url%</argument>
+            </argument>
+            <argument type="service" id="heyframe.asset.asset.version_strategy"/>
+            <argument type="service" id="request_stack" on-invalid="null"/>
+            <tag name="heyframe.asset" asset="asset"/>
+        </service>
+
+        <service id="heyframe.asset.asset_without_versioning" class="HeyFrame\Core\Framework\Adapter\Asset\FallbackUrlPackage" lazy="true">
+            <argument type="collection">
+                <argument>%heyframe.filesystem.asset.url%</argument>
+            </argument>
+            <argument type="service" id="assets.empty_version_strategy"/>
+            <argument type="service" id="request_stack" on-invalid="null"/>
+        </service>
+
+        <service id="heyframe.asset.sitemap" class="HeyFrame\Core\Framework\Adapter\Asset\FallbackUrlPackage" lazy="true">
+            <argument type="collection">
+                <argument>%heyframe.filesystem.sitemap.url%</argument>
+            </argument>
+            <argument type="service" id="assets.empty_version_strategy"/>
+            <argument type="service" id="request_stack" on-invalid="null"/>
+            <tag name="heyframe.asset" asset="sitemap"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatchInputFactory"/>
+    </services>
+</container>

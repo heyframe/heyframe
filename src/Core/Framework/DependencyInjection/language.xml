@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\System\Language\LanguageDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\SalesChannel\SalesChannelLanguageDefinition">
+            <tag name="heyframe.sales_channel.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\LanguageValidator">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\LanguageLoader">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\SalesChannelLanguageLoader">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\CachedLanguageLoader" decorates="HeyFrame\Core\System\Language\LanguageLoader">
+            <argument type="service" id="HeyFrame\Core\System\Language\CachedLanguageLoader.inner"/>
+            <argument type="service" id="cache.object"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\TranslationValidator">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\LanguageExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\Channel\LanguageRoute" public="true">
+            <argument type="service" id="channel.language.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Language\Rule\LanguageRule">
+            <tag name="heyframe.rule.definition"/>
+        </service>
+
+    </services>
+</container>

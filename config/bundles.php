@@ -11,6 +11,7 @@ $bundles = [
     HeyFrame\Core\Framework\Framework::class => ['all' => true],
     HeyFrame\Core\System\System::class => ['all' => true],
     HeyFrame\Core\Content\Content::class => ['all' => true],
+    HeyFrame\Core\Checkout\Checkout::class => ['all' => true],
     HeyFrame\Core\DevOps\DevOps::class => ['all' => true],
     HeyFrame\Core\Maintenance\Maintenance::class => ['all' => true],
     HeyFrame\Administration\Administration::class => ['all' => true],

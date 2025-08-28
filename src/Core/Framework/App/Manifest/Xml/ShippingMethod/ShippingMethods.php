@@ -1,0 +1,34 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\App\Manifest\Xml\ShippingMethod;
+
+use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
+
+/**
+ * @internal only for use by the app-system
+ */
+class ShippingMethods extends XmlElement
+{
+    /**
+     * @var list<ShippingMethod>
+     */
+    protected array $shippingMethods;
+
+    /**
+     * @return list<ShippingMethod>
+     */
+    public function getShippingMethods(): array
+    {
+        return $this->shippingMethods;
+    }
+
+    protected static function parse(\DOMElement $element): array
+    {
+        $shippingMethods = [];
+        foreach ($element->getElementsByTagName('shipping-method') as $shippingMethod) {
+            $shippingMethods[] = ShippingMethod::fromXml($shippingMethod);
+        }
+
+        return ['shippingMethods' => $shippingMethods];
+    }
+}
