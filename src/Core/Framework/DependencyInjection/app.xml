@@ -111,18 +111,6 @@
             <argument type="service" id="HeyFrame\Core\Framework\App\Source\SourceResolver"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\App\Lifecycle\Persister\ShippingMethodPersister">
-            <argument type="service" id="shipping_method.repository"/>
-            <argument type="service" id="app_shipping_method.repository"/>
-            <argument type="service" id="media.repository"/>
-            <argument type="service" id="HeyFrame\Core\Content\Media\MediaService"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Source\SourceResolver"/>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\App\Lifecycle\Persister\TaxProviderPersister">
-            <argument type="service" id="tax_provider.repository"/>
-        </service>
-
         <service id="HeyFrame\Core\Framework\App\Lifecycle\Persister\RuleConditionPersister">
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\ScriptFileReader"/>
             <argument type="service" id="app_script_condition.repository"/>
@@ -254,7 +242,6 @@
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\ScriptPersister"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\WebhookPersister"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\PaymentMethodPersister"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\TaxProviderPersister"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\RuleConditionPersister"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\CmsBlockPersister"/>
             <argument type="service" id="event_dispatcher"/>
@@ -270,13 +257,11 @@
             <argument type="string">%kernel.project_dir%</argument>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\FlowActionPersister"/>
-            <argument type="service" id="HeyFrame\Administration\Snippet\AppAdministrationSnippetPersister" on-invalid="null"/>
             <argument type="service" id="HeyFrame\Core\System\CustomEntity\Schema\CustomEntitySchemaUpdater"/>
             <argument type="service" id="HeyFrame\Core\System\CustomEntity\CustomEntityLifecycleService"/>
             <argument>%kernel.heyframe_version%</argument>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\FlowEventPersister"/>
             <argument>%kernel.environment%</argument>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\ShippingMethodPersister"/>
             <argument type="service" id="custom_entity.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Source\SourceResolver"/>
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\Util\ConfigReader"/>

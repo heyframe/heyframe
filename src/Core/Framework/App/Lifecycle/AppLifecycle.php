@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Framework\App\Lifecycle;
 
 use Composer\Semver\VersionParser;
 use Doctrine\DBAL\Connection;
-use HeyFrame\Administration\Snippet\AppAdministrationSnippetPersister;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
@@ -35,8 +34,6 @@ use HeyFrame\Core\Framework\App\Lifecycle\Persister\PaymentMethodPersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\PermissionPersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\RuleConditionPersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\ScriptPersister;
-use HeyFrame\Core\Framework\App\Lifecycle\Persister\ShippingMethodPersister;
-use HeyFrame\Core\Framework\App\Lifecycle\Persister\TaxProviderPersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\TemplatePersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\WebhookPersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Registration\AppRegistrationService;
@@ -87,7 +84,6 @@ class AppLifecycle extends AbstractAppLifecycle
         private readonly ScriptPersister $scriptPersister,
         private readonly WebhookPersister $webhookPersister,
         private readonly PaymentMethodPersister $paymentMethodPersister,
-        private readonly TaxProviderPersister $taxProviderPersister,
         private readonly RuleConditionPersister $ruleConditionPersister,
         private readonly CmsBlockPersister $cmsBlockPersister,
         private readonly EventDispatcherInterface $eventDispatcher,
@@ -103,13 +99,11 @@ class AppLifecycle extends AbstractAppLifecycle
         private readonly string $projectDir,
         private readonly Connection $connection,
         private readonly FlowActionPersister $flowBuilderActionPersister,
-        private readonly ?AppAdministrationSnippetPersister $appAdministrationSnippetPersister,
         private readonly CustomEntitySchemaUpdater $customEntitySchemaUpdater,
         private readonly CustomEntityLifecycleService $customEntityLifecycleService,
         private readonly string $heyframeVersion,
         private readonly FlowEventPersister $flowEventPersister,
         private readonly string $env,
-        private readonly ShippingMethodPersister $shippingMethodPersister,
         private readonly EntityRepository $customEntityRepository,
         private readonly SourceResolver $sourceResolver,
         private readonly ConfigReader $configReader
@@ -293,12 +287,10 @@ class AppLifecycle extends AbstractAppLifecycle
         // therefore we only install webhooks, modules, tax providers and payment methods if we have a secret
         if ($app->getAppSecret()) {
             $this->paymentMethodPersister->updatePaymentMethods($manifest, $id, $defaultLocale, $context);
-            $this->taxProviderPersister->updateTaxProviders($manifest, $id, $defaultLocale, $context);
 
             $this->updateModules($manifest, $id, $defaultLocale, $context);
         }
 
-        $this->shippingMethodPersister->updateShippingMethods($manifest, $id, $defaultLocale, $context);
         $this->ruleConditionPersister->updateConditions($manifest, $id, $defaultLocale, $context);
         $this->actionButtonPersister->updateActions($manifest, $id, $defaultLocale, $context);
         $this->templatePersister->updateTemplates($manifest, $id, $context, $install);
@@ -318,12 +310,6 @@ class AppLifecycle extends AbstractAppLifecycle
             'allowDisable' => $this->doesAllowDisabling($app),
         ];
         $this->updateMetadata($updatePayload, $context);
-
-        // updates the snippets if the administration bundle is available
-        if ($this->appAdministrationSnippetPersister !== null) {
-            $snippets = $this->getSnippets($app);
-            $this->appAdministrationSnippetPersister->updateSnippets($app, $snippets, $context);
-        }
 
         return $app;
     }
