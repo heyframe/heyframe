@@ -6,9 +6,7 @@ use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\ActionButton\ActionButtonDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\AppPaymentMethod\AppPaymentMethodDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\AppScriptCondition\AppScriptConditionDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\AppShippingMethod\AppShippingMethodDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\AppTranslation\AppTranslationDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\CmsBlock\AppCmsBlockDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\FlowAction\AppFlowActionDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\FlowEvent\AppFlowEventDefinition;
 use HeyFrame\Core\Framework\App\Template\TemplateDefinition;
@@ -40,7 +38,6 @@ use HeyFrame\Core\Framework\Script\ScriptDefinition;
 use HeyFrame\Core\Framework\Webhook\WebhookDefinition;
 use HeyFrame\Core\System\CustomField\Aggregate\CustomFieldSet\CustomFieldSetDefinition;
 use HeyFrame\Core\System\Integration\IntegrationDefinition;
-use HeyFrame\Core\System\TaxProvider\TaxProviderDefinition;
 
 /**
  * @internal
@@ -135,12 +132,9 @@ class AppDefinition extends EntityDefinition
             (new OneToManyAssociationField('scripts', ScriptDefinition::class, 'app_id'))->addFlags(new CascadeDelete())->removeFlag(ApiAware::class),
             (new OneToManyAssociationField('webhooks', WebhookDefinition::class, 'app_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('paymentMethods', AppPaymentMethodDefinition::class, 'app_id'))->addFlags(new SetNullOnDelete()),
-            (new OneToManyAssociationField('taxProviders', TaxProviderDefinition::class, 'app_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('scriptConditions', AppScriptConditionDefinition::class, 'app_id'))->addFlags(new CascadeDelete())->removeFlag(ApiAware::class),
-            (new OneToManyAssociationField('cmsBlocks', AppCmsBlockDefinition::class, 'app_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('flowActions', AppFlowActionDefinition::class, 'app_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('flowEvents', AppFlowEventDefinition::class, 'app_id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('appShippingMethods', AppShippingMethodDefinition::class, 'app_id'))->addFlags(new SetNullOnDelete()),
         ]);
     }
 }

@@ -248,7 +248,7 @@ class CheapestPriceContainer extends Struct
             return null;
         }
 
-        $value = $context->getTaxState() === CartPrice::TAX_STATE_GROSS ? $currency['gross'] : $currency['net'];
+        $value = $currency['gross'];
 
         if ($currency['currencyId'] !== $context->getCurrencyId()) {
             $value *= $context->getCurrencyFactor();

@@ -39,10 +39,7 @@ class CheapestPriceAccessorBuilder implements FieldAccessorBuilderInterface
         }
         $keys[] = 'default';
 
-        $jsonAccessor = 'net';
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            $jsonAccessor = 'gross';
-        }
+        $jsonAccessor = 'gross';
 
         $parts = explode('.', $accessor);
 
@@ -130,10 +127,6 @@ class CheapestPriceAccessorBuilder implements FieldAccessorBuilderInterface
             return false;
         }
 
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            return true;
-        }
-
-        return $context->getRounding()->roundForNet();
+        return true;
     }
 }

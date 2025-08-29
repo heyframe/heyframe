@@ -67,11 +67,6 @@ class BaseChannelContext
         return $this->context;
     }
 
-    public function getTaxState(): string
-    {
-        return $this->context->getTaxState();
-    }
-
     public function getTotalRounding(): CashRoundingConfig
     {
         return $this->totalRounding;

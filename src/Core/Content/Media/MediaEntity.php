@@ -2,29 +2,18 @@
 
 namespace HeyFrame\Core\Content\Media;
 
-use HeyFrame\Core\Checkout\Document\Aggregate\DocumentBaseConfig\DocumentBaseConfigCollection;
-use HeyFrame\Core\Checkout\Document\DocumentCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodCollection;
-use HeyFrame\Core\Content\Category\CategoryCollection;
-use HeyFrame\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockCollection;
-use HeyFrame\Core\Content\Cms\Aggregate\CmsSection\CmsSectionCollection;
-use HeyFrame\Core\Content\Cms\CmsPageCollection;
-use HeyFrame\Core\Content\MailTemplate\Aggregate\MailTemplateMedia\MailTemplateMediaCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaTranslation\MediaTranslationCollection;
 use HeyFrame\Core\Content\Media\MediaType\MediaType;
 use HeyFrame\Core\Content\Media\MediaType\SpatialObjectType;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductDownload\ProductDownloadCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductManufacturer\ProductManufacturerCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
 use HeyFrame\Core\Framework\App\Aggregate\AppPaymentMethod\AppPaymentMethodCollection;
-use HeyFrame\Core\Framework\App\Aggregate\AppShippingMethod\AppShippingMethodEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
@@ -33,7 +22,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Tag\TagCollection;
 use HeyFrame\Core\System\User\UserCollection;
 use HeyFrame\Core\System\User\UserEntity;
-use HeyFrame\Frontend\Theme\ThemeCollection;
 
 /**
  * @phpstan-type MediaConfig array{'spatialObject': array{'arReady': bool, 'arPlacement': string}}
@@ -80,12 +68,6 @@ class MediaEntity extends Entity
 
     protected ?MediaTranslationCollection $translations = null;
 
-    protected ?CategoryCollection $categories = null;
-
-    protected ?ThemeCollection $themes = null;
-
-    protected ?ProductManufacturerCollection $productManufacturers = null;
-
     protected ?ProductMediaCollection $productMedia = null;
 
     protected ?UserCollection $avatarUsers = null;
@@ -102,8 +84,6 @@ class MediaEntity extends Entity
 
     protected ?PropertyGroupOptionCollection $propertyGroupOptions = null;
 
-    protected ?MailTemplateMediaCollection $mailTemplateMedia = null;
-
     protected ?TagCollection $tags = null;
 
     /**
@@ -113,34 +93,13 @@ class MediaEntity extends Entity
 
     protected ?string $path = null;
 
-    protected ?DocumentBaseConfigCollection $documentBaseConfigs = null;
-
-    protected ?ShippingMethodCollection $shippingMethods = null;
-
     protected ?PaymentMethodCollection $paymentMethods = null;
 
     protected ?ProductConfiguratorSettingCollection $productConfiguratorSettings = null;
 
     protected ?OrderLineItemCollection $orderLineItems = null;
 
-    protected ?CmsBlockCollection $cmsBlocks = null;
-
-    protected ?CmsSectionCollection $cmsSections = null;
-
-    protected ?CmsPageCollection $cmsPages = null;
-
-    protected ?DocumentCollection $documents = null;
-
-    protected ?DocumentCollection $a11yDocuments = null;
-
     protected ?AppPaymentMethodCollection $appPaymentMethods = null;
-
-    /**
-     * @var EntityCollection<AppShippingMethodEntity>|null
-     */
-    protected ?EntityCollection $appShippingMethods = null;
-
-    protected ?ProductDownloadCollection $productDownloads = null;
 
     protected ?OrderLineItemDownloadCollection $orderLineItemDownloads = null;
 
@@ -281,35 +240,6 @@ class MediaEntity extends Entity
         $this->translations = $translations;
     }
 
-    public function getCategories(): ?CategoryCollection
-    {
-        return $this->categories;
-    }
-
-    public function setCategories(CategoryCollection $categories): void
-    {
-        $this->categories = $categories;
-    }
-
-    public function getThemes(): ?ThemeCollection
-    {
-        return $this->themes;
-    }
-
-    public function setThemes(ThemeCollection $themes): void
-    {
-        $this->themes = $themes;
-    }
-
-    public function getProductManufacturers(): ?ProductManufacturerCollection
-    {
-        return $this->productManufacturers;
-    }
-
-    public function setProductManufacturers(ProductManufacturerCollection $productManufacturers): void
-    {
-        $this->productManufacturers = $productManufacturers;
-    }
 
     public function getProductMedia(): ?ProductMediaCollection
     {
@@ -435,16 +365,6 @@ class MediaEntity extends Entity
         $this->mediaTypeRaw = $mediaTypeRaw;
     }
 
-    public function getMailTemplateMedia(): ?MailTemplateMediaCollection
-    {
-        return $this->mailTemplateMedia;
-    }
-
-    public function setMailTemplateMedia(MailTemplateMediaCollection $mailTemplateMedia): void
-    {
-        $this->mailTemplateMedia = $mailTemplateMedia;
-    }
-
     public function getTags(): ?TagCollection
     {
         return $this->tags;
@@ -471,26 +391,6 @@ class MediaEntity extends Entity
     public function setThumbnailsRo(string $thumbnailsRo): void
     {
         $this->thumbnailsRo = $thumbnailsRo;
-    }
-
-    public function getDocumentBaseConfigs(): ?DocumentBaseConfigCollection
-    {
-        return $this->documentBaseConfigs;
-    }
-
-    public function setDocumentBaseConfigs(DocumentBaseConfigCollection $documentBaseConfigs): void
-    {
-        $this->documentBaseConfigs = $documentBaseConfigs;
-    }
-
-    public function getShippingMethods(): ?ShippingMethodCollection
-    {
-        return $this->shippingMethods;
-    }
-
-    public function setShippingMethods(ShippingMethodCollection $shippingMethods): void
-    {
-        $this->shippingMethods = $shippingMethods;
     }
 
     public function getPaymentMethods(): ?PaymentMethodCollection
@@ -535,36 +435,6 @@ class MediaEntity extends Entity
         $this->orderLineItems = $orderLineItems;
     }
 
-    public function getCmsBlocks(): ?CmsBlockCollection
-    {
-        return $this->cmsBlocks;
-    }
-
-    public function setCmsBlocks(CmsBlockCollection $cmsBlocks): void
-    {
-        $this->cmsBlocks = $cmsBlocks;
-    }
-
-    public function getCmsSections(): ?CmsSectionCollection
-    {
-        return $this->cmsSections;
-    }
-
-    public function setCmsSections(CmsSectionCollection $cmsSections): void
-    {
-        $this->cmsSections = $cmsSections;
-    }
-
-    public function getCmsPages(): ?CmsPageCollection
-    {
-        return $this->cmsPages;
-    }
-
-    public function setCmsPages(CmsPageCollection $cmsPages): void
-    {
-        $this->cmsPages = $cmsPages;
-    }
-
     public function isPrivate(): bool
     {
         return $this->private;
@@ -575,62 +445,12 @@ class MediaEntity extends Entity
         $this->private = $private;
     }
 
-    public function getDocuments(): ?DocumentCollection
-    {
-        return $this->documents;
-    }
-
-    public function setDocuments(DocumentCollection $documents): void
-    {
-        $this->documents = $documents;
-    }
-
-    public function getA11yDocuments(): ?DocumentCollection
-    {
-        return $this->a11yDocuments;
-    }
-
-    public function setA11yDocuments(DocumentCollection $a11yDocuments): void
-    {
-        $this->a11yDocuments = $a11yDocuments;
-    }
 
     public function getAppPaymentMethods(): ?AppPaymentMethodCollection
     {
         return $this->appPaymentMethods;
     }
-
-    public function setAppPaymentMethods(AppPaymentMethodCollection $appPaymentMethods): void
-    {
-        $this->appPaymentMethods = $appPaymentMethods;
-    }
-
-    /**
-     * @return EntityCollection<AppShippingMethodEntity>|null
-     */
-    public function getAppShippingMethods(): ?EntityCollection
-    {
-        return $this->appShippingMethods;
-    }
-
-    /**
-     * @param EntityCollection<AppShippingMethodEntity> $appShippingMethods
-     */
-    public function setAppShippingMethods(EntityCollection $appShippingMethods): void
-    {
-        $this->appShippingMethods = $appShippingMethods;
-    }
-
-    public function getProductDownloads(): ?ProductDownloadCollection
-    {
-        return $this->productDownloads;
-    }
-
-    public function setProductDownloads(ProductDownloadCollection $productDownloads): void
-    {
-        $this->productDownloads = $productDownloads;
-    }
-
+    
     public function getOrderLineItemDownloads(): ?OrderLineItemDownloadCollection
     {
         return $this->orderLineItemDownloads;

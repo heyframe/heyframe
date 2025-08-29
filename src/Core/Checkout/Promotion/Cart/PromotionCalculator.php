@@ -256,7 +256,7 @@ class PromotionCalculator
         // then this would mean -> no discount
         if ($packages->count() <= 0) {
             return new DiscountCalculatorResult(
-                new CalculatedPrice(0, 0, new CalculatedTaxCollection(), new TaxRuleCollection(), 1),
+                new CalculatedPrice(0, 0, 1),
                 []
             );
         }
@@ -334,10 +334,6 @@ class PromotionCalculator
      */
     private function getMaxDiscountValue(Cart $cart, ChannelContext $context): float
     {
-        if ($context->getTaxState() === CartPrice::TAX_STATE_NET) {
-            return $cart->getPrice()->getNetPrice();
-        }
-
         return $cart->getPrice()->getTotalPrice();
     }
 
@@ -389,7 +385,6 @@ class PromotionCalculator
     {
         $amount = $this->amountCalculator->calculate(
             $cart->getLineItems()->getPrices(),
-            $cart->getDeliveries()->getShippingCosts(),
             $context
         );
 

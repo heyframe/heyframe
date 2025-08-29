@@ -83,6 +83,12 @@ class Migration1597391970App extends MigrationStep
               CONSTRAINT `fk.app_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
+
+        $connection->executeStatement('
+            ALTER TABLE `custom_field_set`
+            ADD COLUMN `app_id` BINARY(16) NULL AFTER `active`,
+            ADD CONSTRAINT `fk.custom_field_set.app_id` FOREIGN KEY (`app_id`) REFERENCES `app` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+        ');
     }
 
     public function updateDestructive(Connection $connection): void

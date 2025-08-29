@@ -10,7 +10,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Frontend\Theme\ThemeAppLifecycleHandler;
 
 /**
  * @internal
@@ -30,7 +29,6 @@ class UninstallAppsStrategy extends AbstractShopIdChangeStrategy
     public function __construct(
         private readonly EntityRepository $appRepository,
         private readonly ShopIdProvider $shopIdProvider,
-        private readonly ?ThemeAppLifecycleHandler $themeLifecycleHandler
     ) {
     }
 
@@ -54,11 +52,6 @@ class UninstallAppsStrategy extends AbstractShopIdChangeStrategy
         $this->shopIdProvider->deleteShopId();
 
         foreach ($this->appRepository->search(new Criteria(), $context)->getEntities() as $app) {
-            // Delete app manually, to not inform the app backend about the deactivation
-            // as the app is still running in the old shop with the same shopId
-            if ($this->themeLifecycleHandler) {
-                $this->themeLifecycleHandler->handleUninstall(new AppDeactivatedEvent($app, $context));
-            }
             $this->appRepository->delete([['id' => $app->getId()]], $context);
         }
     }

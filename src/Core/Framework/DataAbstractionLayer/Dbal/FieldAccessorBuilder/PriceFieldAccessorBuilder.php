@@ -33,10 +33,7 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
 
         $currencyId = $context->getCurrencyId();
         $currencyFactor = \sprintf('* %F', $context->getCurrencyFactor());
-        $jsonAccessor = 'net';
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            $jsonAccessor = 'gross';
-        }
+        $jsonAccessor = 'gross';
 
         $parts = explode('.', $accessor);
 
@@ -58,7 +55,7 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
         }
 
         // is specific currency id provided? => overwrite currency id and currency factor
-        $lastPart = (string) end($parts);
+        $lastPart = (string)end($parts);
         if (Uuid::isValid($lastPart)) {
             $currencyId = $lastPart;
             $currencyFactor = \sprintf(
@@ -82,7 +79,7 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
             '#root#' => EntityDefinitionQueryHelper::escape($root),
             '#field#' => EntityDefinitionQueryHelper::escape($field->getStorageName()),
             '#currencyId#' => $currencyId,
-            '#property#' => (string) $jsonAccessor,
+            '#property#' => (string)$jsonAccessor,
             '#factor#' => '+ 0.0',
         ];
 
@@ -93,7 +90,7 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
                 '#root#' => EntityDefinitionQueryHelper::escape($root),
                 '#field#' => EntityDefinitionQueryHelper::escape($field->getStorageName()),
                 '#currencyId#' => Defaults::CURRENCY,
-                '#property#' => (string) $jsonAccessor,
+                '#property#' => (string)$jsonAccessor,
                 '#factor#' => $currencyFactor,
             ];
 
@@ -104,7 +101,7 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
 
         $variables = [
             '#template#' => $template,
-            '#decimals#' => (string) $context->getRounding()->getDecimals(),
+            '#decimals#' => (string)$context->getRounding()->getDecimals(),
         ];
 
         $template = str_replace(
@@ -118,7 +115,7 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
 
             $variables = [
                 '#accessor#' => $template,
-                '#multiplier#' => (string) $multiplier,
+                '#multiplier#' => (string)$multiplier,
             ];
 
             $template = str_replace(array_keys($variables), array_values($variables), '(ROUND(#accessor# * #multiplier#, 0) / #multiplier#)');
@@ -133,10 +130,6 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
             return false;
         }
 
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            return true;
-        }
-
-        return $context->getRounding()->roundForNet();
+        return true;
     }
 }

@@ -114,14 +114,6 @@
             <tag name="messenger.message_handler"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Test\Category\Service\CountingEntityReader" decorates="HeyFrame\Core\Framework\DataAbstractionLayer\Read\EntityReaderInterface">
-            <argument type="service" id="HeyFrame\Core\Content\Test\Category\Service\CountingEntityReader.inner"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Test\Category\Service\CountingEntitySearcher" decorates="HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearcherInterface">
-            <argument type="service" id="HeyFrame\Core\Content\Test\Category\Service\CountingEntitySearcher.inner"/>
-        </service>
-
         <service id="HeyFrame\Core\Framework\Test\TestCacheClearer">
             <argument type="collection">
                 <argument type="service" id="cache.object" />

@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Content\Product\Aggregate\ProductPrice;
 
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
-use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\Log\Package;
 
@@ -26,20 +24,6 @@ class ProductPriceCollection extends EntityCollection
     public function sortByQuantity(): void
     {
         $this->sort(fn (ProductPriceEntity $a, ProductPriceEntity $b) => $a->getQuantityStart() <=> $b->getQuantityStart());
-    }
-
-    public function sortByPrice(Context $context): void
-    {
-        $this->sort(function (ProductPriceEntity $a, ProductPriceEntity $b) use ($context) {
-            $a = $a->getPrice()->first();
-            $b = $b->getPrice()->first();
-
-            if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-                return ($a ? $a->getGross() : 0) <=> ($b ? $b->getGross() : 0);
-            }
-
-            return ($a ? $a->getNet() : 0) <=> ($b ? $b->getNet() : 0);
-        });
     }
 
     protected function getExpectedClass(): string

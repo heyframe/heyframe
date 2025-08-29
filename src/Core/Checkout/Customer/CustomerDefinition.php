@@ -11,7 +11,6 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerDefinition
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionPersonaCustomer\PromotionPersonaCustomerDefinition;
 use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
-use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AutoIncrementField;
@@ -51,7 +50,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelDefinition;
 use HeyFrame\Core\System\Language\LanguageDefinition;
 use HeyFrame\Core\System\NumberRange\DataAbstractionLayer\NumberRangeField;
-use HeyFrame\Core\System\Salutation\SalutationDefinition;
 use HeyFrame\Core\System\Tag\TagDefinition;
 use HeyFrame\Core\System\User\UserDefinition;
 
@@ -79,12 +77,6 @@ class CustomerDefinition extends EntityDefinition
         return CustomerEntity::class;
     }
 
-    public function getDefaults(): array
-    {
-        return [
-            'accountType' => CustomerEntity::ACCOUNT_TYPE_PRIVATE,
-        ];
-    }
 
     public function hasManyToManyIdFields(): bool
     {
@@ -108,7 +100,6 @@ class CustomerDefinition extends EntityDefinition
             (new FkField('default_shipping_address_id', 'defaultShippingAddressId', CustomerAddressDefinition::class))->addFlags(new ApiAware(), new Required(), new NoConstraint()),
             new AutoIncrementField(),
             (new NumberRangeField('customer_number', 'customerNumber', 255))->addFlags(new ApiAware(), new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
-            (new FkField('salutation_id', 'salutationId', SalutationDefinition::class))->addFlags(new ApiAware()),
             (new StringField('first_name', 'firstName', self::MAX_LENGTH_FIRST_NAME))->addFlags(new ApiAware(), new Required(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
             (new StringField('last_name', 'lastName', self::MAX_LENGTH_LAST_NAME))->addFlags(new ApiAware(), new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             (new StringField('company', 'company'))->addFlags(new ApiAware(), new IgnoreInOpenapiSchema(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
@@ -143,12 +134,10 @@ class CustomerDefinition extends EntityDefinition
             (new ManyToOneAssociationField('activeBillingAddress', 'active_billing_address_id', CustomerAddressDefinition::class, 'id', false))->addFlags(new ApiAware(), new Runtime()),
             (new ManyToOneAssociationField('defaultShippingAddress', 'default_shipping_address_id', CustomerAddressDefinition::class, 'id', false))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
             (new ManyToOneAssociationField('activeShippingAddress', 'active_shipping_address_id', CustomerAddressDefinition::class, 'id', false))->addFlags(new ApiAware(), new Runtime()),
-            (new ManyToOneAssociationField('salutation', 'salutation_id', SalutationDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new OneToManyAssociationField('addresses', CustomerAddressDefinition::class, 'customer_id', 'id'))->addFlags(new ApiAware(), new CascadeDelete()),
             (new OneToManyAssociationField('orderCustomers', OrderCustomerDefinition::class, 'customer_id', 'id'))->addFlags(new SetNullOnDelete()),
             (new ManyToManyAssociationField('tags', TagDefinition::class, CustomerTagDefinition::class, 'customer_id', 'tag_id'))->addFlags(new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING), new ApiAware()),
             new ManyToManyAssociationField('promotions', PromotionDefinition::class, PromotionPersonaCustomerDefinition::class, 'customer_id', 'promotion_id'),
-            new OneToManyAssociationField('productReviews', ProductReviewDefinition::class, 'customer_id'),
             new OneToOneAssociationField('recoveryCustomer', 'id', 'customer_id', CustomerRecoveryDefinition::class, false),
             new RemoteAddressField('remote_address', 'remoteAddress'),
             (new ManyToManyIdField('tag_ids', 'tagIds', 'tags'))->addFlags(new ApiAware()),

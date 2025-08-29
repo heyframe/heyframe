@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Product\Channel\Price;
 
 use HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection as CalculatedPriceCollection;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePriceDefinition;
@@ -32,6 +31,10 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         private readonly ExtensionDispatcher $extensions,
     ) {
     }
+    public function reset(): void
+    {
+
+    }
 
     public function getDecorated(): AbstractProductPriceCalculator
     {
@@ -51,10 +54,6 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         );
     }
 
-    public function reset(): void
-    {
-        $this->units = null;
-    }
 
     /**
      * @param iterable<Entity> $products
@@ -171,8 +170,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
     ): QuantityPriceDefinition {
         $price = $this->getPriceValue($prices, $context);
 
-        $taxId = $product->get('taxId');
-        $definition = new QuantityPriceDefinition($price, $context->buildTaxRules($taxId), $quantity);
+        $definition = new QuantityPriceDefinition($price, $quantity);
         $definition->setReferencePriceDefinition(
             $this->buildReferencePriceDefinition($reference)
         );
@@ -204,11 +202,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
 
     private function getPriceForTaxState(Price $price, ChannelContext $context): float
     {
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            return $price->getGross();
-        }
-
-        return $price->getNet();
+        return $price->getGross();
     }
 
     private function getListPrice(PriceCollection $prices, ChannelContext $context): ?float

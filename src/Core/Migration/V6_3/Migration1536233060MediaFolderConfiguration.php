@@ -23,17 +23,18 @@ class Migration1536233060MediaFolderConfiguration extends MigrationStep
     {
         $connection->executeStatement('
             CREATE TABLE `media_folder_configuration` (
-              `id` BINARY(16),
-              `create_thumbnails` TINYINT(1) DEFAULT 1,
-              `thumbnail_quality` INT(11) DEFAULT 80,
-              `media_thumbnail_sizes_ro` LONGBLOB NULL,
-              `keep_aspect_ratio`  TINYINT(1) DEFAULT 1,
-              `private`  TINYINT(1) DEFAULT 0,
-              `custom_fields` JSON NULL,
-              `created_at` DATETIME(3) NOT NULL,
-              `updated_at` DATETIME(3) NULL,
+              `id` binary(16) NOT NULL,
+              `create_thumbnails` tinyint(1) DEFAULT \'1\',
+              `thumbnail_quality` int DEFAULT \'80\',
+              `media_thumbnail_sizes_ro` longblob,
+              `keep_aspect_ratio` tinyint(1) DEFAULT \'1\',
+              `private` tinyint(1) DEFAULT \'0\',
+              `no_association` tinyint(1) DEFAULT NULL,
+              `custom_fields` json DEFAULT NULL,
+              `created_at` datetime(3) NOT NULL,
+              `updated_at` datetime(3) DEFAULT NULL,
               PRIMARY KEY (`id`),
-              CONSTRAINT `json.media_folder_configuration.custom_fields` CHECK (JSON_VALID(`custom_fields`))
+              CONSTRAINT `json.media_folder_configuration.custom_fields` CHECK (json_valid(`custom_fields`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }

@@ -42,7 +42,6 @@ class FlowFactory
             $context->getVersionId(),
             $context->getCurrencyFactor(),
             $context->considerInheritance(),
-            $context->getTaxState(),
             $context->getRounding(),
         );
         $systemContext->setExtensions($context->getExtensions());

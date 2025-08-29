@@ -27,11 +27,12 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 class PriceCollectionFacade implements \IteratorAggregate, \Countable
 {
     public function __construct(
-        private readonly Entity $product,
+        private readonly Entity                    $product,
         private readonly CalculatedPriceCollection $prices,
-        private readonly ScriptPriceStubs $priceStubs,
-        private readonly ChannelContext $context
-    ) {
+        private readonly ScriptPriceStubs          $priceStubs,
+        private readonly ChannelContext            $context
+    )
+    {
     }
 
     /**
@@ -53,7 +54,7 @@ class PriceCollectionFacade implements \IteratorAggregate, \Countable
     {
         $mapped = [];
         foreach ($changes as $change) {
-            $mapped[(string) $change['to']] = $change['price'];
+            $mapped[(string)$change['to']] = $change['price'];
         }
 
         // check for "null" value
@@ -73,12 +74,11 @@ class PriceCollectionFacade implements \IteratorAggregate, \Countable
 
         $this->prices->clear();
 
-        $rules = $this->context->buildTaxRules($this->product->get('taxId'));
 
         foreach ($mapped as $quantity => $price) {
             $value = $this->getPriceForTaxState($price, $this->context);
 
-            $definition = new QuantityPriceDefinition($value, $rules, $quantity);
+            $definition = new QuantityPriceDefinition($value, $quantity);
 
             $this->prices->add(
                 $this->priceStubs->calculateQuantity($definition, $this->context)
@@ -116,10 +116,6 @@ class PriceCollectionFacade implements \IteratorAggregate, \Countable
             throw ProductException::invalidPriceDefinition();
         }
 
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            return $currency->getGross();
-        }
-
-        return $currency->getNet();
+        return $currency->getGross();
     }
 }

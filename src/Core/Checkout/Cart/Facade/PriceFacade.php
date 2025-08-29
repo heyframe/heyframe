@@ -223,11 +223,7 @@ class PriceFacade
             throw CartException::invalidPriceDefinition();
         }
 
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            return $currency->getGross();
-        }
-
-        return $currency->getNet();
+ return $currency->getGross();
     }
 
     private function overwrite(QuantityPriceDefinition $definition): void

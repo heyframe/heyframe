@@ -8,18 +8,11 @@ use HeyFrame\Core\Checkout\Cart\CartValidatorInterface;
 use HeyFrame\Core\Checkout\Cart\LineItem\Group\LineItemGroupPackagerInterface;
 use HeyFrame\Core\Checkout\Cart\LineItem\Group\LineItemGroupSorterInterface;
 use HeyFrame\Core\Checkout\Cart\LineItemFactoryHandler\LineItemFactoryInterface;
-use HeyFrame\Core\Checkout\Cart\TaxProvider\AbstractTaxProvider;
 use HeyFrame\Core\Checkout\Customer\Password\LegacyEncoder\LegacyEncoderInterface;
-use HeyFrame\Core\Checkout\Document\Renderer\AbstractDocumentRenderer;
 use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\AbstractPaymentHandler;
 use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\FilterPickerInterface;
 use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\FilterSorterInterface;
-use HeyFrame\Core\Content\Cms\DataResolver\Element\CmsElementResolverInterface;
 use HeyFrame\Core\Content\Flow\Dispatching\Storer\FlowStorer;
-use HeyFrame\Core\Content\Product\Channel\Listing\Filter\AbstractListingFilterHandler;
-use HeyFrame\Core\Content\Product\Channel\Listing\Processor\AbstractListingProcessor;
-use HeyFrame\Core\Content\Seo\SeoUrlRoute\SeoUrlRouteInterface;
-use HeyFrame\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\AdapterFactoryInterface;
 use HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\TemplateNamespaceHierarchyBuilderInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\BulkEntityExtension;
@@ -35,7 +28,6 @@ use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Webhook\Hookable\HookableEntityInterface;
 use HeyFrame\Core\System\Channel\ChannelDefinition;
 use HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\AbstractValueGenerator;
-use HeyFrame\Core\System\Tax\TaxRuleType\TaxRuleTypeFilterInterface;
 use League\Flysystem\FilesystemOperator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -109,9 +101,6 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
             ->registerForAutoconfiguration(ExceptionHandlerInterface::class)
             ->addTag('heyframe.dal.exception_handler');
 
-        $container
-            ->registerForAutoconfiguration(AbstractDocumentRenderer::class)
-            ->addTag('document.renderer');
 
         $container
             ->registerForAutoconfiguration(AbstractPaymentHandler::class)
@@ -130,24 +119,12 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
             ->addTag('heyframe.rule.definition');
 
         $container
-            ->registerForAutoconfiguration(AbstractTaxProvider::class)
-            ->addTag('heyframe.tax.provider');
-
-        $container
-            ->registerForAutoconfiguration(CmsElementResolverInterface::class)
-            ->addTag('heyframe.cms.data_resolver');
-
-        $container
             ->registerForAutoconfiguration(FieldSerializerInterface::class)
             ->addTag('heyframe.field_serializer');
 
         $container
             ->registerForAutoconfiguration(FlowStorer::class)
             ->addTag('flow.storer');
-
-        $container
-            ->registerForAutoconfiguration(AbstractUrlProvider::class)
-            ->addTag('heyframe.sitemap_url_provider');
 
         $container
             ->registerForAutoconfiguration(AdapterFactoryInterface::class)
@@ -157,25 +134,10 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
             ->registerForAutoconfiguration(AbstractValueGenerator::class)
             ->addTag('heyframe.value_generator_pattern');
 
-        $container
-            ->registerForAutoconfiguration(TaxRuleTypeFilterInterface::class)
-            ->addTag('tax.rule_type_filter');
-
-        $container
-            ->registerForAutoconfiguration(SeoUrlRouteInterface::class)
-            ->addTag('heyframe.seo_url.route');
 
         $container
             ->registerForAutoconfiguration(TemplateNamespaceHierarchyBuilderInterface::class)
             ->addTag('heyframe.twig.hierarchy_builder');
-
-        $container
-            ->registerForAutoconfiguration(AbstractListingProcessor::class)
-            ->addTag('heyframe.listing.processor');
-
-        $container
-            ->registerForAutoconfiguration(AbstractListingFilterHandler::class)
-            ->addTag('heyframe.listing.filter.handler');
 
         $container->registerAliasForArgument('heyframe.filesystem.private', FilesystemOperator::class, 'privateFilesystem');
         $container->registerAliasForArgument('heyframe.filesystem.public', FilesystemOperator::class, 'publicFilesystem');

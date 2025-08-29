@@ -70,7 +70,6 @@ class ChannelDefinition extends EntityDefinition
     public function getDefaults(): array
     {
         return [
-            'taxCalculationType' => self::CALCULATION_TYPE_HORIZONTAL,
             'homeEnabled' => true,
         ];
     }

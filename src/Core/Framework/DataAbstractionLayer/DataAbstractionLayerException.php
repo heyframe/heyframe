@@ -780,15 +780,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function configNotFound(): self|ElasticsearchProductException
+    public static function configNotFound(): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            throw ElasticsearchProductException::configNotFound();
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::PRODUCT_SEARCH_CONFIGURATION_NOT_FOUND,

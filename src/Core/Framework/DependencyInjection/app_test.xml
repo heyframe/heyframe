@@ -15,7 +15,6 @@
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\WebhookPersister"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\PaymentMethodPersister"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\RuleConditionPersister"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\CmsBlockPersister"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Registration\AppRegistrationService"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\AppStateService"/>

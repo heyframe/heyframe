@@ -6,9 +6,7 @@ use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleEntity;
 use HeyFrame\Core\Framework\App\Aggregate\ActionButton\ActionButtonCollection;
 use HeyFrame\Core\Framework\App\Aggregate\AppPaymentMethod\AppPaymentMethodCollection;
 use HeyFrame\Core\Framework\App\Aggregate\AppScriptCondition\AppScriptConditionCollection;
-use HeyFrame\Core\Framework\App\Aggregate\AppShippingMethod\AppShippingMethodEntity;
 use HeyFrame\Core\Framework\App\Aggregate\AppTranslation\AppTranslationCollection;
-use HeyFrame\Core\Framework\App\Aggregate\CmsBlock\AppCmsBlockCollection;
 use HeyFrame\Core\Framework\App\Aggregate\FlowAction\AppFlowActionCollection;
 use HeyFrame\Core\Framework\App\Aggregate\FlowEvent\AppFlowEventCollection;
 use HeyFrame\Core\Framework\App\Template\TemplateCollection;
@@ -21,7 +19,6 @@ use HeyFrame\Core\Framework\Script\ScriptCollection;
 use HeyFrame\Core\Framework\Webhook\WebhookCollection;
 use HeyFrame\Core\System\CustomField\Aggregate\CustomFieldSet\CustomFieldSetCollection;
 use HeyFrame\Core\System\Integration\IntegrationEntity;
-use HeyFrame\Core\System\TaxProvider\TaxProviderCollection;
 
 /**
  * @phpstan-type Module array{name: string, label: array<string, string>, parent: string, source: string|null, position: int}
@@ -124,26 +121,15 @@ class AppEntity extends Entity
 
     protected ?AppPaymentMethodCollection $paymentMethods = null;
 
-    protected ?TaxProviderCollection $taxProviders = null;
-
     /**
      * @internal
      */
     protected ?AppScriptConditionCollection $scriptConditions = null;
 
-    /**
-     * @internal
-     */
-    protected ?AppCmsBlockCollection $cmsBlocks = null;
 
     protected ?AppFlowActionCollection $flowActions = null;
 
     protected ?AppFlowEventCollection $flowEvents = null;
-
-    /**
-     * @var EntityCollection<AppShippingMethodEntity>|null
-     */
-    protected ?EntityCollection $appShippingMethods = null;
 
     protected int $templateLoadPriority;
 
@@ -552,16 +538,6 @@ class AppEntity extends Entity
         $this->paymentMethods = $paymentMethods;
     }
 
-    public function getTaxProviders(): ?TaxProviderCollection
-    {
-        return $this->taxProviders;
-    }
-
-    public function setTaxProviders(TaxProviderCollection $taxProviders): void
-    {
-        $this->taxProviders = $taxProviders;
-    }
-
     /**
      * @internal
      */
@@ -578,22 +554,6 @@ class AppEntity extends Entity
     public function setScriptConditions(AppScriptConditionCollection $scriptConditions): void
     {
         $this->scriptConditions = $scriptConditions;
-    }
-
-    /**
-     * @internal
-     */
-    public function getCmsBlocks(): ?AppCmsBlockCollection
-    {
-        return $this->cmsBlocks;
-    }
-
-    /**
-     * @internal
-     */
-    public function setCmsBlocks(AppCmsBlockCollection $cmsBlocks): void
-    {
-        $this->cmsBlocks = $cmsBlocks;
     }
 
     public function getFlowActions(): ?AppFlowActionCollection
@@ -614,22 +574,6 @@ class AppEntity extends Entity
     public function setFlowEvents(AppFlowEventCollection $flowEvents): void
     {
         $this->flowEvents = $flowEvents;
-    }
-
-    /**
-     * @return EntityCollection<AppShippingMethodEntity>|null
-     */
-    public function getAppShippingMethods(): ?EntityCollection
-    {
-        return $this->appShippingMethods;
-    }
-
-    /**
-     * @param EntityCollection<AppShippingMethodEntity> $appShippingMethods
-     */
-    public function setAppShippingMethods(EntityCollection $appShippingMethods): void
-    {
-        $this->appShippingMethods = $appShippingMethods;
     }
 
     public function jsonSerialize(): array

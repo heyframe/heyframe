@@ -12,7 +12,6 @@ use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\AppStateService;
-use HeyFrame\Core\Framework\App\Cms\CmsExtensions as CmsManifest;
 use HeyFrame\Core\Framework\App\Event\AppDeletedEvent;
 use HeyFrame\Core\Framework\App\Event\AppInstalledEvent;
 use HeyFrame\Core\Framework\App\Event\AppUpdatedEvent;
@@ -26,7 +25,6 @@ use HeyFrame\Core\Framework\App\Flow\Event\Event;
 use HeyFrame\Core\Framework\App\Lifecycle\Parameters\AppInstallParameters;
 use HeyFrame\Core\Framework\App\Lifecycle\Parameters\AppUpdateParameters;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\ActionButtonPersister;
-use HeyFrame\Core\Framework\App\Lifecycle\Persister\CmsBlockPersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\CustomFieldPersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\FlowActionPersister;
 use HeyFrame\Core\Framework\App\Lifecycle\Persister\FlowEventPersister;
@@ -85,7 +83,6 @@ class AppLifecycle extends AbstractAppLifecycle
         private readonly WebhookPersister $webhookPersister,
         private readonly PaymentMethodPersister $paymentMethodPersister,
         private readonly RuleConditionPersister $ruleConditionPersister,
-        private readonly CmsBlockPersister $cmsBlockPersister,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly AppRegistrationService $registrationService,
         private readonly AppStateService $appStateService,
@@ -298,12 +295,6 @@ class AppLifecycle extends AbstractAppLifecycle
         $this->customFieldPersister->updateCustomFields($manifest, $id, $context);
         $this->assetService->copyAssetsFromApp($app->getName(), $app->getPath());
 
-        $cmsExtensions = $this->getCmsExtensions($app);
-
-        if ($cmsExtensions) {
-            $this->cmsBlockPersister->updateCmsBlocks($cmsExtensions, $id, $defaultLocale, $context);
-        }
-
         $updatePayload = [
             'id' => $app->getId(),
             'configurable' => $this->handleConfigUpdates($app, $manifest, $install),
@@ -312,17 +303,6 @@ class AppLifecycle extends AbstractAppLifecycle
         $this->updateMetadata($updatePayload, $context);
 
         return $app;
-    }
-
-    private function getCmsExtensions(AppEntity $app): ?CmsManifest
-    {
-        $fs = $this->sourceResolver->filesystemForApp($app);
-
-        if (!$fs->has('Resources/cms.xml')) {
-            return null;
-        }
-
-        return CmsManifest::createFromXmlFile($fs->path('Resources/cms.xml'));
     }
 
     private function getFlowEvents(AppEntity $app): ?Event

@@ -12,7 +12,6 @@ class HttpCacheCookieEvent
     public const RULE_IDS = 'rule-ids';
     public const VERSION_ID = 'version-id';
     public const CURRENCY_ID = 'currency-id';
-    public const TAX_STATE = 'tax-state';
     public const LOGGED_IN_STATE = 'logged-in';
 
     /**

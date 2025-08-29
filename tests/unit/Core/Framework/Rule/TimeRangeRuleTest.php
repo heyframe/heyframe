@@ -1,0 +1,155 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Tests\Unit\Core\Framework\Rule;
+
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Rule\RuleScope;
+use HeyFrame\Core\Framework\Rule\TimeRangeRule;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @internal
+ */
+#[Package('fundamentals@after-sales')]
+#[CoversClass(TimeRangeRule::class)]
+class TimeRangeRuleTest extends TestCase
+{
+    public function testIfOnSameDayInTimeRangeMatches(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $rule->assign(['fromTime' => '00:00', 'toTime' => '12:00']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('12:00'));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertTrue($match);
+    }
+
+    public function testIfOnSameDayInTimeRangeWithTimezoneMatches(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $rule->assign(['fromTime' => '00:00', 'toTime' => '12:00', 'timezone' => 'Europe/Berlin']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('12:00', new \DateTimeZone('Europe/Berlin')));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertTrue($match);
+    }
+
+    public function testIfOnSameDayOutOfTimeRangeMatches(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $rule->assign(['fromTime' => '00:00', 'toTime' => '12:00']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('12:01'));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertFalse($match);
+    }
+
+    public function testIfOnSameDayOutOfTimeRangeWithTimezoneMatches(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $rule->assign(['fromTime' => '00:00', 'toTime' => '12:00', 'timezone' => 'Europe/Berlin']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('12:01', new \DateTimeZone('Europe/Berlin')));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertFalse($match);
+    }
+
+    public function testIfOnSameDayInTimeRangeWithDifferentTimezonesAndCurrentOffsetMatches(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $timezoneEuropeBerlin = new \DateTimeZone('Europe/Berlin');
+        $timezoneUTC = new \DateTimeZone('UTC');
+
+        $offset = $timezoneEuropeBerlin->getOffset(new \DateTimeImmutable('now', $timezoneUTC)) / 3600;
+        $toTime = (12 + $offset) . ':00';
+
+        $rule->assign(['fromTime' => '00:00', 'toTime' => $toTime, 'timezone' => 'Europe/Berlin']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('12:00', new \DateTimeZone('UTC')));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertTrue($match);
+    }
+
+    public function testIfOnSameDayOutOfTimeRangeWithDifferentTimezonesAndCurrentOffsetMatches(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $timezoneEuropeBerlin = new \DateTimeZone('Europe/Berlin');
+        $timezoneUTC = new \DateTimeZone('UTC');
+
+        $offset = $timezoneEuropeBerlin->getOffset(new \DateTimeImmutable('now', $timezoneUTC)) / 3600;
+        $toTime = (11 + $offset) . ':00';
+
+        $rule->assign(['fromTime' => '00:00', 'toTime' => $toTime, 'timezone' => 'Europe/Berlin']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('12:00', new \DateTimeZone('UTC')));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertFalse($match);
+    }
+
+    public function testIfToTimeIsSmallerThanFromTimeMatchesCorrect(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $rule->assign(['fromTime' => '23:00', 'toTime' => '22:00']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('23:00'));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertFalse($match);
+    }
+
+    public function testBeforeEdgeToNextDayConditionMatchesCorrect(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $rule->assign(['fromTime' => '23:00', 'toTime' => '22:00']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('22:59'));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertFalse($match);
+    }
+
+    public function testOnNextDayConditionMatchesCorrect(): void
+    {
+        $rule = new TimeRangeRule();
+
+        $rule->assign(['fromTime' => '23:00', 'toTime' => '22:00']);
+
+        $ruleScope = $this->createMock(RuleScope::class);
+        $ruleScope->method('getCurrentTime')->willReturn(new \DateTimeImmutable('02:46'));
+
+        $match = $rule->match($ruleScope);
+
+        static::assertTrue($match);
+    }
+}

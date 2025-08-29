@@ -41,7 +41,6 @@ class AppContextCreator
             $hook->getContext()->getVersionId(),
             $hook->getContext()->getCurrencyFactor(),
             $hook->getContext()->considerInheritance(),
-            $hook->getContext()->getTaxState(),
             $hook->getContext()->getRounding()
         );
     }

@@ -214,7 +214,6 @@ class CacheResponseSubscriber implements EventSubscriberInterface
             HttpCacheCookieEvent::RULE_IDS => $context->getRuleIds(),
             HttpCacheCookieEvent::VERSION_ID => $context->getVersionId(),
             HttpCacheCookieEvent::CURRENCY_ID => $context->getCurrencyId(),
-            HttpCacheCookieEvent::TAX_STATE => $context->getTaxState(),
             HttpCacheCookieEvent::LOGGED_IN_STATE => $context->getCustomer() ? 'logged-in' : 'not-logged-in',
         ];
 
