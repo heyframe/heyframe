@@ -400,14 +400,14 @@ class Migration1536233560BasicData extends MigrationStep
 
     private function createCountry(Connection $connection): void
     {
-        $languageZH = static fn(string $countryId, string $name) => [
+        $languageZH = static fn (string $countryId, string $name) => [
             'language_id' => Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM),
             'name' => $name,
             'country_id' => $countryId,
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ];
 
-        $languageEN = fn(string $countryId, string $name) => [
+        $languageEN = fn (string $countryId, string $name) => [
             'language_id' => Uuid::fromHexToBytes($this->getEnGbLanguageId()),
             'name' => $name,
             'country_id' => $countryId,

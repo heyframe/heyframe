@@ -2,29 +2,16 @@
 
 namespace HeyFrame\Core\Content\Product;
 
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryDate;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerWishlistProduct\CustomerWishlistProductCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
-use HeyFrame\Core\Content\Category\CategoryCollection;
-use HeyFrame\Core\Content\Cms\CmsPageEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductCrossSellingAssignedProducts\ProductCrossSellingAssignedProductsCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductDownload\ProductDownloadCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductFeatureSet\ProductFeatureSetEntity;
-use HeyFrame\Core\Content\Product\Aggregate\ProductManufacturer\ProductManufacturerEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingConfig;
-use HeyFrame\Core\Content\ProductStream\ProductStreamCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
-use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -32,10 +19,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\Price;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\CustomField\Aggregate\CustomFieldSet\CustomFieldSetCollection;
-use HeyFrame\Core\System\DeliveryTime\DeliveryTimeEntity;
 use HeyFrame\Core\System\Tag\TagCollection;
-use HeyFrame\Core\System\Tax\TaxEntity;
-use HeyFrame\Core\System\Unit\UnitEntity;
 
 #[Package('inventory')]
 class ProductEntity extends Entity implements \Stringable
@@ -76,8 +60,6 @@ class ProductEntity extends Entity implements \Stringable
     protected bool $available;
 
     protected ?string $deliveryTimeId = null;
-
-    protected ?DeliveryTimeEntity $deliveryTime = null;
 
     protected ?int $restockTime = null;
 
@@ -155,12 +137,6 @@ class ProductEntity extends Entity implements \Stringable
      */
     protected array $variation = [];
 
-    protected ?TaxEntity $tax = null;
-
-    protected ?ProductManufacturerEntity $manufacturer = null;
-
-    protected ?UnitEntity $unit = null;
-
     protected ProductPriceCollection $prices;
 
     protected ?ProductMediaEntity $cover = null;
@@ -173,18 +149,12 @@ class ProductEntity extends Entity implements \Stringable
 
     protected ?string $cmsPageId = null;
 
-    protected ?CmsPageEntity $cmsPage = null;
-
     /**
      * @var array<string, array<string, array<string, string>>>|null
      */
     protected ?array $slotConfig = null;
 
-    protected ?ProductSearchKeywordCollection $searchKeywords = null;
-
     protected ?ProductTranslationCollection $translations = null;
-
-    protected ?CategoryCollection $categories = null;
 
     protected ?CustomFieldSetCollection $customFieldSets = null;
 
@@ -195,8 +165,6 @@ class ProductEntity extends Entity implements \Stringable
     protected ?PropertyGroupOptionCollection $options = null;
 
     protected ?ProductConfiguratorSettingCollection $configuratorSettings = null;
-
-    protected ?CategoryCollection $categoriesRo = null;
 
     protected ?string $coverId = null;
 
@@ -212,23 +180,11 @@ class ProductEntity extends Entity implements \Stringable
      */
     protected ?array $categoryIds = null;
 
-    protected ?ProductReviewCollection $productReviews = null;
-
     protected ?float $ratingAverage = null;
-
-    protected ?MainCategoryCollection $mainCategories = null;
-
-    protected ?SeoUrlCollection $seoUrls = null;
 
     protected ?OrderLineItemCollection $orderLineItems = null;
 
-    protected ?ProductCrossSellingCollection $crossSellings = null;
-
-    protected ?ProductCrossSellingAssignedProductsCollection $crossSellingAssignedProducts = null;
-
     protected ?string $featureSetId = null;
-
-    protected ?ProductFeatureSetEntity $featureSet = null;
 
     protected ?bool $customFieldSetSelectionActive = null;
 
@@ -243,10 +199,6 @@ class ProductEntity extends Entity implements \Stringable
 
     protected ?ProductEntity $canonicalProduct = null;
 
-    protected ?ProductStreamCollection $streams = null;
-
-    protected ?ProductDownloadCollection $downloads = null;
-
     /**
      * @var array<int, string>
      */
@@ -260,16 +212,6 @@ class ProductEntity extends Entity implements \Stringable
     public function __toString(): string
     {
         return (string) ($this->getTranslation('name') ?? $this->getName());
-    }
-
-    public function getProductReviews(): ?ProductReviewCollection
-    {
-        return $this->productReviews;
-    }
-
-    public function setProductReviews(ProductReviewCollection $productReviews): void
-    {
-        $this->productReviews = $productReviews;
     }
 
     public function getParentId(): ?string
@@ -593,36 +535,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->packUnitPlural = $packUnitPlural;
     }
 
-    public function getTax(): ?TaxEntity
-    {
-        return $this->tax;
-    }
-
-    public function setTax(TaxEntity $tax): void
-    {
-        $this->tax = $tax;
-    }
-
-    public function getManufacturer(): ?ProductManufacturerEntity
-    {
-        return $this->manufacturer;
-    }
-
-    public function setManufacturer(ProductManufacturerEntity $manufacturer): void
-    {
-        $this->manufacturer = $manufacturer;
-    }
-
-    public function getUnit(): ?UnitEntity
-    {
-        return $this->unit;
-    }
-
-    public function setUnit(UnitEntity $unit): void
-    {
-        $this->unit = $unit;
-    }
-
     public function getPrices(): ?ProductPriceCollection
     {
         return $this->prices;
@@ -641,24 +553,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setRestockTime(?int $restockTime): void
     {
         $this->restockTime = $restockTime;
-    }
-
-    public function getDeliveryDate(): DeliveryDate
-    {
-        return new DeliveryDate(
-            (new \DateTime())
-                ->add(new \DateInterval('P' . 1 . 'D')),
-            (new \DateTime())
-                ->add(new \DateInterval('P' . 1 . 'D'))
-                ->add(new \DateInterval('P' . 1 . 'D'))
-        );
-    }
-
-    public function getRestockDeliveryDate(): DeliveryDate
-    {
-        $deliveryDate = $this->getDeliveryDate();
-
-        return $deliveryDate->add(new \DateInterval('P' . $this->getRestockTime() . 'D'));
     }
 
     public function isReleased(): bool
@@ -728,16 +622,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->cover = $cover;
     }
 
-    public function getCmsPage(): ?CmsPageEntity
-    {
-        return $this->cmsPage;
-    }
-
-    public function setCmsPage(CmsPageEntity $cmsPage): void
-    {
-        $this->cmsPage = $cmsPage;
-    }
-
     public function getCmsPageId(): ?string
     {
         return $this->cmsPageId;
@@ -794,16 +678,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->media = $media;
     }
 
-    public function getSearchKeywords(): ?ProductSearchKeywordCollection
-    {
-        return $this->searchKeywords;
-    }
-
-    public function setSearchKeywords(ProductSearchKeywordCollection $searchKeywords): void
-    {
-        $this->searchKeywords = $searchKeywords;
-    }
-
     public function getTranslations(): ?ProductTranslationCollection
     {
         return $this->translations;
@@ -812,16 +686,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setTranslations(ProductTranslationCollection $translations): void
     {
         $this->translations = $translations;
-    }
-
-    public function getCategories(): ?CategoryCollection
-    {
-        return $this->categories;
-    }
-
-    public function setCategories(CategoryCollection $categories): void
-    {
-        $this->categories = $categories;
     }
 
     public function getCustomFieldSets(): ?CustomFieldSetCollection
@@ -872,16 +736,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setConfiguratorSettings(ProductConfiguratorSettingCollection $configuratorSettings): void
     {
         $this->configuratorSettings = $configuratorSettings;
-    }
-
-    public function getCategoriesRo(): ?CategoryCollection
-    {
-        return $this->categoriesRo;
-    }
-
-    public function setCategoriesRo(CategoryCollection $categoriesRo): void
-    {
-        $this->categoriesRo = $categoriesRo;
     }
 
     public function getAutoIncrement(): int
@@ -1012,16 +866,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->deliveryTimeId = $deliveryTimeId;
     }
 
-    public function getDeliveryTime(): ?DeliveryTimeEntity
-    {
-        return $this->deliveryTime;
-    }
-
-    public function setDeliveryTime(?DeliveryTimeEntity $deliveryTime): void
-    {
-        $this->deliveryTime = $deliveryTime;
-    }
-
     public function getChildCount(): ?int
     {
         return $this->childCount;
@@ -1052,16 +896,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->displayGroup = $displayGroup;
     }
 
-    public function getMainCategories(): ?MainCategoryCollection
-    {
-        return $this->mainCategories;
-    }
-
-    public function setMainCategories(MainCategoryCollection $mainCategories): void
-    {
-        $this->mainCategories = $mainCategories;
-    }
-
     public function getMetaDescription(): ?string
     {
         return $this->metaDescription;
@@ -1070,16 +904,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setMetaDescription(?string $metaDescription): void
     {
         $this->metaDescription = $metaDescription;
-    }
-
-    public function getSeoUrls(): ?SeoUrlCollection
-    {
-        return $this->seoUrls;
-    }
-
-    public function setSeoUrls(SeoUrlCollection $seoUrls): void
-    {
-        $this->seoUrls = $seoUrls;
     }
 
     public function getOrderLineItems(): ?OrderLineItemCollection
@@ -1092,26 +916,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->orderLineItems = $orderLineItems;
     }
 
-    public function getCrossSellings(): ?ProductCrossSellingCollection
-    {
-        return $this->crossSellings;
-    }
-
-    public function setCrossSellings(ProductCrossSellingCollection $crossSellings): void
-    {
-        $this->crossSellings = $crossSellings;
-    }
-
-    public function getCrossSellingAssignedProducts(): ?ProductCrossSellingAssignedProductsCollection
-    {
-        return $this->crossSellingAssignedProducts;
-    }
-
-    public function setCrossSellingAssignedProducts(ProductCrossSellingAssignedProductsCollection $crossSellingAssignedProducts): void
-    {
-        $this->crossSellingAssignedProducts = $crossSellingAssignedProducts;
-    }
-
     public function getFeatureSetId(): ?string
     {
         return $this->featureSetId;
@@ -1120,16 +924,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setFeatureSetId(?string $featureSetId): void
     {
         $this->featureSetId = $featureSetId;
-    }
-
-    public function getFeatureSet(): ?ProductFeatureSetEntity
-    {
-        return $this->featureSet;
-    }
-
-    public function setFeatureSet(ProductFeatureSetEntity $featureSet): void
-    {
-        $this->featureSet = $featureSet;
     }
 
     public function getCustomFieldSetSelectionActive(): ?bool
@@ -1188,16 +982,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->canonicalProduct = $product;
     }
 
-    public function getStreams(): ?ProductStreamCollection
-    {
-        return $this->streams;
-    }
-
-    public function setStreams(ProductStreamCollection $streams): void
-    {
-        $this->streams = $streams;
-    }
-
     /**
      * @return array<string>|null
      */
@@ -1212,16 +996,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setCategoryIds(?array $categoryIds): void
     {
         $this->categoryIds = $categoryIds;
-    }
-
-    public function getDownloads(): ?ProductDownloadCollection
-    {
-        return $this->downloads;
-    }
-
-    public function setDownloads(ProductDownloadCollection $downloads): void
-    {
-        $this->downloads = $downloads;
     }
 
     /**
