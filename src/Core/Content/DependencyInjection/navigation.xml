@@ -9,5 +9,14 @@
             <tag name="heyframe.entity.definition"/>
             <tag name="heyframe.entity.hookable"/>
         </service>
+
+        <service id="HeyFrame\Core\Content\Navigation\Aggregate\NavigationTag\NavigationTagDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Navigation\Aggregate\NavigationTranslation\NavigationTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+
+        </service>
     </services>
 </container>

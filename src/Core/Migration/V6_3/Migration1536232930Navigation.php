@@ -30,10 +30,16 @@ class Migration1536232930Navigation extends MigrationStep
               `path` LONGTEXT COLLATE utf8mb4_unicode_ci,
               `level` INT(11) unsigned NOT NULL DEFAULT \'1\',
               `child_count` INT(11) unsigned NOT NULL DEFAULT \'0\',
+              `active` tinyint(1) NOT NULL DEFAULT \'1\',
+              `after_navigation_id` binary(16) DEFAULT NULL,
+              `after_navigation_version_id` binary(16) DEFAULT NULL,
+              `visible` tinyint unsigned NOT NULL DEFAULT \'1\',
+              `type` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
               `created_at` DATETIME(3) NOT NULL,
               `updated_at` DATETIME(3),
               PRIMARY KEY (`id`, `version_id`),
               KEY `idx.navigation.level` (`level`),
+              KEY `fk.navigation.after_navigation_id` (`after_navigation_id`,`after_navigation_version_id`),
               CONSTRAINT `fk.navigation.parent_id` FOREIGN KEY (`parent_id`, `parent_version_id`)
                 REFERENCES `navigation` (`id`, `version_id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
