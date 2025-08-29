@@ -72,13 +72,13 @@ return (new Config())
                 $files = $context->platform->pullRequest->getFiles();
 
                 $newRepoUseInFrontend = array_merge(
-                    $files->filterStatus(File::STATUS_MODIFIED)->matches('src/Storefront/Controller/*')
+                    $files->filterStatus(File::STATUS_MODIFIED)->matches('src/Frontend/Controller/*')
                         ->matchesContent('/EntityRepository/')
                         ->matchesContent('/^((?!@deprecated).)*$/')->getElements(),
-                    $files->filterStatus(File::STATUS_MODIFIED)->matches('src/Storefront/Page/*')
+                    $files->filterStatus(File::STATUS_MODIFIED)->matches('src/Frontend/Page/*')
                         ->matchesContent('/EntityRepository/')
                         ->matchesContent('/^((?!@deprecated).)*$/')->getElements(),
-                    $files->filterStatus(File::STATUS_MODIFIED)->matches('src/Storefront/Pagelet/*')
+                    $files->filterStatus(File::STATUS_MODIFIED)->matches('src/Frontend/Pagelet/*')
                         ->matchesContent('/EntityRepository/')
                         ->matchesContent('/^((?!@deprecated).)*$/')->getElements(),
                 );
@@ -127,7 +127,7 @@ return (new Config())
         checkMigrationForBundle('Administration', $context);
         checkMigrationForBundle('Core', $context);
         checkMigrationForBundle('Elasticsearch', $context);
-        checkMigrationForBundle('Storefront', $context);
+        checkMigrationForBundle('Frontend', $context);
     })
     ->useRule(function (Context $context): void {
         $newSqlHeredocs = $context->platform->pullRequest->getFiles()->filterStatus(File::STATUS_MODIFIED)->matchesContent('/<<<SQL/');
@@ -156,7 +156,7 @@ return (new Config())
     ->useRule(function (Context $context): void {
         $changedTemplates = $context->platform->pullRequest->getFiles()
             ->filterStatus(File::STATUS_MODIFIED)
-            ->matches('src/Storefront/Resources/views/*.twig')
+            ->matches('src/Frontend/Resources/views/*.twig')
             ->getElements();
 
         if (count($changedTemplates) <= 0) {

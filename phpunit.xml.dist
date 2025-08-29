@@ -49,7 +49,7 @@
             <directory suffix=".php">src/Core/DevOps/Test/Environment</directory>
             <directory suffix=".php">src/Core/Migration/Test</directory>
             <directory suffix=".php">src/Elasticsearch/Test</directory>
-            <directory suffix=".php">src/Storefront/Test</directory>
+            <directory suffix=".php">src/Frontend/Test</directory>
             <directory suffix=".php">src/tests/unit/Core/System/Snippet/Mock</directory>
 
             <directory suffix="Definition.php">src/Core/</directory>
@@ -59,41 +59,41 @@
             <directory suffix="Struct.php">src/Core/</directory>
             <directory suffix="Collection.php">src/Core/</directory>
 
-            <directory suffix="Definition.php">src/Storefront/Checkout</directory>
-            <directory suffix="Entity.php">src/Storefront/Checkout</directory>
-            <directory suffix="Event.php">src/Storefront/Checkout</directory>
-            <directory suffix="Field.php">src/Storefront/Checkout</directory>
-            <directory suffix="Struct.php">src/Storefront/Checkout</directory>
-            <directory suffix="Collection.php">src/Storefront/Checkout</directory>
-            <directory suffix="Event.php">src/Storefront/Event</directory>
+            <directory suffix="Definition.php">src/Frontend/Checkout</directory>
+            <directory suffix="Entity.php">src/Frontend/Checkout</directory>
+            <directory suffix="Event.php">src/Frontend/Checkout</directory>
+            <directory suffix="Field.php">src/Frontend/Checkout</directory>
+            <directory suffix="Struct.php">src/Frontend/Checkout</directory>
+            <directory suffix="Collection.php">src/Frontend/Checkout</directory>
+            <directory suffix="Event.php">src/Frontend/Event</directory>
 
-            <directory suffix="Definition.php">src/Storefront/Framework</directory>
-            <directory suffix="Entity.php">src/Storefront/Framework</directory>
-            <directory suffix="Event.php">src/Storefront/Framework</directory>
-            <directory suffix="Field.php">src/Storefront/Framework</directory>
-            <directory suffix="Struct.php">src/Storefront/Framework</directory>
-            <directory suffix="Collection.php">src/Storefront/Framework</directory>
+            <directory suffix="Definition.php">src/Frontend/Framework</directory>
+            <directory suffix="Entity.php">src/Frontend/Framework</directory>
+            <directory suffix="Event.php">src/Frontend/Framework</directory>
+            <directory suffix="Field.php">src/Frontend/Framework</directory>
+            <directory suffix="Struct.php">src/Frontend/Framework</directory>
+            <directory suffix="Collection.php">src/Frontend/Framework</directory>
 
-            <directory suffix="Definition.php">src/Storefront/Page</directory>
-            <directory suffix="Entity.php">src/Storefront/Page</directory>
-            <directory suffix="Event.php">src/Storefront/Page</directory>
-            <directory suffix="Field.php">src/Storefront/Page</directory>
-            <directory suffix="Struct.php">src/Storefront/Page</directory>
-            <directory suffix="Collection.php">src/Storefront/Page</directory>
+            <directory suffix="Definition.php">src/Frontend/Page</directory>
+            <directory suffix="Entity.php">src/Frontend/Page</directory>
+            <directory suffix="Event.php">src/Frontend/Page</directory>
+            <directory suffix="Field.php">src/Frontend/Page</directory>
+            <directory suffix="Struct.php">src/Frontend/Page</directory>
+            <directory suffix="Collection.php">src/Frontend/Page</directory>
 
-            <directory suffix="Definition.php">src/Storefront/Pagelet</directory>
-            <directory suffix="Entity.php">src/Storefront/Pagelet</directory>
-            <directory suffix="Event.php">src/Storefront/Pagelet</directory>
-            <directory suffix="Field.php">src/Storefront/Pagelet</directory>
-            <directory suffix="Struct.php">src/Storefront/Pagelet</directory>
-            <directory suffix="Collection.php">src/Storefront/Pagelet</directory>
+            <directory suffix="Definition.php">src/Frontend/Pagelet</directory>
+            <directory suffix="Entity.php">src/Frontend/Pagelet</directory>
+            <directory suffix="Event.php">src/Frontend/Pagelet</directory>
+            <directory suffix="Field.php">src/Frontend/Pagelet</directory>
+            <directory suffix="Struct.php">src/Frontend/Pagelet</directory>
+            <directory suffix="Collection.php">src/Frontend/Pagelet</directory>
 
-            <directory suffix="Definition.php">src/Storefront/Theme</directory>
-            <directory suffix="Entity.php">src/Storefront/Theme</directory>
-            <directory suffix="Event.php">src/Storefront/Theme</directory>
-            <directory suffix="Field.php">src/Storefront/Theme</directory>
-            <directory suffix="Struct.php">src/Storefront/Theme</directory>
-            <directory suffix="Collection.php">src/Storefront/Theme</directory>
+            <directory suffix="Definition.php">src/Frontend/Theme</directory>
+            <directory suffix="Entity.php">src/Frontend/Theme</directory>
+            <directory suffix="Event.php">src/Frontend/Theme</directory>
+            <directory suffix="Field.php">src/Frontend/Theme</directory>
+            <directory suffix="Struct.php">src/Frontend/Theme</directory>
+            <directory suffix="Collection.php">src/Frontend/Theme</directory>
         </exclude>
     </source>
     <php>

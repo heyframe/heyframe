@@ -52,7 +52,7 @@ return [
         'Value of constant HeyFrame\\\\Core\\\\Checkout\\\\Cart\\\\Order\\\\OrderConverter::ADMIN_EDIT_ORDER_PERMISSIONS changed from array \((\n.*)*to array \((\n.*)*skipCartPersistence(.*\n.*)*skipPrimaryOrderIds(.*\n.*)*automaticPromotionDeletionNotices',
 
         // No break as mixed is the top type and every other type is a subtype of mixed
-        preg_quote('The parameter $value of HeyFrame\Storefront\Event\StorefrontRenderEvent#setParameter() changed from no type to mixed', '/'),
+        preg_quote('The parameter $value of HeyFrame\Frontend\Event\FrontendRenderEvent#setParameter() changed from no type to mixed', '/'),
 
         // No break as the `{get,set}SeoLink()` changes have not been released
         preg_quote('REMOVED: Property HeyFrame\Core\Content\Category\SalesChannel\SalesChannelCategoryEntity#$seoLink was removed', '/'),
