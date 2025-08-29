@@ -827,7 +827,7 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('disable_delivery')->defaultTrue()->end()
                     ->end()
                 ->end()
-                ->arrayNode('storefront')
+                ->arrayNode('frontend')
                     ->children()
                         ->booleanNode('show_banner')->defaultTrue()->end()
                     ->end()

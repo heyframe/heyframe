@@ -15,7 +15,7 @@ use HeyFrame\Core\Framework\App\Manifest\Xml\Permission\Permissions;
 use HeyFrame\Core\Framework\App\Manifest\Xml\RuleCondition\RuleConditions;
 use HeyFrame\Core\Framework\App\Manifest\Xml\Setup\Setup;
 use HeyFrame\Core\Framework\App\Manifest\Xml\ShippingMethod\ShippingMethods;
-use HeyFrame\Core\Framework\App\Manifest\Xml\Storefront\Storefront;
+use HeyFrame\Core\Framework\App\Manifest\Xml\Frontend\Frontend;
 use HeyFrame\Core\Framework\App\Manifest\Xml\Tax\Tax;
 use HeyFrame\Core\Framework\App\Manifest\Xml\Webhook\Webhooks;
 use HeyFrame\Core\Framework\Log\Package;
@@ -51,7 +51,7 @@ class Manifest
         private readonly ?Cookies $cookies,
         private readonly ?Payments $payments,
         private readonly ?RuleConditions $ruleConditions,
-        private readonly ?Storefront $storefront,
+        private readonly ?Frontend $frontend,
         private readonly ?Tax $tax,
         private readonly ?ShippingMethods $shippingMethods,
         private readonly ?Gateways $gateways,
@@ -173,9 +173,9 @@ class Manifest
         return $this->ruleConditions;
     }
 
-    public function getStorefront(): ?Storefront
+    public function getFrontend(): ?Frontend
     {
-        return $this->storefront;
+        return $this->frontend;
     }
 
     public function getTax(): ?Tax
@@ -292,8 +292,8 @@ class Manifest
             $payments = $payments === null ? null : Payments::fromXml($payments);
             $ruleConditions = $doc->getElementsByTagName('rule-conditions')->item(0);
             $ruleConditions = $ruleConditions === null ? null : RuleConditions::fromXml($ruleConditions);
-            $storefront = $doc->getElementsByTagName('storefront')->item(0);
-            $storefront = $storefront === null ? null : Storefront::fromXml($storefront);
+            $frontend = $doc->getElementsByTagName('frontend')->item(0);
+            $frontend = $frontend === null ? null : Frontend::fromXml($frontend);
             $tax = $doc->getElementsByTagName('tax')->item(0);
             $tax = $tax === null ? null : Tax::fromXml($tax);
             $shippingMethods = $doc->getElementsByTagName('shipping-methods')->item(0);
@@ -317,7 +317,7 @@ class Manifest
             $cookies,
             $payments,
             $ruleConditions,
-            $storefront,
+            $frontend,
             $tax,
             $shippingMethods,
             $gateways

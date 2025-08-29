@@ -28,7 +28,7 @@ class TwigLoaderConfigCompilerPass implements CompilerPassInterface
         foreach ($bundlesMetadata as $name => $bundle) {
             $resourcesDirectory = $bundle['path'] . '/Resources';
             $viewDirectory = $resourcesDirectory . '/views';
-            $distDirectory = $resourcesDirectory . '/app/storefront/dist';
+            $distDirectory = $resourcesDirectory . '/app/frontend/dist';
 
             if (\is_dir($viewDirectory)) {
                 $fileSystemLoader->addMethodCall('addPath', [$viewDirectory]);
@@ -71,7 +71,7 @@ class TwigLoaderConfigCompilerPass implements CompilerPassInterface
             \assert(\is_string($app['path']));
             $resourcesDirectory = \sprintf('%s/%s/Resources', $projectDir, $app['path']);
             $viewDirectory = $resourcesDirectory . '/views';
-            $distDirectory = $resourcesDirectory . '/app/storefront/dist';
+            $distDirectory = $resourcesDirectory . '/app/frontend/dist';
 
             if (\is_dir($viewDirectory)) {
                 $fileSystemLoader->addMethodCall('addPath', [$viewDirectory]);

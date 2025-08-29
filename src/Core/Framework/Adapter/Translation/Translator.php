@@ -332,7 +332,7 @@ class Translator extends AbstractTranslator
             $item->tag(self::tag($snippetSetId));
             $item->tag(self::tag($this->channelId ?: 'DEFAULT'));
 
-            return $this->snippetService->getStorefrontSnippets($catalog, $snippetSetId, $fallbackLocale, $this->channelId);
+            return $this->snippetService->getFrontendSnippets($catalog, $snippetSetId, $fallbackLocale, $this->channelId);
         });
     }
 

@@ -3,7 +3,7 @@
 namespace SwagTestTheme;
 
 use HeyFrame\Core\Framework\Plugin;
-use HeyFrame\Storefront\Framework\ThemeInterface;
+use HeyFrame\Frontend\Framework\ThemeInterface;
 
 class SwagTestTheme extends Plugin implements ThemeInterface
 {

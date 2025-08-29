@@ -44,10 +44,10 @@
                         <xs:field xpath="@name"/>
                     </xs:unique>
                 </xs:element>
-                <xs:element name="storefront" type="storefront" minOccurs="0">
+                <xs:element name="frontend" type="frontend" minOccurs="0">
                     <xs:annotation>
                         <xs:documentation xml:lang="en">
-                            Configuration for Storefront
+                            Configuration for Frontend
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -202,7 +202,7 @@
             <xs:element name="base-app-url" maxOccurs="1" minOccurs="0" type="xs:anyURI"/>
         </xs:choice>
     </xs:complexType>
-    <xs:complexType name="storefront">
+    <xs:complexType name="frontend">
         <xs:choice maxOccurs="unbounded">
             <xs:element name="template-load-priority" maxOccurs="1" minOccurs="0" type="xs:int"/>
         </xs:choice>

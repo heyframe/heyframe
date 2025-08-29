@@ -33,7 +33,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Tag\TagCollection;
 use HeyFrame\Core\System\User\UserCollection;
 use HeyFrame\Core\System\User\UserEntity;
-use HeyFrame\Storefront\Theme\ThemeCollection;
+use HeyFrame\Frontend\Theme\ThemeCollection;
 
 /**
  * @phpstan-type MediaConfig array{'spatialObject': array{'arReady': bool, 'arPlacement': string}}

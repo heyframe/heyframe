@@ -21,7 +21,7 @@ class JavascriptPluginGenerator implements ScaffoldingGenerator
     private const CLI_QUESTION = 'Do you want to create an example javascript plugin?';
 
     private string $mainJsEntry = <<<'EOL'
-    // Import all necessary Storefront plugins
+    // Import all necessary Frontend plugins
     import ExamplePlugin from './example-plugin/example-plugin.plugin';
 
     // Register your plugin via the existing PluginManager
@@ -43,7 +43,7 @@ class JavascriptPluginGenerator implements ScaffoldingGenerator
         $stubCollection->add($this->createTemplate());
 
         $stubCollection->append(
-            'src/Resources/app/storefront/src/main.js',
+            'src/Resources/app/frontend/src/main.js',
             $this->mainJsEntry
         );
     }
@@ -51,7 +51,7 @@ class JavascriptPluginGenerator implements ScaffoldingGenerator
     private function createPluginFile(): Stub
     {
         return Stub::template(
-            'src/Resources/app/storefront/src/example-plugin/example-plugin.plugin.js',
+            'src/Resources/app/frontend/src/example-plugin/example-plugin.plugin.js',
             self::STUB_DIRECTORY . '/js-plugin.stub'
         );
     }
@@ -59,7 +59,7 @@ class JavascriptPluginGenerator implements ScaffoldingGenerator
     private function createTemplate(): Stub
     {
         return Stub::template(
-            'src/Resources/views/storefront/page/content/index.html.twig',
+            'src/Resources/views/frontend/page/content/index.html.twig',
             self::STUB_DIRECTORY . '/js-plugin-template.stub'
         );
     }

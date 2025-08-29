@@ -47,7 +47,7 @@
 
         <service id="HeyFrame\Core\Framework\Script\Api\ScriptResponseFactoryFacadeHookFactory" public="true">
             <argument type="service" id="router"/>
-            <argument type="service" id="HeyFrame\Storefront\Controller\ScriptController" on-invalid="null"/>
+            <argument type="service" id="HeyFrame\Frontend\Controller\ScriptController" on-invalid="null"/>
         </service>
 
         <service id="HeyFrame\Core\Framework\Script\Api\ScriptResponseEncoder">

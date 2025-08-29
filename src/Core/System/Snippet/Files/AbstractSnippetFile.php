@@ -11,7 +11,7 @@ abstract class AbstractSnippetFile
      * Returns the displayed name.
      *
      * Example:
-     * storefront.en-GB
+     * frontend.en-GB
      */
     abstract public function getName(): string;
 
@@ -19,7 +19,7 @@ abstract class AbstractSnippetFile
      * Returns the path to the json language file.
      *
      * Example:
-     * /appPath/subDirectory/storefront.en-GB.json
+     * /appPath/subDirectory/frontend.en-GB.json
      */
     abstract public function getPath(): string;
 

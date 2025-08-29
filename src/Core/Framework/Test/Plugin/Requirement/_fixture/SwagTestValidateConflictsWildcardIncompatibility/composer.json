@@ -12,7 +12,7 @@
     ],
     "conflict": {
         "heyframe/core": "*",
-        "heyframe/storefront": "*"
+        "heyframe/frontend": "*"
     },
     "extra": {
         "heyframe-plugin-class": "SwagTestValidateConflictsWildcardIncompatibility\\SwagTestValidateConflictsWildcardIncompatibility",

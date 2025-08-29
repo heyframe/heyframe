@@ -10,7 +10,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Storefront\Theme\ThemeAppLifecycleHandler;
+use HeyFrame\Frontend\Theme\ThemeAppLifecycleHandler;
 
 /**
  * @internal

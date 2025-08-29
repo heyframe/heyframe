@@ -22,7 +22,7 @@ use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Store\Exception\ExtensionNotFoundException;
 use HeyFrame\Core\Framework\Store\StoreException;
 use HeyFrame\Core\System\Channel\ChannelCollection;
-use HeyFrame\Storefront\Theme\ThemeCollection;
+use HeyFrame\Frontend\Theme\ThemeCollection;
 
 /**
  * @internal - only for use by the app-system

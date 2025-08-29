@@ -128,7 +128,7 @@ heyframe.installer:
     finish_info: 'Vous avez installé HeyFrame avec succès!'
     finish_info_heading: Super!
     finish_first_steps: 'Guide « Premiers pas »'
-    finish_frontend: 'Aller au storefront'
+    finish_frontend: 'Aller au frontend'
     finish_backend: 'Aller à l''Administration'
     finish_message: "
         <p>

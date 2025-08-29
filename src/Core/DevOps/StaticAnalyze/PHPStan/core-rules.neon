@@ -13,7 +13,7 @@ rules:
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\PackageAnnotationRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\DomainExceptionRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\ExtensionRule
-    - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\NoNewRequestInStorefrontRule
+    - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\NoNewRequestInFrontendRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\AclValidPermissionsInMethodRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\AclValidPermissionsInRouteAttributesRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\HeyFrameNamespaceStyleRule

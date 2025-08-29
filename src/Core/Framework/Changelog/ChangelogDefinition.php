@@ -32,7 +32,7 @@ class ChangelogDefinition
 
     private ?string $core = null;
 
-    private ?string $storefront = null;
+    private ?string $frontend = null;
 
     private ?string $administration = null;
 
@@ -45,8 +45,8 @@ class ChangelogDefinition
     #[Assert\Callback]
     public function validate(ExecutionContextInterface $context): void
     {
-        if (empty($this->api) && empty($this->core) && empty($this->storefront) && empty($this->administration)) {
-            $context->buildViolation('You have to define at least one change of API, Core, Administration or Storefront')
+        if (empty($this->api) && empty($this->core) && empty($this->frontend) && empty($this->administration)) {
+            $context->buildViolation('You have to define at least one change of API, Core, Administration or Frontend')
                 ->addViolation();
         }
 
@@ -55,9 +55,9 @@ class ChangelogDefinition
             $this->checkChangelogEntries($context, $this->api, ChangelogSection::api);
         }
 
-        if ($this->storefront) {
-            $this->checkSectionForSeparatorViolations($context, ChangelogSection::storefront, $this->storefront);
-            $this->checkChangelogEntries($context, $this->storefront, ChangelogSection::storefront);
+        if ($this->frontend) {
+            $this->checkSectionForSeparatorViolations($context, ChangelogSection::frontend, $this->frontend);
+            $this->checkChangelogEntries($context, $this->frontend, ChangelogSection::frontend);
         }
 
         if ($this->administration) {
@@ -164,14 +164,14 @@ class ChangelogDefinition
         return $this;
     }
 
-    public function getStorefront(): ?string
+    public function getFrontend(): ?string
     {
-        return $this->storefront;
+        return $this->frontend;
     }
 
-    public function setStorefront(?string $storefront): ChangelogDefinition
+    public function setFrontend(?string $frontend): ChangelogDefinition
     {
-        $this->storefront = $storefront;
+        $this->frontend = $frontend;
 
         return $this;
     }
@@ -243,7 +243,7 @@ ___
 # Administration
 *
 ___
-# Storefront
+# Frontend
 *
 ___
 # Upgrade Information

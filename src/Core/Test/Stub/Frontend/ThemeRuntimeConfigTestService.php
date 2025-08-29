@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Test\Stub\Storefront;
+namespace HeyFrame\Core\Test\Stub\Frontend;
 
 use HeyFrame\Core\Framework\Uuid\Uuid;
-use HeyFrame\Storefront\Theme\StorefrontPluginConfiguration\StorefrontPluginConfigurationCollection;
-use HeyFrame\Storefront\Theme\ThemeRuntimeConfig;
-use HeyFrame\Storefront\Theme\ThemeRuntimeConfigService;
+use HeyFrame\Frontend\Theme\FrontendPluginConfiguration\FrontendPluginConfigurationCollection;
+use HeyFrame\Frontend\Theme\ThemeRuntimeConfig;
+use HeyFrame\Frontend\Theme\ThemeRuntimeConfigService;
 
 /**
  * @internal
@@ -17,7 +17,7 @@ class ThemeRuntimeConfigTestService extends ThemeRuntimeConfigService
      */
     private array $configs = [];
 
-    public function __construct(StorefrontPluginConfigurationCollection $configurationCollection)
+    public function __construct(FrontendPluginConfigurationCollection $configurationCollection)
     {
         foreach ($configurationCollection as $plugin) {
             if (!$plugin->getIsTheme()) {

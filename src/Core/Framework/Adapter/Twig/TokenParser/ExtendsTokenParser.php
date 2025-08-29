@@ -103,7 +103,7 @@ final class ExtendsTokenParser extends AbstractTokenParser
      */
     private function shouldEndFile(array $scopes, string $source): bool
     {
-        return !\array_intersect($this->templateScopeDetector->getScopes(), $scopes) && !str_starts_with($source, '@Storefront');
+        return !\array_intersect($this->templateScopeDetector->getScopes(), $scopes) && !str_starts_with($source, '@Frontend');
     }
 
     private function convertExpressionToArray(AbstractExpression $expression): mixed

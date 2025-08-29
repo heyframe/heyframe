@@ -86,7 +86,7 @@ class CustomerTokenSubscriber implements EventSubscriberInterface
 
         $context = $mainRequest->attributes->get(PlatformRequest::ATTRIBUTE_CHANNEL_CONTEXT_OBJECT);
 
-        // Not a storefront request
+        // Not a frontend request
         if (!$context instanceof ChannelContext) {
             return null;
         }

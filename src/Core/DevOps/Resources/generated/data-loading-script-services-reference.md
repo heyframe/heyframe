@@ -29,7 +29,7 @@ Keep in mind that your app needs to have the correct permissions for the data it
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'ids': [ hook.productId ]
@@ -43,7 +43,7 @@ Keep in mind that your app needs to have the correct permissions for the data it
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'filter': [
@@ -59,7 +59,7 @@ Keep in mind that your app needs to have the correct permissions for the data it
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'ids': [ hook.productId ],
@@ -89,7 +89,7 @@ Keep in mind that your app needs to have the correct permissions for the data it
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'filter': [
@@ -119,7 +119,7 @@ Keep in mind that your app needs to have the correct permissions for the data it
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'aggregations': [
@@ -140,7 +140,7 @@ The `store` service can be used to access publicly available `store-api` data.
 As the data is publicly available your app does not need any additional permissions to use this service,
 however querying data and also loading associations is restricted to the entities that are also available through the `store-api`.
 
-Notice that the returned entities are already processed for the storefront,
+Notice that the returned entities are already processed for the frontend,
 this means that e.g. product prices are already calculated based on the current context.
 
 ### search()
@@ -155,11 +155,11 @@ this means that e.g. product prices are already calculated based on the current 
     * *`string`* **entityName**: The name of the Entity you want to search for, e.g. `product` or `media`.
     * *`array`* **criteria**: The criteria used for your search.
 * **Examples:**
-    * Load a single storefront product.
+    * Load a single frontend product.
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'ids': [ hook.productId ]
@@ -173,7 +173,7 @@ this means that e.g. product prices are already calculated based on the current 
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'filter': [
@@ -189,7 +189,7 @@ this means that e.g. product prices are already calculated based on the current 
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'ids': [ hook.productId ],
@@ -219,7 +219,7 @@ this means that e.g. product prices are already calculated based on the current 
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'filter': [
@@ -249,7 +249,7 @@ this means that e.g. product prices are already calculated based on the current 
 
         ```twig
         {% set page = hook.page %}
-		{# @var page \HeyFrame\Storefront\Page\Page #}
+		{# @var page \HeyFrame\Frontend\Page\Page #}
 		
 		{% set criteria = {
 		    'aggregations': [

@@ -7,7 +7,7 @@ use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Kernel;
-use HeyFrame\Storefront\Theme\StorefrontPluginRegistry;
+use HeyFrame\Frontend\Theme\FrontendPluginRegistry;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
@@ -78,10 +78,10 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
                     'entryFilePath' => $this->getEntryFile($bundle->getPath(), 'Resources/app/administration/src'),
                     'webpack' => $this->getWebpackConfig($bundle->getPath(), 'Resources/app/administration'),
                 ],
-                'storefront' => [
-                    'path' => 'Resources/app/storefront/src',
-                    'entryFilePath' => $this->getEntryFile($bundle->getPath(), 'Resources/app/storefront/src'),
-                    'webpack' => $this->getWebpackConfig($bundle->getPath(), 'Resources/app/storefront'),
+                'frontend' => [
+                    'path' => 'Resources/app/frontend/src',
+                    'entryFilePath' => $this->getEntryFile($bundle->getPath(), 'Resources/app/frontend/src'),
+                    'webpack' => $this->getWebpackConfig($bundle->getPath(), 'Resources/app/frontend'),
                     'styleFiles' => $this->getStyleFiles($bundle->getName(), $this->stripProjectDir($bundle->getPath())),
                 ],
             ];
@@ -104,10 +104,10 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
                 'views' => ['Resources/views'],
                 'technicalName' => str_replace('_', '-', $this->asSnakeCase($app['name'])),
                 'isTheme' => $this->isTheme($absolutePath),
-                'storefront' => [
-                    'path' => 'Resources/app/storefront/src',
-                    'entryFilePath' => $this->getEntryFile($absolutePath, 'Resources/app/storefront/src'),
-                    'webpack' => $this->getWebpackConfig($absolutePath, 'Resources/app/storefront'),
+                'frontend' => [
+                    'path' => 'Resources/app/frontend/src',
+                    'entryFilePath' => $this->getEntryFile($absolutePath, 'Resources/app/frontend/src'),
+                    'webpack' => $this->getWebpackConfig($absolutePath, 'Resources/app/frontend'),
                     'styleFiles' => $this->getStyleFiles($app['name'], $app['path']),
                 ],
             ];
@@ -165,11 +165,11 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
      */
     private function getStyleFiles(string $technicalName, string $basePath): array
     {
-        if (!$this->kernel->getContainer()->has(StorefrontPluginRegistry::class)) {
+        if (!$this->kernel->getContainer()->has(FrontendPluginRegistry::class)) {
             return [];
         }
 
-        $registry = $this->kernel->getContainer()->get(StorefrontPluginRegistry::class);
+        $registry = $this->kernel->getContainer()->get(FrontendPluginRegistry::class);
         $config = $registry->getConfigurations()->getByTechnicalName($technicalName);
 
         if (!$config) {

@@ -127,7 +127,7 @@ heyframe.installer:
     finish_info: 'De installatie van HeyFrame is geslaagd.'
     finish_info_heading: Jippie!
     finish_first_steps: 'Handleiding ''Eerste stappen'''
-    finish_frontend: 'Ga naar storefront'
+    finish_frontend: 'Ga naar frontend'
     finish_backend: 'Ga naar Administration (beheer)'
     finish_message: "
         <p>

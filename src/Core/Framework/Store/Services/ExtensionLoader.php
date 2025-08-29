@@ -29,8 +29,8 @@ use HeyFrame\Core\Framework\Store\Struct\StoreCollection;
 use HeyFrame\Core\Framework\Store\Struct\VariantCollection;
 use HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider;
 use HeyFrame\Core\System\SystemConfig\Service\ConfigurationService;
-use HeyFrame\Storefront\Framework\ThemeInterface;
-use HeyFrame\Storefront\Theme\ThemeCollection;
+use HeyFrame\Frontend\Framework\ThemeInterface;
+use HeyFrame\Frontend\Theme\ThemeCollection;
 use Symfony\Component\Intl\Languages;
 use Symfony\Component\Intl\Locales;
 

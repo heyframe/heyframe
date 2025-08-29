@@ -383,7 +383,7 @@ heyframe.installer:
     finish_info: 'You have successfully installed HeyFrame!'
     finish_info_heading: Hooray!
     finish_first_steps: '"First steps" guide'
-    finish_frontend: 'Open Storefront'
+    finish_frontend: 'Open Frontend'
     finish_backend: 'Open Administration'
     finish_message: "
         <p>

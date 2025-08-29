@@ -78,12 +78,12 @@ class RegisterRoute extends AbstractRegisterRoute
     public function register(
         RequestDataBag $data,
         ChannelContext $context,
-        bool $validateStorefrontUrl = true,
+        bool $validateFrontendUrl = true,
         ?DataValidationDefinition $additionalValidationDefinitions = null
     ): CustomerResponse {
         EmailIdnConverter::encodeDataBag($data);
 
-        $this->validateRegistrationData($data, $context, $additionalValidationDefinitions, $validateStorefrontUrl);
+        $this->validateRegistrationData($data, $context, $additionalValidationDefinitions, $validateFrontendUrl);
 
         $customer = $this->mapCustomerData($data, $context);
 
@@ -157,7 +157,7 @@ class RegisterRoute extends AbstractRegisterRoute
         DataBag $data,
         ChannelContext $context,
         ?DataValidationDefinition $additionalValidations,
-        bool $validateStorefrontUrl
+        bool $validateFrontendUrl
     ): void {
         $definition = $this->getCustomerCreateValidationDefinition($data, $context);
 
@@ -165,9 +165,9 @@ class RegisterRoute extends AbstractRegisterRoute
             $definition->merge($additionalValidations);
         }
 
-        if ($validateStorefrontUrl) {
+        if ($validateFrontendUrl) {
             $definition
-                ->add('storefrontUrl', new NotBlank(), new Choice($this->getDomainUrls($context)));
+                ->add('frontendUrl', new NotBlank(), new Choice($this->getDomainUrls($context)));
         }
 
         if ($this->systemConfigService->get('core.loginRegistration.requireDataProtectionCheckbox', $context->getChannelId())) {

@@ -11,7 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\Framework\Uuid\Uuid;
-use HeyFrame\Storefront\Framework\Seo\SeoUrlRoute\SeoUrlUpdateListener;
+use HeyFrame\Frontend\Framework\Seo\SeoUrlRoute\SeoUrlUpdateListener;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 #[Package('framework')]

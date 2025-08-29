@@ -817,8 +817,8 @@
                                         "description": "Flag indicating accepted data protection",
                                         "type": "boolean"
                                     },
-                                    "storefrontUrl": {
-                                        "description": "URL of the storefront for that registration. Used in confirmation emails. Has to be one of the configured domains of the sales channel.",
+                                    "frontendUrl": {
+                                        "description": "URL of the frontend for that registration. Used in confirmation emails. Has to be one of the configured domains of the sales channel.",
                                         "type": "string"
                                     },
                                     "billingAddress": {
@@ -863,7 +863,7 @@
                                     "firstName",
                                     "lastName",
                                     "acceptedDataProtection",
-                                    "storefrontUrl",
+                                    "frontendUrl",
                                     "billingAddress"
                                 ],
                                 "oneOf": [
@@ -999,14 +999,14 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": ["email", "storefrontUrl"],
+                                "required": ["email", "frontendUrl"],
                                 "properties": {
                                     "email": {
                                         "description": "E-Mail address to identify the customer",
                                         "type": "string"
                                     },
-                                    "storefrontUrl": {
-                                        "description": "URL of the storefront to use for the generated reset link. It has to be a domain that is configured in the sales channel domain settings.",
+                                    "frontendUrl": {
+                                        "description": "URL of the frontend to use for the generated reset link. It has to be a domain that is configured in the sales channel domain settings.",
                                         "type": "string"
                                     }
                                 },

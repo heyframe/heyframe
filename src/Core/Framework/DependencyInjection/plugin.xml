@@ -250,7 +250,7 @@
             <tag name="heyframe.scaffold.generator"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator\StorefrontControllerGenerator">
+        <service id="HeyFrame\Core\Framework\Plugin\Command\Scaffolding\Generator\FrontendControllerGenerator">
             <tag name="heyframe.scaffold.generator"/>
         </service>
 

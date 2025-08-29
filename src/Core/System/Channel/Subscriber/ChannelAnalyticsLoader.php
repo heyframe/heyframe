@@ -6,7 +6,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelAnalytics\ChannelAnalyticsCollection;
-use HeyFrame\Storefront\Event\StorefrontRenderEvent;
+use HeyFrame\Frontend\Event\FrontendRenderEvent;
 
 /**
  * @internal
@@ -22,7 +22,7 @@ class ChannelAnalyticsLoader
     ) {
     }
 
-    public function loadAnalytics(StorefrontRenderEvent $event): void
+    public function loadAnalytics(FrontendRenderEvent $event): void
     {
         $channelContext = $event->getChannelContext();
         $channel = $channelContext->getChannel();
@@ -37,6 +37,6 @@ class ChannelAnalyticsLoader
 
         $analytics = $this->channelAnalyticsRepository->search($criteria, $channelContext->getContext())->getEntities()->first();
 
-        $event->setParameter('storefrontAnalytics', $analytics);
+        $event->setParameter('frontendAnalytics', $analytics);
     }
 }

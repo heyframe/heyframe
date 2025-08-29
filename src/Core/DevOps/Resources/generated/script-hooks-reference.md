@@ -54,9 +54,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | customer-group-registration-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\CustomerGroupRegistration\CustomerGroupRegistrationPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\CustomerGroupRegistration\CustomerGroupRegistrationPageLoadedHook`                      |
 | **Description**        | Triggered when the CustomerGroupRegistrationPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\CustomerGroupRegistration\CustomerGroupRegistrationPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/CustomerGroupRegistration/CustomerGroupRegistrationPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\CustomerGroupRegistration\CustomerGroupRegistrationPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/CustomerGroupRegistration/CustomerGroupRegistrationPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -66,9 +66,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-guest-login-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\Login\AccountGuestLoginPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\Login\AccountGuestLoginPageLoadedHook`                      |
 | **Description**        | Triggered when the AccountGuestLoginPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\Login\AccountLoginPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/Login/AccountLoginPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\Login\AccountLoginPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/Login/AccountLoginPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -78,9 +78,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-login-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\Login\AccountLoginPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\Login\AccountLoginPageLoadedHook`                      |
 | **Description**        | Triggered when the AccountLoginPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\Login\AccountLoginPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/Login/AccountLoginPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\Login\AccountLoginPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/Login/AccountLoginPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -90,9 +90,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-edit-order-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\Order\AccountEditOrderPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\Order\AccountEditOrderPageLoadedHook`                      |
 | **Description**        | Triggered when the AccountEditOrderPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\Order\AccountEditOrderPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/Order/AccountEditOrderPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\Order\AccountEditOrderPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/Order/AccountEditOrderPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -102,9 +102,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-order-detail-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\Order\AccountOrderDetailPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\Order\AccountOrderDetailPageLoadedHook`                      |
 | **Description**        | Triggered when the AccountOrderDetailPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\Order\AccountOrderDetailPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/Order/AccountOrderDetailPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\Order\AccountOrderDetailPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/Order/AccountOrderDetailPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -114,9 +114,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-order-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\Order\AccountOrderPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\Order\AccountOrderPageLoadedHook`                      |
 | **Description**        | Triggered when the AccountOrderPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\Order\AccountOrderPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/Order/AccountOrderPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\Order\AccountOrderPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/Order/AccountOrderPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -126,9 +126,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-overview-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\Overview\AccountOverviewPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\Overview\AccountOverviewPageLoadedHook`                      |
 | **Description**        | Triggered when the AccountOverviewPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\Overview\AccountOverviewPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/Overview/AccountOverviewPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\Overview\AccountOverviewPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/Overview/AccountOverviewPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -138,9 +138,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-profile-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\Profile\AccountProfilePageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\Profile\AccountProfilePageLoadedHook`                      |
 | **Description**        | Triggered when the AccountProfilePage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\Profile\AccountProfilePage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/Profile/AccountProfilePage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\Profile\AccountProfilePage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/Profile/AccountProfilePage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -150,9 +150,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-recover-password-page-loaded                         |
 | **Since**              | 6.4.13.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\RecoverPassword\AccountRecoverPasswordPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\RecoverPassword\AccountRecoverPasswordPageLoadedHook`                      |
 | **Description**        | Triggered when the AccountRecoverPasswordPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\RecoverPassword\AccountRecoverPasswordPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/RecoverPassword/AccountRecoverPasswordPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\RecoverPassword\AccountRecoverPasswordPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/RecoverPassword/AccountRecoverPasswordPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -162,9 +162,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | account-register-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Account\Register\AccountRegisterPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Account\Register\AccountRegisterPageLoadedHook`                      |
 | **Description**        | Triggered when the AccountLoginPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Account\Login\AccountLoginPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Account/Login/AccountLoginPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Account\Login\AccountLoginPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Account/Login/AccountLoginPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -174,9 +174,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | address-detail-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Address\Detail\AddressDetailPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Address\Detail\AddressDetailPageLoadedHook`                      |
 | **Description**        | Triggered when the AddressDetailPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Address\Detail\AddressDetailPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Address/Detail/AddressDetailPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Address\Detail\AddressDetailPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Address/Detail/AddressDetailPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -186,9 +186,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | address-book-widget-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Address\Listing\AddressBookWidgetLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Address\Listing\AddressBookWidgetLoadedHook`                      |
 | **Description**        | Triggered when the AddressBookWidget is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Address\Listing\AddressListingPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Address/Listing/AddressListingPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Address\Listing\AddressListingPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Address/Listing/AddressListingPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -198,9 +198,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | address-listing-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Address\Listing\AddressListingPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Address\Listing\AddressListingPageLoadedHook`                      |
 | **Description**        | Triggered when the AddressListingPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Address\Listing\AddressListingPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Address/Listing/AddressListingPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Address\Listing\AddressListingPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Address/Listing/AddressListingPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -210,9 +210,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | checkout-cart-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Checkout\Cart\CheckoutCartPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Checkout\Cart\CheckoutCartPageLoadedHook`                      |
 | **Description**        | Triggered when the CheckoutCartPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Checkout\Cart\CheckoutCartPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Checkout/Cart/CheckoutCartPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Checkout\Cart\CheckoutCartPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Checkout/Cart/CheckoutCartPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -222,9 +222,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | checkout-confirm-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Checkout\Confirm\CheckoutConfirmPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Checkout\Confirm\CheckoutConfirmPageLoadedHook`                      |
 | **Description**        | Triggered when the CheckoutConfirmPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Checkout\Confirm\CheckoutConfirmPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Checkout/Confirm/CheckoutConfirmPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Checkout\Confirm\CheckoutConfirmPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Checkout/Confirm/CheckoutConfirmPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -234,9 +234,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | checkout-finish-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Checkout\Finish\CheckoutFinishPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Checkout\Finish\CheckoutFinishPageLoadedHook`                      |
 | **Description**        | Triggered when the CheckoutFinishPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Checkout\Finish\CheckoutFinishPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Checkout/Finish/CheckoutFinishPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Checkout\Finish\CheckoutFinishPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Checkout/Finish/CheckoutFinishPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -246,9 +246,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | checkout-info-widget-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Checkout\Offcanvas\CheckoutInfoWidgetLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Checkout\Offcanvas\CheckoutInfoWidgetLoadedHook`                      |
 | **Description**        | Triggered when the CheckoutInfoWidget is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Checkout\Offcanvas\OffcanvasCartPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Checkout/Offcanvas/OffcanvasCartPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Checkout\Offcanvas\OffcanvasCartPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Checkout/Offcanvas/OffcanvasCartPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -258,9 +258,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | checkout-offcanvas-widget-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Checkout\Offcanvas\CheckoutOffcanvasWidgetLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Checkout\Offcanvas\CheckoutOffcanvasWidgetLoadedHook`                      |
 | **Description**        | Triggered when the CheckoutOffcanvasWidget is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Checkout\Offcanvas\OffcanvasCartPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Checkout/Offcanvas/OffcanvasCartPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Checkout\Offcanvas\OffcanvasCartPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Checkout/Offcanvas/OffcanvasCartPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -270,9 +270,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | checkout-register-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Checkout\Register\CheckoutRegisterPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Checkout\Register\CheckoutRegisterPageLoadedHook`                      |
 | **Description**        | Triggered when the CheckoutRegisterPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Checkout\Register\CheckoutRegisterPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Checkout/Register/CheckoutRegisterPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Checkout\Register\CheckoutRegisterPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Checkout/Register/CheckoutRegisterPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -282,7 +282,7 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | cms-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Cms\CmsPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Cms\CmsPageLoadedHook`                      |
 | **Description**        | Triggered when a CmsPage is loaded<br>                  |
 | **Available Data**     | page: [`HeyFrame\Core\Content\Cms\CmsPageEntity`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Content/Cms/CmsPageEntity.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
@@ -294,9 +294,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | landing-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\LandingPage\LandingPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\LandingPage\LandingPageLoadedHook`                      |
 | **Description**        | Triggered when the LandingPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\LandingPage\LandingPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/LandingPage/LandingPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\LandingPage\LandingPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/LandingPage/LandingPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -306,9 +306,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | maintenance-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Maintenance\MaintenancePageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Maintenance\MaintenancePageLoadedHook`                      |
 | **Description**        | Triggered when the MaintenancePage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Maintenance\MaintenancePage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Maintenance/MaintenancePage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Maintenance\MaintenancePage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Maintenance/MaintenancePage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -318,9 +318,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | navigation-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Navigation\NavigationPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Navigation\NavigationPageLoadedHook`                      |
 | **Description**        | Triggered when the NavigationPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Navigation\NavigationPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Navigation/NavigationPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Navigation\NavigationPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Navigation/NavigationPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -330,9 +330,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | product-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Product\ProductPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Product\ProductPageLoadedHook`                      |
 | **Description**        | Triggered when the ProductPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Product\ProductPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Product/ProductPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Product\ProductPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Product/ProductPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -342,9 +342,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | product-quick-view-widget-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Product\QuickView\ProductQuickViewWidgetLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Product\QuickView\ProductQuickViewWidgetLoadedHook`                      |
 | **Description**        | Triggered when the ProductQuickViewWidget is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Product\QuickView\MinimalQuickViewPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Product/QuickView/MinimalQuickViewPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Product\QuickView\MinimalQuickViewPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Product/QuickView/MinimalQuickViewPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -354,9 +354,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | search-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Search\SearchPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Search\SearchPageLoadedHook`                      |
 | **Description**        | Triggered when the SearchPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Search\SearchPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Search/SearchPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Search\SearchPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Search/SearchPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -366,9 +366,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | search-widget-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Search\SearchWidgetLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Search\SearchWidgetLoadedHook`                      |
 | **Description**        | Triggered when the SearchWidget is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Search\SearchPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Search/SearchPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Search\SearchPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Search/SearchPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -378,9 +378,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | sitemap-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Sitemap\SitemapPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Sitemap\SitemapPageLoadedHook`                      |
 | **Description**        | Triggered when the SitemapPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Sitemap\SitemapPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Sitemap/SitemapPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Sitemap\SitemapPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Sitemap/SitemapPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -390,9 +390,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | suggest-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Suggest\SuggestPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Suggest\SuggestPageLoadedHook`                      |
 | **Description**        | Triggered when the SuggestPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Suggest\SuggestPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Suggest/SuggestPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Suggest\SuggestPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Suggest/SuggestPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -402,9 +402,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | guest-wishlist-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Wishlist\GuestWishlistPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Wishlist\GuestWishlistPageLoadedHook`                      |
 | **Description**        | Triggered when the GuestWishlistPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Wishlist\GuestWishlistPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Wishlist/GuestWishlistPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Wishlist\GuestWishlistPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Wishlist/GuestWishlistPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -414,9 +414,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | wishlist-page-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Wishlist\WishlistPageLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Wishlist\WishlistPageLoadedHook`                      |
 | **Description**        | Triggered when the WishlistPage is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Wishlist\WishlistPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Wishlist/WishlistPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Wishlist\WishlistPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Wishlist/WishlistPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -426,9 +426,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | wishlist-widget-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Page\Wishlist\WishlistWidgetLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Page\Wishlist\WishlistWidgetLoadedHook`                      |
 | **Description**        | Triggered when the WishlistWidget is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Page\Wishlist\WishlistPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Wishlist/WishlistPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Page\Wishlist\WishlistPage`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Wishlist/WishlistPage.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -438,9 +438,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | country-state-data-pagelet-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Pagelet\Country\CountryStateDataPageletLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Pagelet\Country\CountryStateDataPageletLoadedHook`                      |
 | **Description**        | Triggered when the CountryStateDataPagelet is loaded<br>                  |
-| **Available Data**     | pagelet: [`HeyFrame\Storefront\Pagelet\Country\CountryStateDataPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Pagelet/Country/CountryStateDataPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | pagelet: [`HeyFrame\Frontend\Pagelet\Country\CountryStateDataPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Pagelet/Country/CountryStateDataPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -450,9 +450,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | footer-pagelet-loaded                         |
 | **Since**              | 6.7.0.0                        |
-| **Class**              | `HeyFrame\Storefront\Pagelet\Footer\FooterPageletLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Pagelet\Footer\FooterPageletLoadedHook`                      |
 | **Description**        | Triggered when the FooterPagelet is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Pagelet\Footer\FooterPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Pagelet/Footer/FooterPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Pagelet\Footer\FooterPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Pagelet/Footer/FooterPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -462,9 +462,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | header-pagelet-loaded                         |
 | **Since**              | 6.7.0.0                        |
-| **Class**              | `HeyFrame\Storefront\Pagelet\Header\HeaderPageletLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Pagelet\Header\HeaderPageletLoadedHook`                      |
 | **Description**        | Triggered when the HeaderPagelet is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Pagelet\Header\HeaderPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Pagelet/Header/HeaderPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Pagelet\Header\HeaderPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Pagelet/Header/HeaderPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -474,9 +474,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | menu-offcanvas-pagelet-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Pagelet\Menu\Offcanvas\MenuOffcanvasPageletLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Pagelet\Menu\Offcanvas\MenuOffcanvasPageletLoadedHook`                      |
 | **Description**        | Triggered when the MenuOffcanvasPagelet is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Pagelet\Menu\Offcanvas\MenuOffcanvasPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Pagelet/Menu/Offcanvas/MenuOffcanvasPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Pagelet\Menu\Offcanvas\MenuOffcanvasPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Pagelet/Menu/Offcanvas/MenuOffcanvasPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -486,9 +486,9 @@ All available Hooks that can be used to load additional data.
 |:-----------------------|:----------------------------------------|
 | **Name**               | guest-wishlist-pagelet-loaded                         |
 | **Since**              | 6.4.8.0                        |
-| **Class**              | `HeyFrame\Storefront\Pagelet\Wishlist\GuestWishlistPageletLoadedHook`                      |
+| **Class**              | `HeyFrame\Frontend\Pagelet\Wishlist\GuestWishlistPageletLoadedHook`                      |
 | **Description**        | Triggered when the GuestWishlistPagelet is loaded<br>                  |
-| **Available Data**     | page: [`HeyFrame\Storefront\Pagelet\Wishlist\GuestWishlistPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Pagelet/Wishlist/GuestWishlistPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
+| **Available Data**     | page: [`HeyFrame\Frontend\Pagelet\Wishlist\GuestWishlistPagelet`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Pagelet/Wishlist/GuestWishlistPagelet.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `false`                  |
 
@@ -580,15 +580,15 @@ Triggered when the api endpoint /store-api/script/{hook} is called. Used to exec
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[writer](./custom-endpoint-script-services-reference#RepositoryWriterFacade)<br>[response](./custom-endpoint-script-services-reference#ScriptResponseFactoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `true`                  |
 
-### storefront-{hook}
+### frontend-{hook}
 
 | <!-- -->               | <!-- -->                                |
 |:-----------------------|:----------------------------------------|
-| **Name**               | storefront-{hook}                         |
+| **Name**               | frontend-{hook}                         |
 | **Since**              | 6.4.9.0                        |
-| **Class**              | `HeyFrame\Storefront\Framework\Script\Api\StorefrontHook`                      |
-| **Description**        | Triggered when the storefront endpoint /storefront/script/{hook} is called<br>                  |
-| **Available Data**     | script: `string`<br>request: `array`<br>query: `array`<br>page: [`HeyFrame\Storefront\Page\Page`](https://github.com/heyframe/heyframe/blob/trunk/src/Storefront/Page/Page.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>scriptResponse: [`HeyFrame\Core\Framework\Script\Api\ScriptResponse`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Script/Api/ScriptResponse.php)<br>isPropagationStopped: `bool`<br>        |
+| **Class**              | `HeyFrame\Frontend\Framework\Script\Api\FrontendHook`                      |
+| **Description**        | Triggered when the frontend endpoint /frontend/script/{hook} is called<br>                  |
+| **Available Data**     | script: `string`<br>request: `array`<br>query: `array`<br>page: [`HeyFrame\Frontend\Page\Page`](https://github.com/heyframe/heyframe/blob/trunk/src/Frontend/Page/Page.php)<br>channelContext: [`HeyFrame\Core\System\Channel\ChannelContext`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/System/Channel/ChannelContext.php)<br>context: [`HeyFrame\Core\Framework\Context`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Context.php)<br>scriptResponse: [`HeyFrame\Core\Framework\Script\Api\ScriptResponse`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Script/Api/ScriptResponse.php)<br>isPropagationStopped: `bool`<br>        |
 | **Available Services** | [repository](./data-loading-script-services-reference#RepositoryFacade)<br>[config](./miscellaneous-script-services-reference#SystemConfigFacade)<br>[store](./data-loading-script-services-reference#ChannelRepositoryFacade)<br>[writer](./custom-endpoint-script-services-reference#RepositoryWriterFacade)<br>[response](./custom-endpoint-script-services-reference#ScriptResponseFactoryFacade)<br>[request](./miscellaneous-script-services-reference#RequestFacade)<br>[acl](./miscellaneous-script-services-reference#AclFacade)<br> |
 | **Stoppable**          | `true`                  |
 

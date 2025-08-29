@@ -3,7 +3,7 @@
 namespace HeyFrame\Core\Framework\DependencyInjection\CompilerPass;
 
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Storefront\Theme\ThemeCompiler;
+use HeyFrame\Frontend\Theme\ThemeCompiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

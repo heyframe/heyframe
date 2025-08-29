@@ -11,7 +11,7 @@
         }
     ],
     "conflict": {
-        "heyframe/storefront": "< 6.1.0"
+        "heyframe/frontend": "< 6.1.0"
     },
     "extra": {
         "heyframe-plugin-class": "SwagTestValidateConflictsValid\\SwagTestValidateConflictsValid",

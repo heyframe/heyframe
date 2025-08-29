@@ -18,7 +18,7 @@ use HeyFrame\Core\Framework\Log\Package;
 #[Package('discovery')]
 class ImageCmsElementResolver extends AbstractCmsElementResolver
 {
-    final public const CMS_DEFAULT_ASSETS_PATH = '/bundles/storefront/assets/default/cms/';
+    final public const CMS_DEFAULT_ASSETS_PATH = '/bundles/frontend/assets/default/cms/';
 
     /**
      * @internal

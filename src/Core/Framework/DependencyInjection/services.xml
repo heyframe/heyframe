@@ -30,7 +30,7 @@ script-src 'strict-dynamic' 'nonce-%%nonce%%' 'unsafe-inline' 'unsafe-eval' http
 base-uri 'self';
 frame-ancestors 'none';
             </parameter>
-            <parameter key="storefront"/>
+            <parameter key="frontend"/>
             <parameter key="installer"/>
         </parameter>
 

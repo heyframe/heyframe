@@ -182,19 +182,19 @@ class PermissionCategorization
     private const CATEGORY_ADDITIONAL_PRIVILEGES = 'additional_privileges';
 
     /**
-     * @see \HeyFrame\Storefront\Theme\ThemeDefinition::ENTITY_NAME
+     * @see \HeyFrame\Frontend\Theme\ThemeDefinition::ENTITY_NAME
      */
     private const THEME_ENTITY_NAME = 'theme';
     /**
-     * @see \HeyFrame\Storefront\Theme\Aggregate\ThemeTranslationDefinition::ENTITY_NAME
+     * @see \HeyFrame\Frontend\Theme\Aggregate\ThemeTranslationDefinition::ENTITY_NAME
      */
     private const THEME_TRANSLATION_ENTITY_NAME = 'theme_translation';
     /**
-     * @see \HeyFrame\Storefront\Theme\Aggregate\ThemeMediaDefinition::ENTITY_NAME
+     * @see \HeyFrame\Frontend\Theme\Aggregate\ThemeMediaDefinition::ENTITY_NAME
      */
     private const THEME_MEDIA_ENTITY_NAME = 'theme_media';
     /**
-     * @see \HeyFrame\Storefront\Theme\Aggregate\ThemeChannelDefinition::ENTITY_NAME
+     * @see \HeyFrame\Frontend\Theme\Aggregate\ThemeChannelDefinition::ENTITY_NAME
      */
     private const THEME_CHANNEL_ENTITY_NAME = 'theme_channel';
 

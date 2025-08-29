@@ -72,9 +72,9 @@ class InternalClassRule implements Rule
             ];
         }
 
-        if ($this->isStorefrontController($node)) {
+        if ($this->isFrontendController($node)) {
             return [
-                RuleErrorBuilder::message('Storefront controllers must be flagged @internal to not be captured by the BC checker. The BC promise is checked over the route annotation.')
+                RuleErrorBuilder::message('Frontend controllers must be flagged @internal to not be captured by the BC checker. The BC promise is checked over the route annotation.')
                     ->identifier('heyframe.internalClass')
                     ->build(),
             ];
@@ -164,7 +164,7 @@ class InternalClassRule implements Rule
         return \str_contains($doc, '@internal') || \str_contains($doc, 'reason:becomes-internal');
     }
 
-    private function isStorefrontController(InClassNode $node): bool
+    private function isFrontendController(InClassNode $node): bool
     {
         $class = $node->getClassReflection();
 
@@ -172,7 +172,7 @@ class InternalClassRule implements Rule
             return false;
         }
 
-        return $class->getParentClass()->getName() === StorefrontController::class;
+        return $class->getParentClass()->getName() === FrontendController::class;
     }
 
     private function isBundle(InClassNode $node): bool

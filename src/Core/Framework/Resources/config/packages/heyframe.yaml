@@ -553,7 +553,7 @@ heyframe:
     staging:
         mailing:
             disable_delivery: true
-        storefront:
+        frontend:
             show_banner: true
         administration:
             show_banner: true

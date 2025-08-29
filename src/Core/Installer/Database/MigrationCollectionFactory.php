@@ -50,31 +50,31 @@ class MigrationCollectionFactory
     {
         if (\is_file($this->projectDir . '/platform/src/Core/schema.sql')) {
             $coreBasePath = $this->projectDir . '/platform/src/Core';
-            $storefrontBasePath = $this->projectDir . '/platform/src/Storefront';
+            $frontendBasePath = $this->projectDir . '/platform/src/Frontend';
             $adminBasePath = $this->projectDir . '/platform/src/Administration';
         } elseif (\is_file($this->projectDir . '/src/Core/schema.sql')) {
             $coreBasePath = $this->projectDir . '/src/Core';
-            $storefrontBasePath = $this->projectDir . '/src/Storefront';
+            $frontendBasePath = $this->projectDir . '/src/Frontend';
             $adminBasePath = $this->projectDir . '/src/Administration';
         } elseif (\is_file($this->projectDir . '/vendor/heyframe/platform/src/Core/schema.sql')) {
             $coreBasePath = $this->projectDir . '/vendor/heyframe/platform/src/Core';
-            $storefrontBasePath = $this->projectDir . '/vendor/heyframe/platform/src/Storefront';
+            $frontendBasePath = $this->projectDir . '/vendor/heyframe/platform/src/Frontend';
             $adminBasePath = $this->projectDir . '/vendor/heyframe/platform/src/Administration';
         } else {
             $coreBasePath = $this->projectDir . '/vendor/heyframe/core';
-            $storefrontBasePath = $this->projectDir . '/vendor/heyframe/storefront';
+            $frontendBasePath = $this->projectDir . '/vendor/heyframe/frontend';
             $adminBasePath = $this->projectDir . '/vendor/heyframe/administration';
         }
 
-        $hasStorefrontMigrations = is_dir($storefrontBasePath);
+        $hasFrontendMigrations = is_dir($frontendBasePath);
         $hasAdminMigrations = is_dir($adminBasePath);
 
         $source = new MigrationSource('core.' . $version, [
             \sprintf('%s/Migration/%s', $coreBasePath, $version) => \sprintf('HeyFrame\\Core\\Migration\\%s', $version),
         ]);
 
-        if ($hasStorefrontMigrations) {
-            $source->addDirectory(\sprintf('%s/Migration/%s', $storefrontBasePath, $version), \sprintf('HeyFrame\\Storefront\\Migration\\%s', $version));
+        if ($hasFrontendMigrations) {
+            $source->addDirectory(\sprintf('%s/Migration/%s', $frontendBasePath, $version), \sprintf('HeyFrame\\Frontend\\Migration\\%s', $version));
         }
 
         if ($hasAdminMigrations) {

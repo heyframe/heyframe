@@ -27,7 +27,7 @@ class ExpectationSubscriber implements EventSubscriberInterface
         'heyframe/core',
         'heyframe/administration',
         'heyframe/elasticsearch',
-        'heyframe/storefront',
+        'heyframe/frontend',
     ];
 
     /**

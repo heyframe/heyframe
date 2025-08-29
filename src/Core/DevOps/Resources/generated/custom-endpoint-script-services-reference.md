@@ -214,7 +214,7 @@ The `response` service allows you to create HTTP-Responses.
         {% set response = services.response.redirect('api.product.detail', { 'path': productId }) %}
 		{% do hook.setResponse(response) %}
         ```
-    * Redirect to a storefront page.
+    * Redirect to a frontend page.
 
         ```twig
         {% set response = services.response.redirect('frontend.detail.page', { 'productId': productId }) %}
@@ -222,15 +222,15 @@ The `response` service allows you to create HTTP-Responses.
         ```
 ### render()
 
-* The `render()` method allows you to render a twig view with the parameters you provide and create a StorefrontResponse.
+* The `render()` method allows you to render a twig view with the parameters you provide and create a FrontendResponse.
 
     Note that the `render()` method will throw an exception if it is called from outside a `ChannelContext` (e.g. from an `/api` route)
-	or if the Storefront-bundle is not installed.
+	or if the Frontend-bundle is not installed.
 * **Returns** [`HeyFrame\Core\Framework\Script\Api\ScriptResponse`](https://github.com/heyframe/heyframe/blob/trunk/src/Core/Framework/Script/Api/ScriptResponse.php)
 
     The created response object with the rendered template as content, remember to assign it to the hook with `hook.setResponse()`.
 * **Arguments:**
-    * *`string`* **view**: The name of the twig template you want to render e.g. `@Storefront/storefront/page/content/detail.html.twig`
+    * *`string`* **view**: The name of the twig template you want to render e.g. `@Frontend/frontend/page/content/detail.html.twig`
     * *`array`* **parameters**: The parameters you want to pass to the template, ensure that you pass the `page` parameter from the hook to the templates.
 
         Default: `array (
@@ -243,7 +243,7 @@ The `response` service allows you to create HTTP-Responses.
 		
 		{% do hook.page.addExtension('myProduct', product) %}
 		
-		{% set response = services.response.render('@MyApp/storefront/page/custom-page/index.html.twig', { 'page': hook.page }) %}
+		{% set response = services.response.render('@MyApp/frontend/page/custom-page/index.html.twig', { 'page': hook.page }) %}
 		{% do response.setHeader("Content-Type", "text/plain") %}
 		
 		{% do hook.setResponse(response) %}

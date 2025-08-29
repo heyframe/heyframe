@@ -7,7 +7,7 @@ use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAware;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\HookServiceFactory;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
 use HeyFrame\Core\Framework\Script\Execution\Script;
-use HeyFrame\Storefront\Controller\ScriptController;
+use HeyFrame\Frontend\Controller\ScriptController;
 use Symfony\Component\Routing\RouterInterface;
 
 /**

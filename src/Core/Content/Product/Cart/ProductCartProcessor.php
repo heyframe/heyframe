@@ -123,7 +123,7 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
                 // enrich all products in original cart
                 $this->enrich($match['item'], $data, $behavior);
 
-                // remove "parent" products which should never be displayed in storefront
+                // remove "parent" products which should never be displayed in frontend
                 $this->validateParents($match['item'], $data, $match['scope']);
 
                 // validate data timestamps that inactive products (or not assigned to sales channel) are removed

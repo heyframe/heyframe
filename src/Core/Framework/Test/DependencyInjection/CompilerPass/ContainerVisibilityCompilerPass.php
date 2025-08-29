@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @internal
  * Marks services public that would otherwise be inlined in setups where only HeyFrame/Core is used,
- * as the only usages are in storefront
+ * as the only usages are in frontend
  */
 class ContainerVisibilityCompilerPass implements CompilerPassInterface
 {

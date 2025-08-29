@@ -55,11 +55,11 @@ HEYFRAME_ADMIN_ES_ENABLED=0
 HEYFRAME_ADMIN_ES_REFRESH_INDICES=0
 ###< heyframe/elasticsearch ###
 
-###> heyframe/storefront ###
+###> heyframe/frontend ###
 STOREFRONT_PROXY_URL=http://localhost
 HEYFRAME_HTTP_CACHE_ENABLED=1
 HEYFRAME_HTTP_DEFAULT_TTL=7200
-###< heyframe/storefront ###
+###< heyframe/frontend ###
 EOT;
 
     public function __construct(

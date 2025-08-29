@@ -223,7 +223,7 @@ class AppLifecycle extends AbstractAppLifecycle
         $metadata['cookies'] = $manifest->getCookies() !== null ? $manifest->getCookies()->getCookies() : [];
         $metadata['baseAppUrl'] = $manifest->getAdmin()?->getBaseAppUrl();
         $metadata['allowedHosts'] = $manifest->getAllHosts();
-        $metadata['templateLoadPriority'] = $manifest->getStorefront() ? $manifest->getStorefront()->getTemplateLoadPriority() : 0;
+        $metadata['templateLoadPriority'] = $manifest->getFrontend() ? $manifest->getFrontend()->getTemplateLoadPriority() : 0;
         $metadata['checkoutGatewayUrl'] = $manifest->getGateways()?->getCheckout()?->getUrl();
         $metadata['contextGatewayUrl'] = $manifest->getGateways()?->getContext()?->getUrl();
         $metadata['sourceType'] = $manifest->getSourceType() ?? $this->sourceResolver->resolveSourceType($manifest);

@@ -112,9 +112,9 @@ class SnippetValidator implements SnippetValidatorInterface
     {
         $deprecatedFiles = $this->findDeprecatedSnippetFiles();
         $administrationFiles = $this->snippetFileHandler->findAdministrationSnippetFiles();
-        $storefrontSnippetFiles = $this->snippetFileHandler->findStorefrontSnippetFiles();
+        $frontendSnippetFiles = $this->snippetFileHandler->findFrontendSnippetFiles();
 
-        return $this->hydrateFiles(array_merge($deprecatedFiles, $administrationFiles, $storefrontSnippetFiles));
+        return $this->hydrateFiles(array_merge($deprecatedFiles, $administrationFiles, $frontendSnippetFiles));
     }
 
     /**
@@ -238,7 +238,7 @@ class SnippetValidator implements SnippetValidatorInterface
     {
         $unformattedSnippet = strtolower(preg_replace('/\s+/', '', $snippetContent) ?: '');
 
-        $isSymfonyTranslationFile = preg_match('/storefront|messages/i', $filePath);
+        $isSymfonyTranslationFile = preg_match('/frontend|messages/i', $filePath);
         $hasPluralization = str_contains($snippetContent, '|');
 
         if (!$isSymfonyTranslationFile || !$hasPluralization) {

@@ -15,7 +15,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Snippet\Aggregate\SnippetSet\SnippetSetCollection;
 use HeyFrame\Core\System\Snippet\Event\SnippetsThemeResolveEvent;
-use HeyFrame\Core\System\Snippet\Extension\StorefrontSnippetsExtension;
+use HeyFrame\Core\System\Snippet\Extension\FrontendSnippetsExtension;
 use HeyFrame\Core\System\Snippet\Files\AbstractSnippetFile;
 use HeyFrame\Core\System\Snippet\Files\RemoteSnippetFile;
 use HeyFrame\Core\System\Snippet\Files\SnippetFileCollection;
@@ -93,7 +93,7 @@ class SnippetService
     /**
      * @return array<string, string>
      */
-    public function getStorefrontSnippets(MessageCatalogueInterface $catalog, string $snippetSetId, ?string $fallbackLocale = null, ?string $channelId = null): array
+    public function getFrontendSnippets(MessageCatalogueInterface $catalog, string $snippetSetId, ?string $fallbackLocale = null, ?string $channelId = null): array
     {
         $locale = $this->getLocaleBySnippetSetId($snippetSetId);
 
@@ -134,8 +134,8 @@ class SnippetService
 
         return $this->extensionDispatcher
             ->publish(
-                StorefrontSnippetsExtension::NAME,
-                new StorefrontSnippetsExtension(
+                FrontendSnippetsExtension::NAME,
+                new FrontendSnippetsExtension(
                     $snippets,
                     $locale,
                     $catalog,

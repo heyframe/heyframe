@@ -203,7 +203,7 @@
         <service id="HeyFrame\Core\System\Channel\Subscriber\ChannelAnalyticsLoader">
             <argument type="service" id="channel_analytics.repository"/>
 
-            <tag name="kernel.event_listener" event="HeyFrame\Storefront\Event\StorefrontRenderEvent" method="loadAnalytics" priority="2000" />
+            <tag name="kernel.event_listener" event="HeyFrame\Frontend\Event\FrontendRenderEvent" method="loadAnalytics" priority="2000" />
         </service>
 
         <service id="HeyFrame\Core\System\Channel\FrontApiCustomFieldMapper">

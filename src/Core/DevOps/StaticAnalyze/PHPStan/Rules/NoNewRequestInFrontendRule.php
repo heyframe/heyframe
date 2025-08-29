@@ -17,9 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
  * @implements Rule<New_>
  */
 #[Package('framework')]
-class NoNewRequestInStorefrontRule implements Rule
+class NoNewRequestInFrontendRule implements Rule
 {
-    private const HEYFRAME_STOREFRONT_CONTROLLER = 'HeyFrame\\Storefront\\Controller';
+    private const HEYFRAME_STOREFRONT_CONTROLLER = 'HeyFrame\\Frontend\\Controller';
 
     public function getNodeType(): string
     {
@@ -36,8 +36,8 @@ class NoNewRequestInStorefrontRule implements Rule
             $classReflection = $scope->getClassReflection();
             if ($classReflection !== null && str_contains($classReflection->getName(), self::HEYFRAME_STOREFRONT_CONTROLLER)) {
                 return [
-                    RuleErrorBuilder::message('Do not create new Request objects in storefront/controller namespace, because not all parameters might be available on the new request, leading to errors further down. Consider cloning the original request or use a different approach.')
-                    ->identifier('heyframe.noNewRequestInStorefront')
+                    RuleErrorBuilder::message('Do not create new Request objects in frontend/controller namespace, because not all parameters might be available on the new request, leading to errors further down. Consider cloning the original request or use a different approach.')
+                    ->identifier('heyframe.noNewRequestInFrontend')
                     ->build(),
                 ];
             }

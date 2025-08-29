@@ -33,11 +33,11 @@ class TranslationLoader
     private const PLATFORM_BUNDLES = [
         'Administration' => 'administration.json',
         'Core' => 'messages.json',
-        'Storefront' => 'storefront.json',
+        'Frontend' => 'frontend.json',
     ];
 
     private const PLUGIN_BUNDLES = [
-        'Storefront',
+        'Frontend',
         'Administration',
     ];
 

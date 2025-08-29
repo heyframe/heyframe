@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace {{ namespace }}\Storefront\Controller;
+namespace {{ namespace }}\Frontend\Controller;
 
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Storefront\Controller\StorefrontController;
-use HeyFrame\Storefront\Framework\Routing\StorefrontRouteScope;
+use HeyFrame\Frontend\Controller\FrontendController;
+use HeyFrame\Frontend\Framework\Routing\FrontendRouteScope;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StorefrontRouteScope::ID]])]
-class ExampleController extends StorefrontController
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontendRouteScope::ID]])]
+class ExampleController extends FrontendController
 {
     #[Route(
         path: '/example',
@@ -20,7 +20,7 @@ class ExampleController extends StorefrontController
     )]
     public function showExample(Request $request, ChannelContext $context): Response
     {
-        return $this->renderStorefront('@{{ className }}/storefront/page/example.html.twig', [
+        return $this->renderFrontend('@{{ className }}/frontend/page/example.html.twig', [
             'example' => 'Hello world'
         ]);
     }

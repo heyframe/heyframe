@@ -12,9 +12,9 @@ use Symfony\Component\Translation\MessageCatalogueInterface;
  * @extends Extension<array<string, string>>
  */
 #[Package('discovery')]
-final class StorefrontSnippetsExtension extends Extension
+final class FrontendSnippetsExtension extends Extension
 {
-    public const NAME = 'storefront.snippets';
+    public const NAME = 'frontend.snippets';
 
     /**
      * @internal heyframe owns the __constructor, but the properties are public API

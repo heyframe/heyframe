@@ -54,7 +54,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Tag\TagDefinition;
 use HeyFrame\Core\System\User\UserDefinition;
-use HeyFrame\Storefront\Theme\Aggregate\ThemeMediaDefinition;
+use HeyFrame\Frontend\Theme\Aggregate\ThemeMediaDefinition;
 
 #[Package('discovery')]
 class MediaDefinition extends EntityDefinition

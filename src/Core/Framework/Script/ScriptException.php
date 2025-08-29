@@ -37,12 +37,12 @@ class ScriptException extends HttpException
         );
     }
 
-    public static function storefrontBundleMissingForHookMethod(string $method): self
+    public static function frontendBundleMissingForHookMethod(string $method): self
     {
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::HOOK_METHOD_STOREFRONT_BUNDLE_MISSING,
-            'Method "{{ method }}" can only be called if the `storefront`-bundle is installed.',
+            'Method "{{ method }}" can only be called if the `frontend`-bundle is installed.',
             ['method' => $method]
         );
     }

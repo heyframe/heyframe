@@ -51,7 +51,7 @@ class ScriptReferenceDataCollector
                 // note that excluded paths need to be relative to platform/src and that no wildcards are supported
                 ->exclude([
                     'Administration/Resources',
-                    'Storefront/Resources',
+                    'Frontend/Resources',
                     'Recovery',
                 ])
                 ->ignoreUnreadableDirs();

@@ -273,22 +273,22 @@ class CreateAppCommand extends Command
           "name": "{{name}}",
           "author": "{{author}}",
           "views": [
-             "@Storefront",
+             "@Frontend",
              "@Plugins",
              "@{{name}}"
           ],
           "style": [
-            "app/storefront/src/scss/overrides.scss",
-            "@Storefront",
-            "app/storefront/src/scss/base.scss"
+            "app/frontend/src/scss/overrides.scss",
+            "@Frontend",
+            "app/frontend/src/scss/base.scss"
           ],
           "script": [
-            "@Storefront",
-            "app/storefront/dist/storefront/js/{{name-snake-case}}.js"
+            "@Frontend",
+            "app/frontend/dist/frontend/js/{{name-snake-case}}.js"
           ],
           "asset": [
-            "@Storefront",
-            "app/storefront/src/assets"
+            "@Frontend",
+            "app/frontend/src/assets"
           ]
         }
         EOL;

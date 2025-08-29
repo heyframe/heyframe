@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *      HeyFrame\Core\Kernel
  *          HeyFrame\Core\Framework\Adapter\Kernel\HttpCacheKernel (http caching)
  *              HeyFrame\Core\Framework\Adapter\Kernel\HttpKernel (runs request transformer)
- *                  HeyFrame\Storefront\Controller\Any
+ *                  HeyFrame\Frontend\Controller\Any
  *
  * @final
  */

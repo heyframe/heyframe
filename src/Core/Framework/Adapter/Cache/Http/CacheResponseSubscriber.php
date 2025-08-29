@@ -88,7 +88,7 @@ class CacheResponseSubscriber implements EventSubscriberInterface
             // and there is no way to invalidate once the url becomes available
             // To still be able to serve 404 pages fast, we don't load the full context and cache the rendered html on application side
             // as we don't have the full context the state handling is broken as no customer or cart is available, even if the customer is logged in
-            // @see \HeyFrame\Storefront\Framework\Routing\NotFound\NotFoundSubscriber::onError
+            // @see \HeyFrame\Frontend\Framework\Routing\NotFound\NotFoundSubscriber::onError
             return;
         }
 

@@ -8,7 +8,7 @@ use HeyFrame\Core\Checkout\Cart\Channel\CartService;
 use HeyFrame\Core\Checkout\Cart\LineItemFactoryHandler\ProductLineItemFactory;
 use HeyFrame\Core\Checkout\Promotion\Cart\PromotionItemBuilder;
 use HeyFrame\Core\Checkout\Promotion\Cart\PromotionProcessor;
-use HeyFrame\Core\Checkout\Promotion\Subscriber\Storefront\StorefrontCartSubscriber;
+use HeyFrame\Core\Checkout\Promotion\Subscriber\Frontend\FrontendCartSubscriber;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -92,10 +92,10 @@ trait PromotionIntegrationTestBehaviour
         static::assertInstanceOf(SessionStorageInterface::class, $mockFileSessionStorage);
         $session = new Session($mockFileSessionStorage);
 
-        if (!$session->has(StorefrontCartSubscriber::SESSION_KEY_PROMOTION_CODES)) {
+        if (!$session->has(FrontendCartSubscriber::SESSION_KEY_PROMOTION_CODES)) {
             return [];
         }
 
-        return $session->get(StorefrontCartSubscriber::SESSION_KEY_PROMOTION_CODES);
+        return $session->get(FrontendCartSubscriber::SESSION_KEY_PROMOTION_CODES);
     }
 }

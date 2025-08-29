@@ -5,7 +5,7 @@ namespace HeyFrame\Core\System\Snippet;
 use HeyFrame\Administration\Administration;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Snippet\Command\ValidateSnippetsCommand;
-use HeyFrame\Storefront\Storefront;
+use HeyFrame\Frontend\Frontend;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
@@ -72,9 +72,9 @@ class SnippetFileHandler
     /**
      * @return list<string>
      */
-    public function findStorefrontSnippetFiles(): array
+    public function findFrontendSnippetFiles(): array
     {
-        if (!($bundleDir = $this->getBundleDir(Storefront::class))) {
+        if (!($bundleDir = $this->getBundleDir(Frontend::class))) {
             return [];
         }
 

@@ -4,7 +4,7 @@ namespace HeyFrame\Core\Framework\Routing;
 
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Storefront\Event\StorefrontRenderEvent;
+use HeyFrame\Frontend\Event\FrontendRenderEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -33,8 +33,8 @@ readonly class RouteEventSubscriber implements EventSubscriberInterface
             KernelEvents::RESPONSE => ['response', -10],
         ];
 
-        if (class_exists(StorefrontRenderEvent::class)) {
-            $events[StorefrontRenderEvent::class] = ['render', -10];
+        if (class_exists(FrontendRenderEvent::class)) {
+            $events[FrontendRenderEvent::class] = ['render', -10];
         }
 
         return $events;
@@ -52,7 +52,7 @@ readonly class RouteEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function render(StorefrontRenderEvent $event): void
+    public function render(FrontendRenderEvent $event): void
     {
         $request = $event->getRequest();
         if ($request->attributes->has('_route')) {

@@ -130,7 +130,7 @@ class SystemConfigService implements ResetInterface
     }
 
     /**
-     * @internal should not be used in storefront or store api. The cache layer caches all accessed config keys and use them as cache tag.
+     * @internal should not be used in frontend or store api. The cache layer caches all accessed config keys and use them as cache tag.
      *
      * gets all available shop configs and returns them as an array
      *
@@ -142,7 +142,7 @@ class SystemConfigService implements ResetInterface
     }
 
     /**
-     * @internal should not be used in storefront or store api. The cache layer caches all accessed config keys and use them as cache tag.
+     * @internal should not be used in frontend or store api. The cache layer caches all accessed config keys and use them as cache tag.
      *
      * @throws InvalidDomainException
      *

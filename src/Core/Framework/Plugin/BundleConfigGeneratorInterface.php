@@ -14,7 +14,7 @@ use HeyFrame\Core\Framework\Log\Package;
  *             entryFilePath: string|null,
  *             webpack: string|null,
  *         },
- *         storefront: array{
+ *         frontend: array{
  *            path: string ,
  *            entryFilePath: string|null,
  *            webpack: string|null,

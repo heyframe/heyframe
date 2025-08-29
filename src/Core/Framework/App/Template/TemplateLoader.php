@@ -17,7 +17,7 @@ class TemplateLoader extends AbstractTemplateLoader
     private const TEMPLATE_DIR = '/Resources/views';
 
     private const ALLOWED_TEMPLATE_DIRS = [
-        'storefront',
+        'frontend',
         'documents',
     ];
 

@@ -5,7 +5,7 @@ namespace HeyFrame\Core\Framework\Script\Api;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\ScriptException;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Storefront\Controller\ScriptController;
+use HeyFrame\Frontend\Controller\ScriptController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
@@ -58,7 +58,7 @@ class ScriptResponseFactoryFacade
      * @return ScriptResponse The created response object, remember to assign it to the hook with `hook.setResponse()`.
      *
      * @example /api-redirect-response/redirect-script.twig 3 Redirect to an Admin-API route.
-     * @example /storefront-redirect-response/script.twig 3 Redirect to a storefront page.
+     * @example /frontend-redirect-response/script.twig 3 Redirect to a frontend page.
      */
     public function redirect(string $route, array $parameters, int $code = Response::HTTP_FOUND): ScriptResponse
     {
@@ -71,29 +71,29 @@ class ScriptResponseFactoryFacade
     }
 
     /**
-     * The `render()` method allows you to render a twig view with the parameters you provide and create a StorefrontResponse.
+     * The `render()` method allows you to render a twig view with the parameters you provide and create a FrontendResponse.
      *
      * Note that the `render()` method will throw an exception if it is called from outside a `ChannelContext` (e.g. from an `/api` route)
-     * or if the Storefront-bundle is not installed.
+     * or if the Frontend-bundle is not installed.
      *
-     * @param string $view The name of the twig template you want to render e.g. `@Storefront/storefront/page/content/detail.html.twig`
+     * @param string $view The name of the twig template you want to render e.g. `@Frontend/frontend/page/content/detail.html.twig`
      * @param array<mixed> $parameters The parameters you want to pass to the template, ensure that you pass the `page` parameter from the hook to the templates.
      *
      * @return ScriptResponse The created response object with the rendered template as content, remember to assign it to the hook with `hook.setResponse()`.
      *
-     * @example storefront-render/script.twig 3 Fetch a product, add it to the page and return a rendered response.
+     * @example frontend-render/script.twig 3 Fetch a product, add it to the page and return a rendered response.
      */
     public function render(string $view, array $parameters = []): ScriptResponse
     {
         if ($this->scriptController === null) {
-            throw ScriptException::storefrontBundleMissingForHookMethod(__METHOD__);
+            throw ScriptException::frontendBundleMissingForHookMethod(__METHOD__);
         }
 
         if ($this->channelContext === null) {
             throw ScriptException::hookMethodOutsideOfChannelContext(__METHOD__);
         }
 
-        $inner = $this->scriptController->renderStorefrontForScript($view, $parameters);
+        $inner = $this->scriptController->renderFrontendForScript($view, $parameters);
 
         return new ScriptResponse($inner, $inner->getStatusCode());
     }

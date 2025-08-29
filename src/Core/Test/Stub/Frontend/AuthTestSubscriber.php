@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Test\Stub\Storefront;
+namespace HeyFrame\Core\Test\Stub\Frontend;
 
 use HeyFrame\Core\Checkout\Customer\Event\CustomerAccountRecoverRequestEvent;
-use HeyFrame\Storefront\Event\StorefrontRenderEvent;
-use HeyFrame\Storefront\Page\Account\RecoverPassword\AccountRecoverPasswordPage;
-use HeyFrame\Storefront\Page\Account\RecoverPassword\AccountRecoverPasswordPageLoadedEvent;
+use HeyFrame\Frontend\Event\FrontendRenderEvent;
+use HeyFrame\Frontend\Page\Account\RecoverPassword\AccountRecoverPasswordPage;
+use HeyFrame\Frontend\Page\Account\RecoverPassword\AccountRecoverPasswordPageLoadedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class AuthTestSubscriber implements EventSubscriberInterface
 {
-    public static ?StorefrontRenderEvent $renderEvent = null;
+    public static ?FrontendRenderEvent $renderEvent = null;
 
     public static ?AccountRecoverPasswordPage $page = null;
 
@@ -22,7 +22,7 @@ class AuthTestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            StorefrontRenderEvent::class => 'onRender',
+            FrontendRenderEvent::class => 'onRender',
             AccountRecoverPasswordPageLoadedEvent::class => 'onPageLoad',
             CustomerAccountRecoverRequestEvent::EVENT_NAME => 'onRecoverEvent',
         ];
@@ -33,11 +33,11 @@ class AuthTestSubscriber implements EventSubscriberInterface
         self::$customerRecoveryEvent = $event;
     }
 
-    public function onRender(StorefrontRenderEvent $event): void
+    public function onRender(FrontendRenderEvent $event): void
     {
         $skippedViews = [
-            '@Storefront/storefront/layout/header.html.twig',
-            '@Storefront/storefront/layout/footer.html.twig',
+            '@Frontend/frontend/layout/header.html.twig',
+            '@Frontend/frontend/layout/footer.html.twig',
         ];
         if (\in_array($event->getView(), $skippedViews, true)) {
             return;

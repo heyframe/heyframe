@@ -41,7 +41,7 @@ class SystemInstallCommand extends Command
     {
         $this->addOption('create-database', null, InputOption::VALUE_NONE, 'Create database if it doesn\'t exist.')
             ->addOption('drop-database', null, InputOption::VALUE_NONE, 'Drop existing database')
-            ->addOption('basic-setup', null, InputOption::VALUE_NONE, 'Create storefront sales channel and admin user')
+            ->addOption('basic-setup', null, InputOption::VALUE_NONE, 'Create frontend sales channel and admin user')
             ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force install even if install.lock exists')
             ->addOption('no-assign-theme', null, InputOption::VALUE_NONE, 'Do not assign the default theme')
             ->addOption('shop-name', null, InputOption::VALUE_REQUIRED, 'The name of your shop')
@@ -128,10 +128,10 @@ class SystemInstallCommand extends Command
                 '--password' => 'heyframe',
             ];
 
-            if ($application->has('sales-channel:create:storefront')) {
+            if ($application->has('sales-channel:create:frontend')) {
                 $commands[] = [
-                    'command' => 'sales-channel:create:storefront',
-                    '--name' => $input->getOption('shop-name') ?? 'Storefront',
+                    'command' => 'sales-channel:create:frontend',
+                    '--name' => $input->getOption('shop-name') ?? 'Frontend',
                     '--url' => (string) EnvironmentHelper::getVariable('APP_URL', 'http://localhost'),
                     '--isoCode' => $input->getOption('shop-locale') ?? 'en-GB',
                 ];
@@ -143,7 +143,7 @@ class SystemInstallCommand extends Command
                     'allowedToFail' => true,
                     '--all' => true,
                     '--sync' => true,
-                    'theme-name' => 'Storefront',
+                    'theme-name' => 'Frontend',
                 ];
             }
         }

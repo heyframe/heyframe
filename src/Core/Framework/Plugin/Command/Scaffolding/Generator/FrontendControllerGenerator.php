@@ -13,18 +13,18 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * @internal
  */
 #[Package('framework')]
-class StorefrontControllerGenerator implements ScaffoldingGenerator
+class FrontendControllerGenerator implements ScaffoldingGenerator
 {
     use AddScaffoldConfigDefaultBehaviour;
     use HasCommandOption;
 
-    public const OPTION_NAME = 'create-storefront-controller';
-    private const OPTION_DESCRIPTION = 'Create an example storefront controller';
-    private const CLI_QUESTION = 'Do you want to create an example storefront controller?';
+    public const OPTION_NAME = 'create-frontend-controller';
+    private const OPTION_DESCRIPTION = 'Create an example frontend controller';
+    private const CLI_QUESTION = 'Do you want to create an example frontend controller?';
 
     private string $servicesXmlEntry = <<<'EOL'
 
-            <service id="{{ namespace }}\Storefront\Controller\ExampleController" public="true">
+            <service id="{{ namespace }}\Frontend\Controller\ExampleController" public="true">
                 <call method="setContainer">
                     <argument type="service" id="service_container"/>
                 </call>
@@ -34,7 +34,7 @@ class StorefrontControllerGenerator implements ScaffoldingGenerator
 
     private string $routesXmlEntry = <<<'EOL'
 
-        <import resource="../../Storefront/Controller/**/*Controller.php" type="attribute" />
+        <import resource="../../Frontend/Controller/**/*Controller.php" type="attribute" />
 
     EOL;
 
@@ -87,8 +87,8 @@ class StorefrontControllerGenerator implements ScaffoldingGenerator
     private function createController(PluginScaffoldConfiguration $configuration): Stub
     {
         return Stub::template(
-            'src/Storefront/Controller/ExampleController.php',
-            self::STUB_DIRECTORY . '/storefront-controller.stub',
+            'src/Frontend/Controller/ExampleController.php',
+            self::STUB_DIRECTORY . '/frontend-controller.stub',
             [
                 'namespace' => $configuration->namespace,
                 'className' => $configuration->name,
@@ -99,8 +99,8 @@ class StorefrontControllerGenerator implements ScaffoldingGenerator
     private function createTemplate(): Stub
     {
         return Stub::template(
-            'src/Resources/views/storefront/page/example.html.twig',
-            self::STUB_DIRECTORY . '/storefront-template.stub'
+            'src/Resources/views/frontend/page/example.html.twig',
+            self::STUB_DIRECTORY . '/frontend-template.stub'
         );
     }
 }

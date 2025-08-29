@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\DependencyInjection\Container;
 
-trait StorefrontChannelTestHelper
+trait FrontendChannelTestHelper
 {
     public function getBrowserWithLoggedInCustomer(): KernelBrowser
     {
@@ -65,7 +65,7 @@ trait StorefrontChannelTestHelper
     /**
      * @param array<string> $languageIds
      */
-    public function createStorefrontChannelContext(
+    public function createFrontendChannelContext(
         string $id,
         string $name,
         string $defaultLanguageId = Defaults::LANGUAGE_SYSTEM,
