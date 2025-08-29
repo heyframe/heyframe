@@ -4,24 +4,9 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="../../Cms/Channel/**/*Controller.php" type="attribute" />
     <import resource="../../Product/**/*Controller.php" type="attribute" />
     <import resource="../../Media/**/*Controller.php" type="attribute" />
     <import resource="../../Media/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../MailTemplate/**/*Controller.php" type="attribute" />
-    <import resource="../../ImportExport/**/*Controller.php" type="attribute" />
-    <import resource="../../Newsletter/**/*Controller.php" type="attribute" />
-    <import resource="../../ProductExport/**/*Controller.php" type="attribute" />
-    <import resource="../../Seo/Api/**/*Controller.php" type="attribute" />
-    <import resource="../../Breadcrumb/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Category/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../LandingPage/Channel/**/*Route.php" type="attribute" />
     <import resource="../../Product/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Cms/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../ContactForm/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Newsletter/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Seo/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../ProductExport/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Sitemap/Channel/**/*Route.php" type="attribute" />
     <import resource="../../Flow/**/*Controller.php" type="attribute" />
 </routes>
