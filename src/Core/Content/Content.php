@@ -29,5 +29,6 @@ class Content extends Bundle
         $loader->load('property.xml');
         $loader->load('flow.xml');
         $loader->load('navigation.xml');
+        $loader->load('import_export.xml');
     }
 }

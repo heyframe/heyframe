@@ -2,18 +2,13 @@
 
 namespace HeyFrame\Core\Checkout\Customer\Validation;
 
-use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Validation\EntityExists;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\DataValidationDefinition;
 use HeyFrame\Core\Framework\Validation\DataValidationFactoryInterface;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
-use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[Package('checkout')]
 class CustomerProfileValidationFactory implements DataValidationFactoryInterface
@@ -48,7 +43,6 @@ class CustomerProfileValidationFactory implements DataValidationFactoryInterface
 
     private function addConstraints(DataValidationDefinition $definition, ChannelContext $context): void
     {
-
         $channelId = $context->getChannelId();
 
         if ($this->systemConfigService->get('core.loginRegistration.showBirthdayField', $channelId)

@@ -63,7 +63,6 @@ class Migration1536233120Product extends MigrationStep
               CONSTRAINT `json.product.property_ids` CHECK (JSON_VALID(`property_ids`)),
               CONSTRAINT `json.product.price` CHECK (JSON_VALID(`price`)),
               CONSTRAINT `json.product.listing_prices` CHECK (JSON_VALID(`listing_prices`)),
-              CONSTRAINT `json.product.blacklist_ids` CHECK (JSON_VALID(`blacklist_ids`)),
               CONSTRAINT `json.product.variant_restrictions` CHECK (JSON_VALID(`variant_restrictions`)),
               CONSTRAINT `json.product.configurator_group_sorting` CHECK (JSON_VALID(`configurator_group_sorting`)),
               CONSTRAINT `fk.product.parent_id` FOREIGN KEY (`parent_id`, `parent_version_id`)

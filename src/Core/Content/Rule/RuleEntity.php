@@ -6,8 +6,6 @@ use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscount\PromotionDiscountCollection;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionSetGroup\PromotionSetGroupCollection;
 use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
-use HeyFrame\Core\Checkout\Shipping\Aggregate\ShippingMethodPrice\ShippingMethodPriceCollection;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodCollection;
 use HeyFrame\Core\Content\Flow\Aggregate\FlowSequence\FlowSequenceCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceCollection;
 use HeyFrame\Core\Content\Rule\Aggregate\RuleCondition\RuleConditionCollection;
@@ -17,7 +15,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\System\Tag\TagCollection;
-use HeyFrame\Core\System\TaxProvider\TaxProviderCollection;
 
 #[Package('fundamentals@after-sales')]
 class RuleEntity extends Entity
@@ -43,8 +40,6 @@ class RuleEntity extends Entity
 
     protected ?ProductPriceCollection $productPrices = null;
 
-    protected ?ShippingMethodCollection $shippingMethods = null;
-
     protected ?PaymentMethodCollection $paymentMethods = null;
 
     protected ?RuleConditionCollection $conditions = null;
@@ -56,13 +51,9 @@ class RuleEntity extends Entity
      */
     protected ?array $areas = null;
 
-    protected ?ShippingMethodPriceCollection $shippingMethodPrices = null;
-
     protected ?PromotionDiscountCollection $promotionDiscounts = null;
 
     protected ?PromotionSetGroupCollection $promotionSetGroups = null;
-
-    protected ?ShippingMethodPriceCollection $shippingMethodPriceCalculations = null;
 
     protected ?PromotionCollection $personaPromotions = null;
 
@@ -73,8 +64,6 @@ class RuleEntity extends Entity
     protected ?PromotionCollection $orderPromotions = null;
 
     protected ?PromotionCollection $cartPromotions = null;
-
-    protected ?TaxProviderCollection $taxProviders = null;
 
     public function getName(): string
     {
@@ -134,16 +123,6 @@ class RuleEntity extends Entity
     public function setProductPrices(ProductPriceCollection $productPrices): void
     {
         $this->productPrices = $productPrices;
-    }
-
-    public function getShippingMethods(): ?ShippingMethodCollection
-    {
-        return $this->shippingMethods;
-    }
-
-    public function setShippingMethods(ShippingMethodCollection $shippingMethods): void
-    {
-        $this->shippingMethods = $shippingMethods;
     }
 
     public function getPaymentMethods(): ?PaymentMethodCollection
@@ -208,16 +187,6 @@ class RuleEntity extends Entity
         $this->moduleTypes = $moduleTypes;
     }
 
-    public function getShippingMethodPrices(): ?ShippingMethodPriceCollection
-    {
-        return $this->shippingMethodPrices;
-    }
-
-    public function setShippingMethodPrices(ShippingMethodPriceCollection $shippingMethodPrices): void
-    {
-        $this->shippingMethodPrices = $shippingMethodPrices;
-    }
-
     public function getPromotionDiscounts(): ?PromotionDiscountCollection
     {
         return $this->promotionDiscounts;
@@ -236,16 +205,6 @@ class RuleEntity extends Entity
     public function setPromotionSetGroups(PromotionSetGroupCollection $promotionSetGroups): void
     {
         $this->promotionSetGroups = $promotionSetGroups;
-    }
-
-    public function getShippingMethodPriceCalculations(): ?ShippingMethodPriceCollection
-    {
-        return $this->shippingMethodPriceCalculations;
-    }
-
-    public function setShippingMethodPriceCalculations(ShippingMethodPriceCollection $shippingMethodPriceCalculations): void
-    {
-        $this->shippingMethodPriceCalculations = $shippingMethodPriceCalculations;
     }
 
     /**
@@ -320,15 +279,5 @@ class RuleEntity extends Entity
     public function setCartPromotions(PromotionCollection $cartPromotions): void
     {
         $this->cartPromotions = $cartPromotions;
-    }
-
-    public function getTaxProviders(): ?TaxProviderCollection
-    {
-        return $this->taxProviders;
-    }
-
-    public function setTaxProviders(TaxProviderCollection $taxProviders): void
-    {
-        $this->taxProviders = $taxProviders;
     }
 }

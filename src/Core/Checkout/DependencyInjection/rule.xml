@@ -124,10 +124,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\CartTaxDisplayRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\Rule\CartTotalPurchasePriceRule">
             <tag name="heyframe.rule.definition"/>
         </service>
@@ -204,10 +200,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemOfManufacturerRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemPurchasePriceRule">
             <tag name="heyframe.rule.definition"/>
         </service>
@@ -257,10 +249,6 @@
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemDimensionVolumeRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemOfManufacturerRule">
             <tag name="heyframe.rule.definition"/>
         </service>
 

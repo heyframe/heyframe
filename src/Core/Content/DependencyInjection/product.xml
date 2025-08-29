@@ -149,29 +149,15 @@
             <argument type="service" id="product.repository"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingUpdater"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductCategoryDenormalizer"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\InheritanceUpdater"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\RatingAverageUpdater"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\SearchKeywordUpdater"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ManyToManyIdFieldUpdater"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\Stock\StockStorage"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceUpdater"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductStreamUpdater"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StatesUpdater"/>
             <argument type="service" id="messenger.default_bus"/>
             <tag name="heyframe.entity_indexer" priority="100"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductStreamUpdater">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\ProductDefinition"/>
-            <argument type="service" id="product.repository"/>
-            <argument type="service" id="messenger.default_bus"/>
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ManyToManyIdFieldUpdater"/>
-            <argument>%heyframe.product_stream.indexing%</argument>
-            <tag name="heyframe.entity_indexer"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StatesUpdater">
@@ -183,10 +169,6 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductCategoryDenormalizer">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceUpdater">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceQuantitySelector"/>
@@ -194,18 +176,6 @@
         </service>
 
         <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceQuantitySelector"/>
-
-        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\RatingAverageUpdater">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\SearchKeywordUpdater">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="language.repository"/>
-            <argument type="service" id="product.repository"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchKeywordAnalyzer"/>
-            <tag name="kernel.reset" method="reset"/>
-        </service>
 
         <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StockUpdate\StockUpdateFilterProvider">
             <argument type="tagged_iterator" tag="heyframe.product.stock_filter"/>

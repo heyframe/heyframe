@@ -43,6 +43,8 @@ class System extends Bundle
         $loader->load('state_machine.xml');
         $loader->load('configuration.xml');
         $loader->load('number_range.xml');
+        $loader->load('tag.xml');
+        $loader->load('dict.xml');
 
         $container->addCompilerPass(new ChannelEntityCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
         $container->addCompilerPass(new NumberRangeIncrementerCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);

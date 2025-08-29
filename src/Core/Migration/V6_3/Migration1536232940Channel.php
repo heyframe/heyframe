@@ -53,11 +53,10 @@ class Migration1536232940Channel extends MigrationStep
                 REFERENCES `payment_method` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.channel.type_id` FOREIGN KEY (`type_id`)
                 REFERENCES `channel_type` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.navigation_id` FOREIGN KEY (`navigation_id`, `navigation_version_id`)
                 REFERENCES `navigation` (`id`, `version_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
               CONSTRAINT `fk.channel.customer_group_id` FOREIGN KEY (`customer_group_id`)
-                REFERENCES `customer_group` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel.id` FOREIGN KEY (`mail_header_footer_id`)
-                REFERENCES `mail_header_footer` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+                REFERENCES `customer_group` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
 
@@ -113,18 +112,6 @@ SQL;
                 REFERENCES `channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
               CONSTRAINT `fk.channel_country.country_id` FOREIGN KEY (`country_id`)
                 REFERENCES `country` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-        ');
-
-        $connection->executeStatement('
-            CREATE TABLE `channel_shipping_method` (
-              `channel_id` BINARY(16) NOT NULL,
-              `shipping_method_id` BINARY(16) NOT NULL,
-              PRIMARY KEY (`channel_id`, `shipping_method_id`),
-              CONSTRAINT `fk.channel_shipping_method.channel_id` FOREIGN KEY (`channel_id`)
-                REFERENCES `channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel_shipping_method.shipping_method_id` FOREIGN KEY (`shipping_method_id`)
-                REFERENCES `shipping_method` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 

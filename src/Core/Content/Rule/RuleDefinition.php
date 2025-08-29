@@ -11,8 +11,6 @@ use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionPersonaRule\PromotionPer
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionSetGroup\PromotionSetGroupDefinition;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionSetGroupRule\PromotionSetGroupRuleDefinition;
 use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
-use HeyFrame\Core\Checkout\Shipping\Aggregate\ShippingMethodPrice\ShippingMethodPriceDefinition;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodDefinition;
 use HeyFrame\Core\Content\Flow\Aggregate\FlowSequence\FlowSequenceDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceDefinition;
 use HeyFrame\Core\Content\Rule\Aggregate\RuleCondition\RuleConditionDefinition;
@@ -28,7 +26,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RuleAreas;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Since;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
@@ -41,7 +38,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Tag\TagDefinition;
-use HeyFrame\Core\System\TaxProvider\TaxProviderDefinition;
 
 #[Package('fundamentals@after-sales')]
 class RuleDefinition extends EntityDefinition
@@ -85,13 +81,9 @@ class RuleDefinition extends EntityDefinition
 
             // Reverse Associations not available in sales-channel-api
             (new OneToManyAssociationField('productPrices', ProductPriceDefinition::class, 'rule_id', 'id'))->addFlags(new RestrictDelete(), new RuleAreas(RuleAreas::PRODUCT_AREA)),
-            (new OneToManyAssociationField('shippingMethodPrices', ShippingMethodPriceDefinition::class, 'rule_id', 'id'))->addFlags(new RestrictDelete(), new RuleAreas(RuleAreas::SHIPPING_AREA)),
-            (new OneToManyAssociationField('shippingMethodPriceCalculations', ShippingMethodPriceDefinition::class, 'calculation_rule_id', 'id'))->addFlags(new RestrictDelete(), new RuleAreas(RuleAreas::SHIPPING_AREA)),
-            (new OneToManyAssociationField('shippingMethods', ShippingMethodDefinition::class, 'availability_rule_id'))->addFlags(new RestrictDelete(), new RuleAreas(RuleAreas::SHIPPING_AREA)),
             (new OneToManyAssociationField('paymentMethods', PaymentMethodDefinition::class, 'availability_rule_id', 'id'))->addFlags(new RestrictDelete(), new RuleAreas(RuleAreas::PAYMENT_AREA)),
             (new OneToManyAssociationField('personaPromotions', PromotionDefinition::class, 'persona_rule_id', 'id'))->addFlags(new RestrictDelete(), new RuleAreas(RuleAreas::PROMOTION_AREA)),
             (new OneToManyAssociationField('flowSequences', FlowSequenceDefinition::class, 'rule_id', 'id'))->addFlags(new RestrictDelete(), new RuleAreas(RuleAreas::FLOW_AREA)),
-            (new OneToManyAssociationField('taxProviders', TaxProviderDefinition::class, 'availability_rule_id', 'id'))->addFlags(new RestrictDelete(), new Since('6.5.0.0')),
 
             new ManyToManyAssociationField('tags', TagDefinition::class, RuleTagDefinition::class, 'rule_id', 'tag_id'),
 

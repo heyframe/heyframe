@@ -60,7 +60,7 @@ class Migration1536232960Customer extends MigrationStep
               CONSTRAINT `fk.customer.last_payment_method_id` FOREIGN KEY (`last_payment_method_id`)
                 REFERENCES `payment_method` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.customer.channel_id` FOREIGN KEY (`channel_id`)
-                REFERENCES `channel` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+                REFERENCES `channel` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
 
