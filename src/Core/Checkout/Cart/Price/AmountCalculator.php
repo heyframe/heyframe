@@ -4,10 +4,6 @@ namespace HeyFrame\Core\Checkout\Cart\Price;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -21,22 +17,12 @@ class AmountCalculator
      */
     public function __construct(
         private readonly CashRounding $rounding,
-        private readonly PercentageTaxRuleBuilder $taxRuleBuilder,
-        private readonly TaxCalculator $taxCalculator
     ) {
     }
 
     public function calculate(PriceCollection $prices, PriceCollection $shippingCosts, ChannelContext $context): CartPrice
     {
-        if ($context->getTaxState() === CartPrice::TAX_STATE_FREE) {
-            return $this->calculateNetDeliveryAmount($prices, $shippingCosts);
-        }
-
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            return $this->calculateGrossAmount($prices, $shippingCosts, $context);
-        }
-
-        return $this->calculateNetAmount($prices, $shippingCosts, $context);
+        return $this->calculateGrossAmount($prices, $shippingCosts, $context);
     }
 
     public function calculateTaxes(PriceCollection $prices, string $calculationType, string $taxState, CashRoundingConfig $itemRounding): CalculatedTaxCollection

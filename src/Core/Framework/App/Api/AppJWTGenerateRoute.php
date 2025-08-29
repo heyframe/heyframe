@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Store\InAppPurchase;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * @internal
  */
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('framework')]
 class AppJWTGenerateRoute
 {

@@ -7,11 +7,11 @@ use Doctrine\DBAL\Types\Types;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Routing\KernelListenerPriorities;
 use HeyFrame\Core\Framework\Routing\MaintenanceModeResolver;
 use HeyFrame\Core\Framework\Routing\RouteScopeCheckTrait;
 use HeyFrame\Core\Framework\Routing\RouteScopeRegistry;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\Framework\Util\UtilException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
@@ -64,7 +64,7 @@ class ChannelAuthenticationListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->isRequestScoped($request, StoreApiRouteScope::class)) {
+        if (!$this->isRequestScoped($request, FrontApiRouteScope::class)) {
             return;
         }
 

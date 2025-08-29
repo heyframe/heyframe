@@ -25,7 +25,6 @@ class CartTransformer
 
         $data = [
             'price' => $cart->getPrice(),
-            'shippingCosts' => $cart->getShippingCosts(),
             'stateId' => $stateId,
             'currencyId' => $currency->getId(),
             'currencyFactor' => $currency->getFactor(),

@@ -37,6 +37,7 @@ class InternalClassRule implements Rule
     private const MESSAGE_HANDLER_EXCEPTIONS = [
         EntityIndexerRegistry::class,
     ];
+
     public function getNodeType(): string
     {
         return InClassNode::class;
@@ -102,7 +103,6 @@ class InternalClassRule implements Rule
                     ->build(),
             ];
         }
-
 
         if ($this->isMigrationStep($node)) {
             return [

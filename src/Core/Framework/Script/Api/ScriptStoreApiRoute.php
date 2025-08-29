@@ -5,7 +5,7 @@ namespace HeyFrame\Core\Framework\Script\Api;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheCompressor;
 use HeyFrame\Core\Framework\Adapter\Cache\Http\HttpCacheKeyGenerator;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\Api\ResponseFields;
@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * @internal
  */
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('framework')]
 class ScriptStoreApiRoute
 {

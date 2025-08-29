@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Cart\Price\Struct;
 
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRule;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use HeyFrame\Core\Framework\Util\FloatComparator;
@@ -32,7 +30,6 @@ class QuantityPriceDefinition extends Struct implements PriceDefinitionInterface
 
     public function __construct(
         protected float $price,
-        protected TaxRuleCollection $taxRules,
         protected int $quantity = 1
     ) {
         $this->price = FloatComparator::cast($price);
@@ -41,11 +38,6 @@ class QuantityPriceDefinition extends Struct implements PriceDefinitionInterface
     public function getPrice(): float
     {
         return FloatComparator::cast($this->price);
-    }
-
-    public function getTaxRules(): TaxRuleCollection
-    {
-        return $this->taxRules;
     }
 
     public function getQuantity(): int
@@ -68,17 +60,8 @@ class QuantityPriceDefinition extends Struct implements PriceDefinitionInterface
      */
     public static function fromArray(array $data): self
     {
-        $taxRules = array_map(
-            fn (array $tax) => new TaxRule(
-                (float) $tax['taxRate'],
-                (float) $tax['percentage']
-            ),
-            $data['taxRules']
-        );
-
         $self = new self(
             (float) $data['price'],
-            new TaxRuleCollection($taxRules),
             \array_key_exists('quantity', $data) ? $data['quantity'] : 1
         );
 

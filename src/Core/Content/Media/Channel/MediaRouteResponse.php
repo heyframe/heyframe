@@ -4,13 +4,13 @@ namespace HeyFrame\Core\Content\Media\Channel;
 
 use HeyFrame\Core\Content\Media\MediaCollection;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<MediaCollection>
+ * @extends FrontApiResponse<MediaCollection>
  */
 #[Package('discovery')]
-class MediaRouteResponse extends StoreApiResponse
+class MediaRouteResponse extends FrontApiResponse
 {
     public function getMediaCollection(): MediaCollection
     {

@@ -3,14 +3,14 @@
 namespace HeyFrame\Core\System\Currency\Channel;
 
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 use HeyFrame\Core\System\Currency\CurrencyCollection;
 
 /**
- * @extends StoreApiResponse<CurrencyCollection>
+ * @extends FrontApiResponse<CurrencyCollection>
  */
 #[Package('fundamentals@framework')]
-class CurrencyRouteResponse extends StoreApiResponse
+class CurrencyRouteResponse extends FrontApiResponse
 {
     public function getCurrencies(): CurrencyCollection
     {

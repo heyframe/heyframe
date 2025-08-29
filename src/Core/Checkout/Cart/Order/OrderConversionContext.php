@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Cart\Order;
 
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
@@ -14,16 +13,7 @@ class OrderConversionContext extends Struct
 {
     protected bool $includeCustomer = true;
 
-    protected bool $includeBillingAddress = true;
-
-    protected bool $includeDeliveries = true;
-
     protected bool $includeTransactions = true;
-
-    /**
-     * @deprecated tag:v6.8.0 - will be removed, use `includePersistentData` instead
-     */
-    protected bool $includeOrderDate = true;
 
     protected bool $includePersistentData = true;
 
@@ -41,30 +31,6 @@ class OrderConversionContext extends Struct
         return $this;
     }
 
-    public function shouldIncludeBillingAddress(): bool
-    {
-        return $this->includeBillingAddress;
-    }
-
-    public function setIncludeBillingAddress(bool $includeBillingAddress): OrderConversionContext
-    {
-        $this->includeBillingAddress = $includeBillingAddress;
-
-        return $this;
-    }
-
-    public function shouldIncludeDeliveries(): bool
-    {
-        return $this->includeDeliveries;
-    }
-
-    public function setIncludeDeliveries(bool $includeDeliveries): OrderConversionContext
-    {
-        $this->includeDeliveries = $includeDeliveries;
-
-        return $this;
-    }
-
     public function shouldIncludeTransactions(): bool
     {
         return $this->includeTransactions;
@@ -77,35 +43,6 @@ class OrderConversionContext extends Struct
         return $this;
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - will be removed, use `shouldIncludePersistentData` instead
-     */
-    public function shouldIncludeOrderDate(): bool
-    {
-        Feature::triggerDeprecationOrThrow(
-            'v6.8.0',
-            'The method "OrderConversionContext::shouldIncludeOrderDate" is deprecated and will be removed in v6.8.0. Use "shouldIncludePersistentData" instead.'
-        );
-
-        return $this->includeOrderDate;
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - will be removed, use `setIncludePersistentData` instead
-     */
-    public function setIncludeOrderDate(bool $includeOrderDate): OrderConversionContext
-    {
-        Feature::triggerDeprecationOrThrow(
-            'v6.8.0',
-            'The method "OrderConversionContext::setIncludeOrderDate" is deprecated and will be removed in v6.8.0. Use "setIncludePersistentData" instead.'
-        );
-
-        $this->includeOrderDate = $includeOrderDate;
-        $this->includePersistentData = $includeOrderDate;
-
-        return $this;
-    }
-
     public function shouldIncludePersistentData(): bool
     {
         return $this->includePersistentData;
@@ -114,7 +51,6 @@ class OrderConversionContext extends Struct
     public function setIncludePersistentData(bool $includePersistentData): OrderConversionContext
     {
         $this->includePersistentData = $includePersistentData;
-        $this->includeOrderDate = $includePersistentData;
 
         return $this;
     }

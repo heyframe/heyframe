@@ -4,8 +4,7 @@ namespace HeyFrame\Core\Maintenance\Channel\Service;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodCollection;
-use HeyFrame\Core\Content\Category\CategoryCollection;
+use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
 use HeyFrame\Core\Framework\Context;
@@ -30,15 +29,13 @@ class ChannelCreator
      *
      * @param EntityRepository<ChannelCollection> $channelRepository
      * @param EntityRepository<PaymentMethodCollection> $paymentMethodRepository
-     * @param EntityRepository<ShippingMethodCollection> $shippingMethodRepository
      * @param EntityRepository<CountryCollection> $countryRepository
-     * @param EntityRepository<CategoryCollection> $categoryRepository
+     * @param EntityRepository<NavigationCollection> $categoryRepository
      */
     public function __construct(
         private readonly DefinitionInstanceRegistry $definitionRegistry,
         private readonly EntityRepository $channelRepository,
         private readonly EntityRepository $paymentMethodRepository,
-        private readonly EntityRepository $shippingMethodRepository,
         private readonly EntityRepository $countryRepository,
         private readonly EntityRepository $categoryRepository
     ) {
@@ -75,7 +72,6 @@ class ChannelCreator
         $languageId ??= Defaults::LANGUAGE_SYSTEM;
         $currencyId ??= Defaults::CURRENCY;
         $paymentMethodId ??= $this->getFirstActivePaymentMethodId($context);
-        $shippingMethodId ??= $this->getFirstActiveShippingMethodId($context);
         $countryId ??= $this->getFirstActiveCountryId($context);
 
         $currencies = $this->formatToMany($currencies, $currencyId, 'currency', $context);
@@ -112,20 +108,6 @@ class ChannelCreator
         $this->channelRepository->create([$data], $context);
 
         return $data['accessKey'];
-    }
-
-    private function getFirstActiveShippingMethodId(Context $context): string
-    {
-        $criteria = (new Criteria())
-            ->setLimit(1)
-            ->addFilter(new EqualsFilter('active', true));
-
-        $shippingMethodId = $this->shippingMethodRepository->searchIds($criteria, $context)->firstId();
-        if (!\is_string($shippingMethodId)) {
-            throw MaintenanceException::couldNotGetId('first active shipping method');
-        }
-
-        return $shippingMethodId;
     }
 
     private function getFirstActivePaymentMethodId(Context $context): string

@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services httpss://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
         <service id="HeyFrame\Core\Checkout\Cart\CreditCartProcessor">
@@ -27,8 +27,6 @@
         <!-- Price calculation -->
         <service id="HeyFrame\Core\Checkout\Cart\Price\AmountCalculator">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Cleanup\CleanupCartTask">
@@ -97,7 +95,6 @@
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartFactory"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderProcessor"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Channel\CartDeleteRoute" public="true">
@@ -129,7 +126,6 @@
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartPersister"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Payment\PaymentProcessor"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderProcessor"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Gateway\Channel\CheckoutGatewayRoute"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartContextHasher"/>
             <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
@@ -138,33 +134,22 @@
 
         <service id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\GrossPriceCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\NetPriceCalculator"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Price\GrossPriceCalculator">
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Price\NetPriceCalculator">
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Price\PercentagePriceCalculator">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Price\AbsolutePriceCalculator">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Price\CurrencyPriceCalculator">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\CartContextHasher">
@@ -175,8 +160,6 @@
 
         <service id="heyframe.tax.adjustment_calculator" class="HeyFrame\Core\Checkout\Cart\Price\AmountCalculator">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\CashRounding"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\TaxProvider\TaxAdjustmentCalculator"/>
         </service>
 
         <!-- ==================================================================================================================== -->
@@ -186,7 +169,6 @@
 
         <service id="HeyFrame\Core\Checkout\Gateway\Channel\CheckoutGatewayRoute" public="true">
             <argument type="service" id="HeyFrame\Core\Checkout\Payment\Channel\PaymentMethodRoute"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Shipping\Channel\ShippingMethodRoute"/>
             <argument type="service" id="HeyFrame\Core\Framework\App\Checkout\Gateway\AppCheckoutGateway"/>
         </service>
 
@@ -239,16 +221,7 @@
 
         <!-- ==================================================================================================================== -->
 
-        <service id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryBuilder"/>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryCalculator">
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\PriceActionController" public="true">
-            <argument type="service" id="tax.repository"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\NetPriceCalculator"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\GrossPriceCalculator"/>
             <argument type="service" id="currency.repository"/>
             <call method="setContainer">
@@ -339,7 +312,6 @@
             <argument type="service" id="logger"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\RuleLoader"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Tax\TaxDetector"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartFactory"/>
             <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>

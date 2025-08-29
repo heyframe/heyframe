@@ -4,14 +4,14 @@ namespace HeyFrame\Core\Checkout\Payment\Channel;
 
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * @extends StoreApiResponse<ArrayStruct<array{redirectResponse: RedirectResponse|null}>>
+ * @extends FrontApiResponse<ArrayStruct<array{redirectResponse: RedirectResponse|null}>>
  */
 #[Package('checkout')]
-class HandlePaymentMethodRouteResponse extends StoreApiResponse
+class HandlePaymentMethodRouteResponse extends FrontApiResponse
 {
     public function __construct(?RedirectResponse $response)
     {

@@ -8,7 +8,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Package('inventory')]
@@ -25,7 +25,7 @@ class ProductListingRouteCacheTagsEvent extends StoreApiRouteCacheTagsEvent
         array $tags,
         protected string $categoryId,
         Request $request,
-        StoreApiResponse $response,
+        FrontApiResponse $response,
         ChannelContext $context,
         Criteria $criteria
     ) {

@@ -7,13 +7,13 @@ use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Checkout\Shipping\ShippingMethodCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<ArrayStruct<array{payments: PaymentMethodCollection, shipments: ShippingMethodCollection, errors: ErrorCollection}>>
+ * @extends FrontApiResponse<ArrayStruct<array{payments: PaymentMethodCollection, shipments: ShippingMethodCollection, errors: ErrorCollection}>>
  */
 #[Package('checkout')]
-class CheckoutGatewayRouteResponse extends StoreApiResponse
+class CheckoutGatewayRouteResponse extends FrontApiResponse
 {
     public function __construct(
         private PaymentMethodCollection $payments,

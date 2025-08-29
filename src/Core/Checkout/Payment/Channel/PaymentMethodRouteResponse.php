@@ -5,13 +5,13 @@ namespace HeyFrame\Core\Checkout\Payment\Channel;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<EntitySearchResult<PaymentMethodCollection>>
+ * @extends FrontApiResponse<EntitySearchResult<PaymentMethodCollection>>
  */
 #[Package('checkout')]
-class PaymentMethodRouteResponse extends StoreApiResponse
+class PaymentMethodRouteResponse extends FrontApiResponse
 {
     public function getPaymentMethods(): PaymentMethodCollection
     {

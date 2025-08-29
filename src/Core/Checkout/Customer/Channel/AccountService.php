@@ -2,13 +2,11 @@
 
 namespace HeyFrame\Core\Checkout\Customer\Channel;
 
-use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Customer\CustomerEntity;
 use HeyFrame\Core\Checkout\Customer\CustomerException;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerBeforeLoginEvent;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerLoginEvent;
-use HeyFrame\Core\Checkout\Customer\Exception\AddressNotFoundException;
 use HeyFrame\Core\Checkout\Customer\Exception\BadCredentialsException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundByIdException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundException;
@@ -20,7 +18,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -43,29 +40,8 @@ class AccountService
         private readonly EntityRepository $customerRepository,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly LegacyPasswordVerifier $legacyPasswordVerifier,
-        private readonly AbstractSwitchDefaultAddressRoute $switchDefaultAddressRoute,
         private readonly CartRestorer $restorer
     ) {
-    }
-
-    /**
-     * @throws CartException
-     * @throws InvalidUuidException
-     * @throws AddressNotFoundException
-     */
-    public function setDefaultBillingAddress(string $addressId, ChannelContext $context, CustomerEntity $customer): void
-    {
-        $this->switchDefaultAddressRoute->swap($addressId, AbstractSwitchDefaultAddressRoute::TYPE_BILLING, $context, $customer);
-    }
-
-    /**
-     * @throws CartException
-     * @throws InvalidUuidException
-     * @throws AddressNotFoundException
-     */
-    public function setDefaultShippingAddress(string $addressId, ChannelContext $context, CustomerEntity $customer): void
-    {
-        $this->switchDefaultAddressRoute->swap($addressId, AbstractSwitchDefaultAddressRoute::TYPE_SHIPPING, $context, $customer);
     }
 
     /**

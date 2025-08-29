@@ -6,7 +6,7 @@ use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAwareTrait;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\StoreApiRequestHook;
+use HeyFrame\Core\System\Channel\FrontApiRequestHook;
 
 /**
  * Triggered when PaymentMethodRoute is requested
@@ -18,7 +18,7 @@ use HeyFrame\Core\System\Channel\StoreApiRequestHook;
  * @final
  */
 #[Package('checkout')]
-class PaymentMethodRouteHook extends StoreApiRequestHook
+class PaymentMethodRouteHook extends FrontApiRequestHook
 {
     use ChannelContextAwareTrait;
 

@@ -6,16 +6,15 @@ use HeyFrame\Core\Checkout\Cart\AbstractCartPersister;
 use HeyFrame\Core\Checkout\Cart\CartCalculator;
 use HeyFrame\Core\Checkout\Cart\CartFactory;
 use HeyFrame\Core\Checkout\Cart\Exception\CartTokenNotFoundException;
-use HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderProcessor;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('checkout')]
 class CartLoadRoute extends AbstractCartLoadRoute
 {
@@ -26,7 +25,6 @@ class CartLoadRoute extends AbstractCartLoadRoute
         private readonly AbstractCartPersister $persister,
         private readonly CartFactory $cartFactory,
         private readonly CartCalculator $cartCalculator,
-        private readonly TaxProviderProcessor $taxProviderProcessor
     ) {
     }
 
@@ -39,7 +37,6 @@ class CartLoadRoute extends AbstractCartLoadRoute
     public function load(Request $request, ChannelContext $context): CartResponse
     {
         $token = $request->get('token', $context->getToken());
-        $taxed = $request->get('taxed', false);
 
         try {
             $cart = $this->persister->load($token, $context);
@@ -48,10 +45,6 @@ class CartLoadRoute extends AbstractCartLoadRoute
         }
 
         $cart = $this->cartCalculator->calculate($cart, $context);
-
-        if ($taxed) {
-            $this->taxProviderProcessor->process($cart, $context);
-        }
 
         return new CartResponse($cart);
     }

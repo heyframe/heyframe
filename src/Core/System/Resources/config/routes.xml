@@ -4,7 +4,6 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="../../UsageData/Api/**/*Controller.php" type="attribute" />
     <import resource="../../User/Api/**/*Controller.php" type="attribute" />
     <import resource="../../CustomEntity/Api/*Controller.php" type="attribute" />
     <import resource="../../Snippet/**/*Controller.php" type="attribute" />
@@ -16,6 +15,5 @@
     <import resource="../../StateMachine/Api/*Controller.php" type="attribute" />
     <import resource="../../Currency/Channel/**/*Route.php" type="attribute" />
     <import resource="../../Language/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Salutation/Channel/**/*Route.php" type="attribute" />
     <import resource="../../Country/Channel/**/*Route.php" type="attribute" />
 </routes>

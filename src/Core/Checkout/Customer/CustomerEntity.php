@@ -10,15 +10,12 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerWishlist\CustomerWishlistC
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelEntity;
 use HeyFrame\Core\System\Language\LanguageEntity;
-use HeyFrame\Core\System\Salutation\SalutationEntity;
-use HeyFrame\Core\System\Tag\TagCollection;
 use HeyFrame\Core\System\User\UserEntity;
 
 #[Package('checkout')]
@@ -26,9 +23,6 @@ class CustomerEntity extends Entity implements \Stringable
 {
     use EntityCustomFieldsTrait;
     use EntityIdTrait;
-
-    final public const ACCOUNT_TYPE_PRIVATE = 'private';
-    final public const ACCOUNT_TYPE_BUSINESS = 'business';
 
     protected string $groupId;
 
@@ -123,8 +117,6 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?PaymentMethodEntity $lastPaymentMethod = null;
 
-    protected ?SalutationEntity $salutation = null;
-
     protected ?CustomerAddressEntity $defaultBillingAddress = null;
 
     protected ?CustomerAddressEntity $defaultShippingAddress = null;
@@ -139,8 +131,6 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected int $autoIncrement;
 
-    protected ?TagCollection $tags = null;
-
     /**
      * @var list<string>|null
      */
@@ -149,8 +139,6 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?PromotionCollection $promotions = null;
 
     protected ?CustomerRecoveryEntity $recoveryCustomer = null;
-
-    protected ?ProductReviewCollection $productReviews = null;
 
     protected ?string $remoteAddress = null;
 
@@ -574,16 +562,6 @@ class CustomerEntity extends Entity implements \Stringable
         $this->lastPaymentMethod = $lastPaymentMethod;
     }
 
-    public function getSalutation(): ?SalutationEntity
-    {
-        return $this->salutation;
-    }
-
-    public function setSalutation(SalutationEntity $salutation): void
-    {
-        $this->salutation = $salutation;
-    }
-
     public function getDefaultBillingAddress(): ?CustomerAddressEntity
     {
         return $this->defaultBillingAddress;
@@ -654,16 +632,6 @@ class CustomerEntity extends Entity implements \Stringable
         $this->autoIncrement = $autoIncrement;
     }
 
-    public function getTags(): ?TagCollection
-    {
-        return $this->tags;
-    }
-
-    public function setTags(TagCollection $tags): void
-    {
-        $this->tags = $tags;
-    }
-
     /**
      * @return list<string>|null
      */
@@ -696,16 +664,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setPromotions(PromotionCollection $promotions): void
     {
         $this->promotions = $promotions;
-    }
-
-    public function getProductReviews(): ?ProductReviewCollection
-    {
-        return $this->productReviews;
-    }
-
-    public function setProductReviews(ProductReviewCollection $productReviews): void
-    {
-        $this->productReviews = $productReviews;
     }
 
     public function getRecoveryCustomer(): ?CustomerRecoveryEntity

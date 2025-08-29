@@ -2,15 +2,9 @@
 
 namespace HeyFrame\Core\System\Channel;
 
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\ShippingLocation;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRule;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
 use HeyFrame\Core\Checkout\Customer\CustomerEntity;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodEntity;
-use HeyFrame\Core\Content\MeasurementSystem\MeasurementUnits;
-use HeyFrame\Core\Content\MeasurementSystem\MeasurementUnitTypeEnum;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
@@ -19,7 +13,6 @@ use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 use HeyFrame\Core\Framework\Struct\Struct;
 use HeyFrame\Core\System\Channel\Context\LanguageInfo;
 use HeyFrame\Core\System\Currency\CurrencyEntity;
-use HeyFrame\Core\System\Tax\TaxCollection;
 use Symfony\Component\Lock\LockInterface;
 
 #[Package('framework')]
@@ -35,8 +28,6 @@ class ChannelContext extends Struct
     protected bool $permisionsLocked = false;
 
     protected ?string $imitatingUserId = null;
-
-    protected MeasurementUnits $measurementSystem;
 
     /**
      * @internal
@@ -55,24 +46,13 @@ class ChannelContext extends Struct
         protected ChannelEntity $channel,
         protected CurrencyEntity $currency,
         protected CustomerGroupEntity $currentCustomerGroup,
-        protected TaxCollection $taxRules,
         protected PaymentMethodEntity $paymentMethod,
-        protected ShippingMethodEntity $shippingMethod,
-        protected ShippingLocation $shippingLocation,
         protected ?CustomerEntity $customer,
         protected CashRoundingConfig $itemRounding,
         protected CashRoundingConfig $totalRounding,
         protected LanguageInfo $languageInfo,
         protected array $areaRuleIds = [],
-        ?MeasurementUnits $measurementSystem = null,
     ) {
-        $this->measurementSystem = $measurementSystem ?? new MeasurementUnits(
-            MeasurementUnits::DEFAULT_MEASUREMENT_SYSTEM,
-            [
-                MeasurementUnitTypeEnum::LENGTH->value => MeasurementUnits::DEFAULT_LENGTH_UNIT,
-                MeasurementUnitTypeEnum::WEIGHT->value => MeasurementUnits::DEFAULT_WEIGHT_UNIT,
-            ]
-        );
     }
 
     public function getCurrentCustomerGroup(): CustomerGroupEntity
@@ -90,38 +70,6 @@ class ChannelContext extends Struct
         return $this->channel;
     }
 
-    public function getTaxRules(): TaxCollection
-    {
-        return $this->taxRules;
-    }
-
-    /**
-     * Get the tax rules depend on the customer billing address
-     * respectively the shippingLocation if there is no customer
-     */
-    public function buildTaxRules(string $taxId): TaxRuleCollection
-    {
-        $tax = $this->taxRules->get($taxId);
-
-        if ($tax?->getRules() === null) {
-            throw ChannelException::taxNotFound($taxId);
-        }
-
-        $firstTaxRule = $tax->getRules()->first();
-
-        if ($firstTaxRule) {
-            // @codeCoverageIgnoreStart - This is covered randomly
-            return new TaxRuleCollection([
-                new TaxRule($firstTaxRule->getTaxRate(), 100),
-            ]);
-            // @codeCoverageIgnoreEnd
-        }
-
-        return new TaxRuleCollection([
-            new TaxRule($tax->getTaxRate(), 100),
-        ]);
-    }
-
     public function getCustomer(): ?CustomerEntity
     {
         return $this->customer;
@@ -130,16 +78,6 @@ class ChannelContext extends Struct
     public function getPaymentMethod(): PaymentMethodEntity
     {
         return $this->paymentMethod;
-    }
-
-    public function getShippingMethod(): ShippingMethodEntity
-    {
-        return $this->shippingMethod;
-    }
-
-    public function getShippingLocation(): ShippingLocation
-    {
-        return $this->shippingLocation;
     }
 
     public function getContext(): Context
@@ -218,16 +156,6 @@ class ChannelContext extends Struct
     public function getToken(): string
     {
         return $this->token;
-    }
-
-    public function getTaxState(): string
-    {
-        return $this->context->getTaxState();
-    }
-
-    public function setTaxState(string $taxState): void
-    {
-        $this->context->setTaxState($taxState);
     }
 
     public function getTaxCalculationType(): string
@@ -426,11 +354,6 @@ class ChannelContext extends Struct
         return $result;
     }
 
-    public function getCountryId(): string
-    {
-        return $this->shippingLocation->getCountry()->getId();
-    }
-
     public function getCustomerGroupId(): string
     {
         return $this->currentCustomerGroup->getId();
@@ -444,16 +367,6 @@ class ChannelContext extends Struct
     public function setLanguageInfo(LanguageInfo $languageInfo): void
     {
         $this->languageInfo = $languageInfo;
-    }
-
-    public function getMeasurementSystem(): MeasurementUnits
-    {
-        return $this->measurementSystem;
-    }
-
-    public function setMeasurementSystem(MeasurementUnits $measurementSystem): void
-    {
-        $this->measurementSystem = $measurementSystem;
     }
 
     /**

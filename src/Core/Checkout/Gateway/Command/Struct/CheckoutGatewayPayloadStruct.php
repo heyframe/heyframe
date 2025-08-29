@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Checkout\Gateway\Command\Struct;
 
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -19,7 +18,6 @@ class CheckoutGatewayPayloadStruct extends Struct
         protected Cart $cart,
         protected ChannelContext $channelContext,
         protected PaymentMethodCollection $paymentMethods,
-        protected ShippingMethodCollection $shippingMethods,
     ) {
     }
 
@@ -36,10 +34,5 @@ class CheckoutGatewayPayloadStruct extends Struct
     public function getPaymentMethods(): PaymentMethodCollection
     {
         return $this->paymentMethods;
-    }
-
-    public function getShippingMethods(): ShippingMethodCollection
-    {
-        return $this->shippingMethods;
     }
 }

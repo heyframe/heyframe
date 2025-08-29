@@ -4,13 +4,13 @@ namespace HeyFrame\Core\Checkout\Customer\Channel;
 
 use HeyFrame\Core\Checkout\Customer\CustomerEntity;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<CustomerEntity>
+ * @extends FrontApiResponse<CustomerEntity>
  */
 #[Package('checkout')]
-class CustomerResponse extends StoreApiResponse
+class CustomerResponse extends FrontApiResponse
 {
     public function getCustomer(): CustomerEntity
     {

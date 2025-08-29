@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Contracts\Service\ResetInterface;
 
 #[Package('framework')]
-class StoreApiCustomFieldMapper implements ResetInterface
+class FrontApiCustomFieldMapper implements ResetInterface
 {
     /**
      * @internal

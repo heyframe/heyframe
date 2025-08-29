@@ -13,7 +13,7 @@ use HeyFrame\Core\System\SystemConfig\Facade\SystemConfigFacadeHookFactory;
  * @internal only rely on the concrete implementations
  */
 #[Package('framework')]
-abstract class StoreApiRequestHook extends Hook implements ChannelContextAware
+abstract class FrontApiRequestHook extends Hook implements ChannelContextAware
 {
     /**
      * @return string[]

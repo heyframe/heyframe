@@ -8,10 +8,10 @@ use HeyFrame\Core\Framework\Struct\Struct;
 /**
  * @internal
  *
- * @extends StoreApiResponse<Struct>
+ * @extends FrontApiResponse<Struct>
  */
 #[Package('framework')]
-class GenericStoreApiResponse extends StoreApiResponse
+class GenericFrontApiResponse extends FrontApiResponse
 {
     public function __construct(
         int $code,

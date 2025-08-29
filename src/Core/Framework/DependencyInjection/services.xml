@@ -493,7 +493,7 @@ frame-ancestors 'none';
             <tag name="heyframe.route_scope"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\Routing\StoreApiRouteScope">
+        <service id="HeyFrame\Core\Framework\Routing\FrontApiRouteScope">
             <tag name="heyframe.route_scope"/>
         </service>
 

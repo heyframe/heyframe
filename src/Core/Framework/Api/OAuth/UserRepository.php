@@ -3,12 +3,12 @@
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
 use Doctrine\DBAL\Connection;
-use League\OAuth2\Server\Entities\ClientEntityInterface;
-use League\OAuth2\Server\Entities\UserEntityInterface;
-use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use HeyFrame\Core\Framework\Api\OAuth\User\User;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Entities\UserEntityInterface;
+use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 
 #[Package('framework')]
 class UserRepository implements UserRepositoryInterface

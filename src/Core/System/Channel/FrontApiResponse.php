@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @template TResponseObject of Struct
  */
 #[Package('framework')]
-class StoreApiResponse extends Response
+class FrontApiResponse extends Response
 {
     // allows the cache key finder to get access of all returned data to build the cache tags
     use VariablesAccessTrait;

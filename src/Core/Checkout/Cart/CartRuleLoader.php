@@ -6,8 +6,6 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Cart\Exception\CartTokenNotFoundException;
 use HeyFrame\Core\Checkout\Cart\Extension\CheckoutCartRuleLoaderExtension;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
-use HeyFrame\Core\Checkout\Cart\Tax\AbstractTaxDetector;
 use HeyFrame\Core\Content\Rule\RuleCollection;
 use HeyFrame\Core\Content\Rule\RuleEntity;
 use HeyFrame\Core\Defaults;
@@ -46,7 +44,6 @@ class CartRuleLoader implements ResetInterface
         private readonly LoggerInterface $logger,
         private readonly CacheInterface $cache,
         private readonly AbstractRuleLoader $ruleLoader,
-        private readonly AbstractTaxDetector $taxDetector,
         private readonly Connection $connection,
         private readonly CartFactory $cartFactory,
         private readonly ExtensionDispatcher $extensions,
@@ -168,8 +165,6 @@ class CartRuleLoader implements ResetInterface
             ++$iteration;
         } while ($recalculate);
 
-        $cart = $this->validateTaxFree($channelContext, $cart, $cartBehavior);
-
         $index = 0;
         foreach ($rules as $rule) {
             ++$index;
@@ -202,32 +197,6 @@ class CartRuleLoader implements ResetInterface
             || $previous->getPrice()->getTotalPrice() !== $current->getPrice()->getTotalPrice()
             || $previousLineItems->getKeys() !== $currentLineItems->getKeys()
             || $previousLineItems->getTypes() !== $currentLineItems->getTypes();
-    }
-
-    private function detectTaxType(ChannelContext $context, float $cartNetAmount = 0): string
-    {
-        $currency = $context->getCurrency();
-        $currencyTaxFreeAmount = $currency->getTaxFreeFrom();
-        $isReachedCurrencyTaxFreeAmount = $currencyTaxFreeAmount > 0 && $cartNetAmount >= $currencyTaxFreeAmount;
-
-        if ($isReachedCurrencyTaxFreeAmount) {
-            return CartPrice::TAX_STATE_FREE;
-        }
-
-        $country = $context->getShippingLocation()->getCountry();
-
-        $isReachedCustomerTaxFreeAmount = $country->getCustomerTax()->getEnabled() && $this->isReachedCountryTaxFreeAmount($context, $country, $cartNetAmount);
-        $isReachedCompanyTaxFreeAmount = $this->taxDetector->isCompanyTaxFree($context, $country) && $this->isReachedCountryTaxFreeAmount($context, $country, $cartNetAmount, CountryDefinition::TYPE_COMPANY_TAX_FREE);
-
-        if ($isReachedCustomerTaxFreeAmount || $isReachedCompanyTaxFreeAmount) {
-            return CartPrice::TAX_STATE_FREE;
-        }
-
-        if ($this->taxDetector->useGross($context)) {
-            return CartPrice::TAX_STATE_GROSS;
-        }
-
-        return CartPrice::TAX_STATE_NET;
     }
 
     /**
@@ -304,27 +273,5 @@ class CartRuleLoader implements ResetInterface
         }
 
         return $this->currencyFactor[$currencyId] = (float) $currencyFactor;
-    }
-
-    private function validateTaxFree(ChannelContext $context, Cart $cart, CartBehavior $behaviorContext): Cart
-    {
-        $totalCartNetAmount = $cart->getPrice()->getPositionPrice();
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            $totalCartNetAmount -= $cart->getLineItems()->getPrices()->getCalculatedTaxes()->getAmount();
-        }
-        $taxState = $this->detectTaxType($context, $totalCartNetAmount);
-        $previous = $context->getTaxState();
-        if ($taxState === $previous) {
-            return $cart;
-        }
-
-        $context->setTaxState($taxState);
-        $cart->setData(null);
-        $cart = $this->processor->process($cart, $context, $behaviorContext);
-        if ($previous !== CartPrice::TAX_STATE_FREE) {
-            $context->setTaxState($previous);
-        }
-
-        return $cart;
     }
 }

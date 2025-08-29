@@ -6,13 +6,13 @@ use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<EntitySearchResult<OrderCollection>>
+ * @extends FrontApiResponse<EntitySearchResult<OrderCollection>>
  */
 #[Package('checkout')]
-class OrderRouteResponse extends StoreApiResponse
+class OrderRouteResponse extends FrontApiResponse
 {
     /**
      * @var array<string, bool>

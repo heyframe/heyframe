@@ -7,8 +7,8 @@ use HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi3Generator;
 use HeyFrame\Core\Framework\Api\Route\ApiRouteInfoResolver;
 use HeyFrame\Core\Framework\Api\Route\RouteInfo;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Routing\RoutingException;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Twig\Environment;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('discovery')]
 class StoreApiInfoController
 {
@@ -106,7 +106,7 @@ class StoreApiInfoController
     {
         $endpoints = array_map(
             static fn (RouteInfo $endpoint) => ['path' => $endpoint->path, 'methods' => $endpoint->methods],
-            $this->apiRouteInfoResolver->getApiRoutes(StoreApiRouteScope::ID)
+            $this->apiRouteInfoResolver->getApiRoutes(FrontApiRouteScope::ID)
         );
 
         return new JsonResponse(['endpoints' => $endpoints]);

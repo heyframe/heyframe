@@ -13,7 +13,6 @@ use HeyFrame\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
 use HeyFrame\Core\Checkout\Cart\Extension\CheckoutPlaceOrderExtension;
 use HeyFrame\Core\Checkout\Cart\Order\OrderPersisterInterface;
 use HeyFrame\Core\Checkout\Cart\Order\OrderPlaceResult;
-use HeyFrame\Core\Checkout\Cart\TaxProvider\TaxProviderProcessor;
 use HeyFrame\Core\Checkout\Gateway\Channel\AbstractCheckoutGatewayRoute;
 use HeyFrame\Core\Checkout\Order\Channel\OrderService;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
@@ -26,7 +25,7 @@ use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Validation\DataBag\DataBag;
 use HeyFrame\Core\Framework\Validation\DataBag\RequestDataBag;
 use HeyFrame\Core\PlatformRequest;
@@ -36,7 +35,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('checkout')]
 class CartOrderRoute extends AbstractCartOrderRoute
 {
@@ -52,7 +51,6 @@ class CartOrderRoute extends AbstractCartOrderRoute
         private readonly AbstractCartPersister $cartPersister,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly PaymentProcessor $paymentProcessor,
-        private readonly TaxProviderProcessor $taxProviderProcessor,
         private readonly AbstractCheckoutGatewayRoute $checkoutGatewayRoute,
         private readonly CartContextHasher $cartContextHasher,
         private readonly ExtensionDispatcher $extensions,
@@ -65,7 +63,7 @@ class CartOrderRoute extends AbstractCartOrderRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/checkout/order', name: 'store-api.checkout.cart.order', methods: ['POST'], defaults: ['_loginRequired' => true, '_loginRequiredAllowGuest' => true])]
+    #[Route(path: '/front-api/checkout/order', name: 'front-api.checkout.cart.order', defaults: ['_loginRequired' => true, '_loginRequiredAllowGuest' => true], methods: ['POST'])]
     public function order(Cart $cart, ChannelContext $context, RequestDataBag $data): CartOrderRouteResponse
     {
         $hash = $data->getAlnum('hash');
@@ -167,8 +165,6 @@ class CartOrderRoute extends AbstractCartOrderRoute
 
         $response = $this->checkoutGatewayRoute->load(new Request($data->all(), $data->all()), $cart, $context);
         $calculatedCart->addErrors(...$response->getErrors());
-
-        $this->taxProviderProcessor->process($calculatedCart, $context);
 
         $this->addCustomerComment($calculatedCart, $data);
         $this->addAffiliateTracking($calculatedCart, $data);

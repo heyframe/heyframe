@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Cart\Price\Struct;
 
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use HeyFrame\Core\Framework\Util\FloatComparator;
@@ -14,8 +12,6 @@ class CalculatedPrice extends Struct
     public function __construct(
         protected float $unitPrice,
         protected float $totalPrice,
-        protected CalculatedTaxCollection $calculatedTaxes,
-        protected TaxRuleCollection $taxRules,
         protected int $quantity = 1,
         protected ?ReferencePrice $referencePrice = null,
         protected ?ListPrice $listPrice = null,
@@ -28,21 +24,6 @@ class CalculatedPrice extends Struct
     public function getTotalPrice(): float
     {
         return FloatComparator::cast($this->totalPrice);
-    }
-
-    public function getCalculatedTaxes(): CalculatedTaxCollection
-    {
-        return $this->calculatedTaxes;
-    }
-
-    public function setCalculatedTaxes(CalculatedTaxCollection $calculatedTaxes): void
-    {
-        $this->calculatedTaxes = $calculatedTaxes;
-    }
-
-    public function getTaxRules(): TaxRuleCollection
-    {
-        return $this->taxRules;
     }
 
     public function getUnitPrice(): float
@@ -79,10 +60,9 @@ class CalculatedPrice extends Struct
      * Changing a price should always be a full change, otherwise you have
      * mismatching information regarding the unit, total and tax values.
      */
-    public function overwrite(float $unitPrice, float $totalPrice, CalculatedTaxCollection $taxes): void
+    public function overwrite(float $unitPrice, float $totalPrice): void
     {
         $this->unitPrice = $unitPrice;
         $this->totalPrice = $totalPrice;
-        $this->calculatedTaxes = $taxes;
     }
 }

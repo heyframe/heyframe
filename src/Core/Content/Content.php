@@ -28,5 +28,6 @@ class Content extends Bundle
         $loader->load('rule.xml');
         $loader->load('property.xml');
         $loader->load('flow.xml');
+        $loader->load('navigation.xml');
     }
 }

@@ -3,14 +3,14 @@
 namespace HeyFrame\Core\Checkout\Order\Channel;
 
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateEntity;
 
 /**
- * @extends StoreApiResponse<StateMachineStateEntity>
+ * @extends FrontApiResponse<StateMachineStateEntity>
  */
 #[Package('checkout')]
-class CancelOrderRouteResponse extends StoreApiResponse
+class CancelOrderRouteResponse extends FrontApiResponse
 {
     public function getState(): StateMachineStateEntity
     {

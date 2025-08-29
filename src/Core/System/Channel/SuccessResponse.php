@@ -6,10 +6,10 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
 
 /**
- * @extends StoreApiResponse<ArrayStruct<array{success: bool}>>
+ * @extends FrontApiResponse<ArrayStruct<array{success: bool}>>
  */
 #[Package('framework')]
-class SuccessResponse extends StoreApiResponse
+class SuccessResponse extends FrontApiResponse
 {
     public function __construct()
     {

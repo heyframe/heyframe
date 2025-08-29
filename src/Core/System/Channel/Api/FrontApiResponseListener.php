@@ -4,7 +4,7 @@ namespace HeyFrame\Core\System\Channel\Api;
 
 use HeyFrame\Core\Content\Media\MediaUrlPlaceholderHandlerInterface;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -38,7 +38,7 @@ class FrontApiResponseListener implements EventSubscriberInterface
     {
         $response = $event->getResponse();
 
-        if (!$response instanceof StoreApiResponse) {
+        if (!$response instanceof FrontApiResponse) {
             return;
         }
 
@@ -59,7 +59,6 @@ class FrontApiResponseListener implements EventSubscriberInterface
         $jsonResponse->setData($encoded);
 
         $content = $this->mediaUrlPlaceholderHandler->replace((string) $jsonResponse->getContent());
-
 
         $jsonResponse->setContent($content);
 

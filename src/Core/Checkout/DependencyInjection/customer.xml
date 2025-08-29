@@ -2,14 +2,8 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="customer.account_types" type="collection">
-            <parameter type="constant">HeyFrame\Core\Checkout\Customer\CustomerEntity::ACCOUNT_TYPE_BUSINESS</parameter>
-            <parameter type="constant">HeyFrame\Core\Checkout\Customer\CustomerEntity::ACCOUNT_TYPE_PRIVATE</parameter>
-        </parameter>
-    </parameters>
 
     <services>
         <service id="HeyFrame\Core\Checkout\Customer\CustomerDefinition">
@@ -42,23 +36,25 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\AccountService">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Password\LegacyPasswordVerifier"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Channel\SwitchDefaultAddressRoute"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\Context\CartRestorer"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Validation\AddressValidationFactory">
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-        </service>
 
         <service id="HeyFrame\Core\Checkout\Customer\Validation\CustomerProfileValidationFactory">
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument>%customer.account_types%</argument>
         </service>
-
+        
+        <service id="HeyFrame\Core\Checkout\Customer\Channel\RegisterRoute" public="true">
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\System\NumberRange\ValueGenerator\NumberRangeValueGeneratorInterface"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\CustomerValidationFactory"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="customer.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextService"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\FrontApiCustomFieldMapper"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\PasswordValidationFactory"/>
+        </service>
+        
         <service id="HeyFrame\Core\Checkout\Customer\Validation\PasswordValidationFactory">
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
         </service>
@@ -72,7 +68,14 @@
 
             <tag name="validator.constraint_validator"/>
         </service>
-
+        
+        <service id="HeyFrame\Core\Checkout\Customer\Channel\AccountService">
+            <argument type="service" id="customer.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Password\LegacyPasswordVerifier"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\CartRestorer"/>
+        </service>
+        
         <service id="HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerPasswordMatchesValidator">
             <argument type="service" id="HeyFrame\Core\Checkout\Customer\Channel\AccountService"/>
 
@@ -134,15 +137,7 @@
             <argument type="service" id="request_stack"/>
             <tag name="kernel.event_subscriber"/>
         </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerGroupSubscriber">
-            <argument type="service" id="customer_group.repository"/>
-            <argument type="service" id="seo_url.repository"/>
-            <argument type="service" id="language.repository"/>
-            <argument type="service" id="HeyFrame\Core\Content\Seo\SeoUrlPersister"/>
-            <argument type="service" id="slugify"/>
-            <tag name="kernel.event_subscriber"/>
-        </service>
+        
 
         <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerChangePasswordSubscriber">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
@@ -163,150 +158,10 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\LoginRoute" public="true">
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Channel\AccountService"/>
-            <argument type="service" id="Symfony\Component\HttpFoundation\RequestStack"/>
-            <argument type="service" id="HeyFrame\Core\Framework\RateLimiter\RateLimiter"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\LogoutRoute" public="true">
-            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Channel\CartService"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\SendPasswordRecoveryMailRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="customer_recovery.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="Symfony\Component\HttpFoundation\RequestStack"/>
-            <argument type="service" id="heyframe.rate_limiter"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\ResetPasswordRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="customer_recovery.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-            <argument type="service" id="Symfony\Component\HttpFoundation\RequestStack"/>
-            <argument type="service" id="heyframe.rate_limiter"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\PasswordValidationFactory"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\CustomerRecoveryIsExpiredRoute" public="true">
-            <argument type="service" id="customer_recovery.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="Symfony\Component\HttpFoundation\RequestStack"/>
-            <argument type="service" id="heyframe.rate_limiter"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\ChangeCustomerProfileRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\CustomerProfileValidationFactory"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\StoreApiCustomFieldMapper"/>
-            <argument type="service" id="salutation.repository"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\ChangePasswordRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\ChangeEmailRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\ChangeLanguageRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\ConvertGuestRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\PasswordValidationFactory"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\CustomerRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\DeleteCustomerRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\RegisterRoute" public="true">
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\System\NumberRange\ValueGenerator\NumberRangeValueGeneratorInterface"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\CustomerValidationFactory"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\AddressValidationFactory"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister"/>
-            <argument type="service" id="channel.country.repository"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextService"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\StoreApiCustomFieldMapper"/>
-            <argument type="service" id="salutation.repository"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\PasswordValidationFactory"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\RegisterConfirmRoute" public="true">
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextService"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\ListAddressRoute" public="true">
-            <argument type="service" id="customer_address.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\UpsertAddressRoute" public="true">
-            <argument type="service" id="customer_address.repository"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Validation\AddressValidationFactory"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\StoreApiCustomFieldMapper"/>
-            <argument type="service" id="salutation.repository"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\DeleteAddressRoute" public="true">
-            <argument type="service" id="customer_address.repository"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\SwitchDefaultAddressRoute" public="true">
-            <argument type="service" id="customer_address.repository"/>
-            <argument type="service" id="customer.repository"/>
-            <argument type="service" id="Symfony\Component\EventDispatcher\EventDispatcherInterface" />
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\CustomerGroupRegistrationSettingsRoute" public="true">
-            <argument type="service" id="customer_group.repository"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\DataAbstractionLayer\CustomerIndexer">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
             <argument type="service" id="customer.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ManyToManyIdFieldUpdater"/>
-            <argument type="service" id="HeyFrame\Core\Content\Newsletter\DataAbstractionLayer\Indexing\CustomerNewsletterChannelsUpdater"/>
             <argument type="service" id="event_dispatcher"/>
             <tag name="heyframe.entity_indexer" priority="100"/>
         </service>
@@ -325,56 +180,15 @@
         <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerWishlistProduct\CustomerWishlistProductDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\LoadWishlistRoute" public="true">
-            <argument type="service" id="customer_wishlist.repository"/>
-            <argument type="service" id="channel.product.repository"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\ProductCloseoutFilterFactory"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\AddWishlistProductRoute" public="true">
-            <argument type="service" id="customer_wishlist.repository"/>
-            <argument type="service" id="channel.product.repository"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="event_dispatcher"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\RemoveWishlistProductRoute" public="true">
-            <argument type="service" id="customer_wishlist.repository"/>
-            <argument type="service" id="customer_wishlist_product.repository"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="event_dispatcher"/>
-        </service>
+        
 
         <service id="HeyFrame\Core\Checkout\Customer\DataAbstractionLayer\CustomerWishlistProductExceptionHandler">
             <tag name="heyframe.dal.exception_handler"/>
         </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\MergeWishlistProductRoute" public="true">
-            <argument type="service" id="customer_wishlist.repository"/>
-            <argument type="service" id="channel.product.repository"/>
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
+        
 
         <service id="HeyFrame\Core\Checkout\Customer\CustomerValueResolver">
             <tag name="controller.argument_value_resolver" priority="1002"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\AccountNewsletterRecipientRoute" public="true">
-            <argument type="service" id="channel.newsletter_recipient.repository" />
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\ImitateCustomerRoute" public="true">
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Channel\AccountService"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\ImitateCustomerTokenGenerator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Customer\Channel\LogoutRoute"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextFactory"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Customer\DeleteUnusedGuestCustomerService">
@@ -410,11 +224,6 @@
             <argument type="service" id="HeyFrame\Core\Framework\Api\Serializer\JsonEntityEncoder"/>
 
             <tag name="kernel.event_subscriber"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Channel\DownloadRoute" public="true">
-            <argument type="service" id="order_line_item_download.repository"/>
-            <argument type="service" id="HeyFrame\Core\Content\Media\File\DownloadResponseGenerator"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerSalutationSubscriber">

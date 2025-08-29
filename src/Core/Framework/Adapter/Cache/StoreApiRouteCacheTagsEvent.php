@@ -7,7 +7,7 @@ use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -19,12 +19,12 @@ class StoreApiRouteCacheTagsEvent extends Event
 {
     /**
      * @param array<string|null> $tags
-     * @param StoreApiResponse<covariant Struct> $response
+     * @param FrontApiResponse<covariant Struct> $response
      */
     public function __construct(
         protected array $tags,
         protected Request $request,
-        private readonly StoreApiResponse $response,
+        private readonly FrontApiResponse $response,
         protected ChannelContext $context,
         protected ?Criteria $criteria
     ) {
@@ -114,9 +114,9 @@ class StoreApiRouteCacheTagsEvent extends Event
     }
 
     /**
-     * @return StoreApiResponse<covariant Struct>
+     * @return FrontApiResponse<covariant Struct>
      */
-    public function getResponse(): StoreApiResponse
+    public function getResponse(): FrontApiResponse
     {
         Feature::triggerDeprecationOrThrow(
             'v6.8.0.0',

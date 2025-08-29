@@ -2,18 +2,18 @@
 
 namespace HeyFrame\Core\Framework\Api\EventListener\Authentication;
 
-use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\Grant\ClientCredentialsGrant;
-use League\OAuth2\Server\Grant\PasswordGrant;
-use League\OAuth2\Server\Grant\RefreshTokenGrant;
-use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
-use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use HeyFrame\Core\Framework\Api\OAuth\SymfonyBearerTokenValidator;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiContextRouteScopeDependant;
 use HeyFrame\Core\Framework\Routing\KernelListenerPriorities;
 use HeyFrame\Core\Framework\Routing\RouteScopeCheckTrait;
 use HeyFrame\Core\Framework\Routing\RouteScopeRegistry;
+use League\OAuth2\Server\AuthorizationServer;
+use League\OAuth2\Server\Grant\ClientCredentialsGrant;
+use League\OAuth2\Server\Grant\PasswordGrant;
+use League\OAuth2\Server\Grant\RefreshTokenGrant;
+use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
+use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;

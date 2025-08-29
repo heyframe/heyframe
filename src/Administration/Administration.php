@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Administration;
 
-use HeyFrame\Core\Framework\Bundle;
-use Pentatrion\ViteBundle\PentatrionViteBundle;
 use HeyFrame\Administration\DependencyInjection\AdministrationMigrationCompilerPass;
+use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Parameter\AdditionalBundleParameters;
+use Pentatrion\ViteBundle\PentatrionViteBundle;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

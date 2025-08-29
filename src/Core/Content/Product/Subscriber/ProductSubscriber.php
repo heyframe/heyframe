@@ -101,7 +101,6 @@ class ProductSubscriber implements EventSubscriberInterface
 
             $assigns['isNew'] = $this->isNewDetector->isNew($product, $event->getChannelContext());
 
-
             $product->assign($assigns);
 
             $this->setDefaultLayout($product, $event->getChannelContext()->getChannelId());

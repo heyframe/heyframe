@@ -4,14 +4,14 @@ namespace HeyFrame\Core\System\Language\Channel;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 use HeyFrame\Core\System\Language\LanguageCollection;
 
 /**
- * @extends StoreApiResponse<EntitySearchResult<LanguageCollection>>
+ * @extends FrontApiResponse<EntitySearchResult<LanguageCollection>>
  */
 #[Package('fundamentals@discovery')]
-class LanguageRouteResponse extends StoreApiResponse
+class LanguageRouteResponse extends FrontApiResponse
 {
     public function getLanguages(): LanguageCollection
     {

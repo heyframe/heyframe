@@ -2,16 +2,12 @@
 
 namespace HeyFrame\Core\Checkout\Cart;
 
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryCollection;
 use HeyFrame\Core\Checkout\Cart\Error\Error;
 use HeyFrame\Core\Checkout\Cart\Error\ErrorCollection;
 use HeyFrame\Core\Checkout\Cart\LineItem\CartDataCollection;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItemCollection;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Checkout\Cart\Transaction\Struct\TransactionCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\StateAwareTrait;
@@ -27,8 +23,6 @@ class Cart extends Struct
     protected LineItemCollection $lineItems;
 
     protected ErrorCollection $errors;
-
-    protected DeliveryCollection $deliveries;
 
     protected TransactionCollection $transactions;
 
@@ -69,8 +63,7 @@ class Cart extends Struct
         $this->lineItems = new LineItemCollection();
         $this->transactions = new TransactionCollection();
         $this->errors = new ErrorCollection();
-        $this->deliveries = new DeliveryCollection();
-        $this->price = new CartPrice(0, 0, 0, new CalculatedTaxCollection(), new TaxRuleCollection(), CartPrice::TAX_STATE_GROSS);
+        $this->price = new CartPrice(0, 0, 0);
     }
 
     public function getToken(): string
@@ -103,16 +96,6 @@ class Cart extends Struct
         $this->errors = $errors;
     }
 
-    public function getDeliveries(): DeliveryCollection
-    {
-        return $this->deliveries;
-    }
-
-    public function setDeliveries(DeliveryCollection $deliveries): void
-    {
-        $this->deliveries = $deliveries;
-    }
-
     /**
      * @throws CartException
      */
@@ -120,13 +103,6 @@ class Cart extends Struct
     {
         foreach ($lineItems as $lineItem) {
             $this->add($lineItem);
-        }
-    }
-
-    public function addDeliveries(DeliveryCollection $deliveries): void
-    {
-        foreach ($deliveries as $delivery) {
-            $this->deliveries->add($delivery);
         }
     }
 
@@ -198,11 +174,6 @@ class Cart extends Struct
         $this->transactions = $transactions;
 
         return $this;
-    }
-
-    public function getShippingCosts(): CalculatedPrice
-    {
-        return $this->deliveries->getShippingCosts()->sum();
     }
 
     public function getData(): CartDataCollection

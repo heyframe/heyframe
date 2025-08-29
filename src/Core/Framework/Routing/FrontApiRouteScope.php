@@ -10,10 +10,10 @@ use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Package('framework')]
-class StoreApiRouteScope extends AbstractRouteScope implements ChannelContextRouteScopeDependant
+class FrontApiRouteScope extends AbstractRouteScope implements ChannelContextRouteScopeDependant
 {
-    final public const ID = 'store-api';
-    final public const ALLOWED_PATH = 'store-api';
+    final public const ID = 'front-api';
+    final public const ALLOWED_PATH = 'front-api';
 
     protected array $allowedPaths = [self::ALLOWED_PATH];
 

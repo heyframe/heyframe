@@ -3,13 +3,13 @@
 namespace HeyFrame\Core\Content\Product\Channel\FindVariant;
 
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<FoundCombination>
+ * @extends FrontApiResponse<FoundCombination>
  */
 #[Package('inventory')]
-class FindProductVariantRouteResponse extends StoreApiResponse
+class FindProductVariantRouteResponse extends FrontApiResponse
 {
     public function getFoundCombination(): FoundCombination
     {

@@ -9,7 +9,7 @@ use HeyFrame\Core\Content\Seo\SeoUrlRoute\SeoUrlRouteConfig;
 use HeyFrame\Core\Content\Seo\SeoUrlRoute\SeoUrlRouteInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelEntity;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * @internal
  */
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 class TestProductSeoUrlRoute implements SeoUrlRouteInterface
 {
     final public const ROUTE_NAME = 'test.product.page';

@@ -4,13 +4,13 @@ namespace HeyFrame\Core\Checkout\Cart\Channel;
 
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<Cart>
+ * @extends FrontApiResponse<Cart>
  */
 #[Package('checkout')]
-class CartResponse extends StoreApiResponse
+class CartResponse extends FrontApiResponse
 {
     public function getCart(): Cart
     {

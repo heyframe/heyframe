@@ -46,7 +46,6 @@
 
         <service id="HeyFrame\Core\Content\Flow\Rule\FlowRuleScopeBuilder">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Order\OrderConverter"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Delivery\DeliveryBuilder"/>
             <argument type="tagged_iterator" tag="heyframe.cart.collector"/>
         </service>
 

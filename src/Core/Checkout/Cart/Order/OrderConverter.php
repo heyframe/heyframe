@@ -4,25 +4,14 @@ namespace HeyFrame\Core\Checkout\Cart\Order;
 
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Cart\CartException;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\Delivery;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryCollection;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryDate;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryPosition;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryPositionCollection;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\ShippingLocation;
 use HeyFrame\Core\Checkout\Cart\Event\ChannelContextAssembledEvent;
-use HeyFrame\Core\Checkout\Cart\LineItem\LineItemCollection;
-use HeyFrame\Core\Checkout\Cart\Order\Transformer\AddressTransformer;
 use HeyFrame\Core\Checkout\Cart\Order\Transformer\CartTransformer;
 use HeyFrame\Core\Checkout\Cart\Order\Transformer\CustomerTransformer;
-use HeyFrame\Core\Checkout\Cart\Order\Transformer\DeliveryTransformer;
 use HeyFrame\Core\Checkout\Cart\Order\Transformer\LineItemTransformer;
 use HeyFrame\Core\Checkout\Cart\Order\Transformer\TransactionTransformer;
 use HeyFrame\Core\Checkout\CheckoutPermissions;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryStates;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
@@ -92,7 +81,6 @@ class OrderConverter
         private readonly NumberRangeValueGeneratorInterface $numberRangeValueGenerator,
         private readonly EntityRepository $orderAddressRepository,
         private readonly InitialStateIdLoader $initialStateIdLoader,
-        private readonly LineItemDownloadLoader $downloadLoader,
         private readonly EntityRepository $ruleRepository,
     ) {
     }
@@ -104,19 +92,6 @@ class OrderConverter
      */
     public function convertToOrder(Cart $cart, ChannelContext $context, OrderConversionContext $conversionContext): array
     {
-        /** @deprecated tag:v6.8.0 - `$isRecalculation` will be removed without replacement */
-        $isRecalculation = !Feature::isActive('v6.8.0.0') && ($cart->getBehavior()?->isRecalculation() ?? false);
-
-        if ($conversionContext->shouldIncludeDeliveries()) {
-            foreach ($cart->getDeliveries() as $delivery) {
-                if ($delivery->hasExtensionOfType(self::ORIGINAL_ADDRESS_ID, IdStruct::class) || $delivery->getLocation()->getAddress() !== null || $delivery->hasExtensionOfType(self::ORIGINAL_ID, IdStruct::class)) {
-                    continue;
-                }
-
-                throw OrderException::deliveryWithoutAddress();
-            }
-        }
-
         $data = CartTransformer::transform(
             $cart,
             $context,
@@ -141,54 +116,6 @@ class OrderConverter
         $data['languageId'] = $context->getLanguageId();
 
         $convertedLineItems = LineItemTransformer::transformCollection($cart->getLineItems());
-        $shippingAddresses = [];
-
-        if ($conversionContext->shouldIncludeDeliveries()) {
-            $shippingAddresses = AddressTransformer::transformCollection($cart->getDeliveries()->getAddresses(), true);
-            $data['deliveries'] = DeliveryTransformer::transformCollection(
-                $cart->getDeliveries(),
-                $convertedLineItems,
-                $this->initialStateIdLoader->get(OrderDeliveryStates::STATE_MACHINE),
-                $context->getContext(),
-                $shippingAddresses
-            );
-
-            // In order to reference the primary order delivery we need to set ids. The primary order delivery is the
-            // order delivery with the highest shipping costs (i.e. _not_ a shipping discount).
-            /** @deprecated tag:v6.8.0 - `$isRecalculation` will be removed from condition without replacement */
-            if ((!$isRecalculation || !$cart->getBehavior()?->hasPermission(CheckoutPermissions::SKIP_PRIMARY_ORDER_IDS)) && $cart->getDeliveries()->count() > 0) {
-                usort(
-                    $data['deliveries'],
-                    function (array $deliveryA, array $deliveryB) {
-                        return $deliveryB['shippingCosts']->getTotalPrice() <=> $deliveryA['shippingCosts']->getTotalPrice();
-                    }
-                );
-                $data['deliveries'][0]['id'] ??= Uuid::randomHex();
-                $data['primaryOrderDeliveryId'] = $data['deliveries'][0]['id'];
-            }
-        }
-
-        if ($conversionContext->shouldIncludeBillingAddress()) {
-            $customer = $context->getCustomer();
-            if ($customer === null) {
-                throw CartException::customerNotLoggedIn();
-            }
-
-            $activeBillingAddress = $customer->getActiveBillingAddress();
-            if ($activeBillingAddress === null) {
-                throw CartException::addressNotFound('');
-            }
-            $customerAddressId = $activeBillingAddress->getId();
-
-            if (\array_key_exists($customerAddressId, $shippingAddresses)) {
-                $billingAddressId = $shippingAddresses[$customerAddressId]['id'];
-            } else {
-                $billingAddress = AddressTransformer::transform($activeBillingAddress);
-                $data['addresses'] = [$billingAddress];
-                $billingAddressId = $billingAddress['id'];
-            }
-            $data['billingAddressId'] = $billingAddressId;
-        }
 
         if ($conversionContext->shouldIncludeTransactions()) {
             $data['transactions'] = TransactionTransformer::transformCollection(
@@ -197,22 +124,13 @@ class OrderConverter
                 $context->getContext()
             );
 
-            /** @deprecated tag:v6.8.0 - `$isRecalculation` will be removed from condition without replacement */
-            if ((!$isRecalculation || !$cart->getBehavior()?->hasPermission(CheckoutPermissions::SKIP_PRIMARY_ORDER_IDS)) && $cart->getTransactions()->count() > 0) {
+            if (!$cart->getBehavior()?->hasPermission(CheckoutPermissions::SKIP_PRIMARY_ORDER_IDS) && $cart->getTransactions()->count() > 0) {
                 $data['transactions'][0]['id'] ??= Uuid::randomHex();
                 $data['primaryOrderTransactionId'] = $data['transactions'][0]['id'];
             }
         }
 
         $data['lineItems'] = array_values($convertedLineItems);
-
-        foreach ($this->downloadLoader->load($data['lineItems'], $context->getContext()) as $key => $downloads) {
-            if (!\array_key_exists($key, $data['lineItems'])) {
-                continue;
-            }
-
-            $data['lineItems'][$key]['downloads'] = $downloads;
-        }
 
         $idStruct = $cart->getExtensionOfType(self::ORIGINAL_ID, IdStruct::class);
         $data['id'] = $idStruct ? $idStruct->getId() : Uuid::randomHex();
@@ -280,10 +198,6 @@ class OrderConverter
         if ($order->getPrimaryOrderDeliveryId()) {
             $cart->addExtension(self::ORIGINAL_PRIMARY_ORDER_DELIVERY, new IdStruct($order->getPrimaryOrderDeliveryId()));
         }
-
-        $cart->setDeliveries(
-            $this->convertDeliveries($order->getPrimaryOrderDeliveryId(), $order->getDeliveries(), $lineItems)
-        );
 
         $event = new OrderConvertedEvent($order, $cart, $context);
         $this->eventDispatcher->dispatch($event);
@@ -388,7 +302,6 @@ class OrderConverter
         $channelContext = $this->channelContextFactory->create(Uuid::randomHex(), $order->getChannelId(), $options);
         $channelContext->getContext()->addExtensions($context->getExtensions());
         $channelContext->addState(...$context->getStates());
-        $channelContext->setTaxState($order->getTaxStatus() ?? $order->getPrice()->getTaxStatus());
 
         if ($context->hasState(Context::SKIP_TRIGGER_FLOW)) {
             $channelContext->getContext()->addState(Context::SKIP_TRIGGER_FLOW);
@@ -411,88 +324,6 @@ class OrderConverter
         $this->eventDispatcher->dispatch($event);
 
         return $channelContext;
-    }
-
-    private function convertDeliveries(?string $primaryOrderDeliveryId, OrderDeliveryCollection $orderDeliveries, LineItemCollection $lineItems): DeliveryCollection
-    {
-        // Ensure primary delivery is first, so `$deliveries->first()` returns the primary delivery.
-        $keys = \array_filter(\array_unique([$primaryOrderDeliveryId, ...$orderDeliveries->getKeys()]));
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $keys = $orderDeliveries->getKeys();
-        }
-
-        $cartDeliveries = new DeliveryCollection();
-        foreach ($keys as $id) {
-            if (!$orderDelivery = $orderDeliveries->get($id)) {
-                throw OrderException::orderDeliveryNotFound($id);
-            }
-
-            $deliveryDate = new DeliveryDate(
-                $orderDelivery->getShippingDateEarliest(),
-                $orderDelivery->getShippingDateLatest()
-            );
-
-            $deliveryPositions = new DeliveryPositionCollection();
-
-            if ($orderDelivery->getPositions() === null) {
-                continue;
-            }
-
-            foreach ($orderDelivery->getPositions() as $position) {
-                if ($position->getOrderLineItem() === null) {
-                    continue;
-                }
-
-                $identifier = $position->getOrderLineItem()->getIdentifier();
-
-                // line item has been removed and will not be added to delivery
-                if ($lineItems->get($identifier) === null) {
-                    continue;
-                }
-
-                if ($position->getPrice() === null) {
-                    continue;
-                }
-
-                $deliveryPosition = new DeliveryPosition(
-                    $identifier,
-                    $lineItems->get($identifier),
-                    $position->getPrice()->getQuantity(),
-                    $position->getPrice(),
-                    $deliveryDate
-                );
-                $deliveryPosition->addExtension(self::ORIGINAL_ID, new IdStruct($position->getId()));
-
-                $deliveryPositions->add($deliveryPosition);
-            }
-
-            if ($orderDelivery->getShippingMethod() === null
-                || $orderDelivery->getShippingOrderAddress() === null
-                || $orderDelivery->getShippingOrderAddress()->getCountry() === null
-            ) {
-                continue;
-            }
-
-            $cartDelivery = new Delivery(
-                $deliveryPositions,
-                $deliveryDate,
-                $orderDelivery->getShippingMethod(),
-                new ShippingLocation(
-                    $orderDelivery->getShippingOrderAddress()->getCountry(),
-                    $orderDelivery->getShippingOrderAddress()->getCountryState(),
-                    null
-                ),
-                $orderDelivery->getShippingCosts()
-            );
-            $cartDelivery->addExtension(self::ORIGINAL_ID, new IdStruct($orderDelivery->getId()));
-            $cartDelivery->addExtension(self::ORIGINAL_ADDRESS_ID, new IdStruct($orderDelivery->getShippingOrderAddressId()));
-            $cartDelivery->addExtension(self::ORIGINAL_ADDRESS_VERSION_ID, new IdStruct($orderDelivery->getShippingOrderAddressVersionId()));
-
-            $cartDeliveries->add($cartDelivery);
-        }
-
-        return $cartDeliveries;
     }
 
     /**

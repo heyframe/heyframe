@@ -3,12 +3,7 @@
 namespace HeyFrame\Core\Checkout\Cart\Price;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
-use HeyFrame\Core\Checkout\Cart\Tax\PercentageTaxRuleBuilder;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
 
@@ -20,8 +15,6 @@ class PercentagePriceCalculator
      */
     public function __construct(
         private readonly CashRounding $rounding,
-        private readonly QuantityPriceCalculator $priceCalculator,
-        private readonly PercentageTaxRuleBuilder $percentageTaxRuleBuilder
     ) {
     }
 
@@ -38,33 +31,14 @@ class PercentagePriceCalculator
             $context
         );
 
-        $rules = $this->percentageTaxRuleBuilder->buildCollectionRules($prices->getCalculatedTaxes(), $totalPrice);
-
-        if (Feature::isActive('v6.8.0.0')) {
-            $taxes = $context->getTaxState() !== CartPrice::TAX_STATE_FREE ? $prices->getCalculatedTaxes() : new CalculatedTaxCollection();
-            foreach ($taxes as $tax) {
-                $tax->setTax($this->round($tax->getTax() / 100 * $percentage, $context));
-                $tax->setPrice($this->round($tax->getPrice() / 100 * $percentage, $context));
-            }
-
-            return new CalculatedPrice(
-                $discount,
-                $discount,
-                $taxes,
-                $rules,
-            );
-        }
-        $definition = new QuantityPriceDefinition($discount, $rules, 1);
-
-        return $this->priceCalculator->calculate($definition, $context);
+        return new CalculatedPrice(
+            $discount,
+            $discount
+        );
     }
 
     private function round(float $price, ChannelContext $context): float
     {
-        if ($context->getTaxState() !== CartPrice::TAX_STATE_GROSS && !$context->getItemRounding()->roundForNet()) {
-            return $this->rounding->mathRound($price, $context->getItemRounding());
-        }
-
         return $this->rounding->cashRound($price, $context->getItemRounding());
     }
 }

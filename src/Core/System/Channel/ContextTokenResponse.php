@@ -7,10 +7,10 @@ use HeyFrame\Core\Framework\Struct\ArrayStruct;
 use HeyFrame\Core\PlatformRequest;
 
 /**
- * @extends StoreApiResponse<ArrayStruct<array{redirectUrl: string|null}>>
+ * @extends FrontApiResponse<ArrayStruct<array{redirectUrl: string|null}>>
  */
 #[Package('framework')]
-class ContextTokenResponse extends StoreApiResponse
+class ContextTokenResponse extends FrontApiResponse
 {
     public function __construct(
         string $token,

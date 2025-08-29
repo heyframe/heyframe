@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework;
 
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Context\ContextSource;
@@ -43,10 +42,6 @@ class Context extends Struct
         protected string $versionId = Defaults::LIVE_VERSION,
         protected float $currencyFactor = 1.0,
         protected bool $considerInheritance = false,
-        /**
-         * @see CartPrice::TAX_STATE_GROSS, CartPrice::TAX_STATE_NET, CartPrice::TAX_STATE_FREE
-         */
-        protected string $taxState = CartPrice::TAX_STATE_GROSS,
         protected CashRoundingConfig $rounding = new CashRoundingConfig(2, 0.01, true)
     ) {
         if ($source instanceof SystemSource) {
@@ -78,7 +73,6 @@ class Context extends Struct
             $this->versionId,
             $this->currencyFactor,
             $this->considerInheritance,
-            $this->taxState,
             $this->rounding,
             $this->scope,
             $this->states,
@@ -98,7 +92,6 @@ class Context extends Struct
             $this->versionId,
             $this->currencyFactor,
             $this->considerInheritance,
-            $this->taxState,
             $this->rounding,
             $this->scope,
             $this->states,
@@ -171,7 +164,6 @@ class Context extends Struct
             $versionId,
             $this->currencyFactor,
             $this->considerInheritance,
-            $this->taxState,
             $this->rounding
         );
         $context->scope = $this->scope;
@@ -217,16 +209,6 @@ class Context extends Struct
     public function setConsiderInheritance(bool $considerInheritance): void
     {
         $this->considerInheritance = $considerInheritance;
-    }
-
-    public function getTaxState(): string
-    {
-        return $this->taxState;
-    }
-
-    public function setTaxState(string $taxState): void
-    {
-        $this->taxState = $taxState;
     }
 
     public function isAllowed(string $privilege): bool

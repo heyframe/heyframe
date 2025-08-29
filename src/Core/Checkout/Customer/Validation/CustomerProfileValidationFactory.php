@@ -8,7 +8,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\DataValidationDefinition;
 use HeyFrame\Core\Framework\Validation\DataValidationFactoryInterface;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Salutation\SalutationDefinition;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
@@ -26,7 +25,6 @@ class CustomerProfileValidationFactory implements DataValidationFactoryInterface
      */
     public function __construct(
         private readonly SystemConfigService $systemConfigService,
-        private readonly array $accountTypes
     ) {
     }
 
@@ -50,12 +48,6 @@ class CustomerProfileValidationFactory implements DataValidationFactoryInterface
 
     private function addConstraints(DataValidationDefinition $definition, ChannelContext $context): void
     {
-        $definition
-            ->add('salutationId', new EntityExists(entity: SalutationDefinition::ENTITY_NAME, context: $context->getContext()))
-            ->add('title', new Length(max: CustomerDefinition::MAX_LENGTH_TITLE))
-            ->add('firstName', new NotBlank(), new Length(max: CustomerDefinition::MAX_LENGTH_FIRST_NAME))
-            ->add('lastName', new NotBlank(), new Length(max: CustomerDefinition::MAX_LENGTH_LAST_NAME))
-            ->add('accountType', new Choice($this->accountTypes));
 
         $channelId = $context->getChannelId();
 

@@ -8,7 +8,6 @@ use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\RegulationPrice;
-use HeyFrame\Core\Checkout\Cart\Tax\TaxCalculator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
 use HeyFrame\Core\Framework\Log\Package;
 
@@ -19,7 +18,6 @@ class GrossPriceCalculator
      * @internal
      */
     public function __construct(
-        private readonly TaxCalculator $taxCalculator,
         private readonly CashRounding $priceRounding
     ) {
     }
@@ -27,16 +25,6 @@ class GrossPriceCalculator
     public function calculate(QuantityPriceDefinition $definition, CashRoundingConfig $config): CalculatedPrice
     {
         $unitPrice = $this->getUnitPrice($definition, $config);
-
-        $unitTaxes = $this->taxCalculator->calculateGrossTaxes($unitPrice, $definition->getTaxRules());
-
-        foreach ($unitTaxes as $tax) {
-            $total = $this->priceRounding->mathRound($tax->getTax() * $definition->getQuantity(), $config);
-            $taxPrice = $this->priceRounding->mathRound($tax->getPrice() * $definition->getQuantity(), $config);
-
-            $tax->setTax($total);
-            $tax->setPrice($taxPrice);
-        }
 
         $price = $this->priceRounding->cashRound(
             $unitPrice * $definition->getQuantity(),
@@ -48,8 +36,6 @@ class GrossPriceCalculator
         return new CalculatedPrice(
             $unitPrice,
             $price,
-            $unitTaxes,
-            $definition->getTaxRules(),
             $definition->getQuantity(),
             $reference,
             $this->calculateListPrice($unitPrice, $definition, $config),
@@ -64,12 +50,7 @@ class GrossPriceCalculator
             return $this->priceRounding->cashRound($definition->getPrice(), $config);
         }
 
-        $price = $this->taxCalculator->calculateGross(
-            $definition->getPrice(),
-            $definition->getTaxRules()
-        );
-
-        return $this->priceRounding->cashRound($price, $config);
+        return $this->priceRounding->cashRound($definition->getPrice(), $config);
     }
 
     private function calculateListPrice(float $unitPrice, QuantityPriceDefinition $definition, CashRoundingConfig $config): ?ListPrice
@@ -77,13 +58,6 @@ class GrossPriceCalculator
         $price = $definition->getListPrice();
         if (!$price) {
             return null;
-        }
-
-        if (!$definition->isCalculated()) {
-            $price = $this->taxCalculator->calculateGross(
-                $price,
-                $definition->getTaxRules()
-            );
         }
 
         $listPrice = $this->priceRounding->cashRound($price, $config);
@@ -96,13 +70,6 @@ class GrossPriceCalculator
         $price = $definition->getRegulationPrice();
         if (!$price) {
             return null;
-        }
-
-        if (!$definition->isCalculated()) {
-            $price = $this->taxCalculator->calculateGross(
-                $price,
-                $definition->getTaxRules()
-            );
         }
 
         $regulationPrice = $this->priceRounding->cashRound($price, $config);
@@ -127,8 +94,7 @@ class GrossPriceCalculator
         return new ReferencePrice(
             $price,
             $definition->getPurchaseUnit(),
-            $definition->getReferenceUnit(),
-            $definition->getUnitName()
+            $definition->getReferenceUnit()
         );
     }
 }

@@ -11,5 +11,4 @@ use HeyFrame\Core\Framework\Log\Package;
 #[Package('framework')]
 class FrontendFrameworkException extends HttpException
 {
-
 }

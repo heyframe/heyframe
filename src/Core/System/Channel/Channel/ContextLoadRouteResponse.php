@@ -4,13 +4,13 @@ namespace HeyFrame\Core\System\Channel\Channel;
 
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<ChannelContext>
+ * @extends FrontApiResponse<ChannelContext>
  */
 #[Package('framework')]
-class ContextLoadRouteResponse extends StoreApiResponse
+class ContextLoadRouteResponse extends FrontApiResponse
 {
     public function getContext(): ChannelContext
     {

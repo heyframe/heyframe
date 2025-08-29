@@ -8,18 +8,16 @@ use HeyFrame\Core\Checkout\Gateway\CheckoutGatewayResponse;
 use HeyFrame\Core\Checkout\Gateway\Command\Struct\CheckoutGatewayPayloadStruct;
 use HeyFrame\Core\Checkout\Payment\Cart\Error\PaymentMethodBlockedError;
 use HeyFrame\Core\Checkout\Payment\Channel\AbstractPaymentMethodRoute;
-use HeyFrame\Core\Checkout\Shipping\Cart\Error\ShippingMethodBlockedError;
-use HeyFrame\Core\Checkout\Shipping\Channel\AbstractShippingMethodRoute;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('checkout')]
 class CheckoutGatewayRoute extends AbstractCheckoutGatewayRoute
 {
@@ -28,7 +26,6 @@ class CheckoutGatewayRoute extends AbstractCheckoutGatewayRoute
      */
     public function __construct(
         private readonly AbstractPaymentMethodRoute $paymentMethodRoute,
-        private readonly AbstractShippingMethodRoute $shippingMethodRoute,
         private readonly CheckoutGatewayInterface $checkoutGateway,
     ) {
     }
@@ -51,9 +48,8 @@ class CheckoutGatewayRoute extends AbstractCheckoutGatewayRoute
         $request->query->set('onlyAvailable', '1');
 
         $paymentMethods = $this->paymentMethodRoute->load($request, $context, $paymentCriteria)->getPaymentMethods();
-        $shippingMethods = $this->shippingMethodRoute->load($request, $context, $shippingCriteria)->getShippingMethods();
 
-        $payload = new CheckoutGatewayPayloadStruct($cart, $context, $paymentMethods, $shippingMethods);
+        $payload = new CheckoutGatewayPayloadStruct($cart, $context, $paymentMethods);
         $response = $this->checkoutGateway->process($payload);
 
         $this->addBlockedMethodsCartErrors($response, $cart, $context);
@@ -69,16 +65,6 @@ class CheckoutGatewayRoute extends AbstractCheckoutGatewayRoute
             $response->getCartErrors()->add(
                 new PaymentMethodBlockedError((string) $paymentMethod->getTranslation('name'), 'not allowed')
             );
-        }
-
-        foreach ($cart->getDeliveries() as $delivery) {
-            $deliveryMethod = $delivery->getShippingMethod();
-
-            if (!\in_array($deliveryMethod->getId(), $response->getAvailableShippingMethods()->getIds(), true)) {
-                $response->getCartErrors()->add(
-                    new ShippingMethodBlockedError((string) $deliveryMethod->getTranslation('name'))
-                );
-            }
         }
     }
 }

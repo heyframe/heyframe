@@ -6,19 +6,11 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressDefinition;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
-use HeyFrame\Core\Checkout\Customer\CustomerEntity;
 use HeyFrame\Core\Checkout\Customer\CustomerEvents;
-use HeyFrame\Core\Checkout\Customer\CustomerException;
-use HeyFrame\Core\Checkout\Customer\Event\CustomerConfirmRegisterUrlEvent;
-use HeyFrame\Core\Checkout\Customer\Event\CustomerDoubleOptInRegistrationEvent;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerLoginEvent;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerRegisterEvent;
-use HeyFrame\Core\Checkout\Customer\Event\DoubleOptInGuestOrderEvent;
-use HeyFrame\Core\Checkout\Customer\Event\GuestCustomerRegisterEvent;
 use HeyFrame\Core\Checkout\Customer\Service\EmailIdnConverter;
 use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerEmailUnique;
-use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerVatIdentification;
-use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerZipCode;
 use HeyFrame\Core\Checkout\Order\Channel\OrderService;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -27,11 +19,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Validation\EntityExists;
 use HeyFrame\Core\Framework\Event\DataMappingEvent;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
-use HeyFrame\Core\Framework\Util\Hasher;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\BuildValidationEvent;
 use HeyFrame\Core\Framework\Validation\DataBag\DataBag;
@@ -47,46 +37,34 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\Context\ChannelContextPersister;
 use HeyFrame\Core\System\Channel\Context\ChannelContextServiceInterface;
 use HeyFrame\Core\System\Channel\Context\ChannelContextServiceParameters;
-use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
-use HeyFrame\Core\System\Channel\StoreApiCustomFieldMapper;
-use HeyFrame\Core\System\Country\CountryCollection;
+use HeyFrame\Core\System\Channel\FrontApiCustomFieldMapper;
 use HeyFrame\Core\System\NumberRange\ValueGenerator\NumberRangeValueGeneratorInterface;
-use HeyFrame\Core\System\Salutation\SalutationCollection;
-use HeyFrame\Core\System\Salutation\SalutationDefinition;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Constraints\Choice;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Type;
-use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('checkout')]
 class RegisterRoute extends AbstractRegisterRoute
 {
     /**
-     * @internal
-     *
      * @param EntityRepository<CustomerCollection> $customerRepository
-     * @param ChannelRepository<CountryCollection> $countryRepository
-     * @param EntityRepository<SalutationCollection> $salutationRepository
+     *
+     * @internal
      */
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly NumberRangeValueGeneratorInterface $numberRangeValueGenerator,
         private readonly DataValidator $validator,
         private readonly DataValidationFactoryInterface $accountValidationFactory,
-        private readonly DataValidationFactoryInterface $addressValidationFactory,
         private readonly SystemConfigService $systemConfigService,
         private readonly EntityRepository $customerRepository,
         private readonly ChannelContextPersister $contextPersister,
-        private readonly ChannelRepository $countryRepository,
         protected Connection $connection,
         private readonly ChannelContextServiceInterface $contextService,
-        private readonly StoreApiCustomFieldMapper $customFieldMapper,
-        private readonly EntityRepository $salutationRepository,
+        private readonly FrontApiCustomFieldMapper $customFieldMapper,
         private readonly DataValidationFactoryInterface $passwordValidationFactory,
     ) {
     }
@@ -105,75 +83,9 @@ class RegisterRoute extends AbstractRegisterRoute
     ): CustomerResponse {
         EmailIdnConverter::encodeDataBag($data);
 
-        $isGuest = $data->getBoolean('guest');
+        $this->validateRegistrationData($data, $context, $additionalValidationDefinitions, $validateStorefrontUrl);
 
-        if ($data->has('accountType') && empty($data->get('accountType'))) {
-            $data->remove('accountType');
-        }
-
-        if (!$data->get('salutationId')) {
-            $data->set('salutationId', $this->getDefaultSalutationId($context));
-        }
-
-        $billing = $data->get('billingAddress');
-        $shipping = $data->get('shippingAddress');
-
-        if ($billing instanceof DataBag) {
-            if ($billing->has('firstName') && !$data->has('firstName')) {
-                $data->set('firstName', $billing->get('firstName'));
-            }
-
-            if ($billing->has('lastName') && !$data->has('lastName')) {
-                $data->set('lastName', $billing->get('lastName'));
-            }
-
-            if ($data->has('title')) {
-                $billing->set('title', $data->get('title'));
-            }
-        }
-
-        $this->validateRegistrationData($data, $isGuest, $context, $additionalValidationDefinitions, $validateStorefrontUrl);
-
-        $customer = $this->mapCustomerData($data, $isGuest, $context);
-
-        if ($billing instanceof DataBag) {
-            $billingAddress = $this->mapAddressData($billing, $context->getContext(), CustomerEvents::MAPPING_REGISTER_ADDRESS_BILLING);
-            $billingAddress['id'] = Uuid::randomHex();
-            $billingAddress['customerId'] = $customer['id'];
-            $customer['defaultBillingAddressId'] = $billingAddress['id'];
-            $customer['addresses'][] = $billingAddress;
-
-            if (!$shipping) {
-                $customer['defaultShippingAddressId'] = $billingAddress['id'];
-            }
-        }
-
-        if ($shipping instanceof DataBag) {
-            $shippingAddress = $this->mapAddressData($shipping, $context->getContext(), CustomerEvents::MAPPING_REGISTER_ADDRESS_SHIPPING);
-            $shippingAddress['id'] = Uuid::randomHex();
-            $shippingAddress['customerId'] = $customer['id'];
-
-            $customer['defaultShippingAddressId'] = $shippingAddress['id'];
-            $customer['addresses'][] = $shippingAddress;
-
-            if (!$billing) {
-                $customer['defaultBillingAddressId'] = $shippingAddress['id'];
-            }
-        }
-
-        if ($data->get('accountType')) {
-            $customer['accountType'] = $data->get('accountType');
-        }
-
-        $companyName = $billingAddress['company'] ?? $shippingAddress['company'] ?? null;
-        if ($data->get('accountType') === CustomerEntity::ACCOUNT_TYPE_BUSINESS && $companyName) {
-            $customer['company'] = $companyName;
-            if ($data->get('vatIds')) {
-                $customer['vatIds'] = $data->get('vatIds');
-            }
-        }
-
-        $customer = $this->addDoubleOptInData($customer, $context);
+        $customer = $this->mapCustomerData($data, $context);
 
         $customer['boundChannelId'] = $this->getBoundChannelId($customer['email'], $context);
 
@@ -200,23 +112,6 @@ class RegisterRoute extends AbstractRegisterRoute
         $customerEntity = $this->customerRepository->search($criteria, $context->getContext())->getEntities()->first();
         \assert(assertion: $customerEntity !== null);
 
-        if ($customerEntity->getDoubleOptInRegistration()) {
-            $this->eventDispatcher->dispatch(
-                $this->getDoubleOptInEvent(
-                    $customerEntity,
-                    $context,
-                    $data->get('storefrontUrl'),
-                    $data->get('redirectTo'),
-                    $data->get('redirectParameters')
-                )
-            );
-
-            // We don't want to leak the hash in store-api
-            $customerEntity->setHash('');
-
-            return new CustomerResponse($customerEntity);
-        }
-
         $response = new CustomerResponse($customerEntity);
 
         $newToken = $this->contextPersister->replace($context->getToken(), $context);
@@ -225,8 +120,6 @@ class RegisterRoute extends AbstractRegisterRoute
             $newToken,
             [
                 'customerId' => $customerEntity->getId(),
-                'billingAddressId' => null,
-                'shippingAddressId' => null,
                 'domainId' => $context->getDomainId(),
             ],
             $context->getChannelId(),
@@ -247,11 +140,7 @@ class RegisterRoute extends AbstractRegisterRoute
 
         $new->addState(...$context->getStates());
 
-        if (!$customerEntity->getGuest()) {
-            $this->eventDispatcher->dispatch(new CustomerRegisterEvent($new, $customerEntity));
-        } else {
-            $this->eventDispatcher->dispatch(new GuestCustomerRegisterEvent($new, $customerEntity));
-        }
+        $this->eventDispatcher->dispatch(new CustomerRegisterEvent($new, $customerEntity));
 
         $event = new CustomerLoginEvent($new, $customerEntity, $newToken);
         $this->eventDispatcher->dispatch($event);
@@ -264,70 +153,13 @@ class RegisterRoute extends AbstractRegisterRoute
         return $response;
     }
 
-    private function getDoubleOptInEvent(
-        CustomerEntity $customer,
-        ChannelContext $context,
-        string $url,
-        ?string $redirectTo,
-        ?string $redirectParameters
-    ): Event {
-        $url .= $this->getConfirmUrl($context, $customer);
-
-        if ($redirectTo) {
-            $params = \is_string($redirectParameters) ? (\json_decode($redirectParameters, true) ?? []) : [];
-            $url .= '&' . \http_build_query(array_merge(['redirectTo' => $redirectTo], $params));
-        }
-
-        if ($customer->getGuest()) {
-            $event = new DoubleOptInGuestOrderEvent($customer, $context, $url);
-        } else {
-            $event = new CustomerDoubleOptInRegistrationEvent($customer, $context, $url);
-        }
-
-        return $event;
-    }
-
-    /**
-     * @param array<string, mixed> $customer
-     *
-     * @return array<string, mixed>
-     */
-    private function addDoubleOptInData(array $customer, ChannelContext $context): array
-    {
-        $configKey = $customer['guest']
-            ? 'core.loginRegistration.doubleOptInGuestOrder'
-            : 'core.loginRegistration.doubleOptInRegistration';
-
-        $doubleOptInRequired = $this->systemConfigService
-            ->get($configKey, $context->getChannelId());
-
-        if (!$doubleOptInRequired) {
-            return $customer;
-        }
-
-        $customer['doubleOptInRegistration'] = true;
-        $customer['doubleOptInEmailSentDate'] = new \DateTimeImmutable();
-        $customer['hash'] = Uuid::randomHex();
-
-        return $customer;
-    }
-
     private function validateRegistrationData(
         DataBag $data,
-        bool $isGuest,
         ChannelContext $context,
         ?DataValidationDefinition $additionalValidations,
         bool $validateStorefrontUrl
     ): void {
-        $billingAddress = $data->get('billingAddress');
-        $shippingAddress = $data->get('shippingAddress');
-        if ($billingAddress instanceof DataBag) {
-            $billingAddress->set('firstName', $data->get('firstName'));
-            $billingAddress->set('lastName', $data->get('lastName'));
-            $billingAddress->set('salutationId', $data->get('salutationId'));
-        }
-
-        $definition = $this->getCustomerCreateValidationDefinition($isGuest, $data, $context);
+        $definition = $this->getCustomerCreateValidationDefinition($data, $context);
 
         if ($additionalValidations) {
             $definition->merge($additionalValidations);
@@ -336,37 +168,6 @@ class RegisterRoute extends AbstractRegisterRoute
         if ($validateStorefrontUrl) {
             $definition
                 ->add('storefrontUrl', new NotBlank(), new Choice($this->getDomainUrls($context)));
-        }
-
-        $accountType = $data->get('accountType', CustomerEntity::ACCOUNT_TYPE_PRIVATE);
-        if ($billingAddress instanceof DataBag || !($shippingAddress instanceof DataBag)) {
-            $definition->addSub('billingAddress', $this->getCreateAddressValidationDefinition($data, $accountType, $billingAddress ?? new RequestDataBag(), $context));
-        }
-
-        if ($shippingAddress instanceof DataBag) {
-            $shippingAccountType = $shippingAddress->get('accountType', CustomerEntity::ACCOUNT_TYPE_PRIVATE);
-            $definition->addSub('shippingAddress', $this->getCreateAddressValidationDefinition($data, $shippingAccountType, $shippingAddress, $context));
-        }
-
-        if ($data->get('vatIds') instanceof DataBag) {
-            $vatIds = array_filter($data->get('vatIds')->all());
-            $data->set('vatIds', $vatIds);
-        }
-
-        if ($accountType === CustomerEntity::ACCOUNT_TYPE_BUSINESS) {
-            $countryId = $shippingAddress instanceof DataBag
-                ? $shippingAddress->get('countryId')
-                : ($billingAddress instanceof DataBag ? $billingAddress->get('countryId') : null);
-
-            if ($countryId) {
-                if ($this->requiredVatIdField($countryId, $context)) {
-                    $definition->add('vatIds', new NotBlank());
-                }
-
-                $definition->add('vatIds', new Type('array'), new CustomerVatIdentification(
-                    countryId: $countryId
-                ));
-            }
         }
 
         if ($this->systemConfigService->get('core.loginRegistration.requireDataProtectionCheckbox', $context->getChannelId())) {
@@ -414,7 +215,7 @@ class RegisterRoute extends AbstractRegisterRoute
     /**
      * @return array<string, mixed>
      */
-    private function mapCustomerData(DataBag $data, bool $isGuest, ChannelContext $context): array
+    private function mapCustomerData(DataBag $data, ChannelContext $context): array
     {
         $customer = [
             'customerNumber' => $this->numberRangeValueGenerator->getValue(
@@ -435,14 +236,10 @@ class RegisterRoute extends AbstractRegisterRoute
             'campaignCode' => $data->get(OrderService::CAMPAIGN_CODE_KEY),
             'active' => true,
             'birthday' => $this->getBirthday($data),
-            'guest' => $isGuest,
             'firstLogin' => new \DateTimeImmutable(),
+            'password' => $data->get('password'),
             'addresses' => [],
         ];
-
-        if (!$isGuest) {
-            $customer['password'] = $data->get('password');
-        }
 
         $event = new DataMappingEvent($data, $customer, $context->getContext());
         $this->eventDispatcher->dispatch($event, CustomerEvents::MAPPING_REGISTER_CUSTOMER);
@@ -453,29 +250,7 @@ class RegisterRoute extends AbstractRegisterRoute
         return $customer;
     }
 
-    private function getCreateAddressValidationDefinition(
-        DataBag $data,
-        ?string $accountType,
-        DataBag $address,
-        ChannelContext $context
-    ): DataValidationDefinition {
-        $validation = $this->addressValidationFactory->create($context);
-
-        if ($accountType === CustomerEntity::ACCOUNT_TYPE_BUSINESS
-            && $this->systemConfigService->get('core.loginRegistration.showAccountTypeSelection', $context->getChannelId())) {
-            $validation->add('company', new NotBlank());
-        }
-
-        $validation->set('zipcode', new CustomerZipCode(countryId: $address->get('countryId')));
-        $validation->add('zipcode', new Length(max: 50));
-
-        $validationEvent = new BuildValidationEvent($validation, $data, $context->getContext());
-        $this->eventDispatcher->dispatch($validationEvent, $validationEvent->getName());
-
-        return $validation;
-    }
-
-    private function getCustomerCreateValidationDefinition(bool $isGuest, DataBag $data, ChannelContext $context): DataValidationDefinition
+    private function getCustomerCreateValidationDefinition(DataBag $data, ChannelContext $context): DataValidationDefinition
     {
         $validation = $this->accountValidationFactory->create($context);
 
@@ -488,12 +263,10 @@ class RegisterRoute extends AbstractRegisterRoute
             criteria: $criteria,
         ));
 
-        if (!$isGuest) {
-            $validation->merge(
-                $this->passwordValidationFactory->create($context)
-            );
-            $validation->add('email', new CustomerEmailUnique(channelContext: $context));
-        }
+        $validation->merge(
+            $this->passwordValidationFactory->create($context)
+        );
+        $validation->add('email', new CustomerEmailUnique(channelContext: $context));
 
         $validationEvent = new BuildValidationEvent($validation, $data, $context->getContext());
         $this->eventDispatcher->dispatch($validationEvent, $validationEvent->getName());
@@ -571,59 +344,5 @@ class RegisterRoute extends AbstractRegisterRoute
         }
 
         return false;
-    }
-
-    private function requiredVatIdField(string $countryId, ChannelContext $context): bool
-    {
-        if (!Feature::isActive('v6.8.0.0')) {
-            $country = $this->countryRepository->search(new Criteria([$countryId]), $context)->get($countryId);
-
-            if (!$country) {
-                throw CustomerException::countryNotFound($countryId);
-            }
-
-            return $country->getVatIdRequired();
-        }
-
-        $countryCriteria = (new Criteria([$countryId]))
-            ->addFields(['vatIdRequired']);
-
-        $country = $this->countryRepository->search($countryCriteria, $context)->getEntities()->first();
-        if (!$country) {
-            throw CustomerException::countryNotFound($countryId);
-        }
-
-        return $country->get('vatIdRequired');
-    }
-
-    private function getConfirmUrl(ChannelContext $context, CustomerEntity $customer): string
-    {
-        $urlTemplate = $this->systemConfigService->get(
-            'core.loginRegistration.confirmationUrl',
-            $context->getChannelId()
-        );
-        if (!\is_string($urlTemplate)) {
-            $urlTemplate = '/registration/confirm?em=%%HASHEDEMAIL%%&hash=%%SUBSCRIBEHASH%%';
-        }
-
-        $emailHash = Hasher::hash($customer->getEmail(), 'sha1');
-
-        $urlEvent = new CustomerConfirmRegisterUrlEvent($context, $urlTemplate, $emailHash, $customer->getHash(), $customer);
-        $this->eventDispatcher->dispatch($urlEvent);
-
-        return str_replace(
-            ['%%HASHEDEMAIL%%', '%%SUBSCRIBEHASH%%'],
-            [$emailHash, (string) $customer->getHash()],
-            $urlEvent->getConfirmUrl()
-        );
-    }
-
-    private function getDefaultSalutationId(ChannelContext $context): ?string
-    {
-        $criteria = (new Criteria())
-            ->setLimit(1)
-            ->addFilter(new EqualsFilter('salutationKey', SalutationDefinition::NOT_SPECIFIED));
-
-        return $this->salutationRepository->searchIds($criteria, $context->getContext())->firstId();
     }
 }
