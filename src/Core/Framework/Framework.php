@@ -31,7 +31,6 @@ use HeyFrame\Core\Framework\Increment\IncrementerGatewayCompilerPass;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\MessageHandlerCompilerPass;
 use HeyFrame\Core\Framework\Telemetry\Metrics\MeterProvider;
-use HeyFrame\Core\Framework\Test\DependencyInjection\CompilerPass\ContainerVisibilityCompilerPass;
 use HeyFrame\Core\Framework\Test\RateLimiter\DisableRateLimiterCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
@@ -123,7 +122,6 @@ class Framework extends Bundle
 
         if ($container->getParameter('kernel.environment') === 'test') {
             $container->addCompilerPass(new DisableRateLimiterCompilerPass());
-            $container->addCompilerPass(new ContainerVisibilityCompilerPass());
         }
 
         $container->addCompilerPass(new FrameworkMigrationReplacementCompilerPass());
