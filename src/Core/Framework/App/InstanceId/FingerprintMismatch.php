@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopId;
+namespace HeyFrame\Core\Framework\App\InstanceId;
 
 use HeyFrame\Core\Framework\Log\Package;
-use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 
 /**
  * @internal
@@ -11,11 +10,12 @@ use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
  * @codeCoverageIgnore
  */
 #[Package('framework')]
-readonly class FingerprintMatch
+readonly class FingerprintMismatch
 {
     public function __construct(
         public string $identifier,
-        public string $storedStamp,
+        public ?string $storedStamp,
+        public string $expectedStamp,
         public int $score,
     ) {
     }

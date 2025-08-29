@@ -9,7 +9,7 @@ use HeyFrame\Core\Framework\Struct\JsonSerializableTrait;
 /**
  * @internal only for use by the app-system
  *
- * @method array{url: string, shopId: string, appVersion: string} jsonSerialize()
+ * @method array{url: string, instanceId: string, appVersion: string} jsonSerialize()
  */
 #[Package('framework')]
 class Source implements \JsonSerializable
@@ -19,7 +19,7 @@ class Source implements \JsonSerializable
 
     public function __construct(
         protected string $url,
-        protected string $shopId,
+        protected string $instanceId,
         protected string $appVersion,
         protected ?string $inAppPurchases = null,
     ) {
@@ -30,9 +30,9 @@ class Source implements \JsonSerializable
         return $this->url;
     }
 
-    public function getShopId(): string
+    public function getInstanceId(): string
     {
-        return $this->shopId;
+        return $this->instanceId;
     }
 
     public function getAppVersion(): string

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopIdChangeResolver;
+namespace HeyFrame\Core\Framework\App\InstanceIdChangeResolver;
 
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
 use HeyFrame\Core\Framework\App\AppCollection;
@@ -17,7 +17,7 @@ use HeyFrame\Core\Framework\Log\Package;
  * @internal
  */
 #[Package('framework')]
-abstract class AbstractShopIdChangeStrategy
+abstract class AbstractInstanceIdChangeStrategy
 {
     /**
      * @param EntityRepository<AppCollection> $appRepository

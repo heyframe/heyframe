@@ -5,9 +5,9 @@ namespace HeyFrame\Core\Framework\App\Api;
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
-use HeyFrame\Core\Framework\App\ShopIdChangeResolver\Resolver;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
+use HeyFrame\Core\Framework\App\InstanceIdChangeResolver\Resolver;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -26,14 +26,14 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
 #[Package('framework')]
-class ShopIdController extends AbstractController
+class InstanceIdController extends AbstractController
 {
     /**
      * @param EntityRepository<AppCollection> $appRepository
      */
     public function __construct(
-        private readonly Resolver $shopIdChangeResolver,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly Resolver $instanceIdChangeResolver,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly EntityRepository $appRepository,
     ) {
     }
@@ -41,11 +41,11 @@ class ShopIdController extends AbstractController
     #[Route(path: 'api/app-system/shop-id/change-strategies', name: 'api.app_system.shop_id.change_strategies', methods: ['GET'])]
     public function getAvailableStrategies(): JsonResponse
     {
-        return new JsonResponse($this->shopIdChangeResolver->getAvailableStrategies());
+        return new JsonResponse($this->instanceIdChangeResolver->getAvailableStrategies());
     }
 
     #[Route(path: 'api/app-system/shop-id/change', name: 'api.app_system.shop_id.change', methods: ['POST'])]
-    public function changeShopId(Request $request, Context $context): Response
+    public function changeInstanceId(Request $request, Context $context): Response
     {
         $strategy = $request->get('strategy');
 
@@ -53,17 +53,17 @@ class ShopIdController extends AbstractController
             throw AppException::missingRequestParameter('strategy');
         }
 
-        $this->shopIdChangeResolver->resolve($strategy, $context);
+        $this->instanceIdChangeResolver->resolve($strategy, $context);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     #[Route(path: 'api/app-system/shop-id/check', name: 'api.app_system.shop_id.check', methods: ['POST'])]
-    public function checkShopId(Context $context): Response
+    public function checkInstanceId(Context $context): Response
     {
         try {
-            $this->shopIdProvider->getShopId();
-        } catch (ShopIdChangeSuggestedException $e) {
+            $this->instanceIdProvider->getInstanceId();
+        } catch (InstanceIdChangeSuggestedException $e) {
             return new JsonResponse([
                 'apps' => $this->appsRegisteredAtAppServers($context),
                 'fingerprints' => $e->comparisonResult,

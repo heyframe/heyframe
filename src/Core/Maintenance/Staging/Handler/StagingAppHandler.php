@@ -3,7 +3,7 @@
 namespace HeyFrame\Core\Maintenance\Staging\Handler;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Maintenance\Staging\Event\SetupStagingEvent;
 
@@ -15,7 +15,7 @@ readonly class StagingAppHandler
 {
     public function __construct(
         private Connection $connection,
-        private ShopIdProvider $shopIdProvider
+        private InstanceIdProvider $instanceIdProvider
     ) {
     }
 
@@ -23,7 +23,7 @@ readonly class StagingAppHandler
     {
         $this->deleteAppsWithAppServer($event);
 
-        $this->shopIdProvider->deleteShopId();
+        $this->instanceIdProvider->deleteInstanceId();
     }
 
     private function deleteAppsWithAppServer(SetupStagingEvent $event): void

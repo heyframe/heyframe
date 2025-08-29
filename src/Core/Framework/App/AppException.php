@@ -9,11 +9,11 @@ use HeyFrame\Core\Framework\App\Exception\AppNotFoundException;
 use HeyFrame\Core\Framework\App\Exception\AppRegistrationException;
 use HeyFrame\Core\Framework\App\Exception\AppXmlParsingException;
 use HeyFrame\Core\Framework\App\Exception\InvalidAppFlowActionVariableException;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeStrategyNotFoundException;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeStrategyNotFoundException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Exception\UserAbortedCommandException;
-use HeyFrame\Core\Framework\App\ShopId\FingerprintComparisonResult;
-use HeyFrame\Core\Framework\App\ShopId\ShopId;
+use HeyFrame\Core\Framework\App\InstanceId\FingerprintComparisonResult;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceId;
 use HeyFrame\Core\Framework\App\Validation\Error\Error;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
@@ -519,9 +519,9 @@ class AppException extends HttpException
         );
     }
 
-    public static function shopIdChangeSuggested(ShopId $shopId, FingerprintComparisonResult $comparisonResult): self
+    public static function instanceIdChangeSuggested(InstanceId $instanceId, FingerprintComparisonResult $comparisonResult): self
     {
-        return new ShopIdChangeSuggestedException($shopId, $comparisonResult);
+        return new InstanceIdChangeSuggestedException($instanceId, $comparisonResult);
     }
 
     public static function appUrlNotConfigured(): self
@@ -533,17 +533,17 @@ class AppException extends HttpException
         );
     }
 
-    public static function invalidShopIdConfiguration(): self
+    public static function invalidInstanceIdConfiguration(): self
     {
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::INVALID_SHOP_ID_CONFIGURATION,
-            'The configuration values for "core.app.shopIdV2" and "core.app.shopId" in the system config are invalid.'
+            'The configuration values for "core.app.instanceIdV2" and "core.app.instanceId" in the system config are invalid.'
         );
     }
 
-    public static function shopIdChangeResolveStrategyNotFound(string $strategy): self
+    public static function instanceIdChangeResolveStrategyNotFound(string $strategy): self
     {
-        return new ShopIdChangeStrategyNotFoundException($strategy);
+        return new InstanceIdChangeStrategyNotFoundException($strategy);
     }
 }

@@ -7,9 +7,9 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\ServerException;
 use HeyFrame\Core\Framework\App\ActionButton\Response\ActionButtonResponseFactory;
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
@@ -32,7 +32,7 @@ class Executor
         private readonly Client $guzzleClient,
         private readonly LoggerInterface $logger,
         private readonly ActionButtonResponseFactory $actionButtonResponseFactory,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly RouterInterface $router,
         private readonly RequestStack $requestStack,
         private readonly KernelInterface $kernel
@@ -42,8 +42,8 @@ class Executor
     public function execute(AppAction $action, Context $context): Response
     {
         try {
-            $this->shopIdProvider->getShopId();
-        } catch (ShopIdChangeSuggestedException $e) {
+            $this->instanceIdProvider->getInstanceId();
+        } catch (InstanceIdChangeSuggestedException $e) {
             throw AppException::actionButtonProcessException($action->getActionId(), $e->getMessage(), $e);
         }
 

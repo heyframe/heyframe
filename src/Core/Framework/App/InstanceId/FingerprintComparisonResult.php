@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopId;
+namespace HeyFrame\Core\Framework\App\InstanceId;
 
 use HeyFrame\Core\Framework\Log\Package;
 

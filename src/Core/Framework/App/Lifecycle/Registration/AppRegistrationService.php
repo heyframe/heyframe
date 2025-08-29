@@ -9,10 +9,10 @@ use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\Exception\AppRegistrationException;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
 use HeyFrame\Core\Framework\App\Manifest\Manifest;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -33,7 +33,7 @@ class AppRegistrationService
         private readonly Client $httpClient,
         private readonly EntityRepository $appRepository,
         private readonly string $shopUrl,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly string $heyframeVersion
     ) {
     }
@@ -156,8 +156,8 @@ class AppRegistrationService
         $app = $this->getApp($id, $context);
 
         try {
-            $shopId = $this->shopIdProvider->getShopId();
-        } catch (ShopIdChangeSuggestedException $e) {
+            $instanceId = $this->instanceIdProvider->getInstanceId();
+        } catch (InstanceIdChangeSuggestedException $e) {
             throw AppRegistrationException::registrationFailed(
                 $app->getName(),
                 $e->getMessage(),
@@ -174,7 +174,7 @@ class AppRegistrationService
             'secretKey' => $secretAccessKey,
             'timestamp' => (string) (new \DateTime())->getTimestamp(),
             'shopUrl' => $this->shopUrl,
-            'shopId' => $shopId,
+            'instanceId' => $instanceId,
         ];
     }
 

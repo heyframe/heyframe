@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopId\Fingerprint;
+namespace HeyFrame\Core\Framework\App\InstanceId\Fingerprint;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Framework\App\ShopId\Fingerprint;
+use HeyFrame\Core\Framework\App\InstanceId\Fingerprint;
 use HeyFrame\Core\Framework\Log\Package;
 
 /**

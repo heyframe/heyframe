@@ -24,7 +24,7 @@ class StoreHandshake implements AppHandshakeInterface
         private readonly string $shopUrl,
         private readonly string $appEndpoint,
         private readonly string $appName,
-        private readonly string $shopId,
+        private readonly string $instanceId,
         private readonly StoreClient $storeClient,
         private readonly string $heyframeVersion
     ) {
@@ -36,7 +36,7 @@ class StoreHandshake implements AppHandshakeInterface
         $uri = new Uri($this->appEndpoint);
 
         $uri = Uri::withQueryValues($uri, [
-            'shop-id' => $this->shopId,
+            'shop-id' => $this->instanceId,
             'shop-url' => $this->shopUrl,
             'timestamp' => (string) $date->getTimestamp(),
         ]);
@@ -55,7 +55,7 @@ class StoreHandshake implements AppHandshakeInterface
 
     public function fetchAppProof(): string
     {
-        $proof = $this->shopId . $this->shopUrl . $this->appName;
+        $proof = $this->instanceId . $this->shopUrl . $this->appName;
 
         return $this->storeClient->signPayloadWithAppSecret($proof, $this->appName);
     }

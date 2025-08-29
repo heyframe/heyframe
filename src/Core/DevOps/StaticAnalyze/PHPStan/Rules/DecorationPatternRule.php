@@ -5,7 +5,7 @@ namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 use HeyFrame\Core\Framework\App\Lifecycle\AbstractAppLifecycle;
 use HeyFrame\Core\Framework\App\Lifecycle\RefreshableAppDryRun;
 use HeyFrame\Core\Framework\App\Lifecycle\Update\AbstractAppUpdater;
-use HeyFrame\Core\Framework\App\ShopIdChangeResolver\AbstractShopIdChangeStrategy;
+use HeyFrame\Core\Framework\App\InstanceIdChangeResolver\AbstractInstanceIdChangeStrategy;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Services\AbstractExtensionDataProvider;
 use HeyFrame\Core\Framework\Store\Services\AbstractExtensionLifecycle;
@@ -42,7 +42,7 @@ class DecorationPatternRule implements Rule
         RefreshableAppDryRun::class,
         RefreshableAppDryRun::class,
         AbstractAppLifecycle::class,
-        AbstractShopIdChangeStrategy::class,
+        AbstractInstanceIdChangeStrategy::class,
     ];
 
     public function getNodeType(): string

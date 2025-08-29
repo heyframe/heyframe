@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopIdChangeResolver;
+namespace HeyFrame\Core\Framework\App\InstanceIdChangeResolver;
 
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\Event\AppDeactivatedEvent;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -15,11 +15,11 @@ use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
  * @internal
  *
  * Resolver used when apps should be uninstalled
- * and the shopId should be regenerated, meaning the old shops and old apps work like before
+ * and the instanceId should be regenerated, meaning the old shops and old apps work like before
  * apps in the current installation will be uninstalled without informing them about that (as they still run on the old installation)
  */
 #[Package('framework')]
-class UninstallAppsStrategy extends AbstractShopIdChangeStrategy
+class UninstallAppsStrategy extends AbstractInstanceIdChangeStrategy
 {
     final public const STRATEGY_NAME = 'uninstall-apps';
 
@@ -28,11 +28,11 @@ class UninstallAppsStrategy extends AbstractShopIdChangeStrategy
      */
     public function __construct(
         private readonly EntityRepository $appRepository,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
     ) {
     }
 
-    public function getDecorated(): AbstractShopIdChangeStrategy
+    public function getDecorated(): AbstractInstanceIdChangeStrategy
     {
         throw new DecorationPatternException(self::class);
     }
@@ -49,7 +49,7 @@ class UninstallAppsStrategy extends AbstractShopIdChangeStrategy
 
     public function resolve(Context $context): void
     {
-        $this->shopIdProvider->deleteShopId();
+        $this->instanceIdProvider->deleteInstanceId();
 
         foreach ($this->appRepository->search(new Criteria(), $context)->getEntities() as $app) {
             $this->appRepository->delete([['id' => $app->getId()]], $context);

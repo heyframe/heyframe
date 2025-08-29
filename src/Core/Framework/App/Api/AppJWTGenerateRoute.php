@@ -4,7 +4,7 @@ namespace HeyFrame\Core\Framework\App\Api;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Store\InAppPurchase;
@@ -25,7 +25,7 @@ class AppJWTGenerateRoute
 {
     public function __construct(
         private readonly Connection $connection,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly InAppPurchase $inAppPurchase,
     ) {
     }
@@ -48,11 +48,11 @@ class AppJWTGenerateRoute
 
         $expiration = new \DateTimeImmutable('+10 minutes');
 
-        /** @var non-empty-string $shopId */
-        $shopId = $this->shopIdProvider->getShopId();
+        /** @var non-empty-string $instanceId */
+        $instanceId = $this->instanceIdProvider->getInstanceId();
         $builder = $configuration
             ->builder()
-            ->issuedBy($shopId)
+            ->issuedBy($instanceId)
             ->issuedAt(new \DateTimeImmutable())
             ->canOnlyBeUsedAfter(new \DateTimeImmutable())
             ->expiresAt($expiration);
@@ -86,7 +86,7 @@ class AppJWTGenerateRoute
         return new JsonResponse([
             'token' => $builder->getToken($configuration->signer(), $configuration->signingKey())->toString(),
             'expires' => $expiration->format(\DateTime::ATOM),
-            'shopId' => $shopId,
+            'instanceId' => $instanceId,
         ]);
     }
 

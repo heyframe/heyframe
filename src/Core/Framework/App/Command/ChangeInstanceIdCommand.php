@@ -3,7 +3,7 @@
 namespace HeyFrame\Core\Framework\App\Command;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
-use HeyFrame\Core\Framework\App\ShopIdChangeResolver\Resolver;
+use HeyFrame\Core\Framework\App\InstanceIdChangeResolver\Resolver;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
@@ -23,9 +23,9 @@ use Symfony\Component\Console\Output\OutputInterface;
     aliases: ['app:url-change:resolve'],
 )]
 #[Package('framework')]
-class ChangeShopIdCommand extends Command
+class ChangeInstanceIdCommand extends Command
 {
-    public function __construct(private readonly Resolver $shopIdChangeResolver)
+    public function __construct(private readonly Resolver $instanceIdChangeResolver)
     {
         parent::__construct();
     }
@@ -48,7 +48,7 @@ class ChangeShopIdCommand extends Command
             $io->warning($deprecationMessage);
         }
 
-        $availableStrategies = $this->shopIdChangeResolver->getAvailableStrategies();
+        $availableStrategies = $this->instanceIdChangeResolver->getAvailableStrategies();
         $strategy = $input->getArgument('strategy');
 
         if ($strategy === null || !\array_key_exists($strategy, $availableStrategies)) {
@@ -62,7 +62,7 @@ class ChangeShopIdCommand extends Command
             );
         }
 
-        $this->shopIdChangeResolver->resolve($strategy, Context::createCLIContext());
+        $this->instanceIdChangeResolver->resolve($strategy, Context::createCLIContext());
 
         $io->success('Strategy "' . $strategy . '" was applied successfully');
 

@@ -5,9 +5,9 @@ namespace HeyFrame\Core\Framework\App\Payload;
 use HeyFrame\Core\Framework\Api\Serializer\JsonEntityEncoder;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
@@ -28,20 +28,20 @@ class AppPayloadServiceHelper
     public function __construct(
         private readonly DefinitionInstanceRegistry $definitionRegistry,
         private readonly JsonEntityEncoder $entityEncoder,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly InAppPurchase $inAppPurchase,
         private readonly string $shopUrl,
     ) {
     }
 
     /**
-     * @throws ShopIdChangeSuggestedException
+     * @throws InstanceIdChangeSuggestedException
      */
     public function buildSource(string $appVersion, string $appName): Source
     {
         return new Source(
             $this->shopUrl,
-            $this->shopIdProvider->getShopId(),
+            $this->instanceIdProvider->getInstanceId(),
             $appVersion,
             $this->inAppPurchase->getJWTByExtension($appName),
         );

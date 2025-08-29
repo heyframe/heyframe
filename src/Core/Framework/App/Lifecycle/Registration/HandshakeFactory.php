@@ -3,9 +3,9 @@
 namespace HeyFrame\Core\Framework\App\Lifecycle\Registration;
 
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Manifest\Manifest;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Services\StoreClient;
 
@@ -19,7 +19,7 @@ class HandshakeFactory
 {
     public function __construct(
         private readonly string $shopUrl,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly StoreClient $storeClient,
         private readonly string $heyframeVersion
     ) {
@@ -41,8 +41,8 @@ class HandshakeFactory
         $privateSecret = $setup->getSecret();
 
         try {
-            $shopId = $this->shopIdProvider->getShopId();
-        } catch (ShopIdChangeSuggestedException $e) {
+            $instanceId = $this->instanceIdProvider->getInstanceId();
+        } catch (InstanceIdChangeSuggestedException $e) {
             throw AppException::registrationFailed(
                 $appName,
                 $e->getMessage(),
@@ -55,7 +55,7 @@ class HandshakeFactory
                 $privateSecret,
                 $setup->getRegistrationUrl(),
                 $metadata->getName(),
-                $shopId,
+                $instanceId,
                 $this->heyframeVersion
             );
         }
@@ -64,7 +64,7 @@ class HandshakeFactory
             $this->shopUrl,
             $setup->getRegistrationUrl(),
             $metadata->getName(),
-            $shopId,
+            $instanceId,
             $this->storeClient,
             $this->heyframeVersion
         );

@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopIdChangeResolver;
+namespace HeyFrame\Core\Framework\App\InstanceIdChangeResolver;
 
 use HeyFrame\Core\Framework\App\AppEntity;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Lifecycle\Registration\AppRegistrationService;
 use HeyFrame\Core\Framework\App\Manifest\Manifest;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\App\Source\SourceResolver;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -17,14 +17,14 @@ use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
  * @internal
  *
  * Resolver used when shop is moved from one URL to another
- * and the shopId (and the data in the app backends associated with it) should be kept
+ * and the instanceId (and the data in the app backends associated with it) should be kept
  *
  * Will run through the registration process for all apps again
  * with the new appUrl so the apps can save the new URL and generate new Secrets
  * that way communication from the old shop to the app backend will be blocked in the future
  */
 #[Package('framework')]
-class MoveShopPermanentlyStrategy extends AbstractShopIdChangeStrategy
+class MoveShopPermanentlyStrategy extends AbstractInstanceIdChangeStrategy
 {
     final public const STRATEGY_NAME = 'move-shop-permanently';
 
@@ -32,12 +32,12 @@ class MoveShopPermanentlyStrategy extends AbstractShopIdChangeStrategy
         SourceResolver $sourceResolver,
         EntityRepository $appRepository,
         AppRegistrationService $registrationService,
-        private readonly ShopIdProvider $shopIdProvider
+        private readonly InstanceIdProvider $instanceIdProvider
     ) {
         parent::__construct($sourceResolver, $appRepository, $registrationService);
     }
 
-    public function getDecorated(): AbstractShopIdChangeStrategy
+    public function getDecorated(): AbstractInstanceIdChangeStrategy
     {
         throw new DecorationPatternException(self::class);
     }
@@ -55,12 +55,12 @@ class MoveShopPermanentlyStrategy extends AbstractShopIdChangeStrategy
     public function resolve(Context $context): void
     {
         try {
-            $this->shopIdProvider->getShopId();
+            $this->instanceIdProvider->getInstanceId();
 
             // no resolution needed
             return;
-        } catch (ShopIdChangeSuggestedException $e) {
-            $this->shopIdProvider->regenerateAndSetShopId($e->shopId->id);
+        } catch (InstanceIdChangeSuggestedException $e) {
+            $this->instanceIdProvider->regenerateAndSetInstanceId($e->instanceId->id);
         }
 
         $this->forEachInstalledApp($context, function (Manifest $manifest, AppEntity $app, Context $context): void {

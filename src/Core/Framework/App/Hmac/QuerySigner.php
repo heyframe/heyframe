@@ -6,7 +6,7 @@ use GuzzleHttp\Psr7\Uri;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Authentication\LocaleProvider;
@@ -23,7 +23,7 @@ class QuerySigner
         private readonly string $shopUrl,
         private readonly string $heyframeVersion,
         private readonly LocaleProvider $localeProvider,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly InAppPurchase $inAppPurchase,
     ) {
     }
@@ -36,7 +36,7 @@ class QuerySigner
         }
 
         $unsignedUri = Uri::withQueryValues(new Uri($uri), [
-            'shop-id' => $this->shopIdProvider->getShopId(),
+            'shop-id' => $this->instanceIdProvider->getInstanceId(),
             'shop-url' => $this->shopUrl,
             'timestamp' => (string) (new \DateTime())->getTimestamp(),
             'sw-version' => $this->heyframeVersion,

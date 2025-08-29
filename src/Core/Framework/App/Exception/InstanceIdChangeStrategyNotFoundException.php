@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @internal
  */
 #[Package('framework')]
-class ShopIdChangeStrategyNotFoundException extends AppException
+class InstanceIdChangeStrategyNotFoundException extends AppException
 {
     public function __construct(string $strategyName)
     {

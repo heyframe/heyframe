@@ -3,8 +3,8 @@
 namespace HeyFrame\Core\Framework\App\Exception;
 
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\App\ShopId\FingerprintComparisonResult;
-use HeyFrame\Core\Framework\App\ShopId\ShopId;
+use HeyFrame\Core\Framework\App\InstanceId\FingerprintComparisonResult;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceId;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
  * @internal
  */
 #[Package('framework')]
-class ShopIdChangeSuggestedException extends AppException
+class InstanceIdChangeSuggestedException extends AppException
 {
     public function __construct(
-        public readonly ShopId $shopId,
+        public readonly InstanceId $instanceId,
         public readonly FingerprintComparisonResult $comparisonResult,
     ) {
         parent::__construct(

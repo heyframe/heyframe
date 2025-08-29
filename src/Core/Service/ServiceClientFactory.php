@@ -5,7 +5,7 @@ namespace HeyFrame\Core\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use HeyFrame\Core\Framework\App\AppEntity;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
 use HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper;
 use HeyFrame\Core\Framework\Context;
@@ -43,7 +43,7 @@ class ServiceClientFactory
     }
 
     /**
-     * @throws ShopIdChangeSuggestedException
+     * @throws InstanceIdChangeSuggestedException
      */
     public function newAuthenticatedFor(ServiceEntry $entry, AppEntity $app, Context $context): AuthenticatedServiceClient
     {

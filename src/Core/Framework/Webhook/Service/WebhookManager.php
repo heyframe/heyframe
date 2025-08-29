@@ -12,7 +12,7 @@ use HeyFrame\Core\Framework\App\Event\AppChangedEvent;
 use HeyFrame\Core\Framework\App\Event\AppDeletedEvent;
 use HeyFrame\Core\Framework\App\Event\AppFlowActionEvent;
 use HeyFrame\Core\Framework\App\Event\AppPermissionsUpdated;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
 use HeyFrame\Core\Framework\App\Hmac\RequestSigner;
 use HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper;
@@ -142,7 +142,7 @@ class WebhookManager implements ResetInterface
 
             try {
                 $webhookData = $this->getPayloadForWebhook($webhook, $event);
-            } catch (ShopIdChangeSuggestedException) {
+            } catch (InstanceIdChangeSuggestedException) {
                 // don't dispatch webhooks for apps if url changed
                 continue;
             }
@@ -201,7 +201,7 @@ class WebhookManager implements ResetInterface
 
             try {
                 $webhookData = $this->getPayloadForWebhook($webhook, $event);
-            } catch (ShopIdChangeSuggestedException) {
+            } catch (InstanceIdChangeSuggestedException) {
                 // don't dispatch webhooks for apps if url changed
                 continue;
             }

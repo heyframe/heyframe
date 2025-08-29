@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopIdChangeResolver;
+namespace HeyFrame\Core\Framework\App\InstanceIdChangeResolver;
 
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\Event\AppInstalledEvent;
 use HeyFrame\Core\Framework\App\Lifecycle\Registration\AppRegistrationService;
 use HeyFrame\Core\Framework\App\Manifest\Manifest;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\App\Source\SourceResolver;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -18,14 +18,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * @internal
  *
  * Resolver used when apps should be reinstalled
- * and the shopId should be regenerated, meaning the old shops and old apps work like before
+ * and the instanceId should be regenerated, meaning the old shops and old apps work like before
  * apps in the current installation may lose historical data
  *
  * Will run through the registration process for all apps again
- * with the new appUrl and new shopId and throw installed events for every app
+ * with the new appUrl and new instanceId and throw installed events for every app
  */
 #[Package('framework')]
-class ReinstallAppsStrategy extends AbstractShopIdChangeStrategy
+class ReinstallAppsStrategy extends AbstractInstanceIdChangeStrategy
 {
     final public const STRATEGY_NAME = 'reinstall-apps';
 
@@ -33,13 +33,13 @@ class ReinstallAppsStrategy extends AbstractShopIdChangeStrategy
         SourceResolver $sourceResolver,
         EntityRepository $appRepository,
         AppRegistrationService $registrationService,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($sourceResolver, $appRepository, $registrationService);
     }
 
-    public function getDecorated(): AbstractShopIdChangeStrategy
+    public function getDecorated(): AbstractInstanceIdChangeStrategy
     {
         throw new DecorationPatternException(self::class);
     }
@@ -56,7 +56,7 @@ class ReinstallAppsStrategy extends AbstractShopIdChangeStrategy
 
     public function resolve(Context $context): void
     {
-        $this->shopIdProvider->deleteShopId();
+        $this->instanceIdProvider->deleteInstanceId();
 
         $this->forEachInstalledApp($context, function (Manifest $manifest, AppEntity $app, Context $context): void {
             $this->reRegisterApp($manifest, $app, $context);

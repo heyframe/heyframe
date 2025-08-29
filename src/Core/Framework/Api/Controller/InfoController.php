@@ -11,8 +11,8 @@ use HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi3Generator;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Api\Route\ApiRouteInfoResolver;
 use HeyFrame\Core\Framework\Api\Route\RouteInfo;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\BusinessEventCollector;
@@ -60,7 +60,7 @@ class InfoController extends AbstractController
         private readonly InAppPurchase $inAppPurchase,
         private readonly ?ViteFileAccessorDecorator $viteFileAccessorDecorator,
         private readonly Filesystem $filesystem,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly StatsService $messageStatsService,
     ) {
     }
@@ -176,7 +176,7 @@ class InfoController extends AbstractController
     {
         return new JsonResponse([
             'version' => $this->getHeyFrameVersion(),
-            'shopId' => $this->getShopId(),
+            'instanceId' => $this->getInstanceId(),
             'versionRevision' => $this->params->get('kernel.heyframe_version_revision'),
             'adminWorker' => [
                 'enableAdminWorker' => $this->params->get('heyframe.admin_worker.enable_admin_worker'),
@@ -375,12 +375,12 @@ WHERE app.active = 1 AND app.base_app_url is not null');
         return str_replace('_', '-', $bundle->getContainerPrefix());
     }
 
-    private function getShopId(): string
+    private function getInstanceId(): string
     {
         try {
-            return $this->shopIdProvider->getShopId();
-        } catch (ShopIdChangeSuggestedException $e) {
-            return $e->shopId->id;
+            return $this->instanceIdProvider->getInstanceId();
+        } catch (InstanceIdChangeSuggestedException $e) {
+            return $e->instanceId->id;
         }
     }
 }

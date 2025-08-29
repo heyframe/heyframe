@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopId;
+namespace HeyFrame\Core\Framework\App\InstanceId;
 
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\App\ShopId\Fingerprint\AppUrl;
+use HeyFrame\Core\Framework\App\InstanceId\Fingerprint\AppUrl;
 use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal
  *
- * @phpstan-type ShopIdV1Config array{value: string, app_url: string}
- * @phpstan-type ShopIdV2Config array{id: string, version: 2, fingerprints: array<string, string>}
+ * @phpstan-type InstanceIdV1Config array{value: string, app_url: string}
+ * @phpstan-type InstanceIdV2Config array{id: string, version: 2, fingerprints: array<string, string>}
  */
 #[Package('framework')]
-readonly class ShopId
+readonly class InstanceId
 {
     /**
      * @param array<string, string> $fingerprints
@@ -56,7 +56,7 @@ readonly class ShopId
             return self::v2($config['id'], $config['fingerprints']);
         }
 
-        throw AppException::invalidShopIdConfiguration();
+        throw AppException::invalidInstanceIdConfiguration();
     }
 
     /**

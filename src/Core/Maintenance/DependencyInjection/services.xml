@@ -140,7 +140,7 @@
 
         <service id="HeyFrame\Core\Maintenance\Staging\Handler\StagingAppHandler">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\ShopId\ShopIdProvider"/>
+            <argument type="service" id="HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider"/>
 
             <tag name="kernel.event_listener"/>
         </service>

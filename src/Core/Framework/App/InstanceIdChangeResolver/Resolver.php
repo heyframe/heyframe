@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\App\ShopIdChangeResolver;
+namespace HeyFrame\Core\Framework\App\InstanceIdChangeResolver;
 
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\Context;
@@ -13,7 +13,7 @@ use HeyFrame\Core\Framework\Log\Package;
 readonly class Resolver
 {
     /**
-     * @param AbstractShopIdChangeStrategy[] $strategies
+     * @param AbstractInstanceIdChangeStrategy[] $strategies
      */
     public function __construct(
         private iterable $strategies
@@ -30,7 +30,7 @@ readonly class Resolver
             }
         }
 
-        throw AppException::shopIdChangeResolveStrategyNotFound($strategyName);
+        throw AppException::instanceIdChangeResolveStrategyNotFound($strategyName);
     }
 
     /**

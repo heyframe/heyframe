@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\Service\ServiceRegistry;
 
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Service\Message\LogPermissionToRegistryMessage;
 use HeyFrame\Core\Service\Permission\ConsentState;
@@ -22,7 +22,7 @@ class PermissionLogger implements RemoteLogger
     public function __construct(
         private readonly Client $client,
         private readonly MessageBusInterface $messageBus,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly SystemConfigService $systemConfigService,
     ) {
     }
@@ -39,7 +39,7 @@ class PermissionLogger implements RemoteLogger
                 new SaveConsentRequest(
                     identifier: $consent->identifier,
                     consentingUserId: $consent->consentingUserId,
-                    shopIdentifier: $this->shopIdProvider->getShopId(),
+                    instanceIdentifier: $this->instanceIdProvider->getInstanceId(),
                     consentDate: $consent->grantedAt->format(\DateTime::ATOM),
                     consentRevision: $consent->revision,
                     licenseHost: $this->systemConfigService->getString(self::CONFIG_STORE_LICENSE_HOST),

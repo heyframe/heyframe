@@ -4,9 +4,9 @@ namespace HeyFrame\Core\Framework\App\Manifest;
 
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppEntity;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\QuerySigner;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -30,7 +30,7 @@ class ModuleLoader
      */
     public function __construct(
         private readonly EntityRepository $appRepository,
-        private readonly ShopIdProvider $shopIdProvider,
+        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly QuerySigner $querySigner
     ) {
     }
@@ -63,8 +63,8 @@ class ModuleLoader
     private function formatPayload(AppCollection $apps, Context $context): array
     {
         try {
-            $this->shopIdProvider->getShopId();
-        } catch (ShopIdChangeSuggestedException) {
+            $this->instanceIdProvider->getInstanceId();
+        } catch (InstanceIdChangeSuggestedException) {
             return [];
         }
 

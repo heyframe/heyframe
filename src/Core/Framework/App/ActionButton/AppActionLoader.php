@@ -5,7 +5,7 @@ namespace HeyFrame\Core\Framework\App\ActionButton;
 use HeyFrame\Core\Framework\App\Aggregate\ActionButton\ActionButtonCollection;
 use HeyFrame\Core\Framework\App\Aggregate\ActionButton\ActionButtonEntity;
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -47,7 +47,7 @@ class AppActionLoader
 
         try {
             $source = $this->appPayloadServiceHelper->buildSource($app->getVersion(), $app->getName());
-        } catch (ShopIdChangeSuggestedException) {
+        } catch (InstanceIdChangeSuggestedException) {
             throw AppException::actionNotFound();
         }
 

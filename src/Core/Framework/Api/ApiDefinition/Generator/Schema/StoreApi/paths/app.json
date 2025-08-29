@@ -46,7 +46,7 @@
                                             "type": "string",
                                             "format": "date-time"
                                         },
-                                        "shopId": {
+                                        "instanceId": {
                                             "type": "string"
                                         }
                                     }

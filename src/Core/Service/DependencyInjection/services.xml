@@ -174,7 +174,7 @@
         <service id="HeyFrame\Core\Service\ServiceRegistry\PermissionLogger">
             <argument type="service" id="HeyFrame\Core\Service\ServiceRegistry\Client"/>
             <argument type="service" id="messenger.bus.default"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\ShopId\ShopIdProvider"/>
+            <argument type="service" id="HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider"/>
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
 
         </service>

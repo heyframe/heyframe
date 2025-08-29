@@ -3,10 +3,10 @@
 namespace HeyFrame\Core\Framework\App\Command;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
-use HeyFrame\Core\Framework\App\ShopId\FingerprintComparisonResult;
-use HeyFrame\Core\Framework\App\ShopId\FingerprintGenerator;
-use HeyFrame\Core\Framework\App\ShopId\ShopId;
-use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
+use HeyFrame\Core\Framework\App\InstanceId\FingerprintComparisonResult;
+use HeyFrame\Core\Framework\App\InstanceId\FingerprintGenerator;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceId;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
     description: 'Check if a shop ID change is suggested',
 )]
 #[Package('framework')]
-class CheckShopIdCommand extends Command
+class CheckInstanceIdCommand extends Command
 {
     public function __construct(
         private readonly SystemConfigService $systemConfigService,
@@ -39,32 +39,32 @@ class CheckShopIdCommand extends Command
     {
         $io = new HeyFrameStyle($input, $output);
 
-        $shopIdConfig = $this->systemConfigService->get(ShopIdProvider::SHOP_ID_SYSTEM_CONFIG_KEY_V2)
-            ?? $this->systemConfigService->get(ShopIdProvider::SHOP_ID_SYSTEM_CONFIG_KEY);
+        $instanceIdConfig = $this->systemConfigService->get(InstanceIdProvider::SHOP_ID_SYSTEM_CONFIG_KEY_V2)
+            ?? $this->systemConfigService->get(InstanceIdProvider::SHOP_ID_SYSTEM_CONFIG_KEY);
 
-        if (!\is_array($shopIdConfig)) {
+        if (!\is_array($instanceIdConfig)) {
             $io->success('No shop ID has been generated yet.');
 
             return self::SUCCESS;
         }
 
-        $shopId = ShopId::fromSystemConfig($shopIdConfig);
-        $result = $this->fingerprintGenerator->matchFingerprints($shopId->fingerprints);
+        $instanceId = InstanceId::fromSystemConfig($instanceIdConfig);
+        $result = $this->fingerprintGenerator->matchFingerprints($instanceId->fingerprints);
 
-        $this->renderShopIdTable($io, $shopId);
+        $this->renderInstanceIdTable($io, $instanceId);
         $this->renderFingerprintsTable($io, $result);
         $this->renderResult($io, $result);
 
         return $result->isMatching() ? self::SUCCESS : self::FAILURE;
     }
 
-    private function renderShopIdTable(HeyFrameStyle $io, ShopId $shopId): void
+    private function renderInstanceIdTable(HeyFrameStyle $io, InstanceId $instanceId): void
     {
-        $shopIdTable = new Table($io);
-        $shopIdTable->setVertical();
-        $shopIdTable->setHeaders(['Shop ID', 'Version']);
-        $shopIdTable->addRow([$shopId->id, $shopId->version]);
-        $shopIdTable->render();
+        $instanceIdTable = new Table($io);
+        $instanceIdTable->setVertical();
+        $instanceIdTable->setHeaders(['Shop ID', 'Version']);
+        $instanceIdTable->addRow([$instanceId->id, $instanceId->version]);
+        $instanceIdTable->render();
 
         $io->writeln('');
     }
