@@ -32,11 +32,11 @@ class AccessKeyController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/api/_action/access-key/sales-channel', name: 'api.action.access-key.sales-channel', methods: ['GET'])]
+    #[Route(path: '/api/_action/access-key/channel', name: 'api.action.access-key.channel', methods: ['GET'])]
     public function generateChannelKey(): JsonResponse
     {
         return new JsonResponse([
-            'accessKey' => AccessKeyHelper::generateAccessKey('sales-channel'),
+            'accessKey' => AccessKeyHelper::generateAccessKey('channel'),
         ]);
     }
 

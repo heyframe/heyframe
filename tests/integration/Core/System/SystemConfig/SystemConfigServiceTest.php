@@ -214,7 +214,7 @@ class SystemConfigServiceTest extends TestCase
         static::assertSame(0.0, $actual);
     }
 
-    public function testSetGetSalesChannel(): void
+    public function testSetGetChannel(): void
     {
         $this->systemConfigService->set('foo.bar', 'test');
         $actual = $this->systemConfigService->get('foo.bar', TestDefaults::CHANNEL);
@@ -229,7 +229,7 @@ class SystemConfigServiceTest extends TestCase
         static::assertSame('', $actual);
     }
 
-    public function testSetGetSalesChannelBool(): void
+    public function testSetGetChannelBool(): void
     {
         $this->systemConfigService->set('foo.bar', false);
         $actual = $this->systemConfigService->get('foo.bar', TestDefaults::CHANNEL);
@@ -302,13 +302,13 @@ class SystemConfigServiceTest extends TestCase
         $this->systemConfigService->set('foo.bar', true);
         $actual = $this->systemConfigService->getDomain('foo', TestDefaults::CHANNEL, true);
 
-        // assert that the service reads the default value, when no sales-channel-specific value is configured
+        // assert that the service reads the default value, when no channel-specific value is configured
         static::assertSame(['foo.bar' => true], $actual);
 
         $this->systemConfigService->set('foo.bar', false, TestDefaults::CHANNEL);
         $actual = $this->systemConfigService->getDomain('foo', TestDefaults::CHANNEL, true);
 
-        // assert that the service reads the sales-channel-specific value when one is configured
+        // assert that the service reads the channel-specific value when one is configured
         static::assertSame(['foo.bar' => false], $actual);
     }
 
@@ -360,7 +360,7 @@ class SystemConfigServiceTest extends TestCase
         $this->systemConfigService->set('          ', 'throws error');
     }
 
-    public function testSetInvalidSalesChannelThrows(): void
+    public function testSetInvalidChannelThrows(): void
     {
         $this->expectException(InvalidUuidException::class);
         $this->systemConfigService->set('foo.bar', 'test', 'invalid uuid');
@@ -386,7 +386,7 @@ class SystemConfigServiceTest extends TestCase
         static::assertTrue($called);
     }
 
-    public function testDeleteExtensionConfigurationDeletesAcrossAllSalesChannels(): void
+    public function testDeleteExtensionConfigurationDeletesAcrossAllChannels(): void
     {
         $extensionName = 'SwagTest';
         $configKey1 = $extensionName . '.config.testSetting1';

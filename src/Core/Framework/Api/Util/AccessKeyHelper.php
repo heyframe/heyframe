@@ -20,7 +20,7 @@ class AccessKeyHelper
     public static array $mapping = [
         self::USER_IDENTIFIER => 'user',
         self::INTEGRATION_IDENTIFIER => 'integration',
-        self::CHANNEL_IDENTIFIER => 'sales-channel',
+        self::CHANNEL_IDENTIFIER => 'channel',
         self::PRODUCT_EXPORT_IDENTIFIER => 'product-export',
     ];
 

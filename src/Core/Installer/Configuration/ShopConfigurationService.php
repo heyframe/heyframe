@@ -89,7 +89,7 @@ class ShopConfigurationService
             [
                 $newId,
                 $typeId,
-                AccessKeyHelper::generateAccessKey('sales-channel'),
+                AccessKeyHelper::generateAccessKey('channel'),
                 $this->getRootCategoryId($connection), Defaults::LIVE_VERSION,
                 $languageId,
                 $currencyId,

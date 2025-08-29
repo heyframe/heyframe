@@ -73,7 +73,7 @@ class ChannelContextService implements ChannelContextServiceInterface
 
     public function get(ChannelContextServiceParameters $parameters): ChannelContext
     {
-        return Profiler::trace('sales-channel-context', function () use ($parameters) {
+        return Profiler::trace('channel-context', function () use ($parameters) {
             $token = $parameters->getToken();
 
             $session = $this->contextPersister->load($token, $parameters->getChannelId());

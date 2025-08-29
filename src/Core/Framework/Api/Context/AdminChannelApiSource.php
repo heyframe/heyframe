@@ -8,7 +8,7 @@ use HeyFrame\Core\Framework\Log\Package;
 #[Package('framework')]
 class AdminChannelApiSource extends ChannelApiSource
 {
-    public string $type = 'admin-sales-channel-api';
+    public string $type = 'admin-channel-api';
 
     public function __construct(
         string $channelId,

@@ -12,7 +12,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 #[Package('framework')]
 class CachedChannelContextFactory extends AbstractChannelContextFactory
 {
-    final public const ALL_TAG = 'sales-channel-context';
+    final public const ALL_TAG = 'channel-context';
 
     /**
      * @internal

@@ -77,7 +77,7 @@ class ChannelAuthenticationListener implements EventSubscriberInterface
         }
 
         $origin = AccessKeyHelper::getOrigin($accessKey);
-        if ($origin !== 'sales-channel') {
+        if ($origin !== 'channel') {
             throw ApiException::channelNotFound();
         }
 

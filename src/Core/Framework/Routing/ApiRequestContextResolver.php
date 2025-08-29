@@ -169,7 +169,7 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
             return $this->getAdminApiSource($userId, $integrationId);
         }
 
-        if ($keyOrigin === 'sales-channel') {
+        if ($keyOrigin === 'channel') {
             $channelId = $this->getChannelIdByAccessKey($clientId);
 
             return new ChannelApiSource($channelId);

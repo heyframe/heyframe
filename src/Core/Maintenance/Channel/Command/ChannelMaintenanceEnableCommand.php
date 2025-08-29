@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @internal should be used over the CLI only
  */
 #[AsCommand(
-    name: 'sales-channel:maintenance:enable',
+    name: 'channel:maintenance:enable',
     description: 'Enable maintenance mode for a sales channel',
 )]
 #[Package('discovery')]

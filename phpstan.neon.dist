@@ -79,17 +79,17 @@ parameters:
         -
             message: '#.*extends @final class HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Search\\EntitySearchResult\.#'
             paths:
-                - src/Core/Content/Product/SalesChannel/Listing/ProductListingResult.php
-                - src/Core/Content/Product/SalesChannel/Review/ProductReviewResult.php
+                - src/Core/Content/Product/Channel/Listing/ProductListingResult.php
+                - src/Core/Content/Product/Channel/Review/ProductReviewResult.php
         -
             message: '#.*extends @final class HeyFrame\\Core\\Framework\\DataAbstractionLayer\\EntityRepository.#'
             paths:
                 - src/Core/Content/Test/ImportExport/MockRepository.php
                 - src/Core/Test/Stub/DataAbstractionLayer/StaticEntityRepository.php
         -
-            message: '#.*extends @final class HeyFrame\\Core\\System\\SalesChannel\\Entity\\SalesChannelRepository.#'
+            message: '#.*extends @final class HeyFrame\\Core\\System\\Channel\\Entity\\ChannelRepository.#'
             paths:
-                - src/Core/Test/Stub/DataAbstractionLayer/StaticSalesChannelRepository.php
+                - src/Core/Test/Stub/DataAbstractionLayer/StaticChannelRepository.php
 
         # Route scopes for controllers
         -
@@ -181,7 +181,7 @@ parameters:
             paths:
                 - src/Core/Framework/DataAbstractionLayer/Dbal/EntityReader.php
                 - src/Core/Framework/DataAbstractionLayer/EntityRepository.php
-                - src/Core/System/SalesChannel/Entity/SalesChannelRepository.php
+                - src/Core/System/Channel/Entity/ChannelRepository.php
 
         - # It is not possible to specify the type of the EntityResult, as the Aggregators are used for multiple entities at the same time
             message: '#Method HeyFrame\\.*::hydrateEntityAggregation\(\) return type with generic class HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Search\\AggregationResult\\Metric\\EntityResult does not specify its types: TEntityCollection#'

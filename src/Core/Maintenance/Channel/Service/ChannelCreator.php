@@ -84,7 +84,7 @@ class ChannelCreator
             'id' => $id,
             'name' => $name,
             'typeId' => $typeId,
-            'accessKey' => AccessKeyHelper::generateAccessKey('sales-channel'),
+            'accessKey' => AccessKeyHelper::generateAccessKey('channel'),
 
             // default selection
             'languageId' => $languageId,

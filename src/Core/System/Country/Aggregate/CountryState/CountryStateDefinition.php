@@ -66,7 +66,7 @@ class CountryStateDefinition extends EntityDefinition
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),
             new ManyToOneAssociationField('country', 'country_id', CountryDefinition::class, 'id', false),
             (new TranslationsAssociationField(CountryStateTranslationDefinition::class, 'country_state_id'))->addFlags(new Required()),
-            // Reverse Associations, not available in sales-channel-api
+            // Reverse Associations, not available in channel-api
             (new OneToManyAssociationField('customerAddresses', CustomerAddressDefinition::class, 'country_state_id', 'id'))->addFlags(new SetNullOnDelete()),
             (new OneToManyAssociationField('orderAddresses', OrderAddressDefinition::class, 'country_state_id', 'id'))->addFlags(new SetNullOnDelete()),
         ]);

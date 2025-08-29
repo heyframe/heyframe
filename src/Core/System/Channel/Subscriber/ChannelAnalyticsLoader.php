@@ -33,7 +33,7 @@ class ChannelAnalyticsLoader
         }
 
         $criteria = new Criteria([$analyticsId]);
-        $criteria->setTitle('sales-channel::load-analytics');
+        $criteria->setTitle('channel::load-analytics');
 
         $analytics = $this->channelAnalyticsRepository->search($criteria, $channelContext->getContext())->getEntities()->first();
 

@@ -9,7 +9,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
  * @internal should be used over the CLI only
  */
 #[AsCommand(
-    name: 'sales-channel:maintenance:disable',
+    name: 'channel:maintenance:disable',
     description: 'Disable maintenance mode for a sales channel',
 )]
 #[Package('discovery')]

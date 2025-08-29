@@ -24,7 +24,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @internal should be used over the CLI only
  */
 #[AsCommand(
-    name: 'sales-channel:list',
+    name: 'channel:list',
     description: 'Lists all sales channels',
 )]
 #[Package('discovery')]

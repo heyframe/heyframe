@@ -22,7 +22,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 use HeyFrame\Core\Framework\Uuid\Uuid;
-use HeyFrame\Core\System\SalesChannel\SalesChannelCollection;
+use HeyFrame\Core\System\Channel\ChannelCollection;
 
 #[Package('fundamentals@after-sales')]
 class ProductSerializer extends EntitySerializer
@@ -37,13 +37,13 @@ class ProductSerializer extends EntitySerializer
      * @internal
      *
      * @param EntityRepository<ProductVisibilityCollection> $visibilityRepository
-     * @param EntityRepository<SalesChannelCollection> $salesChannelRepository
+     * @param EntityRepository<ChannelCollection> $channelRepository
      * @param EntityRepository<ProductMediaCollection> $productMediaRepository
      * @param EntityRepository<ProductConfiguratorSettingCollection> $productConfiguratorSettingRepository
      */
     public function __construct(
         private readonly EntityRepository $visibilityRepository,
-        private readonly EntityRepository $salesChannelRepository,
+        private readonly EntityRepository $channelRepository,
         private readonly EntityRepository $productMediaRepository,
         private readonly EntityRepository $productConfiguratorSettingRepository
     ) {
@@ -76,7 +76,7 @@ class ProductSerializer extends EntitySerializer
                 ? $visibility->jsonSerialize()
                 : $visibility;
             $groups[$visibility['visibility']] ??= [];
-            $groups[$visibility['visibility']][] = $visibility['salesChannelId'];
+            $groups[$visibility['visibility']][] = $visibility['channelId'];
         }
 
         $result = [];
@@ -115,11 +115,11 @@ class ProductSerializer extends EntitySerializer
 
             $ids = array_filter(explode('|', (string) $entity['visibilities'][$key]));
 
-            $ids = $this->convertSalesChannelNamesToIds($ids, $context);
+            $ids = $this->convertChannelNamesToIds($ids, $context);
 
-            foreach ($ids as $salesChannelId) {
+            foreach ($ids as $channelId) {
                 $visibility = [
-                    'salesChannelId' => $salesChannelId,
+                    'channelId' => $channelId,
                     'visibility' => $type,
                 ];
                 if ($productId) {
@@ -168,7 +168,7 @@ class ProductSerializer extends EntitySerializer
 
             $criteria = new Criteria();
             $criteria->addFilter(new EqualsFilter('productId', $visibility['productId']));
-            $criteria->addFilter(new EqualsFilter('salesChannelId', $visibility['salesChannelId']));
+            $criteria->addFilter(new EqualsFilter('channelId', $visibility['channelId']));
 
             $id = $this->visibilityRepository->searchIds($criteria, $context)->firstId();
 
@@ -187,33 +187,33 @@ class ProductSerializer extends EntitySerializer
      *
      * @return array<string>
      */
-    private function convertSalesChannelNamesToIds(array $ids, Context $context): array
+    private function convertChannelNamesToIds(array $ids, Context $context): array
     {
-        $salesChannelNames = [];
+        $channelNames = [];
 
         foreach ($ids as $key => $id) {
             if (!Uuid::isValid($id)) {
-                $salesChannelNames[] = $id;
+                $channelNames[] = $id;
                 unset($ids[$key]);
             }
         }
 
-        if (empty($salesChannelNames)) {
+        if (empty($channelNames)) {
             return $ids;
         }
 
-        $salesChannelNames = array_unique($salesChannelNames);
+        $channelNames = array_unique($channelNames);
         $filters = [];
 
-        foreach ($salesChannelNames as $salesChannelName) {
-            $filters[] = new EqualsFilter('name', $salesChannelName);
+        foreach ($channelNames as $channelName) {
+            $filters[] = new EqualsFilter('name', $channelName);
         }
 
         $criteria = new Criteria();
         $criteria->addFilter(new MultiFilter(MultiFilter::CONNECTION_OR, $filters));
 
         /** @var list<string> $additionalIds */
-        $additionalIds = $this->salesChannelRepository->searchIds(
+        $additionalIds = $this->channelRepository->searchIds(
             $criteria,
             $context
         )->getIds();

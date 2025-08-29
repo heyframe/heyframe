@@ -27,7 +27,7 @@ class HttpCacheKeyGenerator
      * - `/en`
      * - {empty} - the virtual path is optional
      */
-    private const CHANNEL_BASE_URL = 'sw-sales-channel-base-url';
+    private const CHANNEL_BASE_URL = 'sw-channel-base-url';
 
     /**
      * @param string[] $ignoredParameters

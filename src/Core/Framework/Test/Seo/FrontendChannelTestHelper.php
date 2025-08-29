@@ -44,7 +44,7 @@ trait FrontendChannelTestHelper
 
         $header = 'HTTP_' . str_replace('-', '_', mb_strtoupper(PlatformRequest::HEADER_ACCESS_KEY));
         $browser->setServerParameter($header, $channel->getAccessKey());
-        $browser->setServerParameter('test-sales-channel-id', $channel->getId());
+        $browser->setServerParameter('test-channel-id', $channel->getId());
 
         $customerId = Uuid::randomHex();
         $this->createCustomerWithEmail($customerId, 'foo@foo.de', 'bar12345', $channel);

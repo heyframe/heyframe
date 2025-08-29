@@ -39,7 +39,7 @@ final class ProductPriceCalculationExtension extends Extension
         /**
          * @public
          *
-         * @description Allows you to access to the current customer/sales-channel context
+         * @description Allows you to access to the current customer/channel context
          */
         public readonly ChannelContext $context
     ) {

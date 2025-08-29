@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @internal should be used over the CLI only
  */
 #[AsCommand(
-    name: 'sales-channel:create',
+    name: 'channel:create',
     description: 'Creates a new sales channel',
 )]
 #[Package('discovery')]

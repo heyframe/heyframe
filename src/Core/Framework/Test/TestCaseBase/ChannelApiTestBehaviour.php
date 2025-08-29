@@ -185,7 +185,7 @@ trait ChannelApiTestBehaviour
             'id' => $channelOverride['id'] ?? Uuid::randomHex(),
             'typeId' => Defaults::CHANNEL_TYPE_STOREFRONT,
             'name' => 'API Test case sales channel',
-            'accessKey' => AccessKeyHelper::generateAccessKey('sales-channel'),
+            'accessKey' => AccessKeyHelper::generateAccessKey('channel'),
             'languageId' => Defaults::LANGUAGE_SYSTEM,
             'snippetSetId' => $this->getSnippetSetIdForLocale('en-GB'),
             'currencyId' => Defaults::CURRENCY,
@@ -283,7 +283,7 @@ trait ChannelApiTestBehaviour
 
         $header = 'HTTP_' . str_replace('-', '_', mb_strtoupper(PlatformRequest::HEADER_ACCESS_KEY));
         $channelApiClient->setServerParameter($header, $channel['accessKey']);
-        $channelApiClient->setServerParameter('test-sales-channel-id', $channel['id']);
+        $channelApiClient->setServerParameter('test-channel-id', $channel['id']);
     }
 
     private function assignChannelContext(?KernelBrowser $customBrowser = null): void

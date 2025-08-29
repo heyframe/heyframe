@@ -58,7 +58,7 @@ class BaseChannelContextFactory extends AbstractBaseChannelContextFactory
         $context = $this->contextFactory->getContext($channelId, $options);
 
         $criteria = new Criteria([$channelId]);
-        $criteria->setTitle('base-context-factory::sales-channel');
+        $criteria->setTitle('base-context-factory::channel');
         $criteria->addAssociation('currency');
         $criteria->addAssociation('domains');
 

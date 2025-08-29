@@ -128,9 +128,9 @@ class SystemInstallCommand extends Command
                 '--password' => 'heyframe',
             ];
 
-            if ($application->has('sales-channel:create:frontend')) {
+            if ($application->has('channel:create:frontend')) {
                 $commands[] = [
-                    'command' => 'sales-channel:create:frontend',
+                    'command' => 'channel:create:frontend',
                     '--name' => $input->getOption('shop-name') ?? 'Frontend',
                     '--url' => (string) EnvironmentHelper::getVariable('APP_URL', 'http://localhost'),
                     '--isoCode' => $input->getOption('shop-locale') ?? 'en-GB',

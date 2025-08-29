@@ -10,7 +10,7 @@ class ChannelApiSource implements ContextSource, \JsonSerializable
 {
     use JsonSerializableTrait;
 
-    public string $type = 'sales-channel';
+    public string $type = 'channel';
 
     public function __construct(private readonly string $channelId)
     {

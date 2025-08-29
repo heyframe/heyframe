@@ -55,11 +55,11 @@ return [
         preg_quote('The parameter $value of HeyFrame\Frontend\Event\FrontendRenderEvent#setParameter() changed from no type to mixed', '/'),
 
         // No break as the `{get,set}SeoLink()` changes have not been released
-        preg_quote('REMOVED: Property HeyFrame\Core\Content\Category\SalesChannel\SalesChannelCategoryEntity#$seoLink was removed', '/'),
-        'REMOVED: Method HeyFrame\\\\Core\\\\Content\\\\Category\\\\SalesChannel\\\\SalesChannelCategoryEntity#(get|set)SeoLink\(\) was removed',
+        preg_quote('REMOVED: Property HeyFrame\Core\Content\Category\Channel\ChannelCategoryEntity#$seoLink was removed', '/'),
+        'REMOVED: Method HeyFrame\\\\Core\\\\Content\\\\Category\\\\Channel\\\\ChannelCategoryEntity#(get|set)SeoLink\(\) was removed',
 
         // The type has been extended and the old type is still accepted
-        'CHANGED: The parameter \$context of HeyFrame\\\\Core\\\\Framework\\\\Adapter\\\\Twig\\\\Extension\\\\BuildBreadcrumbExtension#(getFullBreadcrumb|getFullBreadcrumbById)\(\) changed from HeyFrame\\\\Core\\\\Framework\\\\Context to HeyFrame\\\\Core\\\\Framework\\\\Context\|HeyFrame\\\\Core\\\\System\\\\SalesChannel\\\\SalesChannelContext',
+        'CHANGED: The parameter \$context of HeyFrame\\\\Core\\\\Framework\\\\Adapter\\\\Twig\\\\Extension\\\\BuildBreadcrumbExtension#(getFullBreadcrumb|getFullBreadcrumbById)\(\) changed from HeyFrame\\\\Core\\\\Framework\\\\Context to HeyFrame\\\\Core\\\\Framework\\\\Context\|HeyFrame\\\\Core\\\\System\\\\Channel\\\\ChannelContext',
 
         // The parameters are optional, so this is not a BC break
         'ADDED: Parameter .* was added to Method accessDeniedForXmlHttpRequest\(\) of class HeyFrame\\\\Core\\\\Framework\\\\Routing\\\\RoutingException',

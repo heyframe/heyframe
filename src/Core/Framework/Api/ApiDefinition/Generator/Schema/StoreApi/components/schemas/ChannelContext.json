@@ -129,7 +129,7 @@
                                     "type": {
                                         "type": "string",
                                         "enum": [
-                                            "sales-channel",
+                                            "channel",
                                             "shop-api"
                                         ]
                                     },

@@ -11,7 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\SalesChannel\SalesChannelCollection;
+use HeyFrame\Core\System\Channel\ChannelCollection;
 use Symfony\Contracts\Service\ResetInterface;
 
 #[Package('fundamentals@after-sales')]
@@ -21,15 +21,15 @@ class CustomerSerializer extends EntitySerializer implements ResetInterface
      * @internal
      *
      * @param EntityRepository<CustomerGroupCollection> $customerGroupRepository
-     * @param EntityRepository<SalesChannelCollection> $salesChannelRepository
+     * @param EntityRepository<ChannelCollection> $channelRepository
      * @param array<string, string|null> $cacheCustomerGroups
-     * @param array<string, string|null> $cacheSalesChannels
+     * @param array<string, string|null> $cacheChannels
      */
     public function __construct(
         private readonly EntityRepository $customerGroupRepository,
-        private readonly EntityRepository $salesChannelRepository,
+        private readonly EntityRepository $channelRepository,
         private array $cacheCustomerGroups = [],
-        private array $cacheSalesChannels = [],
+        private array $cacheChannels = [],
     ) {
     }
 
@@ -52,21 +52,21 @@ class CustomerSerializer extends EntitySerializer implements ResetInterface
             }
         }
 
-        if (!isset($deserialized['salesChannelId']) && isset($entity['salesChannel'])) {
-            $name = $entity['salesChannel']['translations']['DEFAULT']['name'] ?? null;
-            $id = $entity['salesChannel']['id'] ?? $this->getSalesChannelId($name, $context);
+        if (!isset($deserialized['channelId']) && isset($entity['channel'])) {
+            $name = $entity['channel']['translations']['DEFAULT']['name'] ?? null;
+            $id = $entity['channel']['id'] ?? $this->getChannelId($name, $context);
 
             if ($id) {
-                $deserialized['salesChannel']['id'] = $id;
+                $deserialized['channel']['id'] = $id;
             }
         }
 
-        if (!isset($deserialized['boundSalesChannelId']) && isset($entity['boundSalesChannel'])) {
-            $name = $entity['boundSalesChannel']['translations']['DEFAULT']['name'] ?? null;
-            $id = $entity['boundSalesChannel']['id'] ?? $this->getSalesChannelId($name, $context);
+        if (!isset($deserialized['boundChannelId']) && isset($entity['boundChannel'])) {
+            $name = $entity['boundChannel']['translations']['DEFAULT']['name'] ?? null;
+            $id = $entity['boundChannel']['id'] ?? $this->getChannelId($name, $context);
 
             if ($id) {
-                $deserialized['boundSalesChannel']['id'] = $id;
+                $deserialized['boundChannel']['id'] = $id;
             }
         }
 
@@ -81,7 +81,7 @@ class CustomerSerializer extends EntitySerializer implements ResetInterface
     public function reset(): void
     {
         $this->cacheCustomerGroups = [];
-        $this->cacheSalesChannels = [];
+        $this->cacheChannels = [];
     }
 
     private function getCustomerGroupId(?string $name, Context $context): ?string
@@ -104,24 +104,24 @@ class CustomerSerializer extends EntitySerializer implements ResetInterface
         return $this->cacheCustomerGroups[$name];
     }
 
-    private function getSalesChannelId(?string $name, Context $context): ?string
+    private function getChannelId(?string $name, Context $context): ?string
     {
         if (!$name) {
             return null;
         }
 
-        if (\array_key_exists($name, $this->cacheSalesChannels)) {
-            return $this->cacheSalesChannels[$name];
+        if (\array_key_exists($name, $this->cacheChannels)) {
+            return $this->cacheChannels[$name];
         }
 
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', $name));
 
-        $this->cacheSalesChannels[$name] = $this->salesChannelRepository->searchIds(
+        $this->cacheChannels[$name] = $this->channelRepository->searchIds(
             $criteria,
             $context
         )->firstId();
 
-        return $this->cacheSalesChannels[$name];
+        return $this->cacheChannels[$name];
     }
 }

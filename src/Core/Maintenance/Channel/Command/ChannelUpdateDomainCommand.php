@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @internal
  */
 #[AsCommand(
-    name: 'sales-channel:update:domain',
+    name: 'channel:update:domain',
     description: 'Updates a sales channel domain',
 )]
 #[Package('discovery')]
