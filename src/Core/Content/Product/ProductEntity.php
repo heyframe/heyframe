@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Product;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerWishlistProduct\CustomerWishlistProductCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
@@ -47,8 +46,6 @@ class ProductEntity extends Entity implements \Stringable
 
     protected ?string $manufacturerNumber = null;
 
-    protected ?string $ean = null;
-
     protected int $sales;
 
     protected string $productNumber;
@@ -58,8 +55,6 @@ class ProductEntity extends Entity implements \Stringable
     protected ?int $availableStock = null;
 
     protected bool $available;
-
-    protected ?string $deliveryTimeId = null;
 
     protected ?int $restockTime = null;
 
@@ -116,6 +111,8 @@ class ProductEntity extends Entity implements \Stringable
     protected ?string $keywords = null;
 
     protected ?string $description = null;
+
+    protected string $productType;
 
     protected ?string $metaDescription = null;
 
@@ -175,34 +172,13 @@ class ProductEntity extends Entity implements \Stringable
      */
     protected ?array $tagIds = null;
 
-    /**
-     * @var array<string>|null
-     */
-    protected ?array $categoryIds = null;
-
-    protected ?float $ratingAverage = null;
-
     protected ?OrderLineItemCollection $orderLineItems = null;
 
-    protected ?string $featureSetId = null;
-
     protected ?bool $customFieldSetSelectionActive = null;
-
-    /**
-     * @var array<string>|null
-     */
-    protected ?array $customSearchKeywords = null;
-
-    protected ?CustomerWishlistProductCollection $wishlists = null;
 
     protected ?string $canonicalProductId = null;
 
     protected ?ProductEntity $canonicalProduct = null;
-
-    /**
-     * @var array<int, string>
-     */
-    protected array $states = [];
 
     public function __construct()
     {
@@ -503,6 +479,16 @@ class ProductEntity extends Entity implements \Stringable
     public function setDescription(?string $description): void
     {
         $this->description = $description;
+    }
+
+    public function getProductType(): string
+    {
+        return $this->productType;
+    }
+
+    public function setProductType(string $productType): void
+    {
+        $this->productType = $productType;
     }
 
     public function getMetaTitle(): ?string
@@ -856,16 +842,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->available = $available;
     }
 
-    public function getDeliveryTimeId(): ?string
-    {
-        return $this->deliveryTimeId;
-    }
-
-    public function setDeliveryTimeId(?string $deliveryTimeId): void
-    {
-        $this->deliveryTimeId = $deliveryTimeId;
-    }
-
     public function getChildCount(): ?int
     {
         return $this->childCount;
@@ -874,16 +850,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setChildCount(int $childCount): void
     {
         $this->childCount = $childCount;
-    }
-
-    public function getRatingAverage(): ?float
-    {
-        return $this->ratingAverage;
-    }
-
-    public function setRatingAverage(?float $ratingAverage): void
-    {
-        $this->ratingAverage = $ratingAverage;
     }
 
     public function getDisplayGroup(): ?string
@@ -936,32 +902,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->customFieldSetSelectionActive = $customFieldSetSelectionActive;
     }
 
-    /**
-     * @return array<string>|null
-     */
-    public function getCustomSearchKeywords(): ?array
-    {
-        return $this->customSearchKeywords;
-    }
-
-    /**
-     * @param array<string>|null $customSearchKeywords
-     */
-    public function setCustomSearchKeywords(?array $customSearchKeywords): void
-    {
-        $this->customSearchKeywords = $customSearchKeywords;
-    }
-
-    public function getWishlists(): ?CustomerWishlistProductCollection
-    {
-        return $this->wishlists;
-    }
-
-    public function setWishlists(CustomerWishlistProductCollection $wishlists): void
-    {
-        $this->wishlists = $wishlists;
-    }
-
     public function getCanonicalProductId(): ?string
     {
         return $this->canonicalProductId;
@@ -980,37 +920,5 @@ class ProductEntity extends Entity implements \Stringable
     public function setCanonicalProduct(ProductEntity $product): void
     {
         $this->canonicalProduct = $product;
-    }
-
-    /**
-     * @return array<string>|null
-     */
-    public function getCategoryIds(): ?array
-    {
-        return $this->categoryIds;
-    }
-
-    /**
-     * @param array<string>|null $categoryIds
-     */
-    public function setCategoryIds(?array $categoryIds): void
-    {
-        $this->categoryIds = $categoryIds;
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    public function getStates(): array
-    {
-        return $this->states;
-    }
-
-    /**
-     * @param array<int, string> $states
-     */
-    public function setStates(array $states): void
-    {
-        $this->states = $states;
     }
 }

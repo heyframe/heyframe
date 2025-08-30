@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Framework\App\InstanceIdChangeResolver\AbstractInstanceIdChangeStrategy;
 use HeyFrame\Core\Framework\App\Lifecycle\AbstractAppLifecycle;
 use HeyFrame\Core\Framework\App\Lifecycle\RefreshableAppDryRun;
 use HeyFrame\Core\Framework\App\Lifecycle\Update\AbstractAppUpdater;
-use HeyFrame\Core\Framework\App\InstanceIdChangeResolver\AbstractInstanceIdChangeStrategy;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Services\AbstractExtensionDataProvider;
 use HeyFrame\Core\Framework\Store\Services\AbstractExtensionLifecycle;

@@ -101,7 +101,6 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
             ->registerForAutoconfiguration(ExceptionHandlerInterface::class)
             ->addTag('heyframe.dal.exception_handler');
 
-
         $container
             ->registerForAutoconfiguration(AbstractPaymentHandler::class)
             ->addTag('heyframe.payment.method');
@@ -133,7 +132,6 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
         $container
             ->registerForAutoconfiguration(AbstractValueGenerator::class)
             ->addTag('heyframe.value_generator_pattern');
-
 
         $container
             ->registerForAutoconfiguration(TemplateNamespaceHierarchyBuilderInterface::class)

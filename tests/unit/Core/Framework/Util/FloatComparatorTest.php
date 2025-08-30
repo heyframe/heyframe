@@ -2,14 +2,14 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Util;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\Framework\Util\Exception\ComparatorException;
 use HeyFrame\Core\Framework\Util\FloatComparator;
 use HeyFrame\Core\Framework\Util\UtilException;
 use HeyFrame\Core\Test\Annotation\DisabledFeatures;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

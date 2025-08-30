@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Uuid;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidLengthException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

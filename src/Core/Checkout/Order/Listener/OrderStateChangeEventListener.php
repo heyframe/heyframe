@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Order\Listener;
 
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionCollection;
 use HeyFrame\Core\Checkout\Order\Event\OrderStateChangeCriteriaEvent;
 use HeyFrame\Core\Checkout\Order\Event\OrderStateMachineStateChangeEvent;
@@ -32,13 +31,11 @@ class OrderStateChangeEventListener implements EventSubscriberInterface
      *
      * @param EntityRepository<OrderCollection> $orderRepository
      * @param EntityRepository<OrderTransactionCollection> $transactionRepository
-     * @param EntityRepository<OrderDeliveryCollection> $deliveryRepository
      * @param EntityRepository<StateMachineStateCollection> $stateRepository
      */
     public function __construct(
         private readonly EntityRepository $orderRepository,
         private readonly EntityRepository $transactionRepository,
-        private readonly EntityRepository $deliveryRepository,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly BusinessEventCollector $businessEventCollector,
         private readonly EntityRepository $stateRepository
@@ -49,31 +46,9 @@ class OrderStateChangeEventListener implements EventSubscriberInterface
     {
         return [
             'state_machine.order.state_changed' => 'onOrderStateChange',
-            'state_machine.order_delivery.state_changed' => 'onOrderDeliveryStateChange',
             'state_machine.order_transaction.state_changed' => 'onOrderTransactionStateChange',
             BusinessEventCollectorEvent::NAME => 'onAddStateEvents',
         ];
-    }
-
-    /**
-     * @throws OrderException
-     */
-    public function onOrderDeliveryStateChange(StateMachineStateChangeEvent $event): void
-    {
-        $orderDeliveryId = $event->getTransition()->getEntityId();
-
-        $criteria = (new Criteria([$orderDeliveryId]))
-            ->addAssociations(['order.orderCustomer', 'order.transactions.stateMachineState']);
-
-        $orderDelivery = $this->deliveryRepository->search($criteria, $event->getContext())->getEntities()->first();
-        if (!$orderDelivery || !$orderDelivery->getOrder()) {
-            throw OrderException::orderDeliveryNotFound($orderDeliveryId);
-        }
-
-        $context = $this->getContext($orderDelivery->getOrderId(), $event->getContext());
-        $order = $this->getOrder($orderDelivery->getOrderId(), $context);
-
-        $this->dispatchEvent($event->getStateEventName(), $order, $context);
     }
 
     /**

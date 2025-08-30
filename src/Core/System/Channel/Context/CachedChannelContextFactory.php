@@ -69,8 +69,6 @@ class CachedChannelContextFactory extends AbstractChannelContextFactory
      */
     private function isCacheable(array $options): bool
     {
-        return !isset($options[ChannelContextService::CUSTOMER_ID])
-            && !isset($options[ChannelContextService::BILLING_ADDRESS_ID])
-            && !isset($options[ChannelContextService::SHIPPING_ADDRESS_ID]);
+        return !isset($options[ChannelContextService::CUSTOMER_ID]);
     }
 }

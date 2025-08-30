@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Util\MemorySizeCalculator;
+use HeyFrame\Tests\Unit\Common\Stubs\IniMock;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Util\MemorySizeCalculator;
-use HeyFrame\Tests\Unit\Common\Stubs\IniMock;
 
 /**
  * @internal

@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Log;
 
+use HeyFrame\Core\Framework\Log\ExceptionLogger;
+use HeyFrame\Core\Framework\Log\Package;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use HeyFrame\Core\Framework\Log\ExceptionLogger;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

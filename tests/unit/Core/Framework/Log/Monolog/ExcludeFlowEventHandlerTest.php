@@ -2,17 +2,14 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Log\Monolog;
 
+use HeyFrame\Core\Framework\Log\Monolog\ExcludeFlowEventHandler;
+use HeyFrame\Core\System\User\Recovery\UserRecoveryRequestEvent;
 use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
-use HeyFrame\Core\Checkout\Customer\Event\CustomerAccountRecoverRequestEvent;
-use HeyFrame\Core\Content\MailTemplate\Service\Event\MailSentEvent;
-use HeyFrame\Core\Framework\Log\Monolog\ExcludeFlowEventHandler;
-use HeyFrame\Core\System\User\Recovery\UserRecoveryRequestEvent;
 
 /**
  * @internal

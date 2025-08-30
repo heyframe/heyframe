@@ -3,8 +3,6 @@
 namespace HeyFrame\Tests\Integration\Core\System\SystemConfig;
 
 use Doctrine\DBAL\Connection;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
@@ -21,6 +19,8 @@ use HeyFrame\Core\System\SystemConfig\SystemConfigLoader;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use HeyFrame\Core\System\SystemConfig\Util\ConfigReader;
 use HeyFrame\Core\Test\TestDefaults;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
@@ -318,7 +318,6 @@ class SystemConfigServiceTest extends TestCase
         $actual = $this->systemConfigService->getDomain('foo.');
         static::assertSame(['foo.a' => 'a'], $actual);
     }
-
 
     public function testDelete(): void
     {

@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Struct;
 
+use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Struct\StateAwareTrait;
 
 /**
  * @internal

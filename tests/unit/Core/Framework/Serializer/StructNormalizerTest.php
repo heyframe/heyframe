@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Serializer;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Struct\Collection;
 use HeyFrame\Core\Framework\Struct\Serializer\StructNormalizer;
 use HeyFrame\Core\Framework\Struct\Struct;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 
 /**

@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\App\InstanceIdChangeResolver;
 
 use HeyFrame\Core\Framework\App\AppCollection;
-use HeyFrame\Core\Framework\App\Event\AppDeactivatedEvent;
 use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;

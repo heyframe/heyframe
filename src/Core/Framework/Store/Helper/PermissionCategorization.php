@@ -124,8 +124,6 @@ class PermissionCategorization
     private const CATEGORY_TAG = 'tag';
     private const CATEGORY_ADDITIONAL_PRIVILEGES = 'additional_privileges';
 
-
-
     private const PERMISSION_CATEGORIES = [
         self::CATEGORY_ADMIN_USER => [
             IntegrationDefinition::ENTITY_NAME,

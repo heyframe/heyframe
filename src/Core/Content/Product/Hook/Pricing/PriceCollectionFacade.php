@@ -5,7 +5,6 @@ namespace HeyFrame\Core\Content\Product\Hook\Pricing;
 use HeyFrame\Core\Checkout\Cart\Facade\PriceFacade;
 use HeyFrame\Core\Checkout\Cart\Facade\ScriptPriceStubs;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection as CalculatedPriceCollection;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use HeyFrame\Core\Content\Product\ProductException;
@@ -27,12 +26,11 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 class PriceCollectionFacade implements \IteratorAggregate, \Countable
 {
     public function __construct(
-        private readonly Entity                    $product,
+        private readonly Entity $product,
         private readonly CalculatedPriceCollection $prices,
-        private readonly ScriptPriceStubs          $priceStubs,
-        private readonly ChannelContext            $context
-    )
-    {
+        private readonly ScriptPriceStubs $priceStubs,
+        private readonly ChannelContext $context
+    ) {
     }
 
     /**
@@ -54,7 +52,7 @@ class PriceCollectionFacade implements \IteratorAggregate, \Countable
     {
         $mapped = [];
         foreach ($changes as $change) {
-            $mapped[(string)$change['to']] = $change['price'];
+            $mapped[(string) $change['to']] = $change['price'];
         }
 
         // check for "null" value
@@ -73,7 +71,6 @@ class PriceCollectionFacade implements \IteratorAggregate, \Countable
         $mapped[$max + 1] = $last;
 
         $this->prices->clear();
-
 
         foreach ($mapped as $quantity => $price) {
             $value = $this->getPriceForTaxState($price, $this->context);

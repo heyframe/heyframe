@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice;
 
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder\FieldAccessorBuilderInterface;

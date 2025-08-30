@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Tests\Integration\Core\System\SystemConfig\Facade;
 
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Api\Exception\MissingPrivilegeException;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Context;
@@ -23,6 +21,8 @@ use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use HeyFrame\Core\Test\AppSystemTestBehaviour;
 use HeyFrame\Core\Test\Generator;
 use HeyFrame\Core\Test\TestDefaults;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

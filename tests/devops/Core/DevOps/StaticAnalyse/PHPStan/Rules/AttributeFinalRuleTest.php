@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Tests\DevOps\Core\DevOps\StaticAnalyse\PHPStan\Rules;
 
+use HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\AttributeFinalRule;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
-use HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\AttributeFinalRule;
 
 /**
  * @internal

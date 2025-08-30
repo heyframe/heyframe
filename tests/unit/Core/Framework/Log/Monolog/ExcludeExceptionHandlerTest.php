@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Log\Monolog;
 
+use HeyFrame\Core\Framework\Log\Monolog\ExcludeExceptionHandler;
 use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Log\Monolog\ExcludeExceptionHandler;
 
 /**
  * @internal

@@ -11,7 +11,6 @@ use HeyFrame\Core\Checkout\Cart\Order\Transformer\LineItemTransformer;
 use HeyFrame\Core\Checkout\Cart\Order\Transformer\TransactionTransformer;
 use HeyFrame\Core\Checkout\CheckoutPermissions;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
@@ -22,7 +21,6 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -71,7 +69,6 @@ class OrderConverter
      * @internal
      *
      * @param EntityRepository<CustomerCollection> $customerRepository
-     * @param EntityRepository<OrderAddressCollection> $orderAddressRepository
      * @param EntityRepository<RuleCollection> $ruleRepository
      */
     public function __construct(
@@ -79,7 +76,6 @@ class OrderConverter
         protected AbstractChannelContextFactory $channelContextFactory,
         protected EventDispatcherInterface $eventDispatcher,
         private readonly NumberRangeValueGeneratorInterface $numberRangeValueGenerator,
-        private readonly EntityRepository $orderAddressRepository,
         private readonly InitialStateIdLoader $initialStateIdLoader,
         private readonly EntityRepository $ruleRepository,
     ) {
@@ -166,10 +162,6 @@ class OrderConverter
             throw OrderException::missingAssociation('lineItems');
         }
 
-        if ($order->getDeliveries() === null) {
-            throw OrderException::missingAssociation('deliveries');
-        }
-
         $cart = new Cart(Uuid::randomHex());
         $cart->setPrice($order->getPrice());
         $cart->setCustomerComment($order->getCustomerComment());
@@ -223,67 +215,19 @@ class OrderConverter
         $customer = null;
 
         if ($customerId) {
-            $customerCriteria = (new Criteria([$customerId]))
-                ->addAssociation('addresses');
+            $customerCriteria = (new Criteria([$customerId]));
 
             $customer = $this->customerRepository->search($customerCriteria, $context)->getEntities()->first();
-        }
-
-        $orderBillingAddressId = $order->getBillingAddressId();
-
-        $orderShippingAddressId = $order->getPrimaryOrderDelivery()?->getShippingOrderAddressId();
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $orderShippingAddressId = $order->getDeliveries()?->first()?->getShippingOrderAddressId() ?? '';
-        }
-
-        $orderAddresses = $this->orderAddressRepository->search(new Criteria(\array_filter([$orderBillingAddressId, $orderShippingAddressId])), $context)->getEntities();
-        $orderBillingAddress = $orderAddresses->get($orderBillingAddressId);
-        $orderShippingAddress = $orderShippingAddressId ? $orderAddresses->get($orderShippingAddressId) : null;
-
-        if ($orderBillingAddress === null) {
-            throw CartException::addressNotFound($orderBillingAddressId);
-        }
-
-        $billingAddressId = null;
-        $shippingAddressId = null;
-        foreach ($customer?->getAddresses() ?? [] as $address) {
-            if ($address->getHash() === $orderBillingAddress->getHash()) {
-                $billingAddressId = $address->getId();
-            }
-
-            if ($address->getHash() === $orderShippingAddress?->getHash()) {
-                $shippingAddressId = $address->getId();
-            }
         }
 
         $options = [
             ChannelContextService::CURRENCY_ID => $order->getCurrencyId(),
             ChannelContextService::LANGUAGE_ID => $order->getLanguageId(),
             ChannelContextService::CUSTOMER_ID => $customerId,
-            ChannelContextService::COUNTRY_STATE_ID => $orderBillingAddress->getCountryStateId(),
             ChannelContextService::CUSTOMER_GROUP_ID => $customer?->getGroupId(),
             ChannelContextService::PERMISSIONS => self::ADMIN_EDIT_ORDER_PERMISSIONS,
             ChannelContextService::VERSION_ID => $context->getVersionId(),
         ];
-
-        if ($billingAddressId) {
-            $options[ChannelContextService::BILLING_ADDRESS_ID] = $billingAddressId;
-        }
-
-        if ($shippingAddressId) {
-            $options[ChannelContextService::SHIPPING_ADDRESS_ID] = $shippingAddressId;
-        }
-
-        $shippingMethodId = $order->getPrimaryOrderDelivery()?->getShippingMethodId();
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $shippingMethodId = $order->getDeliveries()?->first()?->getShippingMethodId();
-        }
-
-        if ($shippingMethodId !== null) {
-            $options[ChannelContextService::SHIPPING_METHOD_ID] = $shippingMethodId;
-        }
 
         foreach ($order->getTransactions() as $transaction) {
             $options[ChannelContextService::PAYMENT_METHOD_ID] = $transaction->getPaymentMethodId();

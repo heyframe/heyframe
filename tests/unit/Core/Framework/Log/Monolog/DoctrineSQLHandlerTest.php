@@ -3,13 +3,13 @@
 namespace HeyFrame\Tests\Unit\Core\Framework\Log\Monolog;
 
 use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Framework\Log\Monolog\DoctrineSQLHandler;
+use HeyFrame\Core\Framework\Log\Package;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Log\Monolog\DoctrineSQLHandler;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

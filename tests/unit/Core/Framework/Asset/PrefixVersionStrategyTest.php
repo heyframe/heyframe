@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Asset;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Adapter\Asset\FlysystemLastModifiedVersionStrategy;
 use HeyFrame\Core\Framework\Adapter\Asset\PrefixVersionStrategy;
 use HeyFrame\Core\Framework\Log\Package;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

@@ -27,6 +27,7 @@ class Migration1536233120Product extends MigrationStep
               `version_id` BINARY(16) NOT NULL,
               `auto_increment` BIGINT unsigned NOT NULL AUTO_INCREMENT,
               `product_number` VARCHAR(64) NULL,
+              `product_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
               `active` TINYINT(1) unsigned NOT NULL DEFAULT 1,
               `parent_id` BINARY(16) NULL,
               `parent_version_id` BINARY(16) NULL,

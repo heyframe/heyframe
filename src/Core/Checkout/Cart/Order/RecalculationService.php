@@ -7,20 +7,12 @@ use HeyFrame\Core\Checkout\Cart\CartBehavior;
 use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Checkout\Cart\CartRuleLoader;
 use HeyFrame\Core\Checkout\Cart\Channel\CartService;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryPosition;
 use HeyFrame\Core\Checkout\Cart\Error\Error;
 use HeyFrame\Core\Checkout\Cart\Error\ErrorCollection;
 use HeyFrame\Core\Checkout\Cart\Exception\CustomerNotLoggedInException;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
-use HeyFrame\Core\Checkout\Cart\Order\Transformer\AddressTransformer;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Processor;
 use HeyFrame\Core\Checkout\CheckoutPermissions;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressCollection;
-use HeyFrame\Core\Checkout\Customer\Exception\AddressNotFoundException;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryEntity;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Checkout\Order\Exception\EmptyCartException;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
@@ -48,10 +40,7 @@ class RecalculationService
      *
      * @param EntityRepository<OrderCollection> $orderRepository
      * @param EntityRepository<ProductCollection> $productRepository
-     * @param EntityRepository<OrderAddressCollection> $orderAddressRepository
-     * @param EntityRepository<CustomerAddressCollection> $customerAddressRepository
      * @param EntityRepository<OrderLineItemCollection> $orderLineItemRepository
-     * @param EntityRepository<OrderDeliveryCollection> $orderDeliveryRepository
      */
     public function __construct(
         protected EntityRepository $orderRepository,
@@ -85,7 +74,7 @@ class RecalculationService
         $cart = $this->orderConverter->convertToCart($order, $context);
         $recalculatedCart = $this->recalculateCart($cart, $channelContext);
 
-        $conversionContext = $this->getOrderConversionContext()->setIncludeDeliveries($cart->getLineItems()->count() > 0);
+        $conversionContext = $this->getOrderConversionContext();
         $orderData = $this->orderConverter->convertToOrder($recalculatedCart, $channelContext, $conversionContext);
 
         $this->upsertRecalculatedOrder($orderData, $order, $channelContext->getContext(), true);
@@ -135,13 +124,7 @@ class RecalculationService
 
         $recalculatedCart = $this->recalculateCart($cart, $channelContext);
 
-        $recalculatedLineItem = $recalculatedCart->get($lineItem->getId());
-        if ($recalculatedLineItem?->isShippingCostAware()) {
-            $this->addLineItemToDeliveryPosition($recalculatedLineItem, $recalculatedCart);
-        }
-
-        $conversionContext = $this->getOrderConversionContext()->setIncludeDeliveries(true);
-        $orderData = $this->orderConverter->convertToOrder($recalculatedCart, $channelContext, $conversionContext);
+        $orderData = $this->orderConverter->convertToOrder($recalculatedCart, $channelContext, $this->getOrderConversionContext());
 
         $this->upsertRecalculatedOrder($orderData, $order, $channelContext->getContext());
     }
@@ -160,11 +143,6 @@ class RecalculationService
         $cart->add($lineItem);
 
         $recalculatedCart = $this->recalculateCart($cart, $channelContext);
-
-        $recalculatedLineItem = $recalculatedCart->get($lineItem->getId());
-        if ($recalculatedLineItem?->isShippingCostAware()) {
-            $this->addLineItemToDeliveryPosition($recalculatedLineItem, $recalculatedCart);
-        }
 
         $conversionContext = $this->getOrderConversionContext();
         $orderData = $this->orderConverter->convertToOrder($recalculatedCart, $channelContext, $conversionContext);
@@ -231,31 +209,11 @@ class RecalculationService
 
         $recalculatedCart = $this->recalculateCart($cart, $channelContext);
 
-        $conversionContext = $this->getOrderConversionContext()->setIncludeDeliveries(!$skipAutomaticPromotions);
-        $orderData = $this->orderConverter->convertToOrder($recalculatedCart, $channelContext, $conversionContext);
+        $orderData = $this->orderConverter->convertToOrder($recalculatedCart, $channelContext, $this->getOrderConversionContext());
 
         $this->upsertRecalculatedOrder($orderData, $order, $channelContext->getContext(), true);
 
         return $recalculatedCart;
-    }
-
-    /**
-     * @throws AddressNotFoundException
-     * @throws OrderException
-     * @throws InconsistentCriteriaIdsException
-     */
-    public function replaceOrderAddressWithCustomerAddress(string $orderAddressId, string $customerAddressId, Context $context): void
-    {
-        $this->validateOrderAddress($orderAddressId, $context);
-
-        $customerAddress = $this->customerAddressRepository->search(new Criteria([$customerAddressId]), $context)->getEntities()->first();
-        if (!$customerAddress) {
-            throw CartException::addressNotFound($customerAddressId);
-        }
-
-        $newOrderAddress = AddressTransformer::transform($customerAddress);
-        $newOrderAddress['id'] = $orderAddressId;
-        $this->orderAddressRepository->upsert([$newOrderAddress], $context);
     }
 
     /**
@@ -270,21 +228,9 @@ class RecalculationService
         $orderData['id'] = $order->getId();
         $orderData['stateId'] = $order->getStateId();
 
-        if ($order->getPrimaryOrderDelivery()?->getStateId() && isset($orderData['deliveries'][0])) {
-            $orderData['deliveries'][0]['stateId'] = $order->getPrimaryOrderDelivery()->getStateId();
-        }
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            if ($order->getDeliveries()?->first()?->getStateId() && isset($orderData['deliveries'][0])) {
-                $orderData['deliveries'][0]['stateId'] = $order->getDeliveries()->first()->getStateId();
-            }
-        }
-
         if ($allowLineItemsDeletion) {
             $this->deleteOldLineItems($orderData, $order, $context);
         }
-
-        $this->deleteOldDiscountDeliveries($orderData, $order, $context);
 
         // change scope to be able to write protected state fields of transactions and deliveries
         $context->scope(Context::SYSTEM_SCOPE, fn (Context $context) => $this->orderRepository->upsert([$orderData], $context));
@@ -307,61 +253,6 @@ class RecalculationService
         }
     }
 
-    /**
-     * Any recalculation to delivery discounts will create new deliveries ({@see PromotionDeliveryCalculator}).
-     * Therefore, all "ghost" deliveries have to be deleted.
-     *
-     * @param array<string, mixed> $orderData
-     */
-    private function deleteOldDiscountDeliveries(array $orderData, OrderEntity $order, Context $context): void
-    {
-        /** @var array<array{shippingCosts: CalculatedPrice}>|null $deliveries */
-        $deliveries = $orderData['deliveries'] ?? null;
-        // There always has to be the primary delivery if deliveries where transformed.
-        // If no deliveries are present, we should skip to avoid deleting deliveries unwillingly.
-        if (!$deliveries) {
-            return;
-        }
-
-        $newIds = \array_column(
-            \array_filter($deliveries, static fn (array $delivery) => $delivery['shippingCosts']->getTotalPrice() < 0),
-            'id',
-        );
-        $originalIds = $order->getDeliveries()?->filter(
-            static fn (OrderDeliveryEntity $delivery) => $delivery->getShippingCosts()->getTotalPrice() < 0,
-        )->getKeys() ?? [];
-        $toDeleteIds = \array_values(\array_diff($originalIds, $newIds));
-
-        if (\count($toDeleteIds) > 0) {
-            $context->scope(Context::SYSTEM_SCOPE, fn (Context $context) => $this->orderDeliveryRepository->delete(
-                \array_map(static fn (string $id) => ['id' => $id], $toDeleteIds),
-                $context
-            ));
-        }
-    }
-
-    private function addLineItemToDeliveryPosition(LineItem $item, Cart $cart): void
-    {
-        $delivery = $cart->getDeliveries()->getPrimaryDelivery(
-            $cart->getExtensionOfType(OrderConverter::ORIGINAL_PRIMARY_ORDER_DELIVERY, IdStruct::class)?->getId()
-        );
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $delivery = $cart->getDeliveries()->first();
-        }
-
-        if (!$delivery) {
-            return;
-        }
-
-        $calculatedPrice = $item->getPrice();
-        \assert($calculatedPrice !== null);
-
-        $position = new DeliveryPosition($item->getId(), clone $item, $item->getQuantity(), $calculatedPrice, $delivery->getDeliveryDate());
-
-        $delivery->getPositions()->add($position);
-    }
-
     private function fetchOrder(string $orderId, Context $context): OrderEntity
     {
         $criteria = (new Criteria([$orderId]))
@@ -369,11 +260,6 @@ class RecalculationService
                 'primaryOrderDelivery',
                 'lineItems.downloads',
                 'transactions.stateMachineState',
-                'deliveries.shippingMethod.tax',
-                'deliveries.shippingMethod.deliveryTime',
-                'deliveries.positions.orderLineItem',
-                'deliveries.shippingOrderAddress.country',
-                'deliveries.shippingOrderAddress.countryState',
             ]);
 
         $order = $this->orderRepository->search($criteria, $context)->getEntities()->first();
@@ -416,21 +302,6 @@ class RecalculationService
         }
     }
 
-    /**
-     * @throws AddressNotFoundException
-     * @throws OrderException
-     * @throws InconsistentCriteriaIdsException
-     */
-    private function validateOrderAddress(string $orderAddressId, Context $context): void
-    {
-        $address = $this->orderAddressRepository->search(new Criteria([$orderAddressId]), $context)->getEntities()->first();
-        if (!$address) {
-            throw CartException::addressNotFound($orderAddressId);
-        }
-
-        $this->checkVersion($address);
-    }
-
     private function recalculateCart(Cart $cart, ChannelContext $context): Cart
     {
         // we switch to the live version that we don't have to consider live version fallbacks inside the calculation
@@ -453,7 +324,6 @@ class RecalculationService
     {
         return (new OrderConversionContext())
             ->setIncludeCustomer(false)
-            ->setIncludeBillingAddress(false)
             ->setIncludeTransactions(false)
             ->setIncludePersistentData(false);
     }

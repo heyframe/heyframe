@@ -4,8 +4,8 @@ namespace HeyFrame\Core\Framework\App\Lifecycle\Registration;
 
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
-use HeyFrame\Core\Framework\App\Manifest\Manifest;
 use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
+use HeyFrame\Core\Framework\App\Manifest\Manifest;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Services\StoreClient;
 

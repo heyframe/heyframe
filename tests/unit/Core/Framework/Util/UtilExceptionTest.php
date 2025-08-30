@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Util;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Util\Exception\ComparatorException;
 use HeyFrame\Core\Framework\Util\UtilException;
 use HeyFrame\Core\Test\Annotation\DisabledFeatures;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

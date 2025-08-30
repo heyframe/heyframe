@@ -6,7 +6,6 @@ use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Checkout\Cart\Facade\Traits\PriceFactoryTrait;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection as CalculatedPriceCollection;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
@@ -223,7 +222,7 @@ class PriceFacade
             throw CartException::invalidPriceDefinition();
         }
 
- return $currency->getGross();
+        return $currency->getGross();
     }
 
     private function overwrite(QuantityPriceDefinition $definition): void

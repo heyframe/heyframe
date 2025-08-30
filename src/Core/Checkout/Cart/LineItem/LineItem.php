@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Checkout\Cart\LineItem;
 
 use HeyFrame\Core\Checkout\Cart\CartException;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryInformation;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceDefinitionInterface;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
@@ -47,8 +46,6 @@ class LineItem extends Struct
 
     protected ?MediaEntity $cover = null;
 
-    protected ?DeliveryInformation $deliveryInformation = null;
-
     protected LineItemCollection $children;
 
     protected ?Rule $requirement = null;
@@ -60,8 +57,6 @@ class LineItem extends Struct
     protected ?QuantityInformation $quantityInformation = null;
 
     protected bool $modified = false;
-
-    protected bool $shippingCostAware = true;
 
     /**
      * The data timestamp can be used to record when the line item was last updated with data from the database.
@@ -371,18 +366,6 @@ class LineItem extends Struct
         return $this;
     }
 
-    public function getDeliveryInformation(): ?DeliveryInformation
-    {
-        return $this->deliveryInformation;
-    }
-
-    public function setDeliveryInformation(?DeliveryInformation $deliveryInformation): self
-    {
-        $this->deliveryInformation = $deliveryInformation;
-
-        return $this;
-    }
-
     public function getChildren(): LineItemCollection
     {
         return $this->children;
@@ -574,18 +557,6 @@ class LineItem extends Struct
         }
 
         return $content;
-    }
-
-    public function setShippingCostAware(bool $shippingCostAware): self
-    {
-        $this->shippingCostAware = $shippingCostAware;
-
-        return $this;
-    }
-
-    public function isShippingCostAware(): bool
-    {
-        return $this->shippingCostAware;
     }
 
     public function jsonSerialize(): array

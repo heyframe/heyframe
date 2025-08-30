@@ -31,9 +31,9 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         private readonly ExtensionDispatcher $extensions,
     ) {
     }
+
     public function reset(): void
     {
-
     }
 
     public function getDecorated(): AbstractProductPriceCalculator
@@ -53,7 +53,6 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
             function: $this->_calculate(...)
         );
     }
-
 
     /**
      * @param iterable<Entity> $products

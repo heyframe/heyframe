@@ -26,17 +26,9 @@ class ChannelContextService implements ChannelContextServiceInterface
 
     final public const CUSTOMER_GROUP_ID = 'customerGroupId';
 
-    final public const BILLING_ADDRESS_ID = 'billingAddressId';
-
-    final public const SHIPPING_ADDRESS_ID = 'shippingAddressId';
-
     final public const PAYMENT_METHOD_ID = 'paymentMethodId';
 
-    final public const SHIPPING_METHOD_ID = 'shippingMethodId';
-
     final public const COUNTRY_ID = 'countryId';
-
-    final public const COUNTRY_STATE_ID = 'countryStateId';
 
     final public const VERSION_ID = 'version-id';
 

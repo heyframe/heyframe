@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\RateLimiter\Policy;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\RateLimiter\Policy\TimeBackoff;
 use HeyFrame\Core\Framework\Test\TestCaseHelper\ReflectionHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

@@ -11,7 +11,6 @@ use HeyFrame\Core\Framework\App\Aggregate\FlowAction\AppFlowActionCollection;
 use HeyFrame\Core\Framework\App\Aggregate\FlowEvent\AppFlowEventCollection;
 use HeyFrame\Core\Framework\App\Template\TemplateCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
@@ -125,7 +124,6 @@ class AppEntity extends Entity
      * @internal
      */
     protected ?AppScriptConditionCollection $scriptConditions = null;
-
 
     protected ?AppFlowActionCollection $flowActions = null;
 

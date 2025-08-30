@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Log;
 
+use HeyFrame\Core\Framework\Log\Package;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

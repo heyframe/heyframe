@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Util\HtmlSanitizer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Util\HtmlSanitizer;
 
 /**
  * @internal

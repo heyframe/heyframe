@@ -9,7 +9,6 @@ use HeyFrame\Core\Checkout\Cart\Order\RecalculationService;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\AbsolutePriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Rule\LineItemOfTypeRule;
-use HeyFrame\Core\Checkout\Order\OrderAddressService;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
@@ -32,7 +31,6 @@ class OrderRecalculationController extends AbstractController
      */
     public function __construct(
         protected RecalculationService $recalculationService,
-        protected OrderAddressService $orderAddressService
     ) {
     }
 
@@ -123,25 +121,6 @@ class OrderRecalculationController extends AbstractController
         $errors = $this->recalculationService->applyAutomaticPromotions($orderId, $context);
 
         return new JsonResponse(['errors' => $errors]);
-    }
-
-    #[Route(path: '/api/_action/order-address/{orderAddressId}/customer-address/{customerAddressId}', name: 'api.action.order.replace-order-address', methods: ['POST'])]
-    public function replaceOrderAddressWithCustomerAddress(string $orderAddressId, string $customerAddressId, Context $context): JsonResponse
-    {
-        $this->recalculationService->replaceOrderAddressWithCustomerAddress($orderAddressId, $customerAddressId, $context);
-
-        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
-    }
-
-    #[Route(path: '/api/_action/order/{orderId}/order-address', name: 'api.action.order.update', methods: ['POST'])]
-    public function updateOrderAddresses(string $orderId, Request $request, Context $context): JsonResponse
-    {
-        $mapping = $request->request->all('mapping');
-        \assert(array_is_list($mapping));
-
-        $this->orderAddressService->updateOrderAddresses($orderId, $mapping, $context);
-
-        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
     private function updateLineItemByRequest(Request $request, LineItem $lineItem, bool $absolute = false): void

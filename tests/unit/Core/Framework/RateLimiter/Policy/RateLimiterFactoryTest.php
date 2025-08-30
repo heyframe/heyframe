@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\RateLimiter\Policy;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\RateLimiter\Policy\TimeBackoffLimiter;
 use HeyFrame\Core\Framework\RateLimiter\RateLimiterFactory;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\RateLimiter\Policy\SlidingWindowLimiter;
 use Symfony\Component\RateLimiter\Policy\TokenBucketLimiter;

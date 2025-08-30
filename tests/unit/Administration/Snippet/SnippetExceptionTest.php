@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Tests\Unit\Administration\Snippet;
 
+use HeyFrame\Administration\Snippet\SnippetException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Administration\Snippet\SnippetException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

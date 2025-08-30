@@ -4,9 +4,9 @@ namespace HeyFrame\Core\Framework\App\InstanceIdChangeResolver;
 
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\Event\AppInstalledEvent;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\App\Lifecycle\Registration\AppRegistrationService;
 use HeyFrame\Core\Framework\App\Manifest\Manifest;
-use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\App\Source\SourceResolver;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;

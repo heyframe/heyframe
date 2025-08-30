@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Rule;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\IdAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\RuleIdAware;
 use HeyFrame\Core\Framework\Log\Package;
@@ -11,6 +9,8 @@ use HeyFrame\Core\Framework\Rule\RuleIdMatcher;
 use HeyFrame\Core\Framework\Struct\Collection;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

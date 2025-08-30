@@ -15,7 +15,6 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
 use HeyFrame\Core\Framework\App\Aggregate\AppPaymentMethod\AppPaymentMethodCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
@@ -240,7 +239,6 @@ class MediaEntity extends Entity
         $this->translations = $translations;
     }
 
-
     public function getProductMedia(): ?ProductMediaCollection
     {
         return $this->productMedia;
@@ -445,12 +443,11 @@ class MediaEntity extends Entity
         $this->private = $private;
     }
 
-
     public function getAppPaymentMethods(): ?AppPaymentMethodCollection
     {
         return $this->appPaymentMethods;
     }
-    
+
     public function getOrderLineItemDownloads(): ?OrderLineItemDownloadCollection
     {
         return $this->orderLineItemDownloads;

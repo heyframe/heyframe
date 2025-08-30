@@ -2,11 +2,7 @@
 
 namespace HeyFrame\Core\Checkout\Customer;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressCollection;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressEntity;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerRecovery\CustomerRecoveryEntity;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerWishlist\CustomerWishlistCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
@@ -117,16 +113,6 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?PaymentMethodEntity $lastPaymentMethod = null;
 
-    protected ?CustomerAddressEntity $defaultBillingAddress = null;
-
-    protected ?CustomerAddressEntity $defaultShippingAddress = null;
-
-    protected ?CustomerAddressEntity $activeBillingAddress = null;
-
-    protected ?CustomerAddressEntity $activeShippingAddress = null;
-
-    protected ?CustomerAddressCollection $addresses = null;
-
     protected ?OrderCustomerCollection $orderCustomers = null;
 
     protected int $autoIncrement;
@@ -138,8 +124,6 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?PromotionCollection $promotions = null;
 
-    protected ?CustomerRecoveryEntity $recoveryCustomer = null;
-
     protected ?string $remoteAddress = null;
 
     protected ?string $requestedGroupId = null;
@@ -149,8 +133,6 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?string $boundChannelId = null;
 
     protected ?ChannelEntity $boundChannel = null;
-
-    protected ?CustomerWishlistCollection $wishlists = null;
 
     protected ?string $createdById = null;
 
@@ -562,56 +544,6 @@ class CustomerEntity extends Entity implements \Stringable
         $this->lastPaymentMethod = $lastPaymentMethod;
     }
 
-    public function getDefaultBillingAddress(): ?CustomerAddressEntity
-    {
-        return $this->defaultBillingAddress;
-    }
-
-    public function setDefaultBillingAddress(CustomerAddressEntity $defaultBillingAddress): void
-    {
-        $this->defaultBillingAddress = $defaultBillingAddress;
-    }
-
-    public function getDefaultShippingAddress(): ?CustomerAddressEntity
-    {
-        return $this->defaultShippingAddress;
-    }
-
-    public function setDefaultShippingAddress(CustomerAddressEntity $defaultShippingAddress): void
-    {
-        $this->defaultShippingAddress = $defaultShippingAddress;
-    }
-
-    public function getActiveBillingAddress(): ?CustomerAddressEntity
-    {
-        return $this->activeBillingAddress ?? $this->defaultBillingAddress;
-    }
-
-    public function setActiveBillingAddress(CustomerAddressEntity $activeBillingAddress): void
-    {
-        $this->activeBillingAddress = $activeBillingAddress;
-    }
-
-    public function getActiveShippingAddress(): ?CustomerAddressEntity
-    {
-        return $this->activeShippingAddress ?? $this->defaultShippingAddress;
-    }
-
-    public function setActiveShippingAddress(CustomerAddressEntity $activeShippingAddress): void
-    {
-        $this->activeShippingAddress = $activeShippingAddress;
-    }
-
-    public function getAddresses(): ?CustomerAddressCollection
-    {
-        return $this->addresses;
-    }
-
-    public function setAddresses(CustomerAddressCollection $addresses): void
-    {
-        $this->addresses = $addresses;
-    }
-
     public function getOrderCustomers(): ?OrderCustomerCollection
     {
         return $this->orderCustomers;
@@ -664,16 +596,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setPromotions(PromotionCollection $promotions): void
     {
         $this->promotions = $promotions;
-    }
-
-    public function getRecoveryCustomer(): ?CustomerRecoveryEntity
-    {
-        return $this->recoveryCustomer;
-    }
-
-    public function setRecoveryCustomer(?CustomerRecoveryEntity $recoveryCustomer): void
-    {
-        $this->recoveryCustomer = $recoveryCustomer;
     }
 
     public function getAffiliateCode(): ?string
@@ -754,16 +676,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function getAccountType(): string
     {
         return $this->accountType;
-    }
-
-    public function getWishlists(): ?CustomerWishlistCollection
-    {
-        return $this->wishlists;
-    }
-
-    public function setWishlists(CustomerWishlistCollection $wishlists): void
-    {
-        $this->wishlists = $wishlists;
     }
 
     public function getCreatedById(): ?string

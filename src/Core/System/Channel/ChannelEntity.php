@@ -4,7 +4,6 @@ namespace HeyFrame\Core\System\Channel;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupCollection;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerWishlist\CustomerWishlistCollection;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
@@ -159,8 +158,6 @@ class ChannelEntity extends Entity
 
     protected ?CustomerCollection $boundCustomers = null;
 
-    protected ?CustomerWishlistCollection $wishlists = null;
-
     public function getMailHeaderFooterId(): ?string
     {
         return $this->mailHeaderFooterId;
@@ -199,16 +196,6 @@ class ChannelEntity extends Entity
     public function setPaymentMethodId(string $paymentMethodId): void
     {
         $this->paymentMethodId = $paymentMethodId;
-    }
-
-    public function getShippingMethodId(): string
-    {
-        return $this->shippingMethodId;
-    }
-
-    public function setShippingMethodId(string $shippingMethodId): void
-    {
-        $this->shippingMethodId = $shippingMethodId;
     }
 
     public function getCountryId(): string
@@ -713,16 +700,6 @@ class ChannelEntity extends Entity
     public function setBoundCustomers(CustomerCollection $boundCustomers): void
     {
         $this->boundCustomers = $boundCustomers;
-    }
-
-    public function getWishlists(): ?CustomerWishlistCollection
-    {
-        return $this->wishlists;
-    }
-
-    public function setWishlists(CustomerWishlistCollection $wishlists): void
-    {
-        $this->wishlists = $wishlists;
     }
 
     public function getNavigationCategoryVersionId(): string

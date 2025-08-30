@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Util;
 
+use HeyFrame\Core\Framework\Util\VersionParser;
+use HeyFrame\Core\Kernel;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Util\VersionParser;
-use HeyFrame\Core\Kernel;
 
 /**
  * @internal

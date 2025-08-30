@@ -4,12 +4,7 @@ namespace HeyFrame\Core\Checkout\Order;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
-use HeyFrame\Core\Checkout\Document\DocumentCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressEntity;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryEntity;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
@@ -71,12 +66,6 @@ class OrderEntity extends Entity
 
     protected ?ChannelEntity $channel = null;
 
-    protected ?OrderAddressCollection $addresses = null;
-
-    protected ?OrderAddressEntity $billingAddress = null;
-
-    protected ?OrderDeliveryCollection $deliveries = null;
-
     protected ?OrderLineItemCollection $lineItems = null;
 
     protected ?OrderTransactionCollection $transactions = null;
@@ -89,8 +78,6 @@ class OrderEntity extends Entity
 
     protected string $stateId;
 
-    protected ?OrderDeliveryEntity $primaryOrderDelivery = null;
-
     protected ?string $primaryOrderDeliveryId = null;
 
     protected ?string $primaryOrderDeliveryVersionId = null;
@@ -100,8 +87,6 @@ class OrderEntity extends Entity
     protected ?string $primaryOrderTransactionId = null;
 
     protected ?string $primaryOrderTransactionVersionId = null;
-
-    protected ?DocumentCollection $documents = null;
 
     protected ?TagCollection $tags = null;
 
@@ -289,26 +274,6 @@ class OrderEntity extends Entity
         $this->channel = $channel;
     }
 
-    public function getAddresses(): ?OrderAddressCollection
-    {
-        return $this->addresses;
-    }
-
-    public function setAddresses(OrderAddressCollection $addresses): void
-    {
-        $this->addresses = $addresses;
-    }
-
-    public function getDeliveries(): ?OrderDeliveryCollection
-    {
-        return $this->deliveries;
-    }
-
-    public function setDeliveries(OrderDeliveryCollection $deliveries): void
-    {
-        $this->deliveries = $deliveries;
-    }
-
     public function getLineItems(): ?OrderLineItemCollection
     {
         return $this->lineItems;
@@ -394,16 +359,6 @@ class OrderEntity extends Entity
         $this->shippingTotal = $shippingTotal;
     }
 
-    public function getPrimaryOrderDelivery(): ?OrderDeliveryEntity
-    {
-        return $this->primaryOrderDelivery;
-    }
-
-    public function setPrimaryOrderDelivery(?OrderDeliveryEntity $primaryOrderDelivery): void
-    {
-        $this->primaryOrderDelivery = $primaryOrderDelivery;
-    }
-
     public function getPrimaryOrderDeliveryId(): ?string
     {
         return $this->primaryOrderDeliveryId;
@@ -432,16 +387,6 @@ class OrderEntity extends Entity
     public function setPrimaryOrderTransactionId(?string $primaryOrderTransactionId): void
     {
         $this->primaryOrderTransactionId = $primaryOrderTransactionId;
-    }
-
-    public function getDocuments(): ?DocumentCollection
-    {
-        return $this->documents;
-    }
-
-    public function setDocuments(DocumentCollection $documents): void
-    {
-        $this->documents = $documents;
     }
 
     public function getOrderNumber(): ?string
@@ -554,16 +499,6 @@ class OrderEntity extends Entity
     public function setRuleIds(?array $ruleIds): void
     {
         $this->ruleIds = $ruleIds;
-    }
-
-    public function getBillingAddress(): ?OrderAddressEntity
-    {
-        return $this->billingAddress;
-    }
-
-    public function setBillingAddress(OrderAddressEntity $billingAddress): void
-    {
-        $this->billingAddress = $billingAddress;
     }
 
     public function getCreatedById(): ?string

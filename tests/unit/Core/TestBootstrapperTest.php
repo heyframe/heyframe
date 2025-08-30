@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace HeyFrame\Tests\Unit\Core;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Test\TestCaseBase\EnvTestBehaviour;
 use HeyFrame\Core\TestBootstrapper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

@@ -15,15 +15,6 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressDefinition">
-            <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerRecovery\CustomerRecoveryDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>
@@ -166,15 +157,6 @@
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextRestorer" />
         </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerWishlist\CustomerWishlistDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerWishlistProduct\CustomerWishlistProductDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
 
         <service id="HeyFrame\Core\Checkout\Customer\DataAbstractionLayer\CustomerWishlistProductExceptionHandler">
             <tag name="heyframe.dal.exception_handler"/>

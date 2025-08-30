@@ -10,24 +10,7 @@
             <tag name="heyframe.entity.hookable"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressDefinition">
-            <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Order\OrderExceptionHandler">
-            <tag name="heyframe.dal.exception_handler"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Order\Aggregate\OrderDeliveryPosition\OrderDeliveryPositionDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>
 
@@ -82,7 +65,6 @@
             <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextFactory"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\System\NumberRange\ValueGenerator\NumberRangeValueGeneratorInterface"/>
-            <argument type="service" id="order_address.repository"/>
             <argument type="service" id="HeyFrame\Core\System\StateMachine\Loader\InitialStateIdLoader"/>
             <argument type="service" id="rule.repository"/>
         </service>
@@ -97,13 +79,6 @@
 
         <service id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefund\OrderTransactionCaptureRefundStateHandler">
             <argument type="service" id="HeyFrame\Core\System\StateMachine\StateMachineRegistry"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Order\OrderAddressService">
-            <argument type="service" id="order.repository"/>
-            <argument type="service" id="order_address.repository"/>
-            <argument type="service" id="customer_address.repository"/>
-            <argument type="service" id="order_delivery.repository"/>
         </service>
 
         <!-- controller -->
@@ -142,7 +117,6 @@
         <service id="HeyFrame\Core\Checkout\Order\Listener\OrderStateChangeEventListener">
             <argument type="service" id="order.repository"/>
             <argument type="service" id="order_transaction.repository"/>
-            <argument type="service" id="order_delivery.repository"/>
             <argument type="service" id="event_dispatcher"/>
             <tag name="kernel.event_subscriber"/>
             <argument type="service" id="HeyFrame\Core\Framework\Event\BusinessEventCollector"/>
