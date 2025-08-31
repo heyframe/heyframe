@@ -4,7 +4,6 @@ namespace HeyFrame\Tests\Integration\Core\Checkout\Cart;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Statement;
-use HeyFrame\Core\Checkout\Cart\AbstractCartPersister;
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Cart\CartBehavior;
 use HeyFrame\Core\Checkout\Cart\CartCompressor;
@@ -24,7 +23,6 @@ use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\Context\ChannelContextFactory;
-use HeyFrame\Core\Test\Annotation\DisabledFeatures;
 use HeyFrame\Core\Test\Generator;
 use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
 use HeyFrame\Core\Test\TestDefaults;
@@ -129,31 +127,6 @@ class CartPersisterTest extends TestCase
             ->fetchOne('SELECT token FROM cart WHERE token = :token', ['token' => $cart->getToken()]);
 
         static::assertNotEmpty($token);
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed
-     */
-    #[DisabledFeatures(['v6.8.0.0'])]
-    public function testRecalculationCartShouldNotBeSaved(): void
-    {
-        $cartBehavior = new CartBehavior([], true, true);
-
-        $cart = new Cart('existing');
-        $cart->setBehavior($cartBehavior);
-        $cart->add(
-            (new LineItem('A', 'test'))
-                ->setPrice(new CalculatedPrice(0, 0))
-                ->setLabel('test')
-        );
-
-        static::getContainer()->get(CartPersister::class)
-            ->save($cart, $this->getChannelContext($cart->getToken()));
-
-        $token = static::getContainer()->get(Connection::class)
-            ->fetchOne('SELECT token FROM cart WHERE token = :token', ['token' => $cart->getToken()]);
-
-        static::assertFalse($token);
     }
 
     public function testSkipPersistenceCartShouldNotBeSaved(): void
@@ -350,9 +323,7 @@ class CartPersisterTest extends TestCase
                 ->setLabel('test')
         );
 
-        $cart->setBehavior(new CartBehavior([
-            AbstractCartPersister::PERSIST_CART_ERROR_PERMISSION => true,
-        ]));
+        $cart->setBehavior(new CartBehavior([CheckoutPermissions::PERSIST_CART_ERRORS => true]));
 
         $productId = Uuid::randomHex();
         $cart->addErrors(new ProductNotFoundError($productId));

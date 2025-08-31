@@ -11,7 +11,6 @@ use HeyFrame\Core\Checkout\CheckoutPermissions;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Util\StatementHelper;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
@@ -74,11 +73,6 @@ class CartPersister extends AbstractCartPersister
      */
     public function save(Cart $cart, ChannelContext $context): void
     {
-        /** @deprecated tag:v6.8.0 - Condition will be removed */
-        if (!Feature::isActive('v6.8.0.0') && $cart->getBehavior()?->isRecalculation()) {
-            return;
-        }
-
         $shouldPersist = $this->shouldPersist($cart);
 
         $event = new CartVerifyPersistEvent($context, $cart, $shouldPersist);

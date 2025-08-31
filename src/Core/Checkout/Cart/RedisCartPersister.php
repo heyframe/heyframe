@@ -7,6 +7,7 @@ use HeyFrame\Core\Checkout\Cart\Event\CartLoadedEvent;
 use HeyFrame\Core\Checkout\Cart\Event\CartSavedEvent;
 use HeyFrame\Core\Checkout\Cart\Event\CartVerifyPersistEvent;
 use HeyFrame\Core\Checkout\Cart\Exception\CartTokenNotFoundException;
+use HeyFrame\Core\Checkout\CheckoutPermissions;
 use HeyFrame\Core\Framework\Adapter\Cache\RedisConnectionFactory;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
@@ -130,7 +131,7 @@ class RedisCartPersister extends AbstractCartPersister
     private function serializeCart(Cart $cart, ChannelContext $context): string
     {
         $errors = $cart->getErrors();
-        if (!$cart->getBehavior()?->hasPermission(self::PERSIST_CART_ERROR_PERMISSION)) {
+        if (!$cart->getBehavior()?->hasPermission(CheckoutPermissions::PERSIST_CART_ERRORS)) {
             $cart->setErrors(new ErrorCollection());
         }
 

@@ -2,16 +2,14 @@
 
 namespace HeyFrame\Core\System\Channel\Context;
 
-use HeyFrame\Core\Checkout\Cart\AbstractCartPersister;
 use HeyFrame\Core\Checkout\Cart\CartRuleLoader;
 use HeyFrame\Core\Checkout\Cart\Channel\CartService;
-use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Checkout\CheckoutPermissions;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Random;
 use HeyFrame\Core\Profiling\Profiler;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\Event\ChannelContextCreatedEvent;
-use HeyFrame\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -100,10 +98,6 @@ class ChannelContextService implements ChannelContextServiceInterface
 
             $context = $this->factory->create($token, $parameters->getChannelId(), $session);
 
-            if ($parameters->getOriginalContext()?->hasState(ElasticsearchEntitySearcher::EXPLAIN_MODE)) {
-                $context->addState(ElasticsearchEntitySearcher::EXPLAIN_MODE);
-            }
-
             $this->eventDispatcher->dispatch(new ChannelContextCreatedEvent($context, $token, $session));
 
             $currentRequest = $this->requestStack->getCurrentRequest();
@@ -112,9 +106,8 @@ class ChannelContextService implements ChannelContextServiceInterface
             // skip cart calculation on ESI sub-requests if it has already been done.
             $esiRequest = $currentRequest?->attributes->has('_sw_esi') ?? false;
             if (!$this->cartService->hasCart($token) || !$esiRequest) {
-                // @deprecated tag:v6.8.0 - Permission will always be true
                 $result = $context->withPermissions(
-                    [AbstractCartPersister::PERSIST_CART_ERROR_PERMISSION => Feature::isActive('DEFERRED_CART_ERRORS')],
+                    [CheckoutPermissions::PERSIST_CART_ERRORS => true],
                     fn (ChannelContext $context) => $this->ruleLoader->loadByToken($context, $token),
                 );
 
