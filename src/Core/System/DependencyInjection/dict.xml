@@ -32,5 +32,18 @@
             <tag name="heyframe.entity_indexer"/>
         </service>
 
+        <service id="HeyFrame\Core\System\Dict\DictService" public="true" lazy="true">
+            <argument type="service" id="HeyFrame\Core\System\Dict\DictLoader"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Dict\DictLoader">
+            <argument type="service" id="dict.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Dict\CachedDictLoader" decorates="HeyFrame\Core\System\Dict\DictLoader" decoration-priority="-1000">
+            <argument type="service" id="HeyFrame\Core\System\Dict\CachedDictLoader.inner"/>
+            <argument type="service" id="cache.object"/>
+        </service>
     </services>
 </container>

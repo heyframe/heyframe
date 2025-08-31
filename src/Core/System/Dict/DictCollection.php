@@ -11,6 +11,19 @@ use HeyFrame\Core\Framework\Log\Package;
 #[Package('framework')]
 class DictCollection extends EntityCollection
 {
+    public function filterKey(string $key): DictEntity
+    {
+        $dict = $this->filter(
+            fn (DictEntity $dict) => $dict->getKey() === $key
+        )->first();
+
+        if ($dict === null) {
+            throw DictException::dictNotFound($key);
+        }
+
+        return $dict;
+    }
+
     public function getApiAlias(): string
     {
         return 'dict_collection';
