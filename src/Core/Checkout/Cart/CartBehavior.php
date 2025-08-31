@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Cart;
 
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
@@ -34,21 +33,6 @@ class CartBehavior extends Struct
     public function hookAware(): bool
     {
         return $this->hookAware;
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed and is replaced by {@see $this->hasPermission(CheckoutPermissions::*)}
-     */
-    public function isRecalculation(): bool
-    {
-        Feature::triggerDeprecationOrThrow('v6.8.0.0', Feature::deprecatedMethodMessage(
-            self::class,
-            __METHOD__,
-            'v6.8.0.0',
-            self::class . '::hasPermission(CheckoutPermissions::*)',
-        ));
-
-        return !Feature::isActive('v6.8.0.0') && $this->isRecalculation;
     }
 
     /**

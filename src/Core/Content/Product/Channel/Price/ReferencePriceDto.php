@@ -16,7 +16,6 @@ class ReferencePriceDto extends Struct
     public function __construct(
         protected ?float $purchase,
         protected ?float $reference,
-        protected ?string $unitId
     ) {
     }
 
@@ -25,7 +24,6 @@ class ReferencePriceDto extends Struct
         return new self(
             $product->get('purchaseUnit'),
             $product->get('referenceUnit'),
-            $product->get('unitId')
         );
     }
 
@@ -52,15 +50,5 @@ class ReferencePriceDto extends Struct
     public function setReference(?float $reference): void
     {
         $this->reference = $reference;
-    }
-
-    public function getUnitId(): ?string
-    {
-        return $this->unitId;
-    }
-
-    public function setUnitId(?string $unitId): void
-    {
-        $this->unitId = $unitId;
     }
 }

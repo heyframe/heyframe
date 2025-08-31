@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Cart\Order\Transformer;
 
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryInformation;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryTime;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItemCollection;
 use HeyFrame\Core\Checkout\Cart\LineItem\QuantityInformation;
@@ -11,11 +9,8 @@ use HeyFrame\Core\Checkout\Cart\Order\IdStruct;
 use HeyFrame\Core\Checkout\Cart\Order\OrderConverter;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadEntity;
 use HeyFrame\Core\Checkout\Promotion\Cart\PromotionProcessor;
 use HeyFrame\Core\Content\Product\ProductEntity;
-use HeyFrame\Core\Content\Product\State;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 
@@ -75,15 +70,9 @@ class LineItemTransformer
             'price' => $lineItem->getPrice(),
             'priceDefinition' => $definition,
             'parentId' => $parentId,
-            'coverId' => $lineItem->getCover() ? $lineItem->getCover()->getId() : null,
+            'coverId' => $lineItem->getCover()?->getId(),
             'payload' => $lineItem->getPayload(),
-            'states' => $lineItem->getStates(),
         ];
-
-        $downloads = $lineItem->getExtensionOfType(OrderConverter::ORIGINAL_DOWNLOADS, OrderLineItemDownloadCollection::class);
-        if ($downloads instanceof OrderLineItemDownloadCollection) {
-            $data['downloads'] = array_values($downloads->map(fn (OrderLineItemDownloadEntity $download): array => ['id' => $download->getId()]));
-        }
 
         $output[$lineItem->getId()] = array_filter($data, fn ($value) => $value !== null);
 
@@ -139,7 +128,6 @@ class LineItemTransformer
             ->setGood($entity->getGood())
             ->setRemovable($entity->getRemovable())
             ->setStackable($entity->getStackable())
-            ->setStates($entity->getStates())
             ->addExtension(OrderConverter::ORIGINAL_ID, new IdStruct($id));
 
         if ($entity->getPayload() !== null) {
@@ -154,10 +142,6 @@ class LineItemTransformer
             $lineItem->setPriceDefinition($entity->getPriceDefinition());
         }
 
-        if ($entity->getDownloads() !== null) {
-            $lineItem->addExtension(OrderConverter::ORIGINAL_DOWNLOADS, $entity->getDownloads());
-        }
-
         if ($entity->getProduct() !== null) {
             self::setProductData($lineItem, $entity->getProduct());
         }
@@ -165,29 +149,12 @@ class LineItemTransformer
 
     private static function createLineItem(OrderLineItemEntity $entity): LineItem
     {
-        $item = new LineItem(
+        return new LineItem(
             $entity->getIdentifier(),
             $entity->getType() ?? '',
             $entity->getReferencedId(),
             $entity->getQuantity()
         );
-
-        $isNonProduct = \in_array($entity->getType(), [
-            LineItem::CREDIT_LINE_ITEM_TYPE,
-            LineItem::DISCOUNT_LINE_ITEM,
-        ], true);
-        $isProduct = \in_array($entity->getType(), [
-            LineItem::PRODUCT_LINE_ITEM_TYPE,
-            LineItem::CUSTOM_LINE_ITEM_TYPE,
-        ], true);
-        $isDownloadState = \in_array(State::IS_DOWNLOAD, $entity->getStates(), true);
-        if ($isNonProduct || ($isProduct && $isDownloadState)) {
-            $item->setShippingCostAware(false);
-
-            return $item;
-        }
-
-        return $item;
     }
 
     private static function setProductData(LineItem $lineItem, ProductEntity $product): void
@@ -213,25 +180,5 @@ class LineItemTransformer
         );
 
         $lineItem->setQuantityInformation($quantityInformation);
-
-        if ($lineItem->hasState(State::IS_PHYSICAL)) {
-            $deliveryTime = null;
-            if ($product->getDeliveryTime() !== null) {
-                $deliveryTime = DeliveryTime::createFromEntity($product->getDeliveryTime());
-            }
-
-            $lineItem->setDeliveryInformation(
-                new DeliveryInformation(
-                    $product->getStock(),
-                    $product->getWeight(),
-                    $product->getShippingFree() === true,
-                    $product->getRestockTime(),
-                    $deliveryTime,
-                    $product->getHeight(),
-                    $product->getWidth(),
-                    $product->getLength()
-                )
-            );
-        }
     }
 }

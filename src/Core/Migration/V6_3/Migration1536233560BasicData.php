@@ -36,6 +36,7 @@ class Migration1536233560BasicData extends MigrationStep
             return;
         }
         $this->createLanguage($connection);
+        $this->createDict($connection);
         $this->createLocale($connection);
         $this->createCountry($connection);
         $this->createCurrency($connection);
@@ -49,6 +50,27 @@ class Migration1536233560BasicData extends MigrationStep
         $this->createOrderStateMachine($connection);
         $this->createOrderTransactionStateMachine($connection);
         $this->createSystemConfigOptions($connection);
+    }
+
+    private function createDict(Connection $connection): void
+    {
+        $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
+        $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
+
+        $id = Uuid::randomBytes();
+        $connection->insert('dict', ['id' => $id, '`key`' => 'productType', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_translation', ['dict_id' => $id, 'language_id' => $languageEN, 'label' => 'Product Type', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_translation', ['dict_id' => $id, 'language_id' => $languageZH, 'label' => '产品类型', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        $membershipPlanId = Uuid::randomBytes();
+        $connection->insert('dict_item', ['id' => $membershipPlanId, 'dict_id' => $id, 'value' => 'membership_plan', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $membershipPlanId, 'language_id' => $languageZH, 'label' => '会员计划', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $membershipPlanId, 'language_id' => $languageEN, 'label' => 'Membership Plan', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        $walletRechargeId = Uuid::randomBytes();
+        $connection->insert('dict_item', ['id' => $walletRechargeId, 'dict_id' => $id, 'value' => 'wallet_recharge', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $walletRechargeId, 'language_id' => $languageZH, 'label' => '钱包充值', 'position' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $walletRechargeId, 'language_id' => $languageEN, 'label' => 'Wallet Recharge', 'position' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createChannel(Connection $connection): void

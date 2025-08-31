@@ -26,25 +26,20 @@ class ProductEntity extends Entity implements \Stringable
     use EntityCustomFieldsTrait;
     use EntityIdTrait;
 
+    final public const PRODUCT_TYPE_MEMBERSHIP_PLAN = 'membership_plan';
+    final public const PRODUCT_TYPE_WALLET_RECHARGE = 'wallet_recharge';
+
     protected ?string $parentId = null;
 
     protected int $childCount = 0;
 
     protected int $autoIncrement;
 
-    protected ?string $taxId = null;
-
-    protected ?string $manufacturerId = null;
-
-    protected ?string $unitId = null;
-
     protected ?bool $active = null;
 
     protected ?string $displayGroup = null;
 
     protected ?PriceCollection $price = null;
-
-    protected ?string $manufacturerNumber = null;
 
     protected int $sales;
 
@@ -77,16 +72,6 @@ class ProductEntity extends Entity implements \Stringable
     /**
      * @var array<string>|null
      */
-    protected ?array $categoryTree = null;
-
-    /**
-     * @var array<string>|null
-     */
-    protected ?array $streamIds = null;
-
-    /**
-     * @var array<string>|null
-     */
     protected ?array $optionIds = null;
 
     /**
@@ -105,10 +90,6 @@ class ProductEntity extends Entity implements \Stringable
     protected ?string $metaDescription = null;
 
     protected ?string $metaTitle = null;
-
-    protected ?string $packUnit = null;
-
-    protected ?string $packUnitPlural = null;
 
     /**
      * @var array<string>|null
@@ -188,36 +169,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->parentId = $parentId;
     }
 
-    public function getTaxId(): ?string
-    {
-        return $this->taxId;
-    }
-
-    public function setTaxId(?string $taxId): void
-    {
-        $this->taxId = $taxId;
-    }
-
-    public function getManufacturerId(): ?string
-    {
-        return $this->manufacturerId;
-    }
-
-    public function setManufacturerId(?string $manufacturerId): void
-    {
-        $this->manufacturerId = $manufacturerId;
-    }
-
-    public function getUnitId(): ?string
-    {
-        return $this->unitId;
-    }
-
-    public function setUnitId(?string $unitId): void
-    {
-        $this->unitId = $unitId;
-    }
-
     public function getActive(): ?bool
     {
         return $this->active;
@@ -241,26 +192,6 @@ class ProductEntity extends Entity implements \Stringable
     public function getCurrencyPrice(string $currencyId): ?Price
     {
         return $this->price?->getCurrencyPrice($currencyId);
-    }
-
-    public function getManufacturerNumber(): ?string
-    {
-        return $this->manufacturerNumber;
-    }
-
-    public function setManufacturerNumber(?string $manufacturerNumber): void
-    {
-        $this->manufacturerNumber = $manufacturerNumber;
-    }
-
-    public function getEan(): ?string
-    {
-        return $this->ean;
-    }
-
-    public function setEan(?string $ean): void
-    {
-        $this->ean = $ean;
     }
 
     public function getSales(): int
@@ -363,22 +294,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->releaseDate = $releaseDate;
     }
 
-    /**
-     * @return array<string>|null
-     */
-    public function getCategoryTree(): ?array
-    {
-        return $this->categoryTree;
-    }
-
-    /**
-     * @param array<string>|null $categoryTree
-     */
-    public function setCategoryTree(?array $categoryTree): void
-    {
-        $this->categoryTree = $categoryTree;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -429,26 +344,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->metaTitle = $metaTitle;
     }
 
-    public function getPackUnit(): ?string
-    {
-        return $this->packUnit;
-    }
-
-    public function setPackUnit(?string $packUnit): void
-    {
-        $this->packUnit = $packUnit;
-    }
-
-    public function getPackUnitPlural(): ?string
-    {
-        return $this->packUnitPlural;
-    }
-
-    public function setPackUnitPlural(?string $packUnitPlural): void
-    {
-        $this->packUnitPlural = $packUnitPlural;
-    }
-
     public function getPrices(): ?ProductPriceCollection
     {
         return $this->prices;
@@ -476,22 +371,6 @@ class ProductEntity extends Entity implements \Stringable
         }
 
         return $this->releaseDate < new \DateTime();
-    }
-
-    /**
-     * @return array<string>|null
-     */
-    public function getStreamIds(): ?array
-    {
-        return $this->streamIds;
-    }
-
-    /**
-     * @param array<string>|null $streamIds
-     */
-    public function setStreamIds(?array $streamIds): void
-    {
-        $this->streamIds = $streamIds;
     }
 
     /**

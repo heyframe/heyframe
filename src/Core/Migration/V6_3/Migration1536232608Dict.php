@@ -56,7 +56,7 @@ class Migration1536232608Dict extends MigrationStep
             CREATE TABLE `dict_item` (
               `id`                  BINARY(16)                              NOT NULL,
               `dict_id`             BINARY(16)                              NOT NULL,
-              `parent_id`           BINARY(16)                            NOT NULL,
+              `parent_id`           BINARY(16)                             NULL,
               `active` TINYINT(1) unsigned NOT NULL DEFAULT 1,
               `value`                VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
               `path` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,

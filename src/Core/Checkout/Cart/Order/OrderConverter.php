@@ -45,8 +45,6 @@ class OrderConverter
 
     final public const ORIGINAL_ORDER_NUMBER = 'originalOrderNumber';
 
-    final public const ORIGINAL_DOWNLOADS = 'originalDownloads';
-
     final public const ORIGINAL_PRIMARY_ORDER_DELIVERY = 'originalPrimaryOrderDelivery';
 
     final public const ORIGINAL_PRIMARY_ORDER_TRANSACTION = 'originalPrimaryOrderTransaction';
