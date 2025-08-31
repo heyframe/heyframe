@@ -4,10 +4,7 @@ namespace HeyFrame\Core\System\Channel;
 
 use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundByIdException;
-use HeyFrame\Core\Checkout\Order\OrderException;
 use HeyFrame\Core\Checkout\Payment\PaymentException;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\RestrictDeleteViolationException;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
@@ -84,15 +81,8 @@ class ChannelException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function orderNotFound(string $orderId): self|OrderException
+    public static function orderNotFound(string $orderId): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return OrderException::orderNotFound($orderId);
-        }
-
         return new self(
             Response::HTTP_NOT_FOUND,
             self::ORDER_NOT_FOUND_CODE,
@@ -145,30 +135,6 @@ class ChannelException extends HttpException
     public static function unknownPaymentMethod(string $paymentMethodId): HeyFrameHttpException
     {
         return PaymentException::unknownPaymentMethodById($paymentMethodId);
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - will be removed, as the exception is no longer needed, use RestrictDeleteViolationException instead
-     */
-    public static function channelDomainInUse(?\Throwable $previous = null): HeyFrameHttpException
-    {
-        Feature::triggerDeprecationOrThrow(
-            'v6.8.0.0',
-            Feature::deprecatedMethodMessage(
-                __CLASS__,
-                __METHOD__,
-                'v6.8.0.0',
-                RestrictDeleteViolationException::class
-            )
-        );
-
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::CHANNEL_DOMAIN_IN_USE,
-            'The sales channel domain cannot be deleted because it is still referenced in product exports.',
-            [],
-            $previous
-        );
     }
 
     public static function invalidType(string $message): self
@@ -271,15 +237,8 @@ class ChannelException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function missingAssociation(string $association): self|OrderException
+    public static function missingAssociation(string $association): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return OrderException::missingAssociation($association);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::MISSING_ORDER_ASSOCIATION_CODE,

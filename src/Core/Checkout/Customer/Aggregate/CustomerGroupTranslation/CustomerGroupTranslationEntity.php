@@ -20,14 +20,6 @@ class CustomerGroupTranslationEntity extends TranslationEntity
 
     protected ?CustomerGroupEntity $customerGroup = null;
 
-    protected ?string $registrationTitle = null;
-
-    protected ?string $registrationIntroduction = null;
-
-    protected ?bool $registrationOnlyCompanyRegistration = null;
-
-    protected ?string $registrationSeoMetaDescription = null;
-
     public function getCustomerGroupId(): string
     {
         return $this->customerGroupId;
@@ -56,45 +48,5 @@ class CustomerGroupTranslationEntity extends TranslationEntity
     public function setCustomerGroup(CustomerGroupEntity $customerGroup): void
     {
         $this->customerGroup = $customerGroup;
-    }
-
-    public function getRegistrationTitle(): ?string
-    {
-        return $this->registrationTitle;
-    }
-
-    public function setRegistrationTitle(string $registrationTitle): void
-    {
-        $this->registrationTitle = $registrationTitle;
-    }
-
-    public function getRegistrationIntroduction(): ?string
-    {
-        return $this->registrationIntroduction;
-    }
-
-    public function setRegistrationIntroduction(string $registrationIntroduction): void
-    {
-        $this->registrationIntroduction = $registrationIntroduction;
-    }
-
-    public function getRegistrationOnlyCompanyRegistration(): ?bool
-    {
-        return $this->registrationOnlyCompanyRegistration;
-    }
-
-    public function setRegistrationOnlyCompanyRegistration(bool $registrationOnlyCompanyRegistration): void
-    {
-        $this->registrationOnlyCompanyRegistration = $registrationOnlyCompanyRegistration;
-    }
-
-    public function getRegistrationSeoMetaDescription(): ?string
-    {
-        return $this->registrationSeoMetaDescription;
-    }
-
-    public function setRegistrationSeoMetaDescription(string $registrationSeoMetaDescription): void
-    {
-        $this->registrationSeoMetaDescription = $registrationSeoMetaDescription;
     }
 }

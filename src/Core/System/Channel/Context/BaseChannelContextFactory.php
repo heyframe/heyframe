@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\System\Channel\Context;
 
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
@@ -12,8 +11,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\PartialEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Channel\BaseChannelContext;
@@ -63,13 +60,6 @@ class BaseChannelContextFactory extends AbstractBaseChannelContextFactory
         $criteria->addAssociation('domains');
 
         $domainId = \is_string($options[ChannelContextService::DOMAIN_ID] ?? null) ? $options[ChannelContextService::DOMAIN_ID] : null;
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $criteria->getAssociation('languages')
-                ->addFilter(new EqualsFilter('id', $context->getLanguageId()))
-                ->addAssociation('translationCode')
-                ->addAssociation('locale');
-        }
 
         $channel = $this->channelRepository->search($criteria, $context)->getEntities()->get($channelId);
         if (!$channel instanceof ChannelEntity) {
@@ -121,7 +111,6 @@ class BaseChannelContextFactory extends AbstractBaseChannelContextFactory
             $context->getVersionId(),
             $currency->getFactor(),
             true,
-            CartPrice::TAX_STATE_GROSS,
             $itemRounding
         );
 

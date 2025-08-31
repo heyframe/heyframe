@@ -22,26 +22,29 @@ class Migration1536233210ChannelDomain extends MigrationStep
     public function update(Connection $connection): void
     {
         $connection->executeStatement('
-            CREATE TABLE channel_domain (
-            `id` BINARY(16) NOT NULL PRIMARY KEY,
-            `channel_id` BINARY(16) NOT NULL,
-            `language_id` BINARY(16) NOT NULL,
-            `url` VARCHAR(255) NOT NULL,
-            `currency_id` BINARY(16) NOT NULL,
-            `snippet_set_id` BINARY(16) NOT NULL,
-            `custom_fields` JSON NULL,
-            `created_at` DATETIME(3) NOT NULL,
-            `updated_at` DATETIME(3) NULL,
-            CONSTRAINT `json.channel_domain.custom_fields` CHECK (JSON_VALID(`custom_fields`)),
-            CONSTRAINT `fk.channel_domain.channel_id` FOREIGN KEY (channel_id)
-              REFERENCES `channel` (id) ON DELETE CASCADE ON UPDATE CASCADE,
-            CONSTRAINT `fk.channel_domain.language_id` FOREIGN KEY (channel_id, language_id)
-              REFERENCES `channel_language` (channel_id, language_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-            CONSTRAINT `fk.channel_domain.currency_id` FOREIGN KEY (currency_id)
-              REFERENCES `currency` (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-            CONSTRAINT `fk.channel_domain.snippet_set_id` FOREIGN KEY (snippet_set_id)
-              REFERENCES `snippet_set` (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-            CONSTRAINT `uniq.channel_domain.url` UNIQUE(url)
+            CREATE TABLE `channel_domain` (
+              `id` binary(16) NOT NULL,
+              `channel_id` binary(16) NOT NULL,
+              `language_id` binary(16) NOT NULL,
+              `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `currency_id` binary(16) NOT NULL,
+              `snippet_set_id` binary(16) NOT NULL,
+              `hreflang_use_only_locale` tinyint unsigned DEFAULT \'0\',
+              `custom_fields` json DEFAULT NULL,
+              `created_at` datetime(3) NOT NULL,
+              `updated_at` datetime(3) DEFAULT NULL,
+              `measurement_units` json DEFAULT NULL,
+              PRIMARY KEY (`id`),
+              UNIQUE KEY `uniq.channel_domain.url` (`url`),
+              KEY `fk.channel_domain.currency_id` (`currency_id`),
+              KEY `fk.channel_domain.snippet_set_id` (`snippet_set_id`),
+              KEY `fk.channel_domain.language_id` (`language_id`),
+              KEY `fk.channel_domain.channel_id` (`channel_id`),
+              CONSTRAINT `fk.channel_domain.currency_id` FOREIGN KEY (`currency_id`) REFERENCES `currency` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel_domain.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel_domain.channel_id` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel_domain.snippet_set_id` FOREIGN KEY (`snippet_set_id`) REFERENCES `snippet_set` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `json.channel_domain.custom_fields` CHECK (json_valid(`custom_fields`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }

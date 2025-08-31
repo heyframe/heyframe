@@ -27,13 +27,19 @@ class Migration1536232940Channel extends MigrationStep
               `type_id` BINARY(16) NOT NULL,
               `short_name` VARCHAR(45) NULL,
               `configuration` JSON NULL,
+              `navigation_depth` int NOT NULL DEFAULT '2',
+              `hreflang_active` tinyint unsigned DEFAULT '0',
+              `hreflang_default_domain_id` binary(16) DEFAULT NULL,
               `access_key` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
               `language_id` BINARY(16) NOT NULL,
               `currency_id` BINARY(16) NOT NULL,
               `payment_method_id` BINARY(16) NOT NULL,
+              `payment_method_ids` json DEFAULT NULL,
               `country_id` BINARY(16) NOT NULL,
-              `service_category_id` BINARY(16) NULL,
-              `service_category_version_id` BINARY(16) NULL,
+              `footer_navigation_id` binary(16) DEFAULT NULL,
+              `footer_navigation_version_id` binary(16) DEFAULT NULL,
+              `service_navigation_id` BINARY(16) NULL,
+              `service_navigation_version_id` BINARY(16) NULL,
               `active` TINYINT(1) NOT NULL DEFAULT '1',
               `navigation_id` BINARY(16) NULL,
               `navigation_version_id` BINARY(16),
@@ -42,6 +48,8 @@ class Migration1536232940Channel extends MigrationStep
               `updated_at` DATETIME(3) NULL,
               PRIMARY KEY (`id`),
               UNIQUE `uniq.access_key` (`access_key`),
+                KEY `fk.channel.footer_navigation_id` (`footer_navigation_id`,`footer_navigation_version_id`),
+              CONSTRAINT `json.channel.payment_method_ids` CHECK (json_valid(`payment_method_ids`)),
               CONSTRAINT `json.channel.configuration` CHECK (JSON_VALID(`configuration`)),
               CONSTRAINT `fk.channel.country_id` FOREIGN KEY (`country_id`)
                 REFERENCES `country` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -53,6 +61,7 @@ class Migration1536232940Channel extends MigrationStep
                 REFERENCES `payment_method` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.channel.type_id` FOREIGN KEY (`type_id`)
                 REFERENCES `channel_type` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+                  CONSTRAINT `fk.channel.service_navigation_id` FOREIGN KEY (`service_navigation_id`, `service_navigation_version_id`) REFERENCES `navigation` (`id`, `version_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.channel.navigation_id` FOREIGN KEY (`navigation_id`, `navigation_version_id`)
                 REFERENCES `navigation` (`id`, `version_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
               CONSTRAINT `fk.channel.customer_group_id` FOREIGN KEY (`customer_group_id`)
@@ -64,18 +73,24 @@ SQL;
 
         $connection->executeStatement('
             CREATE TABLE `channel_translation` (
-              `channel_id` BINARY(16) NOT NULL,
-              `language_id` BINARY(16) NOT NULL,
-              `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci NULL,
-              `custom_fields` JSON NULL,
-              `created_at` DATETIME(3) NOT NULL,
-              `updated_at` DATETIME(3) NULL,
-              PRIMARY KEY (`channel_id`, `language_id`),
-              CONSTRAINT `json.channel_translation.custom_fields` CHECK (JSON_VALID(`custom_fields`)),
-              CONSTRAINT `fk.channel_translation.language_id` FOREIGN KEY (`language_id`)
-                REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel_translation.channel_id` FOREIGN KEY (`channel_id`)
-                REFERENCES `channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+              `channel_id` binary(16) NOT NULL,
+              `language_id` binary(16) NOT NULL,
+              `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `home_keywords` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `home_meta_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `home_meta_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `home_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `home_enabled` tinyint NOT NULL DEFAULT \'1\',
+              `home_slot_config` json DEFAULT NULL,
+              `custom_fields` json DEFAULT NULL,
+              `created_at` datetime(3) NOT NULL,
+              `updated_at` datetime(3) DEFAULT NULL,
+              PRIMARY KEY (`channel_id`,`language_id`),
+              KEY `fk.channel_translation.language_id` (`language_id`),
+              CONSTRAINT `fk.channel_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel_translation.channel_id` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `json.channel_translation.custom_fields` CHECK (json_valid(`custom_fields`)),
+              CONSTRAINT `json.channel_translation.home_slot_config` CHECK (json_valid(`home_slot_config`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 

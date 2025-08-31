@@ -4,7 +4,6 @@ namespace HeyFrame\Core\System\Currency;
 
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscountPrice\PromotionDiscountPriceCollection;
-use HeyFrame\Core\Content\ProductExport\ProductExportCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -47,15 +46,11 @@ class CurrencyEntity extends Entity
 
     protected ?bool $isSystemDefault = null;
 
-    protected ?ProductExportCollection $productExports = null;
-
     protected ?CurrencyCountryRoundingCollection $countryRoundings = null;
 
     protected CashRoundingConfig $itemRounding;
 
     protected CashRoundingConfig $totalRounding;
-
-    protected ?float $taxFreeFrom = null;
 
     public function getIsoCode(): string
     {
@@ -187,16 +182,6 @@ class CurrencyEntity extends Entity
         $this->promotionDiscountPrices = $promotionDiscountPrices;
     }
 
-    public function getProductExports(): ?ProductExportCollection
-    {
-        return $this->productExports;
-    }
-
-    public function setProductExports(ProductExportCollection $productExports): void
-    {
-        $this->productExports = $productExports;
-    }
-
     public function getCountryRoundings(): ?CurrencyCountryRoundingCollection
     {
         return $this->countryRoundings;
@@ -225,15 +210,5 @@ class CurrencyEntity extends Entity
     public function setTotalRounding(CashRoundingConfig $totalRounding): void
     {
         $this->totalRounding = $totalRounding;
-    }
-
-    public function getTaxFreeFrom(): ?float
-    {
-        return $this->taxFreeFrom;
-    }
-
-    public function setTaxFreeFrom(?float $taxFreeFrom): void
-    {
-        $this->taxFreeFrom = $taxFreeFrom;
     }
 }

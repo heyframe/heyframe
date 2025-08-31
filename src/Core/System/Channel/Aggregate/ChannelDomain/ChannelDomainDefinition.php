@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\System\Channel\Aggregate\ChannelDomain;
 
-use HeyFrame\Core\Content\MeasurementSystem\Field\MeasurementUnitsField;
-use HeyFrame\Core\Content\ProductExport\ProductExportDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
@@ -11,11 +9,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Since;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
@@ -65,13 +60,11 @@ class ChannelDomainDefinition extends EntityDefinition
             (new FkField('language_id', 'languageId', LanguageDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new FkField('currency_id', 'currencyId', CurrencyDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new FkField('snippet_set_id', 'snippetSetId', SnippetSetDefinition::class))->addFlags(new ApiAware(), new Required()),
-            (new MeasurementUnitsField('measurement_units', 'measurementUnits'))->addFlags(new ApiAware(), new Since('6.7.1.0')),
             new ManyToOneAssociationField('channel', 'channel_id', ChannelDefinition::class, 'id', false),
             (new ManyToOneAssociationField('language', 'language_id', LanguageDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new ManyToOneAssociationField('currency', 'currency_id', CurrencyDefinition::class, 'id', false))->addFlags(new ApiAware()),
             new ManyToOneAssociationField('snippetSet', 'snippet_set_id', SnippetSetDefinition::class, 'id', false),
             (new OneToOneAssociationField('channelDefaultHreflang', 'id', 'hreflang_default_domain_id', ChannelDefinition::class, false))->addFlags(new ApiAware()),
-            (new OneToManyAssociationField('productExports', ProductExportDefinition::class, 'channel_domain_id', 'id'))->addFlags(new RestrictDelete()),
             (new BoolField('hreflang_use_only_locale', 'hreflangUseOnlyLocale'))->addFlags(new ApiAware()),
             (new CustomFields())->addFlags(new ApiAware()),
         ]);

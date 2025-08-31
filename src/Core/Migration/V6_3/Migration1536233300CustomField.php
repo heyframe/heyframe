@@ -23,18 +23,22 @@ class Migration1536233300CustomField extends MigrationStep
     {
         $connection->executeStatement('
             CREATE TABLE `custom_field` (
-              `id` BINARY(16) NOT NULL PRIMARY KEY,
-              `name` VARCHAR(255) NOT NULL,
-              `type` VARCHAR(255) NOT NULL,
-              `config` JSON NULL,
-              `active` TINYINT(1) NOT NULL DEFAULT 1,
-              `set_id` BINARY(16) NULL,
-              `created_at` DATETIME(3) NOT NULL,
-              `updated_at` DATETIME(3) NULL,
-              CONSTRAINT `uniq.custom_field.name` UNIQUE  (`name`),
-              CONSTRAINT `json.custom_field.config` CHECK(JSON_VALID(`config`)),
-              CONSTRAINT `fk.custom_field.set_id` FOREIGN KEY (set_id)
-                REFERENCES `custom_field_set` (id) ON UPDATE CASCADE ON DELETE CASCADE
+              `id` binary(16) NOT NULL,
+              `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `config` json DEFAULT NULL,
+              `active` tinyint(1) NOT NULL DEFAULT \'1\',
+              `set_id` binary(16) DEFAULT NULL,
+              `created_at` datetime(3) NOT NULL,
+              `updated_at` datetime(3) DEFAULT NULL,
+              `allow_customer_write` tinyint NOT NULL DEFAULT \'0\',
+              `allow_cart_expose` tinyint(1) NOT NULL DEFAULT \'0\',
+              `front_api_aware` tinyint(1) NOT NULL DEFAULT \'1\',
+              PRIMARY KEY (`id`),
+              UNIQUE KEY `uniq.custom_field.name` (`name`),
+              KEY `fk.custom_field.set_id` (`set_id`),
+              CONSTRAINT `fk.custom_field.set_id` FOREIGN KEY (`set_id`) REFERENCES `custom_field_set` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `json.custom_field.config` CHECK (json_valid(`config`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }

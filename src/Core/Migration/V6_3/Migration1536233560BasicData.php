@@ -5,7 +5,10 @@ namespace HeyFrame\Core\Migration\V6_3;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Checkout\Order\OrderStates;
+use HeyFrame\Core\Checkout\Wallet\Cart\PaymentHandler\WalletPayment;
+use HeyFrame\Core\Content\Navigation\NavigationDefinition;
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\MultiInsertQueryQueue;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationStep;
@@ -37,11 +40,110 @@ class Migration1536233560BasicData extends MigrationStep
         $this->createCountry($connection);
         $this->createCurrency($connection);
         $this->createCustomerGroup($connection);
+        $this->createPaymentMethod($connection);
+        $this->createNavigation($connection);
+        $this->createChannelTypes($connection);
+        $this->createChannel($connection);
         $this->createRules($connection);
         $this->createNumberRanges($connection);
         $this->createOrderStateMachine($connection);
         $this->createOrderTransactionStateMachine($connection);
         $this->createSystemConfigOptions($connection);
+    }
+
+    private function createChannel(Connection $connection): void
+    {
+        $currencies = $connection->executeQuery('SELECT id FROM currency')->fetchFirstColumn();
+        $languages = $connection->executeQuery('SELECT id FROM language')->fetchFirstColumn();
+        $paymentMethods = $connection->executeQuery('SELECT id FROM payment_method')->fetchFirstColumn();
+        $defaultPaymentMethod = $connection->executeQuery('SELECT id FROM payment_method WHERE active = 1 ORDER BY `position`')->fetchOne();
+        $countryStatement = $connection->executeQuery('SELECT id FROM country WHERE active = 1 ORDER BY `position`');
+        $defaultCountry = $countryStatement->fetchOne();
+        $navigationId = $connection->executeQuery('SELECT id FROM navigation')->fetchOne();
+
+        $id = Uuid::fromHexToBytes('98432def39fc4624b33213a56b8c944d');
+        $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
+        $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
+
+        $connection->insert('channel', [
+            'id' => $id,
+            'type_id' => Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_API),
+            'access_key' => AccessKeyHelper::generateAccessKey('channel'),
+            'active' => 1,
+            'language_id' => Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM),
+            'currency_id' => Uuid::fromHexToBytes(Defaults::CURRENCY),
+            'payment_method_id' => $defaultPaymentMethod,
+            'country_id' => $defaultCountry,
+            'navigation_id' => $navigationId,
+            'navigation_version_id' => Uuid::fromHexToBytes(Defaults::LIVE_VERSION),
+            'customer_group_id' => Uuid::fromHexToBytes('cfbd5018d38d41d8adca10d94fc8bdd6'),
+            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+        ]);
+
+        $connection->insert('channel_translation', ['channel_id' => $id, 'language_id' => $languageEN, 'name' => 'Headless', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_translation', ['channel_id' => $id, 'language_id' => $languageZH, 'name' => 'Headless', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        // country
+        $connection->insert('channel_country', ['channel_id' => $id, 'country_id' => $defaultCountry]);
+        $connection->insert('channel_country', ['channel_id' => $id, 'country_id' => $countryStatement->fetchOne()]);
+
+        // currency
+        foreach ($currencies as $currency) {
+            $connection->insert('channel_currency', ['channel_id' => $id, 'currency_id' => $currency]);
+        }
+
+        // language
+        foreach ($languages as $language) {
+            $connection->insert('channel_language', ['channel_id' => $id, 'language_id' => $language]);
+        }
+
+        // payment methods
+        foreach ($paymentMethods as $paymentMethod) {
+            $connection->insert('channel_payment_method', ['channel_id' => $id, 'payment_method_id' => $paymentMethod]);
+        }
+    }
+
+    private function createChannelTypes(Connection $connection): void
+    {
+        $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
+        $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
+
+        $storefront = Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_STOREFRONT);
+        $storefrontApi = Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_API);
+
+        $connection->insert('channel_type', ['id' => $storefront, 'icon_name' => 'default-building-shop', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_type_translation', ['channel_type_id' => $storefront, 'language_id' => $languageEN, 'name' => 'Storefront', 'manufacturer' => 'HeyFrame AG', 'description' => 'Sales channel with HTML storefront', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_type_translation', ['channel_type_id' => $storefront, 'language_id' => $languageZH, 'name' => 'Storefront', 'manufacturer' => 'HeyFrame AG', 'description' => '带有 HTML 网页的渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        $connection->insert('channel_type', ['id' => $storefrontApi, 'icon_name' => 'default-shopping-basket', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_type_translation', ['channel_type_id' => $storefrontApi, 'language_id' => $languageEN, 'name' => 'Headless', 'manufacturer' => 'HeyFrame AG', 'description' => 'API only channel', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_type_translation', ['channel_type_id' => $storefrontApi, 'language_id' => $languageZH, 'name' => 'Headless', 'manufacturer' => 'HeyFrame AG', 'description' => '仅提供 API 的渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+    }
+
+    private function createNavigation(Connection $connection): void
+    {
+        $id = Uuid::randomBytes();
+        $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
+        $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
+        $versionId = Uuid::fromHexToBytes(Defaults::LIVE_VERSION);
+
+        $connection->insert('navigation', ['id' => $id, 'version_id' => $versionId, 'type' => NavigationDefinition::TYPE_PAGE, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame - A Full-Stack PHP Development Framework', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame - PHP 全栈开发框架', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+    }
+
+    private function createPaymentMethod(Connection $connection): void
+    {
+        $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
+        $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
+        $ruleId = Uuid::randomBytes();
+        $connection->insert('rule', ['id' => $ruleId, 'name' => 'Cart >= 0 (Payment)', 'priority' => 100, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('rule_condition', ['id' => Uuid::randomBytes(), 'rule_id' => $ruleId, 'type' => 'cartCartAmount', 'value' => json_encode(['operator' => '>=', 'amount' => 0]), 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        $debit = Uuid::randomBytes();
+        $connection->insert('payment_method', ['id' => $debit, 'handler_identifier' => WalletPayment::class, 'technical_name' => 'wallet', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method_translation', ['payment_method_id' => $debit, 'language_id' => $languageEN, 'name' => 'Balance Payment', 'description' => 'Pay directly with your account balance — safe, fast', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method_translation', ['payment_method_id' => $debit, 'language_id' => $languageZH, 'name' => '余额支付', 'description' => '使用账户余额直接完成支付，安全快捷', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createSystemConfigOptions(Connection $connection): void
@@ -396,6 +498,14 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('currency', ['id' => $GBP, 'iso_code' => 'GBP', 'factor' => 0.1039, 'symbol' => '£', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('currency_translation', ['currency_id' => $GBP, 'language_id' => $languageEN, 'short_name' => 'GBP', 'name' => 'Pound', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('currency_translation', ['currency_id' => $GBP, 'language_id' => $languageZH, 'short_name' => 'GBP', 'name' => '英镑', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        $rounding = json_encode([
+            'decimals' => 2,
+            'interval' => 0.01,
+            'roundForNet' => true,
+        ]);
+
+        $connection->executeStatement('UPDATE `currency` SET item_rounding = :rounding,total_rounding=:rounding WHERE item_rounding IS NULL', ['rounding' => $rounding]);
     }
 
     private function createCountry(Connection $connection): void

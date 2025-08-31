@@ -14,7 +14,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\Aggregate\ChannelAnalytics\ChannelAnalyticsEntity;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainCollection;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainEntity;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelTranslation\ChannelTranslationCollection;
@@ -48,7 +47,7 @@ class ChannelEntity extends Entity
 
     protected string $navigationCategoryVersionId;
 
-    protected int $navigationCategoryDepth;
+    protected int $navigationDepth;
 
     /**
      * @var array<string, mixed>|null
@@ -93,15 +92,6 @@ class ChannelEntity extends Entity
     protected ?array $configuration = null;
 
     protected bool $active;
-
-    protected bool $maintenance;
-
-    /**
-     * @var array<mixed>|null
-     */
-    protected ?array $maintenanceIpWhitelist = null;
-
-    protected string $taxCalculationType;
 
     protected ?ChannelTypeEntity $type = null;
 
@@ -149,10 +139,6 @@ class ChannelEntity extends Entity
     protected ?string $hreflangDefaultDomainId = null;
 
     protected ?ChannelDomainEntity $hreflangDefaultDomain = null;
-
-    protected ?string $analyticsId = null;
-
-    protected ?ChannelAnalyticsEntity $analytics = null;
 
     protected ?CustomerGroupCollection $customerGroupsRegistrations = null;
 
@@ -282,32 +268,6 @@ class ChannelEntity extends Entity
     public function setActive(bool $active): void
     {
         $this->active = $active;
-    }
-
-    public function isMaintenance(): bool
-    {
-        return $this->maintenance;
-    }
-
-    public function setMaintenance(bool $maintenance): void
-    {
-        $this->maintenance = $maintenance;
-    }
-
-    /**
-     * @return array<mixed>|null
-     */
-    public function getMaintenanceIpWhitelist(): ?array
-    {
-        return $this->maintenanceIpWhitelist;
-    }
-
-    /**
-     * @param array<mixed>|null $maintenanceIpWhitelist
-     */
-    public function setMaintenanceIpWhitelist(?array $maintenanceIpWhitelist): void
-    {
-        $this->maintenanceIpWhitelist = $maintenanceIpWhitelist;
     }
 
     public function getCurrency(): ?CurrencyEntity
@@ -612,14 +572,14 @@ class ChannelEntity extends Entity
         $this->paymentMethodIds = $paymentMethodIds;
     }
 
-    public function getNavigationCategoryDepth(): int
+    public function getNavigationDepth(): int
     {
-        return $this->navigationCategoryDepth;
+        return $this->navigationDepth;
     }
 
-    public function setNavigationCategoryDepth(int $navigationCategoryDepth): void
+    public function setNavigationDepth(int $navigationDepth): void
     {
-        $this->navigationCategoryDepth = $navigationCategoryDepth;
+        $this->navigationDepth = $navigationDepth;
     }
 
     public function isHreflangActive(): bool
@@ -650,36 +610,6 @@ class ChannelEntity extends Entity
     public function setHreflangDefaultDomain(?ChannelDomainEntity $hreflangDefaultDomain): void
     {
         $this->hreflangDefaultDomain = $hreflangDefaultDomain;
-    }
-
-    public function getAnalyticsId(): ?string
-    {
-        return $this->analyticsId;
-    }
-
-    public function setAnalyticsId(?string $analyticsId): void
-    {
-        $this->analyticsId = $analyticsId;
-    }
-
-    public function getAnalytics(): ?ChannelAnalyticsEntity
-    {
-        return $this->analytics;
-    }
-
-    public function setAnalytics(?ChannelAnalyticsEntity $analytics): void
-    {
-        $this->analytics = $analytics;
-    }
-
-    public function getTaxCalculationType(): string
-    {
-        return $this->taxCalculationType;
-    }
-
-    public function setTaxCalculationType(string $taxCalculationType): void
-    {
-        $this->taxCalculationType = $taxCalculationType;
     }
 
     public function getCustomerGroupsRegistrations(): ?CustomerGroupCollection

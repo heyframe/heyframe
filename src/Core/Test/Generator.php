@@ -16,7 +16,6 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\ChannelDefinition;
 use HeyFrame\Core\System\Channel\ChannelEntity;
 use HeyFrame\Core\System\Channel\Context\LanguageInfo;
 use HeyFrame\Core\System\Country\Aggregate\CountryState\CountryStateEntity;
@@ -33,8 +32,6 @@ class Generator extends TestCase
     final public const TOKEN = 'test-token';
     final public const DOMAIN = 'test-domain';
     final public const NAVIGATION_CATEGORY = 'f8466865cc6a45e48ed98dd2f6a0a293';
-    final public const TAX_CALCULATION_TYPE = ChannelDefinition::CALCULATION_TYPE_HORIZONTAL;
-    final public const CUSTOMER_GROUP_DISPLAY_GROSS = true;
     final public const TAX = 'c725e107825c4c7281673aeea66ed67e';
     final public const TAX_RATE = 19.0;
     final public const PAYMENT_METHOD = 'cce0e1ca23de4c55868ce057f628c349';
@@ -77,8 +74,7 @@ class Generator extends TestCase
             $channel = new ChannelEntity();
             $channel->setId(TestDefaults::CHANNEL);
             $channel->setNavigationCategoryId(self::NAVIGATION_CATEGORY);
-            $channel->setTaxCalculationType(self::TAX_CALCULATION_TYPE);
-            $channel->setNavigationCategoryDepth(2);
+            $channel->setNavigationDepth(2);
         }
 
         if (!$currency) {
@@ -90,7 +86,6 @@ class Generator extends TestCase
         if (!$currentCustomerGroup) {
             $currentCustomerGroup = new CustomerGroupEntity();
             $currentCustomerGroup->setId(TestDefaults::FALLBACK_CUSTOMER_GROUP);
-            $currentCustomerGroup->setDisplayGross(self::CUSTOMER_GROUP_DISPLAY_GROSS);
         }
 
         if (!$paymentMethod) {

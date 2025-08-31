@@ -29,10 +29,6 @@ class CartSerializationCleaner
         $this->eventDispatcher->dispatch($event);
 
         $this->cleanupLineItems($cart->getLineItems(), $event->getCustomFieldAllowList());
-
-        foreach ($cart->getDeliveries() as $delivery) {
-            $this->cleanupLineItems($delivery->getPositions()->getLineItems(), $event->getCustomFieldAllowList());
-        }
     }
 
     /**

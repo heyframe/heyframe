@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\System\Channel\Aggregate\ChannelDomain;
 
-use HeyFrame\Core\Content\MeasurementSystem\MeasurementUnits;
-use HeyFrame\Core\Content\ProductExport\ProductExportCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -36,10 +34,6 @@ class ChannelDomainEntity extends Entity
     protected string $languageId;
 
     protected ?LanguageEntity $language = null;
-
-    protected MeasurementUnits $measurementUnits;
-
-    protected ?ProductExportCollection $productExports = null;
 
     protected ?ChannelEntity $channelDefaultHreflang = null;
 
@@ -135,16 +129,6 @@ class ChannelDomainEntity extends Entity
         $this->snippetSet = $snippetSet;
     }
 
-    public function getProductExports(): ?ProductExportCollection
-    {
-        return $this->productExports;
-    }
-
-    public function setProductExports(ProductExportCollection $productExports): void
-    {
-        $this->productExports = $productExports;
-    }
-
     public function isHreflangUseOnlyLocale(): bool
     {
         return $this->hreflangUseOnlyLocale;
@@ -163,15 +147,5 @@ class ChannelDomainEntity extends Entity
     public function setChannelDefaultHreflang(?ChannelEntity $channelDefaultHreflang): void
     {
         $this->channelDefaultHreflang = $channelDefaultHreflang;
-    }
-
-    public function getMeasurementUnits(): MeasurementUnits
-    {
-        return $this->measurementUnits;
-    }
-
-    public function setMeasurementUnits(MeasurementUnits $measurementUnits): void
-    {
-        $this->measurementUnits = $measurementUnits;
     }
 }
