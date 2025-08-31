@@ -325,9 +325,7 @@
             <argument type="service" id="rule.repository"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Cart\LineItem\LineItemQuantitySplitter">
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
-        </service>
+        <service id="HeyFrame\Core\Checkout\Cart\LineItem\LineItemQuantitySplitter"/>
 
         <service id="HeyFrame\Core\Checkout\Cart\PriceDefinitionFactory"/>
 
@@ -384,10 +382,6 @@
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\Packager\LineItemGroupUnitPriceGrossPackager">
-            <tag name="lineitem.group.packager"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\LineItem\Group\Packager\LineItemGroupUnitPriceNetPackager">
             <tag name="lineitem.group.packager"/>
         </service>
 
