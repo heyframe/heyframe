@@ -8,7 +8,6 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderTag\OrderTagDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AutoIncrementField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CalculatedPriceField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CartPriceField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CashRoundingConfigField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CreatedByField;
@@ -16,7 +15,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateTimeField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\AllowEmptyString;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\NoConstraint;
@@ -27,7 +25,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FloatField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ListField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
@@ -94,17 +91,9 @@ class OrderDefinition extends EntityDefinition
             (new FloatField('amount_total', 'amountTotal'))->addFlags(new ApiAware(), new WriteProtected(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
             (new FloatField('amount_net', 'amountNet'))->addFlags(new ApiAware(), new WriteProtected()),
             (new FloatField('position_price', 'positionPrice'))->addFlags(new ApiAware(), new WriteProtected()),
-            (new StringField('tax_status', 'taxStatus'))->addFlags(new ApiAware(), new WriteProtected()),
-            (new CalculatedPriceField('shipping_costs', 'shippingCosts'))->addFlags(new ApiAware()),
-            (new FloatField('shipping_total', 'shippingTotal'))->addFlags(new ApiAware(), new WriteProtected()),
             (new FloatField('currency_factor', 'currencyFactor'))->addFlags(new ApiAware(), new Required()),
             (new StringField('deep_link_code', 'deepLinkCode'))->addFlags(new ApiAware()),
-            (new StringField('affiliate_code', 'affiliateCode'))->addFlags(new ApiAware()),
-            (new StringField('campaign_code', 'campaignCode'))->addFlags(new ApiAware()),
-            (new LongTextField('customer_comment', 'customerComment'))->addFlags(new ApiAware(), new AllowEmptyString()),
-            (new LongTextField('internal_comment', 'internalComment'))->addFlags(new AllowEmptyString()),
             (new StringField('source', 'source'))->addFlags(new ApiAware()),
-            (new StringField('tax_calculation_type', 'taxCalculationType'))->addFlags(new ApiAware()),
 
             (new StateMachineStateField('state_id', 'stateId', OrderStates::STATE_MACHINE))->addFlags(new Required()),
             (new ManyToOneAssociationField('stateMachineState', 'state_id', StateMachineStateDefinition::class, 'id'))->addFlags(new ApiAware()),

@@ -103,22 +103,18 @@ class CheapestPriceContainer extends Struct
 
         $prices = [];
 
-        $blueprint = new Price('', 1, 1, true);
+        $blueprint = new Price('', 1);
 
         foreach ($cheapest['price'] as $row) {
             $price = clone $blueprint;
             $price->setCurrencyId($row['currencyId']);
             $price->setGross((float) $row['gross']);
-            $price->setNet((float) $row['net']);
-            $price->setLinked((bool) $row['linked']);
 
             if (isset($row['listPrice'])) {
                 $list = clone $blueprint;
 
                 $list->setCurrencyId($row['currencyId']);
                 $list->setGross((float) $row['listPrice']['gross']);
-                $list->setNet((float) $row['listPrice']['net']);
-                $list->setLinked((bool) $row['listPrice']['linked']);
 
                 $price->setListPrice($list);
             }
@@ -128,8 +124,6 @@ class CheapestPriceContainer extends Struct
 
                 $regulation->setCurrencyId($row['currencyId']);
                 $regulation->setGross((float) $row['regulationPrice']['gross']);
-                $regulation->setNet((float) $row['regulationPrice']['net']);
-                $regulation->setLinked((bool) $row['regulationPrice']['linked']);
 
                 $price->setRegulationPrice($regulation);
             }

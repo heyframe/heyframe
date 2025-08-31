@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Media;
 
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemDefinition;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolder\MediaFolderDefinition;
 use HeyFrame\Core\Content\Media\Aggregate\MediaTag\MediaTagDefinition;
@@ -24,7 +23,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Computed;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
@@ -103,7 +101,6 @@ class MediaDefinition extends EntityDefinition
             // reverse side of the associations, not available in store-api
             new ManyToOneAssociationField('user', 'user_id', UserDefinition::class, 'id', false),
             (new OneToManyAssociationField('productMedia', ProductMediaDefinition::class, 'media_id', 'id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('orderLineItemDownloads', OrderLineItemDownloadDefinition::class, 'media_id', 'id'))->addFlags(new RestrictDelete()),
             (new OneToManyAssociationField('avatarUsers', UserDefinition::class, 'avatar_id'))->addFlags(new SetNullOnDelete()),
             new ManyToOneAssociationField('mediaFolder', 'media_folder_id', MediaFolderDefinition::class, 'id', false),
             (new OneToManyAssociationField('propertyGroupOptions', PropertyGroupOptionDefinition::class, 'media_id'))->addFlags(new SetNullOnDelete()),

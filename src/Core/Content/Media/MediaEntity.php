@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Media;
 
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
@@ -99,8 +98,6 @@ class MediaEntity extends Entity
     protected ?OrderLineItemCollection $orderLineItems = null;
 
     protected ?AppPaymentMethodCollection $appPaymentMethods = null;
-
-    protected ?OrderLineItemDownloadCollection $orderLineItemDownloads = null;
 
     /**
      * @experimental stableVersion:v6.8.0 feature:SPATIAL_BASES
@@ -446,16 +443,6 @@ class MediaEntity extends Entity
     public function getAppPaymentMethods(): ?AppPaymentMethodCollection
     {
         return $this->appPaymentMethods;
-    }
-
-    public function getOrderLineItemDownloads(): ?OrderLineItemDownloadCollection
-    {
-        return $this->orderLineItemDownloads;
-    }
-
-    public function setOrderLineItemDownloads(OrderLineItemDownloadCollection $orderLineItemDownloads): void
-    {
-        $this->orderLineItemDownloads = $orderLineItemDownloads;
     }
 
     public function hasPath(): bool

@@ -175,13 +175,7 @@ class ProductHydrator extends EntityHydrator
         if (isset($row[$root . '.updatedAt'])) {
             $entity->updatedAt = new \DateTimeImmutable($row[$root . '.updatedAt']);
         }
-        $entity->deliveryTime = $this->manyToOne($row, $root, $definition->getField('deliveryTime'), $context);
-        $entity->tax = $this->manyToOne($row, $root, $definition->getField('tax'), $context);
-        $entity->manufacturer = $this->manyToOne($row, $root, $definition->getField('manufacturer'), $context);
-        $entity->unit = $this->manyToOne($row, $root, $definition->getField('unit'), $context);
         $entity->cover = $this->manyToOne($row, $root, $definition->getField('cover'), $context);
-        $entity->featureSet = $this->manyToOne($row, $root, $definition->getField('featureSet'), $context);
-        $entity->cmsPage = $this->manyToOne($row, $root, $definition->getField('cmsPage'), $context);
         $entity->canonicalProduct = $this->manyToOne($row, $root, $definition->getField('canonicalProduct'), $context);
 
         $this->translate($definition, $entity, $row, $root, $context, $definition->getTranslatedFields());
@@ -189,11 +183,7 @@ class ProductHydrator extends EntityHydrator
         $this->customFields($definition, $row, $root, $entity, $definition->getField('customFields'), $context);
         $this->manyToMany($row, $root, $entity, $definition->getField('options'));
         $this->manyToMany($row, $root, $entity, $definition->getField('properties'));
-        $this->manyToMany($row, $root, $entity, $definition->getField('categories'));
-        $this->manyToMany($row, $root, $entity, $definition->getField('streams'));
-        $this->manyToMany($row, $root, $entity, $definition->getField('categoriesRo'));
         $this->manyToMany($row, $root, $entity, $definition->getField('tags'));
-        $this->manyToMany($row, $root, $entity, $definition->getField('customFieldSets'));
 
         return $entity;
     }

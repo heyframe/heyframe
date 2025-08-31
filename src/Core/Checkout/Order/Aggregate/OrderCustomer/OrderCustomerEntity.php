@@ -8,7 +8,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Salutation\SalutationEntity;
 
 #[Package('checkout')]
 class OrderCustomerEntity extends Entity
@@ -20,28 +19,18 @@ class OrderCustomerEntity extends Entity
 
     protected string $orderId;
 
-    protected ?string $salutationId = null;
+    protected ?string $name = null;
 
-    protected string $firstName;
-
-    protected string $lastName;
-
-    protected ?string $title = null;
+    protected string $nickname;
 
     /**
      * @var list<string>|null
      */
-    protected ?array $vatIds = null;
-
-    protected ?string $company = null;
-
     protected ?string $customerNumber = null;
 
     protected ?string $customerId = null;
 
     protected ?CustomerEntity $customer = null;
-
-    protected ?SalutationEntity $salutation = null;
 
     protected ?OrderEntity $order = null;
 
@@ -59,60 +48,24 @@ class OrderCustomerEntity extends Entity
         $this->email = $email;
     }
 
-    public function getSalutationId(): ?string
+    public function getName(): ?string
     {
-        return $this->salutationId;
+        return $this->name;
     }
 
-    public function setSalutationId(string $salutationId): void
+    public function setName(?string $name): void
     {
-        $this->salutationId = $salutationId;
+        $this->name = $name;
     }
 
-    public function getFirstName(): string
+    public function getNickname(): string
     {
-        return $this->firstName;
+        return $this->nickname;
     }
 
-    public function setFirstName(string $firstName): void
+    public function setNickname(string $nickname): void
     {
-        $this->firstName = $firstName;
-    }
-
-    public function getLastName(): string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): void
-    {
-        $this->lastName = $lastName;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return list<string>|null
-     */
-    public function getVatIds(): ?array
-    {
-        return $this->vatIds;
-    }
-
-    /**
-     * @param list<string> $vatIds
-     */
-    public function setVatIds(array $vatIds): void
-    {
-        $this->vatIds = $vatIds;
+        $this->nickname = $nickname;
     }
 
     public function getCustomerNumber(): ?string

@@ -71,11 +71,6 @@
             <tag name="flow.action" priority="680" key="action.change.customer.status"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\GrantDownloadAccessAction">
-            <argument type="service" id="order_line_item_download.repository"/>
-            <tag name="flow.action" priority="550" key="action.grant.download.access"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\SetOrderStateAction">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Order\Channel\OrderService"/>

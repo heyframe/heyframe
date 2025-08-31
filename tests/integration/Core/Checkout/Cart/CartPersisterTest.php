@@ -97,20 +97,6 @@ class CartPersisterTest extends TestCase
         $persister->save($cart, Generator::generateChannelContext());
     }
 
-    public function testEmptyCartWithCustomerCommentIsSaved(): void
-    {
-        $cart = new Cart('existing');
-        $cart->setCustomerComment('Foo');
-
-        static::getContainer()->get(CartPersister::class)
-            ->save($cart, $this->getChannelContext($cart->getToken()));
-
-        $token = static::getContainer()->get(Connection::class)
-            ->fetchOne('SELECT token FROM cart WHERE token = :token', ['token' => $cart->getToken()]);
-
-        static::assertNotEmpty($token);
-    }
-
     public function testSaveWithItems(): void
     {
         $cart = new Cart('existing');

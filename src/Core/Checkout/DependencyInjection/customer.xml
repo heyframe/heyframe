@@ -90,10 +90,6 @@
             <argument type="tagged_iterator" tag="heyframe.legacy_encoder" />
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Subscriber\AddressHashSubscriber">
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerMetaFieldSubscriber">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
 
@@ -197,9 +193,5 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerSalutationSubscriber">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <tag name="kernel.event_subscriber"/>
-        </service>
     </services>
 </container>

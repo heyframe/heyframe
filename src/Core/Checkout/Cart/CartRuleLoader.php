@@ -13,12 +13,9 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Util\FloatComparator;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Profiling\Profiler;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Country\CountryDefinition;
-use HeyFrame\Core\System\Country\CountryEntity;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Service\ResetInterface;
@@ -225,27 +222,6 @@ class CartRuleLoader implements ResetInterface
         }
 
         return \count($timestamps) !== $cart->getLineItems()->count();
-    }
-
-    private function isReachedCountryTaxFreeAmount(
-        ChannelContext $context,
-        CountryEntity $country,
-        float $cartNetAmount = 0,
-        string $taxFreeType = CountryDefinition::TYPE_CUSTOMER_TAX_FREE
-    ): bool {
-        $countryTaxFreeLimit = $taxFreeType === CountryDefinition::TYPE_CUSTOMER_TAX_FREE ? $country->getCustomerTax() : $country->getCompanyTax();
-        if (!$countryTaxFreeLimit->getEnabled()) {
-            return false;
-        }
-
-        $countryTaxFreeLimitAmount = $countryTaxFreeLimit->getAmount() / $this->fetchCurrencyFactor($countryTaxFreeLimit->getCurrencyId(), $context);
-
-        $currency = $context->getCurrency();
-
-        $cartNetAmount /= $this->fetchCurrencyFactor($currency->getId(), $context);
-
-        // currency taxFreeAmount === 0.0 mean currency taxFreeFrom is disabled
-        return $currency->getTaxFreeFrom() === 0.0 && FloatComparator::greaterThanOrEquals($cartNetAmount, $countryTaxFreeLimitAmount);
     }
 
     private function fetchCurrencyFactor(string $currencyId, ChannelContext $context): float

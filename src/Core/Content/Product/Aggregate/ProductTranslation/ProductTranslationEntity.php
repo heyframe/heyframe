@@ -26,10 +26,6 @@ class ProductTranslationEntity extends TranslationEntity
 
     protected ?string $metaTitle = null;
 
-    protected ?string $packUnit = null;
-
-    protected ?string $packUnitPlural = null;
-
     protected ?ProductEntity $product = null;
 
     /**
@@ -90,26 +86,6 @@ class ProductTranslationEntity extends TranslationEntity
     public function setMetaTitle(?string $metaTitle): void
     {
         $this->metaTitle = $metaTitle;
-    }
-
-    public function getPackUnit(): ?string
-    {
-        return $this->packUnit;
-    }
-
-    public function setPackUnit(?string $packUnit): void
-    {
-        $this->packUnit = $packUnit;
-    }
-
-    public function getPackUnitPlural(): ?string
-    {
-        return $this->packUnitPlural;
-    }
-
-    public function setPackUnitPlural(?string $packUnitPlural): void
-    {
-        $this->packUnitPlural = $packUnitPlural;
     }
 
     public function getProduct(): ?ProductEntity

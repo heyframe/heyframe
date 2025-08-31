@@ -33,9 +33,6 @@ class Processor
     {
         return Profiler::trace('cart::process', function () use ($original, $context, $behavior) {
             $cart = new Cart($original->getToken());
-            $cart->setCustomerComment($original->getCustomerComment());
-            $cart->setAffiliateCode($original->getAffiliateCode());
-            $cart->setCampaignCode($original->getCampaignCode());
             $cart->setSource($original->getSource());
             $cart->setErrorHash($original->getErrorHash());
             $cart->setBehavior($behavior);
@@ -106,7 +103,6 @@ class Processor
     {
         $amount = $this->amountCalculator->calculate(
             $cart->getLineItems()->getPrices(),
-            $cart->getDeliveries()->getShippingCosts(),
             $context
         );
 

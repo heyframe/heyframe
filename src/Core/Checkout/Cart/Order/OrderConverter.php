@@ -164,9 +164,6 @@ class OrderConverter
 
         $cart = new Cart(Uuid::randomHex());
         $cart->setPrice($order->getPrice());
-        $cart->setCustomerComment($order->getCustomerComment());
-        $cart->setAffiliateCode($order->getAffiliateCode());
-        $cart->setCampaignCode($order->getCampaignCode());
         $cart->setSource($order->getSource());
         $cart->addExtension(self::ORIGINAL_ID, new IdStruct($order->getId()));
         $orderNumber = $order->getOrderNumber();

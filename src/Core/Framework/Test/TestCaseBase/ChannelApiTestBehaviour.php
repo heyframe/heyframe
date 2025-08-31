@@ -193,7 +193,7 @@ trait ChannelApiTestBehaviour
             'paymentMethods' => [['id' => $paymentMethod->getId()]],
             'shippingMethodId' => $shippingMethod->getId(),
             'shippingMethods' => [['id' => $shippingMethod->getId()]],
-            'navigationCategoryId' => $this->getValidCategoryId(),
+            'navigationCategoryId' => $this->getValidNavigationId(),
             'countryId' => $this->getValidCountryId(null),
             'currencies' => [['id' => Defaults::CURRENCY]],
             'languages' => $channelOverride['languages'] ?? [['id' => Defaults::LANGUAGE_SYSTEM]],

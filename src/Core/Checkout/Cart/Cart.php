@@ -28,12 +28,6 @@ class Cart extends Struct
 
     protected bool $modified = false;
 
-    protected ?string $customerComment = null;
-
-    protected ?string $affiliateCode = null;
-
-    protected ?string $campaignCode = null;
-
     /**
      * This can be used to identify carts, that are used for different purposes.
      * Setting this will call different hook names for respective cart sources.
@@ -203,36 +197,6 @@ class Cart extends Struct
     public function markUnmodified(): void
     {
         $this->modified = false;
-    }
-
-    public function getCustomerComment(): ?string
-    {
-        return $this->customerComment;
-    }
-
-    public function setCustomerComment(?string $customerComment): void
-    {
-        $this->customerComment = $customerComment;
-    }
-
-    public function getAffiliateCode(): ?string
-    {
-        return $this->affiliateCode;
-    }
-
-    public function setAffiliateCode(?string $affiliateCode): void
-    {
-        $this->affiliateCode = $affiliateCode;
-    }
-
-    public function getCampaignCode(): ?string
-    {
-        return $this->campaignCode;
-    }
-
-    public function setCampaignCode(?string $campaignCode): void
-    {
-        $this->campaignCode = $campaignCode;
     }
 
     public function getApiAlias(): string

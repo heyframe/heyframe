@@ -47,6 +47,10 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductTag\ProductTagDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
         <service id="HeyFrame\Core\Content\Product\Cart\ProductGateway">
             <argument type="service" id="channel.product.repository"/>
             <argument type="service" id="event_dispatcher"/>
@@ -155,14 +159,8 @@
             <argument type="service" id="HeyFrame\Core\Content\Product\Stock\StockStorage"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceUpdater"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StatesUpdater"/>
             <argument type="service" id="messenger.default_bus"/>
             <tag name="heyframe.entity_indexer" priority="100"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StatesUpdater">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="event_dispatcher"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingUpdater">

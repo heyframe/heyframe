@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\System\Country;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -13,7 +11,6 @@ use HeyFrame\Core\System\Channel\ChannelCollection;
 use HeyFrame\Core\System\Country\Aggregate\CountryState\CountryStateCollection;
 use HeyFrame\Core\System\Country\Aggregate\CountryTranslation\CountryTranslationCollection;
 use HeyFrame\Core\System\Currency\Aggregate\CurrencyCountryRounding\CurrencyCountryRoundingCollection;
-use HeyFrame\Core\System\Tax\Aggregate\TaxRule\TaxRuleCollection;
 
 #[Package('fundamentals@discovery')]
 class CountryEntity extends Entity
@@ -29,56 +26,17 @@ class CountryEntity extends Entity
 
     protected bool $active;
 
-    protected bool $shippingAvailable;
-
     protected ?string $iso3 = null;
-
-    protected bool $displayStateInRegistration;
-
-    protected bool $forceStateInRegistration;
-
-    protected bool $checkVatIdPattern;
-
-    protected ?string $vatIdPattern = null;
-
-    protected ?bool $vatIdRequired = null;
-
-    protected TaxFreeConfig $customerTax;
-
-    protected TaxFreeConfig $companyTax;
 
     protected ?CountryStateCollection $states = null;
 
     protected ?CountryTranslationCollection $translations = null;
 
-    protected ?OrderAddressCollection $orderAddresses = null;
-
-    protected ?CustomerAddressCollection $customerAddresses = null;
-
     protected ?ChannelCollection $channelDefaultAssignments = null;
 
     protected ?ChannelCollection $channels = null;
 
-    protected ?TaxRuleCollection $taxRules = null;
-
     protected ?CurrencyCountryRoundingCollection $currencyCountryRoundings = null;
-
-    protected bool $postalCodeRequired;
-
-    protected bool $isEu;
-
-    protected bool $checkPostalCodePattern;
-
-    protected bool $checkAdvancedPostalCodePattern;
-
-    protected ?string $advancedPostalCodePattern = null;
-
-    protected ?string $defaultPostalCodePattern = null;
-
-    /**
-     * @var array<array<string, array<string, string>>>
-     */
-    protected array $addressFormat;
 
     public function getName(): ?string
     {
@@ -120,16 +78,6 @@ class CountryEntity extends Entity
         $this->active = $active;
     }
 
-    public function getShippingAvailable(): bool
-    {
-        return $this->shippingAvailable;
-    }
-
-    public function setShippingAvailable(bool $shippingAvailable): void
-    {
-        $this->shippingAvailable = $shippingAvailable;
-    }
-
     public function getIso3(): ?string
     {
         return $this->iso3;
@@ -138,46 +86,6 @@ class CountryEntity extends Entity
     public function setIso3(?string $iso3): void
     {
         $this->iso3 = $iso3;
-    }
-
-    public function getDisplayStateInRegistration(): bool
-    {
-        return $this->displayStateInRegistration;
-    }
-
-    public function setDisplayStateInRegistration(bool $displayStateInRegistration): void
-    {
-        $this->displayStateInRegistration = $displayStateInRegistration;
-    }
-
-    public function getForceStateInRegistration(): bool
-    {
-        return $this->forceStateInRegistration;
-    }
-
-    public function setForceStateInRegistration(bool $forceStateInRegistration): void
-    {
-        $this->forceStateInRegistration = $forceStateInRegistration;
-    }
-
-    public function getCheckVatIdPattern(): bool
-    {
-        return $this->checkVatIdPattern;
-    }
-
-    public function setCheckVatIdPattern(bool $checkVatIdPattern): void
-    {
-        $this->checkVatIdPattern = $checkVatIdPattern;
-    }
-
-    public function getVatIdPattern(): ?string
-    {
-        return $this->vatIdPattern;
-    }
-
-    public function setVatIdPattern(?string $vatIdPattern): void
-    {
-        $this->vatIdPattern = $vatIdPattern;
     }
 
     public function getStates(): ?CountryStateCollection
@@ -200,26 +108,6 @@ class CountryEntity extends Entity
         $this->translations = $translations;
     }
 
-    public function getOrderAddresses(): ?OrderAddressCollection
-    {
-        return $this->orderAddresses;
-    }
-
-    public function setOrderAddresses(OrderAddressCollection $orderAddresses): void
-    {
-        $this->orderAddresses = $orderAddresses;
-    }
-
-    public function getCustomerAddresses(): ?CustomerAddressCollection
-    {
-        return $this->customerAddresses;
-    }
-
-    public function setCustomerAddresses(CustomerAddressCollection $customerAddresses): void
-    {
-        $this->customerAddresses = $customerAddresses;
-    }
-
     public function getChannelDefaultAssignments(): ?ChannelCollection
     {
         return $this->channelDefaultAssignments;
@@ -238,16 +126,6 @@ class CountryEntity extends Entity
     public function setChannels(ChannelCollection $channels): void
     {
         $this->channels = $channels;
-    }
-
-    public function getTaxRules(): ?TaxRuleCollection
-    {
-        return $this->taxRules;
-    }
-
-    public function setTaxRules(TaxRuleCollection $taxRules): void
-    {
-        $this->taxRules = $taxRules;
     }
 
     public function getCurrencyCountryRoundings(): ?CurrencyCountryRoundingCollection

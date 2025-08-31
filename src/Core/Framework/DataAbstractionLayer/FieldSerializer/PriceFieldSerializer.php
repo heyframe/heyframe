@@ -68,7 +68,6 @@ class PriceFieldSerializer extends AbstractFieldSerializer
 
             foreach ($value as $price) {
                 $price['gross'] = (float) $price['gross'];
-                $price['net'] = (float) $price['net'];
 
                 if (isset($price['listPrice'])) {
                     $price['percentage'] = null;
@@ -76,15 +75,10 @@ class PriceFieldSerializer extends AbstractFieldSerializer
                     unset($price['percentage']);
                 }
 
-                if (($price['listPrice']['net'] ?? 0) > 0 || ($price['listPrice']['gross'] ?? 0) > 0) {
+                if (($price['listPrice']['gross'] ?? 0) > 0) {
                     $price['percentage'] = [
-                        'net' => 0.0,
                         'gross' => 0.0,
                     ];
-
-                    if (($price['listPrice']['net'] ?? 0) > 0) {
-                        $price['percentage']['net'] = round(100 - $price['net'] / $price['listPrice']['net'] * 100, 2);
-                    }
 
                     if (($price['listPrice']['gross'] ?? 0) > 0) {
                         $price['percentage']['gross'] = round(100 - $price['gross'] / $price['listPrice']['gross'] * 100, 2);
@@ -127,7 +121,7 @@ class PriceFieldSerializer extends AbstractFieldSerializer
 
             if ((!isset($row['listPrice']) || !isset($row['listPrice']['gross'])) && (!isset($row['regulationPrice']) || !isset($row['regulationPrice']['gross']))) {
                 $collection->add(
-                    new Price($row['currencyId'], (float) $row['net'], (float) $row['gross'], (bool) $row['linked'])
+                    new Price($row['currencyId'], (float) $row['gross'])
                 );
 
                 continue;
@@ -138,9 +132,7 @@ class PriceFieldSerializer extends AbstractFieldSerializer
                 $data = $row['listPrice'];
                 $listPrice = new Price(
                     $row['currencyId'],
-                    (float) $data['net'],
-                    (float) $data['gross'],
-                    (bool) $data['linked'],
+                    (float) $data['gross']
                 );
             }
 
@@ -148,18 +140,14 @@ class PriceFieldSerializer extends AbstractFieldSerializer
                 $data = $row['regulationPrice'];
                 $regulationPrice = new Price(
                     $row['currencyId'],
-                    (float) $data['net'],
-                    (float) $data['gross'],
-                    (bool) $data['linked'],
+                    (float) $data['gross']
                 );
             }
 
             $collection->add(
                 new Price(
                     $row['currencyId'],
-                    (float) $row['net'],
                     (float) $row['gross'],
-                    (bool) $row['linked'],
                     $listPrice,
                     $row['percentage'] ?? null,
                     $regulationPrice
@@ -177,15 +165,11 @@ class PriceFieldSerializer extends AbstractFieldSerializer
                 fields: [
                     'currencyId' => [new NotBlank(), new Uuid()],
                     'gross' => [new NotBlank(), new Type(type: 'numeric')],
-                    'net' => [new NotBlank(), new Type(type: 'numeric')],
-                    'linked' => [new Type(type: 'boolean')],
                     'listPrice' => [
                         new Optional(
                             new Collection(
                                 fields: [
                                     'gross' => [new NotBlank(), new Type(type: 'numeric')],
-                                    'net' => [new NotBlank(), new Type('numeric')],
-                                    'linked' => [new Type(type: 'boolean')],
                                 ],
                                 allowExtraFields: true,
                                 allowMissingFields: false
@@ -197,8 +181,6 @@ class PriceFieldSerializer extends AbstractFieldSerializer
                             new Collection(
                                 fields: [
                                     'gross' => [new NotBlank(), new Type(type: 'numeric')],
-                                    'net' => [new NotBlank(), new Type('numeric')],
-                                    'linked' => [new Type(type: 'boolean')],
                                 ],
                                 allowExtraFields: true,
                                 allowMissingFields: false

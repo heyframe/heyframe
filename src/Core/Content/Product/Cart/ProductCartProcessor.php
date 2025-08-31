@@ -9,8 +9,6 @@ use HeyFrame\Core\Checkout\Cart\CartBehavior;
 use HeyFrame\Core\Checkout\Cart\CartDataCollectorInterface;
 use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Checkout\Cart\CartProcessorInterface;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryInformation;
-use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryTime;
 use HeyFrame\Core\Checkout\Cart\LineItem\CartDataCollection;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItemCollection;
@@ -23,7 +21,6 @@ use HeyFrame\Core\Checkout\CheckoutPermissions;
 use HeyFrame\Core\Content\Product\Channel\ChannelProductEntity;
 use HeyFrame\Core\Content\Product\Channel\Price\AbstractProductPriceCalculator;
 use HeyFrame\Core\Content\Product\ProductEntity;
-use HeyFrame\Core\Content\Product\State;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RuleAreas;
@@ -32,37 +29,11 @@ use HeyFrame\Core\Framework\Util\Hasher;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Profiling\Profiler;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Tax\TaxEntity;
 
 #[Package('inventory')]
 class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorInterface
 {
     final public const CUSTOM_PRICE = 'customPrice';
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed and is replaced by {@see CheckoutPermissions::ALLOW_PRODUCT_PRICE_OVERWRITES}
-     */
-    final public const ALLOW_PRODUCT_PRICE_OVERWRITES = CheckoutPermissions::ALLOW_PRODUCT_PRICE_OVERWRITES;
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed and is replaced by {@see CheckoutPermissions::ALLOW_PRODUCT_PRICE_OVERWRITES}
-     */
-    final public const ALLOW_PRODUCT_LABEL_OVERWRITES = CheckoutPermissions::ALLOW_PRODUCT_LABEL_OVERWRITES;
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed and is replaced by {@see CheckoutPermissions::SKIP_PRODUCT_RECALCULATION}
-     */
-    final public const SKIP_PRODUCT_RECALCULATION = CheckoutPermissions::SKIP_PRODUCT_RECALCULATION;
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed and is replaced by {@see CheckoutPermissions::SKIP_PRODUCT_STOCK_VALIDATION}
-     */
-    final public const SKIP_PRODUCT_STOCK_VALIDATION = CheckoutPermissions::SKIP_PRODUCT_STOCK_VALIDATION;
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed and is replaced by {@see CheckoutPermissions::KEEP_INACTIVE_PRODUCT}
-     */
-    final public const KEEP_INACTIVE_PRODUCT = CheckoutPermissions::KEEP_INACTIVE_PRODUCT;
 
     /**
      * @internal
@@ -154,7 +125,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
                 $definition->setQuantity($item->getQuantity());
 
                 $item->setPrice($this->calculator->calculate($definition, $context));
-                $item->setShippingCostAware(!$item->hasState(State::IS_DOWNLOAD));
             }
 
             $this->featureBuilder->add($items, $data, $context);
@@ -200,23 +170,13 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
             return;
         }
 
-        if ($behavior->hasPermission(self::KEEP_INACTIVE_PRODUCT)) {
+        if ($behavior->hasPermission(CheckoutPermissions::KEEP_INACTIVE_PRODUCT)) {
             return;
         }
 
         $cart->addErrors(new ProductNotFoundError($item->getLabel() ?: $item->getId()));
 
         $items->remove($item->getId());
-
-        foreach ($cart->getDeliveries() as $delivery) {
-            foreach ($delivery->getPositions() as $position) {
-                if ($position->getIdentifier() !== $item->getId()) {
-                    continue;
-                }
-
-                $delivery->getPositions()->remove($position->getIdentifier());
-            }
-        }
     }
 
     private function validateParents(LineItem $item, CartDataCollection $data, LineItemCollection $items): void
@@ -240,7 +200,7 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
 
     private function validateStock(LineItem $item, Cart $cart, LineItemCollection $scope, CartBehavior $behavior): void
     {
-        if ($behavior->hasPermission(self::SKIP_PRODUCT_STOCK_VALIDATION)) {
+        if ($behavior->hasPermission(CheckoutPermissions::SKIP_PRODUCT_STOCK_VALIDATION)) {
             return;
         }
 
@@ -312,35 +272,11 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
         $label = trim($lineItem->getLabel() ?? '');
 
         // set the label if its empty or the context does not have the permission to overwrite it
-        if ($label === '' || !$behavior->hasPermission(self::ALLOW_PRODUCT_LABEL_OVERWRITES)) {
+        if ($label === '' || !$behavior->hasPermission(CheckoutPermissions::ALLOW_PRODUCT_LABEL_OVERWRITES)) {
             $lineItem->setLabel($product->getTranslation('name'));
         }
 
         $lineItem->setCover($product->getCover()?->getMedia());
-
-        $deliveryTime = null;
-        if ($product->getDeliveryTime() !== null) {
-            $deliveryTime = DeliveryTime::createFromEntity($product->getDeliveryTime());
-        }
-
-        $weight = $product->getWeight();
-
-        $lineItem->setStates($product->getStates());
-
-        if ($lineItem->hasState(State::IS_PHYSICAL)) {
-            $lineItem->setDeliveryInformation(
-                new DeliveryInformation(
-                    $product->getStock(),
-                    $weight,
-                    $product->getShippingFree() === true,
-                    $product->getRestockTime(),
-                    $deliveryTime,
-                    $product->getHeight(),
-                    $product->getWidth(),
-                    $product->getLength()
-                )
-            );
-        }
 
         // Check if the price has to be updated
         if ($this->shouldPriceBeRecalculated($lineItem, $behavior)) {
@@ -377,7 +313,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
             'createdAt' => $product->getCreatedAt() ? $product->getCreatedAt()->format(Defaults::STORAGE_DATE_TIME_FORMAT) : null,
             'releaseDate' => $product->getReleaseDate() ? $product->getReleaseDate()->format(Defaults::STORAGE_DATE_TIME_FORMAT) : null,
             'isNew' => $product->isNew(),
-            'markAsTopseller' => $product->getMarkAsTopseller(),
             'purchasePrices' => $purchasePrices ? json_encode($purchasePrices, \JSON_THROW_ON_ERROR) : null,
             'productNumber' => $product->getProductNumber(),
             'manufacturerId' => $product->getManufacturerId(),
@@ -414,7 +349,7 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
 
     private function buildPriceDefinition(CalculatedPrice $price, int $quantity): QuantityPriceDefinition
     {
-        $definition = new QuantityPriceDefinition($price->getUnitPrice(), $price->getTaxRules(), $quantity);
+        $definition = new QuantityPriceDefinition($price->getUnitPrice(), $quantity);
         if ($price->getListPrice() !== null) {
             $definition->setListPrice($price->getListPrice()->getPrice());
         }
@@ -424,7 +359,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
                 new ReferencePriceDefinition(
                     $price->getReferencePrice()->getPurchaseUnit(),
                     $price->getReferencePrice()->getReferenceUnit(),
-                    $price->getReferencePrice()->getUnitName()
                 )
             );
         }
@@ -519,7 +453,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
     {
         return $lineItem->getPriceDefinition() !== null
             && $lineItem->getLabel() !== null
-            && $lineItem->getDeliveryInformation() !== null
             && $lineItem->getQuantityInformation() !== null;
     }
 
@@ -527,12 +460,12 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
     {
         if ($lineItem->getPriceDefinition() !== null
             && $lineItem->hasExtension(self::CUSTOM_PRICE)
-            && $behavior->hasPermission(self::ALLOW_PRODUCT_PRICE_OVERWRITES)) {
+            && $behavior->hasPermission(CheckoutPermissions::ALLOW_PRODUCT_PRICE_OVERWRITES)) {
             return false;
         }
 
         if ($lineItem->getPriceDefinition() !== null
-            && $behavior->hasPermission(self::SKIP_PRODUCT_RECALCULATION)) {
+            && $behavior->hasPermission(CheckoutPermissions::SKIP_PRODUCT_RECALCULATION)) {
             return false;
         }
 
@@ -591,10 +524,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
     {
         $contextHash = $this->generator->getChannelContextHash($context, [RuleAreas::PRODUCT_AREA]);
 
-        $activeTaxRules = array_map(static function (TaxEntity $taxRule) {
-            return $taxRule->getRules()?->getIds() ?: $taxRule->getId();
-        }, $context->getTaxRules()->getElements());
-
-        return Hasher::hash([$contextHash, $activeTaxRules]);
+        return Hasher::hash([$contextHash]);
     }
 }

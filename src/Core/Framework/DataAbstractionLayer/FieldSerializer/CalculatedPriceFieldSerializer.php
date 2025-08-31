@@ -5,10 +5,6 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\ListPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePrice;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTax;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRule;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
@@ -50,24 +46,6 @@ class CalculatedPriceFieldSerializer extends JsonFieldSerializer
             return null;
         }
 
-        $taxRules = array_map(
-            fn (array $tax) => new TaxRule(
-                (float) $tax['taxRate'],
-                (float) $tax['percentage']
-            ),
-            $decoded['taxRules']
-        );
-
-        $calculatedTaxes = array_map(
-            fn (array $tax) => new CalculatedTax(
-                (float) $tax['tax'],
-                (float) $tax['taxRate'],
-                (float) $tax['price'],
-                $tax['label'] ?? null,
-            ),
-            $decoded['calculatedTaxes']
-        );
-
         $referencePriceDefinition = null;
         if (isset($decoded['referencePrice'])) {
             $refPrice = $decoded['referencePrice'];
@@ -76,7 +54,6 @@ class CalculatedPriceFieldSerializer extends JsonFieldSerializer
                 $refPrice['price'],
                 $refPrice['purchaseUnit'],
                 $refPrice['referenceUnit'],
-                $refPrice['unitName']
             );
         }
 
@@ -91,8 +68,6 @@ class CalculatedPriceFieldSerializer extends JsonFieldSerializer
         return new CalculatedPrice(
             (float) $decoded['unitPrice'],
             (float) $decoded['totalPrice'],
-            new CalculatedTaxCollection($calculatedTaxes),
-            new TaxRuleCollection($taxRules),
             (int) $decoded['quantity'],
             $referencePriceDefinition,
             $listPrice

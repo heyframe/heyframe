@@ -3,13 +3,10 @@
 namespace HeyFrame\Core\Framework\Test\TestCaseBase;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Checkout\Document\Aggregate\DocumentType\DocumentTypeCollection;
 use HeyFrame\Core\Checkout\Order\OrderStates;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodCollection;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodEntity;
-use HeyFrame\Core\Content\Category\CategoryCollection;
+use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -19,10 +16,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Country\CountryCollection;
 use HeyFrame\Core\System\Language\LanguageCollection;
-use HeyFrame\Core\System\Salutation\SalutationCollection;
 use HeyFrame\Core\System\Snippet\Aggregate\SnippetSet\SnippetSetCollection;
 use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateCollection;
-use HeyFrame\Core\System\Tax\TaxCollection;
 use HeyFrame\Core\Test\TestDefaults;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -104,67 +99,6 @@ trait BasicTestDataBehaviour
         return $paymentMethod;
     }
 
-    protected function getValidShippingMethodId(?string $channelId = null): string
-    {
-        /** @var EntityRepository<ShippingMethodCollection> $repository */
-        $repository = static::getContainer()->get('shipping_method.repository');
-
-        $criteria = (new Criteria())
-            ->setLimit(1)
-            ->addFilter(new EqualsFilter('active', true))
-            ->addSorting(new FieldSorting('name'));
-
-        if ($channelId) {
-            $criteria->addFilter(new EqualsFilter('channels.id', $channelId));
-        }
-
-        /** @var string $id */
-        $id = $repository->searchIds($criteria, Context::createDefaultContext())->firstId();
-
-        return $id;
-    }
-
-    protected function getAvailableShippingMethod(?string $channelId = null): ShippingMethodEntity
-    {
-        /** @var EntityRepository<ShippingMethodCollection> $repository */
-        $repository = static::getContainer()->get('shipping_method.repository');
-
-        $criteria = (new Criteria())
-            ->addAssociation('prices')
-            ->addFilter(new EqualsFilter('shipping_method.prices.calculation', 1))
-            ->addFilter(new EqualsFilter('active', true))
-            ->addSorting(new FieldSorting('name'));
-
-        if ($channelId) {
-            $criteria->addFilter(new EqualsFilter('channels.id', $channelId));
-        }
-
-        $shippingMethods = $repository->search($criteria, Context::createDefaultContext())->getEntities();
-
-        foreach ($shippingMethods as $shippingMethod) {
-            if ($shippingMethod->getAvailabilityRuleId() !== null) {
-                return $shippingMethod;
-            }
-        }
-
-        throw new \LogicException('No available ShippingMethod configured');
-    }
-
-    protected function getValidSalutationId(): string
-    {
-        /** @var EntityRepository<SalutationCollection> $repository */
-        $repository = static::getContainer()->get('salutation.repository');
-
-        $criteria = (new Criteria())
-            ->setLimit(1)
-            ->addSorting(new FieldSorting('salutationKey'));
-
-        /** @var string $id */
-        $id = $repository->searchIds($criteria, Context::createDefaultContext())->firstId();
-
-        return $id;
-    }
-
     protected function getLocaleIdOfSystemLanguage(): string
     {
         /** @var EntityRepository<LanguageCollection> $repository */
@@ -198,7 +132,6 @@ trait BasicTestDataBehaviour
 
         $criteria = (new Criteria())->setLimit(1)
             ->addFilter(new EqualsFilter('active', true))
-            ->addFilter(new EqualsFilter('shippingAvailable', true))
             ->addSorting(new FieldSorting('iso'));
 
         if ($channelId !== null) {
@@ -225,44 +158,14 @@ trait BasicTestDataBehaviour
         return $id;
     }
 
-    protected function getValidCategoryId(): string
+    protected function getValidNavigationId(): string
     {
-        /** @var EntityRepository<CategoryCollection> $repository */
-        $repository = static::getContainer()->get('category.repository');
+        /** @var EntityRepository<NavigationCollection> $repository */
+        $repository = static::getContainer()->get('navigation.repository');
 
         $criteria = (new Criteria())
             ->setLimit(1)
             ->addSorting(new FieldSorting('level'), new FieldSorting('name'));
-
-        /** @var string $id */
-        $id = $repository->searchIds($criteria, Context::createDefaultContext())->firstId();
-
-        return $id;
-    }
-
-    protected function getValidTaxId(): string
-    {
-        /** @var EntityRepository<TaxCollection> $repository */
-        $repository = static::getContainer()->get('tax.repository');
-
-        $criteria = (new Criteria())
-            ->setLimit(1)
-            ->addSorting(new FieldSorting('name'));
-
-        /** @var string $id */
-        $id = $repository->searchIds($criteria, Context::createDefaultContext())->firstId();
-
-        return $id;
-    }
-
-    protected function getValidDocumentTypeId(): string
-    {
-        /** @var EntityRepository<DocumentTypeCollection> $repository */
-        $repository = static::getContainer()->get('document_type.repository');
-
-        $criteria = (new Criteria())
-            ->setLimit(1)
-            ->addSorting(new FieldSorting('technicalName'));
 
         /** @var string $id */
         $id = $repository->searchIds($criteria, Context::createDefaultContext())->firstId();

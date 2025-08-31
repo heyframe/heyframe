@@ -20,8 +20,6 @@ class OrderEvents
 
     final public const ORDER_ID_SEARCH_RESULT_LOADED_EVENT = 'order.id.search.result.loaded';
 
-    final public const ORDER_ADDRESS_WRITTEN_EVENT = 'order_address.written';
-
     final public const ORDER_ADDRESS_DELETED_EVENT = 'order_address.deleted';
 
     final public const ORDER_ADDRESS_LOADED_EVENT = 'order_address.loaded';

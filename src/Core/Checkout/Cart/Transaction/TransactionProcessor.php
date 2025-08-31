@@ -21,8 +21,6 @@ class TransactionProcessor
                 new CalculatedPrice(
                     $price,
                     $price,
-                    $cart->getPrice()->getCalculatedTaxes(),
-                    $cart->getPrice()->getTaxRules()
                 ),
                 $context->getPaymentMethod()->getId()
             ),

@@ -9,7 +9,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\JsonField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ListField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
@@ -58,9 +57,6 @@ class ProductTranslationDefinition extends EntityTranslationDefinition
             (new LongTextField('keywords', 'keywords'))->addFlags(new ApiAware()),
             (new LongTextField('description', 'description'))->addFlags(new ApiAware(), new AllowHtml()),
             (new StringField('meta_title', 'metaTitle'))->addFlags(new ApiAware()),
-            (new StringField('pack_unit', 'packUnit'))->addFlags(new ApiAware()),
-            (new StringField('pack_unit_plural', 'packUnitPlural'))->addFlags(new ApiAware()),
-            new ListField('custom_search_keywords', 'customSearchKeywords'),
             (new JsonField('slot_config', 'slotConfig'))->addFlags(new ApiAware()),
             (new CustomFields())->addFlags(new ApiAware()),
         ]);

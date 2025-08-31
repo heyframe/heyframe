@@ -70,19 +70,7 @@ class ProductEntity extends Entity implements \Stringable
 
     protected ?float $referenceUnit = null;
 
-    protected ?bool $shippingFree = null;
-
     protected ?PriceCollection $purchasePrices = null;
-
-    protected ?bool $markAsTopseller = null;
-
-    protected ?float $weight = null;
-
-    protected ?float $width = null;
-
-    protected ?float $height = null;
-
-    protected ?float $length = null;
 
     protected ?\DateTimeInterface $releaseDate = null;
 
@@ -355,16 +343,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->referenceUnit = $referenceUnit;
     }
 
-    public function getShippingFree(): ?bool
-    {
-        return $this->shippingFree;
-    }
-
-    public function setShippingFree(?bool $shippingFree): void
-    {
-        $this->shippingFree = $shippingFree;
-    }
-
     public function getPurchasePrices(): ?PriceCollection
     {
         return $this->purchasePrices;
@@ -373,56 +351,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setPurchasePrices(?PriceCollection $purchasePrices): void
     {
         $this->purchasePrices = $purchasePrices;
-    }
-
-    public function getMarkAsTopseller(): ?bool
-    {
-        return $this->markAsTopseller;
-    }
-
-    public function setMarkAsTopseller(?bool $markAsTopseller): void
-    {
-        $this->markAsTopseller = $markAsTopseller;
-    }
-
-    public function getWeight(): ?float
-    {
-        return $this->weight;
-    }
-
-    public function setWeight(?float $weight): void
-    {
-        $this->weight = $weight;
-    }
-
-    public function getWidth(): ?float
-    {
-        return $this->width;
-    }
-
-    public function setWidth(?float $width): void
-    {
-        $this->width = $width;
-    }
-
-    public function getHeight(): ?float
-    {
-        return $this->height;
-    }
-
-    public function setHeight(?float $height): void
-    {
-        $this->height = $height;
-    }
-
-    public function getLength(): ?float
-    {
-        return $this->length;
-    }
-
-    public function setLength(?float $length): void
-    {
-        $this->length = $length;
     }
 
     public function getReleaseDate(): ?\DateTimeInterface
@@ -880,16 +808,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setOrderLineItems(OrderLineItemCollection $orderLineItems): void
     {
         $this->orderLineItems = $orderLineItems;
-    }
-
-    public function getFeatureSetId(): ?string
-    {
-        return $this->featureSetId;
-    }
-
-    public function setFeatureSetId(?string $featureSetId): void
-    {
-        $this->featureSetId = $featureSetId;
     }
 
     public function getCustomFieldSetSelectionActive(): ?bool

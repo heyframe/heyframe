@@ -10,23 +10,11 @@ class Price extends Struct
 {
     public function __construct(
         protected string $currencyId,
-        protected float $net,
         protected float $gross,
-        protected bool $linked,
         protected ?Price $listPrice = null,
         protected ?array $percentage = null,
         protected ?Price $regulationPrice = null
     ) {
-    }
-
-    public function getNet(): float
-    {
-        return $this->net;
-    }
-
-    public function setNet(float $net): void
-    {
-        $this->net = $net;
     }
 
     public function getGross(): float
@@ -39,20 +27,9 @@ class Price extends Struct
         $this->gross = $gross;
     }
 
-    public function getLinked(): bool
-    {
-        return $this->linked;
-    }
-
-    public function setLinked(bool $linked): void
-    {
-        $this->linked = $linked;
-    }
-
     public function add(self $price): void
     {
         $this->gross += $price->getGross();
-        $this->net += $price->getNet();
     }
 
     public function getCurrencyId(): string

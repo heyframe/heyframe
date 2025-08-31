@@ -118,7 +118,6 @@
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent" method="invalidatePropertyFilters" priority="2008" />
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent" method="invalidateContext" priority="2010" />
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent" method="invalidateSnippets" priority="2012" />
-            <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent" method="invalidateStreamsBeforeIndexing" priority="2013" />
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent" method="invalidateCountryRoute" priority="2015" />
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent" method="invalidateInitialStateIdLoader" priority="2017" />
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent" method="invalidateCountryStateRoute" priority="2018" />

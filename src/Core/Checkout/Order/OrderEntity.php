@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Order;
 
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
@@ -34,10 +33,6 @@ class OrderEntity extends Entity
 
     protected string $channelId;
 
-    protected string $billingAddressId;
-
-    protected string $billingAddressVersionId;
-
     protected \DateTimeInterface $orderDateTime;
 
     protected \DateTimeInterface $orderDate;
@@ -49,12 +44,6 @@ class OrderEntity extends Entity
     protected float $amountNet;
 
     protected float $positionPrice;
-
-    protected ?string $taxStatus = null;
-
-    protected CalculatedPrice $shippingCosts;
-
-    protected float $shippingTotal;
 
     protected ?OrderCustomerEntity $orderCustomer = null;
 
@@ -93,10 +82,6 @@ class OrderEntity extends Entity
     protected ?string $affiliateCode = null;
 
     protected ?string $campaignCode = null;
-
-    protected ?string $customerComment = null;
-
-    protected ?string $internalComment = null;
 
     /**
      * @var array<string>|null
@@ -149,16 +134,6 @@ class OrderEntity extends Entity
         $this->channelId = $channelId;
     }
 
-    public function getBillingAddressId(): string
-    {
-        return $this->billingAddressId;
-    }
-
-    public function setBillingAddressId(string $billingAddressId): void
-    {
-        $this->billingAddressId = $billingAddressId;
-    }
-
     public function getOrderDateTime(): \DateTimeInterface
     {
         return $this->orderDateTime;
@@ -202,26 +177,6 @@ class OrderEntity extends Entity
     public function getPositionPrice(): float
     {
         return $this->positionPrice;
-    }
-
-    public function getTaxStatus(): ?string
-    {
-        return $this->taxStatus;
-    }
-
-    public function getShippingCosts(): CalculatedPrice
-    {
-        return $this->shippingCosts;
-    }
-
-    public function setShippingCosts(CalculatedPrice $shippingCosts): void
-    {
-        $this->shippingCosts = $shippingCosts;
-    }
-
-    public function getShippingTotal(): float
-    {
-        return $this->shippingTotal;
     }
 
     public function getOrderCustomer(): ?OrderCustomerEntity
@@ -349,16 +304,6 @@ class OrderEntity extends Entity
         $this->positionPrice = $positionPrice;
     }
 
-    public function setTaxStatus(string $taxStatus): void
-    {
-        $this->taxStatus = $taxStatus;
-    }
-
-    public function setShippingTotal(float $shippingTotal): void
-    {
-        $this->shippingTotal = $shippingTotal;
-    }
-
     public function getPrimaryOrderDeliveryId(): ?string
     {
         return $this->primaryOrderDeliveryId;
@@ -443,26 +388,6 @@ class OrderEntity extends Entity
     public function setCampaignCode(?string $campaignCode): void
     {
         $this->campaignCode = $campaignCode;
-    }
-
-    public function getCustomerComment(): ?string
-    {
-        return $this->customerComment;
-    }
-
-    public function setCustomerComment(?string $customerComment): void
-    {
-        $this->customerComment = $customerComment;
-    }
-
-    public function getInternalComment(): ?string
-    {
-        return $this->internalComment;
-    }
-
-    public function setInternalComment(?string $internalComment): void
-    {
-        $this->internalComment = $internalComment;
     }
 
     public function getSource(): ?string

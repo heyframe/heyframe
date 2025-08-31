@@ -12,14 +12,12 @@ use HeyFrame\Core\Content\Media\Event\MediaIndexerEvent;
 use HeyFrame\Core\Content\Product\Aggregate\ProductProperty\ProductPropertyDefinition;
 use HeyFrame\Core\Content\Product\Channel\Detail\ProductDetailRoute;
 use HeyFrame\Core\Content\Product\Events\InvalidateProductCache;
-use HeyFrame\Core\Content\Product\ProductDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOptionTranslation\PropertyGroupOptionTranslationDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupTranslation\PropertyGroupTranslationDefinition;
 use HeyFrame\Core\Content\Property\PropertyGroupDefinition;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Adapter\Translation\Translator;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
@@ -111,9 +109,7 @@ class CacheInvalidationSubscriber
     {
         $parents = array_map(ProductDetailRoute::buildName(...), $this->getParentIds($event->getIds()));
 
-        $streams = array_map(EntityCacheKeyGenerator::buildStreamTag(...), $this->getStreamIds($event->getIds()));
-
-        $tags = array_merge($parents, $streams);
+        $tags = array_merge($parents);
 
         $this->cacheInvalidator->invalidate($tags, force: $event->force);
     }
@@ -242,30 +238,6 @@ class CacheInvalidationSubscriber
     public function invalidatePropertyFilters(EntityWrittenContainerEvent $event): void
     {
         $this->cacheInvalidator->invalidate([...$this->getChangedPropertyFilterTags($event), ...$this->getDeletedPropertyFilterTags($event)]);
-    }
-
-    public function invalidateStreamsBeforeIndexing(EntityWrittenContainerEvent $event): void
-    {
-        // invalidates all stream based pages and routes before the product indexer changes product_stream_mapping
-        $ids = $event->getPrimaryKeys(ProductDefinition::ENTITY_NAME);
-
-        if (empty($ids)) {
-            return;
-        }
-
-        // invalidates product listings which are based on a product stream
-        $ids = $this->connection->fetchFirstColumn(
-            'SELECT DISTINCT LOWER(HEX(product_stream_id))
-             FROM product_stream_mapping
-             WHERE product_stream_mapping.product_id IN (:ids)
-             AND product_stream_mapping.product_version_id = :version',
-            ['ids' => Uuid::fromHexToBytesList($ids), 'version' => Uuid::fromHexToBytes(Defaults::LIVE_VERSION)],
-            ['ids' => ArrayParameterType::BINARY]
-        );
-
-        $this->cacheInvalidator->invalidate(
-            array_map(EntityCacheKeyGenerator::buildStreamTag(...), $ids)
-        );
     }
 
     /**

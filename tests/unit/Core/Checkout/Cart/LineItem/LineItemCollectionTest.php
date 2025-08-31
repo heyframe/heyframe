@@ -8,10 +8,8 @@ use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItemCollection;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection;
-use HeyFrame\Core\Content\Product\State;
 use HeyFrame\Core\Framework\Log\Package;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,56 +23,6 @@ class LineItemCollectionTest extends TestCase
     {
         $collection = new LineItemCollection();
         static::assertCount(0, $collection);
-    }
-
-    /**
-     * @param array<string, bool> $expectedResults
-     */
-    #[DataProvider('lineItemStateProvider')]
-    public function testHasLineItemWithState(LineItemCollection $collection, array $expectedResults): void
-    {
-        foreach ($expectedResults as $state => $expected) {
-            static::assertSame($expected, $collection->hasLineItemWithState($state), 'Line item of state `' . $state . '` could not be found.');
-        }
-    }
-
-    public static function lineItemStateProvider(): \Generator
-    {
-        yield 'collection has line item with state download and physical' => [
-            new LineItemCollection([
-                (new LineItem('A', 'test'))->setStates([State::IS_PHYSICAL]),
-                (new LineItem('B', 'test'))->setStates([State::IS_DOWNLOAD]),
-            ]),
-            [State::IS_PHYSICAL => true, State::IS_DOWNLOAD => true],
-        ];
-        yield 'collection has line item with only state physical' => [
-            new LineItemCollection([
-                (new LineItem('A', 'test'))->setStates([State::IS_PHYSICAL]),
-                (new LineItem('B', 'test'))->setStates([State::IS_PHYSICAL]),
-            ]),
-            [State::IS_PHYSICAL => true, State::IS_DOWNLOAD => false],
-        ];
-        yield 'collection has line item with only state download' => [
-            new LineItemCollection([
-                (new LineItem('A', 'test'))->setStates([State::IS_DOWNLOAD]),
-                (new LineItem('B', 'test'))->setStates([State::IS_DOWNLOAD]),
-            ]),
-            [State::IS_PHYSICAL => false, State::IS_DOWNLOAD => true],
-        ];
-        yield 'collection has line items without any state' => [
-            new LineItemCollection([
-                new LineItem('A', 'test'),
-                new LineItem('B', 'test'),
-            ]),
-            [State::IS_PHYSICAL => false, State::IS_DOWNLOAD => false],
-        ];
-        yield 'collection has line items with a unknown state' => [
-            new LineItemCollection([
-                (new LineItem('A', 'test'))->setStates(['foo']),
-                (new LineItem('B', 'test'))->setStates(['foo']),
-            ]),
-            [State::IS_PHYSICAL => false, State::IS_DOWNLOAD => false, 'foo' => true],
-        ];
     }
 
     public function testCountReturnsCorrectValue(): void

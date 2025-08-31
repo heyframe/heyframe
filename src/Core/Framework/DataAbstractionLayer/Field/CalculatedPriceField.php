@@ -17,8 +17,6 @@ class CalculatedPriceField extends JsonField
             (new FloatField('unitPrice', 'unitPrice'))->addFlags(new Required()),
             (new FloatField('totalPrice', 'totalPrice'))->addFlags(new Required()),
             (new IntField('quantity', 'quantity'))->addFlags(new Required()),
-            (new JsonField('calculatedTaxes', 'calculatedTaxes'))->addFlags(new Required()),
-            (new JsonField('taxRules', 'taxRules'))->addFlags(new Required()),
             new JsonField('referencePrice', 'referencePrice'),
             new JsonField('listPrice', 'listPrice', [
                 new FloatField('price', 'price'),

@@ -4,8 +4,6 @@ namespace HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceDefinitionInterface;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDeliveryPosition\OrderDeliveryPositionCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefundPosition\OrderTransactionCaptureRefundPositionCollection;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionEntity;
@@ -72,8 +70,6 @@ class OrderLineItemEntity extends Entity
 
     protected ?OrderEntity $order = null;
 
-    protected ?OrderDeliveryPositionCollection $orderDeliveryPositions = null;
-
     protected ?MediaEntity $cover = null;
 
     /**
@@ -89,8 +85,6 @@ class OrderLineItemEntity extends Entity
      * @var array<int, string>
      */
     protected array $states = [];
-
-    protected ?OrderLineItemDownloadCollection $downloads = null;
 
     protected ?PromotionEntity $promotion = null;
 
@@ -315,16 +309,6 @@ class OrderLineItemEntity extends Entity
         $this->order = $order;
     }
 
-    public function getOrderDeliveryPositions(): ?OrderDeliveryPositionCollection
-    {
-        return $this->orderDeliveryPositions;
-    }
-
-    public function setOrderDeliveryPositions(OrderDeliveryPositionCollection $orderDeliveryPositions): void
-    {
-        $this->orderDeliveryPositions = $orderDeliveryPositions;
-    }
-
     public function getCoverId(): ?string
     {
         return $this->coverId;
@@ -419,16 +403,6 @@ class OrderLineItemEntity extends Entity
     public function setStates(array $states): void
     {
         $this->states = $states;
-    }
-
-    public function getDownloads(): ?OrderLineItemDownloadCollection
-    {
-        return $this->downloads;
-    }
-
-    public function setDownloads(OrderLineItemDownloadCollection $downloads): void
-    {
-        $this->downloads = $downloads;
     }
 
     public function getOrderVersionId(): string

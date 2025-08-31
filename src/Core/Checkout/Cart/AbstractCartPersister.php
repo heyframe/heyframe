@@ -30,10 +30,7 @@ abstract class AbstractCartPersister
     protected function shouldPersist(Cart $cart): bool
     {
         return ($cart->getLineItems()->count() > 0
-            || ($cart->getErrors()->count() > 0 && $cart->getBehavior()?->hasPermission(CheckoutPermissions::PERSIST_CART_ERRORS))
-            || $cart->getAffiliateCode() !== null
-            || $cart->getCampaignCode() !== null
-            || $cart->getCustomerComment() !== null)
+            || ($cart->getErrors()->count() > 0 && $cart->getBehavior()?->hasPermission(CheckoutPermissions::PERSIST_CART_ERRORS)))
             && !$cart->getBehavior()?->hasPermission(CheckoutPermissions::SKIP_CART_PERSISTENCE);
     }
 }

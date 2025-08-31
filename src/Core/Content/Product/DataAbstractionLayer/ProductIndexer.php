@@ -37,7 +37,6 @@ class ProductIndexer extends EntityIndexer
     final public const CHILD_COUNT_UPDATER = 'product.child-count';
     final public const MANY_TO_MANY_ID_FIELD_UPDATER = 'product.many-to-many-id-field';
     final public const CHEAPEST_PRICE_UPDATER = 'product.cheapest-price';
-    final public const STATES_UPDATER = 'product.states';
     private const UPDATE_IDS_CHUNK_SIZE = 50;
 
     /**
@@ -56,7 +55,6 @@ class ProductIndexer extends EntityIndexer
         private readonly AbstractStockStorage $stockStorage,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly CheapestPriceUpdater $cheapestPriceUpdater,
-        private readonly StatesUpdater $statesUpdater,
         private readonly MessageBusInterface $messageBus
     ) {
     }
@@ -189,12 +187,6 @@ class ProductIndexer extends EntityIndexer
         if ($message->allow(self::CHEAPEST_PRICE_UPDATER)) {
             Profiler::trace('product:indexer:cheapest-price', function () use ($parentIds, $context): void {
                 $this->cheapestPriceUpdater->update($parentIds, $context);
-            });
-        }
-
-        if ($message->allow(self::STATES_UPDATER)) {
-            Profiler::trace('product:indexer:states', function () use ($ids, $context): void {
-                $this->statesUpdater->update($ids, $context);
             });
         }
 

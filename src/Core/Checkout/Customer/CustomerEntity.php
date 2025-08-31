@@ -36,11 +36,9 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?string $salutationId = null;
 
-    protected string $firstName;
+    protected ?string $name = null;
 
-    protected string $lastName;
-
-    protected ?string $company = null;
+    protected string $nickname;
 
     /**
      * @internal
@@ -48,17 +46,6 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?string $password = null;
 
     protected string $email;
-
-    protected ?string $title = null;
-
-    /**
-     * @var array<string>|null
-     */
-    protected ?array $vatIds = null;
-
-    protected ?string $affiliateCode = null;
-
-    protected ?string $campaignCode = null;
 
     protected bool $active;
 
@@ -70,20 +57,9 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?string $hash = null;
 
-    protected bool $guest;
-
     protected ?\DateTimeInterface $firstLogin = null;
 
     protected ?\DateTimeInterface $lastLogin = null;
-
-    protected string $accountType;
-
-    /**
-     * @var array<string>|null
-     *
-     * @internal
-     */
-    protected ?array $newsletterChannelIds = null;
 
     protected ?\DateTimeInterface $birthday = null;
 
@@ -92,8 +68,6 @@ class CustomerEntity extends Entity implements \Stringable
     protected int $orderCount;
 
     protected float $orderTotalAmount;
-
-    protected int $reviewCount;
 
     /**
      * @internal
@@ -126,10 +100,6 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?string $remoteAddress = null;
 
-    protected ?string $requestedGroupId = null;
-
-    protected ?CustomerGroupEntity $requestedGroup = null;
-
     protected ?string $boundChannelId = null;
 
     protected ?ChannelEntity $boundChannel = null;
@@ -144,7 +114,7 @@ class CustomerEntity extends Entity implements \Stringable
 
     public function __toString(): string
     {
-        return $this->getFirstName() . ' ' . $this->getLastName();
+        return $this->getNickname();
     }
 
     public function getGroupId(): string
@@ -227,36 +197,6 @@ class CustomerEntity extends Entity implements \Stringable
         $this->salutationId = $salutationId;
     }
 
-    public function getFirstName(): string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): void
-    {
-        $this->firstName = $firstName;
-    }
-
-    public function getLastName(): string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): void
-    {
-        $this->lastName = $lastName;
-    }
-
-    public function getCompany(): ?string
-    {
-        return $this->company;
-    }
-
-    public function setCompany(string $company): void
-    {
-        $this->company = $company;
-    }
-
     /**
      * @internal
      */
@@ -283,32 +223,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setEmail(string $email): void
     {
         $this->email = $email;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return array<string>|null
-     */
-    public function getVatIds(): ?array
-    {
-        return $this->vatIds;
-    }
-
-    /**
-     * @param array<string>|null $vatIds
-     */
-    public function setVatIds(?array $vatIds): void
-    {
-        $this->vatIds = $vatIds;
     }
 
     public function getActive(): bool
@@ -361,16 +275,6 @@ class CustomerEntity extends Entity implements \Stringable
         $this->hash = $hash;
     }
 
-    public function getGuest(): bool
-    {
-        return $this->guest;
-    }
-
-    public function setGuest(bool $guest): void
-    {
-        $this->guest = $guest;
-    }
-
     public function getFirstLogin(): ?\DateTimeInterface
     {
         return $this->firstLogin;
@@ -389,28 +293,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setLastLogin(?\DateTimeInterface $lastLogin): void
     {
         $this->lastLogin = $lastLogin;
-    }
-
-    /**
-     * @internal
-     *
-     * @return array<string>|null
-     */
-    public function getNewsletterChannelIds(): ?array
-    {
-        $this->checkIfPropertyAccessIsAllowed('newsletterChannelIds');
-
-        return $this->newsletterChannelIds;
-    }
-
-    /**
-     * @internal
-     *
-     * @param array<string>|null $newsletterChannelIds
-     */
-    public function setNewsletterChannelIds(?array $newsletterChannelIds): void
-    {
-        $this->newsletterChannelIds = $newsletterChannelIds;
     }
 
     public function getBirthday(): ?\DateTimeInterface
@@ -446,16 +328,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function getOrderTotalAmount(): float
     {
         return $this->orderTotalAmount;
-    }
-
-    public function getReviewCount(): int
-    {
-        return $this->reviewCount;
-    }
-
-    public function setReviewCount(int $reviewCount): void
-    {
-        $this->reviewCount = $reviewCount;
     }
 
     public function setOrderTotalAmount(float $orderTotalAmount): void
@@ -598,26 +470,6 @@ class CustomerEntity extends Entity implements \Stringable
         $this->promotions = $promotions;
     }
 
-    public function getAffiliateCode(): ?string
-    {
-        return $this->affiliateCode;
-    }
-
-    public function setAffiliateCode(?string $affiliateCode): void
-    {
-        $this->affiliateCode = $affiliateCode;
-    }
-
-    public function getCampaignCode(): ?string
-    {
-        return $this->campaignCode;
-    }
-
-    public function setCampaignCode(?string $campaignCode): void
-    {
-        $this->campaignCode = $campaignCode;
-    }
-
     public function getRemoteAddress(): ?string
     {
         return $this->remoteAddress;
@@ -626,26 +478,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setRemoteAddress(?string $remoteAddress): void
     {
         $this->remoteAddress = $remoteAddress;
-    }
-
-    public function getRequestedGroupId(): ?string
-    {
-        return $this->requestedGroupId;
-    }
-
-    public function setRequestedGroupId(?string $requestedGroupId): void
-    {
-        $this->requestedGroupId = $requestedGroupId;
-    }
-
-    public function getRequestedGroup(): ?CustomerGroupEntity
-    {
-        return $this->requestedGroup;
-    }
-
-    public function setRequestedGroup(?CustomerGroupEntity $requestedGroup): void
-    {
-        $this->requestedGroup = $requestedGroup;
     }
 
     public function getBoundChannelId(): ?string
@@ -666,16 +498,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setBoundChannel(ChannelEntity $boundChannel): void
     {
         $this->boundChannel = $boundChannel;
-    }
-
-    public function setAccountType(string $accountType): void
-    {
-        $this->accountType = $accountType;
-    }
-
-    public function getAccountType(): string
-    {
-        return $this->accountType;
     }
 
     public function getCreatedById(): ?string
@@ -716,5 +538,25 @@ class CustomerEntity extends Entity implements \Stringable
     public function setUpdatedBy(UserEntity $updatedBy): void
     {
         $this->updatedBy = $updatedBy;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getNickname(): string
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname(string $nickname): void
+    {
+        $this->nickname = $nickname;
     }
 }
