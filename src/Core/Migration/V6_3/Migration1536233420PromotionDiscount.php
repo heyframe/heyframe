@@ -22,20 +22,24 @@ class Migration1536233420PromotionDiscount extends MigrationStep
     public function update(Connection $connection): void
     {
         $connection->executeStatement('
-            CREATE TABLE IF NOT EXISTS `promotion_discount` (
-              `id` BINARY(16) NOT NULL,
-              `promotion_id` BINARY(16) NOT NULL,
-              `scope` VARCHAR(32) NOT NULL,
-              `type` VARCHAR(32) NOT NULL,
-              `value` DOUBLE NOT NULL,
-              `created_at` DATETIME(3) NOT NULL,
-              `updated_at` DATETIME(3) NULL,
-              `consider_advanced_rules` TINYINT(1) NOT NULL DEFAULT 0,
+            CREATE TABLE `promotion_discount` (
+              `id` binary(16) NOT NULL,
+              `promotion_id` binary(16) NOT NULL,
+              `scope` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `type` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `value` double NOT NULL,
+              `created_at` datetime(3) NOT NULL,
+              `updated_at` datetime(3) DEFAULT NULL,
+              `consider_advanced_rules` tinyint(1) NOT NULL DEFAULT 0,
+              `max_value` float DEFAULT NULL,
+              `sorter_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `applier_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `usage_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `picker_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
               PRIMARY KEY (`id`),
-              INDEX `idx.promotion_discount.promotion_id` (`promotion_id` ASC),
-              CONSTRAINT `fk.promotion_discount.promotion_id` FOREIGN KEY (`promotion_id`)
-                REFERENCES `promotion` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-            ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+              KEY `idx.promotion_discount.promotion_id` (`promotion_id`),
+              CONSTRAINT `fk.promotion_discount.promotion_id` FOREIGN KEY (`promotion_id`) REFERENCES `promotion` (`id`) ON DELETE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }
 

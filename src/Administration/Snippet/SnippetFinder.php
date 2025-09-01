@@ -24,13 +24,6 @@ use Symfony\Component\Finder\Finder;
 #[Package('discovery')]
 class SnippetFinder implements SnippetFinderInterface
 {
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed without replacement
-     */
-    public const ALLOWED_INTERSECTING_FIRST_LEVEL_SNIPPET_KEYS = [
-        'sw-flow-custom-event',
-    ];
-
     public function __construct(
         private readonly Kernel $kernel,
         private readonly Connection $connection,

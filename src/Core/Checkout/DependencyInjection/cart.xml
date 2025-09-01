@@ -305,6 +305,7 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartFactory"/>
             <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Translation\Translator"/>
 
             <tag name="kernel.reset" method="reset"/>
         </service>

@@ -8,8 +8,6 @@ use Doctrine\DBAL\Driver\Exception;
 use HeyFrame\Core\Checkout\Order\Channel\OrderService;
 use HeyFrame\Core\Checkout\Payment\Cart\PaymentRefundProcessor;
 use HeyFrame\Core\Checkout\Payment\PaymentException;
-use HeyFrame\Core\Content\Flow\Dispatching\Action\SendMailAction;
-use HeyFrame\Core\Content\MailTemplate\Subscriber\MailSendSubscriberConfig;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
 use HeyFrame\Core\Framework\Log\Package;
@@ -44,25 +42,6 @@ class OrderActionController extends AbstractController
         Request $request,
         Context $context
     ): JsonResponse {
-        $documentTypes = $request->request->all('documentTypes');
-        if (\count($documentTypes) > 0) {
-            $skipSentDocuments = (bool) $request->request->get('skipSentDocuments', false);
-            $documentIds = $this->getDocumentIds('order', $orderId, $documentTypes, $skipSentDocuments);
-        } else {
-            $documentIds = $request->request->all('documentIds');
-        }
-
-        $mediaIds = $request->request->all('mediaIds');
-
-        $context->addExtension(
-            SendMailAction::MAIL_CONFIG_EXTENSION,
-            new MailSendSubscriberConfig(
-                $request->request->get('sendMail', true) === false,
-                $documentIds,
-                $mediaIds
-            )
-        );
-
         $toPlace = $this->orderService->orderStateTransition(
             $orderId,
             $transition,
@@ -80,25 +59,6 @@ class OrderActionController extends AbstractController
         Request $request,
         Context $context
     ): JsonResponse {
-        $documentTypes = $request->request->all('documentTypes');
-        if (\count($documentTypes) > 0) {
-            $skipSentDocuments = (bool) $request->request->get('skipSentDocuments', false);
-            $documentIds = $this->getDocumentIds('order_transaction', $orderTransactionId, $documentTypes, $skipSentDocuments);
-        } else {
-            $documentIds = $request->request->all('documentIds');
-        }
-
-        $mediaIds = $request->request->all('mediaIds');
-
-        $context->addExtension(
-            SendMailAction::MAIL_CONFIG_EXTENSION,
-            new MailSendSubscriberConfig(
-                $request->request->get('sendMail', true) === false,
-                $documentIds,
-                $mediaIds
-            )
-        );
-
         $toPlace = $this->orderService->orderTransactionStateTransition(
             $orderTransactionId,
             $transition,
@@ -116,25 +76,6 @@ class OrderActionController extends AbstractController
         Request $request,
         Context $context
     ): JsonResponse {
-        $documentTypes = $request->request->all('documentTypes');
-        if (\count($documentTypes) > 0) {
-            $skipSentDocuments = (bool) $request->request->get('skipSentDocuments', false);
-            $documentIds = $this->getDocumentIds('order_delivery', $orderDeliveryId, $documentTypes, $skipSentDocuments);
-        } else {
-            $documentIds = $request->request->all('documentIds');
-        }
-
-        $mediaIds = $request->request->all('mediaIds');
-
-        $context->addExtension(
-            SendMailAction::MAIL_CONFIG_EXTENSION,
-            new MailSendSubscriberConfig(
-                $request->request->get('sendMail', true) === false,
-                $documentIds,
-                $mediaIds
-            )
-        );
-
         $toPlace = $this->orderService->orderDeliveryStateTransition(
             $orderDeliveryId,
             $transition,
@@ -148,7 +89,7 @@ class OrderActionController extends AbstractController
     /**
      * @throws PaymentException
      */
-    #[Route(path: '/api/_action/order_transaction_capture_refund/{refundId}', name: 'api.action.order.order_transaction_capture_refund', methods: ['POST'], defaults: ['_acl' => ['order_refund.editor']])]
+    #[Route(path: '/api/_action/order_transaction_capture_refund/{refundId}', name: 'api.action.order.order_transaction_capture_refund', defaults: ['_acl' => ['order_refund.editor']], methods: ['POST'])]
     public function refundOrderTransactionCapture(string $refundId, Context $context): JsonResponse
     {
         $this->paymentRefundProcessor->processRefund($refundId, $context);

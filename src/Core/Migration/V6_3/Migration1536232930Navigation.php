@@ -24,6 +24,7 @@ class Migration1536232930Navigation extends MigrationStep
         $connection->executeStatement('
             CREATE TABLE `navigation` (
               `id` BINARY(16) NOT NULL,
+              `auto_increment` BIGINT unsigned NOT NULL AUTO_INCREMENT,
               `version_id` BINARY(16) NOT NULL,
               `parent_id` BINARY(16) NULL,
               `parent_version_id` BINARY(16) NULL,
@@ -38,6 +39,7 @@ class Migration1536232930Navigation extends MigrationStep
               `created_at` DATETIME(3) NOT NULL,
               `updated_at` DATETIME(3),
               PRIMARY KEY (`id`, `version_id`),
+              KEY `idx.auto_increment` (`auto_increment`),
               KEY `idx.navigation.level` (`level`),
               KEY `fk.navigation.after_navigation_id` (`after_navigation_id`,`after_navigation_version_id`),
               CONSTRAINT `fk.navigation.parent_id` FOREIGN KEY (`parent_id`, `parent_version_id`)

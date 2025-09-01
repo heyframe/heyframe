@@ -23,13 +23,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 trait BasicTestDataBehaviour
 {
-    public function getDeDeLanguageId(): string
+    public function getEnGbLanguageId(): string
     {
         /** @var EntityRepository<LanguageCollection> $repository */
         $repository = static::getContainer()->get('language.repository');
 
         $criteria = new Criteria();
-        $criteria->addFilter(new EqualsFilter('language.translationCode.code', 'de-DE'));
+        $criteria->addFilter(new EqualsFilter('language.translationCode.code', 'en-GB'));
 
         /** @var string $languageId */
         $languageId = $repository->searchIds($criteria, Context::createDefaultContext())->firstId();

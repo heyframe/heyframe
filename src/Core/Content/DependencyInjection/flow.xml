@@ -95,11 +95,14 @@
             <tag name="flow.action" priority="350" key="action.set.customer.group.custom.field"/>
         </service>
 
+       <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\AddCustomerTagAction">
+            <argument type="service" id="customer.repository" />
+            <tag name="flow.action" priority="900" key="action.add.customer.tag"/>
+        </service>
 
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\AddOrderAffiliateAndCampaignCodeAction">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\AddOrderTagAction">
             <argument type="service" id="order.repository" />
-            <tag name="flow.action" priority="350" key="action.add.order.affiliate.and.campaign.code"/>
+            <tag name="flow.action" priority="1000" key="action.add.order.tag" />
         </service>
 
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Action\StopFlowAction">

@@ -200,8 +200,8 @@ class Translator extends AbstractTranslator
         if ($this->translator instanceof SymfonyTranslator) {
             // Reset FallbackLocale in memory cache of symfony implementation
             // set fallback values from Framework/Resources/config/translation.yaml
-            $this->translator->setFallbackLocales(['en_GB', 'en']);
-            $this->translator->setLocale('en-GB');
+            $this->translator->setFallbackLocales(['zh_CN', 'zh']);
+            $this->translator->setLocale('zh-CN');
         }
     }
 
@@ -342,7 +342,7 @@ class Translator extends AbstractTranslator
             return $this->languageLocaleProvider->getLocaleForLanguageId(Defaults::LANGUAGE_SYSTEM);
         } catch (ConnectionException) {
             // this allows us to use the translator even if there's no db connection yet
-            return 'en-GB';
+            return 'zh-CN';
         }
     }
 

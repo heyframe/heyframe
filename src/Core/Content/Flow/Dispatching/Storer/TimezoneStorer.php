@@ -51,14 +51,14 @@ class TimezoneStorer extends FlowStorer
         $request = $this->requestStack->getCurrentRequest();
 
         if (!$request) {
-            return 'UTC';
+            return 'Asia/Shanghai';
         }
 
         $timezone = (string) $request->cookies->get(self::TIMEZONE_COOKIE);
 
         if (!$timezone || !\in_array($timezone, timezone_identifiers_list(), true)) {
             // Default will be UTC @see https://symfony.com/doc/current/reference/configuration/twig.html#timezone
-            return 'UTC';
+            return 'Asia/Shanghai';
         }
 
         return $timezone;

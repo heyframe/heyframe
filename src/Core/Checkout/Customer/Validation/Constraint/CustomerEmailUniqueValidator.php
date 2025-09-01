@@ -32,18 +32,13 @@ class CustomerEmailUniqueValidator extends ConstraintValidator
 
         /** @var array{email: string, guest: int, bound_channel_id: string|null}[] $results */
         $results = $query
-            ->select('email', 'guest', 'LOWER(HEX(bound_channel_id)) as bound_channel_id')
+            ->select('email', 'LOWER(HEX(bound_channel_id)) as bound_channel_id')
             ->from('customer')
             ->where($query->expr()->eq('email', $query->createPositionalParameter($value)))
             ->executeQuery()
             ->fetchAllAssociative();
 
         $results = \array_filter($results, static function (array $entry) use ($constraint) {
-            // Filter out guest entries
-            if ($entry['guest']) {
-                return false;
-            }
-
             if ($entry['bound_channel_id'] === null) {
                 return true;
             }

@@ -4,7 +4,17 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="env(HEYFRAME_ADMINISTRATION_PATH_NAME)">admin</parameter>
+        <parameter key="heyframe_administration.path_name">%env(resolve:HEYFRAME_ADMINISTRATION_PATH_NAME)%</parameter>
+    </parameters>
+
     <services>
+        <service id="HeyFrame\Administration\Framework\Routing\AdministrationRouteScope">
+            <argument>%heyframe_administration.path_name%</argument>
+            <tag name="heyframe.route_scope"/>
+        </service>
+
         <service id="HeyFrame\Administration\Framework\Twig\ViteFileAccessorDecorator" decorates="pentatrion_vite.file_accessor">
             <argument>%pentatrion_vite.configs%</argument>
             <argument type="service" id="heyframe.asset.asset"/>
@@ -12,6 +22,14 @@
             <argument type="service" id="filesystem"/>
         </service>
 
+        <service id="HeyFrame\Administration\Controller\UserConfigController" public="true">
+            <argument type="service" id="user_config.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
 
         <service id="HeyFrame\Administration\Snippet\AppAdministrationSnippetDefinition">
             <tag name="heyframe.entity.definition"/>
@@ -21,6 +39,42 @@
             <argument type="service" id="app_administration_snippet.repository"/>
             <argument type="service" id="locale.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator"/>
+        </service>
+
+        <service id="HeyFrame\Administration\Service\AdminSearcher">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+        </service>
+
+        <service id="HeyFrame\Administration\Framework\App\Subscriber\SystemLanguageChangedSubscriber">
+            <argument type="service" id="locale.repository"/>
+            <argument type="service" id="app_administration_snippet.repository"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Administration\Controller\AdminSearchController" public="true">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="HeyFrame\Administration\Service\AdminSearcher"/>
+            <argument type="service" id="serializer"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Api\Acl\AclCriteriaValidator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Api\Serializer\JsonEntityEncoder"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="HeyFrame\Administration\Controller\AdminExtensionApiController" public="true">
+            <argument type="service" id="HeyFrame\Core\Framework\App\ActionButton\Executor"/>
+            <argument type="service" id="HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper"/>
+            <argument type="service" id="app.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\App\Hmac\QuerySigner"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
         </service>
 
         <service id="HeyFrame\Administration\Snippet\SnippetFinder">
@@ -34,6 +88,38 @@
         <service id="HeyFrame\Administration\Snippet\CachedSnippetFinder" decorates="HeyFrame\Administration\Snippet\SnippetFinder">
             <argument type="service" id="HeyFrame\Administration\Snippet\CachedSnippetFinder.inner" />
             <argument type="service" id="cache.object" />
+        </service>
+
+        <service id="HeyFrame\Administration\Framework\Routing\KnownIps\KnownIpsCollector"/>
+
+        <service id="HeyFrame\Administration\Controller\AdministrationController"
+                 public="true">
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Twig\TemplateFinder"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Store\Services\FirstRunWizardService"/>
+            <argument type="service" id="HeyFrame\Administration\Snippet\SnippetFinder"/>
+            <argument>%kernel.supported_api_versions%</argument>
+            <argument type="service" id="HeyFrame\Administration\Framework\Routing\KnownIps\KnownIpsCollector"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument>%kernel.heyframe_core_dir%</argument>
+            <argument type="service" id="customer.repository"/>
+            <argument type="service" id="currency.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Util\HtmlSanitizer"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="parameter_bag"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="heyframe.filesystem.asset"/>
+            <argument type="string">%env(SERVICE_REGISTRY_URL)%</argument>
+            <argument type="string">%heyframe.api.refresh_token_ttl%</argument>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="HeyFrame\Administration\System\Channel\Subscriber\ChannelUserConfigSubscriber">
+            <argument type="service" id="user_config.repository" />
+            <tag name="kernel.event_subscriber"/>
         </service>
     </services>
 </container>

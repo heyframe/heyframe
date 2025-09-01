@@ -23,7 +23,7 @@ class ActiveDateRange extends MultiFilter
     public function __construct(?ClockInterface $clock = null)
     {
         $dateTime = $clock?->now() ?? new \DateTime();
-        $today = $dateTime->setTimezone(new \DateTimeZone('UTC'));
+        $today = $dateTime->setTimezone(new \DateTimeZone('Asia/Shanghai'));
 
         $todayStart = $today->format('Y-m-d H:i:s');
         $todayEnd = $today->format('Y-m-d H:i:s');

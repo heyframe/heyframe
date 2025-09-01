@@ -92,7 +92,6 @@ class PromotionProcessor implements CartProcessorInterface
             // new list of created promotion discount line items
             $items = new LineItemCollection();
             foreach ($discountLineItems as $lineItem) {
-                $lineItem->setShippingCostAware(true);
                 $items->add($lineItem);
             }
 

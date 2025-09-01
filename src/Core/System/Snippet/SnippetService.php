@@ -244,7 +244,7 @@ class SnippetService
 
         $sets = $this->connection->fetchAllKeyValue(
             'SELECT iso, LOWER(HEX(id)) FROM snippet_set WHERE iso IN (:locales) LIMIT 2',
-            ['locales' => array_unique([$locale, 'en-GB'])],
+            ['locales' => array_unique([$locale, 'zh-CN'])],
             ['locales' => ArrayParameterType::STRING]
         );
 

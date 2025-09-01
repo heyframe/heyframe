@@ -3,12 +3,14 @@
 namespace HeyFrame\Core\Checkout\Cart;
 
 use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Checkout\Cart\Error\ErrorCollection;
 use HeyFrame\Core\Checkout\Cart\Exception\CartTokenNotFoundException;
 use HeyFrame\Core\Checkout\Cart\Extension\CheckoutCartRuleLoaderExtension;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Content\Rule\RuleCollection;
 use HeyFrame\Core\Content\Rule\RuleEntity;
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Adapter\Translation\AbstractTranslator;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Feature;
@@ -44,6 +46,7 @@ class CartRuleLoader implements ResetInterface
         private readonly Connection $connection,
         private readonly CartFactory $cartFactory,
         private readonly ExtensionDispatcher $extensions,
+        private readonly AbstractTranslator $translator,
     ) {
     }
 
@@ -95,6 +98,8 @@ class CartRuleLoader implements ResetInterface
                 extension: new CheckoutCartRuleLoaderExtension($context, $cart, $behaviorContext, $new),
                 function: $this->_load(...),
             );
+
+            $this->translateCartErrors($cart->getErrors(), $context);
 
             // save the cart if errors exist, so the errors get persisted
             if ($this->updated($result->getCart(), $timestamps, $dataHashes)
@@ -249,5 +254,25 @@ class CartRuleLoader implements ResetInterface
         }
 
         return $this->currencyFactor[$currencyId] = (float) $currencyFactor;
+    }
+
+    private function translateCartErrors(ErrorCollection $errorCollection, ChannelContext $context): void
+    {
+        foreach ($errorCollection as $error) {
+            $parameters = [];
+
+            foreach ($error->getParameters() as $key => $value) {
+                $parameters['%' . $key . '%'] = $value;
+            }
+
+            $translatedMessage = $this->translator->trans(
+                'checkout.' . $error->getMessageKey(),
+                $parameters,
+                null,
+                $context->getLanguageInfo()->localeCode
+            );
+
+            $error->setTranslatedMessage($translatedMessage);
+        }
     }
 }

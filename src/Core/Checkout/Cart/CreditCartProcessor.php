@@ -42,8 +42,6 @@ class CreditCartProcessor implements CartProcessorInterface
                     $context
                 )
             );
-            $lineItem->setShippingCostAware(false);
-
             $toCalculate->add($lineItem);
         }
     }

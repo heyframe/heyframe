@@ -19,11 +19,13 @@ class ValidatorFactory
      *
      * @return TClassToCreate
      */
-    public static function create(array $data, string $class): object
+    public static function create(array $data, string $class, bool $allowExtraFields = false): object
     {
+        $allowExtraFields = \func_num_args() > 2 && \func_get_arg(2);
+
         $validator = Validation::createValidator();
         $constraints = self::getConstraints($class);
-        $violations = $validator->validate($data, new Collection($constraints));
+        $violations = $validator->validate($data, new Collection($constraints, allowExtraFields: $allowExtraFields));
 
         if ($violations->count() === 0) {
             return new $class($data);

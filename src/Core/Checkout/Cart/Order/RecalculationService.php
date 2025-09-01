@@ -47,10 +47,7 @@ class RecalculationService
         protected OrderConverter $orderConverter,
         protected CartService $cartService,
         protected EntityRepository $productRepository,
-        protected EntityRepository $orderAddressRepository,
-        protected EntityRepository $customerAddressRepository,
         protected EntityRepository $orderLineItemRepository,
-        protected EntityRepository $orderDeliveryRepository,
         protected Processor $processor,
         private readonly CartRuleLoader $cartRuleLoader,
         private readonly PromotionItemBuilder $promotionItemBuilder,
@@ -307,7 +304,7 @@ class RecalculationService
         // we switch to the live version that we don't have to consider live version fallbacks inside the calculation
         return $context->live(function ($live) use ($cart): Cart {
             /** @deprecated tag:v6.8.0 - `$isRecalculation` will be removed */
-            $behavior = new CartBehavior($live->getPermissions(), true, isRecalculation: !Feature::isActive('v6.8.0.0'));
+            $behavior = new CartBehavior($live->getPermissions(), true);
 
             // all prices are now prepared for calculation - starts the cart calculation
             $cart = $this->processor->process($cart, $live, $behavior);
