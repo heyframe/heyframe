@@ -58,6 +58,9 @@ class ProductHydrator extends EntityHydrator
         if (isset($row[$root . '.productNumber'])) {
             $entity->productNumber = $row[$root . '.productNumber'];
         }
+        if (isset($row[$root . '.productType'])) {
+            $entity->productType = $row[$root . '.productType'];
+        }
         if (isset($row[$root . '.stock'])) {
             $entity->stock = (int) $row[$root . '.stock'];
         }
@@ -118,29 +121,8 @@ class ProductHydrator extends EntityHydrator
         if (\array_key_exists($root . '.purchasePrices', $row)) {
             $entity->purchasePrices = $definition->decode('purchasePrices', self::value($row, $root, 'purchasePrices'));
         }
-        if (isset($row[$root . '.markAsTopseller'])) {
-            $entity->markAsTopseller = (bool) $row[$root . '.markAsTopseller'];
-        }
-        if (isset($row[$root . '.weight'])) {
-            $entity->weight = (float) $row[$root . '.weight'];
-        }
-        if (isset($row[$root . '.width'])) {
-            $entity->width = (float) $row[$root . '.width'];
-        }
-        if (isset($row[$root . '.height'])) {
-            $entity->height = (float) $row[$root . '.height'];
-        }
-        if (isset($row[$root . '.length'])) {
-            $entity->length = (float) $row[$root . '.length'];
-        }
         if (isset($row[$root . '.releaseDate'])) {
             $entity->releaseDate = new \DateTimeImmutable($row[$root . '.releaseDate']);
-        }
-        if (isset($row[$root . '.ratingAverage'])) {
-            $entity->ratingAverage = (float) $row[$root . '.ratingAverage'];
-        }
-        if (\array_key_exists($root . '.categoryTree', $row)) {
-            $entity->categoryTree = $definition->decode('categoryTree', self::value($row, $root, 'categoryTree'));
         }
         if (\array_key_exists($root . '.propertyIds', $row)) {
             $entity->propertyIds = $definition->decode('propertyIds', self::value($row, $root, 'propertyIds'));
@@ -148,14 +130,8 @@ class ProductHydrator extends EntityHydrator
         if (\array_key_exists($root . '.optionIds', $row)) {
             $entity->optionIds = $definition->decode('optionIds', self::value($row, $root, 'optionIds'));
         }
-        if (\array_key_exists($root . '.streamIds', $row)) {
-            $entity->streamIds = $definition->decode('streamIds', self::value($row, $root, 'streamIds'));
-        }
         if (\array_key_exists($root . '.tagIds', $row)) {
             $entity->tagIds = $definition->decode('tagIds', self::value($row, $root, 'tagIds'));
-        }
-        if (\array_key_exists($root . '.categoryIds', $row)) {
-            $entity->categoryIds = $definition->decode('categoryIds', self::value($row, $root, 'categoryIds'));
         }
         if (isset($row[$root . '.childCount'])) {
             $entity->childCount = (int) $row[$root . '.childCount'];

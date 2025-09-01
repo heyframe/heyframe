@@ -18,11 +18,6 @@ class CountryTranslationEntity extends TranslationEntity
 
     protected ?CountryEntity $country = null;
 
-    /**
-     * @var array<array<string, array<string, string>>>|null
-     */
-    protected ?array $addressFormat = null;
-
     public function getCountryId(): string
     {
         return $this->countryId;
@@ -51,21 +46,5 @@ class CountryTranslationEntity extends TranslationEntity
     public function setCountry(CountryEntity $country): void
     {
         $this->country = $country;
-    }
-
-    /**
-     * @return array<array<string, array<string, string>>>|null
-     */
-    public function getAddressFormat(): ?array
-    {
-        return $this->addressFormat;
-    }
-
-    /**
-     * @param array<array<string, array<string, string>>> $addressFormat
-     */
-    public function setAddressFormat(array $addressFormat): void
-    {
-        $this->addressFormat = $addressFormat;
     }
 }

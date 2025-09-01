@@ -27,6 +27,7 @@ class CachedDictLoader extends AbstractDictLoader
     public function load(?string $key, Context $context): DictCollection
     {
         $key = 'system-dict-' . $key;
+
         return $this->cache->get($key, function (ItemInterface $item) use ($key, $context) {
             $dict = $this->getDecorated()->load($key, $context);
 

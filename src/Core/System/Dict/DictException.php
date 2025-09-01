@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DictException extends HttpException
 {
     public const DICT_NOT_FOUND = 'SYSTEM__DICT_NOT_FOUND';
+
     public static function dictNotFound(string $key): self
     {
         return new self(

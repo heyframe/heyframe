@@ -8,7 +8,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
@@ -57,7 +56,6 @@ class ProductTranslationDefinition extends EntityTranslationDefinition
             (new LongTextField('keywords', 'keywords'))->addFlags(new ApiAware()),
             (new LongTextField('description', 'description'))->addFlags(new ApiAware(), new AllowHtml()),
             (new StringField('meta_title', 'metaTitle'))->addFlags(new ApiAware()),
-            (new JsonField('slot_config', 'slotConfig'))->addFlags(new ApiAware()),
             (new CustomFields())->addFlags(new ApiAware()),
         ]);
     }

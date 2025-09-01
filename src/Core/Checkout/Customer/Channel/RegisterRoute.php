@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Checkout\Customer\Channel;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressDefinition;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Customer\CustomerEvents;
@@ -12,7 +11,6 @@ use HeyFrame\Core\Checkout\Customer\Event\CustomerRegisterEvent;
 use HeyFrame\Core\Checkout\Customer\Service\EmailIdnConverter;
 use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerEmailUnique;
 use HeyFrame\Core\Checkout\Order\Channel\OrderService;
-use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -272,42 +270,6 @@ class RegisterRoute extends AbstractRegisterRoute
         $this->eventDispatcher->dispatch($validationEvent, $validationEvent->getName());
 
         return $validation;
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    private function mapAddressData(DataBag $addressData, Context $context, string $eventName): array
-    {
-        $mappedData = $addressData->only(
-            'title',
-            'firstName',
-            'lastName',
-            'salutationId',
-            'street',
-            'zipcode',
-            'city',
-            'company',
-            'department',
-            'countryStateId',
-            'countryId',
-            'additionalAddressLine1',
-            'additionalAddressLine2',
-            'phoneNumber'
-        );
-
-        if (isset($mappedData['countryStateId']) && $mappedData['countryStateId'] === '') {
-            $mappedData['countryStateId'] = null;
-        }
-
-        if ($addressData->get('customFields') instanceof RequestDataBag) {
-            $mappedData['customFields'] = $this->customFieldMapper->map(CustomerAddressDefinition::ENTITY_NAME, $addressData->get('customFields'));
-        }
-
-        $event = new DataMappingEvent($addressData, $mappedData, $context);
-        $this->eventDispatcher->dispatch($event, $eventName);
-
-        return $event->getOutput();
     }
 
     private function getBoundChannelId(string $email, ChannelContext $context): ?string

@@ -22,7 +22,6 @@ class ChannelProductEntity extends ProductEntity
 
     protected CalculatedCheapestPrice $calculatedCheapestPrice;
 
-
     protected int $calculatedMaxPurchase;
 
     /**

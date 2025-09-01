@@ -12,7 +12,6 @@ class AccessKeyHelper
     private const USER_IDENTIFIER = 'SWUA';
     private const INTEGRATION_IDENTIFIER = 'SWIA';
     private const CHANNEL_IDENTIFIER = 'SWSC';
-    private const PRODUCT_EXPORT_IDENTIFIER = 'SWPE';
 
     /**
      * @var array<string, string>

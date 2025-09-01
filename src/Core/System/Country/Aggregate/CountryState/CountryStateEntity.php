@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\System\Country\Aggregate\CountryState;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -30,10 +28,6 @@ class CountryStateEntity extends Entity
     protected ?CountryEntity $country = null;
 
     protected ?CountryStateTranslationCollection $translations = null;
-
-    protected ?CustomerAddressCollection $customerAddresses = null;
-
-    protected ?OrderAddressCollection $orderAddresses = null;
 
     public function getCountryId(): string
     {
@@ -103,25 +97,5 @@ class CountryStateEntity extends Entity
     public function setTranslations(CountryStateTranslationCollection $translations): void
     {
         $this->translations = $translations;
-    }
-
-    public function getCustomerAddresses(): ?CustomerAddressCollection
-    {
-        return $this->customerAddresses;
-    }
-
-    public function setCustomerAddresses(CustomerAddressCollection $customerAddresses): void
-    {
-        $this->customerAddresses = $customerAddresses;
-    }
-
-    public function getOrderAddresses(): ?OrderAddressCollection
-    {
-        return $this->orderAddresses;
-    }
-
-    public function setOrderAddresses(OrderAddressCollection $orderAddresses): void
-    {
-        $this->orderAddresses = $orderAddresses;
     }
 }

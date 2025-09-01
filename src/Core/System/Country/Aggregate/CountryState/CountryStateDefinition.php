@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\System\Country\Aggregate\CountryState;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressDefinition;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
@@ -11,11 +9,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
@@ -66,9 +62,6 @@ class CountryStateDefinition extends EntityDefinition
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),
             new ManyToOneAssociationField('country', 'country_id', CountryDefinition::class, 'id', false),
             (new TranslationsAssociationField(CountryStateTranslationDefinition::class, 'country_state_id'))->addFlags(new Required()),
-            // Reverse Associations, not available in channel-api
-            (new OneToManyAssociationField('customerAddresses', CustomerAddressDefinition::class, 'country_state_id', 'id'))->addFlags(new SetNullOnDelete()),
-            (new OneToManyAssociationField('orderAddresses', OrderAddressDefinition::class, 'country_state_id', 'id'))->addFlags(new SetNullOnDelete()),
         ]);
     }
 }

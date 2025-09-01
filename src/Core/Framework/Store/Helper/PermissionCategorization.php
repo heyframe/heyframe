@@ -2,17 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Store\Helper;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressDefinition;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinition;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupRegistrationChannel\CustomerGroupRegistrationChannelDefinition;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupTranslation\CustomerGroupTranslationDefinition;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerRecovery\CustomerRecoveryDefinition;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerTag\CustomerTagDefinition;
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerDefinition;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryDefinition;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDeliveryPosition\OrderDeliveryPositionDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTag\OrderTagDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
@@ -61,7 +55,6 @@ use HeyFrame\Core\Framework\App\AppDefinition;
 use HeyFrame\Core\Framework\App\Template\TemplateDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\VersionDefinition;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\Aggregate\ChannelAnalytics\ChannelAnalyticsDefinition;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelCountry\ChannelCountryDefinition;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelCurrency\ChannelCurrencyDefinition;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainDefinition;
@@ -140,11 +133,8 @@ class PermissionCategorization
         ],
         self::CATEGORY_CUSTOMER => [
             CustomerDefinition::ENTITY_NAME,
-            CustomerAddressDefinition::ENTITY_NAME,
             CustomerGroupDefinition::ENTITY_NAME,
             CustomerGroupTranslationDefinition::ENTITY_NAME,
-            CustomerGroupRegistrationChannelDefinition::ENTITY_NAME,
-            CustomerRecoveryDefinition::ENTITY_NAME,
             CustomerTagDefinition::ENTITY_NAME,
         ],
         self::CATEGORY_CUSTOM_FIELDS => [
@@ -173,10 +163,7 @@ class PermissionCategorization
 
         self::CATEGORY_ORDER => [
             OrderDefinition::ENTITY_NAME,
-            OrderAddressDefinition::ENTITY_NAME,
             OrderCustomerDefinition::ENTITY_NAME,
-            OrderDeliveryDefinition::ENTITY_NAME,
-            OrderDeliveryPositionDefinition::ENTITY_NAME,
             OrderLineItemDefinition::ENTITY_NAME,
             OrderTagDefinition::ENTITY_NAME,
             OrderTransactionDefinition::ENTITY_NAME,
@@ -216,7 +203,6 @@ class PermissionCategorization
         ],
         self::CATEGORY_CHANNEL => [
             ChannelDefinition::ENTITY_NAME,
-            ChannelAnalyticsDefinition::ENTITY_NAME,
             ChannelCountryDefinition::ENTITY_NAME,
             ChannelCurrencyDefinition::ENTITY_NAME,
             ChannelDomainDefinition::ENTITY_NAME,

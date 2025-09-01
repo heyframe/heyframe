@@ -12,5 +12,4 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Package('framework')]
 class DictController extends AbstractController
 {
-
 }

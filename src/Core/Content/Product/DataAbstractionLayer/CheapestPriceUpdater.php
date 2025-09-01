@@ -11,7 +11,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\Framework\Uuid\Uuid;
-use HeyFrame\Frontend\Framework\Seo\SeoUrlRoute\SeoUrlUpdateListener;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 #[Package('framework')]
@@ -153,19 +152,17 @@ class CheapestPriceUpdater
      */
     private function mapPrice(array $price): array
     {
-        $array = ['gross' => $price['gross'], 'net' => $price['net']];
+        $array = ['gross' => $price['gross']];
 
         if (isset($price['listPrice'])) {
             $array['listPrice'] = [
                 'gross' => $price['listPrice']['gross'],
-                'net' => $price['listPrice']['net'],
             ];
         }
 
         if (isset($price['percentage'])) {
             $array['percentage'] = [
                 'gross' => $price['percentage']['gross'],
-                'net' => $price['percentage']['net'],
             ];
         }
 
@@ -267,7 +264,6 @@ class CheapestPriceUpdater
     private function normalizePrices(array $prices): array
     {
         foreach ($prices as &$price) {
-            $price['net'] = (float) $price['net'];
             $price['gross'] = (float) $price['gross'];
         }
 

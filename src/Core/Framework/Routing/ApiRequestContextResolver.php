@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\Routing;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Context\ChannelApiSource;
@@ -56,7 +55,6 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
             $params['versionId'] ?? Defaults::LIVE_VERSION,
             $params['currencyFactory'],
             $params['considerInheritance'],
-            CartPrice::TAX_STATE_GROSS,
             $rounding
         );
 

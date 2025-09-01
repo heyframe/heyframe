@@ -28,16 +28,6 @@ class ProductTranslationEntity extends TranslationEntity
 
     protected ?ProductEntity $product = null;
 
-    /**
-     * @var array<string, mixed>|null
-     */
-    protected ?array $slotConfig = null;
-
-    /**
-     * @var array<string>|null
-     */
-    protected ?array $customSearchKeywords = null;
-
     public function getProductId(): string
     {
         return $this->productId;
@@ -98,22 +88,6 @@ class ProductTranslationEntity extends TranslationEntity
         $this->product = $product;
     }
 
-    /**
-     * @return array<string, mixed>|null
-     */
-    public function getSlotConfig(): ?array
-    {
-        return $this->slotConfig;
-    }
-
-    /**
-     * @param array<string, mixed> $slotConfig
-     */
-    public function setSlotConfig(array $slotConfig): void
-    {
-        $this->slotConfig = $slotConfig;
-    }
-
     public function getMetaDescription(): ?string
     {
         return $this->metaDescription;
@@ -122,22 +96,6 @@ class ProductTranslationEntity extends TranslationEntity
     public function setMetaDescription(?string $metaDescription): void
     {
         $this->metaDescription = $metaDescription;
-    }
-
-    /**
-     * @return array<string>|null
-     */
-    public function getCustomSearchKeywords(): ?array
-    {
-        return $this->customSearchKeywords;
-    }
-
-    /**
-     * @param array<string>|null $customSearchKeywords
-     */
-    public function setCustomSearchKeywords(?array $customSearchKeywords): void
-    {
-        $this->customSearchKeywords = $customSearchKeywords;
     }
 
     public function getProductVersionId(): string

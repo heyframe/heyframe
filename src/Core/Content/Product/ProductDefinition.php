@@ -142,7 +142,7 @@ class ProductDefinition extends EntityDefinition
             (new ManyToManyIdField('tag_ids', 'tagIds', 'tags'))->addFlags(new Inherited(), new ApiAware()),
             (new ChildCountField())->addFlags(new ApiAware()),
             (new IntField('sales', 'sales'))->addFlags(new ApiAware(), new WriteProtected()),
-            (new StringField('product_type', 'productType'))->addFlags(new ApiAware(), new Required()),
+            (new StringField('product_type', 'productType'))->addFlags(new ApiAware(), new Required(), new Inherited()),
 
             (new TranslatedField('metaDescription'))->addFlags(new ApiAware(), new Inherited()),
             (new TranslatedField('name', true))->addFlags(new ApiAware(), new Inherited(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),

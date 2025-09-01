@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework;
 
-use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\AssociationNotFoundException;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -134,15 +133,8 @@ class FrameworkException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function associationNotFound(string $association): self|AssociationNotFoundException
+    public static function associationNotFound(string $association): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new AssociationNotFoundException($association);
-        }
-
         return new self(
             Response::HTTP_NOT_FOUND,
             self::ASSOCIATION_NOT_FOUND,

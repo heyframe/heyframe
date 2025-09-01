@@ -22,6 +22,7 @@ class DictService
     {
         $this->cacheTagCollector->addTag('system.dict-' . $key);
         $dictCollection = $this->dictLoader->load($key, $context);
+
         return $dictCollection->filterKey($key);
     }
 }
