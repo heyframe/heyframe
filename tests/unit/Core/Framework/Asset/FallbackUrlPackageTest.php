@@ -30,9 +30,9 @@ class FallbackUrlPackageTest extends TestCase
 
     public function testCliUrlGiven(): void
     {
-        $url = $this->createPackage('https://shopware.com')->getUrl('test');
+        $url = $this->createPackage('https://heyframe.com')->getUrl('test');
 
-        static::assertSame('https://shopware.com/test', $url);
+        static::assertSame('https://heyframe.com/test', $url);
     }
 
     public function testWebFallbackToRequest(): void

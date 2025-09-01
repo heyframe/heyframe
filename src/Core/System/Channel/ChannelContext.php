@@ -158,11 +158,6 @@ class ChannelContext extends Struct
         return $this->token;
     }
 
-    public function getTaxCalculationType(): string
-    {
-        return $this->channel->getTaxCalculationType();
-    }
-
     /**
      * @return array<string, bool>
      */

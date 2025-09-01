@@ -41,7 +41,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
     public function __construct(
         private readonly ProductGatewayInterface $productGateway,
         private readonly QuantityPriceCalculator $calculator,
-        private readonly ProductFeatureBuilder $featureBuilder,
         private readonly AbstractProductPriceCalculator $priceCalculator,
         private readonly EntityCacheKeyGenerator $generator,
         private readonly Connection $connection
@@ -103,8 +102,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
                 // validate availability of the product stock
                 $this->validateStock($match['item'], $original, $match['scope'], $behavior);
             }
-
-            $this->featureBuilder->prepare($items, $data, $context);
         }, 'cart');
     }
 
@@ -126,9 +123,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
 
                 $item->setPrice($this->calculator->calculate($definition, $context));
             }
-
-            $this->featureBuilder->add($items, $data, $context);
-
             // handle all products which stored in root level
             $items = $original->getLineItems()->filterType(LineItem::PRODUCT_LINE_ITEM_TYPE);
 

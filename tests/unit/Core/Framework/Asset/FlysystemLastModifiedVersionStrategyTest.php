@@ -30,13 +30,13 @@ class FlysystemLastModifiedVersionStrategyTest extends TestCase
     {
         $this->fs = new Filesystem(new MemoryFilesystemAdapter());
         $this->strategy = new FlysystemLastModifiedVersionStrategy('test', $this->fs, new TagAwareAdapter(new ArrayAdapter(), new ArrayAdapter()));
-        $this->asset = new UrlPackage(['http://shopware.com'], $this->strategy);
+        $this->asset = new UrlPackage(['http://heyframe.com'], $this->strategy);
     }
 
     public function testNonExistentFile(): void
     {
         $url = $this->asset->getUrl('test');
-        static::assertSame('http://shopware.com/test', $url);
+        static::assertSame('http://heyframe.com/test', $url);
     }
 
     public function testExistsFile(): void
@@ -44,7 +44,7 @@ class FlysystemLastModifiedVersionStrategyTest extends TestCase
         $this->fs->write('testFile', 'yea');
         $lastModified = (string) $this->fs->lastModified('testFile');
         $url = $this->asset->getUrl('testFile');
-        static::assertSame('http://shopware.com/testFile?' . $lastModified, $url);
+        static::assertSame('http://heyframe.com/testFile?' . $lastModified, $url);
     }
 
     public function testApplyDoesSameAsGetVersion(): void
@@ -56,9 +56,9 @@ class FlysystemLastModifiedVersionStrategyTest extends TestCase
     {
         $this->fs->write('folder/file', 'test');
 
-        static::assertSame('http://shopware.com/folder', $this->asset->getUrl('folder'));
-        static::assertSame('http://shopware.com/not_existing/bla', $this->asset->getUrl('not_existing/bla'));
-        static::assertSame('http://shopware.com/folder', $this->asset->getUrl('folder'));
+        static::assertSame('http://heyframe.com/folder', $this->asset->getUrl('folder'));
+        static::assertSame('http://heyframe.com/not_existing/bla', $this->asset->getUrl('not_existing/bla'));
+        static::assertSame('http://heyframe.com/folder', $this->asset->getUrl('folder'));
     }
 
     public function testWithEmptyString(): void

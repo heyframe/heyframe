@@ -9,14 +9,12 @@ use HeyFrame\Core\Framework\Struct\Struct;
 class CartBehavior extends Struct
 {
     /**
-     * @deprecated tag:v6.8.0 - $isRecalculation will be removed and is replaced by specific {@see CheckoutPermissions::*}
      *
      * @param array<string, bool> $permissions
      */
     public function __construct(
         private readonly array $permissions = [],
         private bool $hookAware = true,
-        private readonly bool $isRecalculation = false
     ) {
     }
 

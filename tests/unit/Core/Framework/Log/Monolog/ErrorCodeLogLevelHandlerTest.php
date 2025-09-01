@@ -57,7 +57,7 @@ class ErrorCodeLogLevelHandlerTest extends TestCase
         ];
 
         $logRecord = new LogRecord(new \DateTimeImmutable(), 'foo', Level::Alert, 'some message', ['exception' => new \RuntimeException('')]);
-        yield 'log level stays same without shopware exception' => [
+        yield 'log level stays same without heyframe exception' => [
             $logRecord,
             [],
             Level::Alert,

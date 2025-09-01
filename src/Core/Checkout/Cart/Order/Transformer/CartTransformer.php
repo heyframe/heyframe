@@ -30,10 +30,6 @@ class CartTransformer
             'currencyFactor' => $currency->getFactor(),
             'channelId' => $context->getChannelId(),
             'lineItems' => [],
-            'deliveries' => [],
-            'customerComment' => $cart->getCustomerComment(),
-            'affiliateCode' => $cart->getAffiliateCode(),
-            'campaignCode' => $cart->getCampaignCode(),
             'source' => $cart->getSource(),
         ];
 
