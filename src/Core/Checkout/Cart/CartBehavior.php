@@ -9,7 +9,6 @@ use HeyFrame\Core\Framework\Struct\Struct;
 class CartBehavior extends Struct
 {
     /**
-     *
      * @param array<string, bool> $permissions
      */
     public function __construct(

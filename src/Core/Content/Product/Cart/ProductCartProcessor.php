@@ -110,7 +110,7 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
      */
     public function process(CartDataCollection $data, Cart $original, Cart $toCalculate, ChannelContext $context, CartBehavior $behavior): void
     {
-        Profiler::trace('cart::product::process', function () use ($data, $original, $toCalculate, $context): void {
+        Profiler::trace('cart::product::process', function () use ($original, $toCalculate, $context): void {
             $items = $original->getLineItems()->filterFlatByType(LineItem::PRODUCT_LINE_ITEM_TYPE);
 
             foreach ($items as $item) {
