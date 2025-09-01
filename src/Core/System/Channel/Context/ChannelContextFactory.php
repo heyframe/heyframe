@@ -152,12 +152,10 @@ class ChannelContextFactory extends AbstractChannelContextFactory
      */
     private function loadCustomer(array $options, Context $context): ?CustomerEntity
     {
-        $addressIds = [];
         $customerId = $options[ChannelContextService::CUSTOMER_ID];
 
         $criteria = new Criteria([$customerId]);
         $criteria->setTitle('context-factory::customer');
-        $criteria->addAssociation('salutation');
 
         $source = $context->getSource();
         \assert($source instanceof ChannelApiSource);
@@ -167,8 +165,9 @@ class ChannelContextFactory extends AbstractChannelContextFactory
             new EqualsFilter('customer.boundChannelId', $source->getChannelId()),
         ]));
 
-        $customer = $this->customerRepository->search($criteria, $context)->getEntities()->get($customerId);
-        if (!$customer) {
+        $customer = $this->customerRepository->search($criteria, $context)->get($customerId);
+        // active check here instead of DAL filter due to no DB index
+        if (!$customer?->getActive()) {
             return null;
         }
 
