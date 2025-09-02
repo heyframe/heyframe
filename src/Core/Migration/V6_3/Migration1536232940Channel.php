@@ -41,6 +41,8 @@ class Migration1536232940Channel extends MigrationStep
               `service_navigation_id` BINARY(16) NULL,
               `service_navigation_version_id` BINARY(16) NULL,
               `active` TINYINT(1) NOT NULL DEFAULT '1',
+              `maintenance` tinyint(1) NOT NULL DEFAULT '0',
+              `maintenance_ip_whitelist` json DEFAULT NULL,
               `navigation_id` BINARY(16) NULL,
               `navigation_version_id` BINARY(16),
               `customer_group_id` BINARY(16) NOT NULL,

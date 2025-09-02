@@ -5,16 +5,13 @@ namespace HeyFrame\Core\Checkout\Order\Channel;
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Cart\Channel\CartService;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
-use HeyFrame\Core\Checkout\Order\Exception\PaymentMethodNotAvailableException;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Checkout\Order\OrderException;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
-use HeyFrame\Core\Content\Product\State;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Validation\BuildValidationEvent;
 use HeyFrame\Core\Framework\Validation\DataBag\DataBag;
@@ -24,20 +21,14 @@ use HeyFrame\Core\Framework\Validation\DataValidator;
 use HeyFrame\Core\Framework\Validation\Exception\ConstraintViolationException;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateEntity;
-use HeyFrame\Core\System\StateMachine\StateMachineException;
 use HeyFrame\Core\System\StateMachine\StateMachineRegistry;
 use HeyFrame\Core\System\StateMachine\Transition;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[Package('checkout')]
 class OrderService
 {
-    final public const CUSTOMER_COMMENT_KEY = 'customerComment';
-    final public const AFFILIATE_CODE_KEY = 'affiliateCode';
-    final public const CAMPAIGN_CODE_KEY = 'campaignCode';
-
     final public const ALLOWED_TRANSACTION_STATES = [
         OrderTransactionStates::STATE_OPEN,
         OrderTransactionStates::STATE_CANCELLED,
@@ -69,7 +60,7 @@ class OrderService
     {
         $cart = $this->cartService->getCart($context->getToken(), $context);
 
-        $this->validateOrderData($data, $context, $cart->getLineItems()->hasLineItemWithState(State::IS_DOWNLOAD));
+        $this->validateOrderData($data, $context);
 
         $this->validateCart($cart, $context->getContext());
 
@@ -100,10 +91,6 @@ class OrderService
         $toPlace = $stateMachineStates->get('toPlace');
 
         if (!$toPlace) {
-            // @deprecated tag:v6.8.0 - remove this if block
-            if (!Feature::isActive('v6.8.0.0')) {
-                throw StateMachineException::stateMachineStateNotFound('order', $transition); // @phpstan-ignore heyframe.domainException
-            }
             throw OrderException::stateMachineStateNotFound('order', $transition);
         }
 
@@ -134,10 +121,6 @@ class OrderService
         $toPlace = $stateMachineStates->get('toPlace');
 
         if (!$toPlace) {
-            // @deprecated tag:v6.8.0 - remove this if block
-            if (!Feature::isActive('v6.8.0.0')) {
-                throw StateMachineException::stateMachineStateNotFound('order_transaction', $transition); // @phpstan-ignore heyframe.domainException
-            }
             throw OrderException::stateMachineStateNotFound('order_transaction', $transition);
         }
 
@@ -168,10 +151,6 @@ class OrderService
         $toPlace = $stateMachineStates->get('toPlace');
 
         if (!$toPlace) {
-            // @deprecated tag:v6.8.0 - remove this if block
-            if (!Feature::isActive('v6.8.0.0')) {
-                throw StateMachineException::stateMachineStateNotFound('order_delivery', $transition); // @phpstan-ignore heyframe.domainException
-            }
             throw OrderException::stateMachineStateNotFound('order_delivery', $transition);
         }
 
@@ -181,10 +160,6 @@ class OrderService
     public function isPaymentChangeableByTransactionState(OrderEntity $order): bool
     {
         $state = $order->getPrimaryOrderTransaction()?->getStateMachineState()?->getTechnicalName();
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $state = $order->getTransactions()?->last()?->getStateMachineState()?->getTechnicalName();
-        }
 
         if (!$state) {
             return true;
@@ -215,10 +190,6 @@ class OrderService
         if ($paymentMethods->getTotal() !== \count(array_unique($idsOfPaymentMethods))) {
             foreach ($cart->getTransactions() as $paymentMethod) {
                 if (!\in_array($paymentMethod->getPaymentMethodId(), $paymentMethods->getIds(), true)) {
-                    // @deprecated tag:v6.8.0 - remove this if block
-                    if (!Feature::isActive('v6.8.0.0')) {
-                        throw new PaymentMethodNotAvailableException($paymentMethod->getPaymentMethodId()); // @phpstan-ignore heyframe.domainException
-                    }
                     throw OrderException::paymentMethodNotAvailable($paymentMethod->getPaymentMethodId());
                 }
             }
@@ -231,9 +202,8 @@ class OrderService
     private function validateOrderData(
         ParameterBag $data,
         ChannelContext $context,
-        bool $hasVirtualGoods
     ): void {
-        $definition = $this->getOrderCreateValidationDefinition(new DataBag($data->all()), $context, $hasVirtualGoods);
+        $definition = $this->getOrderCreateValidationDefinition(new DataBag($data->all()), $context);
         $violations = $this->dataValidator->getViolations($data->all(), $definition);
 
         if ($violations->count() > 0) {
@@ -244,13 +214,8 @@ class OrderService
     private function getOrderCreateValidationDefinition(
         DataBag $data,
         ChannelContext $context,
-        bool $hasVirtualGoods
     ): DataValidationDefinition {
         $validation = $this->orderValidationFactory->create($context);
-
-        if ($hasVirtualGoods) {
-            $validation->add('revocation', new NotBlank());
-        }
 
         $validationEvent = new BuildValidationEvent($validation, $data, $context->getContext());
         $this->eventDispatcher->dispatch($validationEvent, $validationEvent->getName());

@@ -111,17 +111,6 @@ class LineItemCollection extends Collection
         );
     }
 
-    public function hasLineItemWithState(string $state): bool
-    {
-        foreach ($this->buildFlat($this) as $lineItem) {
-            if (\in_array($state, $lineItem->getStates(), true)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * @return array<array<string, mixed>>
      */

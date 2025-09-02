@@ -93,6 +93,13 @@ class ChannelEntity extends Entity
 
     protected bool $active;
 
+    protected bool $maintenance;
+
+    /**
+     * @var array<mixed>|null
+     */
+    protected ?array $maintenanceIpWhitelist = null;
+
     protected ?ChannelTypeEntity $type = null;
 
     protected ?CurrencyEntity $currency = null;
@@ -268,6 +275,32 @@ class ChannelEntity extends Entity
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    public function isMaintenance(): bool
+    {
+        return $this->maintenance;
+    }
+
+    public function setMaintenance(bool $maintenance): void
+    {
+        $this->maintenance = $maintenance;
+    }
+
+    /**
+     * @return array<mixed>|null
+     */
+    public function getMaintenanceIpWhitelist(): ?array
+    {
+        return $this->maintenanceIpWhitelist;
+    }
+
+    /**
+     * @param array<mixed>|null $maintenanceIpWhitelist
+     */
+    public function setMaintenanceIpWhitelist(?array $maintenanceIpWhitelist): void
+    {
+        $this->maintenanceIpWhitelist = $maintenanceIpWhitelist;
     }
 
     public function getCurrency(): ?CurrencyEntity

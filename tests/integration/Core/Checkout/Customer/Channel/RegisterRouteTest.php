@@ -72,7 +72,7 @@ class RegisterRouteTest extends TestCase
 
         $connection = static::getContainer()->get(Connection::class);
         $result = $connection->fetchOne(
-            'SELECT `payload` FROM `sales_channel_api_context` WHERE `customer_id` = :customerId ',
+            'SELECT `payload` FROM `channel_api_context` WHERE `customer_id` = :customerId ',
             [
                 'customerId' => Uuid::fromHexToBytes($response['id']),
             ]
@@ -112,12 +112,11 @@ class RegisterRouteTest extends TestCase
             'nickname' => 'Mustermann',
             'password' => '12345678',
             'email' => 'teg-reg@example.com',
-            'title' => 'Phd',
             'active' => true,
             'birthdayYear' => 2000,
             'birthdayMonth' => 1,
             'birthdayDay' => 22,
-            'storefrontUrl' => $storefrontUrl,
+            'frontendUrl' => $storefrontUrl,
         ];
     }
 }

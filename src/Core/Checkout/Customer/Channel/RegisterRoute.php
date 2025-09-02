@@ -10,7 +10,6 @@ use HeyFrame\Core\Checkout\Customer\Event\CustomerLoginEvent;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerRegisterEvent;
 use HeyFrame\Core\Checkout\Customer\Service\EmailIdnConverter;
 use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerEmailUnique;
-use HeyFrame\Core\Checkout\Order\Channel\OrderService;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -80,6 +79,15 @@ class RegisterRoute extends AbstractRegisterRoute
         ?DataValidationDefinition $additionalValidationDefinitions = null
     ): CustomerResponse {
         EmailIdnConverter::encodeDataBag($data);
+
+        if (!$data->get('nickname')) {
+            $nickname = $this->numberRangeValueGenerator->getValue(
+                $this->customerRepository->getDefinition()->getEntityName(),
+                $context->getContext(),
+                $context->getChannelId()
+            );
+            $data->set('nickname', \sprintf('HF%s', $nickname));
+        }
 
         $this->validateRegistrationData($data, $context, $additionalValidationDefinitions, $validateFrontendUrl);
 
@@ -224,19 +232,13 @@ class RegisterRoute extends AbstractRegisterRoute
             'channelId' => $context->getChannelId(),
             'languageId' => $context->getLanguageId(),
             'groupId' => $context->getCustomerGroupId(),
-            'requestedGroupId' => $data->get('requestedGroupId', null),
-            'salutationId' => $data->get('salutationId'),
-            'firstName' => $data->get('firstName'),
+            'nickname' => $data->get('nickname'),
             'lastName' => $data->get('lastName'),
             'email' => $data->get('email'),
-            'title' => $data->get('title'),
-            'affiliateCode' => $data->get(OrderService::AFFILIATE_CODE_KEY),
-            'campaignCode' => $data->get(OrderService::CAMPAIGN_CODE_KEY),
             'active' => true,
             'birthday' => $this->getBirthday($data),
             'firstLogin' => new \DateTimeImmutable(),
             'password' => $data->get('password'),
-            'addresses' => [],
         ];
 
         $event = new DataMappingEvent($data, $customer, $context->getContext());

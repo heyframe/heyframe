@@ -14,7 +14,6 @@ use HeyFrame\Core\Checkout\Cart\Extension\CheckoutPlaceOrderExtension;
 use HeyFrame\Core\Checkout\Cart\Order\OrderPersisterInterface;
 use HeyFrame\Core\Checkout\Cart\Order\OrderPlaceResult;
 use HeyFrame\Core\Checkout\Gateway\Channel\AbstractCheckoutGatewayRoute;
-use HeyFrame\Core\Checkout\Order\Channel\OrderService;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Checkout\Payment\PaymentProcessor;
@@ -22,11 +21,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
-use HeyFrame\Core\Framework\Validation\DataBag\DataBag;
 use HeyFrame\Core\Framework\Validation\DataBag\RequestDataBag;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\Profiling\Profiler;
@@ -84,10 +81,7 @@ class CartOrderRoute extends AbstractCartOrderRoute
 
             $orderId = $placed->orderId;
 
-            if (Feature::isActive('v6.8.0.0')) {
-                // @deprecated tag:v6.8.0 - After the cart is deleted, the lock is no longer needed. The following operations should be moved outside the locked closure.
-                $this->cartPersister->delete($context->getToken(), $context);
-            }
+            $this->cartPersister->delete($context->getToken(), $context);
 
             $criteria = new Criteria([$orderId]);
             $criteria
@@ -96,17 +90,11 @@ class CartOrderRoute extends AbstractCartOrderRoute
                 ->addAssociation('primaryOrderTransaction')
                 ->addAssociation('orderCustomer.customer')
                 ->addAssociation('orderCustomer.salutation')
-                ->addAssociation('deliveries.shippingMethod')
-                ->addAssociation('deliveries.shippingOrderAddress.country')
-                ->addAssociation('deliveries.shippingOrderAddress.countryState')
                 ->addAssociation('transactions.paymentMethod')
                 ->addAssociation('lineItems.cover')
                 ->addAssociation('lineItems.downloads.media')
                 ->addAssociation('currency')
-                ->addAssociation('addresses.country')
-                ->addAssociation('addresses.countryState')
                 ->addAssociation('stateMachineState')
-                ->addAssociation('deliveries.stateMachineState')
                 ->addAssociation('transactions.stateMachineState')
                 ->getAssociation('transactions')->addSorting(new FieldSorting('createdAt'));
 
@@ -126,37 +114,8 @@ class CartOrderRoute extends AbstractCartOrderRoute
                 $this->eventDispatcher->dispatch($event);
             });
 
-            if (!Feature::isActive('v6.8.0.0')) {
-                // cart will delete immediately after order is created to avoid inconsistencies.
-                $this->cartPersister->delete($context->getToken(), $context);
-            }
-
             return new CartOrderRouteResponse($orderEntity);
         });
-    }
-
-    private function addCustomerComment(Cart $cart, DataBag $data): void
-    {
-        $customerComment = ltrim(rtrim((string) $data->get(OrderService::CUSTOMER_COMMENT_KEY, '')));
-
-        if ($customerComment === '') {
-            return;
-        }
-
-        $cart->setCustomerComment($customerComment);
-    }
-
-    private function addAffiliateTracking(Cart $cart, DataBag $data): void
-    {
-        $affiliateCode = $data->get(OrderService::AFFILIATE_CODE_KEY);
-        $campaignCode = $data->get(OrderService::CAMPAIGN_CODE_KEY);
-        if ($affiliateCode) {
-            $cart->setAffiliateCode($affiliateCode);
-        }
-
-        if ($campaignCode) {
-            $cart->setCampaignCode($campaignCode);
-        }
     }
 
     private function place(Cart $cart, ChannelContext $context, RequestDataBag $data): OrderPlaceResult
@@ -165,9 +124,6 @@ class CartOrderRoute extends AbstractCartOrderRoute
 
         $response = $this->checkoutGatewayRoute->load(new Request($data->all(), $data->all()), $cart, $context);
         $calculatedCart->addErrors(...$response->getErrors());
-
-        $this->addCustomerComment($calculatedCart, $data);
-        $this->addAffiliateTracking($calculatedCart, $data);
 
         Profiler::trace('checkout-order::pre-payment', fn () => $this->paymentProcessor->validate($calculatedCart, $data, $context));
 

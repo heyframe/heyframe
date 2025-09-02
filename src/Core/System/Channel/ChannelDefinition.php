@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\System\Channel;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinition;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupRegistrationChannel\CustomerGroupRegistrationChannelDefinition;
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
@@ -19,6 +18,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ListField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyIdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
@@ -107,7 +107,8 @@ class ChannelDefinition extends EntityDefinition
             (new ManyToOneAssociationField('paymentMethod', 'payment_method_id', PaymentMethodDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new ManyToOneAssociationField('country', 'country_id', CountryDefinition::class, 'id', false))->addFlags(new ApiAware()),
             new OneToManyAssociationField('orders', OrderDefinition::class, 'channel_id', 'id'),
-
+            (new BoolField('maintenance', 'maintenance'))->addFlags(new ApiAware()),
+            new ListField('maintenance_ip_whitelist', 'maintenanceIpWhitelist'),
             new OneToManyAssociationField('customers', CustomerDefinition::class, 'channel_id', 'id'),
 
             new TranslatedField('homeSlotConfig'),
@@ -124,7 +125,6 @@ class ChannelDefinition extends EntityDefinition
             (new OneToOneAssociationField('hreflangDefaultDomain', 'hreflang_default_domain_id', 'id', ChannelDomainDefinition::class, false))->addFlags(new ApiAware()),
             (new OneToManyAssociationField('numberRangeChannels', NumberRangeChannelDefinition::class, 'channel_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('promotionChannels', PromotionChannelDefinition::class, 'channel_id', 'id'))->addFlags(new CascadeDelete()),
-            new ManyToManyAssociationField('customerGroupsRegistrations', CustomerGroupDefinition::class, CustomerGroupRegistrationChannelDefinition::class, 'channel_id', 'customer_group_id', 'id', 'id'),
             new OneToManyAssociationField('boundCustomers', CustomerDefinition::class, 'bound_channel_id', 'id'),
         ]);
     }

@@ -10,8 +10,6 @@ class CartContextHashStruct extends Struct
 {
     protected ?float $price = null;
 
-    protected ?string $shippingMethod = null;
-
     protected ?string $paymentMethod = null;
 
     /**
@@ -27,16 +25,6 @@ class CartContextHashStruct extends Struct
     public function setPrice(?float $price): void
     {
         $this->price = $price;
-    }
-
-    public function getShippingMethod(): ?string
-    {
-        return $this->shippingMethod;
-    }
-
-    public function setShippingMethod(?string $shippingMethod): void
-    {
-        $this->shippingMethod = $shippingMethod;
     }
 
     public function getPaymentMethod(): ?string

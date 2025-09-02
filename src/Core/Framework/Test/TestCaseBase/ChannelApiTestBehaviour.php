@@ -214,10 +214,9 @@ trait ChannelApiTestBehaviour
     /**
      * @param array<string, mixed> $customerOverride
      */
-    private function createCustomer(?string $email = null, ?bool $guest = false, array $customerOverride = []): string
+    private function createCustomer(?string $email = null, array $customerOverride = []): string
     {
         $customerId = Uuid::randomHex();
-        $addressId = Uuid::randomHex();
 
         if ($email === null) {
             $email = Uuid::randomHex() . '@example.com';
@@ -226,24 +225,10 @@ trait ChannelApiTestBehaviour
         $customer = array_replace_recursive([
             'id' => $customerId,
             'channelId' => TestDefaults::CHANNEL,
-            'defaultShippingAddress' => [
-                'id' => $addressId,
-                'firstName' => 'Max',
-                'lastName' => 'Mustermann',
-                'street' => 'Musterstraße 1',
-                'city' => 'Schöppingen',
-                'zipcode' => '12345',
-                'salutationId' => $this->getValidSalutationId(),
-                'countryId' => $this->getValidCountryId(),
-            ],
-            'defaultBillingAddressId' => $addressId,
             'groupId' => TestDefaults::FALLBACK_CUSTOMER_GROUP,
             'email' => $email,
             'password' => TestDefaults::HASHED_PASSWORD,
-            'firstName' => 'Max',
-            'lastName' => 'Mustermann',
-            'guest' => $guest,
-            'salutationId' => $this->getValidSalutationId(),
+            'nickname' => 'Mustermann',
             'customerNumber' => '12345',
         ], $customerOverride);
 
