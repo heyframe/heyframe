@@ -216,9 +216,5 @@
         <service id="HeyFrame\Core\Checkout\Promotion\Cart\Discount\ScopePackager\SetScopeDiscountPackager">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItem\Group\LineItemGroupBuilder"/>
         </service>
-
-        <service id="HeyFrame\Core\Checkout\Promotion\Cart\CartPromotionsSubscriber">
-            <tag name="kernel.event_subscriber"/>
-        </service>
     </services>
 </container>

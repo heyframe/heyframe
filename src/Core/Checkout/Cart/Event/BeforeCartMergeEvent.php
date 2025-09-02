@@ -18,7 +18,6 @@ class BeforeCartMergeEvent extends Event implements HeyFrameChannelEvent
      */
     public function __construct(
         protected Cart $customerCart,
-        protected Cart $guestCart,
         protected LineItemCollection $mergeableLineItems,
         protected ChannelContext $context
     ) {
@@ -27,11 +26,6 @@ class BeforeCartMergeEvent extends Event implements HeyFrameChannelEvent
     public function getCustomerCart(): Cart
     {
         return $this->customerCart;
-    }
-
-    public function getGuestCart(): Cart
-    {
-        return $this->guestCart;
     }
 
     public function getMergeableLineItems(): LineItemCollection

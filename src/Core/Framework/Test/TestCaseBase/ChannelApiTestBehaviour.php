@@ -171,7 +171,6 @@ trait ChannelApiTestBehaviour
         /** @var EntityRepository<ChannelCollection> $channelRepository */
         $channelRepository = static::getContainer()->get('channel.repository');
         $paymentMethod = $this->getAvailablePaymentMethod();
-        $shippingMethod = $this->getAvailableShippingMethod();
 
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('domains.url', 'http://localhost'));
@@ -191,9 +190,7 @@ trait ChannelApiTestBehaviour
             'currencyId' => Defaults::CURRENCY,
             'paymentMethodId' => $paymentMethod->getId(),
             'paymentMethods' => [['id' => $paymentMethod->getId()]],
-            'shippingMethodId' => $shippingMethod->getId(),
-            'shippingMethods' => [['id' => $shippingMethod->getId()]],
-            'navigationCategoryId' => $this->getValidNavigationId(),
+            'navigationId' => $this->getValidNavigationId(),
             'countryId' => $this->getValidCountryId(null),
             'currencies' => [['id' => Defaults::CURRENCY]],
             'languages' => $channelOverride['languages'] ?? [['id' => Defaults::LANGUAGE_SYSTEM]],

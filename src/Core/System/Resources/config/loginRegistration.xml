@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/heyframe/heyframe/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>登录 / 注册</title>
+        <title lang="en-GB">Log-in / sign-up</title>
+
+        <input-field type="int">
+            <name>passwordMinLength</name>
+            <label>客户注册最小密码长度</label>
+            <label lang="en-GB">Minimum password length on customer sign-up</label>
+        </input-field>
+
+    </card>
+</config>

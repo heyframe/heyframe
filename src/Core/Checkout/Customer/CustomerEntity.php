@@ -47,12 +47,6 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected bool $active;
 
-    protected bool $doubleOptInRegistration;
-
-    protected ?\DateTimeInterface $doubleOptInEmailSentDate = null;
-
-    protected ?\DateTimeInterface $doubleOptInConfirmDate = null;
-
     protected ?string $hash = null;
 
     protected ?\DateTimeInterface $firstLogin = null;
@@ -221,36 +215,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setActive(bool $active): void
     {
         $this->active = $active;
-    }
-
-    public function getDoubleOptInRegistration(): bool
-    {
-        return $this->doubleOptInRegistration;
-    }
-
-    public function setDoubleOptInRegistration(bool $doubleOptInRegistration): void
-    {
-        $this->doubleOptInRegistration = $doubleOptInRegistration;
-    }
-
-    public function getDoubleOptInEmailSentDate(): ?\DateTimeInterface
-    {
-        return $this->doubleOptInEmailSentDate;
-    }
-
-    public function setDoubleOptInEmailSentDate(\DateTimeInterface $doubleOptInEmailSentDate): void
-    {
-        $this->doubleOptInEmailSentDate = $doubleOptInEmailSentDate;
-    }
-
-    public function getDoubleOptInConfirmDate(): ?\DateTimeInterface
-    {
-        return $this->doubleOptInConfirmDate;
-    }
-
-    public function setDoubleOptInConfirmDate(\DateTimeInterface $doubleOptInConfirmDate): void
-    {
-        $this->doubleOptInConfirmDate = $doubleOptInConfirmDate;
     }
 
     public function getHash(): ?string

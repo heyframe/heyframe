@@ -2,18 +2,11 @@
 
 namespace HeyFrame\Core\Checkout\Customer;
 
-use HeyFrame\Core\Checkout\Customer\Exception\AddressNotFoundException;
 use HeyFrame\Core\Checkout\Customer\Exception\BadCredentialsException;
-use HeyFrame\Core\Checkout\Customer\Exception\CannotDeleteDefaultAddressException;
-use HeyFrame\Core\Checkout\Customer\Exception\CustomerAlreadyConfirmedException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerAuthThrottledException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundByHashException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundByIdException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundException;
-use HeyFrame\Core\Checkout\Customer\Exception\CustomerOptinNotCompletedException;
-use HeyFrame\Core\Checkout\Customer\Exception\CustomerRecoveryHashExpiredException;
-use HeyFrame\Core\Checkout\Customer\Exception\CustomerWishlistNotFoundException;
-use HeyFrame\Core\Checkout\Customer\Exception\DuplicateWishlistProductException;
 use HeyFrame\Core\Checkout\Customer\Exception\InvalidImitateCustomerTokenException;
 use HeyFrame\Core\Checkout\Customer\Exception\PasswordPoliciesUpdatedException;
 use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerEmailUnique;
@@ -155,11 +148,6 @@ class CustomerException extends HttpException
         );
     }
 
-    public static function addressNotFound(string $id): AddressNotFoundException
-    {
-        return new AddressNotFoundException($id);
-    }
-
     public static function countryNotFound(string $countryId): HttpException
     {
         return new self(
@@ -183,16 +171,6 @@ class CustomerException extends HttpException
             'Customer address with id "{{ addressId }}" is an active address and cannot be deleted.',
             ['addressId' => $id]
         );
-    }
-
-    public static function cannotDeleteDefaultAddress(string $id): CannotDeleteDefaultAddressException
-    {
-        return new CannotDeleteDefaultAddressException($id);
-    }
-
-    public static function customerAlreadyConfirmed(string $id): CustomerAlreadyConfirmedException
-    {
-        return new CustomerAlreadyConfirmedException($id);
     }
 
     public static function customerGroupRegistrationConfigurationNotFound(string $customerGroupId): HeyFrameHttpException
@@ -220,11 +198,6 @@ class CustomerException extends HttpException
         return new CustomerNotFoundException($email);
     }
 
-    public static function customerRecoveryHashExpired(string $hash): CustomerRecoveryHashExpiredException
-    {
-        return new CustomerRecoveryHashExpiredException($hash);
-    }
-
     public static function customerWishlistNotActivated(): HeyFrameHttpException
     {
         return new self(
@@ -232,16 +205,6 @@ class CustomerException extends HttpException
             self::WISHLIST_IS_NOT_ACTIVATED,
             'Wishlist is not activated!'
         );
-    }
-
-    public static function customerWishlistNotFound(): CustomerWishlistNotFoundException
-    {
-        return new CustomerWishlistNotFoundException();
-    }
-
-    public static function duplicateWishlistProduct(): DuplicateWishlistProductException
-    {
-        return new DuplicateWishlistProductException();
     }
 
     public static function legacyPasswordEncoderNotFound(string $encoder): HeyFrameHttpException
@@ -271,11 +234,6 @@ class CustomerException extends HttpException
             self::$couldNotFindMessage,
             ['entity' => 'wishlist product', 'field' => 'id', 'value' => $productId]
         );
-    }
-
-    public static function customerOptinNotCompleted(string $id): CustomerOptinNotCompletedException
-    {
-        return new CustomerOptinNotCompletedException($id);
     }
 
     public static function customerAuthThrottledException(int $waitTime, ?\Throwable $e = null): CustomerAuthThrottledException

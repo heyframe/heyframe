@@ -172,12 +172,6 @@
             <tag name="flow.storer"/>
         </service>
 
-
-        <service id="HeyFrame\Core\Content\Flow\Dispatching\Storer\MailStorer">
-            <tag name="flow.storer"/>
-        </service>
-
-
         <service id="HeyFrame\Core\Content\Flow\Dispatching\Storer\UserStorer">
             <argument type="service" id="user_recovery.repository"/>
             <argument type="service" id="event_dispatcher"/>

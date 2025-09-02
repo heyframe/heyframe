@@ -10,7 +10,6 @@ use HeyFrame\Core\Checkout\Customer\Event\CustomerLoginEvent;
 use HeyFrame\Core\Checkout\Customer\Exception\BadCredentialsException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundByIdException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundException;
-use HeyFrame\Core\Checkout\Customer\Exception\CustomerOptinNotCompletedException;
 use HeyFrame\Core\Checkout\Customer\Password\LegacyPasswordVerifier;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -54,7 +53,7 @@ class AccountService
             throw CustomerException::badCredentials();
         }
 
-        $customer = $this->fetchCustomer(new Criteria([$id]), $context, true);
+        $customer = $this->fetchCustomer(new Criteria([$id]), $context);
         if ($customer === null) {
             throw CustomerException::customerNotFoundByIdException($id);
         }
@@ -68,7 +67,6 @@ class AccountService
     /**
      * @throws CustomerNotFoundException
      * @throws BadCredentialsException
-     * @throws CustomerOptinNotCompletedException
      */
     public function loginByCredentials(string $email, #[\SensitiveParameter] string $password, ChannelContext $context): string
     {
@@ -87,7 +85,6 @@ class AccountService
     /**
      * @throws CustomerNotFoundException
      * @throws BadCredentialsException
-     * @throws CustomerOptinNotCompletedException
      */
     public function getCustomerByLogin(string $email, #[\SensitiveParameter] string $password, ChannelContext $context): CustomerEntity
     {
@@ -112,11 +109,6 @@ class AccountService
             throw CustomerException::badCredentials();
         }
 
-        if (!$this->isCustomerConfirmed($customer)) {
-            // Make sure to only throw this exception after it has been verified it was a valid login
-            throw CustomerException::customerOptinNotCompleted($customer->getId());
-        }
-
         return $customer;
     }
 
@@ -134,11 +126,6 @@ class AccountService
         }
 
         return $customer;
-    }
-
-    private function isCustomerConfirmed(CustomerEntity $customer): bool
-    {
-        return !$customer->getDoubleOptInRegistration() || $customer->getDoubleOptInConfirmDate();
     }
 
     private function loginByCustomer(CustomerEntity $customer, ChannelContext $context): string
@@ -166,19 +153,14 @@ class AccountService
      * should be done via PHP because it's a lot faster to filter a few entities on PHP side with the same email
      * address, than to filter a huge numbers of rows in the DB on a not indexed column.
      */
-    private function fetchCustomer(Criteria $criteria, ChannelContext $context, bool $includeGuest = false): ?CustomerEntity
+    private function fetchCustomer(Criteria $criteria, ChannelContext $context): ?CustomerEntity
     {
         $criteria->setTitle('account-service::fetchCustomer');
 
         $result = $this->customerRepository->search($criteria, $context->getContext())->getEntities();
-        $result = $result->filter(function (CustomerEntity $customer) use ($includeGuest, $context): ?bool {
+        $result = $result->filter(function (CustomerEntity $customer) use ($context): ?bool {
             // Skip not active users
             if (!$customer->getActive()) {
-                return null;
-            }
-
-            // Skip guest if not required
-            if (!$includeGuest && $customer->getGuest()) {
                 return null;
             }
 
