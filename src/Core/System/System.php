@@ -45,6 +45,8 @@ class System extends Bundle
         $loader->load('number_range.xml');
         $loader->load('tag.xml');
         $loader->load('dict.xml');
+        $loader->load('points.xml');
+        $loader->load('membership_levels.xml');
 
         $container->addCompilerPass(new ChannelEntityCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
         $container->addCompilerPass(new NumberRangeIncrementerCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);

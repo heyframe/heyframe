@@ -36,7 +36,6 @@ class Migration1536232990Order extends MigrationStep
               `order_date_time` datetime(3) NOT NULL,
               `order_date` date GENERATED ALWAYS AS (cast(`order_date_time` as date)) STORED,
               `amount_total` DOUBLE GENERATED ALWAYS AS (JSON_UNQUOTE(JSON_EXTRACT(`price`, "$.totalPrice"))) VIRTUAL,
-              `amount_net` DOUBLE GENERATED ALWAYS AS (JSON_UNQUOTE(JSON_EXTRACT(`price`, "$.netPrice"))) VIRTUAL,
               `position_price` DOUBLE GENERATED ALWAYS AS (JSON_UNQUOTE(JSON_EXTRACT(`price`, "$.positionPrice"))) VIRTUAL,
               `deep_link_code` VARCHAR(32) NULL,
               `source` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,

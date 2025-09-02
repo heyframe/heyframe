@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\Checkout\Wallet\WalletDefinition">
+            <tag name="heyframe.entity.definition"/>
+            <tag name="heyframe.entity.hookable"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Wallet\Aggregate\WalletTransactions\WalletTransactionsDefinition">
+            <tag name="heyframe.entity.definition"/>
+            <tag name="heyframe.entity.hookable"/>
+        </service>
+
+    </services>
+</container>

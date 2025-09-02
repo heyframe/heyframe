@@ -89,7 +89,6 @@ class OrderDefinition extends EntityDefinition
             (new DateField('order_date', 'orderDate'))->addFlags(new ApiAware(), new WriteProtected()),
             (new CartPriceField('price', 'price'))->addFlags(new ApiAware()),
             (new FloatField('amount_total', 'amountTotal'))->addFlags(new ApiAware(), new WriteProtected(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
-            (new FloatField('amount_net', 'amountNet'))->addFlags(new ApiAware(), new WriteProtected()),
             (new FloatField('position_price', 'positionPrice'))->addFlags(new ApiAware(), new WriteProtected()),
             (new FloatField('currency_factor', 'currencyFactor'))->addFlags(new ApiAware(), new Required()),
             (new StringField('deep_link_code', 'deepLinkCode'))->addFlags(new ApiAware()),

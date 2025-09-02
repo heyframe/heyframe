@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Checkout\Customer;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
+use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMemberships\CustomerMembershipsEntity;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
@@ -103,7 +104,7 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?string $updatedById = null;
 
     protected ?UserEntity $updatedBy = null;
-
+    protected ?CustomerMembershipsEntity $memberships = null;
     public function __toString(): string
     {
         return $this->getNickname();
@@ -511,4 +512,15 @@ class CustomerEntity extends Entity implements \Stringable
     {
         $this->nickname = $nickname;
     }
+
+    public function getMemberships(): ?CustomerMembershipsEntity
+    {
+        return $this->memberships;
+    }
+
+    public function setMemberships(?CustomerMembershipsEntity $memberships): void
+    {
+        $this->memberships = $memberships;
+    }
+
 }
