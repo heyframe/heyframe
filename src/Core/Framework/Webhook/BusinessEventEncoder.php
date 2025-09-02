@@ -63,7 +63,7 @@ class BusinessEventEncoder
                 new Criteria(),
                 $definition,
                 $property,
-                '/store-api'
+                '/front-api'
             );
         }
 
@@ -155,7 +155,7 @@ class BusinessEventEncoder
             new Criteria(),
             $definition,
             $property,
-            '/store-api'
+            '/front-api'
         );
     }
 

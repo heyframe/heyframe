@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Flow\Dispatching\Storer;
 
 use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
-use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -28,22 +27,11 @@ class TimezoneStorer extends FlowStorer
      */
     public function store(FlowEventAware $event, array $stored): array
     {
-        if (!$event instanceof MailAware) {
-            return $stored;
-        }
-
-        $stored[MailAware::TIMEZONE] = $this->getTimezone();
-
         return $stored;
     }
 
     public function restore(StorableFlow $storable): void
     {
-        if (!$storable->hasStore(MailAware::TIMEZONE)) {
-            return;
-        }
-
-        $storable->setData(MailAware::TIMEZONE, $storable->getStore(MailAware::TIMEZONE));
     }
 
     private function getTimezone(): string

@@ -18,7 +18,7 @@ class ContextRoute extends AbstractContextRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/context', name: 'store-api.context', methods: ['GET'])]
+    #[Route(path: '/front-api/context', name: 'front-api.context', methods: ['GET'])]
     public function load(ChannelContext $context): ContextLoadRouteResponse
     {
         return new ContextLoadRouteResponse($context);

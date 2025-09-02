@@ -36,7 +36,7 @@ class CancelOrderRoute extends AbstractCancelOrderRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/order/state/cancel', name: 'store-api.order.state.cancel', methods: ['POST'], defaults: ['_loginRequired' => true, '_loginRequiredAllowGuest' => true])]
+    #[Route(path: '/front-api/order/state/cancel', name: 'front-api.order.state.cancel', methods: ['POST'], defaults: ['_loginRequired' => true, '_loginRequiredAllowGuest' => true])]
     public function cancel(Request $request, ChannelContext $context): CancelOrderRouteResponse
     {
         $orderId = $request->get('orderId', null);

@@ -45,7 +45,7 @@ class HandlePaymentMethodRoute extends AbstractHandlePaymentMethodRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/handle-payment', name: 'store-api.payment.handle', methods: ['GET', 'POST'])]
+    #[Route(path: '/front-api/handle-payment', name: 'front-api.payment.handle', methods: ['GET', 'POST'])]
     public function load(Request $request, ChannelContext $context): HandlePaymentMethodRouteResponse
     {
         $data = [...$request->query->all(), ...$request->request->all()];

@@ -11,9 +11,7 @@ use HeyFrame\Core\Framework\Event\CustomerAware;
 use HeyFrame\Core\Framework\Event\CustomerGroupAware;
 use HeyFrame\Core\Framework\Event\EventData\EntityType;
 use HeyFrame\Core\Framework\Event\EventData\EventDataCollection;
-use HeyFrame\Core\Framework\Event\EventData\MailRecipientStruct;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
-use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAware;
@@ -21,14 +19,13 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Contracts\EventDispatcher\Event;
 
 #[Package('checkout')]
-class CheckoutOrderPlacedEvent extends Event implements ChannelAware, ChannelContextAware, OrderAware, MailAware, CustomerAware, CustomerGroupAware, FlowEventAware
+class CheckoutOrderPlacedEvent extends Event implements ChannelAware, ChannelContextAware, OrderAware, CustomerAware, CustomerGroupAware, FlowEventAware
 {
     final public const EVENT_NAME = 'checkout.order.placed';
 
     public function __construct(
         private readonly ChannelContext $context,
         private readonly OrderEntity $order,
-        private ?MailRecipientStruct $mailRecipientStruct = null
     ) {
     }
 
@@ -61,17 +58,6 @@ class CheckoutOrderPlacedEvent extends Event implements ChannelAware, ChannelCon
     public function getChannelContext(): ChannelContext
     {
         return $this->context;
-    }
-
-    public function getMailStruct(): MailRecipientStruct
-    {
-        if (!$this->mailRecipientStruct instanceof MailRecipientStruct) {
-            $this->mailRecipientStruct = new MailRecipientStruct([
-                $this->order->getOrderCustomer()?->getEmail() => $this->order->getOrderCustomer()?->getFirstName() . ' ' . $this->order->getOrderCustomer()?->getLastName(),
-            ]);
-        }
-
-        return $this->mailRecipientStruct;
     }
 
     public function getChannelId(): string

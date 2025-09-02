@@ -54,7 +54,7 @@ class OrderRoute extends AbstractOrderRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/order', name: 'store-api.order', methods: ['GET', 'POST'], defaults: ['_entity' => 'order'])]
+    #[Route(path: '/front-api/order', name: 'front-api.order', methods: ['GET', 'POST'], defaults: ['_entity' => 'order'])]
     public function load(Request $request, ChannelContext $context, Criteria $criteria): OrderRouteResponse
     {
         ReplicaConnection::ensurePrimary();

@@ -23,8 +23,8 @@ class ExampleRoute extends AbstractExampleRoute
     }
 
     #[Route(
-        path: '/store-api/example',
-        name: 'store-api.example.search',
+        path: '/front-api/example',
+        name: 'front-api.example.search',
         methods: ['GET', 'POST']
     )]
     public function load(Criteria $criteria, ChannelContext $context): ExampleRouteResponse

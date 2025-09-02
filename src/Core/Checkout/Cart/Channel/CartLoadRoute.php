@@ -33,7 +33,7 @@ class CartLoadRoute extends AbstractCartLoadRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/checkout/cart', name: 'store-api.checkout.cart.read', methods: ['GET', 'POST'])]
+    #[Route(path: '/front-api/checkout/cart', name: 'front-api.checkout.cart.read', methods: ['GET', 'POST'])]
     public function load(Request $request, ChannelContext $context): CartResponse
     {
         $token = $request->get('token', $context->getToken());

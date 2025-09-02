@@ -49,8 +49,8 @@ class PaymentMethodRoute extends AbstractPaymentMethodRoute
     }
 
     #[Route(
-        path: '/store-api/payment-method',
-        name: 'store-api.payment.method',
+        path: '/front-api/payment-method',
+        name: 'front-api.payment.method',
         defaults: ['_entity' => 'payment_method'],
         methods: ['GET', 'POST']
     )]

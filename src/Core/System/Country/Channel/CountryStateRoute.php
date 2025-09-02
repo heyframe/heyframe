@@ -41,7 +41,7 @@ class CountryStateRoute extends AbstractCountryStateRoute
         return 'country-state-route-' . $id;
     }
 
-    #[Route(path: '/store-api/country-state/{countryId}', name: 'store-api.country.state', methods: ['GET', 'POST'], defaults: ['_entity' => 'country'])]
+    #[Route(path: '/front-api/country-state/{countryId}', name: 'front-api.country.state', methods: ['GET', 'POST'], defaults: ['_entity' => 'country'])]
     public function load(string $countryId, Request $request, Criteria $criteria, ChannelContext $context): CountryStateRouteResponse
     {
         $this->cacheTagCollector->addTag(self::buildName($countryId), self::ALL_TAG);

@@ -18,9 +18,9 @@ class StoreApiRouteGenerator implements ScaffoldingGenerator
     use AddScaffoldConfigDefaultBehaviour;
     use HasCommandOption;
 
-    public const OPTION_NAME = 'create-store-api-route';
-    private const OPTION_DESCRIPTION = 'Create an example store-api route';
-    private const CLI_QUESTION = 'Do you want to create an example store-api route?';
+    public const OPTION_NAME = 'create-front-api-route';
+    private const OPTION_DESCRIPTION = 'Create an example front-api route';
+    private const CLI_QUESTION = 'Do you want to create an example front-api route?';
 
     private string $servicesXmlEntry = <<<'EOL'
 
@@ -87,7 +87,7 @@ class StoreApiRouteGenerator implements ScaffoldingGenerator
     {
         return Stub::template(
             'src/Core/Content/Example/Channel/AbstractExampleRoute.php',
-            self::STUB_DIRECTORY . '/store-api-abstract-route.stub',
+            self::STUB_DIRECTORY . '/front-api-abstract-route.stub',
             [
                 'namespace' => $configuration->namespace,
             ]
@@ -98,7 +98,7 @@ class StoreApiRouteGenerator implements ScaffoldingGenerator
     {
         return Stub::template(
             'src/Core/Content/Example/Channel/ExampleRoute.php',
-            self::STUB_DIRECTORY . '/store-api-route.stub',
+            self::STUB_DIRECTORY . '/front-api-route.stub',
             [
                 'namespace' => $configuration->namespace,
             ]
@@ -109,7 +109,7 @@ class StoreApiRouteGenerator implements ScaffoldingGenerator
     {
         return Stub::template(
             'src/Core/Content/Example/Channel/ExampleRouteResponse.php',
-            self::STUB_DIRECTORY . '/store-api-response.stub',
+            self::STUB_DIRECTORY . '/front-api-response.stub',
             [
                 'namespace' => $configuration->namespace,
             ]

@@ -10,14 +10,12 @@ use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerLoginEvent;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Content\Flow\Api\FlowActionCollector;
-use HeyFrame\Core\Content\Flow\Dispatching\Aware\ScalarValuesAware;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Adapter\Messenger\Stamp\SentAtStamp;
 use HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService;
 use HeyFrame\Core\Framework\Api\Controller\InfoController;
 use HeyFrame\Core\Framework\Api\Route\ApiRouteInfoResolver;
-use HeyFrame\Core\Framework\App\Event\CustomAppEvent;
 use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Context;
@@ -25,7 +23,6 @@ use HeyFrame\Core\Framework\Event\BusinessEventCollector;
 use HeyFrame\Core\Framework\Event\ChannelAware;
 use HeyFrame\Core\Framework\Event\CustomerAware;
 use HeyFrame\Core\Framework\Event\CustomerGroupAware;
-use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\MessageQueue\Stats\StatsService;
 use HeyFrame\Core\Framework\Plugin;
@@ -307,12 +304,8 @@ class InfoControllerTest extends TestCase
                     ],
                 ],
                 'aware' => [
-                    ScalarValuesAware::class,
-                    lcfirst((new \ReflectionClass(ScalarValuesAware::class))->getShortName()),
                     ChannelAware::class,
                     lcfirst((new \ReflectionClass(ChannelAware::class))->getShortName()),
-                    MailAware::class,
-                    lcfirst((new \ReflectionClass(MailAware::class))->getShortName()),
                     CustomerAware::class,
                     lcfirst((new \ReflectionClass(CustomerAware::class))->getShortName()),
                 ],
@@ -333,8 +326,6 @@ class InfoControllerTest extends TestCase
                     lcfirst((new \ReflectionClass(CustomerAware::class))->getShortName()),
                     CustomerGroupAware::class,
                     lcfirst((new \ReflectionClass(CustomerGroupAware::class))->getShortName()),
-                    MailAware::class,
-                    lcfirst((new \ReflectionClass(MailAware::class))->getShortName()),
                     ChannelAware::class,
                     lcfirst((new \ReflectionClass(ChannelAware::class))->getShortName()),
                     OrderAware::class,
@@ -569,51 +560,6 @@ class InfoControllerTest extends TestCase
             static::assertNotEmpty($actualActions, 'Event with name "' . $action['name'] . '" not found');
             static::assertCount(1, $actualActions);
             static::assertSame($action, $actualActions[0]);
-        }
-    }
-
-    public function testFlowBusinessEventRouteHasAppFlowEvents(): void
-    {
-        $aclRoleId = Uuid::randomHex();
-        $this->createAclRole($aclRoleId);
-
-        $appId = Uuid::randomHex();
-        $this->createApp($appId, $aclRoleId);
-
-        $flowAppId = Uuid::randomHex();
-        $this->createAppFlowEvent($flowAppId, $appId);
-
-        $url = '/api/_info/events.json';
-        $client = $this->getBrowser();
-        $client->request(Request::METHOD_GET, $url);
-
-        $content = $client->getResponse()->getContent();
-        static::assertNotFalse($content);
-        static::assertJson($content);
-
-        $response = json_decode($content, true, 512, \JSON_THROW_ON_ERROR);
-
-        $expected = [
-            [
-                'extensions' => [],
-                'name' => 'customer.wishlist',
-                'class' => CustomAppEvent::class,
-                'data' => [],
-                'aware' => [
-                    'mailAware',
-                    'customerAware',
-                ],
-            ],
-        ];
-
-        foreach ($expected as $event) {
-            $actualEvent = array_values(array_filter($response, static function ($x) use ($event) {
-                return $x['name'] === $event['name'];
-            }));
-
-            static::assertNotEmpty($actualEvent, 'Event with name "' . $event['name'] . '" not found');
-            static::assertCount(1, $actualEvent);
-            static::assertSame($event, $actualEvent[0]);
         }
     }
 

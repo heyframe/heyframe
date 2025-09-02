@@ -107,7 +107,7 @@ trait ChannelApiTestBehaviour
         $browser
             ->request(
                 'POST',
-                '/store-api/account/login',
+                '/front-api/account/login',
                 [
                     'email' => $email,
                     'password' => 'heyframe',
@@ -286,7 +286,7 @@ trait ChannelApiTestBehaviour
     private function assignChannelContext(?KernelBrowser $customBrowser = null): void
     {
         $browser = $customBrowser ?: $this->getChannelBrowser();
-        $browser->request('GET', '/store-api/context');
+        $browser->request('GET', '/front-api/context');
         $content = $browser->getResponse()->getContent();
         if (!\is_string($content)) {
             throw new \RuntimeException('Response content is not a string');

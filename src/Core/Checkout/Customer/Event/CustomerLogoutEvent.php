@@ -9,16 +9,14 @@ use HeyFrame\Core\Framework\Event\ChannelAware;
 use HeyFrame\Core\Framework\Event\CustomerAware;
 use HeyFrame\Core\Framework\Event\EventData\EntityType;
 use HeyFrame\Core\Framework\Event\EventData\EventDataCollection;
-use HeyFrame\Core\Framework\Event\EventData\MailRecipientStruct;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\HeyFrameChannelEvent;
-use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Contracts\EventDispatcher\Event;
 
 #[Package('checkout')]
-class CustomerLogoutEvent extends Event implements ChannelAware, HeyFrameChannelEvent, CustomerAware, MailAware, FlowEventAware
+class CustomerLogoutEvent extends Event implements ChannelAware, HeyFrameChannelEvent, CustomerAware, FlowEventAware
 {
     final public const EVENT_NAME = 'checkout.customer.logout';
 
@@ -62,14 +60,5 @@ class CustomerLogoutEvent extends Event implements ChannelAware, HeyFrameChannel
     public function getCustomerId(): string
     {
         return $this->customer->getId();
-    }
-
-    public function getMailStruct(): MailRecipientStruct
-    {
-        return new MailRecipientStruct(
-            [
-                $this->customer->getEmail() => $this->customer->getFirstName() . ' ' . $this->customer->getLastName(),
-            ]
-        );
     }
 }

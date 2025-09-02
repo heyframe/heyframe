@@ -35,7 +35,7 @@ class CheckoutGatewayRoute extends AbstractCheckoutGatewayRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/checkout/gateway', name: 'store-api.checkout.gateway', methods: ['GET', 'POST'])]
+    #[Route(path: '/front-api/checkout/gateway', name: 'front-api.checkout.gateway', methods: ['GET', 'POST'])]
     public function load(Request $request, Cart $cart, ChannelContext $context): CheckoutGatewayRouteResponse
     {
         $paymentCriteria = new Criteria();

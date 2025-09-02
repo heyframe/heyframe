@@ -51,7 +51,7 @@ class ContextSwitchRoute extends AbstractContextSwitchRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/context', name: 'store-api.switch-context', methods: ['PATCH'])]
+    #[Route(path: '/front-api/context', name: 'front-api.switch-context', methods: ['PATCH'])]
     public function switchContext(RequestDataBag $data, ChannelContext $context): ContextTokenResponse
     {
         $definition = new DataValidationDefinition('context_switch');

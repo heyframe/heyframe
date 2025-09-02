@@ -81,7 +81,7 @@ class PaymentMethodDefinition extends EntityDefinition
             (new ManyToOneAssociationField('media', 'media_id', MediaDefinition::class, 'id', false))->addFlags(new ApiAware()),
             new ManyToOneAssociationField('availabilityRule', 'availability_rule_id', RuleDefinition::class, 'id'),
 
-            // Reverse Associations, not available in store-api
+            // Reverse Associations, not available in front-api
             (new OneToManyAssociationField('channelDefaultAssignments', ChannelDefinition::class, 'payment_method_id', 'id'))->addFlags(new RestrictDelete()),
             new ManyToOneAssociationField('plugin', 'plugin_id', PluginDefinition::class, 'id'),
             (new OneToManyAssociationField('customers', CustomerDefinition::class, 'last_payment_method_id', 'id'))->addFlags(new RestrictDelete()),

@@ -3,7 +3,6 @@
 namespace HeyFrame\Tests\Unit\Core\Framework\Log\Monolog;
 
 use HeyFrame\Core\Framework\Log\Monolog\ExcludeFlowEventHandler;
-use HeyFrame\Core\System\User\Recovery\UserRecoveryRequestEvent;
 use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Level;
 use Monolog\LogRecord;
@@ -44,22 +43,6 @@ class ExcludeFlowEventHandlerTest extends TestCase
             new LogRecord(new \DateTimeImmutable(), 'foo', Level::Alert, 'some message'),
             [],
             true,
-        ];
-
-        yield 'event with exclude list that matches but different channel' => [
-            new LogRecord(new \DateTimeImmutable(), 'app', Level::Alert, UserRecoveryRequestEvent::EVENT_NAME),
-            [
-                UserRecoveryRequestEvent::EVENT_NAME,
-            ],
-            true,
-        ];
-
-        yield 'event with exclude list that matches' => [
-            new LogRecord(new \DateTimeImmutable(), 'business_events', Level::Alert, UserRecoveryRequestEvent::EVENT_NAME),
-            [
-                UserRecoveryRequestEvent::EVENT_NAME,
-            ],
-            false,
         ];
     }
 }

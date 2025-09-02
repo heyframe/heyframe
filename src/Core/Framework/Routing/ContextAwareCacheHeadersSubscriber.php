@@ -22,7 +22,7 @@ readonly class ContextAwareCacheHeadersSubscriber implements EventSubscriberInte
     public static function getSubscribedEvents(): array
     {
         return [
-            'store-api.scope.response' => ['onResponse', -1000],
+            'front-api.scope.response' => ['onResponse', -1000],
         ];
     }
 

@@ -9,20 +9,16 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\CustomerAware;
 use HeyFrame\Core\Framework\Event\EventData\EntityType;
 use HeyFrame\Core\Framework\Event\EventData\EventDataCollection;
-use HeyFrame\Core\Framework\Event\EventData\MailRecipientStruct;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\HeyFrameChannelEvent;
-use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Contracts\EventDispatcher\Event;
 
 #[Package('checkout')]
-class CustomerDeletedEvent extends Event implements HeyFrameChannelEvent, CustomerAware, MailAware, ScalarValuesAware, FlowEventAware
+class CustomerDeletedEvent extends Event implements HeyFrameChannelEvent, CustomerAware, ScalarValuesAware, FlowEventAware
 {
     final public const EVENT_NAME = 'checkout.customer.deleted';
-
-    private ?MailRecipientStruct $mailRecipientStruct = null;
 
     /**
      * @param array<string, mixed> $serializedCustomer
@@ -62,17 +58,6 @@ class CustomerDeletedEvent extends Event implements HeyFrameChannelEvent, Custom
     public function getChannelId(): ?string
     {
         return $this->channelContext->getChannelId();
-    }
-
-    public function getMailStruct(): MailRecipientStruct
-    {
-        if (!$this->mailRecipientStruct instanceof MailRecipientStruct) {
-            $this->mailRecipientStruct = new MailRecipientStruct([
-                $this->customer->getEmail() => $this->customer->getNickname(),
-            ]);
-        }
-
-        return $this->mailRecipientStruct;
     }
 
     public static function getAvailableData(): EventDataCollection

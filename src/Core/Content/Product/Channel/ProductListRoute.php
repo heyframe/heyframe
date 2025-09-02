@@ -30,7 +30,7 @@ class ProductListRoute extends AbstractProductListRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/product', name: 'store-api.product.search', methods: ['GET', 'POST'], defaults: ['_entity' => 'product'])]
+    #[Route(path: '/front-api/product', name: 'front-api.product.search', methods: ['GET', 'POST'], defaults: ['_entity' => 'product'])]
     public function load(Criteria $criteria, ChannelContext $context): ProductListResponse
     {
         return new ProductListResponse($this->productRepository->search($criteria, $context));

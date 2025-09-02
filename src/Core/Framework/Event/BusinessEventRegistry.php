@@ -10,7 +10,6 @@ use HeyFrame\Core\Checkout\Customer\Event\CustomerLogoutEvent;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerRegisterEvent;
 use HeyFrame\Core\Checkout\Order\Event\OrderPaymentMethodChangedEvent;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\User\Recovery\UserRecoveryRequestEvent;
 
 #[Package('fundamentals@after-sales')]
 class BusinessEventRegistry
@@ -23,7 +22,6 @@ class BusinessEventRegistry
         CustomerLoginEvent::class,
         CustomerLogoutEvent::class,
         CustomerDeletedEvent::class,
-        UserRecoveryRequestEvent::class,
         CheckoutOrderPlacedEvent::class,
         OrderPaymentMethodChangedEvent::class,
         CustomerRegisterEvent::class,

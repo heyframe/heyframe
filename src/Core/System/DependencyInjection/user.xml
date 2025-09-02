@@ -21,22 +21,6 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\System\User\Recovery\UserRecoveryService">
-            <argument type="service" id="user_recovery.repository"/>
-            <argument type="service" id="user.repository"/>
-            <argument type="service" id="router"/>
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextService" />
-            <argument type="service" id="channel.repository" />
-        </service>
-
-        <service id="HeyFrame\Core\System\User\Api\UserRecoveryController" public="true">
-            <argument type="service" id="HeyFrame\Core\System\User\Recovery\UserRecoveryService"/>
-            <argument type="service" id="heyframe.rate_limiter"/>
-            <call method="setContainer">
-                <argument type="service" id="service_container"/>
-            </call>
-        </service>
 
         <service id="HeyFrame\Core\System\User\Service\UserValidationService">
             <argument type="service" id="user.repository"/>

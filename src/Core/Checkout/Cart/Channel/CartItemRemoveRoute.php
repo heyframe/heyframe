@@ -39,8 +39,8 @@ class CartItemRemoveRoute extends AbstractCartItemRemoveRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/checkout/cart/line-item', name: 'store-api.checkout.cart.remove-item', methods: ['DELETE'])]
-    #[Route(path: '/store-api/checkout/cart/line-item/delete', name: 'store-api.checkout.cart.remove-item-v2', methods: ['POST'])]
+    #[Route(path: '/front-api/checkout/cart/line-item', name: 'front-api.checkout.cart.remove-item', methods: ['DELETE'])]
+    #[Route(path: '/front-api/checkout/cart/line-item/delete', name: 'front-api.checkout.cart.remove-item-v2', methods: ['POST'])]
     public function remove(Request $request, Cart $cart, ChannelContext $context): CartResponse
     {
         return $this->cartLocker->locked($context, function () use ($request, $cart, $context) {

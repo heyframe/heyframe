@@ -41,7 +41,7 @@ class LanguageRoute extends AbstractLanguageRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/language', name: 'store-api.language', methods: ['GET', 'POST'], defaults: ['_entity' => 'language'])]
+    #[Route(path: '/front-api/language', name: 'front-api.language', methods: ['GET', 'POST'], defaults: ['_entity' => 'language'])]
     public function load(Request $request, ChannelContext $context, Criteria $criteria): LanguageRouteResponse
     {
         $this->cacheTagCollector->addTag(self::buildName($context->getChannelId()), self::ALL_TAG);

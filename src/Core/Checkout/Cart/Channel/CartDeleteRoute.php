@@ -33,7 +33,7 @@ class CartDeleteRoute extends AbstractCartDeleteRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/checkout/cart', name: 'store-api.checkout.cart.delete', methods: ['DELETE'])]
+    #[Route(path: '/front-api/checkout/cart', name: 'front-api.checkout.cart.delete', methods: ['DELETE'])]
     public function delete(ChannelContext $context): NoContentResponse
     {
         return $this->cartLocker->locked($context, function () use ($context) {

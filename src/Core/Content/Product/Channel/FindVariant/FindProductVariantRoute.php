@@ -35,8 +35,8 @@ class FindProductVariantRoute extends AbstractFindProductVariantRoute
     }
 
     #[Route(
-        path: '/store-api/product/{productId}/find-variant',
-        name: 'store-api.product.find-variant',
+        path: '/front-api/product/{productId}/find-variant',
+        name: 'front-api.product.find-variant',
         defaults: ['_entity' => 'product'],
         methods: ['POST']
     )]

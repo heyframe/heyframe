@@ -39,7 +39,7 @@ class CartItemUpdateRoute extends AbstractCartItemUpdateRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/checkout/cart/line-item', name: 'store-api.checkout.cart.update-lineitem', methods: ['PATCH'])]
+    #[Route(path: '/front-api/checkout/cart/line-item', name: 'front-api.checkout.cart.update-lineitem', methods: ['PATCH'])]
     public function change(Request $request, Cart $cart, ChannelContext $context): CartResponse
     {
         return $this->cartLocker->locked($context, function () use ($request, $cart, $context) {

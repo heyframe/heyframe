@@ -46,7 +46,7 @@ class CartItemAddRoute extends AbstractCartItemAddRoute
     /**
      * @param array<LineItem>|null $items
      */
-    #[Route(path: '/store-api/checkout/cart/line-item', name: 'store-api.checkout.cart.add', methods: ['POST'])]
+    #[Route(path: '/front-api/checkout/cart/line-item', name: 'front-api.checkout.cart.add', methods: ['POST'])]
     public function add(Request $request, Cart $cart, ChannelContext $context, ?array $items): CartResponse
     {
         return $this->cartLocker->locked($context, function () use ($request, $cart, $context, $items) {

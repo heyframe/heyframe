@@ -31,7 +31,7 @@ class ScriptStoreApiRoute
     ) {
     }
 
-    #[Route(path: '/store-api/script/{hook}', name: 'store-api.script_endpoint', methods: ['GET', 'POST'], requirements: ['hook' => '.+'])]
+    #[Route(path: '/front-api/script/{hook}', name: 'front-api.script_endpoint', methods: ['GET', 'POST'], requirements: ['hook' => '.+'])]
     public function execute(string $hook, Request $request, ChannelContext $context): Response
     {
         //  blog/update =>  blog-update
@@ -57,7 +57,7 @@ class ScriptStoreApiRoute
 
         /** @var StoreApiResponseHook $responseHook */
         $responseHook = $hook->getFunction(StoreApiResponseHook::FUNCTION_NAME);
-        // hook: store-api-{hook}
+        // hook: front-api-{hook}
         $this->executor->execute($responseHook);
 
         $fields = new ResponseFields(

@@ -10,7 +10,6 @@ use HeyFrame\Core\Checkout\Customer\Event\CustomerLogoutEvent;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerRegisterEvent;
 use HeyFrame\Core\Checkout\Order\Event\OrderPaymentMethodChangedEvent;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\User\Recovery\UserRecoveryRequestEvent;
 
 #[Package('fundamentals@after-sales')]
 final class BusinessEvents
@@ -22,8 +21,6 @@ final class BusinessEvents
     public const CHECKOUT_CUSTOMER_LOGOUT = CustomerLogoutEvent::EVENT_NAME;
 
     public const CHECKOUT_CUSTOMER_DELETED = CustomerDeletedEvent::EVENT_NAME;
-
-    public const USER_RECOVERY_REQUEST = UserRecoveryRequestEvent::EVENT_NAME;
 
     public const CHECKOUT_ORDER_PLACED = CheckoutOrderPlacedEvent::EVENT_NAME;
 

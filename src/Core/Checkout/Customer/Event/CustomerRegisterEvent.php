@@ -9,20 +9,16 @@ use HeyFrame\Core\Framework\Event\ChannelAware;
 use HeyFrame\Core\Framework\Event\CustomerAware;
 use HeyFrame\Core\Framework\Event\EventData\EntityType;
 use HeyFrame\Core\Framework\Event\EventData\EventDataCollection;
-use HeyFrame\Core\Framework\Event\EventData\MailRecipientStruct;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\HeyFrameChannelEvent;
-use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Contracts\EventDispatcher\Event;
 
 #[Package('checkout')]
-class CustomerRegisterEvent extends Event implements ChannelAware, HeyFrameChannelEvent, CustomerAware, MailAware, FlowEventAware
+class CustomerRegisterEvent extends Event implements ChannelAware, HeyFrameChannelEvent, CustomerAware, FlowEventAware
 {
     public const EVENT_NAME = 'checkout.customer.register';
-
-    private ?MailRecipientStruct $mailRecipientStruct = null;
 
     public function __construct(
         private readonly ChannelContext $channelContext,
@@ -54,17 +50,6 @@ class CustomerRegisterEvent extends Event implements ChannelAware, HeyFrameChann
     {
         return (new EventDataCollection())
             ->add('customer', new EntityType(CustomerDefinition::class));
-    }
-
-    public function getMailStruct(): MailRecipientStruct
-    {
-        if (!$this->mailRecipientStruct instanceof MailRecipientStruct) {
-            $this->mailRecipientStruct = new MailRecipientStruct([
-                $this->customer->getEmail() => $this->customer->getNickname(),
-            ]);
-        }
-
-        return $this->mailRecipientStruct;
     }
 
     public function getChannelId(): string

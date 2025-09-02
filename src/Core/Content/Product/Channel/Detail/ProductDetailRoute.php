@@ -62,7 +62,7 @@ class ProductDetailRoute extends AbstractProductDetailRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/product/{productId}', name: 'store-api.product.detail', methods: ['POST'], defaults: ['_entity' => 'product'])]
+    #[Route(path: '/front-api/product/{productId}', name: 'front-api.product.detail', methods: ['POST'], defaults: ['_entity' => 'product'])]
     public function load(string $productId, Request $request, ChannelContext $context, Criteria $criteria): ProductDetailRouteResponse
     {
         return Profiler::trace('product-detail-route', function () use ($productId, $request, $context, $criteria) {

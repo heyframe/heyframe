@@ -72,7 +72,7 @@ class RegisterRoute extends AbstractRegisterRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/account/register', name: 'store-api.account.register', methods: ['POST'])]
+    #[Route(path: '/front-api/account/register', name: 'front-api.account.register', methods: ['POST'])]
     public function register(
         RequestDataBag $data,
         ChannelContext $context,
@@ -145,7 +145,7 @@ class RegisterRoute extends AbstractRegisterRoute
 
         $response->headers->set(PlatformRequest::HEADER_CONTEXT_TOKEN, $newToken);
 
-        // We don't want to leak the hash in store-api
+        // We don't want to leak the hash in front-api
         $customerEntity->setHash('');
 
         return $response;

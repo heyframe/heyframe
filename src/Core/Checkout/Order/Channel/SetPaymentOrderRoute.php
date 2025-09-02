@@ -60,8 +60,8 @@ class SetPaymentOrderRoute extends AbstractSetPaymentOrderRoute
     }
 
     #[Route(
-        path: '/store-api/order/payment',
-        name: 'store-api.order.set-payment',
+        path: '/front-api/order/payment',
+        name: 'front-api.order.set-payment',
         defaults: ['_loginRequired' => true, '_loginRequiredAllowGuest' => true],
         methods: ['POST'],
     )]

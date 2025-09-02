@@ -41,7 +41,7 @@ class CurrencyRoute extends AbstractCurrencyRoute
         return 'currency-route-' . $channelId;
     }
 
-    #[Route(path: '/store-api/currency', name: 'store-api.currency', methods: ['GET', 'POST'], defaults: ['_entity' => 'currency'])]
+    #[Route(path: '/front-api/currency', name: 'front-api.currency', methods: ['GET', 'POST'], defaults: ['_entity' => 'currency'])]
     public function load(Request $request, ChannelContext $context, Criteria $criteria): CurrencyRouteResponse
     {
         $this->cacheTagCollector->addTag(self::buildName($context->getChannelId()), self::ALL_TAG);

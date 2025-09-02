@@ -16,7 +16,7 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\SystemConfig\Facade\SystemConfigFacadeHookFactory;
 
 /**
- * Triggered when the api endpoint /store-api/script/{hook} is called. Used to provide the HTTP-Response.
+ * Triggered when the api endpoint /front-api/script/{hook} is called. Used to provide the HTTP-Response.
  * This function is only called when no response for the provided cache key is cached, or no `cache_key` function implemented.
  *
  * @hook-use-case custom_endpoint

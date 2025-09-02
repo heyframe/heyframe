@@ -11,7 +11,7 @@ use HeyFrame\Core\Framework\Script\ScriptException;
 use HeyFrame\Core\System\Channel\ChannelContext;
 
 /**
- * Triggered when the api endpoint /store-api/script/{hook} is called. Used to execute your logic and provide a response to the request.
+ * Triggered when the api endpoint /front-api/script/{hook} is called. Used to execute your logic and provide a response to the request.
  *
  * @hook-use-case custom_endpoint
  *
@@ -24,7 +24,7 @@ class StoreApiHook extends InterfaceHook implements ChannelContextAware
 {
     use ScriptResponseAwareTrait;
 
-    final public const HOOK_NAME = 'store-api-{hook}';
+    final public const HOOK_NAME = 'front-api-{hook}';
 
     final public const FUNCTIONS = [
         StoreApiCacheKeyHook::FUNCTION_NAME => StoreApiCacheKeyHook::class,

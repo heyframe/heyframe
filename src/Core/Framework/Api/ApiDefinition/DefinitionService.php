@@ -18,7 +18,7 @@ use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInterface;
 class DefinitionService
 {
     final public const API = 'api';
-    final public const STORE_API = 'store-api';
+    final public const STORE_API = 'front-api';
 
     final public const TYPE_JSON_API = 'jsonapi';
 

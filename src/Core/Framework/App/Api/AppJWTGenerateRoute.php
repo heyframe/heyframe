@@ -30,7 +30,7 @@ class AppJWTGenerateRoute
     ) {
     }
 
-    #[Route('/store-api/app-system/{name}/generate-token', name: 'store-api.app-system.generate-token', methods: ['POST'])]
+    #[Route('/front-api/app-system/{name}/generate-token', name: 'front-api.app-system.generate-token', methods: ['POST'])]
     public function generate(string $name, ChannelContext $context): JsonResponse
     {
         if ($context->getCustomer() === null) {

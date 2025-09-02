@@ -32,7 +32,7 @@ class ContextGatewayRoute extends AbstractContextGatewayRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/context/gateway', name: 'store-api.context.gateway', methods: ['GET', 'POST'])]
+    #[Route(path: '/front-api/context/gateway', name: 'front-api.context.gateway', methods: ['GET', 'POST'])]
     public function load(Request $request, Cart $cart, ChannelContext $context): ContextTokenResponse
     {
         return $this->contextGateway->process(new ContextGatewayPayloadStruct($cart, $context, new RequestDataBag($request->request->all())));

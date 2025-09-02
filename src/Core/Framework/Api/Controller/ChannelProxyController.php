@@ -90,7 +90,7 @@ class ChannelProxyController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/api/_proxy/store-api/{channelId}/{_path}', name: 'api.proxy.store-api', requirements: ['_path' => '.*'])]
+    #[Route(path: '/api/_proxy/front-api/{channelId}/{_path}', name: 'api.proxy.front-api', requirements: ['_path' => '.*'])]
     public function proxy(string $_path, string $channelId, Request $request, Context $context): Response
     {
         $channel = $this->fetchChannel($channelId, $context);
@@ -251,7 +251,7 @@ class ChannelProxyController extends AbstractController
     {
         $contextToken = $this->getContextToken($request);
 
-        $server = array_merge($request->server->all(), ['REQUEST_URI' => '/store-api/' . $path]);
+        $server = array_merge($request->server->all(), ['REQUEST_URI' => '/front-api/' . $path]);
         $subrequest = $request->duplicate(null, null, [], null, null, $server);
 
         $subrequest->headers->set(PlatformRequest::HEADER_ACCESS_KEY, $channel->getAccessKey());

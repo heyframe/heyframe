@@ -34,8 +34,8 @@ class StoreApiInfoController
     }
 
     #[Route(
-        path: '/store-api/_info/openapi3.json',
-        name: 'store-api.info.openapi3',
+        path: '/front-api/_info/openapi3.json',
+        name: 'front-api.info.openapi3',
         defaults: ['auth_required' => '%heyframe.api.api_browser.auth_required_str%'],
         methods: ['GET']
     )]
@@ -54,8 +54,8 @@ class StoreApiInfoController
     }
 
     #[Route(
-        path: '/store-api/_info/open-api-schema.json',
-        name: 'store-api.info.open-api-schema',
+        path: '/front-api/_info/open-api-schema.json',
+        name: 'front-api.info.open-api-schema',
         defaults: ['auth_required' => '%heyframe.api.api_browser.auth_required_str%'],
         methods: ['GET']
     )]
@@ -67,8 +67,8 @@ class StoreApiInfoController
     }
 
     #[Route(
-        path: '/store-api/_info/stoplightio.html',
-        name: 'store-api.info.stoplightio',
+        path: '/front-api/_info/stoplightio.html',
+        name: 'front-api.info.stoplightio',
         defaults: ['auth_required' => '%heyframe.api.api_browser.auth_required_str%'],
         methods: ['GET']
     )]
@@ -79,7 +79,7 @@ class StoreApiInfoController
         $response = new Response($this->twig->render(
             '@Framework/stoplightio.html.twig',
             [
-                'schemaUrl' => 'store-api.info.openapi3',
+                'schemaUrl' => 'front-api.info.openapi3',
                 'cspNonce' => $nonce,
                 'apiType' => $apiType,
             ]
@@ -97,8 +97,8 @@ class StoreApiInfoController
     }
 
     #[Route(
-        path: '/store-api/_info/routes',
-        name: 'store-api.info.routes',
+        path: '/front-api/_info/routes',
+        name: 'front-api.info.routes',
         defaults: ['auth_required' => '%heyframe.api.api_browser.auth_required_str%'],
         methods: ['GET']
     )]
