@@ -5,14 +5,13 @@ namespace HeyFrame\Core\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use HeyFrame\Core\Framework\App\AppEntity;
-use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
+use HeyFrame\Core\Framework\App\Exception\ShopIdChangeSuggestedException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
 use HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Service\ServiceRegistry\Client as ServiceRegistryClient;
 use HeyFrame\Core\Service\ServiceRegistry\ServiceEntry;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
@@ -38,12 +37,11 @@ class ServiceClientFactory
             ]),
             $this->heyframeVersion,
             $entry,
-            new Filesystem()
         );
     }
 
     /**
-     * @throws InstanceIdChangeSuggestedException
+     * @throws ShopIdChangeSuggestedException
      */
     public function newAuthenticatedFor(ServiceEntry $entry, AppEntity $app, Context $context): AuthenticatedServiceClient
     {

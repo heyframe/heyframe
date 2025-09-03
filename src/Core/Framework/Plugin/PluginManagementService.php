@@ -105,7 +105,6 @@ class PluginManagementService
             throw PluginException::cannotDeleteManaged($plugin->getName());
         }
 
-
         $path = $this->projectDir . '/' . $plugin->getPath();
         $this->filesystem->remove($path);
 
