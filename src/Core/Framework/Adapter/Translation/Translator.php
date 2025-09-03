@@ -5,14 +5,15 @@ namespace HeyFrame\Core\Framework\Adapter\Translation;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\DriverException;
-use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\PlatformRequest;
+use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider;
+use HeyFrame\Core\System\Locale\LocaleException;
 use HeyFrame\Core\System\Snippet\SnippetService;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
@@ -41,7 +42,7 @@ class Translator extends AbstractTranslator
 
     private ?string $snippetSetId = null;
 
-    private ?string $channelId = null;
+    private ?string $salesChannelId = null;
 
     private ?string $localeBeforeInject = null;
 
@@ -117,14 +118,14 @@ class Translator extends AbstractTranslator
     {
         $catalog = $this->translator->getCatalogue($locale);
 
-        $fallbackLocale = $this->getFallbackLocale();
-
-        $localization = mb_substr($fallbackLocale, 0, 2);
-        if ($this->isHeyFrameLocaleCatalogue($catalog) && !$this->isFallbackLocaleCatalogue($catalog, $localization)) {
-            $catalog->addFallbackCatalogue($this->translator->getCatalogue($localization));
+        $fallbackLocale = $this->getFallbackLocale($catalog->getLocale());
+        if ($this->isHeyFrameLocaleCatalogue($catalog) && !$this->isFallbackLocaleCatalogue($catalog, $fallbackLocale)) {
+            $catalog->addFallbackCatalogue($this->translator->getCatalogue($fallbackLocale));
         } else {
-            // fallback locale and current locale has the same localization -> reset fallback
-            // or locale is symfony style locale, so we shouldn't add heyframe fallbacks as it may lead to circular references
+            /**
+             * fallback locale and current locale has the same localization -> reset fallback
+             * or locale is symfony style locale, so we shouldn't add shopware fallbacks as it may lead to circular references
+             */
             $fallbackLocale = null;
         }
 
@@ -133,7 +134,7 @@ class Translator extends AbstractTranslator
             $fallbackLocale = null;
         }
 
-        return $this->getCustomizedCatalog($catalog, $fallbackLocale);
+        return $this->getCustomizedCatalogue($catalog, $fallbackLocale);
     }
 
     public static function tag(?string $id): string
@@ -154,10 +155,17 @@ class Translator extends AbstractTranslator
 
         $this->cacheTagCollector->addTag(self::tag($this->snippetSetId));
 
-        // the formatter expects 2 char locale or underscore locales, `Locale::getFallback()` transforms the codes
-        // We use the locale from the catalogue here as that may be the fallback locale,
-        // so we always format the translations in the actual locale of the catalogue
+        /**
+         * The formatter expects 2 char locale or underscore locales, `Locale::getFallback()` transforms the codes
+         * We use the locale from the catalogue here as that may be the fallback locale,
+         * so we always format the translations in the actual locale of the catalogue
+         */
         $formatLocale = Locale::getFallback($catalogue->getLocale()) ?? $catalogue->getLocale();
+
+        while (!$catalogue->has($id, $domain) && $catalogue->getFallbackCatalogue() !== null) {
+            $domain = 'storefront';
+            $catalogue = $catalogue->getFallbackCatalogue();
+        }
 
         return $this->formatter->format($catalogue->get($id, $domain), $formatLocale, $parameters);
     }
@@ -194,14 +202,14 @@ class Translator extends AbstractTranslator
         $this->traces = [];
         $this->keys = ['all' => true];
         $this->snippetSetId = null;
-        $this->channelId = null;
+        $this->salesChannelId = null;
         $this->localeBeforeInject = null;
         $this->locale = null;
         if ($this->translator instanceof SymfonyTranslator) {
             // Reset FallbackLocale in memory cache of symfony implementation
             // set fallback values from Framework/Resources/config/translation.yaml
-            $this->translator->setFallbackLocales(['zh_CN', 'zh']);
-            $this->translator->setLocale('zh-CN');
+            $this->translator->setFallbackLocales(['en_GB', 'en']);
+            $this->translator->setLocale('en-GB');
         }
     }
 
@@ -209,12 +217,12 @@ class Translator extends AbstractTranslator
      * Injects temporary settings for translation which differ from Context.
      * Call resetInjection() when specific translation is done
      */
-    public function injectSettings(string $channelId, string $languageId, string $locale, Context $context): void
+    public function injectSettings(string $salesChannelId, string $languageId, string $locale, Context $context): void
     {
         $this->localeBeforeInject = $this->getLocale();
-        $this->channelId = $channelId;
+        $this->salesChannelId = $salesChannelId;
         $this->setLocale($locale);
-        $this->resolveSnippetSetId($channelId, $languageId, $locale);
+        $this->resolveSnippetSetId($salesChannelId, $languageId, $locale);
         $this->getCatalogue($locale);
     }
 
@@ -227,7 +235,7 @@ class Translator extends AbstractTranslator
 
         $this->setLocale($this->localeBeforeInject);
         $this->snippetSetId = null;
-        $this->channelId = null;
+        $this->salesChannelId = null;
     }
 
     public function getSnippetSetId(?string $locale = null): ?string
@@ -274,48 +282,45 @@ class Translator extends AbstractTranslator
     }
 
     /**
-     * HeyFrame uses dashes in all locales
-     * if the catalogue does not contain any dashes it means it is a symfony fallback catalogue
-     * in that case we should not add the heyframe fallback catalogue as it would result in circular references
+     * HeyFrame uses dashes in all locales.
+     * If the catalogue does not contain any dashes, it means it is a symfony fallback catalogue,
+     * in that case we should not add the shopware fallback catalogue as it would result in circular references
      */
     private function isHeyFrameLocaleCatalogue(MessageCatalogueInterface $catalog): bool
     {
         return mb_strpos($catalog->getLocale(), '-') !== false;
     }
 
-    private function resolveSnippetSetId(string $channelId, string $languageId, string $locale): void
+    private function resolveSnippetSetId(string $salesChannelId, string $languageId, string $locale): void
     {
-        $snippetSetId = $this->snippetService->findSnippetSetId($channelId, $languageId, $locale);
+        $snippetSetId = $this->snippetService->findSnippetSetId($salesChannelId, $languageId, $locale);
 
         $this->snippetSetId = $snippetSetId;
     }
 
     /**
-     * Add language specific snippets provided by the admin
+     * Add country-specific snippets provided by the admin
      */
-    private function getCustomizedCatalog(MessageCatalogueInterface $catalog, ?string $fallbackLocale): MessageCatalogueInterface
+    private function getCustomizedCatalogue(MessageCatalogueInterface $catalogue, ?string $fallbackLocale): MessageCatalogueInterface
     {
         try {
-            $snippetSetId = $this->getSnippetSetId($catalog->getLocale());
+            $snippetSetId = $this->getSnippetSetId($catalogue->getLocale());
         } catch (DriverException) {
             // this allows us to use the translator even if there's no db connection yet
-            return $catalog;
+            return $catalogue;
         }
 
         if (!$snippetSetId) {
-            return $catalog;
+            return $catalogue;
         }
 
         if (\array_key_exists($snippetSetId, $this->isCustomized)) {
             return $this->isCustomized[$snippetSetId];
         }
 
-        $snippets = $this->loadSnippets($catalog, $snippetSetId, $fallbackLocale);
+        $newCatalogue = $this->buildMergedCatalogue($catalogue, $snippetSetId, $fallbackLocale);
 
-        $newCatalog = clone $catalog;
-        $newCatalog->add($snippets);
-
-        return $this->isCustomized[$snippetSetId] = $newCatalog;
+        return $this->isCustomized[$snippetSetId] = $newCatalogue;
     }
 
     /**
@@ -325,30 +330,36 @@ class Translator extends AbstractTranslator
     {
         $this->resolveChannelId();
 
-        $key = \sprintf('translation.catalog.%s.%s', $this->channelId ?: 'DEFAULT', $snippetSetId);
+        $effectiveLocale = $fallbackLocale ?? $catalog->getLocale();
+        $keySuffix = $effectiveLocale ? '-' . $effectiveLocale : '';
+        $key = \sprintf('translation.catalog.%s.%s', $this->salesChannelId ?: 'DEFAULT', $snippetSetId . $keySuffix);
 
-        return $this->cache->get($key, function (ItemInterface $item) use ($catalog, $snippetSetId, $fallbackLocale) {
+        return $this->cache->get($key, function (ItemInterface $item) use ($catalog, $snippetSetId, $effectiveLocale) {
             $item->tag(self::ALL_CACHE_TAG);
             $item->tag(self::tag($snippetSetId));
-            $item->tag(self::tag($this->channelId ?: 'DEFAULT'));
+            $item->tag(self::tag($this->salesChannelId ?: 'DEFAULT'));
 
-            return $this->snippetService->getFrontendSnippets($catalog, $snippetSetId, $fallbackLocale, $this->channelId);
+            return $this->snippetService->getFrontendSnippets($catalog, $snippetSetId, $effectiveLocale, $this->salesChannelId);
         });
     }
 
-    private function getFallbackLocale(): string
+    private function getFallbackLocale(?string $locale): string
     {
+        if ($locale) {
+            return explode('-', $locale)[0];
+        }
+
         try {
-            return $this->languageLocaleProvider->getLocaleForLanguageId(Defaults::LANGUAGE_SYSTEM);
-        } catch (ConnectionException) {
-            // this allows us to use the translator even if there's no db connection yet
-            return 'zh-CN';
+            return $this->languageLocaleProvider->getLanguageLocalePrefix(Defaults::LANGUAGE_SYSTEM);
+        } catch (ConnectionException|LocaleException) {
+            // this allows us to use the translator even if there's no db connection or locale yet
+            return 'en';
         }
     }
 
     private function resolveChannelId(): void
     {
-        if ($this->channelId !== null) {
+        if ($this->salesChannelId !== null) {
             return;
         }
 
@@ -358,6 +369,23 @@ class Translator extends AbstractTranslator
             return;
         }
 
-        $this->channelId = $request->attributes->get(PlatformRequest::ATTRIBUTE_CHANNEL_ID);
+        $this->salesChannelId = $request->attributes->get(PlatformRequest::ATTRIBUTE_CHANNEL_ID);
+    }
+
+    private function buildMergedCatalogue(MessageCatalogueInterface $catalogue, string $snippetSetId, ?string $fallbackLocale): MessageCatalogueInterface
+    {
+        $newCatalogue = clone $catalogue;
+
+        // Recursively loading fallback snippets
+        $currentCatalogue = $newCatalogue;
+        do {
+            $loadedSnippets = $this->loadSnippets($currentCatalogue, $snippetSetId, $fallbackLocale);
+
+            if (!empty($loadedSnippets)) {
+                $currentCatalogue->add($loadedSnippets);
+            }
+        } while ($currentCatalogue = $currentCatalogue->getFallbackCatalogue());
+
+        return $newCatalogue;
     }
 }
