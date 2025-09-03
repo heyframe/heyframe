@@ -76,18 +76,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\BillingCountryRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\BillingStreetRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\BillingZipCodeRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\Rule\CustomerGroupRule">
             <tag name="heyframe.rule.definition"/>
         </service>
@@ -116,14 +104,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\LastNameRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\IsCompanyRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\Rule\CartTotalPurchasePriceRule">
             <tag name="heyframe.rule.definition"/>
         </service>
@@ -133,34 +113,6 @@
         </service>
 
         <service id="HeyFrame\Core\Checkout\Customer\Rule\IsNewsletterRecipientRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\ShippingCountryRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\ShippingStreetRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\BillingCityRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\ShippingCityRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\BillingStateRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\ShippingStateRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\ShippingZipCodeRule">
             <tag name="heyframe.rule.definition"/>
         </service>
 
@@ -316,10 +268,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\CustomerSalutationRule">
-            <tag name="heyframe.rule.definition" />
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\Rule\DaysSinceLastLoginRule">
             <tag name="heyframe.rule.definition"/>
         </service>
@@ -328,19 +276,11 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\AffiliateCodeRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\Rule\AffiliateCodeOfOrderRule">
             <tag name="heyframe.rule.definition"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Rule\CampaignCodeOfOrderRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\CampaignCodeRule">
             <tag name="heyframe.rule.definition"/>
         </service>
 
