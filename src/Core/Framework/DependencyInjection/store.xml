@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
         <parameter key="env(INSTANCE_ID)"/>
         <parameter key="instance_id">%env(INSTANCE_ID)%</parameter>
@@ -85,8 +85,6 @@
             <argument type="service" id="HeyFrame\Core\Framework\Plugin\PluginManagementService" />
             <argument type="service" id="HeyFrame\Core\Framework\Plugin\PluginLifecycleService" />
             <argument type="service" id="user.repository" />
-            <argument>%kernel.plugin_dir%</argument>
-            <argument>%kernel.project_dir%</argument>
 
             <tag name="console.command"/>
         </service>

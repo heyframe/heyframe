@@ -9,6 +9,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Random;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * @internal
@@ -17,10 +18,12 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * @phpstan-import-type InstanceIdV2Config from InstanceId
  */
 #[Package('framework')]
-class InstanceIdProvider
+class InstanceIdProvider implements ResetInterface
 {
     final public const SHOP_ID_SYSTEM_CONFIG_KEY = 'core.app.instanceId';
     final public const SHOP_ID_SYSTEM_CONFIG_KEY_V2 = 'core.app.instanceIdV2';
+
+    private ?InstanceId $instanceId = null;
 
     public function __construct(
         private readonly SystemConfigService $systemConfigService,
@@ -35,20 +38,24 @@ class InstanceIdProvider
      */
     public function getInstanceId(): string
     {
-        $instanceId = $this->fetchInstanceIdFromSystemConfig() ?? $this->regenerateAndSetInstanceId();
+        if ($this->instanceId) {
+            return $this->instanceId->id;
+        }
 
-        $fingerprintsComparison = $this->fingerprintGenerator->matchFingerprints($instanceId->fingerprints);
+        $this->instanceId = $this->fetchInstanceIdFromSystemConfig() ?? $this->regenerateAndSetInstanceId();
+
+        $fingerprintsComparison = $this->fingerprintGenerator->matchFingerprints($this->instanceId->fingerprints);
         if (!$fingerprintsComparison->isMatching()) {
             if ($this->hasAppsRegisteredAtAppServers()) {
-                throw AppException::instanceIdChangeSuggested($instanceId, $fingerprintsComparison);
+                throw AppException::instanceIdChangeSuggested($this->instanceId, $fingerprintsComparison);
             }
 
             // if the shop does not have any apps we can update the existing shop id value
             // with the new APP_URL as no app knows the shop id
-            $this->regenerateAndSetInstanceId($instanceId->id);
+            $this->regenerateAndSetInstanceId($this->instanceId->id);
         }
 
-        return $instanceId->id;
+        return $this->instanceId->id;
     }
 
     public function regenerateAndSetInstanceId(?string $existingInstanceId = null): InstanceId
@@ -68,7 +75,14 @@ class InstanceIdProvider
         $this->systemConfigService->delete(self::SHOP_ID_SYSTEM_CONFIG_KEY);
         $this->systemConfigService->delete(self::SHOP_ID_SYSTEM_CONFIG_KEY_V2);
 
+        $this->reset();
+
         $this->eventDispatcher->dispatch(new InstanceIdDeletedEvent());
+    }
+
+    public function reset(): void
+    {
+        $this->instanceId = null;
     }
 
     private function setInstanceId(InstanceId $instanceId): void

@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Test;
 
 use HeyFrame\Core\Framework\App\AppService;
+use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\App\Lifecycle\AppLifecycle;
 use HeyFrame\Core\Framework\App\Lifecycle\AppLifecycleIterator;
 use HeyFrame\Core\Framework\App\Lifecycle\AppLoader;
@@ -11,6 +12,7 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
 use HeyFrame\Core\System\Snippet\Files\SnippetFileCollection;
 use HeyFrame\Core\System\Snippet\Files\SnippetFileLoader;
+use PHPUnit\Framework\Attributes\After;
 use Psr\Log\NullLogger;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -62,5 +64,11 @@ trait AppSystemTestBehaviour
         return static::getContainer()
             ->get(ScriptTraces::class)
             ->getTraces();
+    }
+
+    #[After]
+    protected function deleteInstanceIdAndResetShopIdProvider(): void
+    {
+        static::getContainer()->get(InstanceIdProvider::class)->deleteInstanceId();
     }
 }

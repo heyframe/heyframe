@@ -55,6 +55,7 @@ class MoveShopPermanentlyStrategy extends AbstractInstanceIdChangeStrategy
     public function resolve(Context $context): void
     {
         try {
+            $this->instanceIdProvider->reset();
             $this->instanceIdProvider->getInstanceId();
 
             // no resolution needed

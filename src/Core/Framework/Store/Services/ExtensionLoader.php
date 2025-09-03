@@ -30,7 +30,6 @@ use HeyFrame\Core\Framework\Store\Struct\VariantCollection;
 use HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider;
 use HeyFrame\Core\System\SystemConfig\Service\ConfigurationService;
 use HeyFrame\Frontend\Framework\ThemeInterface;
-use HeyFrame\Frontend\Theme\ThemeCollection;
 use Symfony\Component\Intl\Languages;
 use Symfony\Component\Intl\Locales;
 
@@ -195,7 +194,7 @@ class ExtensionLoader
             'configurable' => $this->configurationService->checkConfiguration(\sprintf('%s.config', $plugin->getName()), $context),
             'updatedAt' => $plugin->getUpgradedAt(),
             'allowDisable' => true,
-            'allowUpdate' => !$plugin->getManagedByComposer() || $plugin->isLocatedInCustomDirectory(),
+            'allowUpdate' => !$plugin->getManagedByComposer() || $plugin->isLocatedInCustomPluginDirectory(),
             'managedByComposer' => $plugin->getManagedByComposer(),
             'inAppPurchases' => $this->inAppPurchase->getByExtension($plugin->getName()),
         ];
