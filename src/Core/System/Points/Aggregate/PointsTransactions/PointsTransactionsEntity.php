@@ -17,10 +17,15 @@ class PointsTransactionsEntity extends Entity
     use EntityIdTrait;
 
     protected string $pointsId;
+
     protected string $txType;
+
     protected int $pointsAmount;
+
     protected int $pointsAfter;
+
     protected ?string $referencedId = null;
+
     protected ?string $referenceType = null;
 
     protected ?PointsEntity $points = null;
@@ -44,7 +49,6 @@ class PointsTransactionsEntity extends Entity
     {
         $this->pointsAfter = $pointsAfter;
     }
-
 
     public function getPointsId(): string
     {

@@ -18,13 +18,21 @@ class WalletEntity extends Entity
     use EntityIdTrait;
 
     protected string $currencyId;
+
     protected float $balance;
+
     protected float $frozenBalance;
+
     protected float $bonusBalance;
+
     protected bool $active;
+
     protected string $identifier;
+
     protected string $referencedId;
+
     protected ?CurrencyEntity $currency = null;
+
     protected ?WalletTransactionsCollection $transactions = null;
 
     public function getCurrencyId(): string
@@ -116,6 +124,4 @@ class WalletEntity extends Entity
     {
         $this->transactions = $transactions;
     }
-
-
 }

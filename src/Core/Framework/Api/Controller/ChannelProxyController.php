@@ -6,14 +6,9 @@ use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Checkout\Cart\ApiOrderCartService;
 use HeyFrame\Core\Checkout\Cart\Channel\AbstractCartOrderRoute;
 use HeyFrame\Core\Checkout\Cart\Channel\CartService;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Processor;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Checkout\CheckoutPermissions;
-use HeyFrame\Core\Checkout\Customer\ImitateCustomerTokenGenerator;
 use HeyFrame\Core\Framework\Api\ApiException;
-use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Exception\InvalidChannelIdException;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -40,7 +35,6 @@ use HeyFrame\Core\System\Channel\Context\ChannelContextService;
 use HeyFrame\Core\System\Channel\Context\ChannelContextServiceInterface;
 use HeyFrame\Core\System\Channel\Context\ChannelContextServiceParameters;
 use HeyFrame\Core\System\Channel\Event\ChannelContextSwitchEvent;
-use HeyFrame\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearcher;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -50,9 +44,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Type;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [ApiRouteScope::ID]])]
 #[Package('framework')]
@@ -61,8 +52,6 @@ class ChannelProxyController extends AbstractController
     private const CUSTOMER_ID = ChannelContextService::CUSTOMER_ID;
 
     private const CHANNEL_ID = 'channelId';
-
-    private const SEARCH_ROUTE = 'search';
 
     private const ADMIN_ORDER_PERMISSIONS = [
         CheckoutPermissions::ALLOW_PRODUCT_PRICE_OVERWRITES => true,
@@ -86,7 +75,6 @@ class ChannelProxyController extends AbstractController
         private readonly AbstractCartOrderRoute $orderRoute,
         private readonly CartService $cartService,
         private readonly RequestStack $requestStack,
-        private readonly ImitateCustomerTokenGenerator $imitateCustomerTokenGenerator
     ) {
     }
 
@@ -150,56 +138,6 @@ class ChannelProxyController extends AbstractController
         return $response;
     }
 
-    #[Route(
-        path: '/api/_proxy/generate-imitate-customer-token',
-        name: 'api.proxy.generate-imitate-customer-token',
-        defaults: ['_acl' => ['api_proxy_imitate-customer']],
-        methods: ['POST']
-    )]
-    public function generateImitateCustomerToken(RequestDataBag $data, Context $context): JsonResponse
-    {
-        $this->validateImitateCustomerDataFields($data, $context);
-
-        $source = $context->getSource();
-        if (!$source instanceof AdminApiSource) {
-            throw ApiException::invalidAdminSource($source::class);
-        }
-
-        $userId = $source->getUserId();
-        if (!$userId) {
-            throw ApiException::userNotLoggedIn();
-        }
-
-        $channelId = $data->getString(self::CHANNEL_ID);
-        $customerId = $data->getString(self::CUSTOMER_ID);
-
-        $token = $this->imitateCustomerTokenGenerator->generate($channelId, $customerId, $userId);
-
-        return new JsonResponse([
-            'token' => $token,
-        ]);
-    }
-
-    #[Route(path: '/api/_proxy/modify-shipping-costs', name: 'api.proxy.modify-shipping-costs', methods: ['PATCH'])]
-    public function modifyShippingCosts(Request $request, Context $context): JsonResponse
-    {
-        if (!$request->request->has(self::CHANNEL_ID)) {
-            throw ApiException::channelIdParameterIsMissing();
-        }
-
-        $channelId = (string) $request->request->get('channelId');
-
-        $this->fetchChannel($channelId, $context);
-
-        $channelContext = $this->fetchChannelContext($channelId, $request, $context);
-
-        $calculatedPrice = $this->parseCalculatedPriceByRequest($request);
-
-        $cart = $this->adminOrderCartService->updateShippingCosts($calculatedPrice, $channelContext);
-
-        return new JsonResponse(['data' => $cart]);
-    }
-
     #[Route(path: '/api/_proxy/disable-automatic-promotions', name: 'api.proxy.disable-automatic-promotions', methods: ['PATCH'])]
     public function disableAutomaticPromotions(Request $request): JsonResponse
     {
@@ -259,10 +197,6 @@ class ChannelProxyController extends AbstractController
         $subrequest->attributes->set(PlatformRequest::ATTRIBUTE_OAUTH_CLIENT_ID, $channel->getAccessKey());
 
         $channelContext = $this->fetchChannelContext($channelId, $subrequest, $context);
-
-        if ($path === self::SEARCH_ROUTE) {
-            $channelContext->getContext()->addState(ElasticsearchEntitySearcher::EXPLAIN_MODE);
-        }
 
         $subrequest->attributes->set(PlatformRequest::ATTRIBUTE_CHANNEL_CONTEXT_OBJECT, $channelContext);
         $subrequest->attributes->set(PlatformRequest::ATTRIBUTE_CONTEXT_OBJECT, $channelContext->getContext());
@@ -425,26 +359,5 @@ class ChannelProxyController extends AbstractController
             : self::ADMIN_ORDER_PERMISSIONS;
 
         $this->contextPersister->save($contextToken, $payload, $channelId);
-    }
-
-    private function parseCalculatedPriceByRequest(Request $request): CalculatedPrice
-    {
-        $this->validateShippingCostsParameters($request);
-
-        $shippingCosts = $request->get('shippingCosts');
-
-        return new CalculatedPrice($shippingCosts['unitPrice'], $shippingCosts['totalPrice'], new CalculatedTaxCollection(), new TaxRuleCollection());
-    }
-
-    private function validateShippingCostsParameters(Request $request): void
-    {
-        if (!$request->request->has('shippingCosts')) {
-            throw ApiException::shippingCostsParameterIsMissing();
-        }
-
-        $validation = new DataValidationDefinition('shipping-cost');
-        $validation->add('unitPrice', new NotBlank(), new Type('numeric'), new GreaterThanOrEqual(value: 0));
-        $validation->add('totalPrice', new NotBlank(), new Type('numeric'), new GreaterThanOrEqual(value: 0));
-        $this->validator->validate($request->request->all('shippingCosts'), $validation);
     }
 }

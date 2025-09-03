@@ -12,7 +12,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FloatField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;

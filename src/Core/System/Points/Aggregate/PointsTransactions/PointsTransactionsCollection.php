@@ -11,7 +11,7 @@ use HeyFrame\Core\Framework\Log\Package;
 #[Package('checkout')]
 class PointsTransactionsCollection extends EntityCollection
 {
-public function getApiAlias(): string
+    public function getApiAlias(): string
     {
         return 'points_transactions_collection';
     }

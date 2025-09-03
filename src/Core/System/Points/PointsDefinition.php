@@ -53,7 +53,6 @@ class PointsDefinition extends EntityDefinition
             (new CustomFields())->addFlags(new ApiAware()),
             (new ExtraFields())->addFlags(new ApiAware()),
             (new OneToManyAssociationField('transactions', PointsTransactionsDefinition::class, 'points_id', 'id'))->addFlags(new ApiAware(), new CascadeDelete()),
-
         ]);
     }
 }

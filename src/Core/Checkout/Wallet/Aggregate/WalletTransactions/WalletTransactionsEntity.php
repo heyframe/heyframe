@@ -17,10 +17,15 @@ class WalletTransactionsEntity extends Entity
     use EntityIdTrait;
 
     protected string $walletId;
+
     protected string $txType;
+
     protected float $amount;
+
     protected float $balanceAfter;
+
     protected ?string $referencedId = null;
+
     protected ?string $referenceType = null;
 
     protected ?WalletEntity $wallet = null;
