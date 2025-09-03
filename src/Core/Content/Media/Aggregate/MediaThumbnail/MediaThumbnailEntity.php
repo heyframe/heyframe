@@ -7,7 +7,6 @@ use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('discovery')]
@@ -24,17 +23,11 @@ class MediaThumbnailEntity extends Entity
 
     protected ?string $url = '';
 
-    /**
-     * @deprecated tag:v6.8.0 - Will be non-nullable
-     */
-    protected ?string $mediaId;
+    protected string $mediaId;
 
     protected ?MediaEntity $media = null;
 
-    /**
-     * @deprecated tag:v6.8.0 - Will be non-nullable
-     */
-    protected ?string $mediaThumbnailSizeId = null;
+    protected string $mediaThumbnailSizeId;
 
     protected ?MediaThumbnailSizeEntity $mediaThumbnailSize = null;
 
@@ -80,12 +73,6 @@ class MediaThumbnailEntity extends Entity
 
     public function getMediaId(): string
     {
-        if (!isset($this->mediaId)) {
-            Feature::triggerDeprecationOrThrow('v6.8.0.0', '$mediaId must not be null');
-
-            return '';
-        }
-
         return $this->mediaId;
     }
 
@@ -107,14 +94,8 @@ class MediaThumbnailEntity extends Entity
     /**
      * @deprecated tag:v6.8.0 - reason:return-type-change - return type will be only string and condition will be removed
      */
-    public function getMediaThumbnailSizeId(): ?string
+    public function getMediaThumbnailSizeId(): string
     {
-        if (!isset($this->mediaThumbnailSizeId)) {
-            Feature::triggerDeprecationOrThrow('v6.8.0.0', '$mediaThumbnailSizeId must not be null');
-
-            return null;
-        }
-
         return $this->mediaThumbnailSizeId;
     }
 

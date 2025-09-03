@@ -35,10 +35,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Package('inventory')]
 class ProductDetailRoute extends AbstractProductDetailRoute
 {
+    private const SKIP_CONFIGURATOR = 'skipConfigurator';
+    private const SKIP_CMS_PAGE = 'skipCmsPage';
+
     /**
-     * @internal
-     *
      * @param ChannelRepository<ChannelProductCollection> $productRepository
+     *
+     * @internal
      */
     public function __construct(
         private readonly ChannelRepository $productRepository,

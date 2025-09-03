@@ -23,7 +23,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use League\Flysystem\FilesystemOperator;
@@ -158,14 +157,8 @@ class ThumbnailService
 
         foreach ($toBeCreatedSizes as $thumbnailSize) {
             foreach ($toBeDeletedThumbnails as $thumbnail) {
-                if (Feature::isActive('v6.8.0.0')) {
-                    if ($thumbnailSize->getId() !== $thumbnail->getMediaThumbnailSizeId()) {
-                        continue;
-                    }
-                } else {
-                    if ($thumbnail->getMediaThumbnailSizeId() && $thumbnailSize->getId() !== $thumbnail->getMediaThumbnailSizeId()) {
-                        continue;
-                    }
+                if ($thumbnailSize->getId() !== $thumbnail->getMediaThumbnailSizeId()) {
+                    continue;
                 }
 
                 if ($strict === true && !$this->getFileSystem($media)->fileExists($thumbnail->getPath())) {

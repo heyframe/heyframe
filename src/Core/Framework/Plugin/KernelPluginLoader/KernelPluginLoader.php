@@ -38,7 +38,7 @@ abstract class KernelPluginLoader extends Bundle
         private readonly ClassLoader $classLoader,
         ?string $pluginDir = null
     ) {
-        $this->pluginDir = $pluginDir ?? 'plugins';
+        $this->pluginDir = $pluginDir ?? 'custom/plugins';
         $this->pluginInstances = new KernelPluginCollection();
     }
 
