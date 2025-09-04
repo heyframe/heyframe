@@ -52,7 +52,7 @@ class LoginRouteTest extends TestCase
         $this->ids = new IdsCollection();
 
         $this->browser = $this->createCustomChannelBrowser([
-            'id' => $this->ids->create('sales-channel'),
+            'id' => $this->ids->create('channel'),
         ]);
         $this->assignChannelContext($this->browser);
         $this->customerRepository = static::getContainer()->get('customer.repository');
@@ -225,7 +225,7 @@ class LoginRouteTest extends TestCase
         $customerId = $this->createCustomer($email);
 
         $this->createChannel([
-            'id' => $this->ids->get('sales-channel-1'),
+            'id' => $this->ids->get('channel-1'),
             'domains' => [
                 [
                     'url' => 'http://test.de',
@@ -237,7 +237,7 @@ class LoginRouteTest extends TestCase
         ]);
 
         $this->createChannel([
-            'id' => $this->ids->get('sales-channel-2'),
+            'id' => $this->ids->get('channel-2'),
             'domains' => [
                 [
                     'url' => 'http://test.en',
@@ -248,9 +248,9 @@ class LoginRouteTest extends TestCase
             ],
         ]);
 
-        $channelContext1 = $this->createChannelContext($this->ids->get('context-1'), [], $customerId, $this->ids->get('sales-channel-1'));
+        $channelContext1 = $this->createChannelContext($this->ids->get('context-1'), [], $customerId, $this->ids->get('channel-1'));
 
-        $channelContext2 = $this->createChannelContext($this->ids->get('context-2'), [], $customerId, $this->ids->get('sales-channel-2'));
+        $channelContext2 = $this->createChannelContext($this->ids->get('context-2'), [], $customerId, $this->ids->get('channel-2'));
 
         $this->createCart($this->ids->get('context-1'), $channelContext1);
 

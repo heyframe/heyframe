@@ -46,7 +46,7 @@ class LogoutRouteTest extends TestCase
         $this->ids = new IdsCollection();
 
         $this->browser = $this->createCustomChannelBrowser([
-            'id' => $this->ids->create('sales-channel'),
+            'id' => $this->ids->create('channel'),
         ]);
         $this->assignChannelContext($this->browser);
     }
