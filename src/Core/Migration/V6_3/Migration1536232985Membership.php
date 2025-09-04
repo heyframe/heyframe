@@ -63,7 +63,6 @@ class Migration1536232985Membership extends MigrationStep
               `id` binary(16) NOT NULL,
               `customer_id` BINARY(16) NOT NULL,
               `membership_plans_id` BINARY(16)  NULL,
-              `membership_levels_id` BINARY(16)  NULL,
               `extra_fields` json DEFAULT NULL,
               `custom_fields` JSON NULL,
               `start_at` DATETIME(3)  NULL,
@@ -73,9 +72,28 @@ class Migration1536232985Membership extends MigrationStep
               PRIMARY KEY (`id`),
               CONSTRAINT `fk.customer_memberships.customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
               CONSTRAINT `fk.customer_memberships.membership_plans_id` FOREIGN KEY (`membership_plans_id`) REFERENCES `membership_plans` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.customer_memberships.membership_levels_id` FOREIGN KEY (`membership_levels_id`) REFERENCES `membership_levels` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `json.customer_memberships.extra_fields` CHECK (json_valid(`extra_fields`)),
               CONSTRAINT `json.customer_memberships.custom_fields` CHECK (json_valid(`custom_fields`))
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ');
+
+        $connection->executeStatement('
+            CREATE TABLE `customer_memberships_levels` (
+              `id` binary(16) NOT NULL,
+              `customer_id` BINARY(16) NOT NULL,
+              `membership_levels_id` BINARY(16)  NULL,
+              `points` INT(11) UNSIGNED NOT NULL DEFAULT 0,
+              `extra_fields` json DEFAULT NULL,
+              `custom_fields` JSON NULL,
+              `start_at` DATETIME(3)  NULL,
+              `end_at` DATETIME(3)  NULL,
+              `created_at` DATETIME(3) NOT NULL,
+              `updated_at` DATETIME(3) NULL,
+              PRIMARY KEY (`id`),
+              CONSTRAINT `fk.customer_memberships_levels.customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `fk.customer_memberships_levels.membership_levels_id` FOREIGN KEY (`membership_levels_id`) REFERENCES `membership_levels` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `json.customer_memberships_levels.extra_fields` CHECK (json_valid(`extra_fields`)),
+              CONSTRAINT `json.customer_memberships_levels.custom_fields` CHECK (json_valid(`custom_fields`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }

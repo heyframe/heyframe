@@ -3,7 +3,8 @@
 namespace HeyFrame\Core\Checkout\Customer;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMemberships\CustomerMembershipsEntity;
+use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMemberships\CustomerMembershipsCollection;
+use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMembershipsLevels\CustomerMembershipsLevelsCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
@@ -105,7 +106,9 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?UserEntity $updatedBy = null;
 
-    protected ?CustomerMembershipsEntity $memberships = null;
+    protected ?CustomerMembershipsCollection $memberships = null;
+
+    protected ?CustomerMembershipsLevelsCollection $levels = null;
 
     public function __toString(): string
     {
@@ -515,13 +518,23 @@ class CustomerEntity extends Entity implements \Stringable
         $this->nickname = $nickname;
     }
 
-    public function getMemberships(): ?CustomerMembershipsEntity
+    public function getMemberships(): ?CustomerMembershipsCollection
     {
         return $this->memberships;
     }
 
-    public function setMemberships(?CustomerMembershipsEntity $memberships): void
+    public function setMemberships(CustomerMembershipsCollection $memberships): void
     {
         $this->memberships = $memberships;
+    }
+
+    public function getLevels(): ?CustomerMembershipsLevelsCollection
+    {
+        return $this->levels;
+    }
+
+    public function setLevels(CustomerMembershipsLevelsCollection $levels): void
+    {
+        $this->levels = $levels;
     }
 }
