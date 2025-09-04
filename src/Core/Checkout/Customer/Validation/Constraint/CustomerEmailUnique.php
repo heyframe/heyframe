@@ -19,6 +19,9 @@ class CustomerEmailUnique extends Constraint
         self::CUSTOMER_EMAIL_NOT_UNIQUE => 'CUSTOMER_EMAIL_NOT_UNIQUE',
     ];
 
+    /**
+     * @deprecated tag:v6.8.0 - $message property access modifier will be changed to protected and is injectable via constructor
+     */
     public string $message = 'The email address {{ email }} is already in use.';
 
     /**
@@ -37,7 +40,7 @@ class CustomerEmailUnique extends Constraint
      * @internal
      */
     #[HasNamedArguments]
-    public function __construct(?array $options = null, ?ChannelContext $channelContext = null)
+    public function __construct(?array $options = null, ?ChannelContext $channelContext = null, string $message = 'The email address {{ email }} is already in use.')
     {
         if ($options !== null || $channelContext === null) {
             Feature::triggerDeprecationOrThrow(
@@ -54,6 +57,7 @@ class CustomerEmailUnique extends Constraint
             }
 
             $this->channelContext = $channelContext;
+            $this->message = $message;
         } else {
             if (!($options['channelContext'] ?? null) instanceof ChannelContext) {
                 throw CustomerException::missingOption('channelContext', self::class);
@@ -87,5 +91,10 @@ class CustomerEmailUnique extends Constraint
     public function getChannelContext(): ChannelContext
     {
         return $this->channelContext;
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
     }
 }

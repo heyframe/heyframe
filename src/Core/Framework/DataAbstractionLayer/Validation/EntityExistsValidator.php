@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Validation;
 
+use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearcherInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[Package('framework')]
 class EntityExistsValidator extends ConstraintValidator
@@ -25,7 +25,7 @@ class EntityExistsValidator extends ConstraintValidator
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof EntityExists) {
-            throw new UnexpectedTypeException($constraint, EntityExists::class);
+            throw DataAbstractionLayerException::unexpectedConstraintType($constraint, EntityExists::class);
         }
 
         if ($value === null || $value === '') {
@@ -47,7 +47,7 @@ class EntityExistsValidator extends ConstraintValidator
             return;
         }
 
-        $this->context->buildViolation($constraint->message)
+        $this->context->buildViolation($constraint->getMessage())
             ->setParameter('{{ primaryProperty }}', $constraint->getPrimaryProperty())
             ->setParameter('{{ id }}', $this->formatValue($value))
             ->setParameter('{{ entity }}', $this->formatValue($constraint->getEntity()))
