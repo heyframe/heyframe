@@ -10,6 +10,7 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerDefinition
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionPersonaCustomer\PromotionPersonaCustomerDefinition;
 use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
+use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AutoIncrementField;
@@ -87,6 +88,7 @@ class CustomerDefinition extends EntityDefinition
             (new FkField('channel_id', 'channelId', ChannelDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new FkField('language_id', 'languageId', LanguageDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new FkField('last_payment_method_id', 'lastPaymentMethodId', PaymentMethodDefinition::class))->addFlags(new ApiAware()),
+            new FkField('avatar_id', 'avatarId', MediaDefinition::class),
             new AutoIncrementField(),
             (new NumberRangeField('customer_number', 'customerNumber', 255))->addFlags(new ApiAware(), new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             (new StringField('name', 'name', self::MAX_LENGTH_NAME))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
@@ -117,6 +119,7 @@ class CustomerDefinition extends EntityDefinition
             new ManyToOneAssociationField('boundChannel', 'bound_channel_id', ChannelDefinition::class, 'id', false),
             (new OneToManyAssociationField('memberships', CustomerMembershipsDefinition::class, 'customer_id', 'id'))->addFlags(new ApiAware(), new CascadeDelete()),
             (new OneToManyAssociationField('levels', CustomerMembershipsLevelsDefinition::class, 'customer_id', 'id'))->addFlags(new ApiAware(), new CascadeDelete()),
+            new ManyToOneAssociationField('avatarMedia', 'avatar_id', MediaDefinition::class),
             (new CreatedByField([Context::SYSTEM_SCOPE, Context::CRUD_API_SCOPE]))->addFlags(new ApiAware()),
             (new UpdatedByField([Context::SYSTEM_SCOPE, Context::CRUD_API_SCOPE]))->addFlags(new ApiAware()),
             new ManyToOneAssociationField('createdBy', 'created_by_id', UserDefinition::class, 'id', false),

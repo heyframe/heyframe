@@ -29,6 +29,7 @@ class Migration1536232960Customer extends MigrationStep
               `channel_id` BINARY(16) NOT NULL,
               `language_id` BINARY(16) NOT NULL,
               `last_payment_method_id` BINARY(16) NULL,
+              `avatar_id`       BINARY(16)                              NULL,
               `hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
               `customer_number` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
               `nickname` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -38,7 +39,6 @@ class Migration1536232960Customer extends MigrationStep
               `legacy_password` VARCHAR(255) COLLATE utf8mb4_unicode_ci NULL,
               `legacy_encoder` VARCHAR(255) COLLATE utf8mb4_unicode_ci NULL,
               `email` VARCHAR(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-              `title` VARCHAR(100) COLLATE utf8mb4_unicode_ci NULL,
               `active` TINYINT(1) NOT NULL DEFAULT 1,
               `first_login` DATE NULL,
               `last_login` DATETIME(3) NULL,
@@ -73,7 +73,8 @@ class Migration1536232960Customer extends MigrationStep
                 REFERENCES `payment_method` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.customer.channel_id` FOREIGN KEY (`channel_id`)
                 REFERENCES `channel` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.customer.bound_channel_id` FOREIGN KEY (`bound_channel_id`) REFERENCES `channel` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+              CONSTRAINT `fk.customer.bound_channel_id` FOREIGN KEY (`bound_channel_id`) REFERENCES `channel` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.customer.avatar_id` FOREIGN KEY (`avatar_id`) REFERENCES `customer` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
 

@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\Media;
 
+use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
@@ -69,6 +70,8 @@ class MediaEntity extends Entity
     protected ?ProductMediaCollection $productMedia = null;
 
     protected ?UserCollection $avatarUsers = null;
+
+    protected ?CustomerCollection $avatarCustomers = null;
 
     protected ?MediaThumbnailCollection $thumbnails = null;
 
@@ -494,5 +497,15 @@ class MediaEntity extends Entity
     public function getFileHash(): ?string
     {
         return $this->fileHash;
+    }
+
+    public function getAvatarCustomers(): ?CustomerCollection
+    {
+        return $this->avatarCustomers;
+    }
+
+    public function setAvatarCustomers(?CustomerCollection $avatarCustomers): void
+    {
+        $this->avatarCustomers = $avatarCustomers;
     }
 }

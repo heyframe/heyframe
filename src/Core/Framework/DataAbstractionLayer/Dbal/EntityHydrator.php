@@ -478,6 +478,48 @@ class EntityHydrator
     /**
      * @param array<mixed> $row
      */
+    protected function extraFields(EntityDefinition $definition, array $row, string $root, Entity $entity, ?Field $field, Context $context): void
+    {
+        if ($field === null) {
+            return;
+        }
+
+        $inherited = $field->is(Inherited::class) && $context->considerInheritance();
+
+        $propertyName = $field->getPropertyName();
+
+        $value = self::value($row, $root, $propertyName);
+
+        // field is not inherited or request should work with raw data? decode child attributes and return
+        if (!$inherited) {
+            $value = $field->getSerializer()->decode($field, $value);
+            $entity->assign([$propertyName => $value]);
+
+            return;
+        }
+
+        $parentKey = $root . '.' . $propertyName . '.inherited';
+
+        // parent has no attributes? decode only child attributes and return
+        if (!isset($row[$parentKey])) {
+            $value = $field->getSerializer()->decode($field, $value);
+
+            $entity->assign([$propertyName => $value]);
+
+            return;
+        }
+
+        // merge child attributes with parent attributes and assign
+        $mergedJson = $this->mergeJson([$row[$parentKey], $value]);
+
+        $merged = $field->getSerializer()->decode($field, $mergedJson);
+
+        $entity->assign([$propertyName => $merged]);
+    }
+
+    /**
+     * @param array<mixed> $row
+     */
     protected static function value(array $row, string $root, string $property): ?string
     {
         $accessor = $root . '.' . $property;

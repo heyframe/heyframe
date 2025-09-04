@@ -8,6 +8,7 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMembershipsLevels\Customer
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
+use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -25,6 +26,8 @@ class CustomerEntity extends Entity implements \Stringable
     protected string $groupId;
 
     protected string $channelId;
+
+    protected ?string $avatarId = null;
 
     protected string $languageId;
 
@@ -80,6 +83,8 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?LanguageEntity $language = null;
 
     protected ?PaymentMethodEntity $lastPaymentMethod = null;
+
+    protected ?MediaEntity $avatarMedia = null;
 
     protected ?OrderCustomerCollection $orderCustomers = null;
 
@@ -536,5 +541,25 @@ class CustomerEntity extends Entity implements \Stringable
     public function setLevels(CustomerMembershipsLevelsCollection $levels): void
     {
         $this->levels = $levels;
+    }
+
+    public function getAvatarId(): ?string
+    {
+        return $this->avatarId;
+    }
+
+    public function setAvatarId(?string $avatarId): void
+    {
+        $this->avatarId = $avatarId;
+    }
+
+    public function getAvatarMedia(): ?MediaEntity
+    {
+        return $this->avatarMedia;
+    }
+
+    public function setAvatarMedia(?MediaEntity $avatarMedia): void
+    {
+        $this->avatarMedia = $avatarMedia;
     }
 }

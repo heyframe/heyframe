@@ -9,7 +9,6 @@ use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Adapter\Database\MySQLFactory;
 use HeyFrame\Core\Framework\Api\Controller\FallbackController;
 use HeyFrame\Core\Framework\Bundle as HeyFrameBundle;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Parameter\AdditionalBundleParameters;
 use HeyFrame\Core\Framework\Plugin\KernelPluginCollection;
@@ -305,19 +304,6 @@ class Kernel extends HttpKernel
             (string) $this->heyframeVersionRevision,
             $plugins,
         ]);
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - removed: all connection variables are configured in MySQLFactory
-     */
-    protected function initializeDatabaseConnectionVariables(): void
-    {
-        Feature::triggerDeprecationOrThrow(
-            'v6.8.0.0',
-            'The method initializeDatabaseConnectionVariables is deprecated and will be removed in 6.8.0.0. All MySQL connection variables are configured in ' . MySQLFactory::class
-        );
-
-        self::$connection = self::getConnection();
     }
 
     protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, string $class, string $baseClass): void
