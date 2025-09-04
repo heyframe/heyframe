@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
-use HeyFrame\Core\Content\ProductExport\ScheduledTask\ProductExportGenerateTask;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 use PhpParser\Node;
@@ -22,10 +21,6 @@ use PHPStan\Rules\RuleErrorBuilder;
 #[Package('framework')]
 class ScheduledTaskTooLowIntervalRule implements Rule
 {
-    private const EXCEPTION_CLASSES = [
-        ProductExportGenerateTask::class, // Ticket: NEXT-21167
-    ];
-
     private const MIN_SCHEDULED_TASK_INTERVAL = 3600;
 
     public function getNodeType(): string
@@ -50,13 +45,9 @@ class ScheduledTaskTooLowIntervalRule implements Rule
             return [];
         }
 
-        if (\in_array($class->getName(), self::EXCEPTION_CLASSES, true)) {
-            return [];
-        }
-
         foreach ($node->stmts ?? [] as $stmt) {
             if ($stmt instanceof Return_ && $stmt->expr instanceof LNumber) {
-                $interval = (int) $stmt->expr->value;
+                $interval = $stmt->expr->value;
 
                 if ($interval < self::MIN_SCHEDULED_TASK_INTERVAL) {
                     return [

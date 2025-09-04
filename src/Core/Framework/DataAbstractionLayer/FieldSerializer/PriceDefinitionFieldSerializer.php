@@ -2,15 +2,14 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer;
 
+use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\AbsolutePriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CurrencyPriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PercentagePriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceDefinitionInterface;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRule;
 use HeyFrame\Core\Content\Rule\DataAbstractionLayer\Indexing\ConditionTypeNotFound;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InvalidPriceFieldTypeException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\Price;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
@@ -53,25 +52,10 @@ class PriceDefinitionFieldSerializer extends JsonFieldSerializer
 
         if ($value !== null) {
             if (!\array_key_exists('type', $value)) {
-                throw new InvalidPriceFieldTypeException('none');
+                throw CartException::invalidPriceFieldTypeException('none');
             }
 
             switch ($value['type']) {
-                case QuantityPriceDefinition::TYPE:
-                    $this->validateProperties(
-                        $value,
-                        QuantityPriceDefinition::getConstraints(),
-                        $parameters->getPath()
-                    );
-                    if (!\array_key_exists('taxRules', $value)) {
-                        break;
-                    }
-
-                    foreach ($value['taxRules'] as $key => $taxRule) {
-                        $this->validateProperties($taxRule, TaxRule::getConstraints(), $parameters->getPath() . '/taxRules/' . $key);
-                    }
-
-                    break;
                 case AbsolutePriceDefinition::TYPE:
                     $this->validateProperties(
                         $value,
@@ -121,7 +105,7 @@ class PriceDefinitionFieldSerializer extends JsonFieldSerializer
 
                     break;
                 default:
-                    throw new InvalidPriceFieldTypeException($value['type']);
+                    throw CartException::invalidPriceFieldTypeException($value['type']);
             }
 
             unset($value['extensions']);
@@ -144,7 +128,7 @@ class PriceDefinitionFieldSerializer extends JsonFieldSerializer
         }
 
         if (!\array_key_exists('type', $decoded)) {
-            throw new InvalidPriceFieldTypeException('none');
+            throw CartException::invalidPriceFieldTypeException('none');
         }
 
         switch ($decoded['type']) {
@@ -159,7 +143,7 @@ class PriceDefinitionFieldSerializer extends JsonFieldSerializer
 
                 $collection = new PriceCollection();
                 foreach ($decoded['price'] as $price) {
-                    $collection->add(new Price($price['currencyId'], (float) $price['net'], (float) $price['gross'], (bool) $price['linked']));
+                    $collection->add(new Price($price['currencyId'], (float) $price['gross']));
                 }
 
                 return new CurrencyPriceDefinition($collection, $rules);
@@ -169,7 +153,7 @@ class PriceDefinitionFieldSerializer extends JsonFieldSerializer
                 return new PercentagePriceDefinition($decoded['percentage'], $rules);
         }
 
-        throw new InvalidPriceFieldTypeException($decoded['type']);
+        throw CartException::invalidPriceFieldTypeException($decoded['type']);
     }
 
     private function validateRules(array $data, string $basePath): ConstraintViolationList

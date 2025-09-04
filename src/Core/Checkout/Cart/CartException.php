@@ -10,7 +10,6 @@ use HeyFrame\Core\Checkout\Cart\Exception\LineItemNotFoundException;
 use HeyFrame\Core\Checkout\Customer\Exception\AddressNotFoundException;
 use HeyFrame\Core\Checkout\Order\Exception\EmptyCartException;
 use HeyFrame\Core\Content\Flow\Exception\CustomerDeletedException;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InvalidPriceFieldTypeException;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
@@ -599,15 +598,8 @@ class CartException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function invalidPriceFieldTypeException(string $type): self|InvalidPriceFieldTypeException
+    public static function invalidPriceFieldTypeException(string $type): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new InvalidPriceFieldTypeException($type);
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::INVALID_PRICE_FIELD_TYPE,

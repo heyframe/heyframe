@@ -153,7 +153,6 @@ class CacheInvalidationSubscriber
 
         if (empty($tags)) {
             // invalidates the country-state route when a state changed or an assignment between the state and country changed
-            /** @var string[] $tags */
             $tags = array_map(
                 CountryStateRoute::buildName(...),
                 $event->getPrimaryKeys(CountryDefinition::ENTITY_NAME)

@@ -85,7 +85,7 @@ class CheapestPriceAccessorBuilder implements FieldAccessorBuilderInterface
                 '#field#' => 'cheapest_price_accessor',
                 '#rule_key#' => 'rule' . $ruleId,
                 '#currency_key#' => 'currency' . $context->getCurrencyId(),
-                '#property#' => (string) $jsonAccessor,
+                '#property#' => $jsonAccessor,
                 '#factor#' => '1',
                 '#multiplier#' => (string) $multiplier,
             ];
@@ -105,7 +105,7 @@ class CheapestPriceAccessorBuilder implements FieldAccessorBuilderInterface
                 '#field#' => 'cheapest_price_accessor',
                 '#rule_key#' => 'rule' . $ruleId,
                 '#currency_key#' => 'currency' . Defaults::CURRENCY,
-                '#property#' => (string) $jsonAccessor,
+                '#property#' => $jsonAccessor,
                 '#factor#' => (string) $context->getCurrencyFactor(),
                 '#multiplier#' => (string) $multiplier,
             ];
