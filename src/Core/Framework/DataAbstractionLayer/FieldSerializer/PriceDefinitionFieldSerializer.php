@@ -56,6 +56,13 @@ class PriceDefinitionFieldSerializer extends JsonFieldSerializer
             }
 
             switch ($value['type']) {
+                case QuantityPriceDefinition::TYPE:
+                    $this->validateProperties(
+                        $value,
+                        QuantityPriceDefinition::getConstraints(),
+                        $parameters->getPath()
+                    );
+                    break;
                 case AbsolutePriceDefinition::TYPE:
                     $this->validateProperties(
                         $value,
