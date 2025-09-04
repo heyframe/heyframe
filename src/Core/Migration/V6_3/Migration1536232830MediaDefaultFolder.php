@@ -23,16 +23,14 @@ class Migration1536232830MediaDefaultFolder extends MigrationStep
     {
         $connection->executeStatement('
             CREATE TABLE `media_default_folder` (
-              `id`                  BINARY(16)      NOT NULL,
-              `association_fields`  JSON            NOT NULL,
-              `entity`              VARCHAR(255)    NOT NULL,
-              `custom_fields`       JSON            NULL,
-              `created_at`          DATETIME(3)     NOT NULL,
-              `updated_at`          DATETIME(3)     NULL,
+              `id` binary(16) NOT NULL,
+              `entity` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `custom_fields` json DEFAULT NULL,
+              `created_at` datetime(3) NOT NULL,
+              `updated_at` datetime(3) DEFAULT NULL,
               PRIMARY KEY (`id`),
               UNIQUE KEY `uniq.media_default_folder.entity` (`entity`),
-              CONSTRAINT `json.media_default_folder.custom_fields` CHECK (JSON_VALID(`custom_fields`)),
-              CONSTRAINT `json.media_default_folder.association_fields` CHECK (JSON_VALID(`association_fields`))
+              CONSTRAINT `json.media_default_folder.custom_fields` CHECK (json_valid(`custom_fields`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }

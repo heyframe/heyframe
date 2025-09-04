@@ -70,12 +70,10 @@ class Migration1616076922AppPaymentMethod extends MigrationStep
             'REPLACE INTO `media_default_folder` SET
                 id = :id,
                 entity = :entity,
-                association_fields = :association_fields,
                 created_at = :created_at;',
             [
                 'id' => $defaultFolderId,
                 'entity' => PaymentMethodDefinition::ENTITY_NAME,
-                'association_fields' => '["paymentMethods"]',
                 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
             ]
         );
