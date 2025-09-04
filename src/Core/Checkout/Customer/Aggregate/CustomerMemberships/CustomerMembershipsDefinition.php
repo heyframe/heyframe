@@ -44,7 +44,6 @@ class CustomerMembershipsDefinition extends EntityDefinition
             (new IdField('id', 'id'))->addFlags(new ApiAware(), new PrimaryKey(), new Required()),
             (new FkField('customer_id', 'customerId', CustomerDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new FkField('membership_plans_id', 'membershipPlansId', MembershipPlansDefinition::class))->addFlags(new ApiAware()),
-            (new FkField('membership_levels_id', 'membershipLevelsId', MembershipLevelsDefinition::class))->addFlags(new ApiAware()),
             (new DateTimeField('start_at', 'startAt'))->addFlags(new ApiAware()),
             (new DateTimeField('end_at', 'endAt'))->addFlags(new ApiAware()),
             (new CustomFields())->addFlags(new ApiAware()),

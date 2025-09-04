@@ -169,48 +169,14 @@ class RecalculationService
 
     public function applyAutomaticPromotions(string $orderId, Context $context): ErrorCollection
     {
-        $options[ChannelContextService::PERMISSIONS] = [
-            ...OrderConverter::ADMIN_EDIT_ORDER_PERMISSIONS,
-            CheckoutPermissions::PIN_AUTOMATIC_PROMOTIONS => false,
+        $options = [
+            ChannelContextService::PERMISSIONS => [
+                ...OrderConverter::ADMIN_EDIT_ORDER_PERMISSIONS,
+                CheckoutPermissions::PIN_AUTOMATIC_PROMOTIONS => false,
+            ],
         ];
 
         return $this->recalculate($orderId, $context, $options);
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed. Use {@see applyAutomaticPromotions} instead.
-     */
-    public function toggleAutomaticPromotion(string $orderId, Context $context, bool $skipAutomaticPromotions = true): Cart
-    {
-        Feature::triggerDeprecationOrThrow(
-            'v6.8.0.0',
-            Feature::deprecatedMethodMessage(self::class, __METHOD__, 'v6.8.0.0', self::class . '::applyAutomaticPromotions')
-        );
-
-        $order = $this->fetchOrder($orderId, $context);
-
-        $options[ChannelContextService::PERMISSIONS] = [
-            ...OrderConverter::ADMIN_EDIT_ORDER_PERMISSIONS,
-            CheckoutPermissions::PIN_AUTOMATIC_PROMOTIONS => false,
-            CheckoutPermissions::PIN_MANUAL_PROMOTIONS => false,
-            CheckoutPermissions::SKIP_AUTOMATIC_PROMOTIONS => $skipAutomaticPromotions,
-        ];
-
-        $channelContext = $this->orderConverter->assembleChannelContext(
-            $order,
-            $context,
-            $options,
-        );
-
-        $cart = $this->orderConverter->convertToCart($order, $context);
-
-        $recalculatedCart = $this->recalculateCart($cart, $channelContext);
-
-        $orderData = $this->orderConverter->convertToOrder($recalculatedCart, $channelContext, $this->getOrderConversionContext());
-
-        $this->upsertRecalculatedOrder($orderData, $order, $channelContext->getContext(), true);
-
-        return $recalculatedCart;
     }
 
     /**

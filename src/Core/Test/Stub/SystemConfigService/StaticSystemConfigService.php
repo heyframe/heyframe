@@ -19,7 +19,7 @@ class StaticSystemConfigService extends SystemConfigService
     public function get(string $key, ?string $channelId = null)
     {
         if ($channelId) {
-            return $this->lookupValue($this->config[$channelId] ?? [], $key);
+            return $this->lookupValue($this->config[$channelId] ?? $this->config, $key);
         }
 
         return $this->lookupValue($this->config, $key);

@@ -28,7 +28,7 @@ class BundleSchemaPathCollection
      */
     public function getSchemaPaths(string $api, ?string $bundleName): array
     {
-        $apiFolder = $api === DefinitionService::API ? 'AdminApi' : 'StoreApi';
+        $apiFolder = $api === DefinitionService::API ? 'AdminApi' : 'FrontApi';
         $openApiDirs = [];
         foreach ($this->bundles as $bundle) {
             $path = $bundle->getPath() . '/Resources/Schema/' . $apiFolder;
@@ -37,10 +37,7 @@ class BundleSchemaPathCollection
             }
             $openApiDirs[] = $path;
             if ($bundle->getName() === $bundleName) {
-                unset($openApiDirs);
-                $openApiDirs[] = $path;
-
-                break;
+                return [$path];
             }
         }
 

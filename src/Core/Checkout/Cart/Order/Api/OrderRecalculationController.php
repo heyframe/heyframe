@@ -10,10 +10,8 @@ use HeyFrame\Core\Checkout\Cart\Price\Struct\AbsolutePriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Rule\LineItemOfTypeRule;
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
-use HeyFrame\Core\Framework\Routing\RoutingException;
 use HeyFrame\Core\Framework\Rule\Rule;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,23 +95,6 @@ class OrderRecalculationController extends AbstractController
         return new CartResponse($cart);
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed. Use {@see applyAutomaticPromotions} instead.
-     */
-    #[Route(path: '/api/_action/order/{orderId}/toggleAutomaticPromotions', name: 'api.action.order.toggle-automatic-promotions', methods: ['POST'])]
-    public function toggleAutomaticPromotions(string $orderId, Request $request, Context $context): Response
-    {
-        Feature::triggerDeprecationOrThrow(
-            'v6.8.0.0',
-            'Route "api.action.order.toggle-automatic-promotions" is deprecated and will be removed in v6.8.0.0. Use "api.action.order.apply-automatic-promotions" instead.',
-        );
-
-        $skipAutomaticPromotions = (bool) $request->request->get('skipAutomaticPromotions', true);
-
-        $cart = $this->recalculationService->toggleAutomaticPromotion($orderId, $context, $skipAutomaticPromotions);
-
-        return new CartResponse($cart);
-    }
 
     #[Route(path: '/api/_action/order/{orderId}/applyAutomaticPromotions', name: 'api.action.order.apply-automatic-promotions', methods: ['POST'])]
     public function applyAutomaticPromotions(string $orderId, Request $request, Context $context): Response
@@ -133,18 +114,10 @@ class OrderRecalculationController extends AbstractController
         $priceDefinition = $request->request->all('priceDefinition');
 
         if ($label !== null && !\is_string($label)) {
-            // @deprecated tag:v6.8.0 - remove this if block
-            if (!Feature::isActive('v6.8.0.0')) {
-                throw RoutingException::invalidRequestParameter('label'); // @phpstan-ignore heyframe.domainException
-            }
             throw CartException::invalidRequestParameter('label');
         }
 
         if ($description !== null && !\is_string($description)) {
-            // @deprecated tag:v6.8.0 - remove this if block
-            if (!Feature::isActive('v6.8.0.0')) {
-                throw RoutingException::invalidRequestParameter('description'); // @phpstan-ignore heyframe.domainException
-            }
             throw CartException::invalidRequestParameter('description');
         }
 
