@@ -16,7 +16,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\MembershipLevels\MembershipLevelsDefinition;
 
 #[Package('discovery')]
 class CustomerMembershipsDefinition extends EntityDefinition

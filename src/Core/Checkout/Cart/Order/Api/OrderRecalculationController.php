@@ -95,7 +95,6 @@ class OrderRecalculationController extends AbstractController
         return new CartResponse($cart);
     }
 
-
     #[Route(path: '/api/_action/order/{orderId}/applyAutomaticPromotions', name: 'api.action.order.apply-automatic-promotions', methods: ['POST'])]
     public function applyAutomaticPromotions(string $orderId, Request $request, Context $context): Response
     {
