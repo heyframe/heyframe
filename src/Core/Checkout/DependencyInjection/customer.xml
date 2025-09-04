@@ -167,11 +167,6 @@
             <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextRestorer" />
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\DataAbstractionLayer\CustomerWishlistProductExceptionHandler">
-            <tag name="heyframe.dal.exception_handler"/>
-        </service>
-
-
         <service id="HeyFrame\Core\Checkout\Customer\CustomerValueResolver">
             <tag name="controller.argument_value_resolver" priority="1002"/>
         </service>
