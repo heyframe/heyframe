@@ -182,7 +182,7 @@ trait ChannelApiTestBehaviour
 
         $channel = array_replace_recursive([
             'id' => $channelOverride['id'] ?? Uuid::randomHex(),
-            'typeId' => Defaults::CHANNEL_TYPE_STOREFRONT,
+            'typeId' => Defaults::CHANNEL_TYPE_FRONTEND,
             'name' => 'API Test case sales channel',
             'accessKey' => AccessKeyHelper::generateAccessKey('channel'),
             'languageId' => Defaults::LANGUAGE_SYSTEM,

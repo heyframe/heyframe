@@ -63,7 +63,7 @@ class ShopConfigurationService
      */
     private function createChannel(string $newId, array $shop, Connection $connection): void
     {
-        $typeId = Defaults::CHANNEL_TYPE_STOREFRONT;
+        $typeId = Defaults::CHANNEL_TYPE_FRONTEND;
 
         $paymentMethod = $this->getFirstActivePaymentMethodId($connection);
         $shippingMethod = $this->getFirstActiveShippingMethodId($connection);

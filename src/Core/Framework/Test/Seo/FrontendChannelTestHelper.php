@@ -37,7 +37,7 @@ trait FrontendChannelTestHelper
         /** @var EntityRepository<ChannelCollection> $channelRepository */
         $channelRepository = $container->get('channel.repository');
         $channel = $channelRepository->search(
-            (new Criteria())->addFilter(new EqualsFilter('typeId', Defaults::CHANNEL_TYPE_STOREFRONT)),
+            (new Criteria())->addFilter(new EqualsFilter('typeId', Defaults::CHANNEL_TYPE_FRONTEND)),
             Context::createDefaultContext()
         )->getEntities()->first();
         TestCase::assertNotNull($channel);
@@ -97,7 +97,7 @@ trait FrontendChannelTestHelper
         $repo->upsert([[
             'id' => $id,
             'name' => $name,
-            'typeId' => Defaults::CHANNEL_TYPE_STOREFRONT,
+            'typeId' => Defaults::CHANNEL_TYPE_FRONTEND,
             'accessKey' => Uuid::randomHex(),
             'secretAccessKey' => 'foobar',
             'languageId' => $defaultLanguageId,

@@ -38,7 +38,7 @@ class FixtureLoader
                 'currency' => Defaults::CURRENCY,
                 'api-type' => Defaults::CHANNEL_TYPE_API,
                 'comparison-type' => Defaults::CHANNEL_TYPE_PRODUCT_COMPARISON,
-                'frontend-type' => Defaults::CHANNEL_TYPE_STOREFRONT,
+                'frontend-type' => Defaults::CHANNEL_TYPE_FRONTEND,
                 'language' => Defaults::LANGUAGE_SYSTEM,
                 'locale' => $this->getLocaleIdOfSystemLanguage(),
                 'es-locale' => $this->getLocaleIdFromLocaleCode('es-ES'),

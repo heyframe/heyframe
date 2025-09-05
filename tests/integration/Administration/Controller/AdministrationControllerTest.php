@@ -264,7 +264,7 @@ class AdministrationControllerTest extends TestCase
 
         $channel = array_merge([
             'id' => $channelOverride['id'] ?? Uuid::randomHex(),
-            'typeId' => Defaults::CHANNEL_TYPE_STOREFRONT,
+            'typeId' => Defaults::CHANNEL_TYPE_FRONTEND,
             'name' => 'new sales channel',
             'accessKey' => AccessKeyHelper::generateAccessKey('channel'),
             'languageId' => Defaults::LANGUAGE_SYSTEM,

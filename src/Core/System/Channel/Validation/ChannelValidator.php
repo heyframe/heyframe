@@ -131,7 +131,7 @@ class ChannelValidator implements EventSubscriberInterface
     {
         $typeId = Uuid::fromBytesToHex($command->getPayload()['type_id']);
 
-        return $typeId === Defaults::CHANNEL_TYPE_STOREFRONT
+        return $typeId === Defaults::CHANNEL_TYPE_FRONTEND
             || $typeId === Defaults::CHANNEL_TYPE_API;
     }
 

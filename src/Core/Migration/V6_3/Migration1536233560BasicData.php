@@ -205,7 +205,7 @@ class Migration1536233560BasicData extends MigrationStep
         $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
         $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
 
-        $storefront = Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_STOREFRONT);
+        $storefront = Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_FRONTEND);
         $storefrontApi = Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_API);
 
         $connection->insert('channel_type', ['id' => $storefront, 'icon_name' => 'default-building-shop', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
