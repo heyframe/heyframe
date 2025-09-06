@@ -62,7 +62,7 @@ class CustomEntityDefinition extends EntityDefinition
             new FkField('app_id', 'appId', AppDefinition::class),
             new FkField('plugin_id', 'pluginId', PluginDefinition::class),
             (new BoolField('cms_aware', 'cmsAware'))->addFlags(new Runtime()),
-            (new BoolField('store_api_aware', 'storeApiAware'))->addFlags(new Runtime()),
+            (new BoolField('front_api_aware', 'frontApiAware'))->addFlags(new Runtime()),
             new BoolField('custom_fields_aware', 'customFieldsAware'),
             new StringField('label_property', 'labelProperty'),
             new DateTimeField('deleted_at', 'deletedAt'),

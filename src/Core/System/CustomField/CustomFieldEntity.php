@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\System\CustomField;
 
-use HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfigField\ProductSearchConfigFieldCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
@@ -28,13 +27,11 @@ class CustomFieldEntity extends Entity
 
     protected ?CustomFieldSetEntity $customFieldSet = null;
 
-    protected ?ProductSearchConfigFieldCollection $productSearchConfigFields = null;
-
     protected bool $allowCustomerWrite = false;
 
     protected bool $allowCartExpose = false;
 
-    protected bool $storeApiAware = true;
+    protected bool $frontApiAware = true;
 
     public function getName(): string
     {
@@ -102,16 +99,6 @@ class CustomFieldEntity extends Entity
         $this->customFieldSet = $attributeSet;
     }
 
-    public function getProductSearchConfigFields(): ?ProductSearchConfigFieldCollection
-    {
-        return $this->productSearchConfigFields;
-    }
-
-    public function setProductSearchConfigFields(ProductSearchConfigFieldCollection $productSearchConfigFields): void
-    {
-        $this->productSearchConfigFields = $productSearchConfigFields;
-    }
-
     public function isAllowCustomerWrite(): bool
     {
         return $this->allowCustomerWrite;
@@ -132,13 +119,13 @@ class CustomFieldEntity extends Entity
         $this->allowCartExpose = $allowCartExpose;
     }
 
-    public function isStoreApiAware(): bool
+    public function isFrontApiAware(): bool
     {
-        return $this->storeApiAware;
+        return $this->frontApiAware;
     }
 
-    public function setStoreApiAware(bool $storeApiAware): void
+    public function setFrontApiAware(bool $frontApiAware): void
     {
-        $this->storeApiAware = $storeApiAware;
+        $this->frontApiAware = $frontApiAware;
     }
 }
