@@ -258,9 +258,9 @@ class PluginService
             return $translations;
         }
 
-        // if the plugin has no system translation, check if en-GB can be used as fallback
-        if (isset($localeMapping['en-GB'])) {
-            $translations[Defaults::LANGUAGE_SYSTEM] = $localeMapping['en-GB'];
+        // if the plugin has no system translation, check if zh-CN can be used as fallback
+        if (isset($localeMapping['zh-CN'])) {
+            $translations[Defaults::LANGUAGE_SYSTEM] = $localeMapping['zh-CN'];
 
             return $translations;
         }

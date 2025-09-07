@@ -294,10 +294,6 @@ class Manifest
             $ruleConditions = $ruleConditions === null ? null : RuleConditions::fromXml($ruleConditions);
             $frontend = $doc->getElementsByTagName('frontend')->item(0);
             $frontend = $frontend === null ? null : Frontend::fromXml($frontend);
-            $tax = $doc->getElementsByTagName('tax')->item(0);
-            $tax = $tax === null ? null : Tax::fromXml($tax);
-            $shippingMethods = $doc->getElementsByTagName('shipping-methods')->item(0);
-            $shippingMethods = $shippingMethods === null ? null : ShippingMethods::fromXml($shippingMethods);
             $gateways = $doc->getElementsByTagName('gateways')->item(0);
             $gateways = $gateways === null ? null : Gateways::fromXml($gateways);
         } catch (\Exception $e) {

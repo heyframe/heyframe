@@ -39,8 +39,8 @@ class CheckInstanceIdCommand extends Command
     {
         $io = new HeyFrameStyle($input, $output);
 
-        $instanceIdConfig = $this->systemConfigService->get(InstanceIdProvider::SHOP_ID_SYSTEM_CONFIG_KEY_V2)
-            ?? $this->systemConfigService->get(InstanceIdProvider::SHOP_ID_SYSTEM_CONFIG_KEY);
+        $instanceIdConfig = $this->systemConfigService->get(InstanceIdProvider::INSTANCE_ID_SYSTEM_CONFIG_KEY_V2)
+            ?? $this->systemConfigService->get(InstanceIdProvider::INSTANCE_ID_SYSTEM_CONFIG_KEY);
 
         if (!\is_array($instanceIdConfig)) {
             $io->success('No shop ID has been generated yet.');

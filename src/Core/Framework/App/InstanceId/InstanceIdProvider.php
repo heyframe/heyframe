@@ -20,8 +20,8 @@ use Symfony\Contracts\Service\ResetInterface;
 #[Package('framework')]
 class InstanceIdProvider implements ResetInterface
 {
-    final public const SHOP_ID_SYSTEM_CONFIG_KEY = 'core.app.instanceId';
-    final public const SHOP_ID_SYSTEM_CONFIG_KEY_V2 = 'core.app.instanceIdV2';
+    final public const INSTANCE_ID_SYSTEM_CONFIG_KEY = 'core.app.instanceId';
+    final public const INSTANCE_ID_SYSTEM_CONFIG_KEY_V2 = 'core.app.instanceIdV2';
 
     private ?InstanceId $instanceId = null;
 
@@ -72,8 +72,8 @@ class InstanceIdProvider implements ResetInterface
 
     public function deleteInstanceId(): void
     {
-        $this->systemConfigService->delete(self::SHOP_ID_SYSTEM_CONFIG_KEY);
-        $this->systemConfigService->delete(self::SHOP_ID_SYSTEM_CONFIG_KEY_V2);
+        $this->systemConfigService->delete(self::INSTANCE_ID_SYSTEM_CONFIG_KEY);
+        $this->systemConfigService->delete(self::INSTANCE_ID_SYSTEM_CONFIG_KEY_V2);
 
         $this->reset();
 
@@ -87,15 +87,15 @@ class InstanceIdProvider implements ResetInterface
 
     private function setInstanceId(InstanceId $instanceId): void
     {
-        $oldInstanceId = $this->systemConfigService->get(self::SHOP_ID_SYSTEM_CONFIG_KEY_V2)
-            ?? $this->systemConfigService->get(self::SHOP_ID_SYSTEM_CONFIG_KEY);
+        $oldInstanceId = $this->systemConfigService->get(self::INSTANCE_ID_SYSTEM_CONFIG_KEY_V2)
+            ?? $this->systemConfigService->get(self::INSTANCE_ID_SYSTEM_CONFIG_KEY);
         if (\is_array($oldInstanceId)) {
             $oldInstanceId = InstanceId::fromSystemConfig($oldInstanceId);
         } else {
             $oldInstanceId = null;
         }
 
-        $this->systemConfigService->set(self::SHOP_ID_SYSTEM_CONFIG_KEY_V2, (array) $instanceId);
+        $this->systemConfigService->set(self::INSTANCE_ID_SYSTEM_CONFIG_KEY_V2, (array) $instanceId);
         $this->eventDispatcher->dispatch(new InstanceIdChangedEvent($instanceId, $oldInstanceId));
     }
 
@@ -107,13 +107,13 @@ class InstanceIdProvider implements ResetInterface
     private function fetchInstanceIdFromSystemConfig(): ?InstanceId
     {
         /** @var InstanceIdV2Config|null $instanceIdV2 */
-        $instanceIdV2 = $this->systemConfigService->get(self::SHOP_ID_SYSTEM_CONFIG_KEY_V2);
+        $instanceIdV2 = $this->systemConfigService->get(self::INSTANCE_ID_SYSTEM_CONFIG_KEY_V2);
         if (\is_array($instanceIdV2)) {
             return InstanceId::fromSystemConfig($instanceIdV2);
         }
 
         /** @var InstanceIdV1Config|null $instanceIdV1 */
-        $instanceIdV1 = $this->systemConfigService->get(self::SHOP_ID_SYSTEM_CONFIG_KEY);
+        $instanceIdV1 = $this->systemConfigService->get(self::INSTANCE_ID_SYSTEM_CONFIG_KEY);
         if (\is_array($instanceIdV1)) {
             $instanceIdV1 = InstanceId::fromSystemConfig($instanceIdV1);
 
