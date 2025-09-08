@@ -22,13 +22,13 @@ abstract class AbstractStatsRepository
     protected function getNow(): \DateTimeInterface
     {
         // Using time() function to make possible to mock the time with PHPUnit Symfony bridge
-        return new \DateTimeImmutable('@' . time());
+        return (new \DateTimeImmutable('@' . time()))->setTimezone(new \DateTimeZone('Asia/Shanghai'));
     }
 
     protected function getCutOffDate(): \DateTimeInterface
     {
         $cutOff = $this->getNow()->getTimestamp() - $this->timeSpan;
 
-        return new \DateTimeImmutable('@' . $cutOff);
+        return (new \DateTimeImmutable('@' . $cutOff))->setTimezone(new \DateTimeZone('Asia/Shanghai'));
     }
 }

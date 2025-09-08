@@ -15,5 +15,14 @@
         <service id="HeyFrame\Core\Framework\Notification\NotificationDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>
+
+        <service id="HeyFrame\Core\Framework\Notification\Api\NotificationController" public="true">
+            <argument type="service" id="heyframe.rate_limiter"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Notification\NotificationService"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
     </services>
 </container>
