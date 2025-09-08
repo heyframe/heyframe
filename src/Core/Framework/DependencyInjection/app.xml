@@ -166,11 +166,6 @@
             <argument type="service" id="heyframe.app_system.guzzle"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\App\TaxProvider\Payload\TaxProviderPayloadService">
-            <argument type="service" id="HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper"/>
-            <argument type="service" id="heyframe.app_system.guzzle"/>
-        </service>
-
         <service id="HeyFrame\Core\Framework\App\Checkout\Payload\AppCheckoutGatewayPayloadService">
             <argument type="service" id="HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper"/>
             <argument type="service" id="heyframe.app_system.guzzle"/>
