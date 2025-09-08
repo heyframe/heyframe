@@ -4,14 +4,8 @@ namespace HeyFrame\Core\Checkout\Promotion;
 
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscount\PromotionDiscountEntity;
-use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\Exception\FilterPickerNotFoundException;
-use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\Exception\FilterSorterNotFoundException;
-use HeyFrame\Core\Checkout\Promotion\Exception\DiscountCalculatorNotFoundException;
 use HeyFrame\Core\Checkout\Promotion\Exception\InvalidCodePatternException;
-use HeyFrame\Core\Checkout\Promotion\Exception\InvalidScopeDefinitionException;
 use HeyFrame\Core\Checkout\Promotion\Exception\PatternNotComplexEnoughException;
-use HeyFrame\Core\Checkout\Promotion\Exception\PriceNotFoundException;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,12 +48,8 @@ class PromotionException extends HttpException
     /**
      * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
      */
-    public static function discountCalculatorNotFound(string $type): self|DiscountCalculatorNotFoundException
+    public static function discountCalculatorNotFound(string $type): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new DiscountCalculatorNotFoundException($type);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::DISCOUNT_CALCULATOR_NOT_FOUND,
@@ -78,15 +68,8 @@ class PromotionException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function invalidScopeDefinition(string $scope): self|InvalidScopeDefinitionException
+    public static function invalidScopeDefinition(string $scope): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new InvalidScopeDefinitionException($scope);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::INVALID_DISCOUNT_SCOPE_DEFINITION,
@@ -215,10 +198,6 @@ class PromotionException extends HttpException
 
     public static function priceNotFound(LineItem $lineItem): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new PriceNotFoundException($lineItem);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::PRICE_NOT_FOUND_FOR_ITEM,
@@ -229,10 +208,6 @@ class PromotionException extends HttpException
 
     public static function filterSorterNotFound(string $key): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new FilterSorterNotFoundException($key);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::FILTER_SORTER_NOT_FOUND,
@@ -243,10 +218,6 @@ class PromotionException extends HttpException
 
     public static function filterPickerNotFoundException(string $key): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new FilterPickerNotFoundException($key);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::FILTER_PICKER_NOT_FOUND,

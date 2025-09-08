@@ -31,8 +31,6 @@ use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\PackageFilter;
 use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\SetGroupScopeFilter;
 use HeyFrame\Core\Checkout\Promotion\Cart\Error\PromotionExcludedError;
 use HeyFrame\Core\Checkout\Promotion\Cart\Error\PromotionNotEligibleError;
-use HeyFrame\Core\Checkout\Promotion\Exception\DiscountCalculatorNotFoundException;
-use HeyFrame\Core\Checkout\Promotion\Exception\InvalidScopeDefinitionException;
 use HeyFrame\Core\Checkout\Promotion\PromotionException;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
@@ -71,7 +69,6 @@ class PromotionCalculator
      * the different discount line item types (percentage, absolute, ...) and then
      * recalculate the whole cart with these new items.
      *
-     * @throws DiscountCalculatorNotFoundException
      * @throws CartException
      */
     public function calculate(LineItemCollection $discountLineItems, Cart $original, Cart $calculated, ChannelContext $context, CartBehavior $behaviour): void
@@ -220,9 +217,7 @@ class PromotionCalculator
      * Calculates and returns the discount based on the settings of
      * the provided discount line item.
      *
-     * @throws DiscountCalculatorNotFoundException
      * @throws PromotionException
-     * @throws InvalidScopeDefinitionException
      * @throws CartException
      */
     private function calculateDiscount(LineItem $item, Cart $calculatedCart, ChannelContext $context): DiscountCalculatorResult
