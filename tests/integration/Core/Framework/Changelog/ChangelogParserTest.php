@@ -33,7 +33,7 @@ class ChangelogParserTest extends TestCase
                     'authorEmail' => null,
                     'authorGithub' => null,
                     'core' => null,
-                    'storefront' => null,
+                    'frontend' => null,
                     'admin' => null,
                     'api' => null,
                     'upgrade' => null,
@@ -52,7 +52,7 @@ class ChangelogParserTest extends TestCase
                     'authorEmail' => '_MAIL_',
                     'authorGithub' => '_GITHUB_',
                     'core' => "* Changed core\n  * changes",
-                    'storefront' => "* Added store\n  * front\n  * list",
+                    'frontend' => "* Added store\n  * front\n  * list",
                     'admin' => "* Deprecated admin\n  * list",
                     'api' => "* Removed api\n  * infos",
                     'upgrade' => "## UPGRADE\n### THE INFORMATION",
@@ -81,7 +81,7 @@ class ChangelogParserTest extends TestCase
         static::assertSame($expectedData['authorEmail'], $logEntry->getAuthorEmail());
         static::assertSame($expectedData['authorGithub'], $logEntry->getAuthorGitHub());
         static::assertSame($expectedData['core'], $logEntry->getCore());
-        static::assertSame($expectedData['storefront'], $logEntry->getStorefront());
+        static::assertSame($expectedData['frontend'], $logEntry->getFrontend());
         static::assertSame($expectedData['admin'], $logEntry->getAdministration());
         static::assertSame($expectedData['api'], $logEntry->getApi());
         static::assertSame($expectedData['upgrade'], $logEntry->getUpgradeInformation());

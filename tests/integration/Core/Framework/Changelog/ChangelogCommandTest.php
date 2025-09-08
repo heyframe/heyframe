@@ -43,7 +43,7 @@ class ChangelogCommandTest extends TestCase
                 __DIR__ . '/_fixture/stage/command-missing-separator',
                 [
                     '[ERROR] You have 1 syntax errors in changelog files.',
-                    'You should use "___" to separate Storefront and Upgrade section',
+                    'You should use "___" to separate Frontend and Upgrade section',
                 ],
                 false,
             ],
@@ -88,7 +88,7 @@ class ChangelogCommandTest extends TestCase
                     '# API',
                     '* Deprecated admin',
                     '* list',
-                    '# Storefront',
+                    '# Frontend',
                     '* Added store',
                     '* Changed front',
                     '# Administration',

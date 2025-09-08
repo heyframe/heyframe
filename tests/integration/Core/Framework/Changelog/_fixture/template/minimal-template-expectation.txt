@@ -12,7 +12,7 @@ ___
 # Administration
 *
 ___
-# Storefront
+# Frontend
 *
 ___
 # Upgrade Information

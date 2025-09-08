@@ -17,7 +17,7 @@ ___
 * Deprecated admin
   * list
 ___
-# Storefront
+# Frontend
 * Added store
 * Changed front
     list
