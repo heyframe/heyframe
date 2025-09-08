@@ -73,6 +73,7 @@
     "ext-xml": "*",
     "ext-zip": "*",
     "ext-zlib": "*",
+    "ext-http": "*",
     "composer-runtime-api": "^2.1",
     "async-aws/core": "^1.22",
     "cocur/slugify": "^4.3.0",

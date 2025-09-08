@@ -119,7 +119,7 @@
         <service id="HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInstanceRegistry"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\StoreApiGenerator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\FrontApiGenerator"/>
             <argument type="service" id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi3Generator"/>
             <argument type="service" id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\EntitySchemaGenerator"/>
         </service>
@@ -144,7 +144,7 @@
             <argument type="service" id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\BundleSchemaPathCollection"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\StoreApiGenerator">
+        <service id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\FrontApiGenerator">
             <argument type="service" id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi\OpenApiSchemaBuilder"/>
             <argument type="service" id="HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi\OpenApiDefinitionSchemaBuilder"/>
             <argument>%kernel.bundles_metadata%</argument>

@@ -30,5 +30,7 @@ class Content extends Bundle
         $loader->load('flow.xml');
         $loader->load('navigation.xml');
         $loader->load('import_export.xml');
+        $loader->load('post.xml');
+        $loader->load('category.xml');
     }
 }

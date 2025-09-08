@@ -30,9 +30,9 @@ class CustomerNicknameUniqueValidator extends ConstraintValidator
 
         $query = $this->connection->createQueryBuilder();
 
-        /** @var array{nickname: string, guest: int, bound_sales_channel_id: string|null}[] $results */
+        /** @var array{nickname: string, guest: int, bound_channel_id: string|null}[] $results */
         $results = $query
-            ->select('nickname', 'guest', 'LOWER(HEX(bound_sales_channel_id)) as bound_sales_channel_id')
+            ->select('nickname', 'guest', 'LOWER(HEX(bound_channel_id)) as bound_channel_id')
             ->from('customer')
             ->where($query->expr()->eq('nickname', $query->createPositionalParameter($value)))
             ->executeQuery()
@@ -44,11 +44,11 @@ class CustomerNicknameUniqueValidator extends ConstraintValidator
                 return false;
             }
 
-            if ($entry['bound_sales_channel_id'] === null) {
+            if ($entry['bound_channel_id'] === null) {
                 return true;
             }
 
-            if ($entry['bound_sales_channel_id'] !== $constraint->getChannelContext()->getChannelId()) {
+            if ($entry['bound_channel_id'] !== $constraint->getChannelContext()->getChannelId()) {
                 return false;
             }
 
