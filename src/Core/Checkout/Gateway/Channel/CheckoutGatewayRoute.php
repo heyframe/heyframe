@@ -54,7 +54,7 @@ class CheckoutGatewayRoute extends AbstractCheckoutGatewayRoute
 
         $this->addBlockedMethodsCartErrors($response, $cart, $context);
 
-        return new CheckoutGatewayRouteResponse($response->getAvailablePaymentMethods(), $response->getAvailableShippingMethods(), $response->getCartErrors());
+        return new CheckoutGatewayRouteResponse($response->getAvailablePaymentMethods(), $response->getCartErrors());
     }
 
     private function addBlockedMethodsCartErrors(CheckoutGatewayResponse $response, Cart $cart, ChannelContext $context): void

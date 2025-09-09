@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Checkout\Gateway;
 
 use HeyFrame\Core\Checkout\Cart\Error\ErrorCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
@@ -16,7 +15,6 @@ final class CheckoutGatewayResponse extends Struct
      */
     public function __construct(
         protected PaymentMethodCollection $availablePaymentMethods,
-        protected ShippingMethodCollection $availableShippingMethods,
         protected ErrorCollection $cartErrors,
     ) {
     }
@@ -29,16 +27,6 @@ final class CheckoutGatewayResponse extends Struct
     public function setAvailablePaymentMethods(PaymentMethodCollection $availablePaymentMethods): void
     {
         $this->availablePaymentMethods = $availablePaymentMethods;
-    }
-
-    public function getAvailableShippingMethods(): ShippingMethodCollection
-    {
-        return $this->availableShippingMethods;
-    }
-
-    public function setAvailableShippingMethods(ShippingMethodCollection $availableShippingMethods): void
-    {
-        $this->availableShippingMethods = $availableShippingMethods;
     }
 
     public function getCartErrors(): ErrorCollection

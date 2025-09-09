@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Product\Subscriber;
 
-use HeyFrame\Core\Content\Product\AbstractIsNewDetector;
 use HeyFrame\Core\Content\Product\AbstractProductMaxPurchaseCalculator;
 use HeyFrame\Core\Content\Product\AbstractProductVariationBuilder;
 use HeyFrame\Core\Content\Product\AbstractPropertyGroupSorter;
@@ -11,17 +10,13 @@ use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPri
 use HeyFrame\Core\Content\Product\ProductDefinition;
 use HeyFrame\Core\Content\Product\ProductEntity;
 use HeyFrame\Core\Content\Product\ProductEvents;
-use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWriteEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\PartialEntity;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\Entity\ChannelEntityLoadedEvent;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @internal
@@ -37,9 +32,7 @@ class ProductSubscriber implements EventSubscriberInterface
         private readonly AbstractProductPriceCalculator $calculator,
         private readonly AbstractPropertyGroupSorter $propertyGroupSorter,
         private readonly AbstractProductMaxPurchaseCalculator $maxPurchaseCalculator,
-        private readonly AbstractIsNewDetector $isNewDetector,
         private readonly SystemConfigService $systemConfigService,
-        private readonly RequestStack $requestStack
     ) {
     }
 
@@ -50,7 +43,6 @@ class ProductSubscriber implements EventSubscriberInterface
             'product.partial_loaded' => 'loaded',
             'channel.' . ProductEvents::PRODUCT_LOADED_EVENT => 'channelLoaded',
             'channel.product.partial_loaded' => 'channelLoaded',
-            EntityWriteEvent::class => 'beforeWriteProduct',
         ];
     }
 
@@ -59,15 +51,9 @@ class ProductSubscriber implements EventSubscriberInterface
      */
     public function loaded(EntityLoadedEvent $event): void
     {
-        $isAdminSource = $event->getContext()->getSource() instanceof AdminApiSource;
-
         foreach ($event->getEntities() as $product) {
             if (!$product instanceof ProductEntity && !$product instanceof PartialEntity) {
                 continue;
-            }
-
-            if ($isAdminSource) {
-                $this->convertMeasurementUnit($product);
             }
 
             $this->setDefaultLayout($product);
@@ -99,8 +85,6 @@ class ProductSubscriber implements EventSubscriberInterface
 
             $assigns['calculatedMaxPurchase'] = $this->maxPurchaseCalculator->calculate($product, $event->getChannelContext());
 
-            $assigns['isNew'] = $this->isNewDetector->isNew($product, $event->getChannelContext());
-
             $product->assign($assigns);
 
             $this->setDefaultLayout($product, $event->getChannelContext()->getChannelId());
@@ -109,44 +93,6 @@ class ProductSubscriber implements EventSubscriberInterface
         }
 
         $this->calculator->calculate($event->getEntities(), $event->getChannelContext());
-    }
-
-    public function beforeWriteProduct(EntityWriteEvent $event): void
-    {
-        $lengthUnitHeader = $this->requestStack->getCurrentRequest()?->headers->get(PlatformRequest::HEADER_MEASUREMENT_LENGTH_UNIT);
-        $weightUnitHeader = $this->requestStack->getCurrentRequest()?->headers->get(PlatformRequest::HEADER_MEASUREMENT_WEIGHT_UNIT);
-
-        if (!$lengthUnitHeader && !$weightUnitHeader) {
-            return;
-        }
-
-        $commands = $event->getCommandsForEntity(ProductDefinition::ENTITY_NAME);
-
-        foreach ($commands as $command) {
-            $payload = $command->getPayload();
-
-            foreach (ProductMeasurementEnum::DIMENSIONS_MAPPING as $dimension => $type) {
-                if (!$command->hasField($dimension) || !\is_float($payload[$dimension] ?? null)) {
-                    continue;
-                }
-
-                $fromUnit = $type === MeasurementUnitTypeEnum::WEIGHT
-                    ? $weightUnitHeader
-                    : $lengthUnitHeader;
-
-                $toUnit = $type === MeasurementUnitTypeEnum::WEIGHT
-                    ? MeasurementUnits::DEFAULT_WEIGHT_UNIT
-                    : MeasurementUnits::DEFAULT_LENGTH_UNIT;
-
-                if ($fromUnit) {
-                    $command->addPayload($dimension, $this->measurementUnitConverter->convert(
-                        $payload[$dimension],
-                        $fromUnit,
-                        $toUnit,
-                    )->value);
-                }
-            }
-        }
     }
 
     /**
@@ -169,30 +115,5 @@ class ProductSubscriber implements EventSubscriberInterface
         }
 
         $product->assign(['cmsPageId' => $cmsPageId]);
-    }
-
-    private function convertMeasurementUnit(ProductEntity|PartialEntity $product): void
-    {
-        $lengthUnitHeader = $this->requestStack->getCurrentRequest()?->headers->get(PlatformRequest::HEADER_MEASUREMENT_LENGTH_UNIT);
-        $weightUnitHeader = $this->requestStack->getCurrentRequest()?->headers->get(PlatformRequest::HEADER_MEASUREMENT_WEIGHT_UNIT);
-
-        if (!$lengthUnitHeader && !$weightUnitHeader) {
-            return;
-        }
-
-        $toLengthUnit = $lengthUnitHeader ?? MeasurementUnits::DEFAULT_LENGTH_UNIT;
-        $toWeightUnit = $weightUnitHeader ?? MeasurementUnits::DEFAULT_WEIGHT_UNIT;
-
-        $converted = $this->measurementUnitBuilder->build($product, $toLengthUnit, $toWeightUnit);
-
-        $assigns = [];
-
-        foreach ($converted->getUnits() as $unit => $convertedUnit) {
-            $assigns[$unit] = $convertedUnit->value;
-        }
-
-        if (!empty($assigns)) {
-            $product->assign($assigns);
-        }
     }
 }

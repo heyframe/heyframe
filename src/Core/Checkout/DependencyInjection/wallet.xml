@@ -15,5 +15,10 @@
             <tag name="heyframe.entity.hookable"/>
         </service>
 
+        <service id="HeyFrame\Core\Checkout\Wallet\Cart\PaymentHandler\WalletPayment">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
+        </service>
     </services>
 </container>

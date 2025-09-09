@@ -62,9 +62,6 @@
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Product\AbstractIsNewDetector" class="HeyFrame\Core\Content\Product\IsNewDetector">
-            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-        </service>
 
         <service id="HeyFrame\Core\Content\Product\ProductVariationBuilder"/>
 
@@ -73,9 +70,7 @@
             <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Price\ProductPriceCalculator"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\AbstractPropertyGroupSorter"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\AbstractProductMaxPurchaseCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\AbstractIsNewDetector"/>
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="request_stack"/>
 
             <tag name="kernel.event_subscriber"/>
         </service>

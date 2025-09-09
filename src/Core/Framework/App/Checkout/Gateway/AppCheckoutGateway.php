@@ -12,7 +12,6 @@ use HeyFrame\Core\Checkout\Gateway\Command\Executor\CheckoutGatewayCommandExecut
 use HeyFrame\Core\Checkout\Gateway\Command\Registry\CheckoutGatewayCommandRegistry;
 use HeyFrame\Core\Checkout\Gateway\Command\Struct\CheckoutGatewayPayloadStruct;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodEntity;
 use HeyFrame\Core\Framework\App\ActiveAppsLoader;
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\Checkout\Payload\AppCheckoutGatewayPayload;
@@ -54,9 +53,8 @@ class AppCheckoutGateway implements CheckoutGatewayInterface
 
         $context = $payload->getChannelContext();
         $paymentMethods = $payload->getPaymentMethods()->map(fn (PaymentMethodEntity $paymentMethod) => $paymentMethod->getTechnicalName());
-        $shippingMethods = $payload->getShippingMethods()->map(fn (ShippingMethodEntity $shippingMethod) => $shippingMethod->getTechnicalName());
 
-        $appPayload = new AppCheckoutGatewayPayload($context, $payload->getCart(), $paymentMethods, $shippingMethods);
+        $appPayload = new AppCheckoutGatewayPayload($context, $payload->getCart(), $paymentMethods);
         $apps = $this->getActiveAppsWithCheckoutGateway($context->getContext());
 
         foreach ($apps as $app) {
@@ -74,7 +72,6 @@ class AppCheckoutGateway implements CheckoutGatewayInterface
 
         $response = new CheckoutGatewayResponse(
             $payload->getPaymentMethods(),
-            $payload->getShippingMethods(),
             $payload->getCart()->getErrors()
         );
 

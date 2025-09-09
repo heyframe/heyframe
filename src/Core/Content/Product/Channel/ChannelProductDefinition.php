@@ -6,7 +6,6 @@ use HeyFrame\Core\Content\Category\CategoryDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPriceField;
 use HeyFrame\Core\Content\Product\ProductDefinition;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiCriteriaAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Inherited;
@@ -29,7 +28,7 @@ use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInterface;
 #[Package('inventory')]
 class ChannelProductDefinition extends ProductDefinition implements ChannelDefinitionInterface
 {
-    private const PRICE_BASELINE = ['taxId', 'unitId', 'referenceUnit', 'purchaseUnit'];
+    private const PRICE_BASELINE = ['referenceUnit', 'purchaseUnit'];
 
     public function getEntityClass(): string
     {
@@ -56,10 +55,7 @@ class ChannelProductDefinition extends ProductDefinition implements ChannelDefin
         if (empty($criteria->getFields())) {
             $criteria
                 ->addAssociation('prices')
-                ->addAssociation('unit')
-                ->addAssociation('deliveryTime')
                 ->addAssociation('cover.media')
-                ->addAssociation('tax')
             ;
         }
 
@@ -89,9 +85,6 @@ class ChannelProductDefinition extends ProductDefinition implements ChannelDefin
         );
         $fields->add(
             (new JsonField('calculated_cheapest_price', 'calculatedCheapestPrice'))->addFlags(new ApiAware(), new Runtime(\array_merge(self::PRICE_BASELINE, ['cheapestPrice'])))
-        );
-        $fields->add(
-            (new BoolField('is_new', 'isNew'))->addFlags(new ApiAware(), new Runtime(['releaseDate']))
         );
         $fields->add(
             (new OneToOneAssociationField('seoCategory', 'seoCategory', 'id', CategoryDefinition::class))->addFlags(new ApiAware(), new Runtime())
