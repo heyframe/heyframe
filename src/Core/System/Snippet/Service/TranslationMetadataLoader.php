@@ -4,14 +4,14 @@ namespace HeyFrame\Core\System\Snippet\Service;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemException;
+use Psr\Http\Message\ResponseInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Snippet\DataTransfer\Metadata\MetadataCollection;
 use HeyFrame\Core\System\Snippet\DataTransfer\Metadata\MetadataEntry;
 use HeyFrame\Core\System\Snippet\SnippetException;
 use HeyFrame\Core\System\Snippet\Struct\TranslationConfig;
-use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemException;
-use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -33,17 +33,20 @@ class TranslationMetadataLoader
     }
 
     /**
-     * @param list<string> $locales
+     * @param list<string>|null $locales
+     *
+     * Updates the local metadata with the latest remote metadata and returns the updated collection.
+     * If locales are provided, only those locales will be updated; otherwise all installed locales will be updated.
      */
-    public function getUpdatedMetadata(array $locales): MetadataCollection
+    public function getUpdatedLocalMetadata(?array $locales = null): MetadataCollection
     {
-        $path = $this->getPath();
+        $localMetadata = $this->getLocalMetadata();
+        $remoteMetadata = $this->fetchRemoteMetadataArray();
 
-        $localMetadata = $this->getLocalMetadata($path);
-        $remoteMetadataArray = $this->fetchRemoteMetadataArray();
+        $locales = $locales ?? $localMetadata->getKeys();
 
         foreach ($locales as $locale) {
-            $remoteEntry = $remoteMetadataArray[$locale] ?? null;
+            $remoteEntry = $remoteMetadata[$locale] ?? null;
 
             if ($remoteEntry === null) {
                 continue;
@@ -90,8 +93,10 @@ class TranslationMetadataLoader
         return array_column($data, null, 'locale');
     }
 
-    private function getLocalMetadata(string $path): MetadataCollection
+    private function getLocalMetadata(): MetadataCollection
     {
+        $path = $this->getPath();
+
         try {
             $localMetadata = $this->filesystem->read($path);
         } catch (FilesystemException) {
