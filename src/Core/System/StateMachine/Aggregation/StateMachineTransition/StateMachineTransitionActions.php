@@ -9,11 +9,6 @@ final class StateMachineTransitionActions
 {
     public const ACTION_CANCEL = 'cancel';
     public const ACTION_COMPLETE = 'complete';
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed in 6.8.0. Use ACTION_PROCESS instead
-     */
-    public const ACTION_DO_PAY = 'do_pay';
     public const ACTION_FAIL = 'fail';
     public const ACTION_PAID = 'paid';
     public const ACTION_PAID_PARTIALLY = 'paid_partially';
