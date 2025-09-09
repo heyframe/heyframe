@@ -126,6 +126,7 @@ class DataAbstractionLayerException extends HttpException
             ['cronIntervalString' => $cronIntervalString],
         );
     }
+
     public static function writeTypeIntendError(
         EntityDefinition $definition,
         string $expectedClass,
@@ -145,6 +146,7 @@ class DataAbstractionLayerException extends HttpException
     {
         return new ImpossibleWriteOrderException($remainingEntities);
     }
+
     public static function invalidDateIntervalFormat(
         string $dateIntervalString,
         ?\Throwable $previous = null,
