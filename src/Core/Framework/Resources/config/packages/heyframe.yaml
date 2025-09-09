@@ -566,8 +566,8 @@ heyframe:
         default: []
 
     messenger:
+        scheduled_task:
+            requeue_timeout: 12 # requeue stuck messages after 12 hours
         routing_overwrite:
         stats:
 
-    product_stream:
-        indexing: true

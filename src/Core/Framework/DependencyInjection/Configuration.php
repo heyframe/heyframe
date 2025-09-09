@@ -52,7 +52,6 @@ class Configuration implements ConfigurationInterface
                 ->append($this->createSearchSection())
                 ->append($this->createTelemetrySection())
                 ->append($this->createRedisSection())
-                ->append($this->createProductStreamSection())
                 ->append($this->createSsoLoginSection())
             ->end();
 
@@ -939,6 +938,11 @@ class Configuration implements ConfigurationInterface
                     ->scalarPrototype()->end()
                 ->end()
                 ->booleanNode('enforce_message_size')->defaultFalse()->end()
+                ->arrayNode('scheduled_task')
+                    ->children()
+                        ->integerNode('requeue_timeout')->defaultValue(12)->end()
+                    ->end()
+                ->end()
                 ->arrayNode('stats')
                     ->children()
                         ->booleanNode('enabled')->defaultTrue()->end()
@@ -1032,19 +1036,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end();
-
-        return $rootNode;
-    }
-
-    private function createProductStreamSection(): ArrayNodeDefinition
-    {
-        $treeBuilder = new TreeBuilder('product_stream');
-        $rootNode = $treeBuilder->getRootNode();
-
-        $rootNode
-            ->children()
-                ->booleanNode('indexing')->defaultTrue()->end()
             ->end();
 
         return $rootNode;
