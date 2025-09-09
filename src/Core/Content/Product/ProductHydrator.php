@@ -109,15 +109,6 @@ class ProductHydrator extends EntityHydrator
         if (isset($row[$root . '.minPurchase'])) {
             $entity->minPurchase = (int) $row[$root . '.minPurchase'];
         }
-        if (isset($row[$root . '.purchaseUnit'])) {
-            $entity->purchaseUnit = (float) $row[$root . '.purchaseUnit'];
-        }
-        if (isset($row[$root . '.referenceUnit'])) {
-            $entity->referenceUnit = (float) $row[$root . '.referenceUnit'];
-        }
-        if (isset($row[$root . '.shippingFree'])) {
-            $entity->shippingFree = (bool) $row[$root . '.shippingFree'];
-        }
         if (\array_key_exists($root . '.purchasePrices', $row)) {
             $entity->purchasePrices = $definition->decode('purchasePrices', self::value($row, $root, 'purchasePrices'));
         }

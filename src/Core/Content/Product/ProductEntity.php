@@ -61,10 +61,6 @@ class ProductEntity extends Entity implements \Stringable
 
     protected ?int $minPurchase = null;
 
-    protected ?float $purchaseUnit = null;
-
-    protected ?float $referenceUnit = null;
-
     protected ?PriceCollection $purchasePrices = null;
 
     protected ?\DateTimeInterface $releaseDate = null;
@@ -252,26 +248,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setMinPurchase(?int $minPurchase): void
     {
         $this->minPurchase = $minPurchase;
-    }
-
-    public function getPurchaseUnit(): ?float
-    {
-        return $this->purchaseUnit;
-    }
-
-    public function setPurchaseUnit(?float $purchaseUnit): void
-    {
-        $this->purchaseUnit = $purchaseUnit;
-    }
-
-    public function getReferenceUnit(): ?float
-    {
-        return $this->referenceUnit;
-    }
-
-    public function setReferenceUnit(?float $referenceUnit): void
-    {
-        $this->referenceUnit = $referenceUnit;
     }
 
     public function getPurchasePrices(): ?PriceCollection
