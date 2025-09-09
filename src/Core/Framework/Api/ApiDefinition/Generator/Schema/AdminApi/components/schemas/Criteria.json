@@ -6,7 +6,7 @@
         "schemas": {
             "Criteria": {
                 "type": "object",
-                "description": "Search parameters. For more information, see our documentation on [Search Queries](https://heyframe.stoplight.io/docs/front-api/docs/concepts/search-queries.md#structure)",
+                "description": "Search parameters. For more information, see our documentation on [Search Queries](https://shopware.stoplight.io/docs/store-api/docs/concepts/search-queries.md#structure)",
                 "properties": {
                     "page": {
                         "description": "Search result page",
@@ -18,7 +18,7 @@
                     },
                     "filter": {
                         "type": "array",
-                        "description": "List of filters to restrict the search result. For more information, see [Search Queries > Filter](https://heyframe.stoplight.io/docs/front-api/docs/concepts/search-queries.md#filter)",
+                        "description": "List of filters to restrict the search result. For more information, see [Search Queries > Filter](https://shopware.stoplight.io/docs/store-api/docs/concepts/search-queries.md#filter)",
                         "items": {
                             "anyOf": [
                                 { "$ref": "#/components/schemas/SimpleFilter" },
@@ -51,7 +51,7 @@
                     },
                     "post-filter": {
                         "type": "array",
-                        "description": "Filters that applied without affecting aggregations. For more information, see [Search Queries > Post Filter](https://heyframe.stoplight.io/docs/front-api/docs/concepts/search-queries.md#post-filter)",
+                        "description": "Filters that applied without affecting aggregations. For more information, see [Search Queries > Post Filter](https://shopware.stoplight.io/docs/store-api/docs/concepts/search-queries.md#post-filter)",
                         "items": {
                             "anyOf": [
                                 { "$ref": "#/components/schemas/SimpleFilter" },
@@ -99,11 +99,20 @@
                         "description": "List of ids to search for",
                         "items": { "type": "string" }
                     },
-                    "includes": { "$ref": "#/components/schemas/Includes" }
+                    "includes": { "$ref": "#/components/schemas/Includes" },
+                    "excludes": { "$ref": "#/components/schemas/Excludes" }
                 }
             },
             "Includes": {
-                "description": "Specify the fields that should be returned for the given entities. Object key needs to be the entity name, and the list of fields needs to be the value. Note that the include fields will only be stripped on the API-Level, consider using the `fields` parameter for performance reasons.",
+                "description": "Specify the fields that should be returned for the given entities. Object key needs to be the entity name, and the list of fields needs to be the value. Fields will not be included, if they are also specified in the excludes. Note that the include fields will only be stripped on the API-Level, consider using the `fields` parameter for performance reasons.",
+                "type": "object",
+                "additionalProperties": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            },
+            "Excludes": {
+                "description": "Specify the fields that should be excluded from the response for the given entities. Object key needs to be the entity name, and the list of fields needs to be the value. Note that the exclude fields will only be stripped on the API-Level, consider using the `fields` parameter for performance reasons.",
                 "type": "object",
                 "additionalProperties": {
                     "type": "array",
@@ -430,7 +439,7 @@
             },
             "AggregationRange": {
                 "title": "AggregationRange",
-                "description": "For more information, see [Aggregations Reference > Range Aggregation](https://developer.heyframe.net/docs/resources/references/core-reference/dal-reference/aggregations-reference.html#range-aggregations)",
+                "description": "For more information, see [Aggregations Reference > Range Aggregation](https://developer.shopware.com/docs/resources/references/core-reference/dal-reference/aggregations-reference.html#range-aggregations)",
                 "type": "object",
                 "properties": {
                     "name": {

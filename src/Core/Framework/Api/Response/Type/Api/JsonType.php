@@ -81,8 +81,9 @@ class JsonType extends JsonFactoryBase
             'data' => $decoded,
         ];
 
-        $fields = new ResponseFields(
-            $request->get('includes', [])
+       $fields = new ResponseFields(
+            $request->get('includes', []),
+            $request->get('excludes', []),
         );
 
         $aggregations = [];

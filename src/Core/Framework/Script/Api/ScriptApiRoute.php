@@ -31,7 +31,7 @@ class ScriptApiRoute
     ) {
     }
 
-    #[Route(path: '/api/script/{hook}', name: 'api.script_endpoint', methods: ['POST', 'GET'], requirements: ['hook' => '.+'])]
+    #[Route(path: '/api/script/{hook}', name: 'api.script_endpoint', requirements: ['hook' => '.+'], methods: ['POST', 'GET'])]
     public function execute(string $hook, Request $request, Context $context): Response
     {
         //  blog/update =>  blog-update
@@ -45,7 +45,8 @@ class ScriptApiRoute
         $this->executor->execute($instance);
 
         $fields = new ResponseFields(
-            $request->get('includes', [])
+            $request->get('includes', []),
+            $request->get('excludes', []),
         );
 
         return $this->scriptResponseEncoder->encodeToSymfonyResponse(

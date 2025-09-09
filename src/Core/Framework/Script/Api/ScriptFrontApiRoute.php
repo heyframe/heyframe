@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('framework')]
-class ScriptStoreApiRoute
+class ScriptFrontApiRoute
 {
     public function __construct(
         private readonly ScriptExecutor $executor,
@@ -31,7 +31,7 @@ class ScriptStoreApiRoute
     ) {
     }
 
-    #[Route(path: '/front-api/script/{hook}', name: 'front-api.script_endpoint', methods: ['GET', 'POST'], requirements: ['hook' => '.+'])]
+    #[Route(path: '/front-api/script/{hook}', name: 'front-api.script_endpoint', requirements: ['hook' => '.+'], methods: ['GET', 'POST'])]
     public function execute(string $hook, Request $request, ChannelContext $context): Response
     {
         //  blog/update =>  blog-update
@@ -61,7 +61,8 @@ class ScriptStoreApiRoute
         $this->executor->execute($responseHook);
 
         $fields = new ResponseFields(
-            $request->get('includes', [])
+            $request->get('includes', []),
+            $request->get('excludes', []),
         );
 
         $symfonyResponse = $this->scriptResponseEncoder->encodeToSymfonyResponse(

@@ -98,6 +98,11 @@ class Criteria extends Struct implements \Stringable
      */
     protected ?array $includes = null;
 
+    /**
+     * @var array<string, list<string>>|null
+     */
+    protected ?array $excludes = null;
+
     protected ?string $title = null;
 
     /**
@@ -533,13 +538,27 @@ class Criteria extends Struct implements \Stringable
     }
 
     /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Return type will be native
-     *
      * @return array<string, list<string>>|null
      */
-    public function getIncludes()
+    public function getIncludes(): ?array
     {
         return $this->includes;
+    }
+
+    /**
+     * @param array<string, list<string>>|null $excludes
+     */
+    public function setExcludes(?array $excludes): void
+    {
+        $this->excludes = $excludes;
+    }
+
+    /**
+     * @return array<string, list<string>>|null
+     */
+    public function getExcludes(): ?array
+    {
+        return $this->excludes;
     }
 
     public function getApiAlias(): string

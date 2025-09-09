@@ -44,13 +44,12 @@ class FrontApiResponseListener implements EventSubscriberInterface
 
         $this->dispatch($event);
 
-        $includes = $event->getRequest()->get('includes', []);
+        $request = $event->getRequest();
 
-        if (!\is_array($includes)) {
-            $includes = explode(',', $includes);
-        }
-
-        $fields = new ResponseFields($includes);
+        $fields = new ResponseFields(
+            $request->get('includes', []),
+            $request->get('excludes', []),
+        );
 
         $encoded = $this->encoder->encode($response->getObject(), $fields);
 

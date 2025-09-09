@@ -32,7 +32,7 @@
             <tag name="kernel.reset" method="reset"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\Script\Api\ScriptStoreApiRoute" public="true">
+        <service id="HeyFrame\Core\Framework\Script\Api\ScriptFrontApiRoute" public="true">
             <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
             <argument type="service" id="HeyFrame\Core\Framework\Script\Api\ScriptResponseEncoder"/>
             <argument type="service" id="cache.object"/>
