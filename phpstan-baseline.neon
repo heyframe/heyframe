@@ -1303,12 +1303,6 @@ parameters:
 			path: src/Core/Framework/DataAbstractionLayer/Event/EntityWrittenEvent.php
 
 		-
-			message: '#^Method HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Exception\\ImpossibleWriteOrderException\:\:__construct\(\) has parameter \$remaining with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Framework/DataAbstractionLayer/Exception/ImpossibleWriteOrderException.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Exception\\SearchRequestException\:\:__construct\(\) has parameter \$exceptions with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1

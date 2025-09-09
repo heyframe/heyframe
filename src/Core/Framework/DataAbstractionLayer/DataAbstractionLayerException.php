@@ -8,6 +8,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Exception\ParentAssociatio
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Exception\UnmappedFieldException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\DefinitionNotFoundException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\EntityRepositoryNotFoundException;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\ImpossibleWriteOrderException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InvalidAggregationQueryException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InvalidFilterQueryException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InvalidRangeFilterParamException;
@@ -19,6 +20,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\UnsupportedCommandTyp
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\DateHistogramAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteTypeIntendException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\ExpectedArrayException;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
@@ -124,7 +126,25 @@ class DataAbstractionLayerException extends HttpException
             ['cronIntervalString' => $cronIntervalString],
         );
     }
+    public static function writeTypeIntendError(
+        EntityDefinition $definition,
+        string $expectedClass,
+        string $actualClass
+    ): self {
+        return new WriteTypeIntendException(
+            $definition,
+            $expectedClass,
+            $actualClass
+        );
+    }
 
+    /**
+     * @param list<string> $remainingEntities
+     */
+    public static function impossibleWriteOrder(array $remainingEntities): self
+    {
+        return new ImpossibleWriteOrderException($remainingEntities);
+    }
     public static function invalidDateIntervalFormat(
         string $dateIntervalString,
         ?\Throwable $previous = null,
