@@ -318,7 +318,16 @@ class SystemConfigServiceTest extends TestCase
         $actual = $this->systemConfigService->getDomain('foo.');
         static::assertSame(['foo.a' => 'a'], $actual);
     }
+    public function testDeleteNonExisting(): void
+    {
+        $this->systemConfigService->delete('not.found');
+        $actual = $this->systemConfigService->get('not.found');
+        static::assertNull($actual);
 
+        $this->systemConfigService->delete('not.found', TestDefaults::CHANNEL);
+        $actual = $this->systemConfigService->get('not.found', TestDefaults::CHANNEL);
+        static::assertNull($actual);
+    }
     public function testDelete(): void
     {
         $this->systemConfigService->set('foo', 'bar');
