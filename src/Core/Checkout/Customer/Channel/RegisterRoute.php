@@ -10,6 +10,7 @@ use HeyFrame\Core\Checkout\Customer\Event\CustomerLoginEvent;
 use HeyFrame\Core\Checkout\Customer\Event\CustomerRegisterEvent;
 use HeyFrame\Core\Checkout\Customer\Service\EmailIdnConverter;
 use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerEmailUnique;
+use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerNicknameUnique;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -233,7 +234,6 @@ class RegisterRoute extends AbstractRegisterRoute
             'languageId' => $context->getLanguageId(),
             'groupId' => $context->getCustomerGroupId(),
             'nickname' => $data->get('nickname'),
-            'lastName' => $data->get('lastName'),
             'email' => $data->get('email'),
             'active' => true,
             'birthday' => $this->getBirthday($data),
@@ -267,6 +267,7 @@ class RegisterRoute extends AbstractRegisterRoute
             $this->passwordValidationFactory->create($context)
         );
         $validation->add('email', new CustomerEmailUnique(channelContext: $context));
+        $validation->add('nickname', new CustomerNicknameUnique($context));
 
         $validationEvent = new BuildValidationEvent($validation, $data, $context->getContext());
         $this->eventDispatcher->dispatch($validationEvent, $validationEvent->getName());

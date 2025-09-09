@@ -9,7 +9,6 @@ use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundByIdException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundException;
 use HeyFrame\Core\Checkout\Customer\Exception\InvalidImitateCustomerTokenException;
 use HeyFrame\Core\Checkout\Customer\Exception\PasswordPoliciesUpdatedException;
-use HeyFrame\Core\Checkout\Customer\Validation\Constraint\CustomerEmailUnique;
 use HeyFrame\Core\Content\Product\Exception\ProductNotFoundException;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
@@ -19,7 +18,6 @@ use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedValueException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Exception\ValidatorException;
@@ -35,24 +33,17 @@ class CustomerException extends HttpException
     public const LINE_ITEM_DOWNLOAD_FILE_NOT_FOUND = 'CHECKOUT__LINE_ITEM_DOWNLOAD_FILE_NOT_FOUND';
     public const CUSTOMER_IDS_PARAMETER_IS_MISSING = 'CHECKOUT__CUSTOMER_IDS_PARAMETER_IS_MISSING';
     public const PRODUCT_IDS_PARAMETER_IS_MISSING = 'CHECKOUT__PRODUCT_IDS_PARAMETER_IS_MISSING';
-    public const CUSTOMER_ADDRESS_NOT_FOUND = 'CHECKOUT__CUSTOMER_ADDRESS_NOT_FOUND';
     public const CUSTOMER_AUTH_BAD_CREDENTIALS = 'CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS';
     public const CUSTOMER_ADDRESS_IS_ACTIVE = 'CHECKOUT__CUSTOMER_ADDRESS_IS_ACTIVE';
-    public const CUSTOMER_ADDRESS_IS_DEFAULT = 'CHECKOUT__CUSTOMER_ADDRESS_IS_DEFAULT';
-    public const CUSTOMER_IS_ALREADY_CONFIRMED = 'CHECKOUT__CUSTOMER_IS_ALREADY_CONFIRMED';
     public const CUSTOMER_GROUP_REGISTRATION_NOT_FOUND = 'CHECKOUT__CUSTOMER_GROUP_REGISTRATION_NOT_FOUND';
     public const CUSTOMER_NOT_FOUND_BY_HASH = 'CHECKOUT__CUSTOMER_NOT_FOUND_BY_HASH';
     public const CUSTOMER_NOT_FOUND_BY_ID = 'CHECKOUT__CUSTOMER_NOT_FOUND_BY_ID';
-    public const CUSTOMER_RECOVERY_HASH_EXPIRED = 'CHECKOUT__CUSTOMER_RECOVERY_HASH_EXPIRED';
     public const WISHLIST_IS_NOT_ACTIVATED = 'CHECKOUT__WISHLIST_IS_NOT_ACTIVATED';
-    public const WISHLIST_NOT_FOUND = 'CHECKOUT__WISHLIST_NOT_FOUND';
     public const COUNTRY_NOT_FOUND = 'CHECKOUT__CUSTOMER_COUNTRY_NOT_FOUND';
-    public const DUPLICATE_WISHLIST_PRODUCT = 'CHECKOUT__DUPLICATE_WISHLIST_PRODUCT';
     public const LEGACY_PASSWORD_ENCODER_NOT_FOUND = 'CHECKOUT__LEGACY_PASSWORD_ENCODER_NOT_FOUND';
     public const NO_HASH_PROVIDED = 'CHECKOUT__NO_HASH_PROVIDED';
     public const WISHLIST_PRODUCT_NOT_FOUND = 'CHECKOUT__WISHLIST_PRODUCT_NOT_FOUND';
     public const CUSTOMER_AUTH_THROTTLED = 'CHECKOUT__CUSTOMER_AUTH_THROTTLED';
-    public const CUSTOMER_OPTIN_NOT_COMPLETED = 'CHECKOUT__CUSTOMER_OPTIN_NOT_COMPLETED';
     public const CUSTOMER_CHANGE_PAYMENT_ERROR = 'CHECKOUT__CUSTOMER_CHANGE_PAYMENT_METHOD_NOT_FOUND';
     public const CUSTOMER_GUEST_AUTH_INVALID = 'CHECKOUT__CUSTOMER_AUTH_INVALID';
     public const IMITATE_CUSTOMER_INVALID_TOKEN = 'CHECKOUT__IMITATE_CUSTOMER_INVALID_TOKEN';
@@ -61,10 +52,6 @@ class CustomerException extends HttpException
     public const OPERATOR_NOT_SUPPORTED = 'CHECKOUT__CUSTOMER_RULE_OPERATOR_NOT_SUPPORTED';
     public const VALUE_NOT_SUPPORTED = 'CONTENT__RULE_VALUE_NOT_SUPPORTED';
     public const MISSING_REQUEST_PARAMETER_CODE = 'CONTENT__MISSING_REQUEST_PARAMETER_CODE';
-    /**
-     * @deprecated tag:v6.8.0 - Use MISSING_OPTION instead
-     */
-    public const MISSING_OPTIONS = 'CONTENT__MISSING_OPTIONS';
     public const UNEXPECTED_TYPE = 'CHECKOUT__UNEXPECTED_TYPE';
     public const MISSING_OPTION = 'CONTENT__MISSING_OPTION';
     public const INVALID_OPTION = 'CONTENT__INVALID_OPTION';
@@ -346,15 +333,8 @@ class CustomerException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function missingOption(string $option, string $constraint): self|MissingOptionsException
+    public static function missingOption(string $option, string $constraint): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new MissingOptionsException(\sprintf('Option "%s" must be given for constraint %s', $option, $constraint), ['context']);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::MISSING_OPTION,
@@ -363,15 +343,8 @@ class CustomerException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function unexpectedType(Constraint $constraint, string $class): self|UnexpectedTypeException
+    public static function unexpectedType(Constraint $constraint, string $class): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new UnexpectedTypeException($constraint, CustomerEmailUnique::class);
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::UNEXPECTED_TYPE,
@@ -380,15 +353,8 @@ class CustomerException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function invalidOption(string $option, string $type, string $constraint): self|\InvalidArgumentException
+    public static function invalidOption(string $option, string $type, string $constraint): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \InvalidArgumentException(\sprintf('Option "%s" must be of type "%s" for constraint %s', $option, $type, $constraint));
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::INVALID_OPTION,

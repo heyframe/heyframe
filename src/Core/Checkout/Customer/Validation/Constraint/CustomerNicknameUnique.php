@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Checkout\Customer\Validation\Constraint;
 
-use HeyFrame\Core\Checkout\Customer\CustomerException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
 #[Package('checkout')]
@@ -21,17 +21,14 @@ class CustomerNicknameUnique extends Constraint
     protected ChannelContext $channelContext;
 
     /**
-     * @param array{channelContext: ChannelContext} $options
-     *
      * @internal
      */
-    public function __construct(array $options)
+    #[HasNamedArguments]
+    public function __construct(ChannelContext $channelContext, string $message = 'The nickname {{ nickname }} is already in use.')
     {
-        if (!($options['channelContext'] ?? null) instanceof ChannelContext) {
-            throw CustomerException::missingOption('channelContext', self::class);
-        }
-
-        parent::__construct($options);
+        parent::__construct();
+        $this->channelContext = $channelContext;
+        $this->message = $message;
     }
 
     public function getChannelContext(): ChannelContext
