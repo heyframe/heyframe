@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState;
 
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCapture\OrderTransactionCaptureCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefund\OrderTransactionCaptureRefundCollection;
@@ -42,8 +41,6 @@ class StateMachineStateEntity extends Entity
     protected ?OrderTransactionCaptureRefundCollection $orderTransactionCaptureRefunds = null;
 
     protected ?OrderTransactionCollection $orderTransactions = null;
-
-    protected ?OrderDeliveryCollection $orderDeliveries = null;
 
     protected ?StateMachineHistoryCollection $fromStateMachineHistoryEntries = null;
 
@@ -177,15 +174,5 @@ class StateMachineStateEntity extends Entity
     public function setOrderTransactions(OrderTransactionCollection $orderTransactions): void
     {
         $this->orderTransactions = $orderTransactions;
-    }
-
-    public function getOrderDeliveries(): ?OrderDeliveryCollection
-    {
-        return $this->orderDeliveries;
-    }
-
-    public function setOrderDeliveries(OrderDeliveryCollection $orderDeliveries): void
-    {
-        $this->orderDeliveries = $orderDeliveries;
     }
 }

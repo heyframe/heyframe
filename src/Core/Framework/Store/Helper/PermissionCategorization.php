@@ -60,7 +60,6 @@ use HeyFrame\Core\System\Channel\Aggregate\ChannelCurrency\ChannelCurrencyDefini
 use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainDefinition;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelLanguage\ChannelLanguageDefinition;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelPaymentMethod\ChannelPaymentMethodDefinition;
-use HeyFrame\Core\System\Channel\Aggregate\ChannelShippingMethod\ChannelShippingMethodDefinition;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelTranslation\ChannelTranslationDefinition;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelType\ChannelTypeDefinition;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelTypeTranslation\ChannelTypeTranslationDefinition;
@@ -208,7 +207,6 @@ class PermissionCategorization
             ChannelDomainDefinition::ENTITY_NAME,
             ChannelLanguageDefinition::ENTITY_NAME,
             ChannelPaymentMethodDefinition::ENTITY_NAME,
-            ChannelShippingMethodDefinition::ENTITY_NAME,
             ChannelTranslationDefinition::ENTITY_NAME,
             ChannelTypeDefinition::ENTITY_NAME,
             ChannelTypeTranslationDefinition::ENTITY_NAME,

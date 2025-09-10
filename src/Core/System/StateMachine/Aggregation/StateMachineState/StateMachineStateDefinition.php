@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState;
 
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCapture\OrderTransactionCaptureDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefund\OrderTransactionCaptureRefundDefinition;
@@ -66,7 +65,6 @@ class StateMachineStateDefinition extends EntityDefinition
 
             (new TranslationsAssociationField(StateMachineStateTranslationDefinition::class, 'state_machine_state_id'))->addFlags(new Required(), new CascadeDelete()),
             new OneToManyAssociationField('orderTransactions', OrderTransactionDefinition::class, 'state_id'),
-            new OneToManyAssociationField('orderDeliveries', OrderDeliveryDefinition::class, 'state_id'),
             new OneToManyAssociationField('orders', OrderDefinition::class, 'state_id'),
             new OneToManyAssociationField('orderTransactionCaptures', OrderTransactionCaptureDefinition::class, 'state_id'),
             new OneToManyAssociationField('orderTransactionCaptureRefunds', OrderTransactionCaptureRefundDefinition::class, 'state_id'),

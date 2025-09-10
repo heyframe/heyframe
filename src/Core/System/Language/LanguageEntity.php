@@ -4,38 +4,17 @@ namespace HeyFrame\Core\System\Language;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupTranslation\CustomerGroupTranslationCollection;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
-use HeyFrame\Core\Checkout\Document\Aggregate\DocumentTypeTranslation\DocumentTypeTranslationCollection;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationCollection;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionTranslation\PromotionTranslationCollection;
-use HeyFrame\Core\Checkout\Shipping\Aggregate\ShippingMethodTranslation\ShippingMethodTranslationCollection;
 use HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTranslationCollection;
-use HeyFrame\Core\Content\Cms\Aggregate\CmsPageTranslation\CmsPageTranslationEntity;
-use HeyFrame\Core\Content\Cms\Aggregate\CmsSlotTranslation\CmsSlotTranslationEntity;
-use HeyFrame\Core\Content\ImportExport\ImportExportProfileTranslationCollection;
-use HeyFrame\Core\Content\LandingPage\Aggregate\LandingPageTranslation\LandingPageTranslationCollection;
-use HeyFrame\Core\Content\MailTemplate\Aggregate\MailHeaderFooter\MailHeaderFooterCollection;
-use HeyFrame\Core\Content\MailTemplate\Aggregate\MailTemplateType\MailTemplateTypeDefinition;
-use HeyFrame\Core\Content\MailTemplate\MailTemplateCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaTranslation\MediaTranslationCollection;
-use HeyFrame\Core\Content\Newsletter\Aggregate\NewsletterRecipient\NewsletterRecipientCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductCrossSellingTranslation\ProductCrossSellingTranslationCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductFeatureSetTranslation\ProductFeatureSetTranslationCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductKeywordDictionary\ProductKeywordDictionaryCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductManufacturerTranslation\ProductManufacturerTranslationCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
-use HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfig\ProductSearchConfigEntity;
-use HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationCollection;
-use HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingTranslationCollection;
-use HeyFrame\Core\Content\ProductStream\Aggregate\ProductStreamTranslation\ProductStreamTranslationCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOptionTranslation\PropertyGroupOptionTranslationCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupTranslation\PropertyGroupTranslationCollection;
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\App\Aggregate\ActionButtonTranslation\ActionButtonTranslationCollection;
 use HeyFrame\Core\Framework\App\Aggregate\AppScriptConditionTranslation\AppScriptConditionTranslationCollection;
 use HeyFrame\Core\Framework\App\Aggregate\AppTranslation\AppTranslationCollection;
-use HeyFrame\Core\Framework\App\Aggregate\CmsBlockTranslation\AppCmsBlockTranslationCollection;
 use HeyFrame\Core\Framework\App\Aggregate\FlowActionTranslation\AppFlowActionTranslationCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
@@ -51,17 +30,12 @@ use HeyFrame\Core\System\Channel\ChannelCollection;
 use HeyFrame\Core\System\Country\Aggregate\CountryStateTranslation\CountryStateTranslationCollection;
 use HeyFrame\Core\System\Country\Aggregate\CountryTranslation\CountryTranslationCollection;
 use HeyFrame\Core\System\Currency\Aggregate\CurrencyTranslation\CurrencyTranslationCollection;
-use HeyFrame\Core\System\DeliveryTime\DeliveryTimeCollection;
 use HeyFrame\Core\System\Locale\Aggregate\LocaleTranslation\LocaleTranslationCollection;
 use HeyFrame\Core\System\Locale\LocaleEntity;
 use HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeTranslation\NumberRangeTranslationCollection;
 use HeyFrame\Core\System\NumberRange\Aggregate\NumberRangeTypeTranslation\NumberRangeTypeTranslationCollection;
-use HeyFrame\Core\System\Salutation\Aggregate\SalutationTranslation\SalutationTranslationCollection;
 use HeyFrame\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateTranslationCollection;
 use HeyFrame\Core\System\StateMachine\StateMachineTranslationCollection;
-use HeyFrame\Core\System\Tax\Aggregate\TaxRuleTypeTranslation\TaxRuleTypeTranslationCollection;
-use HeyFrame\Core\System\TaxProvider\Aggregate\TaxProviderTranslation\TaxProviderTranslationCollection;
-use HeyFrame\Core\System\Unit\Aggregate\UnitTranslation\UnitTranslationCollection;
 
 #[Package('fundamentals@discovery')]
 class LanguageEntity extends Entity
@@ -109,13 +83,7 @@ class LanguageEntity extends Entity
 
     protected ?PaymentMethodTranslationCollection $paymentMethodTranslations = null;
 
-    protected ?ProductManufacturerTranslationCollection $productManufacturerTranslations = null;
-
     protected ?ProductTranslationCollection $productTranslations = null;
-
-    protected ?ShippingMethodTranslationCollection $shippingMethodTranslations = null;
-
-    protected ?UnitTranslationCollection $unitTranslations = null;
 
     protected ?PropertyGroupTranslationCollection $propertyGroupTranslations = null;
 
@@ -125,13 +93,9 @@ class LanguageEntity extends Entity
 
     protected ?ChannelTypeTranslationCollection $channelTypeTranslations = null;
 
-    protected ?SalutationTranslationCollection $salutationTranslations = null;
-
     protected ?ChannelDomainCollection $channelDomains = null;
 
     protected ?PluginTranslationCollection $pluginTranslations = null;
-
-    protected ?ProductStreamTranslationCollection $productStreamTranslations = null;
 
     protected ?StateMachineTranslationCollection $stateMachineTranslations = null;
 
@@ -142,74 +106,24 @@ class LanguageEntity extends Entity
      */
     protected ?EntityCollection $cmsPageTranslations = null;
 
-    /**
-     * @var EntityCollection<CmsSlotTranslationEntity>|null
-     */
-    protected ?EntityCollection $cmsSlotTranslations = null;
-
-    protected ?MailTemplateCollection $mailTemplateTranslations = null;
-
-    protected ?MailHeaderFooterCollection $mailHeaderFooterTranslations = null;
-
-    protected ?DocumentTypeTranslationCollection $documentTypeTranslations = null;
-
-    protected ?DeliveryTimeCollection $deliveryTimeTranslations = null;
-
-    protected ?NewsletterRecipientCollection $newsletterRecipients = null;
 
     protected ?OrderCollection $orders = null;
 
     protected ?NumberRangeTypeTranslationCollection $numberRangeTypeTranslations = null;
 
-    protected ?ProductSearchKeywordCollection $productSearchKeywords = null;
-
-    protected ?ProductKeywordDictionaryCollection $productKeywordDictionaries = null;
-
-    protected ?MailTemplateTypeDefinition $mailTemplateTypeTranslations = null;
-
     protected ?PromotionTranslationCollection $promotionTranslations = null;
 
     protected ?NumberRangeTranslationCollection $numberRangeTranslations = null;
 
-    protected ?ProductReviewCollection $productReviews = null;
-
-    protected ?SeoUrlCollection $seoUrlTranslations = null;
-
-    protected ?TaxRuleTypeTranslationCollection $taxRuleTypeTranslations = null;
-
-    protected ?ProductCrossSellingTranslationCollection $productCrossSellingTranslations = null;
-
-    protected ?ImportExportProfileTranslationCollection $importExportProfileTranslations = null;
-
-    protected ?ProductFeatureSetTranslationCollection $productFeatureSetTranslations = null;
 
     protected ?AppTranslationCollection $appTranslations = null;
 
     protected ?ActionButtonTranslationCollection $actionButtonTranslations = null;
 
-    protected ?ProductSortingTranslationCollection $productSortingTranslations = null;
-
-    protected ?ProductSearchConfigEntity $productSearchConfig = null;
-
-    protected ?LandingPageTranslationCollection $landingPageTranslations = null;
-
-    protected ?AppCmsBlockTranslationCollection $appCmsBlockTranslations = null;
 
     protected ?AppScriptConditionTranslationCollection $appScriptConditionTranslations = null;
 
     protected ?AppFlowActionTranslationCollection $appFlowActionTranslations = null;
-
-    protected ?TaxProviderTranslationCollection $taxProviderTranslations = null;
-
-    public function getMailHeaderFooterTranslations(): ?MailHeaderFooterCollection
-    {
-        return $this->mailHeaderFooterTranslations;
-    }
-
-    public function setMailHeaderFooterTranslations(MailHeaderFooterCollection $mailHeaderFooterTranslations): void
-    {
-        $this->mailHeaderFooterTranslations = $mailHeaderFooterTranslations;
-    }
 
     public function getParentId(): ?string
     {
@@ -381,15 +295,6 @@ class LanguageEntity extends Entity
         $this->paymentMethodTranslations = $paymentMethodTranslations;
     }
 
-    public function getProductManufacturerTranslations(): ?ProductManufacturerTranslationCollection
-    {
-        return $this->productManufacturerTranslations;
-    }
-
-    public function setProductManufacturerTranslations(ProductManufacturerTranslationCollection $productManufacturerTranslations): void
-    {
-        $this->productManufacturerTranslations = $productManufacturerTranslations;
-    }
 
     public function getProductTranslations(): ?ProductTranslationCollection
     {
@@ -399,26 +304,6 @@ class LanguageEntity extends Entity
     public function setProductTranslations(ProductTranslationCollection $productTranslations): void
     {
         $this->productTranslations = $productTranslations;
-    }
-
-    public function getShippingMethodTranslations(): ?ShippingMethodTranslationCollection
-    {
-        return $this->shippingMethodTranslations;
-    }
-
-    public function setShippingMethodTranslations(ShippingMethodTranslationCollection $shippingMethodTranslations): void
-    {
-        $this->shippingMethodTranslations = $shippingMethodTranslations;
-    }
-
-    public function getUnitTranslations(): ?UnitTranslationCollection
-    {
-        return $this->unitTranslations;
-    }
-
-    public function setUnitTranslations(UnitTranslationCollection $unitTranslations): void
-    {
-        $this->unitTranslations = $unitTranslations;
     }
 
     public function getChannels(): ?ChannelCollection
@@ -449,16 +334,6 @@ class LanguageEntity extends Entity
     public function setChannelDefaultAssignments(ChannelCollection $channelDefaultAssignments): void
     {
         $this->channelDefaultAssignments = $channelDefaultAssignments;
-    }
-
-    public function getSalutationTranslations(): ?SalutationTranslationCollection
-    {
-        return $this->salutationTranslations;
-    }
-
-    public function setSalutationTranslations(SalutationTranslationCollection $salutationTranslations): void
-    {
-        $this->salutationTranslations = $salutationTranslations;
     }
 
     public function getPropertyGroupTranslations(): ?PropertyGroupTranslationCollection
@@ -519,16 +394,6 @@ class LanguageEntity extends Entity
     public function setPluginTranslations(PluginTranslationCollection $pluginTranslations): void
     {
         $this->pluginTranslations = $pluginTranslations;
-    }
-
-    public function getProductStreamTranslations(): ?ProductStreamTranslationCollection
-    {
-        return $this->productStreamTranslations;
-    }
-
-    public function setProductStreamTranslations(ProductStreamTranslationCollection $productStreamTranslations): void
-    {
-        $this->productStreamTranslations = $productStreamTranslations;
     }
 
     /**

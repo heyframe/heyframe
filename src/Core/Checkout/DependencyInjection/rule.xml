@@ -224,10 +224,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\ShippingMethodRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemGoodsTotalRule">
             <tag name="heyframe.rule.definition"/>
         </service>

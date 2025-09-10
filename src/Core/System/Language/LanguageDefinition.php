@@ -14,7 +14,6 @@ use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupTranslation\PropertyGr
 use HeyFrame\Core\Framework\App\Aggregate\ActionButtonTranslation\ActionButtonTranslationDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\AppScriptConditionTranslation\AppScriptConditionTranslationDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\AppTranslation\AppTranslationDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\CmsBlockTranslation\AppCmsBlockTranslationDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\FlowActionTranslation\AppFlowActionTranslationDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
@@ -128,7 +127,6 @@ class LanguageDefinition extends EntityDefinition
             (new OneToManyAssociationField('numberRangeTranslations', NumberRangeTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('appTranslations', AppTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('actionButtonTranslations', ActionButtonTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('appCmsBlockTranslations', AppCmsBlockTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('appScriptConditionTranslations', AppScriptConditionTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('appFlowActionTranslations', AppFlowActionTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
         ]);

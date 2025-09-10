@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Field;
 
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
 use HeyFrame\Core\Content\ImportExport\ImportExportException;
 use HeyFrame\Core\Content\ImportExport\Struct\Config;
@@ -59,7 +58,7 @@ class FieldSerializer extends AbstractFieldSerializer
         }
 
         if ($field instanceof AssociationField) {
-            if ($value === null || !\in_array($field->getReferenceClass(), [OrderDeliveryDefinition::class, OrderTransactionDefinition::class], true)) {
+            if ($value === null || !\in_array($field->getReferenceClass(), [OrderTransactionDefinition::class], true)) {
                 return;
             }
 
