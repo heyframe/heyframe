@@ -90,7 +90,6 @@ class LineItemPurchasePriceRuleTest extends TestCase
         bool $noPrice = false
     ): void {
         $this->rule->assign([
-            'isNet' => false,
             'amount' => $amount,
             'operator' => $operator,
         ]);
@@ -219,7 +218,6 @@ class LineItemPurchasePriceRuleTest extends TestCase
         ?float $containerLineItemPrice = null
     ): void {
         $this->rule->assign([
-            'isNet' => true,
             'amount' => $amount,
             'operator' => $operator,
         ]);
