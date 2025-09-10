@@ -3,12 +3,9 @@
 namespace HeyFrame\Core\Framework\Store;
 
 use GuzzleHttp\Exception\ClientException;
-use HeyFrame\Core\Framework\Api\Context\Exception\InvalidContextSourceUserException;
 use HeyFrame\Core\Framework\App\AppException;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Plugin\Exception\PluginNotAZipFileException;
 use HeyFrame\Core\Framework\Store\Exception\ExtensionNotFoundException;
 use HeyFrame\Core\Framework\Store\Exception\ExtensionUpdateRequiresConsentAffirmationException;
 use HeyFrame\Core\Framework\Store\Exception\StoreApiException;
@@ -125,15 +122,8 @@ class StoreException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
     public static function jwksNotFound(?\Throwable $e = null): self|AppException
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return AppException::jwksNotFound($e);
-        }
-
         return new self(
             statusCode: Response::HTTP_INTERNAL_SERVER_ERROR,
             errorCode: self::JWKS_KEY_NOT_FOUND,
@@ -176,15 +166,9 @@ class StoreException extends HttpException
         return new StoreApiException($exception);
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function pluginNotAZipFile(string $mimeType): self|PluginNotAZipFileException
-    {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new PluginNotAZipFileException($mimeType);
-        }
 
+    public static function pluginNotAZipFile(string $mimeType): self
+    {
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::PLUGIN_NOT_A_ZIP_FILE,
@@ -193,15 +177,9 @@ class StoreException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will only return self
-     */
-    public static function invalidContextSourceUser(string $contextSource): self|InvalidContextSourceUserException
-    {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new InvalidContextSourceUserException($contextSource);
-        }
 
+    public static function invalidContextSourceUser(string $contextSource): self
+    {
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::INVALID_CONTEXT_SOURCE_USER,

@@ -6,7 +6,6 @@ use Composer\Autoload\ClassLoader;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Parameter\AdditionalBundleParameters;
 use HeyFrame\Core\Framework\Plugin;
-use HeyFrame\Core\Framework\Plugin\Exception\KernelPluginLoaderException;
 use HeyFrame\Core\Framework\Plugin\KernelPluginCollection;
 use HeyFrame\Core\Framework\Plugin\PluginException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -102,9 +101,6 @@ abstract class KernelPluginLoader extends Bundle
         }
     }
 
-    /**
-     * @throws KernelPluginLoaderException
-     */
     final public function initializePlugins(string $projectDir): void
     {
         if ($this->initialized) {
