@@ -37,10 +37,6 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="HeyFrame\Core\System\Language\LanguageExceptionHandler">
-            <tag name="heyframe.dal.exception_handler"/>
-        </service>
-
         <service id="HeyFrame\Core\System\Language\Channel\LanguageRoute" public="true">
             <argument type="service" id="channel.language.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
