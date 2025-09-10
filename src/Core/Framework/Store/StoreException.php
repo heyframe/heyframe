@@ -166,7 +166,6 @@ class StoreException extends HttpException
         return new StoreApiException($exception);
     }
 
-
     public static function pluginNotAZipFile(string $mimeType): self
     {
         return new self(
@@ -176,7 +175,6 @@ class StoreException extends HttpException
             ['mimeType' => $mimeType]
         );
     }
-
 
     public static function invalidContextSourceUser(string $contextSource): self
     {
