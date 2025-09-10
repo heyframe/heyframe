@@ -2,10 +2,7 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
-use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Exception\FieldAccessorBuilderNotFoundException;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Exception\InvalidSortingDirectionException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Exception\ParentAssociationCanNotBeFetched;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Exception\UnmappedFieldException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\DefinitionNotFoundException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\EntityRepositoryNotFoundException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\ImpossibleWriteOrderException;
@@ -22,7 +19,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\DateH
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteTypeIntendException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\ExpectedArrayException;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
@@ -792,10 +788,6 @@ class DataAbstractionLayerException extends HttpException
 
     public static function invalidSortingDirection(string $direction): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new InvalidSortingDirectionException($direction);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::INVALID_SORT_DIRECTION,
@@ -813,15 +805,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function unmappedField(string $field, EntityDefinition $definition): self|UnmappedFieldException
+    public static function unmappedField(string $field, EntityDefinition $definition): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new UnmappedFieldException($field, $definition);
-        }
-
         $fieldParts = explode('.', $field);
         $name = array_pop($fieldParts);
 
@@ -833,15 +818,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function unexpectedFieldType(string $field, string $expectedField): self|\RuntimeException
+    public static function unexpectedFieldType(string $field, string $expectedField): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \RuntimeException(\sprintf('Expected field "%s" to be instance of %s', $field, $expectedField));
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_UNEXPECTED_FIELD_TYPE,
@@ -850,12 +828,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function invalidIdentifier(string $identifier): self|\InvalidArgumentException
+    public static function invalidIdentifier(string $identifier): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \InvalidArgumentException('Backtick not allowed in identifier');
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::DBAL_INVALID_IDENTIFIER,
@@ -864,12 +838,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function missingVersionField(string $definitionClass): self|\RuntimeException
+    public static function missingVersionField(string $definitionClass): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \RuntimeException('Missing `VersionField` in `' . $definitionClass . '`');
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_MISSING_VERSION_FIELD,
@@ -878,12 +848,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function noTranslationDefinition(string $entityName): self|\RuntimeException
+    public static function noTranslationDefinition(string $entityName): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \RuntimeException(\sprintf('Entity %s has no translation definition', $entityName));
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_NO_TRANSLATION_DEFINITION,
@@ -892,12 +858,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function missingTranslatedStorageAwareProperty(string $propertyName, string $translationEntityName): self|\RuntimeException
+    public static function missingTranslatedStorageAwareProperty(string $propertyName, string $translationEntityName): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \RuntimeException(\sprintf('Missing translated storage aware property %s in %s', $propertyName, $translationEntityName));
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_MISSING_TRANSLATED_STORAGE_AWARE_PROPERTY,
@@ -906,12 +868,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function primaryKeyNotStorageAware(): self|\RuntimeException
+    public static function primaryKeyNotStorageAware(): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \RuntimeException('Primary key fields has to be an instance of StorageAware');
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_PRIMARY_KEY_NOT_STORAGE_AWARE,
@@ -919,12 +877,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function onlyStorageAwareFieldsInReadCondition(): self|\RuntimeException
+    public static function onlyStorageAwareFieldsInReadCondition(): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \RuntimeException('Only storage aware fields are supported in read condition');
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_ONLY_STORAGE_AWARE_FIELDS_IN_READ_CONDITION,
@@ -932,12 +886,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function onlyStorageAwareFieldsAsTranslated(): self|\RuntimeException
+    public static function onlyStorageAwareFieldsAsTranslated(): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \RuntimeException('Only storage aware fields are supported as translated field');
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_ONLY_STORAGE_AWARE_FIELDS_AS_TRANSLATED,
@@ -945,12 +895,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function fieldAccessorBuilderNotFound(string $propertyName): self|FieldAccessorBuilderNotFoundException
+    public static function fieldAccessorBuilderNotFound(string $propertyName): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new FieldAccessorBuilderNotFoundException($propertyName);
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_FIELD_ACCESSOR_BUILDER_NOT_FOUND,
@@ -959,12 +905,8 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function cannotBuildAccessor(string $propertyName, string $root): self|\RuntimeException
+    public static function cannotBuildAccessor(string $propertyName, string $root): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new \RuntimeException(\sprintf('Can not build accessor for field "%s" on root "%s"', $propertyName, $root));
-        }
-
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             self::DBAL_CANNOT_BUILD_ACCESSOR,
