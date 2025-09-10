@@ -96,7 +96,7 @@ class LineItemPurchasePriceRuleTest extends TestCase
 
         $lineItem = $this->createLineItem();
         if ($lineItemPurchasePriceGross !== null && !$noPrice) {
-            $lineItem = $this->createLineItemWithPurchasePrice(0, $lineItemPurchasePriceGross);
+            $lineItem = $this->createLineItemWithPurchasePrice($lineItemPurchasePriceGross);
         }
 
         $match = $this->rule->match(new LineItemScope(
@@ -124,7 +124,7 @@ class LineItemPurchasePriceRuleTest extends TestCase
             $lineItem = $this->createLineItem();
             $lineItem->setPayloadValue('purchasePrices', null);
         } else {
-            $lineItem = $this->createLineItemWithPurchasePrice($lineItemPurchasePriceNet);
+            $lineItem = $this->createLineItemWithPurchasePrice();
             if ($noPrice) {
                 $lineItem = $this->createLineItem();
             }
@@ -182,12 +182,12 @@ class LineItemPurchasePriceRuleTest extends TestCase
             'operator' => $operator,
         ]);
 
-        $lineItem1 = $this->createLineItemWithPurchasePrice($lineItemPurchasePrice1);
+        $lineItem1 = $this->createLineItemWithPurchasePrice();
         if ($lineItem1WithoutPrice) {
             $lineItem1 = $this->createLineItem();
         }
 
-        $lineItem2 = $this->createLineItemWithPurchasePrice($lineItemPurchasePrice2);
+        $lineItem2 = $this->createLineItemWithPurchasePrice();
         if ($lineItem2WithoutPrice) {
             $lineItem2 = $this->createLineItem();
         }
@@ -222,12 +222,12 @@ class LineItemPurchasePriceRuleTest extends TestCase
             'operator' => $operator,
         ]);
 
-        $lineItem1 = $this->createLineItemWithPurchasePrice($lineItemPurchasePrice1);
+        $lineItem1 = $this->createLineItemWithPurchasePrice();
         if ($lineItem1WithoutPrice) {
             $lineItem1 = $this->createLineItem();
         }
 
-        $lineItem2 = $this->createLineItemWithPurchasePrice($lineItemPurchasePrice2);
+        $lineItem2 = $this->createLineItemWithPurchasePrice();
         if ($lineItem2WithoutPrice) {
             $lineItem2 = $this->createLineItem();
         }
@@ -239,7 +239,7 @@ class LineItemPurchasePriceRuleTest extends TestCase
 
         $containerLineItem = $this->createLineItem();
         if ($containerLineItemPrice !== null) {
-            $containerLineItem = $this->createLineItemWithPurchasePrice($containerLineItemPrice);
+            $containerLineItem = $this->createLineItemWithPurchasePrice();
         }
         $containerLineItem->setType(LineItem::CONTAINER_LINE_ITEM);
         $containerLineItem->setChildren($lineItemCollection);
@@ -296,7 +296,6 @@ class LineItemPurchasePriceRuleTest extends TestCase
     }
 
     private function createLineItemWithPurchasePrice(
-        float $purchasePriceNet = 0,
         float $purchasePriceGross = 0
     ): LineItem {
         return $this->createLineItem()->setPayloadValue(
