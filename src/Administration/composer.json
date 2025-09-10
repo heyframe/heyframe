@@ -2,7 +2,7 @@
     "name": "heyframe/administration",
     "description": "Administration frontend for the HeyFrame Core",
     "type": "library",
-    "license": "Apache-2.0",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "HeyFrame\\Administration\\": ""
