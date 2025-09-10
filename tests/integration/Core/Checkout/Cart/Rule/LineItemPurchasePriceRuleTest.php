@@ -171,8 +171,6 @@ class LineItemPurchasePriceRuleTest extends TestCase
     public function testIfMatchesCorrectWithCartRuleScopePurchasePrice(
         string $operator,
         float $amount,
-        float $lineItemPurchasePrice1,
-        float $lineItemPurchasePrice2,
         bool $expected,
         bool $lineItem1WithoutPrice = false,
         bool $lineItem2WithoutPrice = false
@@ -210,8 +208,6 @@ class LineItemPurchasePriceRuleTest extends TestCase
     public function testIfMatchesCorrectWithCartRuleScopePurchasePriceNested(
         string $operator,
         float $amount,
-        float $lineItemPurchasePrice1,
-        float $lineItemPurchasePrice2,
         bool $expected,
         bool $lineItem1WithoutPrice = false,
         bool $lineItem2WithoutPrice = false,
@@ -259,28 +255,28 @@ class LineItemPurchasePriceRuleTest extends TestCase
     public static function getCartRuleScopeTestData(): \Traversable
     {
         // OPERATOR_EQ
-        yield 'no match / operator equals / different price' => [Rule::OPERATOR_EQ, 200, 100, 300, false];
+        yield 'no match / operator equals / different price' => [Rule::OPERATOR_EQ, 200, false];
         // OPERATOR_NEQ
-        yield 'match / operator not equals / different prices' => [Rule::OPERATOR_NEQ, 200, 100, 200, true];
-        yield 'match / operator not equals / different prices 2' => [Rule::OPERATOR_NEQ, 200, 100, 300, true];
+        yield 'match / operator not equals / different prices' => [Rule::OPERATOR_NEQ, 200,  true];
+        yield 'match / operator not equals / different prices 2' => [Rule::OPERATOR_NEQ, 200, true];
         // OPERATOR_GT
-        yield 'no match / operator greater than / lower price' => [Rule::OPERATOR_GT, 100, 50, 70, false];
-        yield 'no match / operator greater than / same price' => [Rule::OPERATOR_GT, 100, 100, 70, false];
+        yield 'no match / operator greater than / lower price' => [Rule::OPERATOR_GT, 100, false];
+        yield 'no match / operator greater than / same price' => [Rule::OPERATOR_GT, 100,  false];
         // OPERATOR_GTE
-        yield 'no match / operator greater than equals / lower price' => [Rule::OPERATOR_GTE, 100, 50, 70, false];
+        yield 'no match / operator greater than equals / lower price' => [Rule::OPERATOR_GTE, 100,  false];
         // OPERATOR_LT
-        yield 'match / operator lower than / lower price' => [Rule::OPERATOR_LT, 100, 50, 120, true];
+        yield 'match / operator lower than / lower price' => [Rule::OPERATOR_LT, 100, true];
         // OPERATOR_LTE
-        yield 'match / operator lower than equals / lower price' => [Rule::OPERATOR_LTE, 100, 50, 120, true];
-        yield 'match / operator lower than equals / same price' => [Rule::OPERATOR_LTE, 100, 100, 120, true];
+        yield 'match / operator lower than equals / lower price' => [Rule::OPERATOR_LTE, 100, true];
+        yield 'match / operator lower than equals / same price' => [Rule::OPERATOR_LTE, 100,  true];
 
-        yield 'match / operator empty / item 1 and 2 without price' => [Rule::OPERATOR_EMPTY, 200, 100, 300, true, true, true];
-        yield 'match / operator empty / item 1 without price' => [Rule::OPERATOR_EMPTY, 100, 100, 100, true, true];
-        yield 'match / operator empty / item 2 without price' => [Rule::OPERATOR_EMPTY, 100, 100, 100, true, false, true];
+        yield 'match / operator empty / item 1 and 2 without price' => [Rule::OPERATOR_EMPTY, 200,  true, true, true];
+        yield 'match / operator empty / item 1 without price' => [Rule::OPERATOR_EMPTY, 100, true, true];
+        yield 'match / operator empty / item 2 without price' => [Rule::OPERATOR_EMPTY, 100,  true, false, true];
 
-        yield 'match / operator not equals / item 1 and 2 without price' => [Rule::OPERATOR_NEQ, 200, 100, 300, true, true, true];
-        yield 'match / operator not equals / item 1 without price' => [Rule::OPERATOR_NEQ, 100, 100, 100, true, true];
-        yield 'match / operator not equals / item 2 without price' => [Rule::OPERATOR_NEQ, 100, 100, 100, true, false, true];
+        yield 'match / operator not equals / item 1 and 2 without price' => [Rule::OPERATOR_NEQ, 200,  true, true, true];
+        yield 'match / operator not equals / item 1 without price' => [Rule::OPERATOR_NEQ, 100,  true, true];
+        yield 'match / operator not equals / item 2 without price' => [Rule::OPERATOR_NEQ, 100,  true, false, true];
     }
 
     public function testMatchWithEmptyPurchasePricePayload(): void
