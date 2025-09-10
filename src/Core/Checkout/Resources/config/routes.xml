@@ -12,7 +12,6 @@
     <import resource="../../Order/Api/**/*Controller.php" type="attribute" />
     <import resource="../../Customer/Channel/**/*Route.php" type="attribute" />
     <import resource="../../Payment/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Customer/Api/**/*Controller.php" type="attribute" />
     <import resource="../../Customer/Channel/**/*Route.php" type="attribute" />
     <import resource="../../Order/Channel/**/*Route.php" type="attribute" />
     <import resource="../../Cart/Channel/**/*Route.php" type="attribute" />

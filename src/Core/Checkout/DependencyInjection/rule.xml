@@ -80,10 +80,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\CustomerRequestedGroupRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\Rule\CustomerTagRule">
             <tag name="heyframe.rule.definition"/>
         </service>
@@ -105,14 +101,6 @@
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\Rule\CartTotalPurchasePriceRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\IsGuestCustomerRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\IsNewsletterRecipientRule">
             <tag name="heyframe.rule.definition"/>
         </service>
 

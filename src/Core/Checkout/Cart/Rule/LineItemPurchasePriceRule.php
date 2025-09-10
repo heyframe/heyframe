@@ -25,7 +25,6 @@ class LineItemPurchasePriceRule extends Rule
     public function __construct(
         protected string $operator = self::OPERATOR_EQ,
         protected ?float $amount = null,
-        protected bool $isNet = true
     ) {
         parent::__construct();
     }
@@ -53,7 +52,6 @@ class LineItemPurchasePriceRule extends Rule
     {
         $constraints = [
             'operator' => RuleConstraints::numericOperators(),
-            'isNet' => RuleConstraints::bool(),
         ];
 
         if ($this->operator === self::OPERATOR_EMPTY) {
@@ -61,7 +59,6 @@ class LineItemPurchasePriceRule extends Rule
         }
 
         $constraints['amount'] = RuleConstraints::float();
-        $constraints['isNet'] = RuleConstraints::bool(true);
 
         return $constraints;
     }
@@ -85,10 +82,6 @@ class LineItemPurchasePriceRule extends Rule
         }
 
         $purchasePrice = json_decode($purchasePricePayload, true, 512, \JSON_THROW_ON_ERROR);
-
-        if ($this->isNet && \array_key_exists('net', $purchasePrice)) {
-            return $purchasePrice['net'];
-        }
 
         return $purchasePrice['gross'] ?? null;
     }
