@@ -1,0 +1,806 @@
+{% block sw_channel_detail_base %}
+<div class="sw-channel-detail-base">
+
+    {% block sw_channel_detail_base_general %}
+    <mt-card
+        v-if="channel"
+        position-identifier="sw-channel-detail-base-general"
+        :is-loading="isLoading"
+        :title="$tc('sw-channel.detail.titleGeneralSettings')"
+    >
+        {% block sw_channel_detail_base_general_input_product_comparison_template %}
+        <mt-select
+            v-if="isProductComparison"
+            v-model="templateName"
+            :disabled="!acl.can('channel.editor') || undefined"
+            :label="$tc('sw-channel.detail.productComparison.templates.label')"
+            :placeholder="$tc('sw-channel.detail.productComparison.templates.placeholderSelectTemplate')"
+            :options="templateSelectOptions"
+            @update:model-value="(templateName) => $emit('template-selected', templateName)"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_product_comparison_template_modal %}
+        <sw-modal
+            v-if="showTemplateModal"
+            :title="$tc('sw-channel.detail.productComparison.templates.modal-title')"
+            @modal-close="$emit('template-modal-close')"
+            @template-modal-confirm="$emit('template-modal-confirm')"
+        >
+            {% block sw_channel_detail_product_comparison_template_modal_notification %}
+            <p>{{ $tc('sw-channel.detail.productComparison.templates.modal-message') }}</p>
+
+            <template #modal-footer>
+                <mt-button
+                    size="small"
+                    variant="secondary"
+                    @click="$emit('template-modal-close')"
+                >
+                    {{ $tc('global.default.cancel') }}
+                </mt-button>
+                <mt-button
+                    size="small"
+                    variant="primary"
+                    @click="$emit('template-modal-confirm')"
+                >
+                    {{ $tc('sw-channel.detail.productComparison.templates.modal-confirm') }}
+                </mt-button>
+            </template>
+            {% endblock %}
+        </sw-modal>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_name %}
+
+        <mt-text-field
+            v-model="channel.name"
+            validation="required"
+            required
+            :disabled="!acl.can('channel.editor') || undefined"
+            :placeholder="placeholder(channel, 'name', $tc('sw-channel.detail.placeholderName'))"
+            :label="$tc('sw-channel.detail.labelInputName')"
+            :error="channelNameError"
+            class="sw-field--channel-name"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_favorite %}
+
+        <mt-switch
+            :disabled="!acl.can('user_config:create') || !acl.can('user_config:update') || channel._isNew"
+            :label="$tc('sw-channel.detail.favouriteLabel')"
+            :model-value="isFavorite()"
+            @update:model-value="(isFavorite) => { channelFavoritesService.update(isFavorite, channel.id) }"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_navigation_category_container %}
+        <sw-container
+            v-if="!isProductComparison"
+            columns="1fr 200px"
+            gap="0 30px"
+        >
+
+            {% block sw_channel_detail_base_general_input_navigation_category %}
+            <sw-category-tree-field
+                v-if="!isProductComparison"
+                id="navigationCategoryId"
+                required
+                :categories-collection="mainCategories"
+                :placeholder="navigationCategoryPlaceholder"
+                :single-select="true"
+                :label="$tc('sw-channel.detail.navigationCategoryId')"
+                :disabled="!acl.can('channel.editor') || undefined"
+                :help-text="$tc('sw-channel.detail.navigationCategoryHelpText')"
+                :error="channelNavigationCategoryIdError"
+                class="sw-channel-detail__select-navigation-category-id"
+                @selection-add="onMainSelectionAdd"
+                @selection-remove="onMainSelectionRemove"
+            />
+            {% endblock %}
+
+            {% block sw_channel_detail_base_general_input_navigation_category_depth %}
+            <mt-number-field
+                v-model="channel.navigationCategoryDepth"
+                number-type="int"
+                :min="1"
+                :disabled="!acl.can('channel.editor') || undefined"
+                :label="$tc('sw-channel.detail.navigationCategoryDepth')"
+            />
+            {% endblock %}
+        </sw-container>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_footer_category %}
+        <sw-category-tree-field
+            v-if="!isProductComparison"
+            :categories-collection="footerCategories"
+            :placeholder="footerCategoryPlaceholder"
+            :single-select="true"
+            :label="$tc('sw-channel.detail.footerCategory')"
+            :disabled="!acl.can('channel.editor')"
+            class="sw-channel-detail__select-footer-category-id"
+            @selection-add="onFooterSelectionAdd"
+            @selection-remove="onFooterSelectionRemove"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_service_category %}
+        <sw-category-tree-field
+            v-if="!isProductComparison"
+            :categories-collection="serviceCategories"
+            :placeholder="serviceCategoryPlaceholder"
+            :single-select="true"
+            :label="$tc('sw-channel.detail.serviceCategory')"
+            :disabled="!acl.can('channel.editor') || undefined"
+            class="sw-channel-detail__select-service-category-id"
+            @selection-add="onServiceSelectionAdd"
+            @selection-remove="onServiceSelectionRemove"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_customer_group %}
+        <sw-entity-single-select
+            v-if="!isProductComparison"
+            v-model:value="channel.customerGroupId"
+            class="sw-channel-detail__select-customer-group"
+            required
+            show-clearable-button
+            :label="$tc('sw-channel.detail.customerGroup')"
+            entity="customer_group"
+            :error="channelCustomerGroupIdError"
+            :disabled="!acl.can('channel.editor')"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_disabled_countries_warning %}
+        <mt-banner
+            v-if="disabledCountries.length > 0"
+            :variant="disabledCountryVariant"
+            :title="$tc('global.default.' + disabledCountryVariant)"
+        >
+            <span v-html="buildDisabledPaymentAlert('sw-channel.detail.warningDisabledCountries', disabledCountries)"></span>
+        </mt-banner>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_countries %}
+        <sw-channel-defaults-select
+            v-if="!isProductComparison"
+            :channel="channel"
+            property-name="countries"
+            :property-label="$tc('sw-channel.detail.labelInputCountries')"
+            :help-text="$tc('sw-channel.detail.countryMultiSelectHelpText')"
+            default-property-name="countryId"
+            :criteria="countryCriteria"
+            :disabled="!acl.can('channel.editor') || undefined"
+            :default-property-label="$tc('sw-channel.detail.labelInputDefaultCountry')"
+            :disabled-tooltip-message="$tc('sw-channel.detail.tooltipDisabledCountry')"
+            should-show-active-state
+        />
+        {% endblock %}
+
+        <mt-banner
+            v-if="unservedLanguages.length > 0"
+            :variant="unservedLanguageVariant"
+            :title="$tc('global.default.' + unservedLanguageVariant)"
+        >
+            <span v-html="buildUnservedLanguagesAlert('sw-channel.detail.warningUnservedLanguage', unservedLanguages)"></span>
+        </mt-banner>
+
+        {% block sw_channel_detail_base_general_input_languages %}
+        <sw-channel-defaults-select
+            v-if="!isProductComparison"
+            :channel="channel"
+            :criteria="languageCriteria"
+            property-name="languages"
+            :property-label="$tc('sw-channel.detail.labelInputLanguages')"
+            default-property-name="languageId"
+            :default-property-label="$tc('sw-channel.detail.labelInputDefaultLanguage')"
+            :disabled="!acl.can('channel.editor') || undefined"
+            property-name-in-domain="languageId"
+        />
+        {% endblock %}
+
+        <sw-channel-measurement
+            v-if="!isProductComparison"
+            :channel="channel"
+            :label-unit-system="$tc('sw-channel.detail.measurementSystem.labelDefaultUnitSystem')"
+            :label-length-unit="$tc('sw-channel.detail.measurementSystem.labelDefaultLengthUnit')"
+            :label-weight-unit="$tc('sw-channel.detail.measurementSystem.labelDefaultWeightUnit')"
+        />
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_channel_shipping_payment %}
+    <mt-card
+        v-if="channel"
+        position-identifier="sw-channel-detail-base-shipping-payment"
+        :is-loading="isLoading"
+        :title="$tc('sw-channel.detail.titleShippingPayment')"
+    >
+        {% block sw_channel_detail_base_disabled_payments_methods_warning %}
+        <mt-banner
+            v-if="disabledPaymentMethods.length > 0"
+            :variant="disabledPaymentMethodVariant"
+            :title="$tc('global.default.' + disabledPaymentMethodVariant)"
+        >
+            <span v-html="buildDisabledPaymentAlert('sw-channel.detail.warningDisabledPaymentMethod', disabledPaymentMethods, 'distinguishableName')"></span>
+        </mt-banner>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_payments_methods %}
+        <sw-channel-defaults-select
+            v-if="!isProductComparison"
+            :channel="channel"
+            property-name="paymentMethods"
+            :criteria="paymentMethodCriteria"
+            :property-label="$tc('sw-channel.detail.labelInputPaymentMethods')"
+            default-property-name="paymentMethodId"
+            :disabled="!acl.can('channel.editor') || undefined"
+            :default-property-label="$tc('sw-channel.detail.labelInputDefaultPaymentMethod')"
+            :disabled-tooltip-message="$tc('sw-channel.detail.tooltipDisabledPaymentMethod')"
+            should-show-active-state
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_disabled_shipping_methods_warning %}
+        <mt-banner
+            v-if="disabledShippingMethods.length > 0"
+            :variant="disabledShippingMethodVariant"
+            :title="$tc('global.default.' + disabledShippingMethodVariant)"
+        >
+            <span v-html="buildDisabledShippingAlert('sw-channel.detail.warningDisabledShippingMethod', disabledShippingMethods)"></span>
+        </mt-banner>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_shipping_methods %}
+        <sw-channel-defaults-select
+            v-if="!isProductComparison"
+            :channel="channel"
+            property-name="shippingMethods"
+            :property-label="$tc('sw-channel.detail.labelInputShippingMethods')"
+            default-property-name="shippingMethodId"
+            :disabled="!acl.can('channel.editor') || undefined"
+            :default-property-label="$tc('sw-channel.detail.labelInputDefaultShippingMethod')"
+            :disabled-tooltip-message="$tc('sw-channel.detail.tooltipDisabledShippingMethod')"
+            should-show-active-state
+            :criteria="shippingMethodCriteria"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_currencies %}
+        <sw-channel-defaults-select
+            v-if="!isProductComparison"
+            :channel="channel"
+            property-name="currencies"
+            :property-label="$tc('sw-channel.detail.labelInputCurrencies')"
+            default-property-name="currencyId"
+            :disabled="!acl.can('channel.editor') || undefined"
+            :default-property-label="$tc('sw-channel.detail.labelInputDefaultCurrency')"
+            property-name-in-domain="currencyId"
+            :criteria="currencyCriteria"
+        />
+        {% endblock %}
+
+        <sw-radio-field
+            v-model:value="channel.taxCalculationType"
+            :label="$tc('sw-channel.detail.labelTaxCalculation')"
+            :help-text="helpTextTaxCalculation"
+            block
+            class="sw-channel-detail__tax-calculation"
+            identification="taxCalculation"
+            :disabled="!acl.can('channel.editor') || undefined"
+            :description="$tc('sw-channel.detail.descriptionTaxCalculation')"
+            :options="taxCalculationTypeOptions"
+        />
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_channel_detail_base_options_hreflang %}
+    <sw-channel-detail-hreflang
+        v-if="channel && isStorefront"
+        :channel="channel"
+        :disabled="!acl.can('channel.editor') || undefined"
+        :is-loading="isLoading"
+    />
+    {% endblock %}
+
+    {% block sw_channel_detail_base_options_domains %}
+    <sw-channel-detail-domains
+        v-if="channel && isDomainAware"
+        :channel="channel"
+        :disable-edit="!acl.can('channel.editor') || undefined"
+        :is-loading="isLoading"
+    />
+    {% endblock %}
+
+    {% block sw_channel_detail_base_general_input_product_comparison_storefront %}
+    <mt-card
+        v-if="channel && isProductComparison"
+        position-identifier="sw-channel-detail-base-general-input-product-comparison-storefront"
+        :is-loading="isLoading"
+        :title="$tc('sw-channel.detail.productComparison.storefront')"
+    >
+        {% block sw_channel_detail_base_general_input_product_comparison_storefront_select %}
+        <sw-entity-single-select
+            v-model:value="productExport.storefrontChannelId"
+            class="sw-channel-detail__product-comparison-storefront"
+            :label="$tc('sw-channel.detail.productComparison.storefront')"
+            :criteria="storefrontChannelCriteria"
+            label-property="name"
+            :disabled="!acl.can('channel.editor') || undefined"
+            value-property="id"
+            entity="channel"
+            required
+            show-clearable-button
+            @update:value="onStorefrontSelectionChange"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_storefront_domain %}
+        <sw-entity-single-select
+            v-model:value="productExport.channelDomainId"
+            class="sw-channel-detail__product-comparison-domain"
+            :label="$tc('sw-channel.detail.productComparison.storefrontDomain')"
+            :criteria="storefrontChannelDomainCriteria"
+            label-property="url"
+            value-property="id"
+            entity="channel_domain"
+            required
+            show-clearable-button
+            :disabled="(!productExport.channelDomainId && !productExport.storefrontChannelId) || !acl.can('channel.editor') || undefined"
+            :error="productExportChannelDomainIdError"
+            @update:value="onStorefrontDomainSelectionChange"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_storefront_domain_currency %}
+        <div
+            v-if="productExport.channelDomain"
+            class="sw-channel-detail-base__product-comparison-container"
+        >
+            <sw-entity-single-select
+                v-model:value="productExport.currencyId"
+                :label="$tc('sw-channel.detail.productComparison.storefrontDomainCurrency.label')"
+                :criteria="storefrontChannelCurrencyCriteria"
+                label-property="name"
+                value-property="id"
+                required
+                entity="currency"
+                :disabled="!acl.can('channel.editor') || undefined"
+                :error="productExportCurrencyIdError"
+                show-clearable-button
+            />
+        </div>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_storefront_domain_language %}
+        <div
+            v-if="productExport.channelDomain"
+            class="sw-channel-detail-base__product-comparison-container"
+        >
+            <sw-entity-single-select
+                v-model:value="productExport.channelDomain.languageId"
+                :label="$tc('sw-channel.detail.productComparison.storefrontDomainLanguage.label')"
+                label-property="name"
+                value-property="id"
+                entity="language"
+                :disabled="true"
+                show-clearable-button
+            />
+            <sw-help-text
+                class="sw-channel-detail-base__product-comparison-helptext"
+                :text="$tc('sw-channel.detail.productComparison.storefrontDomainLanguage.help')"
+                :disabled="!acl.can('channel.editor')"
+                tooltip-position="top"
+            />
+        </div>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_storefront_channel_customer_group %}
+        <div class="sw-channel-detail-base__product-comparison-container">
+            <sw-entity-single-select
+                v-model:value="channel.customerGroupId"
+                :label="$tc('sw-channel.detail.productComparison.storefrontChannelCustomerGroup.label')"
+                label-property="name"
+                value-property="id"
+                entity="customer_group"
+                :disabled="true"
+                show-clearable-button
+            />
+            <sw-help-text
+                class="sw-channel-detail-base__product-comparison-helptext"
+                :text="$tc('sw-channel.detail.productComparison.storefrontChannelCustomerGroup.help')"
+                tooltip-position="top"
+            />
+        </div>
+        {% endblock %}
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_channel_detail_base_general_input_product_comparison_settings %}
+    <mt-card
+        v-if="channel && isProductComparison"
+        position-identifier="sw-channel-detail-base-general-input-product-comparison-settings"
+        :is-loading="isLoading"
+        :title="$tc('sw-channel.detail.productComparison.settings')"
+    >
+        {% block sw_channel_detail_base_general_input_product_comparison_filename %}
+
+        <mt-text-field
+            v-model="productExport.fileName"
+            validation="required"
+            required
+            :disabled="!acl.can('channel.editor') || undefined"
+            :label="$tc('sw-channel.detail.productComparison.fileName')"
+            :placeholder="$tc('sw-channel.detail.productComparison.placeholderFileName')"
+            :error="productExportFileNameError || invalidFileNameError"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_encoding %}
+        <mt-select
+            v-model="productExport.encoding"
+            :label="$tc('sw-channel.detail.productComparison.encoding')"
+            :placeholder="$tc('sw-channel.detail.productComparison.placeholderSelectEncoding')"
+            :options="getEncodingOptions"
+            label-property="label"
+            value-property="id"
+            :disabled="!acl.can('channel.editor') || undefined"
+            required
+            :error="productExportEncodingError"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_file_format %}
+        <mt-select
+            v-model="productExport.fileFormat"
+            :label="$tc('sw-channel.detail.productComparison.fileFormat')"
+            :placeholder="$tc('sw-channel.detail.productComparison.placeholderSelectFileFormat')"
+            :options="getFileFormatOptions"
+            label-property="label"
+            value-property="id"
+            required
+            :disabled="!acl.can('channel.editor') || undefined"
+            :error="productExportFileFormatError"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_include_variants %}
+
+        <mt-switch
+            v-model="productExport.includeVariants"
+            bordered
+            :disabled="!acl.can('channel.editor') || undefined"
+            :label="$tc('sw-channel.detail.productComparison.includeVariants')"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_interval %}
+        <mt-select
+            :model-value="productExport.interval"
+            :label="$tc('sw-channel.detail.productComparison.interval')"
+            :options="getIntervalOptions"
+            label-property="label"
+            value-property="id"
+            :disabled="!acl.can('channel.editor') || undefined"
+            @update:model-value="changeInterval"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_generate_by_cronjob %}
+
+        <mt-switch
+            v-model="productExport.generateByCronjob"
+            bordered
+            :label="$tc('sw-channel.detail.productComparison.generateByCronjob')"
+            :disabled="disableGenerateByCronjob || !acl.can('channel.editor') || undefined"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_last_generation %}
+        <div v-if="productExport.channelDomainId">
+            <div
+                v-if="productExport.generatedAt"
+                class="sw-channel-detail-base_general__last-generation-text"
+            >
+                {{ $tc('sw-channel.detail.productComparison.lastGenerationLabel') }}<sw-time-ago
+                    :date="productExport.generatedAt"
+                    :date-time-format="{ month: '2-digit', day: '2-digit' }"
+                />
+            </div>
+            <div
+                v-else
+                class="sw-channel-detail-base_general__last-generation-text"
+            >
+                {{ $tc('sw-channel.detail.productComparison.lastGenerationLabel') }}{{ $tc('sw-channel.detail.productComparison.notYetGenerated') }}
+            </div>
+        </div>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_general_input_product_comparison_product_stream %}
+        <sw-entity-single-select
+            v-model:value="productExport.productStreamId"
+            class="sw-channel-detail__product-comparison-product-stream"
+            :label="$tc('sw-channel.detail.productComparison.productStream')"
+            label-property="name"
+            value-property="id"
+            required
+            show-clearable-button
+            :disabled="!acl.can('channel.editor') || undefined"
+            entity="product_stream"
+            :error="productExportProductStreamIdError"
+        />
+        {% endblock %}
+
+        <mt-text-field
+            v-if="channel.productExports && channel.productExports.length > 0"
+            v-model="cliCommand"
+            copyable
+            :label="$tc('sw-channel.detail.productComparison.cliCommand')"
+            readonly
+            :disabled="true"
+        />
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_channel_detail_base_options_api %}
+    <mt-card
+        v-if="channel"
+        position-identifier="sw-channel-detail-base-options-api"
+        :is-loading="isLoading"
+        :title="$tc('sw-channel.detail.titleOptionsApiKey')"
+    >
+        {% block sw_channel_detail_base_options_api_description %}
+        <div
+            class="sw-channel-detail-base__description-text"
+            v-html="$tc('sw-channel.detail.textApiAccessDescription')"
+        ></div>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_options_input_access_key %}
+
+        <mt-text-field
+            v-if="!isProductComparison"
+            v-model="channel.accessKey"
+            :label="$tc('sw-channel.detail.labelAccessKeyField')"
+            :disabled="true"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_options_input_generate_key %}
+        <div
+            v-if="!isProductComparison"
+            class="sw-channel-detail__action-buttons"
+        >
+            <mt-button
+                size="small"
+                :disabled="!acl.can('channel.editor') || undefined"
+                class="sw-channel-detail-base__button-generate-keys"
+                variant="secondary"
+                @click="onGenerateKeys"
+            >
+                {{ $tc('sw-channel.detail.buttonCreateNewApiKeys') }}
+            </mt-button>
+
+            <mt-button
+                size="small"
+                class="sw-channel-detail-base__button-copy-key"
+                variant="secondary"
+                @click="copyToClipboard"
+            >
+                {{ $tc('sw-channel.detail.buttonCopyApiKeyButton') }}
+            </mt-button>
+        </div>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_product_comparison_access_key %}
+        {% block sw_channel_detail_base_product_comparison_input_access_key %}
+
+        <mt-text-field
+            v-if="isProductComparison"
+            v-model="productExport.accessKey"
+            :label="$tc('sw-channel.detail.productComparison.accessKey')"
+            :disabled="true"
+            :copyable="true"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_product_comparison_input_access_url %}
+
+        <mt-text-field
+            v-if="isProductComparison && productExport.channelDomainId"
+            v-model="productComparisonAccessUrl"
+            :label="$tc('sw-channel.detail.productComparison.accessUrl')"
+            :disabled="true"
+            :copyable="true"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_product_comparison_input_generate_key %}
+        <div class="sw-channel-detail__action-button">
+            <mt-button
+                v-if="isProductComparison"
+                ghost
+                :disabled="!acl.can('channel.editor')"
+                size="small"
+                class="sw-channel-detail-base__button-generate-keys"
+                variant="secondary"
+                @click="onGenerateProductExportKey"
+            >
+                {{ $tc('sw-channel.detail.productComparison.buttonCreateNewAccessKey') }}
+            </mt-button>
+        </div>
+        {% endblock %}
+        {% endblock %}
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_channel_detail_base_options_status %}
+    <mt-card
+        v-if="channel"
+        position-identifier="sw-channel-detail-base-options-status"
+        :title="$tc('sw-channel.detail.titleStatus')"
+        :is-loading="isLoading"
+    >
+        {% block sw_channel_detail_base_options_status_description %}
+        <div class="sw-channel-detail-base__description-text">
+            {{ $tc('sw-channel.detail.textActiveDescription') }}
+        </div>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_status_input_active %}
+
+        <mt-switch
+            v-model="channel.active"
+            :label="$tc('sw-channel.detail.labelInputActive')"
+            :disabled="!acl.can('channel.editor') || undefined"
+            @update:model-value="onToggleActive"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_options_maintenance_header %}
+        <h4 class="sw-channel-detail-base__headline-text">
+            {{ $tc('sw-channel.detail.maintenanceModeTitle') }}
+        </h4>
+
+        <div class="sw-channel-detail-base__description-text">
+            {{ $tc('sw-channel.detail.maintenanceModeDescription') }}
+        </div>
+        {% endblock %}
+
+        {% block sw_channel_detail_base_maintenance_input_active %}
+
+        <mt-switch
+            v-model="channel.maintenance"
+            name="sw-field--channel-maintenance"
+            :disabled="!acl.can('channel.editor') || undefined"
+            :label="$tc('sw-channel.detail.labelMaintenanceActive')"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_maintenance_ipwhitelist %}
+        <sw-multi-tag-ip-select
+            v-model:value="maintenanceIpAllowlist"
+            :is-loading="isLoading"
+            :disabled="!acl.can('channel.editor') || undefined"
+            class="sw-order-user-card__tag-select"
+            :label="$tc('sw-channel.detail.ipAddressAllowlist')"
+            :help-text="$tc('sw-channel.detail.ipAddressAllowlistHelpText')"
+            :known-ips="knownIps"
+            :validate="validateMaintenanceIpCidr"
+            error-code="SHOPWARE_INVALID_IP_CIDR"
+        />
+        {% endblock %}
+
+        {% block sw_channel_detail_base_settings_link %}
+        <div class="sw-channel-detail-base__settings-link">
+            <router-link
+                v-if="acl.can('channel.editor')"
+                :to="{ name: 'sw.settings.basic.information.index'}"
+                class="sw-card__quick-link"
+            >
+                {{ $tc('sw-channel.detail.basicinformationLink') }}
+                <mt-icon
+                    name="regular-long-arrow-right"
+                    size="16px"
+                />
+            </router-link>
+        </div>
+        {% endblock %}
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_channel_detail_base_options_delete %}
+    <mt-card
+        v-if="channel && acl.can('channel.deleter')"
+        position-identifier="sw-channel-detail-base-options-delete"
+        :title="$tc('sw-channel.detail.deleteModalTitle')"
+        :is-loading="isLoading"
+    >
+        <sw-container
+            columns="1fr 175px"
+            gap="0px 30px"
+            class="sw-channel-detail-base__delete-channel"
+        >
+            <div class="sw-channel-detail-base__description-text">
+                <strong>{{ $tc('global.default.warning') }}</strong>
+                {{ $tc('sw-channel.detail.textDeleteChannelWarning') }}
+            </div>
+
+            {% block sw_channel_detail_base_options_delete_button %}
+            <div class="sw-channel-detail-base__button-delete">
+                <mt-button
+                    variant="critical"
+                    size="small"
+                    @click="showDeleteModal = true"
+                >
+                    {{ $tc('sw-channel.detail.buttonDelete') }}
+                </mt-button>
+            </div>
+            {% endblock %}
+        </sw-container>
+
+        {% block sw_channel_detail_base_options_delete_modal %}
+        <sw-modal
+            v-if="showDeleteModal"
+            ref="modal"
+            class="sw-channel-detail-base__delete-modal"
+            variant="small"
+            :title="$tc('sw-channel.detail.deleteModalTitle')"
+            @modal-close="onCloseDeleteModal"
+        >
+
+            {% block sw_channel_detail_options_delete_modal_confirmtext %}
+            <p class="sw-channel-detail-base__delete-modal-confirm-text">
+                {{ $tc('sw-channel.detail.textConfirmDelete') }}
+            </p>
+            <p class="sw-channel-detail-base__delete-modal-name">
+                <strong>{{ placeholder(channel, 'name') }}</strong>
+            </p>
+            <p>{{ $tc('sw-channel.detail.textDeleteInfo') }}</p>
+            {% endblock %}
+
+            {% block sw_channel_detail_options_delete_modal_footer %}
+            <template #modal-footer>
+                {% block sw_channel_detail_options_delete_modal_abort %}
+                <mt-button
+                    size="small"
+                    variant="secondary"
+                    @click="onCloseDeleteModal"
+                >
+                    {{ $tc('global.default.cancel') }}
+                </mt-button>
+                {% endblock %}
+
+                {% block sw_channel_detail_options_delete_modal_confirm %}
+                <mt-button
+                    size="small"
+                    variant="critical"
+                    @click="onConfirmDelete"
+                >
+                    {{ $tc('sw-channel.detail.buttonConfirmDelete') }}
+                </mt-button>
+                {% endblock %}
+            </template>
+            {% endblock %}
+        </sw-modal>
+        {% endblock %}
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_channel_detail_custom_field_sets %}
+    <mt-card
+        v-if="channel && customFieldSets.length > 0"
+        position-identifier="sw-channel-detail-base-custom-field-sets"
+        :title="$tc('sw-settings-custom-field.general.mainMenuItemGeneral')"
+        :is-loading="isLoading"
+    >
+        <sw-custom-field-set-renderer
+            :entity="channel"
+            :sets="customFieldSets"
+        />
+    </mt-card>
+    {% endblock %}
+</div>
+{% endblock %}

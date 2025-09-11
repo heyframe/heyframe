@@ -1,0 +1,5 @@
+{% block sw_admin_menu_navigation_main %}
+{% parent %}
+
+<sw-channel-menu v-if="canViewChannels" />
+{% endblock %}
