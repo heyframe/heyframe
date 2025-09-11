@@ -67,4 +67,30 @@ describe('src/app/init/window.init.ts', () => {
             replace: false,
         });
     });
+
+    it('should handle windowRouterGetPath', async () => {
+        HeyFrame.Application = {
+            view: {
+                router: {
+                    currentRoute: {
+                        value: {
+                            fullPath: '/products/detail/123',
+                        },
+                    },
+                },
+            },
+        };
+
+        const result = await send('windowRouterGetPath');
+
+        expect(result).toBe('/products/detail/123');
+    });
+
+    it('should return empty string when router is not available for windowRouterGetPath', async () => {
+        HeyFrame.Application = { view: { router: undefined } };
+
+        const result = await send('windowRouterGetPath');
+
+        expect(result).toBe('');
+    });
 });

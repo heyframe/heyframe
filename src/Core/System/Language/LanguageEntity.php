@@ -106,7 +106,6 @@ class LanguageEntity extends Entity
      */
     protected ?EntityCollection $cmsPageTranslations = null;
 
-
     protected ?OrderCollection $orders = null;
 
     protected ?NumberRangeTypeTranslationCollection $numberRangeTypeTranslations = null;
@@ -115,11 +114,9 @@ class LanguageEntity extends Entity
 
     protected ?NumberRangeTranslationCollection $numberRangeTranslations = null;
 
-
     protected ?AppTranslationCollection $appTranslations = null;
 
     protected ?ActionButtonTranslationCollection $actionButtonTranslations = null;
-
 
     protected ?AppScriptConditionTranslationCollection $appScriptConditionTranslations = null;
 
@@ -294,7 +291,6 @@ class LanguageEntity extends Entity
     {
         $this->paymentMethodTranslations = $paymentMethodTranslations;
     }
-
 
     public function getProductTranslations(): ?ProductTranslationCollection
     {

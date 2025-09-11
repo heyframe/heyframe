@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
         <service id="HeyFrame\Core\Framework\Adapter\Cache\CacheStateSubscriber">
@@ -152,8 +152,13 @@
             <argument>%heyframe.http_cache.stale_while_revalidate%</argument>
             <argument>%heyframe.http_cache.stale_if_error%</argument>
             <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\Http\CacheRelevantRulesResolver"/>
 
             <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\Adapter\Cache\Http\CacheRelevantRulesResolver">
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
         </service>
 
         <service id="esi" class="HeyFrame\Core\Framework\Adapter\Kernel\EsiDecoration" />

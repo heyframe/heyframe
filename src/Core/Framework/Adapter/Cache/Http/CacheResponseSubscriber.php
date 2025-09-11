@@ -28,7 +28,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * @internal
  */
 #[Package('framework')]
-class CacheResponseSubscriber implements EventSubscriberInterface
+readonly class CacheResponseSubscriber implements EventSubscriberInterface
 {
     /**
      * @param array<string> $cookies
@@ -36,15 +36,16 @@ class CacheResponseSubscriber implements EventSubscriberInterface
      * @internal
      */
     public function __construct(
-        private readonly array $cookies,
-        private readonly CartService $cartService,
-        private readonly int $defaultTtl,
-        private readonly bool $httpCacheEnabled,
-        private readonly MaintenanceModeResolver $maintenanceResolver,
-        private readonly RequestStack $requestStack,
-        private readonly ?string $staleWhileRevalidate,
-        private readonly ?string $staleIfError,
-        private readonly EventDispatcherInterface $dispatcher
+        private array $cookies,
+        private CartService $cartService,
+        private int $defaultTtl,
+        private bool $httpCacheEnabled,
+        private MaintenanceModeResolver $maintenanceResolver,
+        private RequestStack $requestStack,
+        private ?string $staleWhileRevalidate,
+        private ?string $staleIfError,
+        private EventDispatcherInterface $dispatcher,
+        private CacheRelevantRulesResolver $ruleResolver,
     ) {
     }
 
@@ -210,8 +211,15 @@ class CacheResponseSubscriber implements EventSubscriberInterface
 
     private function buildCacheHash(Request $request, ChannelContext $context): string
     {
+        $ruleAreas = $this->ruleResolver->resolveRuleAreas($request, $context);
+
+        $ruleIds = $context->getRuleIdsByAreas($ruleAreas);
+
+        $ruleIds = array_unique($ruleIds);
+        sort($ruleIds);
+
         $parts = [
-            HttpCacheCookieEvent::RULE_IDS => $context->getRuleIds(),
+            HttpCacheCookieEvent::RULE_IDS => $ruleIds,
             HttpCacheCookieEvent::VERSION_ID => $context->getVersionId(),
             HttpCacheCookieEvent::CURRENCY_ID => $context->getCurrencyId(),
             HttpCacheCookieEvent::LOGGED_IN_STATE => $context->getCustomer() ? 'logged-in' : 'not-logged-in',

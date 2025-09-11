@@ -38,4 +38,14 @@ export default function initializeWindow(): void {
             replace: replace ?? false,
         });
     });
+
+    HeyFrame.ExtensionAPI.handle('windowRouterGetPath', () => {
+        const $router = HeyFrame.Application.view?.router as unknown as Router;
+
+        if (!$router) {
+            return '';
+        }
+
+        return $router.currentRoute?.value?.fullPath || '';
+    });
 }

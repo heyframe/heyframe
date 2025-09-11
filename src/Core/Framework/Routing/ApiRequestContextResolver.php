@@ -89,7 +89,6 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
             'considerInheritance' => false,
         ];
 
-
         $runtimeParams = $this->getRuntimeParameters($request);
 
         /** @var array{currencyId: string, languageId: non-falsy-string, systemFallbackLanguageId: non-falsy-string, currencyFactory: float, currencyPrecision: int, versionId: ?string, considerInheritance: bool} $params */

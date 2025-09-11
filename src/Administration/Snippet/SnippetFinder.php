@@ -3,7 +3,6 @@
 namespace HeyFrame\Administration\Snippet;
 
 use Doctrine\DBAL\Connection;
-use League\Flysystem\Filesystem;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Framework\Util\HtmlSanitizer;
@@ -13,6 +12,7 @@ use HeyFrame\Core\System\Snippet\DataTransfer\SnippetPath\SnippetPathCollection;
 use HeyFrame\Core\System\Snippet\Files\SnippetFileLoader;
 use HeyFrame\Core\System\Snippet\Service\TranslationLoader;
 use HeyFrame\Core\System\Snippet\Struct\TranslationConfig;
+use League\Flysystem\Filesystem;
 use Symfony\Component\Filesystem\Filesystem as SymfonyFilesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
