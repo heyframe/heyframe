@@ -136,14 +136,14 @@ async function createWrapper(channels = []) {
         history: createWebHistory(),
         routes: [
             {
-                name: 'sw.sales.channel.detail',
+                name: 'sw.channel.detail',
                 path: '/sw/sales/channel/detail/:id',
                 component: await wrapTestComponent('sw-channel-detail', {
                     sync: true,
                 }),
             },
             {
-                name: 'sw.sales.channel.list',
+                name: 'sw.channel.list',
                 path: '/sw/sales/channel/list',
                 component: await wrapTestComponent('sw-channel-list', {
                     sync: true,
@@ -153,7 +153,7 @@ async function createWrapper(channels = []) {
     });
 
     router.push({
-        name: 'sw.sales.channel.detail',
+        name: 'sw.channel.detail',
         // the id is the storeFrontWithStandardDomain channel
         params: { id: '8106c8da-4528-406e-8b47-dcae65965f6b' },
     });

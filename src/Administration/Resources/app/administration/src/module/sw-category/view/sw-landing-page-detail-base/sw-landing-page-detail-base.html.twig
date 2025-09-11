@@ -36,12 +36,12 @@
             {% endblock %}
         </sw-container>
 
-        {% block sw_landing_page_detail_base_seo_form_sales_channel %}
+        {% block sw_landing_page_detail_base_seo_form_channel %}
         <sw-entity-multi-select
             v-model:entity-collection="landingPage.salesChannels"
             required
-            class="sw-landing-page-detail-base__sales_channel"
-            entity-name="sales_channel"
+            class="sw-landing-page-detail-base__channel"
+            entity-name="channel"
             :disabled="!acl.can('landing_page.editor')"
             :label="$tc('sw-landing-page.base.seo.labelSalesChannel')"
             :placeholder="$tc('sw-landing-page.base.seo.placeholderSalesChannel')"

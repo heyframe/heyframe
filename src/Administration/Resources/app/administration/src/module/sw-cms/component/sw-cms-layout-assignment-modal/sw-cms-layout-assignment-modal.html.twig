@@ -133,11 +133,11 @@
             {% block sw_cms_layout_assignment_modal_shop_pages_select %}
             <template v-if="!isProductDetailPage && active === 'shop_pages'">
 
-                {% block sw_cms_layout_assignment_modal_shop_pages_select_sales_channel_field %}
+                {% block sw_cms_layout_assignment_modal_shop_pages_select_channel_field %}
                 <sw-entity-single-select
                     v-model:value="shopPageSalesChannelId"
                     class="sw-cms-layout-assignment-modal__sales-channel-select"
-                    entity="sales_channel"
+                    entity="channel"
                     :label="$tc('sw-cms.components.cmsLayoutAssignmentModal.labelSalesChannel')"
                     :placeholder="$tc('sw-cms.components.cmsLayoutAssignmentModal.placeholderSalesChannel')"
                     :reset-option="$tc('sw-cms.components.cmsLayoutAssignmentModal.resetOptionSalesChannel')"

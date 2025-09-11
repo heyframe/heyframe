@@ -54,7 +54,7 @@
             >
                 {%  block sw_channel_detail_content_tab_general %}
                 <sw-tabs-item
-                    :route="{ name: 'sw.sales.channel.detail.base', params: { id: $route.params.id } }"
+                    :route="{ name: 'sw.channel.detail.base', params: { id: $route.params.id } }"
                     :title="$tc('sw-channel.detail.tabBase')"
                 >
                     {{ $tc('sw-channel.detail.tabBase') }}
@@ -64,7 +64,7 @@
                 {% block sw_channel_detail_content_tab_products %}
                 <sw-tabs-item
                     v-if="isHeadless || isStorefront"
-                    :route="{ name: 'sw.sales.channel.detail.products', params: { id: $route.params.id } }"
+                    :route="{ name: 'sw.channel.detail.products', params: { id: $route.params.id } }"
                     :title="$tc('sw-channel.detail.tabProducts')"
                 >
                     {{ $tc('sw-channel.detail.tabProducts') }}
@@ -76,7 +76,7 @@
                 {%  block sw_channel_detail_content_tab_product_comparison %}
                 <sw-tabs-item
                     v-if="isProductComparison && !isLoading"
-                    :route="{ name: 'sw.sales.channel.detail.productComparison', params: { id: $route.params.id } }"
+                    :route="{ name: 'sw.channel.detail.productComparison', params: { id: $route.params.id } }"
                     :title="$tc('sw-channel.detail.tabProductComparison')"
                 >
                     {{ $tc('sw-channel.detail.tabProductComparison') }}
@@ -86,7 +86,7 @@
                 {%  block sw_channel_detail_content_tab_analytics %}
                 <sw-tabs-item
                     v-if="isStorefront"
-                    :route="{ name: 'sw.sales.channel.detail.analytics', params: { id: $route.params.id } }"
+                    :route="{ name: 'sw.channel.detail.analytics', params: { id: $route.params.id } }"
                     :title="$tc('sw-channel.detail.tabAnalytics')"
                 >
                     {{ $tc('sw-channel.detail.tabAnalytics') }}

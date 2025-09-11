@@ -109,7 +109,7 @@ async function createWrapper(privileges = []) {
                                     registrationActive: true,
                                     registrationSalesChannels: new EntityCollection(
                                         '/customer-group/1/registration-sales-channels',
-                                        'sales_channel',
+                                        'channel',
                                         Context.api,
                                         null,
                                         [

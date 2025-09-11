@@ -119,7 +119,7 @@
         "customer_group": {
           "name": "Name"
         },
-        "sales_channel": {
+        "channel": {
           "name": "Name"
         },
         "property": {

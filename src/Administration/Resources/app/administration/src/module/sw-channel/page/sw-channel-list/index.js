@@ -46,7 +46,7 @@ export default {
                     property: 'name',
                     dataIndex: 'name',
                     allowResize: true,
-                    routerLink: 'sw.sales.channel.detail',
+                    routerLink: 'sw.channel.detail',
                     label: 'sw-channel.list.columnName',
                     primary: true,
                 },

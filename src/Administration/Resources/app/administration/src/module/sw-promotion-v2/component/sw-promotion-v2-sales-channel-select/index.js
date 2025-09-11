@@ -30,7 +30,7 @@ export default {
 
     computed: {
         salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+            return this.repositoryFactory.create('channel');
         },
 
         promotionSalesChannelRepository() {

@@ -1000,8 +1000,8 @@
       "promotion_persona_rule": "Promotion target group | Promotion target groups",
       "rule": "Rule | Rules",
       "rule_condition": "Condition | Conditions",
-      "sales_channel": "Sales Channel | Sales Channels",
-      "sales_channel_type": "Sales Channel type | Sales Channel types",
+      "channel": "Sales Channel | Sales Channels",
+      "channel_type": "Sales Channel type | Sales Channel types",
       "salutation": "Salutation | Salutations",
       "seo_url": "SEO URL | SEO URLs",
       "shipping_method": "Shipping method | Shipping methods",
@@ -1527,7 +1527,7 @@
           "installation_path": {
             "label": "Installation path"
           },
-          "sales_channel_domain_urls": {
+          "channel_domain_urls": {
             "label": "Sales channel domains",
             "description": "The checksum of the sales channel domains changes when existing domains are modified or deleted or new domains are added."
           }

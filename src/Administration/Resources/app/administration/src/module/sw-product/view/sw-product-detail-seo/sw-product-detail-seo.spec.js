@@ -86,7 +86,7 @@ const mainCategoryRepositoryMock = {
 };
 
 const repositoryMockFactory = (entity) => {
-    if (entity === 'sales_channel') {
+    if (entity === 'channel') {
         return salesChannelRepositoryMock;
     }
 

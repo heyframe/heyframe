@@ -127,7 +127,7 @@
         />
         {% endblock %}
 
-        {% block sw_order_customer_grid_sales_channel_select_modal %}
+        {% block sw_order_customer_grid_channel_select_modal %}
         <sw-modal
             v-if="showSalesChannelSelectModal"
             class="sw-order-customer-grid__sales-channel-selection-modal"
@@ -135,16 +135,16 @@
             @modal-close="onCloseSalesChannelSelectModal"
         >
             <template #default>
-                {% block sw_order_customer_grid_sales_channel_description %}
+                {% block sw_order_customer_grid_channel_description %}
                 <p class="sw-order-customer-grid__sales-channel-selection--description">
                     {{ $tc('sw-order.initialModal.customerGrid.descriptionSelectSalesChannel') }}
                 </p>
                 {% endblock %}
 
-                {% block sw_order_customer_grid_sales_channel_select %}
+                {% block sw_order_customer_grid_channel_select %}
                 <sw-entity-single-select
                     class="sw-order-customer-grid__sales-channel-selection"
-                    entity="sales_channel"
+                    entity="channel"
                     :criteria="salesChannelCriteria"
                     :label="$tc('sw-order.initialModal.customerGrid.labelSalesChannel')"
                     :placeholder="$tc('sw-order.initialModal.customerGrid.placeholderSalesChannel')"
@@ -153,7 +153,7 @@
                 />
                 {% endblock %}
 
-                {% block sw_order_customer_grid_sales_channel_notification_alert %}
+                {% block sw_order_customer_grid_channel_notification_alert %}
                 <mt-banner
                     class="sw-order-customer-grid__sales-channel-selection--notification-alert"
                     variant="attention"
@@ -165,7 +165,7 @@
             </template>
 
             <template #modal-footer>
-                {% block sw_order_customer_grid_sales_channel_action_close %}
+                {% block sw_order_customer_grid_channel_action_close %}
                 <mt-button
                     size="small"
                     variant="secondary"
@@ -175,7 +175,7 @@
                 </mt-button>
                 {% endblock %}
 
-                {% block sw_order_customer_grid_sales_channel_action_select %}
+                {% block sw_order_customer_grid_channel_action_select %}
                 <mt-button
                     size="small"
                     variant="primary"

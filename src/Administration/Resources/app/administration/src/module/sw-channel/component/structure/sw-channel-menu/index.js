@@ -77,7 +77,7 @@ export default {
             this.channels.forEach((channel) => {
                 flatTree.add({
                     id: channel.id,
-                    path: 'sw.sales.channel.detail',
+                    path: 'sw.channel.detail',
                     params: { id: channel.id },
                     color: '#D8DDE6',
                     label: {
@@ -101,7 +101,7 @@ export default {
                 color: '#D8DDE6',
                 icon: 'regular-ellipsis-v',
                 label: this.$tc('sw-channel.general.titleMenuMoreItems'),
-                path: 'sw.sales.channel.list',
+                path: 'sw.channel.list',
                 position: -1, // use last position
             };
         },

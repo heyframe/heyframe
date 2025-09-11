@@ -341,7 +341,7 @@ export default class RuleConditionService {
     }
 
     private getTransformedBooleanFieldConfig(transformedConfig: CustomFieldConditionConfig) {
-        const locale = HeyFrame.Store.get('session')?.currentLocale || 'en-GB';
+        const locale = HeyFrame.Store.get('session')?.currentLocale || 'zh-CN';
         const app = HeyFrame.Application.getApplicationRoot();
 
         if (!app) {

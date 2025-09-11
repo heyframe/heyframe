@@ -12,7 +12,7 @@
         "name": "salesChannelIds",
         "type": "multi-entity-id-select",
         "config": {
-          "entity": "sales_channel"
+          "entity": "channel"
         }
       }
     ]

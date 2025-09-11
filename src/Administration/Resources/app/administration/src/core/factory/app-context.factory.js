@@ -11,7 +11,7 @@ export default function createContext(context = {}) {
     // set initial context
     const contextStore = useContext();
     contextStore.app.environment = process.env.NODE_ENV;
-    contextStore.app.fallbackLocale = 'en-GB';
+    contextStore.app.fallbackLocale = 'zh-CN';
 
     // assign unknown context information
     Object.entries(context).forEach(

@@ -151,8 +151,8 @@ export default Component.wrapComponentConfig({
             return HeyFrame.Filter.getByName('asset');
         },
 
-        salesChannelRepository(): RepositoryType<'sales_channel'> {
-            return this.repositoryFactory.create('sales_channel');
+        salesChannelRepository(): RepositoryType<'channel'> {
+            return this.repositoryFactory.create('channel');
         },
 
         salesChannelCriteria(): CriteriaType {

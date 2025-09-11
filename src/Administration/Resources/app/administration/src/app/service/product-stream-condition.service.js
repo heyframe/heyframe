@@ -38,7 +38,7 @@ export default function conditionService() {
             'id',
             'salesChannel',
         ],
-        sales_channel: [
+        channel: [
             'id',
         ],
         product: [

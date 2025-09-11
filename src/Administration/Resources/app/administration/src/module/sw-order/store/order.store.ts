@@ -37,7 +37,7 @@ interface SwOrderState {
     cart: Cart;
     disabledAutoPromotion: boolean;
     promotionCodes: PromotionCodeTag[];
-    defaultSalesChannel: Entity<'sales_channel'> | null;
+    defaultSalesChannel: Entity<'channel'> | null;
     context: SalesChannelContext;
     customer: Entity<'customer'> | null;
 }
@@ -78,7 +78,7 @@ const swOrderStore = HeyFrame.Store.register({
             } as Entity<'currency'>,
             salesChannel: {
                 id: '',
-            } as Entity<'sales_channel'>,
+            } as Entity<'channel'>,
             context: {
                 currencyId: '',
                 languageIdChain: [],
@@ -116,7 +116,7 @@ const swOrderStore = HeyFrame.Store.register({
             this.customer = customer;
         },
 
-        setDefaultSalesChannel(salesChannel: Entity<'sales_channel'> | null) {
+        setDefaultSalesChannel(salesChannel: Entity<'channel'> | null) {
             this.defaultSalesChannel = salesChannel;
         },
 

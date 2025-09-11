@@ -102,7 +102,7 @@ interface SalesChannelContext {
     shippingMethod: Entity<'shipping_method'>;
     currency: Entity<'currency'>;
     context: Context;
-    salesChannel: Entity<'sales_channel'>;
+    salesChannel: Entity<'channel'>;
 }
 
 interface ContextSwitchParameters {

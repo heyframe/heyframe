@@ -10,9 +10,9 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
             privileges: [
                 'number_range:read',
                 'number_range_type:read',
-                'number_range_sales_channel:read',
+                'number_range_channel:read',
                 'number_range_state:read',
-                'sales_channel:read',
+                'channel:read',
                 'custom_field_set:read',
                 'custom_field:read',
                 'custom_field_set_relation:read',
@@ -22,7 +22,7 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
         editor: {
             privileges: [
                 'number_range:update',
-                'number_range_sales_channel:delete',
+                'number_range_channel:delete',
             ],
             dependencies: [
                 'number_ranges.viewer',
@@ -31,7 +31,7 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
         creator: {
             privileges: [
                 'number_range:create',
-                'number_range_sales_channel:create',
+                'number_range_channel:create',
             ],
             dependencies: [
                 'number_ranges.viewer',

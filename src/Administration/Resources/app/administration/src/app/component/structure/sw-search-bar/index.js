@@ -146,11 +146,11 @@ export default {
         },
 
         salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+            return this.repositoryFactory.create('channel');
         },
 
         salesChannelTypeRepository() {
-            return this.repositoryFactory.create('sales_channel_type');
+            return this.repositoryFactory.create('channel_type');
         },
 
         salesChannelCriteria() {
@@ -161,7 +161,7 @@ export default {
         },
 
         canCreateSalesChannels() {
-            return this.acl.can('sales_channel.creator');
+            return this.acl.can('channel.creator');
         },
 
         moduleRegistry() {
@@ -951,10 +951,10 @@ export default {
                         name: 'sales-channel',
                         icon: saleChannelType?.iconName ?? 'regular-server',
                         color: '#14D7A5',
-                        entity: 'sales_channel',
+                        entity: 'channel',
                         label: saleChannelType?.translated.name,
                         route: {
-                            name: 'sw.sales.channel.create',
+                            name: 'sw.channel.create',
                             params: { typeId: saleChannelType.id },
                         },
                         action: true,

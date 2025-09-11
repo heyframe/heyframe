@@ -13,7 +13,7 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
                 'custom_field_set:read',
                 'product_search_keyword:read',
                 'product:read',
-                'sales_channel:read',
+                'channel:read',
                 'custom_field:read',
                 'system:clear:cache',
             ],

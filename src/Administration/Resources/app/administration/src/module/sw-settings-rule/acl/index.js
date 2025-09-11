@@ -11,7 +11,7 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
                 'rule:read',
                 'rule_condition:read',
                 'customer_group:read',
-                'sales_channel:read',
+                'channel:read',
                 'tax:read',
                 'tax_provider:read',
                 'payment_method:read',

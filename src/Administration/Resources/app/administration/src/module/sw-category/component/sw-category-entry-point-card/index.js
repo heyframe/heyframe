@@ -32,7 +32,7 @@ export default {
         return {
             selectedEntryPoint: this.getInitialEntryPointFromCategory(),
             initialNavigationSalesChannels: this.category.navigationSalesChannels,
-            addedNavigationSalesChannels: new EntityCollection('/sales_channel', 'sales_channel', Context.api),
+            addedNavigationSalesChannels: new EntityCollection('/channel', 'channel', Context.api),
             configureHomeModalVisible: false,
         };
     },
@@ -85,7 +85,7 @@ export default {
                 return this.$tc('sw-category.base.entry-point-card.labelSalesChannelsAdd');
             }
 
-            return this.$tc('global.entities.sales_channel', 2);
+            return this.$tc('global.entities.channel', 2);
         },
 
         salesChannelCriteria() {
@@ -106,7 +106,7 @@ export default {
     watch: {
         category(newCategory) {
             this.initialNavigationSalesChannels = newCategory.navigationSalesChannels;
-            this.addedNavigationSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api);
+            this.addedNavigationSalesChannels = new EntityCollection('/channel', 'channel', Context.api);
             this.selectedEntryPoint = this.getInitialEntryPointFromCategory();
         },
     },

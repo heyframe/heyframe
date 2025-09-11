@@ -35,7 +35,7 @@
         <router-link
             v-for="salesChannel in initialNavigationSalesChannels"
             :key="salesChannel.id"
-            :to="{ name: 'sw.sales.channel.detail.base', params: { id: salesChannel.id }}"
+            :to="{ name: 'sw.channel.detail.base', params: { id: salesChannel.id }}"
             class="sw-category-entry-point-card__navigation-entry"
         >
             {{ salesChannel.translated.name }}
@@ -45,7 +45,7 @@
     </div>
     {% endblock %}
 
-    {% block sw_category_entry_point_card_sales_channel_selection %}
+    {% block sw_category_entry_point_card_channel_selection %}
     <sw-category-sales-channel-multi-select
         v-if="associatedCollection"
         class="sw-category-entry-point-card__sales-channel-selection"

@@ -3,6 +3,7 @@
 namespace HeyFrame\Administration\Snippet;
 
 use Doctrine\DBAL\Connection;
+use League\Flysystem\Filesystem;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\HtmlSanitizer;
 use HeyFrame\Core\Kernel;
@@ -10,7 +11,6 @@ use HeyFrame\Core\System\Snippet\DataTransfer\SnippetPath\SnippetPath;
 use HeyFrame\Core\System\Snippet\DataTransfer\SnippetPath\SnippetPathCollection;
 use HeyFrame\Core\System\Snippet\Service\TranslationLoader;
 use HeyFrame\Core\System\Snippet\Struct\TranslationConfig;
-use League\Flysystem\Filesystem;
 use Symfony\Component\Filesystem\Filesystem as SymfonyFilesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
@@ -23,6 +23,13 @@ use Symfony\Component\Finder\Finder;
 #[Package('discovery')]
 class SnippetFinder implements SnippetFinderInterface
 {
+    /**
+     * @deprecated tag:v6.8.0 - Will be removed without replacement
+     */
+    public const ALLOWED_INTERSECTING_FIRST_LEVEL_SNIPPET_KEYS = [
+        'sw-flow-custom-event',
+    ];
+
     public function __construct(
         private readonly Kernel $kernel,
         private readonly Connection $connection,
@@ -37,14 +44,25 @@ class SnippetFinder implements SnippetFinderInterface
      */
     public function findSnippets(string $locale): array
     {
-        $snippetFiles = $this->findSnippetFiles($locale);
-        $snippets = $this->parseFiles($snippetFiles);
+        $countryAgnosticSnippetFiles = $this->findSnippetFiles($locale, true);
+        $countrySpecificSnippetFiles = $this->findSnippetFiles($locale);
 
-        return [...$snippets, ...$this->getAppAdministrationSnippets($locale)];
+        $countryAgnosticSnippets = $this->parseFiles($countryAgnosticSnippetFiles);
+        $countrySpecificSnippets = $this->parseFiles($countrySpecificSnippetFiles);
+
+        return array_replace_recursive(
+            $countryAgnosticSnippets,
+            $countrySpecificSnippets,
+            $this->getAppAdministrationSnippets($locale),
+        );
     }
 
-    private function findSnippetFiles(string $locale): SnippetPathCollection
+    private function findSnippetFiles(string $locale, bool $isBaseLanguage = false): SnippetPathCollection
     {
+        if ($isBaseLanguage) {
+            $locale = explode('-', $locale)[0];
+        }
+
         $paths = new SnippetPathCollection();
         $this->addInstalledPlatformPaths($paths, $locale);
 

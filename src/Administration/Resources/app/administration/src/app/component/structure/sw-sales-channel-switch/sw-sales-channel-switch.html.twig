@@ -1,18 +1,18 @@
-{% block sw_sales_channel_switch %}
+{% block sw_channel_switch %}
 <div class="sw-sales-channel-switch">
-    {% block sw_sales_channel_switch_modal %}
+    {% block sw_channel_switch_modal %}
     <sw-modal
         v-if="showUnsavedChangesModal"
         :title="$tc('sw-sales-channel-switch.titleModalUnsavedChanges')"
         variant="small"
         @modal-close="onCloseChangesModal"
     >
-        {% block sw_sales_channel_switch_message %}
+        {% block sw_channel_switch_message %}
         <p>{{ $tc('sw-sales-channel-switch.messageModalUnsavedChanges') }}</p>
         {% endblock %}
-        {% block sw_sales_channel_switch_footer %}
+        {% block sw_channel_switch_footer %}
         <template #modal-footer>
-            {% block sw_sales_channel_switch_footer_button_close %}
+            {% block sw_channel_switch_footer_button_close %}
             <mt-button
                 size="small"
                 variant="secondary"
@@ -22,7 +22,7 @@
             </mt-button>
             {% endblock %}
 
-            {% block sw_sales_channel_switch_footer_button_revert %}
+            {% block sw_channel_switch_footer_button_revert %}
             <mt-button
                 size="small"
                 variant="secondary"
@@ -32,7 +32,7 @@
             </mt-button>
             {% endblock %}
 
-            {% block sw_sales_channel_switch_footer_button_save %}
+            {% block sw_channel_switch_footer_button_save %}
             <mt-button
                 variant="primary"
                 size="small"
@@ -45,7 +45,7 @@
         {% endblock %}
     </sw-modal>
     {% endblock %}
-    {% block sw_sales_channel_switch_select %}
+    {% block sw_channel_switch_select %}
     <sw-entity-single-select
         id="salesChannelSelect"
         ref="salesChannelSelect"
@@ -55,7 +55,7 @@
         :search-placeholder="$tc('sw-sales-channel-switch.placeholderSelect')"
         :reset-option="$tc('sw-sales-channel-switch.labelDefaultOption')"
         :value="salesChannelId"
-        entity="sales_channel"
+        entity="channel"
         show-clearable-button
         @update:value="onChange"
     >

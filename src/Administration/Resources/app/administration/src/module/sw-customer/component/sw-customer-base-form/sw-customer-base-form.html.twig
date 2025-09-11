@@ -130,10 +130,10 @@
         />
         {% endblock %}
 
-        {% block sw_customer_base_form_sales_channel_field %}
+        {% block sw_customer_base_form_channel_field %}
         <sw-entity-single-select
             class="sw-customer-base-form__sales-channel-select"
-            entity="sales_channel"
+            entity="channel"
             :label="$tc('sw-customer.baseForm.labelSalesChannel')"
             :placeholder="$tc('sw-customer.baseForm.placeholderSalesChannel')"
             :value="customer.salesChannelId"

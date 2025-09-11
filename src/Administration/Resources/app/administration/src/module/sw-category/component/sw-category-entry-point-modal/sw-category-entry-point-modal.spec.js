@@ -7,7 +7,7 @@ const { Context } = HeyFrame;
 const { EntityCollection } = HeyFrame.Data;
 
 async function createWrapper() {
-    const salesChannelCollection = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+    const salesChannelCollection = new EntityCollection('/channel', 'channel', Context.api, null, [
         {
             id: '',
             name: '',

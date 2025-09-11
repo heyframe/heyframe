@@ -156,7 +156,7 @@ class AdministrationControllerTest extends TestCase
 
         $response = json_decode($content, true, 512, \JSON_THROW_ON_ERROR);
         static::assertSame(400, $browser->getResponse()->getStatusCode());
-        static::assertSame('The email address ' . $email . ' is already in use in the Sales Channel Headless', $response['errors'][0]['detail']);
+        static::assertSame('The email address ' . $email . ' is already in use in the Sales Channel 小程序', $response['errors'][0]['detail']);
     }
 
     public function testValidateEmailFailWithSameCustomerIsAlreadyExistsInAllChannel(): void

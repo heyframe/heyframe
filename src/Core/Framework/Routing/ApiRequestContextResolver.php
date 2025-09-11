@@ -89,6 +89,7 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
             'considerInheritance' => false,
         ];
 
+
         $runtimeParams = $this->getRuntimeParameters($request);
 
         /** @var array{currencyId: string, languageId: non-falsy-string, systemFallbackLanguageId: non-falsy-string, currencyFactory: float, currencyPrecision: int, versionId: ?string, considerInheritance: bool} $params */
@@ -106,7 +107,6 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
 
         if ($request->headers->has(PlatformRequest::HEADER_LANGUAGE_ID)) {
             $langHeader = $request->headers->get(PlatformRequest::HEADER_LANGUAGE_ID);
-
             if ($langHeader !== null) {
                 $parameters['languageId'] = $langHeader;
             }

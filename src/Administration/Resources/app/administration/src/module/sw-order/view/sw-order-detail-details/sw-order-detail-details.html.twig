@@ -164,10 +164,10 @@
         />
         {% endblock %}
 
-        {% block sw_order_detail_details_order_sales_channel %}
+        {% block sw_order_detail_details_order_channel %}
         <sw-entity-single-select
             v-model:value="order.salesChannelId"
-            entity="sales_channel"
+            entity="channel"
             disabled
             :label="$tc('sw-order.createBase.detailsFooter.labelSalesChannel')"
             :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderSalesChannel')"

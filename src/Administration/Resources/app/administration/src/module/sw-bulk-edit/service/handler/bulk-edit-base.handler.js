@@ -431,7 +431,7 @@ class BulkEditBaseHandler {
          * change.mappingReferenceField to handle special cases like product.visibilities, it will be salesChannelId
          * It's OneToMany association but behave similar to a ManyToMany association
          * We need to prefetch the OneToMany associations to avoid unique constraint.
-         * e.g `product_visibility`.`product_id_sales_channel_id`
+         * e.g `product_visibility`.`product_id_channel_id`
          */
         if (change.mappingReferenceField && change.type === bulkSyncTypes.REMOVE) {
             const referenceIds = change.value.map((value) => value[change.mappingReferenceField]);

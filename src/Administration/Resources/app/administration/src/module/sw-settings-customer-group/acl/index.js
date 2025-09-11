@@ -10,10 +10,10 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
         viewer: {
             privileges: [
                 'customer_group:read',
-                'sales_channel:read',
+                'channel:read',
                 'customer:read',
                 'seo_url:read',
-                'sales_channel_domain:read',
+                'channel_domain:read',
                 'custom_field_set:read',
                 'custom_field:read',
                 'custom_field_set_relation:read',
@@ -23,8 +23,8 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
         editor: {
             privileges: [
                 'customer_group:update',
-                'customer_group_registration_sales_channels:create',
-                'customer_group_registration_sales_channels:delete',
+                'customer_group_registration_channels:create',
+                'customer_group_registration_channels:delete',
             ],
             dependencies: [
                 'customer_groups.viewer',

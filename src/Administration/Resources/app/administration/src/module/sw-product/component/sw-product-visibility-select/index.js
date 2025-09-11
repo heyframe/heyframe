@@ -36,7 +36,7 @@ export default {
         },
 
         repository() {
-            return this.repositoryFactory.create('sales_channel');
+            return this.repositoryFactory.create('channel');
         },
 
         associationRepository() {

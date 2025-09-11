@@ -5,7 +5,7 @@ locales: [
     'bs-BA', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-GB', 'en-US',
     'es-ES', 'fi-FI', 'fr-FR', 'hi-IN', 'hr-HR', 'hu-HU', 'id-ID', 'it-IT',
     'ko-KR', 'lv-LV', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-PT', 'ro-RO', 'ru-RU',
-    'sk-SK', 'sl-SI', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN',
+    'sk-SK', 'sl-SI', 'sr-RS', 'sv-SE', 'tr-TR', 'uk-UA', 'vi-VN','zh-CN',
 ]
 
 plugins: [

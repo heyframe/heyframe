@@ -146,11 +146,11 @@
             />
             {% endblock %}
 
-            {% block sw_order_create_details__order_sales_channel %}
+            {% block sw_order_create_details__order_channel %}
             <sw-entity-single-select
                 v-model:value="salesChannelId"
                 disabled
-                entity="sales_channel"
+                entity="channel"
                 class="sw-order-create-options__sales-channel"
                 :label="$tc('sw-order.createBase.labelSalesChannel')"
                 required

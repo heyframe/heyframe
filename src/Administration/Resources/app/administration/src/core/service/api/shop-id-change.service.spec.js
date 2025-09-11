@@ -81,7 +81,7 @@ describe('shopIdChangeService', () => {
                         storedStamp: '/var/www/old',
                         expectedStamp: '/var/www/new',
                     },
-                    sales_channel_domain_urls: {
+                    channel_domain_urls: {
                         storedStamp: '4f02235821f19784fd6ea6a6df754552',
                         expectedStamp: '14f15f8c18172be22c9135c278358549',
                     },

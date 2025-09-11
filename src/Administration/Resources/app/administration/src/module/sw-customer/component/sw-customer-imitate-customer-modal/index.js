@@ -53,7 +53,7 @@ export default {
         },
 
         salesChannelDomainRepository() {
-            return this.repositoryFactory.create('sales_channel_domain');
+            return this.repositoryFactory.create('channel_domain');
         },
 
         currentUser() {

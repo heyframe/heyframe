@@ -239,7 +239,7 @@
                     >
                         {% block sw_settings_number_range_detail_content_global_product_warning %}
                         {% endblock %}
-                        {% block sw_sales_channel_detail_base_general_input_type %}
+                        {% block sw_channel_detail_base_general_input_type %}
                         <sw-entity-single-select
                             v-if="numberRange.type"
                             id="numberRangeTypes"
@@ -258,7 +258,7 @@
                         />
                         {% endblock %}
 
-                        {% block sw_sales_channel_detail_base_general_input_sales_channel %}
+                        {% block sw_channel_detail_base_general_input_channel %}
                         <sw-multi-select
                             v-if="numberRange && (!numberRange.global || numberRange.global === false)"
                             class="sw-number-range-detail__select-type"

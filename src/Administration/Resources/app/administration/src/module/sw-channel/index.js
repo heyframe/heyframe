@@ -107,18 +107,18 @@ Module.register('sw-channel', {
             component: 'sw-channel-detail',
             path: 'detail/:id',
             meta: {
-                parentPath: 'sw.sales.channel.list',
+                parentPath: 'sw.channel.list',
                 privilege: 'channel.viewer',
             },
             redirect: {
-                name: 'sw.sales.channel.detail.base',
+                name: 'sw.channel.detail.base',
             },
             children: {
                 base: {
                     component: 'sw-channel-detail-base',
                     path: 'base',
                     meta: {
-                        parentPath: 'sw.sales.channel.list',
+                        parentPath: 'sw.channel.list',
                         privilege: 'channel.viewer',
                     },
                 },
@@ -126,7 +126,7 @@ Module.register('sw-channel', {
                     component: 'sw-channel-detail-products',
                     path: 'products',
                     meta: {
-                        parentPath: 'sw.sales.channel.list',
+                        parentPath: 'sw.channel.list',
                         privilege: 'channel.viewer',
                     },
                 },
@@ -134,7 +134,7 @@ Module.register('sw-channel', {
                     component: 'sw-channel-detail-product-comparison',
                     path: 'product-comparison',
                     meta: {
-                        parentPath: 'sw.sales.channel.list',
+                        parentPath: 'sw.channel.list',
                         privilege: 'channel.viewer',
                     },
                 },
@@ -142,7 +142,7 @@ Module.register('sw-channel', {
                     component: 'sw-channel-detail-analytics',
                     path: 'analytics',
                     meta: {
-                        parentPath: 'sw.sales.channel.list',
+                        parentPath: 'sw.channel.list',
                         privilege: 'channel.viewer',
                     },
                 },
@@ -153,14 +153,14 @@ Module.register('sw-channel', {
             component: 'sw-channel-create',
             path: 'create/:typeId',
             redirect: {
-                name: 'sw.sales.channel.create.base',
+                name: 'sw.channel.create.base',
             },
             children: {
                 base: {
                     component: 'sw-channel-create-base',
                     path: 'base',
                     meta: {
-                        parentPath: 'sw.sales.channel.list',
+                        parentPath: 'sw.channel.list',
                         privilege: 'channel.creator',
                     },
                 },

@@ -44,7 +44,7 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
             privileges: [
                 'payment_method:delete',
                 'customer:read',
-                'sales_channel:read',
+                'channel:read',
                 'order_transaction:read',
             ],
             dependencies: [

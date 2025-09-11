@@ -696,7 +696,7 @@ export default {
         },
 
         checkForEntryPointOverwrite() {
-            this.entryPointOverwriteSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api);
+            this.entryPointOverwriteSalesChannels = new EntityCollection('/channel', 'channel', Context.api);
 
             this.category.navigationSalesChannels.forEach((salesChannel) => {
                 if (salesChannel.navigationCategoryId !== null && salesChannel.navigationCategoryId !== this.categoryId) {
@@ -779,7 +779,7 @@ export default {
 
         addLandingPageSalesChannelError() {
             const heyframeError = new HeyFrame.Classes.HeyFrameError({
-                code: 'landing_page_sales_channel_blank',
+                code: 'landing_page_channel_blank',
                 detail: 'This value should not be blank.',
                 status: '400',
             });

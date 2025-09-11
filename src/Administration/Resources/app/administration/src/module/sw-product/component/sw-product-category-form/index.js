@@ -79,7 +79,7 @@ export default {
         },
 
         salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+            return this.repositoryFactory.create('channel');
         },
     },
 
@@ -91,7 +91,7 @@ export default {
         createdComponent() {
             this.salesChannel = new EntityCollection(
                 '/sales-channel',
-                'sales_channel',
+                'channel',
                 HeyFrame.Context.api,
                 new Criteria(1, 25),
             );

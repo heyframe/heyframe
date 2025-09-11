@@ -11,10 +11,10 @@ Service('privileges').addPrivilegeMappingEntry({
         viewer: {
             privileges: [
                 'promotion:read',
-                'promotion_sales_channel:read',
+                'promotion_channel:read',
                 'customer:read',
                 'rule:read',
-                'sales_channel:read',
+                'channel:read',
                 'promotion_discount:read',
                 'promotion_discount_prices:read',
                 'promotion_individual_code:read',
@@ -35,8 +35,8 @@ Service('privileges').addPrivilegeMappingEntry({
         editor: {
             privileges: [
                 'promotion:update',
-                'promotion_sales_channel:create',
-                'promotion_sales_channel:delete',
+                'promotion_channel:create',
+                'promotion_channel:delete',
                 'promotion_persona_customer:create',
                 'promotion_persona_customer:delete',
                 'promotion_order_rule:create',

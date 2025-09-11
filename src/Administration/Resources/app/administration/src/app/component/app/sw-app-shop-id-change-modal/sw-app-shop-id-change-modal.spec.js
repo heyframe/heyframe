@@ -45,8 +45,8 @@ describe('sw-app-shop-id-change-modal', () => {
                                     expectedStamp: 'new-installation-path',
                                     score: 100,
                                 },
-                                sales_channel_domain_urls: {
-                                    identifier: 'sales_channel_domain_urls',
+                                channel_domain_urls: {
+                                    identifier: 'channel_domain_urls',
                                     storedStamp: 'old-sales-channel-domain-urls',
                                     expectedStamp: 'new-sales-channel-domain-urls',
                                     score: 25,

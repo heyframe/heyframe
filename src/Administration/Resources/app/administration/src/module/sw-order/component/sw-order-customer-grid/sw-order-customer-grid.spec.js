@@ -159,7 +159,7 @@ async function createWrapper() {
                 repositoryFactory: {
                     create: (entity) => ({
                         search: () => {
-                            if (entity === 'sales_channel') {
+                            if (entity === 'channel') {
                                 return Promise.resolve([
                                     {
                                         id: '1234',

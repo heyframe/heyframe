@@ -146,7 +146,7 @@ describe('src/app/component/structure/sw-search-bar', () => {
                     repositoryFactory: {
                         create: (entity) => ({
                             search: (criteria) => {
-                                if (entity === 'sales_channel') {
+                                if (entity === 'channel') {
                                     return Promise.resolve([
                                         {
                                             id: '8a243080f92e4c719546314b577cf82b',
@@ -160,7 +160,7 @@ describe('src/app/component/structure/sw-search-bar', () => {
                                     ]);
                                 }
 
-                                if (entity === 'sales_channel_type') {
+                                if (entity === 'channel_type') {
                                     return Promise.resolve([
                                         {
                                             id: 'xxxxxxx',
@@ -823,8 +823,8 @@ describe('src/app/component/structure/sw-search-bar', () => {
             },
             searchTypeServiceTypes,
             [
-                'sales_channel.viewer',
-                'sales_channel.creator',
+                'channel.viewer',
+                'channel.creator',
             ],
         );
 
@@ -850,7 +850,7 @@ describe('src/app/component/structure/sw-search-bar', () => {
         expect(module.entity).toBe('module');
         expect(module.total).toBe(1);
         expect(module.entities[0].label).toBe('Storefront');
-        expect(module.entities[0].route.name).toBe('sw.sales.channel.create');
+        expect(module.entities[0].route.name).toBe('sw.channel.create');
     });
 
     [

@@ -1,10 +1,10 @@
-{% block sw_sales_channel_config %}
+{% block sw_channel_config %}
 <div
     class="sw-sales-channel-config"
     @salesChannelChanged="save"
 >
     <div class="sw-sales-channel-config__global-sales-channel-switch">
-        {% block sw_sales_channel_config_switch %}
+        {% block sw_channel_config_switch %}
         <slot
             name="select"
             v-bind="{ onInput, selectedSalesChannelId, salesChannel }"

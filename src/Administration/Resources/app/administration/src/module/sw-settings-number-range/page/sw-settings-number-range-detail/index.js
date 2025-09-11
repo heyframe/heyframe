@@ -126,11 +126,11 @@ export default {
         },
 
         salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+            return this.repositoryFactory.create('channel');
         },
 
         numberRangeSalesChannelsRepository() {
-            return this.repositoryFactory.create('number_range_sales_channel');
+            return this.repositoryFactory.create('number_range_channel');
         },
 
         selectedNumberRangeSalesChannels() {

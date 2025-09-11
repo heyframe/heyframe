@@ -18,7 +18,7 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
                 'media:read',
                 'media_folder:read',
                 'media_default_folder:read',
-                'sales_channel:read',
+                'channel:read',
                 'delivery_time:read',
                 'product:read',
                 'product_media:read',

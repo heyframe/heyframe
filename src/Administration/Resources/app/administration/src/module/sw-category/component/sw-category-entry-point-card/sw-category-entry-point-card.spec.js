@@ -73,7 +73,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
     it('should have main navigation as initial entry point', async () => {
         global.activeAclRoles = ['category.editor'];
 
-        const salesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const salesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -93,7 +93,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
     it('should have footer navigation as initial entry point', async () => {
         global.activeAclRoles = ['category.editor'];
 
-        const salesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const salesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -113,7 +113,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
     it('should have service navigation as initial entry point', async () => {
         global.activeAclRoles = ['category.editor'];
 
-        const salesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const salesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -133,7 +133,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
     it('should reset its sales channel collections', async () => {
         global.activeAclRoles = ['category.editor'];
 
-        const navigationSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const navigationSalesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -142,7 +142,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
                 },
             },
         ]);
-        const footerSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const footerSalesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -151,7 +151,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
                 },
             },
         ]);
-        const serviceSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const serviceSalesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -180,7 +180,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
     it('should add newly selected sales channels', async () => {
         global.activeAclRoles = ['category.editor'];
 
-        const navigationSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const navigationSalesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -189,7 +189,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
                 },
             },
         ]);
-        const footerSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const footerSalesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -198,7 +198,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
                 },
             },
         ]);
-        const serviceSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const serviceSalesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
@@ -208,7 +208,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-card', () => 
             },
         ]);
 
-        const selectionSalesChannels = new EntityCollection('/sales_channel', 'sales_channel', Context.api, null, [
+        const selectionSalesChannels = new EntityCollection('/channel', 'channel', Context.api, null, [
             {
                 id: '',
                 name: '',
