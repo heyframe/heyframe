@@ -2,7 +2,7 @@
  * @sw-package framework
  */
 
-import de from './snippet/de.json';
+import zh from './snippet/zh.json';
 import en from './snippet/en.json';
 
 const { Component, Module } = HeyFrame;
@@ -29,7 +29,7 @@ Module.register('sw-login', {
     color: '#F19D12',
 
     snippets: {
-        'de-DE': de,
+        'zh-CN': zh,
         'en-GB': en,
     },
 

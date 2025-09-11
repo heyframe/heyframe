@@ -1,0 +1,70 @@
+{
+  "sw-settings-services": {
+    "general": {
+      "title": "HeyFrame Services",
+      "description": "Manage the services that are available in your HeyFrame instance.",
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    },
+    "exception": {
+      "service-list": "Error loading services"
+    },
+    "sw-settings-services-hero": {
+      "title": "Future proof your store with HeyFrame Services",
+      "intro": "Services are cloud-based extensions that add specific features to your HeyFrame store. Unlike traditional software components, services run independently of the core product and can be activated or updated without changes in the core product. They allow us to respond quickly to new needs while keeping your main system stable and streamlined.",
+      "bullet-point-integrated": "Seamlessly integrated and automatically updated",
+      "bullet-point-flexible": "Highly flexible and independent from the HeyFrame core",
+      "bullet-point-transparent": "Transparent and consent-based data usage",
+      "bullet-point-scalable": "Scalable and reliable for demanding workflows including AI and machine learning",
+      "give-feedback": "Give feedback",
+      "learn-more": "Learn more"
+    },
+    "index": {
+      "available-services": "Available services",
+      "services-are-disabled": "HeyFrame Services are deactivated",
+      "services-are-disabled-cta": "You are currently missing out on all HeyFrame Services, including advanced AI tools and much more. Activate HeyFrame Services to take advantage of all the current and future Services we have to offer.",
+      "services-are-disabled-button-label": "Activate Services",
+      "services-enabled": "Services enabled",
+      "services-scheduled": "Services are scheduled to be installed and activated. This can take a moment.",
+      "label-documentation-link": "Documentation",
+      "label-tos-link": "Terms & Conditions",
+      "installing-services-title": "Installing HeyFrame Services",
+      "installing-services-description": "This might take a while. You will be notified as soon as the installations are complete. In the meantime you can freely use your HeyFrame administration."
+    },
+    "service-card": {
+      "status-active": "Active",
+      "status-awaiting-permissions": "Awaits permissions",
+      "status-inactive": "Inactive",
+      "updated-at-label": "Last updated: {updatedAt}",
+      "version": "Version: {version}",
+      "deactivate-modal": {
+        "warning": "Are you sure you want to deactivate “{serviceName}”?",
+        "consequences": "This will result in an immediate loss of access to the Service and all associated processes."
+      },
+      "permissions": "Show permissions"
+    },
+    "grant-permissions": {
+      "title": "Unlock the full potential of HeyFrame Services",
+      "description": "To deliver their full value, certain HeyFrame Services need permissions to access key areas of your store, like product information or order data. These permissions are identical to those used by HeyFrame extensions, and each Service only accesses the permissions it needs to function. Your data is always handled responsibly.",
+      "label-button-grant-permissions": "Grant permissions",
+      "label-link-more-information": "More information"
+    },
+    "revoke-permissions-modal": {
+      "title": "Revoke permissions",
+      "p-1": "Are you sure you want to revoke permissions?",
+      "p-2": "This will deactivate certain HeyFrame Services and result in loss of all related functionality.",
+      "label-button-revoke-permissions": "Revoke permissions"
+    },
+    "deactivate-modal": {
+      "title": "Deactivate HeyFrame Services",
+      "p-1": "Are you sure you want to deactivate HeyFrame Services?",
+      "p-2": "This will result in losing access to all current and future HeyFrame Services. We'd like to know what you don't like about HeyFrame Services. Give us your feedback so we can improve HeyFrame Services in the future!",
+      "label-feedback-link": "Give feedback"
+    },
+    "dashboard-banner": {
+      "title": "Introducing HeyFrame Services",
+      "description": "Transform your HeyFrame experience into something extraordinary with our cloud-based Services that effortlessly blend into your Administration. Enjoy automatic updates and cutting-edge features, all powered by HeyFrame, designed to elevate your business.",
+      "label-button-explore": "Explore now"
+    }
+  }
+}
