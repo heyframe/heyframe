@@ -1,629 +1,629 @@
 {
   "sw-order": {
     "general": {
-      "mainMenuItemGeneral": "Orders",
-      "mainMenuItemList": "Overview",
-      "descriptionTextModule": "Manage received orders here.",
-      "placeholderSearchBar": "Search all orders..."
+      "mainMenuItemGeneral": "订单",
+      "mainMenuItemList": "总览",
+      "descriptionTextModule": "在这里管理收到的订单。",
+      "placeholderSearchBar": "搜索订单..."
     },
     "list": {
-      "columnCustomerCompany": "Company",
-      "columnCustomerName": "Customer name",
-      "columnBillingAddress": "Billing address",
-      "columnDeliveryAddress": "Delivery address",
-      "columnAmount": "Total",
-      "columnState": "Order status",
-      "columnTransactionState": "Payment status",
-      "columnDeliveryState": "Delivery status",
-      "columnOrderNumber": "Order number",
-      "columnSalesChannel": "Sales Channel",
-      "columnAffiliateCode": "Affiliate code",
-      "columnCampaignCode": "Campaign code",
-      "orderDate": "Order date",
-      "buttonAddOrder": "Add order",
-      "textOrders": "Orders",
-      "textOrdersTotal": "No orders | One order | {count} orders",
-      "contextMenuView": "View",
-      "contextMenuDelete": "Delete",
-      "contextMenuConfirmPayment": "Confirm payment",
-      "messageEmpty": "No orders yet",
-      "titleSidebarItemRefresh": "Refresh",
-      "titleSidebarItemFilter": "Filter",
-      "titleSidebarItemFilterAffiliateCode": "Affiliate code",
-      "titleSidebarItemFilterCampaignCode": "Campaign code",
-      "buttonDelete": "Delete",
-      "textDeleteConfirm": "Do you really want to delete this order ({orderNumber})?",
-      "labelManualOrder": "Created by admin"
+      "columnCustomerCompany": "公司",
+      "columnCustomerName": "客户姓名",
+      "columnBillingAddress": "账单地址",
+      "columnDeliveryAddress": "收货地址",
+      "columnAmount": "金额",
+      "columnState": "订单状态",
+      "columnTransactionState": "支付状态",
+      "columnDeliveryState": "发货状态",
+      "columnOrderNumber": "订单号",
+      "columnSalesChannel": "销售渠道",
+      "columnAffiliateCode": "推广码",
+      "columnCampaignCode": "活动码",
+      "orderDate": "下单时间",
+      "buttonAddOrder": "新建订单",
+      "textOrders": "订单",
+      "textOrdersTotal": "暂无订单 | 1 个订单 | 共 {count} 个订单",
+      "contextMenuView": "查看",
+      "contextMenuDelete": "删除",
+      "contextMenuConfirmPayment": "确认收款",
+      "messageEmpty": "还没有订单",
+      "titleSidebarItemRefresh": "刷新",
+      "titleSidebarItemFilter": "筛选",
+      "titleSidebarItemFilterAffiliateCode": "推广码",
+      "titleSidebarItemFilterCampaignCode": "活动码",
+      "buttonDelete": "删除",
+      "textDeleteConfirm": "确定要删除订单 {orderNumber} 吗？",
+      "labelManualOrder": "管理员创建"
     },
     "detail": {
-      "buttonCancel": "Discard changes",
-      "tabOrderDetails": "Order details",
-      "tabDeliveries": "Deliveries",
-      "textHeadline": "Order",
-      "textHeadlineNew": "New order",
-      "tabGeneral": "General",
-      "tabDetails": "Details",
-      "tabDocuments": "Documents",
-      "messageRecalculationError": "An error occurred while calculating the price: <br>",
-      "messageSaveError": "An error occurred during saving",
-      "messageShippingNotAvailable": "Delivery to the selected country not possible.",
-      "labelManualOrder": "Created by admin",
-      "textUnsavedOrderWarning": "There are unsaved changes. Please save the order before leaving this page.",
-      "messageEmptyLineItems": "Could not save order. There are no line items."
+      "buttonCancel": "取消更改",
+      "tabOrderDetails": "订单详情",
+      "tabDeliveries": "发货信息",
+      "textHeadline": "订单",
+      "textHeadlineNew": "新订单",
+      "tabGeneral": "基础信息",
+      "tabDetails": "明细",
+      "tabDocuments": "单据",
+      "messageRecalculationError": "计算价格时出错：<br>",
+      "messageSaveError": "保存失败",
+      "messageShippingNotAvailable": "所选国家暂不支持配送。",
+      "labelManualOrder": "管理员创建",
+      "textUnsavedOrderWarning": "有未保存的修改，请先保存订单再离开页面。",
+      "messageEmptyLineItems": "无法保存订单，未添加任何商品。"
     },
     "create": {
-      "textNewOrder": "New order",
-      "buttonSaveOrder": "Save order",
-      "messageSaveError": "Order could not be saved.",
-      "messageSwitchCustomerError": "An error occurred during switching customer",
-      "messageFetchCustomerAddressesError": "An error occurred during fetching customer addresses",
+      "textNewOrder": "新订单",
+      "buttonSaveOrder": "保存订单",
+      "messageSaveError": "订单保存失败。",
+      "messageSwitchCustomerError": "切换客户时出错。",
+      "messageFetchCustomerAddressesError": "获取客户地址时出错。",
       "remindPaymentModal": {
-        "title": "Remind payment",
-        "text": "Do you want to remind the customer to pay this order with \"{paymentMethodName}\"?",
-        "primaryAction": "Remind"
+        "title": "催付提醒",
+        "text": "是否提醒客户使用“{paymentMethodName}”支付该订单？",
+        "primaryAction": "提醒支付"
       },
       "saveError": {
-        "noCustomer": "No customer selected.",
-        "noCart": "No shopping cart available.",
-        "noLineItems": "No items added.",
-        "invalidPromotionCodes": "Invalid promotion code found.",
-        "noTransactionReturned": "No payment method created."
+        "noCustomer": "未选择客户。",
+        "noCart": "没有可用购物车。",
+        "noLineItems": "未添加商品。",
+        "invalidPromotionCodes": "存在无效的优惠码。",
+        "noTransactionReturned": "未生成支付方式。"
       }
     },
     "createBase": {
-      "labelEmail": "Email address",
-      "labelPhoneNumber": "Phone number",
-      "placeholderEmail": "Enter email address...",
-      "placeholderPhoneNumber": "Enter phone number...",
-      "labelBillingAddress": "Billing address",
-      "labelShippingAddress": "Shipping address",
-      "placeholderBillingAddress": "Select billing address...",
-      "placeholderShippingAddress": "Select shipping address...",
-      "labelSalesChannel": "Sales Channel",
-      "labelPaymentMethod": "Payment method",
-      "labelShippingMethod": "Shipping method",
-      "labelOrderLanguage": "Order language",
-      "labelCurrency": "Currency",
-      "placeholderSalesChannel": "Select Sales Channels...",
-      "placeholderPaymentMethod": "Select payment method...",
-      "placeholderShippingMethod": "Select shipping method...",
-      "placeholderOrderLanguage": "Select order language...",
-      "placeholderCurrency": "Select currency...",
-      "helpTextPaymentMethod": "Only payments which are compatible with the after-order payment process are available.",
-      "labelToggleAutomaticPromotions": "Disable automatically applied promotions",
-      "labelPromotions": "Promotions",
+      "labelEmail": "邮箱",
+      "labelPhoneNumber": "手机号",
+      "placeholderEmail": "请输入邮箱...",
+      "placeholderPhoneNumber": "请输入手机号...",
+      "labelBillingAddress": "账单地址",
+      "labelShippingAddress": "收货地址",
+      "placeholderBillingAddress": "请选择账单地址...",
+      "placeholderShippingAddress": "请选择收货地址...",
+      "labelSalesChannel": "销售渠道",
+      "labelPaymentMethod": "支付方式",
+      "labelShippingMethod": "配送方式",
+      "labelOrderLanguage": "订单语言",
+      "labelCurrency": "货币",
+      "placeholderSalesChannel": "请选择销售渠道...",
+      "placeholderPaymentMethod": "请选择支付方式...",
+      "placeholderShippingMethod": "请选择配送方式...",
+      "placeholderOrderLanguage": "请选择订单语言...",
+      "placeholderCurrency": "请选择货币...",
+      "helpTextPaymentMethod": "仅显示支持售后支付流程的支付方式。",
+      "labelToggleAutomaticPromotions": "禁用自动应用优惠",
+      "labelPromotions": "优惠活动",
       "generalTab": {
-        "labelLineItemsCard": "Items",
-        "labelGeneralInfoCard": "Info"
+        "labelLineItemsCard": "商品明细",
+        "labelGeneralInfoCard": "基本信息"
       },
       "detailsTab": {
-        "labelTransactionCard": "Payment",
-        "labelDeliveryCard": "Shipping",
-        "labelOrderCard": "Order"
+        "labelTransactionCard": "支付信息",
+        "labelDeliveryCard": "配送信息",
+        "labelOrderCard": "订单信息"
       },
-      "labelDetailsCard": "Details",
+      "labelDetailsCard": "详细信息",
       "detailsHeader": {
-        "textCustomer": "Customer",
-        "placeholder": "Select customer...",
-        "buttonAddNewCustomer": "Add new customer"
+        "textCustomer": "客户",
+        "placeholder": "请选择客户...",
+        "buttonAddNewCustomer": "新增客户"
       },
       "detailsBody": {
-        "labelEmail": "Email",
-        "labelPhoneNumber": "Phone number",
-        "placeholderEmail": "Enter email address...",
-        "placeholderPhoneNumber": "Enter phone number...",
-        "labelAddressCompany": "Address company",
-        "labelBillingAddress": "Billing address",
-        "labelShippingAddress": "Shipping address",
-        "placeholder": "Select or add customer first...",
-        "textIdentical": "Billing and shipping address are identical",
-        "buttonAddNewAddress": "Add new address",
-        "placeholderAddress": "Select address..."
+        "labelEmail": "邮箱",
+        "labelPhoneNumber": "手机号",
+        "placeholderEmail": "请输入邮箱...",
+        "placeholderPhoneNumber": "请输入手机号...",
+        "labelAddressCompany": "公司",
+        "labelBillingAddress": "账单地址",
+        "labelShippingAddress": "收货地址",
+        "placeholder": "请先选择或新增客户...",
+        "textIdentical": "账单地址与收货地址相同",
+        "buttonAddNewAddress": "新增地址",
+        "placeholderAddress": "请选择地址..."
       },
       "detailsFooter": {
-        "labelSalesChannel": "Sales channel",
-        "labelPaymentMethod": "Payment method",
-        "labelShippingMethod": "Shipping method",
-        "labelOrderLanguage": "Order language",
-        "labelCurrency": "Currency",
-        "placeholderSalesChannel": "Select Sales Channels...",
-        "placeholderPaymentMethod": "Select payment method...",
-        "placeholderShippingMethod": "Select shipping method...",
-        "placeholderOrderLanguage": "Select order language...",
-        "placeholderCurrency": "Select currency...",
-        "helpTextPaymentMethod": "Only payments which are compatible with the after order payment process are available."
+        "labelSalesChannel": "销售渠道",
+        "labelPaymentMethod": "支付方式",
+        "labelShippingMethod": "配送方式",
+        "labelOrderLanguage": "订单语言",
+        "labelCurrency": "货币",
+        "placeholderSalesChannel": "请选择销售渠道...",
+        "placeholderPaymentMethod": "请选择支付方式...",
+        "placeholderShippingMethod": "请选择配送方式...",
+        "placeholderOrderLanguage": "请选择订单语言...",
+        "placeholderCurrency": "请选择货币...",
+        "helpTextPaymentMethod": "仅显示支持售后支付流程的支付方式。"
       },
-      "cardTitleLineItems": "Items",
-      "placeholderSearchBarItem": "Search items...",
-      "columnProductName": "Item",
-      "columnQuantity": "Quantity",
-      "columnPriceNet": "Price (net)",
-      "columnPriceGross": "Price (gross)",
-      "columnPriceTaxFree": "Price (tax-free)",
-      "columnTotalPriceNet": "Total",
-      "columnPrice": "Price",
-      "columnTotalPrice": "Total",
-      "columnTotalPriceGross": "Subtotal",
-      "columnTax": "VAT",
-      "textCreditTax": "auto",
-      "taxDetail": "{taxRate}%: {tax}",
-      "contextMenuShowProduct": "Show product",
-      "messageEmptyItem": "No items added yet",
-      "buttonAddItems": "Add items",
-      "buttonAddProduct": "Add product",
-      "buttonAddBlankProduct": "Add custom item",
-      "buttonAddCredit": "Add credit",
-      "summaryLabelAmount": "Subtotal",
-      "summaryLabelAmountGrandTotal": "Grand total",
-      "summaryLabelAmountWithoutTaxes": "Total excluding VAT",
-      "summaryLabelAmountTotal": "Total including VAT",
-      "summaryLabelAmountTotalRounded": "Rounded total including VAT",
-      "labelShippingCosts": "Shipping costs",
-      "summaryLabelShippingCosts": "plus shipping costs",
-      "discountLabelShippingCosts": "discount shipping costs",
-      "summaryLabelTaxes": "plus {taxRate}% VAT",
-      "tax": "Included taxes:",
-      "shippingCostsTax": "{taxRate}%: {tax}",
-      "labelAddPromotion": "Add promotion",
-      "placeholderAddPromotion": "Enter promotion code ...",
-      "textInvalidPromotionCode": "Invalid promotion code",
+      "cardTitleLineItems": "商品明细",
+      "placeholderSearchBarItem": "搜索商品...",
+      "columnProductName": "商品",
+      "columnQuantity": "数量",
+      "columnPriceNet": "单价（不含税）",
+      "columnPriceGross": "单价（含税）",
+      "columnPriceTaxFree": "单价（免税）",
+      "columnTotalPriceNet": "小计（不含税）",
+      "columnPrice": "单价",
+      "columnTotalPrice": "小计",
+      "columnTotalPriceGross": "小计（含税）",
+      "columnTax": "税额",
+      "textCreditTax": "自动",
+      "taxDetail": "{taxRate}%：{tax}",
+      "contextMenuShowProduct": "查看商品",
+      "messageEmptyItem": "尚未添加商品",
+      "buttonAddItems": "添加商品",
+      "buttonAddProduct": "添加商品",
+      "buttonAddBlankProduct": "添加自定义商品",
+      "buttonAddCredit": "添加抵扣",
+      "summaryLabelAmount": "小计",
+      "summaryLabelAmountGrandTotal": "订单总额",
+      "summaryLabelAmountWithoutTaxes": "总额（不含税）",
+      "summaryLabelAmountTotal": "总额（含税）",
+      "summaryLabelAmountTotalRounded": "总额（含税，四舍五入）",
+      "labelShippingCosts": "运费",
+      "summaryLabelShippingCosts": "加上运费",
+      "discountLabelShippingCosts": "运费优惠",
+      "summaryLabelTaxes": "加上 {taxRate}% 税费",
+      "tax": "已含税额：",
+      "shippingCostsTax": "{taxRate}%：{tax}",
+      "labelAddPromotion": "添加优惠",
+      "placeholderAddPromotion": "请输入优惠码...",
+      "textInvalidPromotionCode": "优惠码无效",
       "textPromotionDescription": {
         "cart": {
-          "percentage": "{value}% discount on shopping cart",
-          "absolute": "{value} discount on shopping cart",
-          "absoluteUpto": "Up to {value} discount. ({totalPrice} discount on this cart)",
-          "fixed_unit": "Fixed {value} for each specific product in shopping cart"
+          "percentage": "购物车 {value}% 折扣",
+          "absolute": "购物车立减 {value}",
+          "absoluteUpto": "最高减免 {value}（本次减免 {totalPrice}）",
+          "fixed_unit": "购物车指定商品每件固定 {value}"
         },
         "delivery": {
-          "percentage": "{value}% discount on shipping cost",
-          "absolute": "{value} discount on shipping cost",
-          "fixed_unit": "Fixed {value} on shipping cost",
-          "fixed": "Fixed {value} on shipping cost"
+          "percentage": "运费 {value}% 折扣",
+          "absolute": "运费立减 {value}",
+          "fixed_unit": "运费固定 {value}",
+          "fixed": "运费固定 {value}"
         },
         "set": {
-          "percentage": "{value}% discount on product set",
-          "absolute": "{value} discount on product set",
-          "fixed_unit": "Fixed {value} for each specific product of product set",
-          "fixed": "Fixed {value} for each product set"
+          "percentage": "商品组合 {value}% 折扣",
+          "absolute": "商品组合立减 {value}",
+          "fixed_unit": "组合内指定商品每件固定 {value}",
+          "fixed": "每个组合固定 {value}"
         },
         "setgroup": {
-          "percentage": "{value}% discount on set group {groupId}",
-          "absolute": "{value} discount on set group {groupId}",
-          "fixed_unit": "Fixed {value} for each specific product of set group {groupId}",
-          "fixed": "Fixed {value} for each set group {groupId}"
+          "percentage": "商品分组 {groupId} {value}% 折扣",
+          "absolute": "商品分组 {groupId} 立减 {value}",
+          "fixed_unit": "分组 {groupId} 内指定商品每件固定 {value}",
+          "fixed": "分组 {groupId} 每组固定 {value}"
         }
       }
     },
     "detailBase": {
-      "cardTitleDetails": "Details",
-      "cardTitleLineItems": "Items",
-      "cardTitleGeneralInfo": "Info",
-      "cardTitlePromotions": "Promotions",
-      "columnProductName": "Name",
-      "columnQuantity": "Quantity",
-      "columnPriceNet": "Price (net)",
-      "columnPriceGross": "Price (gross)",
-      "columnPriceTaxFree": "Price (tax-free)",
-      "columnTotalPriceNet": "Total",
-      "columnPrice": "Price",
-      "columnTotalPrice": "Total",
-      "columnTotalPriceGross": "Subtotal",
-      "columnTax": "VAT",
-      "columnProductNumber": "Product number",
-      "columnType": "Type",
-      "contextMenuShowProduct": "Show product",
-      "contextMenuDelete": "Remove from order",
-      "summaryLabelAmount": "Subtotal",
-      "summaryLabelAmountGrandTotal": "Grand total",
-      "summaryLabelAmountWithoutTaxes": "Total excluding VAT",
-      "summaryLabelAmountTotal": "Total including VAT",
-      "summaryLabelAmountTotalRounded": "Rounded total including VAT",
-      "summaryLabelShippingCosts": "plus shipping costs",
-      "discountLabelShippingCosts": "discount shipping costs",
-      "summaryLabelTaxes": "plus {taxRate}% VAT",
-      "labelOrderStatus": "Order status",
-      "labelPaymentStatus": "Payment status",
-      "labelSalesChannel": "Sales Channel",
-      "labelOrderDate": "Order date",
-      "headlineBillingAddress": "Billing address",
-      "headlineDeliveryAddress": "Shipping address",
-      "buttonPrint": "Print order",
-      "buttonCancel": "Cancel order",
-      "buttonArchive": "Archive order",
-      "buttonDelete": "Delete order",
-      "buttonAddProduct": "Add product",
-      "buttonAddBlankProduct": "Add custom item",
-      "buttonAddCredit": "Add credit",
-      "buttonEditAddress": "Edit",
-      "tooltipNestedLineItemsButton": "This line item contains sub-items.",
-      "labelNoPhoneNumber": "No phone number yet",
-      "labelNoEmail": "No emails yet",
-      "labelCustomerPhoneNumber": "Phone number",
-      "labelLanguage": "Order language",
-      "labelPaymentMethod": "Payment method",
-      "labelShippingMethod": "Shipping method",
-      "labelPartnerCode": "Partner code",
-      "labelCustomerEmail": "Email address",
-      "labelNoDeliveriesYet": "No deliveries yet",
-      "labelNoDeliveryTrackingCodeYet": "None",
-      "labelLastChange": "Last changed",
-      "labelNoChangesYet": "No changes yet",
-      "labelTrackingCodes": "Track and trace codes",
-      "labelAffiliateCode": "Affiliate code",
-      "labelCampaignCode": "Campaign code",
-      "labelCustomerComment": "Additional information",
-      "labelInternalComment": "Internal comment",
-      "buttonAddDeliveryAddress": "Add new address",
-      "labelSameDeliveryAndBillingAddress": "Billing / shipping addresses are identical",
-      "buttonContinueOnVersionedOrder": "Load",
-      "tax": "Included taxes:",
-      "shippingCostsTax": "{taxRate}%: {tax}",
-      "placeholderTagSelect": "Search tags...",
-      "placeholderTrackingCodeSelect": "Add tracking codes...",
-      "addTrackingCode": "Click here to add code",
-      "enterValidTrackingCode": "Enter tracking code",
-      "textCreditTax": "auto",
-      "taxDetail": "{taxRate}%: {tax}",
-      "textPromotionRemoved": "Discount {promotion} has been removed",
-      "textUnsavedChanges": "There are unsaved changes. Please save before editing this field.",
-      "textMissingProductLineItems": "The following items are associated to products that have been deleted:",
-      "textMissingProductLineItemsDescription": "Prices of these products cannot be recalculated. Therefore, these items will be converted to custom items when saving this order.",
-      "textConvertedProductLineItems": "The following items were associated to products that have been deleted:",
-      "textConvertedProductLineItemsDescription": "Prices of these products cannot be recalculated. Please take extra care when editing the order.",
-      "textDeleteLineItemConfirm": "Are you sure you want to delete the position ({label})?",
-      "helpTextCustomerComment": "Customers can submit this comment, and any changes will be visible to them.",
-      "helpTextInternalComment": "This comment is for internal use only and will not be presented to customers."
+      "cardTitleDetails": "详情",
+      "cardTitleLineItems": "商品项目",
+      "cardTitleGeneralInfo": "基本信息",
+      "cardTitlePromotions": "促销",
+      "columnProductName": "名称",
+      "columnQuantity": "数量",
+      "columnPriceNet": "单价（净额）",
+      "columnPriceGross": "单价（含税）",
+      "columnPriceTaxFree": "单价（免税）",
+      "columnTotalPriceNet": "总计（净额）",
+      "columnPrice": "单价",
+      "columnTotalPrice": "总计",
+      "columnTotalPriceGross": "小计",
+      "columnTax": "增值税",
+      "columnProductNumber": "商品编号",
+      "columnType": "类型",
+      "contextMenuShowProduct": "查看商品",
+      "contextMenuDelete": "从订单移除",
+      "summaryLabelAmount": "小计",
+      "summaryLabelAmountGrandTotal": "订单总额",
+      "summaryLabelAmountWithoutTaxes": "不含增值税总额",
+      "summaryLabelAmountTotal": "含增值税总额",
+      "summaryLabelAmountTotalRounded": "四舍五入后的含税总额",
+      "summaryLabelShippingCosts": "加上运费",
+      "discountLabelShippingCosts": "运费折扣",
+      "summaryLabelTaxes": "加上 {taxRate}% 增值税",
+      "labelOrderStatus": "订单状态",
+      "labelPaymentStatus": "支付状态",
+      "labelSalesChannel": "销售渠道",
+      "labelOrderDate": "下单日期",
+      "headlineBillingAddress": "账单地址",
+      "headlineDeliveryAddress": "收货地址",
+      "buttonPrint": "打印订单",
+      "buttonCancel": "取消订单",
+      "buttonArchive": "归档订单",
+      "buttonDelete": "删除订单",
+      "buttonAddProduct": "添加商品",
+      "buttonAddBlankProduct": "添加自定义商品",
+      "buttonAddCredit": "添加退款/贷项",
+      "buttonEditAddress": "编辑",
+      "tooltipNestedLineItemsButton": "此商品包含子项。",
+      "labelNoPhoneNumber": "暂无电话号码",
+      "labelNoEmail": "暂无电子邮件",
+      "labelCustomerPhoneNumber": "电话号码",
+      "labelLanguage": "订单语言",
+      "labelPaymentMethod": "支付方式",
+      "labelShippingMethod": "配送方式",
+      "labelPartnerCode": "合作伙伴代码",
+      "labelCustomerEmail": "邮箱地址",
+      "labelNoDeliveriesYet": "暂无发货",
+      "labelNoDeliveryTrackingCodeYet": "暂无",
+      "labelLastChange": "最后修改时间",
+      "labelNoChangesYet": "暂无修改",
+      "labelTrackingCodes": "物流追踪码",
+      "labelAffiliateCode": "推广代码",
+      "labelCampaignCode": "活动代码",
+      "labelCustomerComment": "客户留言",
+      "labelInternalComment": "内部备注",
+      "buttonAddDeliveryAddress": "添加新地址",
+      "labelSameDeliveryAndBillingAddress": "账单地址和收货地址相同",
+      "buttonContinueOnVersionedOrder": "加载",
+      "tax": "包含的税费：",
+      "shippingCostsTax": "{taxRate}%：{tax}",
+      "placeholderTagSelect": "搜索标签...",
+      "placeholderTrackingCodeSelect": "添加物流追踪码...",
+      "addTrackingCode": "点击此处添加追踪码",
+      "enterValidTrackingCode": "请输入有效的追踪码",
+      "textCreditTax": "自动",
+      "taxDetail": "{taxRate}%：{tax}",
+      "textPromotionRemoved": "折扣 {promotion} 已被移除",
+      "textUnsavedChanges": "有未保存的更改，请在编辑此字段前先保存。",
+      "textMissingProductLineItems": "以下项目关联的商品已被删除：",
+      "textMissingProductLineItemsDescription": "这些商品的价格无法重新计算。因此，在保存订单时会被转换为自定义商品。",
+      "textConvertedProductLineItems": "以下项目原本关联的商品已被删除：",
+      "textConvertedProductLineItemsDescription": "这些商品的价格无法重新计算，请在修改订单时特别注意。",
+      "textDeleteLineItemConfirm": "确定要删除商品 ({label}) 吗？",
+      "helpTextCustomerComment": "客户可以提交此留言，修改后客户可见。",
+      "helpTextInternalComment": "仅供内部使用，客户不可见。"
     },
     "lineItemType": {
-      "credit": "Credit",
-      "product": "Product",
-      "custom": "Custom",
-      "promotion": "Promotion",
-      "discount": "Discount",
-      "container": "Container"
+      "credit": "退款/贷项",
+      "product": "商品",
+      "custom": "自定义",
+      "promotion": "促销",
+      "discount": "折扣",
+      "container": "组合"
     },
     "nestedLineItemsModal": {
-      "titlePrefix": "Item: {lineItemLabel} - {price}",
-      "headerLabel": "Name",
-      "headerUnitPrice": "Price (gross)",
-      "headerQuantity": "Quantity",
-      "headerTotalPrice": "Subtotal",
-      "headerTax": "VAT"
+      "titlePrefix": "商品：{lineItemLabel} - {price}",
+      "headerLabel": "名称",
+      "headerUnitPrice": "单价（含税）",
+      "headerQuantity": "数量",
+      "headerTotalPrice": "小计",
+      "headerTax": "增值税"
     },
     "detailDeliveries": {
-      "cardTitleItems": "Shipment {count}",
-      "labelShippingMethod": "Shipping method",
-      "labelDeliveryDate": "Delivery date",
-      "labelShippingCosts": "Shipping costs",
-      "labelDeliveryState": "Delivery state",
-      "buttonMerge": "Merge order"
+      "cardTitleItems": "发货 {count}",
+      "labelShippingMethod": "配送方式",
+      "labelDeliveryDate": "发货日期",
+      "labelShippingCosts": "运费",
+      "labelDeliveryState": "发货状态",
+      "buttonMerge": "合并订单"
     },
     "detailCustomerComment": {
-      "title": "Additional information"
+      "title": "附加信息"
     },
     "addressSelection": {
-      "modalTitleEditAddress": "Addresses",
-      "modalTitleSelectAddress": "Change address",
-      "modalTitleAddBillingAddress": "Add new billing address",
-      "modalTitleEditBillingAddress": "Change billing address",
-      "modalTitleAddShippingAddress": "Add new shipping address",
-      "modalTitleEditShippingAddress": "Change shipping address",
-      "headlineTabEditAddress": "Edit address",
-      "headlineTabSelectAddress": "Select address",
-      "headlineTabCreateAddress": "Add address",
-      "currentlySelected": "Currently selected",
-      "searchAddressToolbarPlaceholder": "Search addresses...",
-      "emptySearchResults": "No addresses found."
+      "modalTitleEditAddress": "地址管理",
+      "modalTitleSelectAddress": "更改地址",
+      "modalTitleAddBillingAddress": "添加账单地址",
+      "modalTitleEditBillingAddress": "更改账单地址",
+      "modalTitleAddShippingAddress": "添加收货地址",
+      "modalTitleEditShippingAddress": "更改收货地址",
+      "headlineTabEditAddress": "编辑地址",
+      "headlineTabSelectAddress": "选择地址",
+      "headlineTabCreateAddress": "新增地址",
+      "currentlySelected": "当前选择",
+      "searchAddressToolbarPlaceholder": "搜索地址...",
+      "emptySearchResults": "未找到相关地址。"
     },
     "leavePageModal": {
-      "headline": "Warning",
-      "description": "There are unsaved changes. Are you sure you want to leave this page without saving?",
-      "confirmButton": "Leave page",
-      "cancelButton": "Stay on page"
+      "headline": "警告",
+      "description": "有未保存的更改。确定要离开此页面而不保存吗？",
+      "confirmButton": "离开页面",
+      "cancelButton": "留在页面"
     },
     "saveChangesBeforehandModal": {
-      "headline": "Warning",
-      "statusDescription": "Before changing the status, your changes need to be saved. Do you want to save the changes now?",
-      "confirmButton": "Save changes"
+      "headline": "警告",
+      "statusDescription": "在更改状态前需要先保存修改，是否现在保存？",
+      "confirmButton": "保存修改"
     },
     "stateCard": {
-      "cardTitle": "Status",
-      "headlineOrderState": "Order status",
-      "headlineTransactionState": "Payment status",
-      "headlineDeliveryState": "Delivery status",
-      "draftPlaceholder": "Draft",
-      "labelHistory": "Status set {time} by {author}",
-      "labelShowHistoryModal": "Show status history",
-      "labelLastEditedBy": "Last edited by",
-      "labelSystemUser": "System",
-      "labelSelectStatePlaceholder": "Select a status...",
-      "labelSelectStateButton": "Update status",
-      "labelSendMailSwitch": "Send email to customer",
-      "labelErrorStateChange": "An error occured while updating the status:",
-      "labelErrorNoAction": "Status unchanged.",
-      "labelNoTransactionState": "No transactions yet",
-      "labelNoDeliveryState": "No deliveries yet",
-      "labelLastEditedByIntegration": "Last edited by {integrationName} (Integration)",
-      "labelIntegration": "Integration"
+      "cardTitle": "状态",
+      "headlineOrderState": "订单状态",
+      "headlineTransactionState": "支付状态",
+      "headlineDeliveryState": "发货状态",
+      "draftPlaceholder": "草稿",
+      "labelHistory": "状态于 {time} 由 {author} 设置",
+      "labelShowHistoryModal": "查看状态历史",
+      "labelLastEditedBy": "最后修改人",
+      "labelSystemUser": "系统",
+      "labelSelectStatePlaceholder": "选择状态...",
+      "labelSelectStateButton": "更新状态",
+      "labelSendMailSwitch": "发送邮件给客户",
+      "labelErrorStateChange": "更新状态时发生错误：",
+      "labelErrorNoAction": "状态未更改。",
+      "labelNoTransactionState": "暂无交易",
+      "labelNoDeliveryState": "暂无发货",
+      "labelLastEditedByIntegration": "最后由 {integrationName}（接口）修改",
+      "labelIntegration": "接口"
     },
     "assignMailTemplateCard": {
-      "cardTitle": "Assign email template",
-      "headline": "No email template assigned to this order status, please assign one.",
-      "placeholderAssignMailTemplate": "Assign an email template...",
-      "alertHeadline": "Hint",
-      "alertMessage": "This assignment affects all following orders received through this sales channel.",
-      "buttonCreateMailTemplate": "Create email template",
-      "buttonAssignMailTemplate": "Assign email template",
-      "buttonNotAssignMailTemplate": "Don't assign an email template",
-      "gridColumnType": "Type",
-      "gridColumnDescription": "Description"
+      "cardTitle": "分配邮件模板",
+      "headline": "当前订单状态未分配邮件模板，请分配。",
+      "placeholderAssignMailTemplate": "分配邮件模板...",
+      "alertHeadline": "提示",
+      "alertMessage": "该分配将影响该销售渠道的所有后续订单。",
+      "buttonCreateMailTemplate": "新建邮件模板",
+      "buttonAssignMailTemplate": "分配邮件模板",
+      "buttonNotAssignMailTemplate": "不分配邮件模板",
+      "gridColumnType": "类型",
+      "gridColumnDescription": "描述"
     },
     "documentCard": {
-      "searchBarPlaceholder": "Search all documents...",
-      "cardTitle": "Documents",
-      "modalTitle": "Status update",
-      "labelDate": "Date",
-      "labelNumber": "Number",
-      "labelType": "Type",
-      "labelSent": "Sent",
-      "labelAttach": "Attach",
-      "labelAmount": "Order value",
-      "labelOpenDocument": "Open document",
-      "labelDownloadPdf": "Download document",
-      "labelPrintDocument": "Print document",
-      "labelSendDocument": "Send document",
-      "labelMarkAsSent": "Mark as sent",
-      "labelMarkAsUnsent": "Mark as unsent",
-      "labelCreateNew": "Create new document",
-      "labelAvailableFormats": "Available formats",
-      "messageEmptyTitle": "No documents created yet",
-      "messageNoDocumentFound": "No documents found",
-      "messageEmptySubline": "Manage documents here.",
+      "searchBarPlaceholder": "搜索所有文档...",
+      "cardTitle": "文档",
+      "modalTitle": "状态更新",
+      "labelDate": "日期",
+      "labelNumber": "编号",
+      "labelType": "类型",
+      "labelSent": "已发送",
+      "labelAttach": "附件",
+      "labelAmount": "订单金额",
+      "labelOpenDocument": "打开文档",
+      "labelDownloadPdf": "下载文档",
+      "labelPrintDocument": "打印文档",
+      "labelSendDocument": "发送文档",
+      "labelMarkAsSent": "标记为已发送",
+      "labelMarkAsUnsent": "标记为未发送",
+      "labelCreateNew": "新建文档",
+      "labelAvailableFormats": "可用格式",
+      "messageEmptyTitle": "尚未创建文档",
+      "messageNoDocumentFound": "未找到文档",
+      "messageEmptySubline": "在此管理文档。",
       "error": {
-        "DOCUMENT__NUMBER_ALREADY_EXISTS": "Document number {number} has already been allocated."
+        "DOCUMENT__NUMBER_ALREADY_EXISTS": "文档编号 {number} 已被分配。"
       },
       "info": {
-        "DOCUMENT__NUMBER_WAS_CHANGED": "Duplicate document number. A consecutive number has automatically been drawn from the respective number range."
+        "DOCUMENT__NUMBER_WAS_CHANGED": "文档编号重复，已自动从对应编号段生成一个新的连续编号。"
       }
     },
     "generalTab": {
       "info": {
         "summary": {
-          "and": "and",
-          "on": "on",
-          "by": "by",
-          "lastChanged": "Last changed",
-          "with": "with"
+          "and": "和",
+          "on": "于",
+          "by": "由",
+          "lastChanged": "最后修改",
+          "with": "使用"
         }
       },
       "tagSelect": {
-        "placeholder": "Add tags ..."
+        "placeholder": "添加标签..."
       }
     },
     "detailsTab": {
-      "labelTransactionCard": "Payment",
-      "labelDeliveryCard": "Shipping",
-      "labelOrderCard": "Order",
+      "labelTransactionCard": "支付信息",
+      "labelDeliveryCard": "配送信息",
+      "labelOrderCard": "订单信息",
       "promotionsField": {
-        "labelPromotions": "Promotions with code",
-        "placeholderPromotions": "Enter promotion code ...",
-        "automaticPromotion":  "automatically applied",
-        "labelToggleAutomaticPromotions": "Disable automatically applied promotions",
+        "labelPromotions": "使用优惠码",
+        "placeholderPromotions": "输入优惠码...",
+        "automaticPromotion": "已自动应用",
+        "labelToggleAutomaticPromotions": "关闭自动优惠",
         "automaticPromotions": {
-          "title": "Update promotions",
-          "text": "This will update the order by removing promotions that no longer apply and adding new ones that do. Changes may be due to updated conditions or disabled promotions. Promotions added with a code won't be changed.",
-          "labelButton": "Update promotions"
+          "title": "更新优惠活动",
+          "text": "系统会移除已失效的优惠，并新增符合条件的优惠。变动可能因优惠条件更新或活动停用而产生。手动输入的优惠码不会受影响。",
+          "labelButton": "更新优惠"
         },
         "updatesModal": {
-          "title": "Updated promotions",
-          "description": "The following promotions have been updated:",
-          "promotionAddedTitle": "Added:",
-          "promotionRemovedTitle": "Removed:"
+          "title": "优惠活动已更新",
+          "description": "以下优惠已变更：",
+          "promotionAddedTitle": "新增：",
+          "promotionRemovedTitle": "移除："
         }
       }
     },
     "documentTab": {
-      "tooltipSaveBeforeCreateDocument": "Order is unsaved. Please save the order before creating a document"
+      "tooltipSaveBeforeCreateDocument": "订单尚未保存，请先保存后再创建文档"
     },
     "documentModal": {
-      "modalTitle": "Create document",
-      "labelDocumentDate": "Date",
-      "labelDeliveryDate": "Delivery date",
-      "labelDocumentNumber": "Number",
-      "labelDocumentStornoNumber": "Cancellation number",
-      "labelInvoiceNumber": "Invoice number",
-      "selectInvoiceNumber": "Select invoice number",
-      "labelDeliveryNoteNumber": "Delivery note number",
-      "labelDocumentComment": "Comment",
-      "labelCreateDownloadPdf": "Create and download PDF",
-      "labelCreateSend": "Create and send",
-      "labelCreate": "Create",
-      "labelCancel": "Close",
-      "labelPreview": "Preview",
-      "labelHighlightedItemsHeader": "Name",
-      "labelHighlightedItemsEntry": "Total",
-      "labelNoItems": "No credit shown",
-      "fileInputLabel": "Upload custom document",
-      "labelPreviewOnlyHtml": "HTML preview"
+      "modalTitle": "创建单据",
+      "labelDocumentDate": "单据日期",
+      "labelDeliveryDate": "发货日期",
+      "labelDocumentNumber": "单据编号",
+      "labelDocumentStornoNumber": "取消编号",
+      "labelInvoiceNumber": "发票号",
+      "selectInvoiceNumber": "选择发票号",
+      "labelDeliveryNoteNumber": "发货单号",
+      "labelDocumentComment": "备注",
+      "labelCreateDownloadPdf": "生成并下载 PDF",
+      "labelCreateSend": "生成并发送",
+      "labelCreate": "生成",
+      "labelCancel": "关闭",
+      "labelPreview": "预览",
+      "labelHighlightedItemsHeader": "名称",
+      "labelHighlightedItemsEntry": "金额",
+      "labelNoItems": "无可显示的抵扣",
+      "fileInputLabel": "上传自定义单据",
+      "labelPreviewOnlyHtml": "仅预览 HTML"
     },
     "documentSendModal": {
-      "labelNumber": "Number",
-      "labelType": "Type",
-      "labelDate": "Date",
-      "labelMailTemplate": "Email template",
-      "labelRecipient": "Email address",
-      "labelContent": "Email content",
-      "labelSubject": "Subject",
-      "labelClose": "Close",
-      "errorMessage": "Something went wrong while sending the Email."
+      "labelNumber": "编号",
+      "labelType": "类型",
+      "labelDate": "日期",
+      "labelMailTemplate": "邮件模板",
+      "labelRecipient": "收件邮箱",
+      "labelContent": "邮件内容",
+      "labelSubject": "主题",
+      "labelClose": "关闭",
+      "errorMessage": "发送邮件时出错"
     },
     "stateModal": {
-      "modalTitle": "Add documents"
+      "modalTitle": "添加单据"
     },
     "stateHistoryModal": {
-      "modalTitle": "Status history",
-      "labelSystemUser": "System",
-      "labelIntegration": "Integration",
+      "modalTitle": "状态历史",
+      "labelSystemUser": "系统",
+      "labelIntegration": "接口",
       "column": {
-        "createdAt": "Date",
-        "entity": "Changed",
-        "user": "Changed By",
-        "transaction": "Payment",
-        "delivery": "Shipping",
-        "order": "Order"
+        "createdAt": "日期",
+        "entity": "变更项",
+        "user": "操作人",
+        "transaction": "支付",
+        "delivery": "配送",
+        "order": "订单"
       }
     },
     "newCustomerModal": {
-      "labelDetails": "Details",
-      "labelGuest": "Guest account"
+      "labelDetails": "客户信息",
+      "labelGuest": "游客账号"
     },
     "invalidPromotionModal": {
-      "modalTitle": "Removing invalid promotion codes",
-      "modalDescription": "The following invalid promotion codes will be removed:",
-      "buttonConfirm": "OK"
+      "modalTitle": "移除无效优惠码",
+      "modalDescription": "以下无效的优惠码将被移除：",
+      "buttonConfirm": "确定"
     },
     "promotionModal": {
-      "labelTitle": "Disable automatic promotions",
-      "message": "The following automatic promotions will be disabled:",
-      "messageNoItems": "No automatic promotions active.",
-      "buttonDisable": "Disable"
+      "labelTitle": "禁用自动优惠",
+      "message": "以下自动优惠将被禁用：",
+      "messageNoItems": "当前没有自动优惠。",
+      "buttonDisable": "禁用"
     },
     "initialModal": {
-      "titleNewOrder": "New order",
-      "tabCustomer": "Customer",
-      "tabProducts": "Products",
-      "tabCustomItem": "Custom item",
-      "tabOptions": "Options",
-      "tabCredit": "Credit",
-      "buttonPreviewOrder": "Preview order",
+      "titleNewOrder": "新建订单",
+      "tabCustomer": "客户",
+      "tabProducts": "商品",
+      "tabCustomItem": "自定义商品",
+      "tabOptions": "选项",
+      "tabCredit": "余额",
+      "buttonPreviewOrder": "预览订单",
       "customerGrid": {
-        "buttonAddNewCustomer": "Add new customer",
-        "placeholderSearchCustomer": "Enter the customer name...",
-        "textEmptySearch": "No data for {name}",
-        "contextOpenButton": "Open",
-        "columnCustomerName": "Name",
-        "columnCustomerNumber": "Customer number",
-        "columnSalesChannel": "Sales Channel",
-        "columnEmailAddress": "Email address",
-        "titleSelectSalesChannel": "Select Sales Channel",
-        "descriptionSelectSalesChannel": "The selected customer has access to multiple Sales Channels, please select the Sales Channel you wish to use for this order.",
-        "alertSelectSalesChannel": "Because the selected Sales channel channel determines the available products and options, changing it will remove the products and reset the options.",
-        "labelSalesChannel": "Use Sales Channel",
-        "placeholderSalesChannel": "Select a Sales Channel...",
-        "buttonSelectSalesChannel": "Select",
-        "labelAllChannel": "All Channels",
-        "titleCustomerChanges": "Change Customer",
-        "descriptionCustomerChanges": "Are you sure you want to change the customer for this order? This customer has a different sales channel, this will remove the products and reset the options.",
-        "buttonChangeCustomer": "Change customer"
+        "buttonAddNewCustomer": "新增客户",
+        "placeholderSearchCustomer": "请输入客户姓名...",
+        "textEmptySearch": "没有找到 {name} 的数据",
+        "contextOpenButton": "查看",
+        "columnCustomerName": "姓名",
+        "columnCustomerNumber": "客户编号",
+        "columnSalesChannel": "销售渠道",
+        "columnEmailAddress": "邮箱",
+        "titleSelectSalesChannel": "选择销售渠道",
+        "descriptionSelectSalesChannel": "该客户有多个可用销售渠道，请选择用于此订单的销售渠道。",
+        "alertSelectSalesChannel": "更换销售渠道会影响可选商品和配置，切换后商品将被清空，选项也会被重置。",
+        "labelSalesChannel": "使用销售渠道",
+        "placeholderSalesChannel": "请选择销售渠道...",
+        "buttonSelectSalesChannel": "选择",
+        "labelAllChannel": "全部渠道",
+        "titleCustomerChanges": "更换客户",
+        "descriptionCustomerChanges": "确定要更换订单客户吗？新客户所属的销售渠道不同，当前商品将被清空，选项也会被重置。",
+        "buttonChangeCustomer": "更换客户"
       },
       "options": {
-        "textHeadlineOrder": "Order",
-        "textHeadlinePayment": "Payment",
-        "textHeadlineShipment": "Shipment",
-        "placeholderAddPromotion": "Add promotion",
-        "labelSameAsBillingAddress": "Shipping address is same as billing address",
-        "textSameAsBillingAddress": "Same as billing address",
-        "labelShippingCosts": "Shipping costs"
+        "textHeadlineOrder": "订单信息",
+        "textHeadlinePayment": "支付信息",
+        "textHeadlineShipment": "配送信息",
+        "placeholderAddPromotion": "添加优惠",
+        "labelSameAsBillingAddress": "配送地址与账单地址相同",
+        "textSameAsBillingAddress": "同账单地址",
+        "labelShippingCosts": "运费"
       },
       "tooltip": {
-        "customerUnavailable": "This customer can only use one sales channel. The Sales Channel is currently inactive or does not exist anymore."
+        "customerUnavailable": "该客户只能使用一个销售渠道，该渠道已停用或不存在。"
       }
     },
     "filters": {
       "documentFilter": {
-        "label": "Documents",
-        "placeholder": "Select document status...",
-        "textHasCriteria": "At least one document assigned",
-        "textNoCriteria": "No documents assigned"
+        "label": "单据",
+        "placeholder": "选择单据状态...",
+        "textHasCriteria": "至少分配了一份单据",
+        "textNoCriteria": "未分配任何单据"
       },
       "orderDateFilter": {
-        "label": "Order date",
+        "label": "下单日期",
         "options": {
-          "lastYear": "Last year",
-          "lastQuarter": "Last quarter",
-          "lastMonth": "Last month",
-          "lastWeek": "Last week",
-          "lastDay": "Last day",
-          "custom": "Custom"
+          "lastYear": "去年",
+          "lastQuarter": "上季度",
+          "lastMonth": "上月",
+          "lastWeek": "上周",
+          "lastDay": "昨天",
+          "custom": "自定义"
         }
       },
       "orderValueFilter": {
-        "label": "Order value"
+        "label": "订单金额"
       },
       "statusFilter": {
-        "label": "Order status",
-        "placeholder": "Select order status..."
+        "label": "订单状态",
+        "placeholder": "选择订单状态..."
       },
       "paymentStatusFilter": {
-        "label": "Payment status",
-        "placeholder": "Select payment status..."
+        "label": "付款状态",
+        "placeholder": "选择付款状态..."
       },
       "deliveryStatusFilter": {
-        "label": "Delivery status",
-        "placeholder": "Select delivery status..."
+        "label": "发货状态",
+        "placeholder": "选择发货状态..."
       },
       "paymentMethodFilter": {
-        "label": "Payment method",
-        "placeholder": "Select payment method..."
+        "label": "付款方式",
+        "placeholder": "选择付款方式..."
       },
       "shippingMethodFilter": {
-        "label": "Shipping method",
-        "placeholder": "Select shipping method..."
+        "label": "配送方式",
+        "placeholder": "选择配送方式..."
       },
       "salesChannelFilter": {
-        "label": "Sales Channels",
-        "placeholder": "Select Sales Channels..."
+        "label": "销售渠道",
+        "placeholder": "选择销售渠道..."
       },
       "orderNumberFilter": {
-        "label": "Order number",
-        "placeholder": "Enter order number..."
+        "label": "订单号",
+        "placeholder": "输入订单号..."
       },
       "customerNumberFilter": {
-        "label": "Customer number",
-        "placeholder": "Enter customer number..."
+        "label": "客户编号",
+        "placeholder": "输入客户编号..."
       },
       "billingCountryFilter": {
-        "label": "Billing country",
-        "placeholder": "Select billing countries..."
+        "label": "账单国家",
+        "placeholder": "选择账单国家..."
       },
       "shippingCountryFilter": {
-        "label": "Shipping country",
-        "placeholder": "Select shipping countries..."
+        "label": "收货国家",
+        "placeholder": "选择收货国家..."
       },
       "customerGroupFilter": {
-        "label": "Customer group",
-        "placeholder": "Select customer group..."
+        "label": "客户组",
+        "placeholder": "选择客户组..."
       },
       "tagFilter": {
-        "label": "Tags",
-        "placeholder": "Select tags..."
+        "label": "标签",
+        "placeholder": "选择标签..."
       },
       "productFilter": {
-        "label": "Products",
-        "placeholder": "Select products..."
+        "label": "商品",
+        "placeholder": "选择商品..."
       },
       "affiliateCodeFilter": {
-        "label": "Affiliate code",
-        "placeholder": "Enter affiliate code..."
+        "label": "联盟代码",
+        "placeholder": "输入联盟代码..."
       },
       "campaignCodeFilter": {
-        "label": "Campaign code",
-        "placeholder": "Enter campaign code..."
+        "label": "推广代码",
+        "placeholder": "输入推广代码..."
       },
       "promotionCodeFilter": {
-        "label": "Promotion code",
-        "placeholder": "Enter promotion code..."
+        "label": "优惠码",
+        "placeholder": "输入优惠码..."
       },
-      "messageEmptyTitle": "Nothing found",
-      "messageEmptySubline": "Edit your filters to find results."
+      "messageEmptyTitle": "没有找到结果",
+      "messageEmptySubline": "请调整筛选条件以获取结果。"
     },
     "components": {
       "selectDocumentTypeModal": {
-        "title": "Create document",
-        "primaryAction": "Create document",
+        "title": "新建单据",
+        "primaryAction": "创建单据",
         "helpText": {
-          "storno": "A cancellation invoice can't be created without an invoice.",
-          "credit_note": "To create a credit note, add a credit item first."
+          "storno": "没有发票，无法创建冲销发票。",
+          "credit_note": "要创建贷项单，请先添加一条信用/余额商品。"
         }
       }
     }
@@ -631,15 +631,15 @@
   "sw-privileges": {
     "permissions": {
       "order": {
-        "label": "Orders"
+        "label": "订单"
       },
       "order_refund": {
-        "label": "Refunds"
+        "label": "退款"
       }
     },
     "additional_permissions": {
       "orders": {
-        "create_discounts": "Create credit items"
+        "create_discounts": "创建余额/信用商品"
       }
     }
   }

@@ -7,15 +7,15 @@
   "sw-channel": {
     "general": {
       "tooltipOpenStorefront": "Open storefront",
-      "titleMenuItems": "Sales Channels",
+      "titleMenuItems": "Channels",
       "titleMenuMoreItems": "More",
-      "manageChannels": "Manage Sales Channels",
+      "manageChannels": "Manage Channels",
       "addChannel": "Add Sales Channel"
     },
     "list": {
-      "title": "Sales Channels",
-      "subTitle": "Sales Channels let you sell items to your customers through social media, storefronts, marketplaces or in person.",
-      "placeholderSearchBar": "Search Sales Channels...",
+      "title": "Channels",
+      "subTitle": "Channels let you sell items to your customers through social media, storefronts, marketplaces or in person.",
+      "placeholderSearchBar": "Search Channels...",
       "buttonAddChannel": "Add Sales Channel",
       "columnName": "Sales Channel",
       "columnType": "Type",
@@ -43,7 +43,7 @@
     "detail": {
       "messageSaveSuccess": "Sales Channel \"{name}\" saved.",
       "messageSaveError": "The Sales Channel \"{name}\" could not be saved. Please check your entries.",
-      "messageActivateWithoutThemeError": "Sales Channel \"{name}\" could not be activated. Active Sales Channels need to have a theme associated.",
+      "messageActivateWithoutThemeError": "Sales Channel \"{name}\" could not be activated. Active Channels need to have a theme associated.",
       "messageMeasurementUnitsSetError": "Could not load system configuration for product measurements.",
       "activateDisable": "Please assign a theme before activating and saving the Sales Channel.",
       "buttonSave": "Save",
@@ -311,7 +311,7 @@
   "sw-privileges": {
     "permissions": {
       "channel": {
-        "label": "Sales Channels"
+        "label": "Channels"
       }
     }
   }

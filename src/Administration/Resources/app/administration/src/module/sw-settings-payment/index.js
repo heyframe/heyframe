@@ -62,7 +62,7 @@ Module.register('sw-settings-payment', {
     },
 
     settingsItem: {
-        group: 'commerce',
+        group: 'general',
         to: 'sw.settings.payment.overview',
         icon: 'regular-credit-card',
         privilege: 'payment.viewer',

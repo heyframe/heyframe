@@ -1,32 +1,32 @@
 {
   "sw-settings": {
     "general": {
-      "mainMenuItemGeneral": "Settings"
+      "mainMenuItemGeneral": "设置"
     },
     "index": {
-      "title": "Settings",
-      "tabShop": "Shop",
-      "tabSystem": "System",
-      "tabGeneral": "General",
-      "tabLocalization": "Localisation",
-      "tabCustomer": "Customer",
-      "tabCommerce": "Commerce",
-      "tabContent": "Content",
-      "tabAutomation": "Automation",
-      "tabPlugins": "Extensions",
-      "textSettingRenameBanner": "The setting <b>Scale units</b> has been renamed to <b>Product units</b>."
+      "title": "设置",
+      "tabShop": "商店",
+      "tabSystem": "系统",
+      "tabGeneral": "常规",
+      "tabLocalization": "本地化",
+      "tabCustomer": "客户",
+      "tabCommerce": "商务",
+      "tabContent": "内容",
+      "tabAutomation": "自动化",
+      "tabPlugins": "扩展",
+      "textSettingRenameBanner": "设置 <b>Scale units</b> 已重命名为 <b>产品单位</b>。"
     },
     "system-config": {
-      "labelSalesChannelSelect": "Sales Channel",
-      "inherited": "Inherited",
-      "compileNotice": "This configuration holds fields that can be used in a theme. Please compile the theme for these changes to be visible.",
-      "scssHelpText": "SCSS variable name: "
+      "labelSalesChannelSelect": "销售渠道",
+      "inherited": "继承",
+      "compileNotice": "此配置包含可在主题中使用的字段。请编译主题以使更改生效。",
+      "scssHelpText": "SCSS 变量名："
     }
   },
   "sw-privileges": {
     "additional_permissions": {
       "system": {
-        "system_config": "Basic configuration"
+        "system_config": "基础配置"
       }
     }
   }

@@ -2,651 +2,651 @@
   "sw-extension": {
     "store": {
       "tabs": {
-        "apps": "Apps",
-        "themes": "Themes"
+        "apps": "应用",
+        "themes": "主题"
       },
       "listing": {
-        "anyOption": "Any",
-        "sort": "Sort"
+        "anyOption": "任意",
+        "sort": "排序"
       }
     },
     "my-extensions": {
       "listing": {
-        "initialSearchType": "Extensions",
-        "placeholderSearchBar": "Find extensions...",
+        "initialSearchType": "扩展",
+        "placeholderSearchBar": "搜索扩展...",
         "controls": {
-          "labelActiveStateSwitch": "Hide inactive extensions",
+          "labelActiveStateSwitch": "隐藏未激活的扩展",
           "filterOptions": {
-            "last-updated": "Last updated",
-            "name-asc": "Name A - Z.",
-            "name-desc": "Name Z - A."
+            "last-updated": "最近更新",
+            "name-asc": "名称 A - Z",
+            "name-desc": "名称 Z - A"
           }
         },
-        "version": "Version",
-        "update": "Update"
+        "version": "版本",
+        "update": "更新"
       },
       "account": {
-        "headline": "HeyFrame Account",
-        "isLoggedIn": "HeyFrame Account succesfully connected. Go to the \"App\" or \"Themes\" tab and check if your purchased extensions are listed. If not, check head over to your Showare Account and make sure the correct domain for extensions has been set.",
-        "login": "Login",
-        "logout": "Logout",
-        "loginMessage": "Login with you HeyFrame Account to access extensions you bought on store.heyframe.com",
-        "register": "Sign up now and become part of the HeyFrame community!",
-        "registerNow": "Sign up now",
+        "headline": "HeyFrame 账号",
+        "isLoggedIn": "HeyFrame 账号已成功连接。请前往“应用”或“主题”标签查看已购买的扩展是否列出。如果未显示，请检查你的 Showware 账号，并确保已设置正确的扩展域名。",
+        "login": "登录",
+        "logout": "登出",
+        "loginMessage": "使用 HeyFrame 账号登录，以访问你在 store.heyframe.com 购买的扩展",
+        "register": "立即注册，加入 HeyFrame 社区！",
+        "registerNow": "立即注册",
         "registerUrl": "https://account.heyframe.com/register?lang=en",
-        "mailLabel": "Email address",
-        "mailPlaceholder": "Enter your email address...",
-        "passwordLabel": "Password",
-        "passwordPlaceholder": "Enter your password...",
+        "mailLabel": "邮箱地址",
+        "mailPlaceholder": "输入你的邮箱地址...",
+        "passwordLabel": "密码",
+        "passwordPlaceholder": "输入你的密码...",
         "recoveryUrl": "https://account.heyframe.com/recovery?lang=en",
-        "passwordForgot": "Did you forget your password?",
-        "loginNotificationMessage": "You are logged in to the HeyFrame Account."
+        "passwordForgot": "忘记密码？",
+        "loginNotificationMessage": "你已登录 HeyFrame 账号。"
       },
       "tabs": {
-        "app": "Apps",
-        "theme": "Themes",
-        "recommendation": "Recommendations",
-        "heyframeAccount": "HeyFrame Account"
+        "app": "应用",
+        "theme": "主题",
+        "recommendation": "推荐",
+        "heyframeAccount": "HeyFrame 账号"
       },
       "fileUpload": {
-        "buttonFileUpload": "Upload extension",
-        "messageUploadSuccess": "Extension uploaded.",
-        "titleWarningModal": "Warning",
-        "descriptionWarningModal": "Extensions from outside the HeyFrame Store have not been reviewed by us and could potentially pose a risk to your store. We recommend using extensions from the HeyFrame Store whenever possible.",
-        "textHideWarning": "Do not show again"
+        "buttonFileUpload": "上传扩展",
+        "messageUploadSuccess": "扩展上传成功。",
+        "titleWarningModal": "警告",
+        "descriptionWarningModal": "来自 HeyFrame Store 以外的扩展未经我们审核，可能会对你的商店造成风险。建议尽量使用 HeyFrame Store 的扩展。",
+        "textHideWarning": "不再显示"
       }
     },
     "errors": {
-      "messageToTheHeyFrameDocumentation": "<a href=\"{documentationLink}\" target=\"_blank\">Open HeyFrame Documentation</a>",
-      "messageGenericFailure": "That didn't work.",
-      "messageUploadFailureNotAZipFile": "Uploaded file is not a ZIP file.",
-      "messageUploadFailureUnzipFailed": "Unable to extract ZIP file.",
-      "messageUploadFailureNoPluginFoundInZipFile": "No extension found in ZIP file.",
-      "messageLoginDataInvalid": "Login data incomplete.",
-      "messageStoreLicenseDomainMissing": "Login failed. Did you provide the correct licence domain from your HeyFrame Account in \"Settings/HeyFrame Account\"?",
-      "messageStoreNotAvailable": "The HeyFrame Store is not available.",
-      "messagePluginBaseClassNotFound": "The extension base class could not be loaded. Check the composer.json of the extension regarding the class autoloading.",
-      "messagePluginInstallationFailed": "The extension could not be installed: \"{message}\".",
-      "messagePluginUninstallationFailed": "The extension could not be uninstalled: \"{message}\".",
-      "messagePluginActivationFailed": "The extension could not be activated: \"{message}\".",
-      "messagePluginDeactivationFailed": "The extension could not be deactivated: \"{message}\".",
-      "messageDeactivationFailedDependencies": "The extension \"{dependency}\" cannot be deactivated, because there are other extensions depending on it. Please deactivate the following extensions before restarting the update: {dependantNames}",
-      "messageDeactivationFailedThemeAssignment": "Unable to deactivate or uninstall theme \"{themeName}\". Please remove the following theme assignments: {assignments}.",
-      "messagePluginUpdateFailed": "The extension could not be updated: \"{message}\". {pluginDeactivatedHint}",
-      "pluginDeactivatedHint": "Extension deactivated.",
-      "messagePluginRequirementMismatch": "The extension has technical requirements that are not compatible with those of the installed HeyFrame version. Please contact the manufacturer.",
-      "appIsNotCompatible": "Extension \"{name}\" is not compatible with this HeyFrame version",
+      "messageToTheHeyFrameDocumentation": "<a href=\"{documentationLink}\" target=\"_blank\">打开 HeyFrame 文档</a>",
+      "messageGenericFailure": "操作失败。",
+      "messageUploadFailureNotAZipFile": "上传的文件不是 ZIP 文件。",
+      "messageUploadFailureUnzipFailed": "无法解压 ZIP 文件。",
+      "messageUploadFailureNoPluginFoundInZipFile": "ZIP 文件中未找到扩展。",
+      "messageLoginDataInvalid": "登录信息不完整。",
+      "messageStoreLicenseDomainMissing": "登录失败。请确认在“设置/HeyFrame 账号”中提供了正确的 HeyFrame 账号授权域名。",
+      "messageStoreNotAvailable": "HeyFrame Store 当前不可用。",
+      "messagePluginBaseClassNotFound": "无法加载扩展基类。请检查扩展的 composer.json 文件中的类自动加载配置。",
+      "messagePluginInstallationFailed": "扩展安装失败: \"{message}\"。",
+      "messagePluginUninstallationFailed": "扩展卸载失败: \"{message}\"。",
+      "messagePluginActivationFailed": "扩展激活失败: \"{message}\"。",
+      "messagePluginDeactivationFailed": "扩展停用失败: \"{message}\"。",
+      "messageDeactivationFailedDependencies": "无法停用扩展 \"{dependency}\"，因为其他扩展依赖它。请先停用以下扩展，然后再重新启动更新: {dependantNames}",
+      "messageDeactivationFailedThemeAssignment": "无法停用或卸载主题 \"{themeName}\"。请先移除以下主题分配: {assignments}。",
+      "messagePluginUpdateFailed": "扩展更新失败: \"{message}\"。{pluginDeactivatedHint}",
+      "pluginDeactivatedHint": "扩展已停用。",
+      "messagePluginRequirementMismatch": "扩展的技术要求与已安装的 HeyFrame 版本不兼容，请联系制造商。",
+      "appIsNotCompatible": "扩展 \"{name}\" 与当前 HeyFrame 版本不兼容。",
       "appLicenseCouldNotBeVerified": {
-        "title": "The licence of this extension could not be verified",
-        "message": "Ensure that your licence domain is set correctly and that you are logged in with your HeyFrame Account to which this extension is licensed.",
-        "actionSetLicenseDomain": "Set licence domain",
-        "actionLogin": "Login"
+        "title": "无法验证此扩展的授权",
+        "message": "请确保已正确设置授权域名，并使用获得该扩展授权的 HeyFrame 账号登录。",
+        "actionSetLicenseDomain": "设置授权域名",
+        "actionLogin": "登录"
       },
       "storeSessionExpired": {
-        "title": "HeyFrame Account session expired",
-        "message": "Please log in to access your licensed extensions.",
-        "actionLabel": "Login"
+        "title": "HeyFrame 账号会话已过期",
+        "message": "请登录以访问已授权的扩展。",
+        "actionLabel": "登录"
       }
     },
     "mainMenu": {
-      "mainMenuItemExtensionStore": "Extensions",
-      "store": "Store",
-      "purchased": "My extensions",
-      "support": "Support"
+      "mainMenuItemExtensionStore": "扩展",
+      "store": "商店",
+      "purchased": "我的扩展",
+      "support": "支持"
     },
     "sw-extension-app-module-error-page": {
       "error": {
-        "heading": "Whoops! You’ve moved too fast and lost orientation.",
-        "phrase": "The page you were looking for is beyond our reach. Maybe the page has moved, no longer exists or you just like our 404-page. We’ll probably never know.",
-        "info": "Don’t worry! We’ve dispatched a rescue space-cat to guide you back to safety.",
-        "lblBackButton": "Back"
+        "heading": "哎呀！你动作太快，迷失方向了。",
+        "phrase": "你要访问的页面已经超出我们的范围。可能页面已移动、不再存在，或者你只是喜欢我们的 404 页面。我们大概永远也不会知道。",
+        "info": "别担心！我们已经派出一只救援太空猫来引导你安全返回。",
+        "lblBackButton": "返回"
       }
     }
   },
   "sw-extension-store": {
     "landing-page": {
-      "enablingHeyFrameStore": "Activating the HeyFrame Store...",
-      "takeMinutes": "This may take a few minutes.",
-      "activationErrorTitle": "Error during activation",
-      "activationErrorDescription": "Please try again. If that doesn't work, ask your administrator for help.",
-      "retryButton": "Retry",
-      "activationSuccessTitle": "Activated successfully",
-      "activationSuccessDescription": "Have fun exploring the HeyFrame Store.",
-      "label": "Now available",
-      "activationDescriptionTitleFirst": "Explore and buy extensions easily -",
-      "activationDescriptionTitleSecond": "right from within your own HeyFrame shop.",
-      "activationDescriptionTitleDescription": "Activate the HeyFrame Store and get access to loads of helpful extensions and modern themes that can be integrated into your shop seemlessly - without any programming skills.",
-      "activate": "Activate"
+      "enablingHeyFrameStore": "正在激活 HeyFrame 商店...",
+      "takeMinutes": "这可能需要几分钟时间。",
+      "activationErrorTitle": "激活时出错",
+      "activationErrorDescription": "请重试。如果仍然失败，请联系管理员寻求帮助。",
+      "retryButton": "重试",
+      "activationSuccessTitle": "激活成功",
+      "activationSuccessDescription": "尽情探索 HeyFrame 商店吧。",
+      "label": "现已可用",
+      "activationDescriptionTitleFirst": "轻松探索并购买扩展 -",
+      "activationDescriptionTitleSecond": "直接在你自己的 HeyFrame 商店中。",
+      "activationDescriptionTitleDescription": "激活 HeyFrame 商店即可访问大量实用扩展和现代主题，无需任何编程技能即可轻松集成到你的商店中。",
+      "activate": "激活"
     },
-    "title": "Store",
-    "descriptionTextModule": "Manage your extensions",
+    "title": "商店",
+    "descriptionTextModule": "管理你的扩展",
     "general": {
-      "labelPrice": "Free | {price}/month | {price}",
-      "labelDiscountedPrice": "Free | <s>{price}</s> <strong>{discountedPrice}</strong>/month | <s>{price}</s> <strong>{discountedPrice}</strong>"
+      "labelPrice": "免费 | {price}/月 | {price}",
+      "labelDiscountedPrice": "免费 | <s>{price}</s> <strong>{discountedPrice}</strong>/月 | <s>{price}</s> <strong>{discountedPrice}</strong>"
     },
     "listing": {
       "tabs": {
-        "themes": "Themes"
+        "themes": "主题"
       },
-      "placeHolderCategories": "All categories",
-      "placeholderRatings": "All ratings",
+      "placeHolderCategories": "所有类别",
+      "placeholderRatings": "所有评分",
       "sorting": {
-        "releaseDateAsc": "Release date oldest - newest",
-        "releaseDateDesc": "Release date newest - oldest",
-        "nameAsc": "Name A - Z",
-        "nameDesc": "Name Z - A",
-        "ratingAsc": "Rating low - high",
-        "ratingDesc": "Rating high - low"
+        "releaseDateAsc": "发布日期 从旧到新",
+        "releaseDateDesc": "发布日期 从新到旧",
+        "nameAsc": "名称 A - Z",
+        "nameDesc": "名称 Z - A",
+        "ratingAsc": "评分 从低到高",
+        "ratingDesc": "评分 从高到低"
       }
     },
     "detail": {
-      "labelButtonAddExtension": "Add extension",
-      "labelButtonAddTheme": "Add theme",
-      "labelButtonOpenExtension": "Open extension",
-      "labelButtonOpenTheme": "Open theme",
-      "labelButtonInstallExtension": "Install extension",
-      "labelButtonInstallTheme": "Install theme",
-      "labelBy": "by",
-      "numberOfRatings": "{count} review | {count} reviews",
-      "noRatings": "No ratings yet",
-      "cardTitleInformation": "Information",
-      "labelButtonReadMore": "Read more",
-      "cardTitleDetails": "Details",
+      "labelButtonAddExtension": "添加扩展",
+      "labelButtonAddTheme": "添加主题",
+      "labelButtonOpenExtension": "打开扩展",
+      "labelButtonOpenTheme": "打开主题",
+      "labelButtonInstallExtension": "安装扩展",
+      "labelButtonInstallTheme": "安装主题",
+      "labelBy": "作者",
+      "numberOfRatings": "{count} 条评价 | {count} 条评价",
+      "noRatings": "暂无评价",
+      "cardTitleInformation": "信息",
+      "labelButtonReadMore": "阅读更多",
+      "cardTitleDetails": "详细信息",
       "details": {
-        "labelCategory": "Category | Categories",
-        "labelVersion": "Version",
-        "labelUpdatedAt": "Last updated",
-        "labelLanguages": "Languages",
-        "labelWebsite": "Developer website",
-        "labelPrivacy": "Privacy policy"
+        "labelCategory": "类别 | 类别",
+        "labelVersion": "版本",
+        "labelUpdatedAt": "最后更新",
+        "labelLanguages": "语言",
+        "labelWebsite": "开发者网站",
+        "labelPrivacy": "隐私政策"
       },
-      "cardTitleFAQ": "FAQ",
-      "cardTitleChangelog": "Changelog",
-      "labelButtonShowPermissions": "Show permissions",
-      "labelDiscountInfo": "Offer expires on {endDate}",
-      "labelDiscountPeriod": "*For the first month - | *For the first {months} months - "
+      "cardTitleFAQ": "常见问题",
+      "cardTitleChangelog": "更新日志",
+      "labelButtonShowPermissions": "显示权限",
+      "labelDiscountInfo": "优惠截止于 {endDate}",
+      "labelDiscountPeriod": "*首月 - | *前 {months} 个月 - "
     },
     "component": {
       "sw-extension-meteor-page-context-item": {
-        "labelButtonMore": "More"
+        "labelButtonMore": "更多"
       },
       "sw-extension-buy-modal": {
-        "title": "Add extension",
-        "labelAcceptPermissions": "I am aware that this extension needs additional permissions",
-        "labelAcceptPrivacyExtensions": "I am aware that I need to extend my privacy policy",
-        "buttonShowPrivacyExtensions": "Show details",
+        "title": "添加扩展",
+        "labelAcceptPermissions": "我已知晓此扩展需要额外权限",
+        "labelAcceptPrivacyExtensions": "我已知晓需要更新隐私政策",
+        "buttonShowPrivacyExtensions": "查看详情",
         "variantCard": {
-          "free": "Use free version",
-          "rent": "Subscribe for {price} per month",
-          "buy": "Buy for {price}",
-          "hasTrialPhase": "trial month included"
+          "free": "使用免费版本",
+          "rent": "订阅，每月 {price}",
+          "buy": "购买，{price}",
+          "hasTrialPhase": "含试用月"
         },
         "variantSummary": {
-          "labelVat": "plus VAT",
-          "labelPrice": "Price",
-          "renewal": "Renewal on {renewalDate}"
+          "labelVat": "不含增值税",
+          "labelPrice": "价格",
+          "renewal": "续订日期 {renewalDate}"
         },
         "purchaseButtonsLabels": {
-          "free": "Add extension for free",
-          "rent": "Subscribe to extension",
-          "buy": "Buy extension now"
+          "free": "免费添加扩展",
+          "rent": "订阅扩展",
+          "buy": "立即购买扩展"
         },
         "successNotification": {
-          "titleSuccess": "Extension successfully added!",
-          "subtitleSuccess": "You can now try out your new extension.",
-          "labelButtonBack": "Back to details"
+          "titleSuccess": "扩展已成功添加！",
+          "subtitleSuccess": "你现在可以试用新扩展。",
+          "labelButtonBack": "返回详情"
         },
         "alertCanNotBuy": {
-          "text": "You need to be logged in to the HeyFrame Store to do this"
+          "text": "你需要登录 HeyFrame Store 才能执行此操作"
         }
       },
       "sw-extension-adding-failed": {
-        "titleFailure": "Failed adding the extension ",
-        "textProblem": "A problem occurred while adding the extension.",
+        "titleFailure": "添加扩展失败",
+        "textProblem": "添加扩展时出现问题。",
         "installationFailed": {
-          "titleFailure": "Installation failed",
-          "textProblem": "A problem occurred while installing your extension. We will inform the manufacturer.",
-          "notificationLicense": "Please note that the subscription to this extension remains active.",
-          "textSupport": "If you have any questions about the licence, please contact HeyFrame Financial Services. Available via email at {0} or via phone at {1}.",
+          "titleFailure": "安装失败",
+          "textProblem": "安装扩展时出现问题，我们会通知开发者。",
+          "notificationLicense": "请注意，此扩展订阅仍然有效。",
+          "textSupport": "如有关于授权的问题，请联系 HeyFrame 财务服务。邮箱：{0} 或电话：{1}。",
           "supportEmail": "financial.services{'@'}heyframe.com",
           "supportPhone": "+49 (0)2555 / 9288510"
         }
       },
       "sw-extension-adding-success": {
-        "titleSuccess": "Extensions successfully added!",
-        "subtitleSuccess": "You can now try out your new extension."
+        "titleSuccess": "扩展已成功添加！",
+        "subtitleSuccess": "你现在可以试用新扩展。"
       },
       "sw-extension-ratings": {
         "sw-review-reply": {
-          "labelCreationDate": "replied on {creationDate}"
+          "labelCreationDate": "回复于 {creationDate}"
         },
         "sw-extension-review-creation": {
-          "submitBtn": "Submit"
+          "submitBtn": "提交"
         },
         "sw-extension-ratings-summary": {
-          "labelRating": "No ratings | {numberOfRatings} rating | {numberOfRatings} ratings"
+          "labelRating": "暂无评分 | {numberOfRatings} 个评分 | {numberOfRatings} 个评分"
         },
         "sw-extension-review": {
           "labelLastChangeDate": "{author}, {lastChangeDate}",
-          "labelExtensionVersion": "Version: {extensionVersion}"
+          "labelExtensionVersion": "版本: {extensionVersion}"
         },
         "sw-extension-ratings-card": {
-          "cardTitle": "Ratings and reviews",
-          "labelMoreReviewsBtn": "Read more reviews",
-          "footerHeadline": "Add a review",
-          "labelNoReviews": "This extension hasn't received any ratings or reviews yet."
+          "cardTitle": "评分与评论",
+          "labelMoreReviewsBtn": "查看更多评论",
+          "footerHeadline": "添加评论",
+          "labelNoReviews": "此扩展尚未收到任何评分或评论。"
         },
         "sw-extension-review-creation-inputs": {
-          "title": "Rate extension",
-          "labelHeadline": "Headline",
-          "placeholderHeadline": "Enter a brief headline...",
-          "labelRating": "Rating",
-          "labelText": "Review (optional)"
+          "title": "评价扩展",
+          "labelHeadline": "标题",
+          "placeholderHeadline": "输入简短标题...",
+          "labelRating": "评分",
+          "labelText": "评论（可选）"
         },
         "sw-extension-rating-modal": {
-          "title": "Create a review"
+          "title": "创建评论"
         }
       },
       "sw-extension-card-base": {
-        "subscriptionLabel": "Subscription:",
-        "inactiveLabel": "(inactive)",
-        "purchasedLabel": "Purchased:",
-        "installedLabel": "Installed:",
-        "openExtensionLabel": "Open",
-        "installExtensionLabel": "Install",
-        "labelAcceptAndInstall": "Accept and install",
-        "allowDisableTooltip": "This app uses its own data structures, that affect your system. Therefore, the app cannot be deactivated.",
+        "subscriptionLabel": "订阅:",
+        "inactiveLabel": "(未激活)",
+        "purchasedLabel": "已购买:",
+        "installedLabel": "已安装:",
+        "openExtensionLabel": "打开",
+        "installExtensionLabel": "安装",
+        "labelAcceptAndInstall": "接受并安装",
+        "allowDisableTooltip": "此应用使用自身的数据结构，会影响系统，因此无法停用。",
         "contextMenu": {
-          "getHelpLabel": "Get help",
-          "seeDetailsLabel": "See details",
-          "config": "Configure",
-          "privacyAndSafetyLabel": "Data privacy & safety",
-          "removeLabel": "Remove",
-          "cancelAndRemoveLabel": "Cancel and remove",
-          "uninstallLabel": "Uninstall",
-          "updateLabel": "Update to {version}",
-          "rateLabel": "Rate extension",
-          "policyExtensions": "Privacy policy extensions",
-          "permissions": "See permissions",
-          "openExtension": "Open extension"
+          "getHelpLabel": "获取帮助",
+          "seeDetailsLabel": "查看详情",
+          "config": "配置",
+          "privacyAndSafetyLabel": "数据隐私与安全",
+          "removeLabel": "移除",
+          "cancelAndRemoveLabel": "取消并移除",
+          "uninstallLabel": "卸载",
+          "updateLabel": "更新到 {version}",
+          "rateLabel": "评价扩展",
+          "policyExtensions": "隐私政策扩展",
+          "permissions": "查看权限",
+          "openExtension": "打开扩展"
         }
       },
       "sw-extension-card-bought": {
-        "rentWillExpireAt": "Rent expires on {date}",
-        "rentExpiredAt": "Rent has expired on {date}",
-        "testPhaseWillExpireAt": "Test phase expires on {date}",
-        "testPhaseExpiredAt": "Test phase has expired on {date}"
+        "rentWillExpireAt": "租用将于 {date} 到期",
+        "rentExpiredAt": "租用已于 {date} 到期",
+        "testPhaseWillExpireAt": "试用期将于 {date} 到期",
+        "testPhaseExpiredAt": "试用期已于 {date} 到期"
       },
       "sw-extension-deactivation-modal": {
-        "deactivateExtensionLabel": "Deactivate \"{extensionName}\"",
-        "description": "The \"{extensionName}\" extension has a monthly subscription fee.<br>Deactivating this extension <b>will not</b> cancel your subscription and fees will continue to be collected.",
-        "descriptionCancel": "If you want to cancel your subscription, you can remove it by clicking \"{removeLabel}\" in the context menu.",
-        "alertDeactivate": "Do you still want to deactivate this extension?",
-        "deactivateLabel": "Deactivate"
+        "deactivateExtensionLabel": "停用 \"{extensionName}\"",
+        "description": "\"{extensionName}\" 扩展有月度订阅费用。<br>停用此扩展 <b>不会</b> 取消订阅，费用将继续收取。",
+        "descriptionCancel": "如果想取消订阅，可在上下文菜单点击 \"{removeLabel}\" 移除。",
+        "alertDeactivate": "你仍然要停用此扩展吗？",
+        "deactivateLabel": "停用"
       },
       "sw-extension-permissions-modal": {
-        "title": "{extensionLabel} permissions",
-        "titleNewPermissions": "New {extensionLabel} permissions",
-        "description": "{extensionLabel} will get access to the components below. Click the link next to the component to show the entity details.",
-        "descriptionNewPermissions": "{extensionLabel} requests permission changes with this update. Make sure you agree to all changes before continuing with the update.",
-        "domainHint": "Some data will also be shared with other domains. Click the link next to domains for more details.",
-        "textEntities": "Show permissions",
-        "domains": "Domains",
-        "showDomains": "Show domains",
-        "acceptAndUpdate": "Accept and update"
+        "title": "{extensionLabel} 权限",
+        "titleNewPermissions": "新的 {extensionLabel} 权限",
+        "description": "{extensionLabel} 将获取以下组件的访问权限。点击组件旁的链接查看详细信息。",
+        "descriptionNewPermissions": "{extensionLabel} 在此更新中请求权限变更，请在继续更新前确认同意所有变更。",
+        "domainHint": "部分数据将与其他域共享。点击域旁的链接查看更多信息。",
+        "textEntities": "显示权限",
+        "domains": "域",
+        "showDomains": "显示域",
+        "acceptAndUpdate": "接受并更新"
       },
       "sw-extension-domains-modal": {
-        "modalTitle": "{extensionLabel} - Domains",
-        "description": "Some data will be shared with / transferred to the domains listed below.",
-        "listTitle": "Domain"
+        "modalTitle": "{extensionLabel} - 域",
+        "description": "部分数据将与以下列出的域共享/传输。",
+        "listTitle": "域"
       },
       "sw-extension-privacy-policy-extensions-modal": {
-        "title": "{extensionLabel}: privacy policy extensions",
-        "intro": "This app processes personal information. The manufacturer recommends the adjustments of your privacy policy:"
+        "title": "{extensionLabel}: 隐私政策扩展",
+        "intro": "此应用处理个人信息。开发者建议调整您的隐私政策如下："
       },
       "sw-extension-permissions-details-modal": {
-        "operationRead": "View",
-        "operationUpdate": "Edit",
-        "operationCreate": "Create",
-        "operationDelete": "Delete"
+        "operationRead": "查看",
+        "operationUpdate": "编辑",
+        "operationCreate": "创建",
+        "operationDelete": "删除"
       },
       "sw-extension-my-extensions-listing": {
         "apps": {
-          "noActivePlugins": "No active apps found.",
-          "titleEmptyState": "No apps installed yet",
-          "textEmptyState": "If you install apps, they will be listed here."
+          "noActivePlugins": "未找到已激活应用。",
+          "titleEmptyState": "尚未安装应用",
+          "textEmptyState": "安装应用后，将在此列出。"
         },
         "themes": {
-          "noActivePlugins": "No active themes found.",
-          "titleEmptyState": "No themes installed yet",
-          "textEmptyState": "If you install themes, they will be listed here."
+          "noActivePlugins": "未找到已激活主题。",
+          "titleEmptyState": "尚未安装主题",
+          "textEmptyState": "安装主题后，将在此列出。"
         },
-        "btnOpenStore": "Open store",
+        "btnOpenStore": "打开商店",
         "alertExtensionManagement": {
-          "title": "Runtime extension management disabled",
-          "description": "The runtime extension management is disabled in this installation. You can only change the settings of the extensions in the administration."
+          "title": "运行时扩展管理已禁用",
+          "description": "此安装中运行时扩展管理已禁用，你只能在管理后台更改扩展设置。"
         }
       },
       "sw-extension-removal-modal": {
-        "titleCancel": "\"{extensionName}\" cancel and remove",
-        "titleRemove": "\"{extensionName}\" remove",
-        "description": "If you remove the extension, you can no longer use it.",
-        "alertCancel": "Are you sure you want to cancel and remove the extension?",
-        "alertRemove": "Are you sure you want to remove the extension?",
-        "labelCancel": "Cancel and remove",
-        "labelRemove": "Remove"
+        "titleCancel": "\"{extensionName}\" 取消并移除",
+        "titleRemove": "\"{extensionName}\" 移除",
+        "description": "移除扩展后，你将无法再使用它。",
+        "alertCancel": "确定要取消并移除此扩展吗？",
+        "alertRemove": "确定要移除此扩展吗？",
+        "labelCancel": "取消并移除",
+        "labelRemove": "移除"
       },
       "sw-extension-uninstall-modal": {
-        "title": "\"{extensionName}\" uninstall",
-        "description": "If you uninstall the extension, you can no longer use it.",
-        "alert": "Are you sure you want to uninstall the extension?",
-        "buttonLabel": "Uninstall",
-        "labelRemovePluginData": "Remove all app data permanently",
-        "helpTextRemovePluginData": "Warning: All data of the app will be removed permanently. This process is irreversible."
+        "title": "\"{extensionName}\" 卸载",
+        "description": "卸载扩展后，你将无法再使用它。",
+        "alert": "确定要卸载此扩展吗？",
+        "buttonLabel": "卸载",
+        "labelRemovePluginData": "永久移除所有应用数据",
+        "helpTextRemovePluginData": "警告：应用的所有数据将被永久移除，该操作不可逆。"
       },
       "sw-extension-listing-card": {
-        "labelInstalled": "Installed",
-        "labelLicensed": "Purchased"
+        "labelInstalled": "已安装",
+        "labelLicensed": "已购买"
       },
       "sw-extension-config": {
-        "messageSaveSuccess": "Configuration saved.",
-        "imageDescription": "\"{extensionName}\" icon",
-        "labelBy": "by"
+        "messageSaveSuccess": "配置已保存。",
+        "imageDescription": "\"{extensionName}\" 图标",
+        "labelBy": "作者"
       }
     }
   },
   "entityCategories": {
     "admin_user": {
-      "title": "Administration user",
+      "title": "管理用户",
       "entities": {
-        "integration": "Integration",
-        "user": "User",
-        "user_access_key": "Access key",
-        "user_recovery": "Recovery"
+        "integration": "集成",
+        "user": "用户",
+        "user_access_key": "访问密钥",
+        "user_recovery": "恢复"
       }
     },
     "app": {
-      "title": "Apps",
+      "title": "应用",
       "entities": {
-        "app_template": "App template",
-        "app": "App",
-        "app_translation": "App translation",
-        "app_action_button": "Action button",
-        "app_action_button_translation": "Action button translation"
+        "app_template": "应用模板",
+        "app": "应用",
+        "app_translation": "应用翻译",
+        "app_action_button": "操作按钮",
+        "app_action_button_translation": "操作按钮翻译"
       }
     },
     "category": {
-      "title": "Categories",
+      "title": "分类",
       "entities": {
-        "category": "Category",
-        "category_translation": "Category translation",
-        "category_tag": "Tag"
+        "category": "分类",
+        "category_translation": "分类翻译",
+        "category_tag": "标签"
       }
     },
     "cms": {
       "title": "CMS",
       "entities": {
-        "cms_block": "Block",
-        "cms_page": "Page (layout)",
-        "cms_page_translation": "Page translation",
-        "cms_section": "section",
-        "cms_slot": "slot",
-        "cms_slot_translation": "Slot translation"
+        "cms_block": "区块",
+        "cms_page": "页面（布局）",
+        "cms_page_translation": "页面翻译",
+        "cms_section": "分区",
+        "cms_slot": "插槽",
+        "cms_slot_translation": "插槽翻译"
       }
     },
     "customer": {
-      "title": "Customer",
+      "title": "客户",
       "entities": {
-        "customer": "Customer",
-        "customer_address": "Address",
-        "customer_group": "Customer group",
-        "customer_group_translation": "Customer group translation",
-        "customer_group_registration_channels": "Sales Channel for customer group registrations",
-        "customer_recovery": "Recovery",
-        "customer_tag": "Tag"
+        "customer": "客户",
+        "customer_address": "地址",
+        "customer_group": "客户组",
+        "customer_group_translation": "客户组翻译",
+        "customer_group_registration_channels": "客户组注册销售渠道",
+        "customer_recovery": "恢复",
+        "customer_tag": "标签"
       }
     },
     "custom_fields": {
-      "title": "Custom fields",
+      "title": "自定义字段",
       "entities": {
-        "custom_field": "Custom field",
-        "custom_field_set": "Custom field set",
-        "custom_field_set_relation": "Custom field set relation"
+        "custom_field": "自定义字段",
+        "custom_field_set": "自定义字段集",
+        "custom_field_set_relation": "自定义字段集关联"
       }
     },
     "documents": {
-      "title": "Documents",
+      "title": "文档",
       "entities": {
-        "document": "Document",
-        "document_base_config": "Basic config",
-        "document_base_config_channel": "Basic config for Sales Channels",
-        "document_type": "Type",
-        "document_type_translation": "Type translation"
+        "document": "文档",
+        "document_base_config": "基本配置",
+        "document_base_config_channel": "销售渠道基本配置",
+        "document_type": "类型",
+        "document_type_translation": "类型翻译"
       }
     },
     "google_shopping": {
-      "title": "Google shopping",
+      "title": "Google 购物",
       "entities": {
-        "swag_google_shopping_account": "Account",
-        "swag_google_shopping_ads_account": "Ads account",
-        "swag_google_shopping_list_ads_account": "List ads account",
-        "swag_google_shopping_category": "Category",
-        "swag_google_shopping_merchant_account": "Merchant account"
+        "swag_google_shopping_account": "账户",
+        "swag_google_shopping_ads_account": "广告账户",
+        "swag_google_shopping_list_ads_account": "列表广告账户",
+        "swag_google_shopping_category": "类别",
+        "swag_google_shopping_merchant_account": "商家账户"
       }
     },
     "import_export": {
-      "title": "Import/Export",
+      "title": "导入/导出",
       "entities": {
-        "import_export_file": "File",
-        "import_export_log": "Log",
-        "import_export_profile": "Profile",
-        "import_export_profile_translation": "Profile translation"
+        "import_export_file": "文件",
+        "import_export_log": "日志",
+        "import_export_profile": "配置文件",
+        "import_export_profile_translation": "配置文件翻译"
       }
     },
     "mail_templates": {
-      "title": "Email templates",
+      "title": "邮件模板",
       "entities": {
-        "mail_header_footer": "Header & footer",
-        "mail_header_footer_translation": "Header & footer translation",
-        "mail_template": "Email template",
-        "mail_template_translation": "Email template translation",
-        "mail_template_media": "Media",
-        "mail_template_channel": "Sales Channel",
-        "mail_template_type": "Type",
-        "mail_template_type_translation": "Type translation"
+        "mail_header_footer": "页眉 & 页脚",
+        "mail_header_footer_translation": "页眉 & 页脚翻译",
+        "mail_template": "邮件模板",
+        "mail_template_translation": "邮件模板翻译",
+        "mail_template_media": "媒体",
+        "mail_template_channel": "销售渠道",
+        "mail_template_type": "类型",
+        "mail_template_type_translation": "类型翻译"
       }
     },
     "media": {
-      "title": "Media",
+      "title": "媒体",
       "entities": {
-        "media": "Medium",
-        "media_translation": "Medium translation",
-        "media_default_folder": "Default folder",
-        "media_folder": "Folder",
-        "media_folder_configuration": "Folder configuration",
-        "media_folder_configuration_media_thumbnail_size": "Folder configuration - thumbnail size",
-        "media_tag": "Tag",
-        "media_thumbnail": "Thumbnail",
-        "media_thumbnail_size": "Thumbnail size"
+        "media": "媒体",
+        "media_translation": "媒体翻译",
+        "media_default_folder": "默认文件夹",
+        "media_folder": "文件夹",
+        "media_folder_configuration": "文件夹配置",
+        "media_folder_configuration_media_thumbnail_size": "文件夹配置 - 缩略图尺寸",
+        "media_tag": "标签",
+        "media_thumbnail": "缩略图",
+        "media_thumbnail_size": "缩略图尺寸"
       }
     },
     "newsletter": {
-      "title": "Newsletter",
+      "title": "新闻通讯",
       "entities": {
-        "newsletter_recipient": "Recipient",
-        "newsletter_recipient_tag": "Recipient tag"
+        "newsletter_recipient": "收件人",
+        "newsletter_recipient_tag": "收件人标签"
       }
     },
     "order": {
-      "title": "Orders",
+      "title": "订单",
       "entities": {
-        "order": "Order",
-        "order_address": "Address",
-        "order_customer": "Customer",
-        "order_delivery": "Delivery",
-        "order_delivery_position": "Delivery position",
-        "order_line_item": "Line item",
-        "order_tag": "Tag",
-        "order_transaction": "Transaction"
+        "order": "订单",
+        "order_address": "地址",
+        "order_customer": "客户",
+        "order_delivery": "配送",
+        "order_delivery_position": "配送位置",
+        "order_line_item": "订单项",
+        "order_tag": "标签",
+        "order_transaction": "交易"
       }
     },
     "other": {
-      "title": "Other",
+      "title": "其他",
       "entities": {
-        "acl_role": "ACL role",
-        "acl_user_role": "ACL user role",
-        "dead_message": "Dead message",
-        "message_queue_stats": "Message queue stats",
-        "notification": "Notification",
-        "plugin": "Plugin",
-        "scheduled_task": "Scheduled tasks"
+        "acl_role": "ACL 角色",
+        "acl_user_role": "ACL 用户角色",
+        "dead_message": "死信消息",
+        "message_queue_stats": "消息队列统计",
+        "notification": "通知",
+        "plugin": "插件",
+        "scheduled_task": "计划任务"
       }
     },
     "payment": {
-      "title": "Payment",
+      "title": "支付",
       "entities": {
-        "payment_method": "Payment method",
-        "payment_method_translation": "Payment method translation"
+        "payment_method": "支付方式",
+        "payment_method_translation": "支付方式翻译"
       }
     },
     "product": {
-      "title": "Products",
+      "title": "产品",
       "entities": {
-        "product": "Product",
-        "product_category": "Category",
-        "product_category_tree": "Category tree",
-        "product_configurator_setting": "Configurator setting",
-        "product_cross_selling": "Cross Selling",
-        "product_cross_selling_translation": "Cross Selling translation",
-        "product_cross_selling_assigned_products": "Cross Selling assigned translation",
-        "product_export": "Product export",
-        "product_keyword_dictionary": "Keyword dictionary",
-        "product_manufacturer": "Manufacturer",
-        "product_manufacturer_translation": "Manufacturer translation",
-        "product_media": "Media",
-        "product_option": "Product options",
-        "product_price": "Price",
-        "product_property": "Product properties",
-        "product_review": "Review",
-        "product_search_keyword": "Search keyword",
-        "product_stream": "Product stream",
-        "product_tag": "Tag",
-        "product_visibility": "Visibility",
-        "product_sorting": "Sorting",
-        "product_translation": "Product translation",
-        "product_feature_set": "Feature set",
-        "product_feature_set_translation": "Feature set translation",
-        "product_custom_field_set": "Custom field set"
+        "product": "产品",
+        "product_category": "分类",
+        "product_category_tree": "分类树",
+        "product_configurator_setting": "配置项设置",
+        "product_cross_selling": "交叉销售",
+        "product_cross_selling_translation": "交叉销售翻译",
+        "product_cross_selling_assigned_products": "已分配的交叉销售产品",
+        "product_export": "产品导出",
+        "product_keyword_dictionary": "关键词字典",
+        "product_manufacturer": "制造商",
+        "product_manufacturer_translation": "制造商翻译",
+        "product_media": "媒体",
+        "product_option": "产品选项",
+        "product_price": "价格",
+        "product_property": "产品属性",
+        "product_review": "评论",
+        "product_search_keyword": "搜索关键词",
+        "product_stream": "产品流",
+        "product_tag": "标签",
+        "product_visibility": "可见性",
+        "product_sorting": "排序",
+        "product_translation": "产品翻译",
+        "product_feature_set": "功能集",
+        "product_feature_set_translation": "功能集翻译",
+        "product_custom_field_set": "自定义字段集"
       }
     },
     "promotion": {
-      "title": "Promotions",
+      "title": "促销",
       "entities": {
-        "promotion": "Promotion",
-        "promotion_translation": "Promotion translation",
-        "promotion_cart_rule": "Cart rule",
-        "promotion_discount": "Discount",
-        "promotion_discount_prices": "Discount prices",
-        "promotion_discount_rule": "Discount rule",
-        "promotion_individual_code": "Promotion code",
-        "promotion_order_rule": "Order rule",
-        "promotion_persona_customer": "Persona customer",
-        "promotion_persona_rule": "Persona rule",
-        "promotion_channel": "Sales Channel",
-        "promotion_setgroup": "Promotion set group",
-        "promotion_setgroup_rule": "Promotion set group rule"
+        "promotion": "促销",
+        "promotion_translation": "促销翻译",
+        "promotion_cart_rule": "购物车规则",
+        "promotion_discount": "折扣",
+        "promotion_discount_prices": "折扣价格",
+        "promotion_discount_rule": "折扣规则",
+        "promotion_individual_code": "促销码",
+        "promotion_order_rule": "订单规则",
+        "promotion_persona_customer": "客户角色",
+        "promotion_persona_rule": "角色规则",
+        "promotion_channel": "销售渠道",
+        "promotion_setgroup": "促销组",
+        "promotion_setgroup_rule": "促销组规则"
       }
     },
     "rules": {
-      "title": "Rules",
+      "title": "规则",
       "entities": {
-        "rule": "Rule",
-        "rule_condition": "Rule condition"
+        "rule": "规则",
+        "rule_condition": "规则条件"
       }
     },
     "channel": {
-      "title": "Sales Channels",
+      "title": "销售渠道",
       "entities": {
-        "channel": "Sales Channel",
-        "channel_analytics": "Analytics",
-        "channel_country": "Country",
-        "channel_currency": "Currency",
-        "channel_domain": "Domain",
-        "channel_language": "Language",
-        "channel_payment_method": "Payment method",
-        "channel_shipping_method": "Shipping method",
-        "channel_translation": "Sales Channel translation",
-        "channel_type": "Sales Channel type",
-        "channel_type_translation": "Sales Channel type translation"
+        "channel": "销售渠道",
+        "channel_analytics": "分析",
+        "channel_country": "国家",
+        "channel_currency": "货币",
+        "channel_domain": "域名",
+        "channel_language": "语言",
+        "channel_payment_method": "支付方式",
+        "channel_shipping_method": "配送方式",
+        "channel_translation": "销售渠道翻译",
+        "channel_type": "销售渠道类型",
+        "channel_type_translation": "销售渠道类型翻译"
       }
     },
     "settings": {
-      "title": "Settings",
+      "title": "设置",
       "entities": {
-        "country": "Country",
-        "country_state": "State/region",
-        "currency": "Currency",
-        "delivery_time": "Delivery time",
-        "language": "Language",
-        "locale": "Locale",
-        "locale_translation": "Locale translation",
-        "number_range": "Number range",
-        "number_range_channel": "Number range Sales Channel",
-        "number_range_state": "Number range state",
-        "number_range_type": "Number range type",
-        "salutation": "Salutation",
-        "salutation_translation": "Salutation translation",
-        "seo_url": "SEO URL",
-        "seo_url_template": "SEO URL template",
-        "state_machine": "State machine",
-        "state_machine_history": "State machine history",
-        "state_machine_state": "State machine state",
-        "state_machine_state_translation": "State machine state translation",
-        "state_machine_transition": "State machine transition",
-        "state_machine_translation": "State machine translation",
-        "system_config": "System config",
-        "tax": "Tax",
-        "tax_rule": "Tax rule",
-        "tax_rule_type": "Tax rule type",
-        "unit": "Product unit",
-        "version": "Version"
+        "country": "国家",
+        "country_state": "省/州",
+        "currency": "货币",
+        "delivery_time": "配送时间",
+        "language": "语言",
+        "locale": "地区设置",
+        "locale_translation": "地区设置翻译",
+        "number_range": "编号范围",
+        "number_range_channel": "编号范围销售渠道",
+        "number_range_state": "编号范围状态",
+        "number_range_type": "编号范围类型",
+        "salutation": "称呼",
+        "salutation_translation": "称呼翻译",
+        "seo_url": "SEO 链接",
+        "seo_url_template": "SEO 链接模板",
+        "state_machine": "状态机",
+        "state_machine_history": "状态机历史",
+        "state_machine_state": "状态机状态",
+        "state_machine_state_translation": "状态机状态翻译",
+        "state_machine_transition": "状态机转换",
+        "state_machine_translation": "状态机翻译",
+        "system_config": "系统配置",
+        "tax": "税费",
+        "tax_rule": "税费规则",
+        "tax_rule_type": "税费规则类型",
+        "unit": "产品单位",
+        "version": "版本"
       }
     },
     "social_shopping": {
-      "title": "Social shopping",
+      "title": "社交购物",
       "entities": {
-        "swag_social_shopping_channel": "Sales Channel",
-        "swag_social_shopping_product_error": "Product error"
+        "swag_social_shopping_channel": "销售渠道",
+        "swag_social_shopping_product_error": "产品错误"
       }
     },
     "tag": {
-      "title": "Tags",
+      "title": "标签",
       "entities": {
-        "tag": "Tag"
+        "tag": "标签"
       }
     },
     "theme": {
-      "title": "Themes",
+      "title": "主题",
       "entities": {
-        "theme": "Theme",
-        "theme_translation": "Theme translation",
-        "theme_media": "Media",
-        "theme_channel": "Sales Channel"
+        "theme": "主题",
+        "theme_translation": "主题翻译",
+        "theme_media": "媒体",
+        "theme_channel": "销售渠道"
       }
     },
     "additional_privileges": {
-      "title": "Additional permissions",
+      "title": "附加权限",
       "entities": {
-        "api_feature_flag_toggle": "Feature flags toggling API",
-        "api_service_toggle": "Service toggling API",
-        "api_service_list": "Services listing API"
+        "api_feature_flag_toggle": "功能标志切换 API",
+        "api_service_toggle": "服务切换 API",
+        "api_service_list": "服务列表 API"
       }
     }
   },
   "sw-privileges": {
     "additional_permissions": {
       "system": {
-        "extension_store": "HeyFrame Store"
+        "extension_store": "应用商城"
       }
     }
   }
