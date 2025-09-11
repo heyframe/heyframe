@@ -2,13 +2,14 @@
 
 namespace HeyFrame\Tests\Unit\Core\System\Snippet\Service;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\System\Snippet\DataTransfer\Language\Language;
 use HeyFrame\Core\System\Snippet\DataTransfer\PluginMapping\PluginMapping;
 use HeyFrame\Core\System\Snippet\Service\TranslationConfigLoader;
 use HeyFrame\Core\System\Snippet\SnippetException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -32,7 +33,7 @@ class TranslationConfigLoaderTest extends TestCase
         $config = $this->translationConfigLoader->load();
 
         static::assertSame(
-            'https://raw.githubusercontent.com/shopware/translations/main/translations',
+            'https://raw.githubusercontent.com/heyframe/translations/main/translations',
             $config->repositoryUrl->__toString()
         );
 
@@ -52,6 +53,9 @@ class TranslationConfigLoaderTest extends TestCase
         $publisherMapping = $config->pluginMapping->get('SwagPublisher');
         static::assertInstanceOf(PluginMapping::class, $publisherMapping);
         static::assertSame('PluginPublisher', $publisherMapping->snippetName);
+
+        $excludedLocales = $config->excludedLocales;
+        static::assertSame(['it-IT'], $excludedLocales);
     }
 
     public function testConfigFileSettings(): void
@@ -118,5 +122,11 @@ class TranslationConfigLoaderTest extends TestCase
         static::expectException(SnippetException::class);
         static::expectExceptionMessage('Translation configuration file exists, but is empty: "translation_empty.yaml".');
         $this->translationConfigLoader->load();
+    }
+
+    public function testGetDecoratedThrowsException(): void
+    {
+        static::expectException(DecorationPatternException::class);
+        $this->translationConfigLoader->getDecorated();
     }
 }

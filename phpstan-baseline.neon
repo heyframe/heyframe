@@ -2813,21 +2813,3 @@ parameters:
 			identifier: heyframe.domainException
 			count: 1
 			path: src/Frontend/Theme/ThemeFileResolver.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Twig\\ThemeInheritanceBuilderInterface\:\:build\(\) has parameter \$bundles with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Twig/ThemeInheritanceBuilderInterface.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Twig\\ThemeInheritanceBuilderInterface\:\:build\(\) has parameter \$themes with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Twig/ThemeInheritanceBuilderInterface.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Twig\\ThemeInheritanceBuilderInterface\:\:build\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Twig/ThemeInheritanceBuilderInterface.php
