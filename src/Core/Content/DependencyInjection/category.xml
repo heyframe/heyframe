@@ -9,5 +9,119 @@
             <tag name="heyframe.entity.definition"/>
             <tag name="heyframe.entity.hookable"/>
         </service>
+
+        <service id="HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Aggregate\CategoryTag\CategoryTagDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Channel\ChannelCategoryDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Service\NavigationLoader">
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\Channel\NavigationRoute"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Channel\NavigationRoute" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="channel.category.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\Tree\CategoryTreePathResolver"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\Service\DefaultCategoryLevelLoader"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Service\DefaultCategoryLevelLoader">
+            <argument type="service" id="channel.category.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Service\CachedDefaultCategoryLevelLoader" decorates="HeyFrame\Core\Content\Category\Service\DefaultCategoryLevelLoader">
+            <argument type="service" id="cache.object"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\Service\CachedDefaultCategoryLevelLoader.inner"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Tree\CategoryTreePathResolver"/>
+
+        <service id="HeyFrame\Core\Content\Category\Channel\TreeBuildingNavigationRoute" decorates="HeyFrame\Core\Content\Category\Channel\NavigationRoute" decoration-priority="-2000" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Category\Channel\TreeBuildingNavigationRoute.inner"/>
+        </service>
+
+<!--        <service id="HeyFrame\Core\Content\Category\Channel\CategoryRoute" public="true">-->
+<!--            <argument type="service" id="channel.category.repository"/>-->
+<!--            <argument type="service" id="HeyFrame\Core\Content\Cms\Channel\ChannelCmsPageLoader"/>-->
+<!--            <argument type="service" id="HeyFrame\Core\Content\Category\Channel\ChannelCategoryDefinition"/>-->
+<!--            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>-->
+<!--        </service>-->
+
+        <service id="HeyFrame\Core\Content\Category\Channel\CategoryListRoute" public="true">
+            <argument type="service" id="channel.category.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryIndexer">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="category.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryBreadcrumbUpdater"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="messenger.default_bus"/>
+            <tag name="heyframe.entity_indexer"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryBreadcrumbUpdater">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="category.repository"/>
+            <argument type="service" id="language.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Service\CategoryBreadcrumbBuilder">
+            <argument type="service" id="category.repository"/>
+            <argument type="service" id="channel.product.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Service\CategoryUrlGenerator">
+            <argument type="service" id="HeyFrame\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Validation\EntryPointValidator">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Subscriber\CategorySubscriber">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\Service\CategoryUrlGenerator"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Subscriber\CategoryTreeMovedSubscriber">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryNonExistentExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Category\Cms\CategoryNavigationCmsElementResolver">
+            <argument type="service" id="HeyFrame\Core\Content\Category\Service\NavigationLoader"/>
+
+            <tag name="heyframe.cms.data_resolver"/>
+        </service>
     </services>
 </container>

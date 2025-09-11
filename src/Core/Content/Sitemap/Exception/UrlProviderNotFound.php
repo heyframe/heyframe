@@ -1,0 +1,20 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Content\Sitemap\Exception;
+
+use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('discovery')]
+class UrlProviderNotFound extends HeyFrameHttpException
+{
+    public function __construct(string $provider)
+    {
+        parent::__construct('provider "{{ provider }}" not found.', ['provider' => $provider]);
+    }
+
+    public function getErrorCode(): string
+    {
+        return 'CONTENT__SITEMAP_PROVIDER_NOT_FOUND';
+    }
+}

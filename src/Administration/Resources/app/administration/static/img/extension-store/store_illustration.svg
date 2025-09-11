@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="283px" height="163px" viewBox="0 0 283 163" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Shopware-Store_Illustration</title>
+    <title>HeyFrame-Store_Illustration</title>
     <defs>
         <rect id="path-1" x="0" y="0" width="283" height="163"></rect>
         <path d="M4.40016814,0.25320673 L244.400168,0.25320673 C246.609307,0.25320673 248.400168,2.04406773 248.400168,4.25320673 L248.400168,151.379644 L248.400168,151.379644 L0.400168138,151.379644 L0.400168138,4.25320673 C0.400168138,2.04406773 2.19102914,0.25320673 4.40016814,0.25320673 Z" id="path-3"></path>
@@ -24,7 +24,7 @@
     <g id="2.-FRW" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="FRW-Extensions-Store" transform="translate(-935.000000, -347.000000)">
             <g id="Modal" transform="translate(450.000000, 227.000000)">
-                <g id="Shopware-Store_Illustration" transform="translate(485.000000, 120.000000)">
+                <g id="HeyFrame-Store_Illustration" transform="translate(485.000000, 120.000000)">
                     <mask id="mask-2" fill="white">
                         <use xlink:href="#path-1"></use>
                     </mask>

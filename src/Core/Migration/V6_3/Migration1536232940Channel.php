@@ -27,7 +27,7 @@ class Migration1536232940Channel extends MigrationStep
               `type_id` BINARY(16) NOT NULL,
               `short_name` VARCHAR(45) NULL,
               `configuration` JSON NULL,
-              `navigation_depth` int NOT NULL DEFAULT '2',
+              `navigation_category_depth` int NOT NULL DEFAULT '2',
               `hreflang_active` tinyint unsigned DEFAULT '0',
               `hreflang_default_domain_id` binary(16) DEFAULT NULL,
               `access_key` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -36,38 +36,35 @@ class Migration1536232940Channel extends MigrationStep
               `payment_method_id` BINARY(16) NOT NULL,
               `payment_method_ids` json DEFAULT NULL,
               `country_id` BINARY(16) NOT NULL,
-              `footer_navigation_id` binary(16) DEFAULT NULL,
-              `footer_navigation_version_id` binary(16) DEFAULT NULL,
-              `service_navigation_id` BINARY(16) NULL,
-              `service_navigation_version_id` BINARY(16) NULL,
+              `navigation_category_id` binary(16) NOT NULL,
+              `navigation_category_version_id` binary(16) NOT NULL,
+              `footer_category_id` binary(16) DEFAULT NULL,
+              `footer_category_version_id` binary(16) DEFAULT NULL,
+              `service_category_id` BINARY(16) NULL,
+              `service_category_version_id` BINARY(16) NULL,
               `active` TINYINT(1) NOT NULL DEFAULT '1',
               `maintenance` tinyint(1) NOT NULL DEFAULT '0',
               `maintenance_ip_whitelist` json DEFAULT NULL,
-              `navigation_id` BINARY(16) NULL,
-              `navigation_version_id` BINARY(16),
+              `category_id` BINARY(16) NULL,
+              `category_version_id` BINARY(16),
               `customer_group_id` BINARY(16) NOT NULL,
               `created_at` DATETIME(3) NOT NULL,
               `updated_at` DATETIME(3) NULL,
               PRIMARY KEY (`id`),
               UNIQUE `uniq.access_key` (`access_key`),
-                KEY `fk.channel.footer_navigation_id` (`footer_navigation_id`,`footer_navigation_version_id`),
+              KEY `fk.channel.footer_category_id` (`footer_category_id`,`footer_category_version_id`),
+              KEY `fk.channel.navigation_category_id` (`navigation_category_id`,`navigation_category_version_id`),
               CONSTRAINT `json.channel.payment_method_ids` CHECK (json_valid(`payment_method_ids`)),
               CONSTRAINT `json.channel.configuration` CHECK (JSON_VALID(`configuration`)),
-              CONSTRAINT `fk.channel.country_id` FOREIGN KEY (`country_id`)
-                REFERENCES `country` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel.currency_id` FOREIGN KEY (`currency_id`)
-                REFERENCES `currency` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel.language_id` FOREIGN KEY (`language_id`)
-                REFERENCES `language` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel.payment_method_id` FOREIGN KEY (`payment_method_id`)
-                REFERENCES `payment_method` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel.type_id` FOREIGN KEY (`type_id`)
-                REFERENCES `channel_type` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-                  CONSTRAINT `fk.channel.service_navigation_id` FOREIGN KEY (`service_navigation_id`, `service_navigation_version_id`) REFERENCES `navigation` (`id`, `version_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel.navigation_id` FOREIGN KEY (`navigation_id`, `navigation_version_id`)
-                REFERENCES `navigation` (`id`, `version_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel.customer_group_id` FOREIGN KEY (`customer_group_id`)
-                REFERENCES `customer_group` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+              CONSTRAINT `fk.channel.navigation_category_id` FOREIGN KEY (`navigation_category_id`, `navigation_category_version_id`) REFERENCES `category` (`id`, `version_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.country_id` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.currency_id` FOREIGN KEY (`currency_id`) REFERENCES `currency` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.payment_method_id` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.type_id` FOREIGN KEY (`type_id`) REFERENCES `channel_type` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.service_category_id` FOREIGN KEY (`service_category_id`, `service_category_version_id`) REFERENCES `category` (`id`, `version_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.category_id` FOREIGN KEY (`category_id`, `category_version_id`) REFERENCES `category` (`id`, `version_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.customer_group_id` FOREIGN KEY (`customer_group_id`) REFERENCES `customer_group` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
 

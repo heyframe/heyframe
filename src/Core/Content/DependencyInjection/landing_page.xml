@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="HeyFrame\Core\Content\LandingPage\LandingPageDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\LandingPage\Aggregate\LandingPageTranslation\LandingPageTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\LandingPage\Aggregate\LandingPageTag\LandingPageTagDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\LandingPage\Aggregate\LandingPageChannel\LandingPageChannelDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\LandingPage\DataAbstractionLayer\LandingPageIndexer">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="landing_page.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+            <tag name="heyframe.entity_indexer" priority="1000"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\LandingPage\Channel\ChannelLandingPageDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
+<!--        <service id="HeyFrame\Core\Content\LandingPage\Channel\LandingPageRoute" public="true">-->
+<!--            <argument type="service" id="channel.landing_page.repository"/>-->
+<!--            <argument type="service" id="HeyFrame\Core\Content\Cms\Channel\ChannelCmsPageLoader"/>-->
+<!--            <argument type="service" id="HeyFrame\Core\Content\LandingPage\Channel\ChannelLandingPageDefinition"/>-->
+<!--            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>-->
+<!--        </service>-->
+
+        <service id="HeyFrame\Core\Content\LandingPage\LandingPageValidator">
+            <argument type="service" id="validator"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</container>

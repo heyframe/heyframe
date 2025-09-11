@@ -87,7 +87,7 @@
             <argument type="service" id="channel.repository"/>
             <argument type="service" id="payment_method.repository"/>
             <argument type="service" id="country.repository"/>
-            <argument type="service" id="navigation.repository"/>
+            <argument type="service" id="category.repository"/>
         </service>
 
         <service id="HeyFrame\Core\Maintenance\Channel\Command\ChannelListCommand">

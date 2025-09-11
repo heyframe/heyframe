@@ -36,7 +36,7 @@ class CartStoreService extends ApiService {
     }
 
     getCart(salesChannelId: string, contextToken: string | null, additionalParams = {}, additionalHeaders = {}) {
-        const route = `_proxy/store-api/${salesChannelId}/checkout/cart`;
+        const route = `_proxy/front-api/${salesChannelId}/checkout/cart`;
         const headers = this.getBasicHeaders({ ...additionalHeaders });
         if (contextToken) {
             headers['sw-context-token'] = contextToken;
@@ -46,7 +46,7 @@ class CartStoreService extends ApiService {
     }
 
     cancelCart(salesChannelId: string, contextToken: string, additionalParams = {}, additionalHeaders = {}) {
-        const route = `_proxy/store-api/${salesChannelId}/checkout/cart`;
+        const route = `_proxy/front-api/${salesChannelId}/checkout/cart`;
         const headers = this.getBasicHeaders({
             ...additionalHeaders,
             'sw-context-token': contextToken,
@@ -62,7 +62,7 @@ class CartStoreService extends ApiService {
         additionalParams = {},
         additionalHeaders = {},
     ) {
-        const route = `_proxy/store-api/${salesChannelId}/checkout/cart/line-item`;
+        const route = `_proxy/front-api/${salesChannelId}/checkout/cart/line-item`;
         const headers = this.getBasicHeaders({
             ...additionalHeaders,
             'sw-context-token': contextToken,
@@ -76,7 +76,7 @@ class CartStoreService extends ApiService {
     }
 
     getRouteForItem(id: string, salesChannelId: string) {
-        return `_proxy/store-api/${salesChannelId}/checkout/cart/line-item`;
+        return `_proxy/front-api/${salesChannelId}/checkout/cart/line-item`;
     }
 
     shouldPriceUpdated(item: LineItem, isNewProductItem: boolean) {
@@ -157,7 +157,7 @@ class CartStoreService extends ApiService {
         additionalParams = {},
         additionalHeaders = {},
     ) {
-        const route = `_proxy/store-api/${salesChannelId}/checkout/cart/line-item`;
+        const route = `_proxy/front-api/${salesChannelId}/checkout/cart/line-item`;
         const headers = {
             ...this.getBasicHeaders(additionalHeaders),
             'sw-context-token': contextToken,
@@ -247,7 +247,7 @@ class CartStoreService extends ApiService {
         additionalParams = {},
         additionalHeaders = {},
     ) {
-        const route = `_proxy/store-api/${salesChannelId}/checkout/cart/line-item`;
+        const route = `_proxy/front-api/${salesChannelId}/checkout/cart/line-item`;
         const headers = {
             ...this.getBasicHeaders(additionalHeaders),
             'sw-context-token': contextToken,

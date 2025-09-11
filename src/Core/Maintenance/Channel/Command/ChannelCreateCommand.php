@@ -43,7 +43,7 @@ class ChannelCreateCommand extends Command
             ->addOption('countryId', null, InputOption::VALUE_REQUIRED, 'Default country')
             ->addOption('typeId', null, InputOption::VALUE_OPTIONAL, 'Sales channel type id')
             ->addOption('customerGroupId', null, InputOption::VALUE_REQUIRED, 'Default customer group')
-            ->addOption('navigationId', null, InputOption::VALUE_REQUIRED, 'Default Navigation')
+            ->addOption('navigationCategoryId', null, InputOption::VALUE_REQUIRED, 'Default Navigation Category')
         ;
     }
 
@@ -64,7 +64,7 @@ class ChannelCreateCommand extends Command
                 $input->getOption('paymentMethodId'),
                 $input->getOption('countryId'),
                 $input->getOption('customerGroupId'),
-                $input->getOption('navigationId'),
+                $input->getOption('navigationCategoryId'),
                 null,
                 null,
                 null,

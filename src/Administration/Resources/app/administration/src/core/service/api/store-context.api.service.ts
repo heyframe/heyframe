@@ -52,7 +52,7 @@ class StoreContextService extends ApiService {
         additionalParams = {},
         additionalHeaders = {},
     ) {
-        const route = `_proxy/store-api/${salesChannelId}/context`;
+        const route = `_proxy/front-api/${salesChannelId}/context`;
         const headers = this.getBasicHeaders({
             ...additionalHeaders,
             'sw-context-token': contextToken,
@@ -70,7 +70,7 @@ class StoreContextService extends ApiService {
         additionalParams = {},
         additionalHeaders = {},
     ) {
-        const route = `_proxy/store-api/${salesChannelId}/context`;
+        const route = `_proxy/front-api/${salesChannelId}/context`;
         const headers = this.getBasicHeaders({
             ...additionalHeaders,
             'sw-context-token': contextToken,

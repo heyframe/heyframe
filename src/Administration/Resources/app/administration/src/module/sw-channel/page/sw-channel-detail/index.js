@@ -279,7 +279,7 @@ export default {
 
             const domainUrl = this.productExport.channelDomain.url.replace(/\/+$/g, '');
             // eslint-disable-next-line max-len
-            this.productComparison.productComparisonAccessUrl = `${domainUrl}/store-api/product-export/${this.productExport.accessKey}/${this.productExport.fileName}`;
+            this.productComparison.productComparisonAccessUrl = `${domainUrl}/front-api/product-export/${this.productExport.accessKey}/${this.productExport.fileName}`;
         },
 
         loadProductExportTemplates() {

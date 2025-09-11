@@ -1,0 +1,88 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Elasticsearch\Admin;
+
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
+use HeyFrame\Core\Framework\MessageQueue\DeduplicatableMessageInterface;
+use HeyFrame\Core\Framework\Util\Hasher;
+
+/**
+ * @internal
+ */
+#[Package('inventory')]
+final readonly class AdminSearchIndexingMessage implements AsyncMessageInterface, DeduplicatableMessageInterface
+{
+    /**
+     * @param array<string, string> $indices
+     * @param array<string> $ids
+     * @param array<string> $toRemoveIds
+     */
+    public function __construct(
+        private string $entity,
+        private string $indexer,
+        private array $indices,
+        private array $ids,
+        private array $toRemoveIds = []
+    ) {
+    }
+
+    public function getEntity(): string
+    {
+        return $this->entity;
+    }
+
+    public function getIndexer(): string
+    {
+        return $this->indexer;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getIndices(): array
+    {
+        return $this->indices;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getIds(): array
+    {
+        return $this->ids;
+    }
+
+    /**
+     * @experimental stableVersion:v6.8.0 feature:DEDUPLICATABLE_MESSAGES
+     */
+    public function deduplicationId(): ?string
+    {
+        $sortedIds = $this->ids;
+        sort($sortedIds);
+
+        $sortedIndices = $this->indices;
+        ksort($sortedIndices);
+
+        $data = json_encode([
+            $this->entity,
+            $this->indexer,
+            $sortedIndices,
+            $sortedIds,
+        ]);
+
+        if ($data === false) {
+            return null;
+        }
+
+        return Hasher::hash($data);
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getToRemoveIds(): array
+    {
+        return $this->toRemoveIds;
+    }
+}

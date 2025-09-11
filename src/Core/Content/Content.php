@@ -28,10 +28,10 @@ class Content extends Bundle
         $loader->load('rule.xml');
         $loader->load('property.xml');
         $loader->load('flow.xml');
-        $loader->load('navigation.xml');
         $loader->load('import_export.xml');
-        $loader->load('post.xml');
-        $loader->load('category.xml');
         $loader->load('cms.xml');
+        $loader->load('category.xml');
+        $loader->load('product_stream.xml');
+        $loader->load('landing_page.xml');
     }
 }

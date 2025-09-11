@@ -32,7 +32,7 @@ async function runPluginsBuild(): Promise<void> {
 
 async function main() {
     const mode = process.env.VITE_MODE;
-    const buildOnlyExtensions = process.env.SHOPWARE_ADMIN_BUILD_ONLY_EXTENSIONS === '1';
+    const buildOnlyExtensions = process.env.HEYFRAME_ADMIN_BUILD_ONLY_EXTENSIONS === '1';
 
     if (mode === 'production') {
         try {

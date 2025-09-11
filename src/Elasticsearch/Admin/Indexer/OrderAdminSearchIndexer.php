@@ -1,0 +1,167 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Elasticsearch\Admin\Indexer;
+
+use Doctrine\DBAL\ArrayParameterType;
+use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Checkout\Document\DocumentDefinition;
+use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressDefinition;
+use HeyFrame\Core\Checkout\Order\Aggregate\OrderTag\OrderTagDefinition;
+use HeyFrame\Core\Checkout\Order\OrderCollection;
+use HeyFrame\Core\Checkout\Order\OrderDefinition;
+use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
+use HeyFrame\Core\Framework\Uuid\Uuid;
+
+#[Package('inventory')]
+final class OrderAdminSearchIndexer extends AbstractAdminIndexer
+{
+    /**
+     * @internal
+     *
+     * @param EntityRepository<OrderCollection> $repository
+     */
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly IteratorFactory $factory,
+        private readonly EntityRepository $repository,
+        private readonly int $indexingBatchSize
+    ) {
+    }
+
+    public function getDecorated(): AbstractAdminIndexer
+    {
+        throw new DecorationPatternException(self::class);
+    }
+
+    public function getEntity(): string
+    {
+        return OrderDefinition::ENTITY_NAME;
+    }
+
+    public function getName(): string
+    {
+        return 'order-listing';
+    }
+
+    public function getIterator(): IterableQuery
+    {
+        return $this->factory->createIterator($this->getEntity(), null, $this->indexingBatchSize, Defaults::LIVE_VERSION);
+    }
+
+    public function getUpdatedIds(EntityWrittenContainerEvent $event): array
+    {
+        $ids = $event->getPrimaryKeysWithPropertyChange(OrderDefinition::ENTITY_NAME, [
+            'orderNumber',
+            'amountTotal',
+        ]);
+
+        $addresses = $event->getPrimaryKeysWithPropertyChange(OrderAddressDefinition::ENTITY_NAME, [
+            'city',
+            'street',
+            'zipcode',
+            'phoneNumber',
+            'additionalAddressLine1',
+            'additionalAddressLine2',
+            'countryId',
+            'orderId',
+        ]);
+
+        $orderDocuments = $event->getPrimaryKeysWithPropertyChange(DocumentDefinition::ENTITY_NAME, [
+            'config',
+            'orderId',
+        ]);
+
+        if (!empty($addresses) || !empty($orderDocuments)) {
+            $ids = array_merge($ids, $event->getPrimaryKeys($this->getEntity()));
+        }
+
+        $tags = $event->getPrimaryKeysWithPropertyChange(OrderTagDefinition::ENTITY_NAME, ['tagId']);
+
+        foreach ($tags as $pks) {
+            if (isset($pks['orderId'])) {
+                $ids[] = $pks['orderId'];
+            }
+        }
+
+        return \array_values(\array_unique($ids));
+    }
+
+    public function globalData(array $result, Context $context): array
+    {
+        $ids = array_column($result['hits'], 'id');
+
+        return [
+            'total' => (int) $result['total'],
+            'data' => $this->repository->search(new Criteria($ids), $context)->getEntities(),
+        ];
+    }
+
+    public function fetch(array $ids): array
+    {
+        $data = $this->connection->fetchAllAssociative(
+            '
+            SELECT LOWER(HEX(order.id)) as id,
+                   GROUP_CONCAT(DISTINCT tag.name SEPARATOR " ") as tags,
+                   GROUP_CONCAT(DISTINCT country_translation.name SEPARATOR " ") as country,
+                   GROUP_CONCAT(DISTINCT order_address.city SEPARATOR " ") as city,
+                   GROUP_CONCAT(DISTINCT order_address.street SEPARATOR " ") as street,
+                   GROUP_CONCAT(DISTINCT order_address.zipcode SEPARATOR " ") as zipcode,
+                   GROUP_CONCAT(DISTINCT order_address.phone_number SEPARATOR " ") as phone_number,
+                   GROUP_CONCAT(DISTINCT order_address.additional_address_line1 SEPARATOR " ") as additional_address_line1,
+                   GROUP_CONCAT(DISTINCT order_address.additional_address_line2 SEPARATOR " ") as additional_address_line2,
+                   GROUP_CONCAT(DISTINCT JSON_UNQUOTE(JSON_EXTRACT(document.config, "$.documentNumber")) SEPARATOR " ") as documentNumber,
+                   order_customer.first_name,
+                   order_customer.last_name,
+                   order_customer.email,
+                   order_customer.company,
+                   order_customer.customer_number,
+                   `order`.order_number,
+                   `order`.amount_total,
+                   order_delivery.tracking_codes
+            FROM `order`
+                LEFT JOIN order_customer
+                    ON `order`.id = order_customer.order_id AND order_customer.order_version_id = :versionId
+                LEFT JOIN order_address
+                    ON `order`.id = order_address.order_id AND order_address.order_version_id = :versionId
+                LEFT JOIN country
+                    ON order_address.country_id = country.id
+                LEFT JOIN country_translation
+                    ON country.id = country_translation.country_id
+                LEFT JOIN order_tag
+                    ON `order`.id = order_tag.order_id AND order_tag.order_version_id = :versionId
+                LEFT JOIN tag
+                    ON order_tag.tag_id = tag.id
+                LEFT JOIN order_delivery
+                    ON `order`.id = order_delivery.order_id AND order_delivery.order_version_id = :versionId
+                LEFT JOIN document
+                    ON `order`.id = document.order_id
+            WHERE order.id IN (:ids) AND `order`.version_id = :versionId
+            GROUP BY order.id
+        ',
+            [
+                'ids' => Uuid::fromHexToBytesList($ids),
+                'versionId' => Uuid::fromHexToBytes(Defaults::LIVE_VERSION),
+            ],
+            [
+                'ids' => ArrayParameterType::BINARY,
+            ]
+        );
+
+        $mapped = [];
+        foreach ($data as $row) {
+            $id = (string) $row['id'];
+            $text = \implode(' ', array_filter(array_unique(array_values($row))));
+            $mapped[$id] = ['id' => $id, 'text' => \strtolower($text)];
+        }
+
+        return $mapped;
+    }
+}

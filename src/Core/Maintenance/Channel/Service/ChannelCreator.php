@@ -4,7 +4,7 @@ namespace HeyFrame\Core\Maintenance\Channel\Service;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
-use HeyFrame\Core\Content\Navigation\NavigationCollection;
+use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
 use HeyFrame\Core\Framework\Context;
@@ -28,16 +28,16 @@ class ChannelCreator
      * @param EntityRepository<ChannelCollection> $channelRepository
      * @param EntityRepository<PaymentMethodCollection> $paymentMethodRepository
      * @param EntityRepository<CountryCollection> $countryRepository
-     * @param EntityRepository<NavigationCollection> $navigationRepository
-     * @internal
+     * @param EntityRepository<CategoryCollection> $categoryRepository
      *
+     * @internal
      */
     public function __construct(
         private readonly DefinitionInstanceRegistry $definitionRegistry,
         private readonly EntityRepository $channelRepository,
         private readonly EntityRepository $paymentMethodRepository,
         private readonly EntityRepository $countryRepository,
-        private readonly EntityRepository $navigationRepository
+        private readonly EntityRepository $categoryRepository
     ) {
     }
 
@@ -57,7 +57,7 @@ class ChannelCreator
         ?string $paymentMethodId = null,
         ?string $countryId = null,
         ?string $customerGroupId = null,
-        ?string $navigationId = null,
+        ?string $navigationCategoryId = null,
         ?array $currencies = null,
         ?array $languages = null,
         ?array $paymentMethods = null,
@@ -88,7 +88,7 @@ class ChannelCreator
             'paymentMethodId' => $paymentMethodId,
             'countryId' => $countryId,
             'customerGroupId' => $customerGroupId ?? $this->getCustomerGroupId($context),
-            'navigationId' => $navigationId ?? $this->getRootNavigationId($context),
+            'navigationCategoryId' => $navigationCategoryId ?? $this->getRootCategoryId($context),
 
             // available mappings
             'currencies' => $currencies,
@@ -134,19 +134,19 @@ class ChannelCreator
         return $countryId;
     }
 
-    private function getRootNavigationId(Context $context): string
+    private function getRootCategoryId(Context $context): string
     {
         $criteria = new Criteria();
         $criteria->setLimit(1);
-        $criteria->addFilter(new EqualsFilter('navigation.parentId', null));
-        $criteria->addSorting(new FieldSorting('navigation.createdAt', FieldSorting::ASCENDING));
+        $criteria->addFilter(new EqualsFilter('category.parentId', null));
+        $criteria->addSorting(new FieldSorting('category.createdAt', FieldSorting::ASCENDING));
 
-        $navigationId = $this->navigationRepository->searchIds($criteria, $context)->firstId();
-        if (!\is_string($navigationId)) {
-            throw MaintenanceException::couldNotGetId('root navigation');
+        $categoryId = $this->categoryRepository->searchIds($criteria, $context)->firstId();
+        if (!\is_string($categoryId)) {
+            throw MaintenanceException::couldNotGetId('root category');
         }
 
-        return $navigationId;
+        return $categoryId;
     }
 
     /**
