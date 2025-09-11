@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
 import findByText from '../../../../../test/_helper_/find-by-text';
 
 /**
@@ -27,7 +27,7 @@ describe('src/module/sw-order/page/sw-order-create', () => {
     let stubs;
 
     async function createWrapper() {
-        return mount(await wrapTestComponent('sw-order-create', { sync: true }), {
+        return mount(await wrapTestComponent('sw-order-create', {sync: true}), {
             global: {
                 stubs,
                 provide: {
@@ -42,8 +42,10 @@ describe('src/module/sw-order/page/sw-order-create', () => {
                         }),
                     },
                     shortcutService: {
-                        startEventListener: () => {},
-                        stopEventListener: () => {},
+                        startEventListener: () => {
+                        },
+                        stopEventListener: () => {
+                        },
                     },
                 },
                 mocks: {
@@ -80,9 +82,9 @@ describe('src/module/sw-order/page/sw-order-create', () => {
             'sw-card-view': await wrapTestComponent('sw-card-view', {
                 sync: true,
             }),
-            'sw-tabs': await wrapTestComponent('sw-tabs', { sync: true }),
+            'sw-tabs': await wrapTestComponent('sw-tabs', {sync: true}),
             'sw-tabs-item': true,
-            'sw-page': await wrapTestComponent('sw-page', { sync: true }),
+            'sw-page': await wrapTestComponent('sw-page', {sync: true}),
             'sw-button-process': await wrapTestComponent('sw-button-process', {
                 sync: true,
             }),
@@ -209,5 +211,19 @@ describe('src/module/sw-order/page/sw-order-create', () => {
         await flushPromises();
 
         expect(HeyFrame.Store.get('context').api.languageId).toBe('2fbb5fe2e29a4d70aa5854ce7ce3e20b');
+    });
+
+    it('should NOT set isSaveSuccessful immediately after save order, only after modal interaction', async () => {
+        await wrapper.find('.sw-button-process').trigger('click');
+        await flushPromises();
+
+        expect(wrapper.vm.showRemindPaymentModal).toBe(true);
+        expect(wrapper.vm.isSaveSuccessful).toBe(false);
+
+        const modal = wrapper.find('.sw-modal');
+        await findByText(modal, 'button', 'global.default.no').trigger('click');
+
+        expect(wrapper.vm.isSaveSuccessful).toBe(true);
+        expect(wrapper.vm.showRemindPaymentModal).toBe(false);
     });
 });

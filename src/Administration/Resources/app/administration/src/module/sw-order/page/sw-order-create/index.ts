@@ -163,7 +163,6 @@ export default HeyFrame.Component.wrapComponentConfig({
 
                 await this.fetchPaymentMethodName();
 
-                this.isSaveSuccessful = true;
                 this.showRemindPaymentModal = true;
             } catch (error) {
                 this.showError(error);
