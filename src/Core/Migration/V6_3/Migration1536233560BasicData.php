@@ -1439,8 +1439,8 @@ class Migration1536233560BasicData extends MigrationStep
         $languageZh = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
 
         // first locales
-        $connection->insert('locale', ['id' => $localeEn, 'code' => 'en-GB', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('locale', ['id' => $localeZh, 'code' => 'zh-CN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('locale', ['id' => $localeEn, 'code' => 'en-GB', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('locale', ['id' => $localeZh, 'code' => 'zh-CN', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         // second languages
         $connection->insert('language', [

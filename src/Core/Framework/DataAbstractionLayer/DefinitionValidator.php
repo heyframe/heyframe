@@ -41,13 +41,7 @@ class DefinitionValidator
     private const IGNORE_FIELDS = [
         'product.cover',
         'order_line_item.cover',
-        'customer.defaultBillingAddress',
-        'customer.defaultShippingAddress',
-        'customer.activeShippingAddress',
-        'customer.activeBillingAddress',
         'product_configurator_setting.selected',
-        'channel.wishlists',
-        'product.wishlists',
         'order.billingAddress',
         'product_search_config.excludedTerms',
         'media.metaDataRaw',
@@ -59,32 +53,25 @@ class DefinitionValidator
 
     private const PLURAL_EXCEPTIONS = [
         'children',
-        'categoriesRo',
         'properties',
         'media',
         'productMedia',
-        'mailTemplateMedia',
     ];
 
     private const CUSTOM_PREFIXED_NAMED = [
         'username',
         'customerNumber',
-        'taxRate',
         'orderNumber',
         'orderDate',
         'productNumber',
         'mediaType',
         'mediaTypeRaw',
-        'salutationKey',
         'scheduledTaskClass',
         'orderDateTime',
         'documentMediaFileId',
         'appSecret',
-        'manufacturerId',
-        'productManufacturerVersionId',
         'coverId',
         'productMediaVersionId',
-        'featureSetId',
     ];
 
     private const TABLES_WITHOUT_DEFINITION = [
