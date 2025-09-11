@@ -208,11 +208,11 @@ class Migration1536233560BasicData extends MigrationStep
         $storefront = Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_FRONTEND);
         $storefrontApi = Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_API);
 
-        $connection->insert('channel_type', ['id' => $storefront, 'icon_name' => 'default-building-shop', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_type', ['id' => $storefront, 'icon_name' => 'regular-globe', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('channel_type_translation', ['channel_type_id' => $storefront, 'language_id' => $languageEN, 'name' => 'Storefront', 'manufacturer' => 'HeyFrame AG', 'description' => 'Sales channel with HTML storefront', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('channel_type_translation', ['channel_type_id' => $storefront, 'language_id' => $languageZH, 'name' => 'Storefront', 'manufacturer' => 'HeyFrame AG', 'description' => '带有 HTML 网页的渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
-        $connection->insert('channel_type', ['id' => $storefrontApi, 'icon_name' => 'default-shopping-basket', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_type', ['id' => $storefrontApi, 'icon_name' => 'regular-rocket', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('channel_type_translation', ['channel_type_id' => $storefrontApi, 'language_id' => $languageEN, 'name' => 'Headless', 'manufacturer' => 'HeyFrame AG', 'description' => 'API only channel', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('channel_type_translation', ['channel_type_id' => $storefrontApi, 'language_id' => $languageZH, 'name' => 'Headless', 'manufacturer' => 'HeyFrame AG', 'description' => '仅提供 API 的渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
@@ -1439,13 +1439,14 @@ class Migration1536233560BasicData extends MigrationStep
         $languageZh = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
 
         // first locales
-        $connection->insert('locale', ['id' => $localeEn, 'code' => 'en-GB', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('locale', ['id' => $localeZh, 'code' => 'zh-CN', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('locale', ['id' => $localeEn, 'code' => 'en-GB',  'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('locale', ['id' => $localeZh, 'code' => 'zh-CN',  'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         // second languages
         $connection->insert('language', [
             'id' => $languageEn,
             'name' => 'English',
+            'active' => 1,
             'locale_id' => $localeEn,
             'translation_code_id' => $localeEn,
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -1454,6 +1455,7 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('language', [
             'id' => $languageZh,
             'name' => '中文',
+            'active' => 1,
             'locale_id' => $localeZh,
             'translation_code_id' => $localeZh,
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),

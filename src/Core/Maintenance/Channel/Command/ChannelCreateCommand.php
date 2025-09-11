@@ -40,11 +40,10 @@ class ChannelCreateCommand extends Command
             ->addOption('languageId', null, InputOption::VALUE_REQUIRED, 'Default language', Defaults::LANGUAGE_SYSTEM)
             ->addOption('currencyId', null, InputOption::VALUE_REQUIRED, 'Default currency', Defaults::CURRENCY)
             ->addOption('paymentMethodId', null, InputOption::VALUE_REQUIRED, 'Default payment method')
-            ->addOption('shippingMethodId', null, InputOption::VALUE_REQUIRED, 'Default shipping method')
             ->addOption('countryId', null, InputOption::VALUE_REQUIRED, 'Default country')
             ->addOption('typeId', null, InputOption::VALUE_OPTIONAL, 'Sales channel type id')
             ->addOption('customerGroupId', null, InputOption::VALUE_REQUIRED, 'Default customer group')
-            ->addOption('navigationCategoryId', null, InputOption::VALUE_REQUIRED, 'Default Navigation Category')
+            ->addOption('navigationId', null, InputOption::VALUE_REQUIRED, 'Default Navigation')
         ;
     }
 
@@ -63,11 +62,9 @@ class ChannelCreateCommand extends Command
                 $input->getOption('languageId'),
                 $input->getOption('currencyId'),
                 $input->getOption('paymentMethodId'),
-                $input->getOption('shippingMethodId'),
                 $input->getOption('countryId'),
                 $input->getOption('customerGroupId'),
-                $input->getOption('navigationCategoryId'),
-                null,
+                $input->getOption('navigationId'),
                 null,
                 null,
                 null,
@@ -75,7 +72,7 @@ class ChannelCreateCommand extends Command
                 $this->getChannelConfiguration($input, $output)
             );
 
-            $io->success('Sales channel has been created successfully.');
+            $io->success('Channel has been created successfully.');
         } catch (WriteException $exception) {
             $io->error('Something went wrong.');
 

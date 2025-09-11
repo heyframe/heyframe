@@ -1,7 +1,7 @@
 {
   "sw-dashboard": {
     "general": {
-      "mainMenuItemGeneral": "仪表盘",
+      "mainMenuItemGeneral": "首页",
       "descriptionTextModule": "管理后台首页，显示统计信息和系统信息"
     },
     "introduction": {

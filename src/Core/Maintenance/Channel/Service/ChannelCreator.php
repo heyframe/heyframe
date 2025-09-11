@@ -25,26 +25,25 @@ use HeyFrame\Core\System\Country\CountryCollection;
 class ChannelCreator
 {
     /**
-     * @internal
-     *
      * @param EntityRepository<ChannelCollection> $channelRepository
      * @param EntityRepository<PaymentMethodCollection> $paymentMethodRepository
      * @param EntityRepository<CountryCollection> $countryRepository
-     * @param EntityRepository<NavigationCollection> $categoryRepository
+     * @param EntityRepository<NavigationCollection> $navigationRepository
+     * @internal
+     *
      */
     public function __construct(
         private readonly DefinitionInstanceRegistry $definitionRegistry,
         private readonly EntityRepository $channelRepository,
         private readonly EntityRepository $paymentMethodRepository,
         private readonly EntityRepository $countryRepository,
-        private readonly EntityRepository $categoryRepository
+        private readonly EntityRepository $navigationRepository
     ) {
     }
 
     /**
      * @param list<string>|null $currencies
      * @param list<string>|null $languages
-     * @param list<string>|null $shippingMethods
      * @param list<string>|null $paymentMethods
      * @param list<string>|null $countries
      * @param array<string, mixed> $overwrites
@@ -56,13 +55,11 @@ class ChannelCreator
         ?string $languageId = null,
         ?string $currencyId = null,
         ?string $paymentMethodId = null,
-        ?string $shippingMethodId = null,
         ?string $countryId = null,
         ?string $customerGroupId = null,
-        ?string $navigationCategoryId = null,
+        ?string $navigationId = null,
         ?array $currencies = null,
         ?array $languages = null,
-        ?array $shippingMethods = null,
         ?array $paymentMethods = null,
         ?array $countries = null,
         array $overwrites = []
@@ -76,7 +73,6 @@ class ChannelCreator
 
         $currencies = $this->formatToMany($currencies, $currencyId, 'currency', $context);
         $languages = $this->formatToMany($languages, $languageId, 'language', $context);
-        $shippingMethods = $this->formatToMany($shippingMethods, $shippingMethodId, 'shipping_method', $context);
         $paymentMethods = $this->formatToMany($paymentMethods, $paymentMethodId, 'payment_method', $context);
         $countries = $this->formatToMany($countries, $countryId, 'country', $context);
 
@@ -90,15 +86,13 @@ class ChannelCreator
             'languageId' => $languageId,
             'currencyId' => $currencyId,
             'paymentMethodId' => $paymentMethodId,
-            'shippingMethodId' => $shippingMethodId,
             'countryId' => $countryId,
             'customerGroupId' => $customerGroupId ?? $this->getCustomerGroupId($context),
-            'navigationCategoryId' => $navigationCategoryId ?? $this->getRootCategoryId($context),
+            'navigationId' => $navigationId ?? $this->getRootNavigationId($context),
 
             // available mappings
             'currencies' => $currencies,
             'languages' => $languages,
-            'shippingMethods' => $shippingMethods,
             'paymentMethods' => $paymentMethods,
             'countries' => $countries,
         ];
@@ -140,19 +134,19 @@ class ChannelCreator
         return $countryId;
     }
 
-    private function getRootCategoryId(Context $context): string
+    private function getRootNavigationId(Context $context): string
     {
         $criteria = new Criteria();
         $criteria->setLimit(1);
-        $criteria->addFilter(new EqualsFilter('category.parentId', null));
-        $criteria->addSorting(new FieldSorting('category.createdAt', FieldSorting::ASCENDING));
+        $criteria->addFilter(new EqualsFilter('navigation.parentId', null));
+        $criteria->addSorting(new FieldSorting('navigation.createdAt', FieldSorting::ASCENDING));
 
-        $categoryId = $this->categoryRepository->searchIds($criteria, $context)->firstId();
-        if (!\is_string($categoryId)) {
-            throw MaintenanceException::couldNotGetId('root category');
+        $navigationId = $this->navigationRepository->searchIds($criteria, $context)->firstId();
+        if (!\is_string($navigationId)) {
+            throw MaintenanceException::couldNotGetId('root navigation');
         }
 
-        return $categoryId;
+        return $navigationId;
     }
 
     /**
