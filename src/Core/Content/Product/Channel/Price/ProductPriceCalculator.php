@@ -5,7 +5,6 @@ namespace HeyFrame\Core\Content\Product\Channel\Price;
 use HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection as CalculatedPriceCollection;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePriceDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceCollection;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CalculatedCheapestPrice;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPrice;
@@ -73,9 +72,8 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         if ($price === null) {
             return;
         }
-        $reference = ReferencePriceDto::createFromEntity($product);
 
-        $definition = $this->buildDefinition($product, $price, $context, $reference);
+        $definition = $this->buildDefinition($product, $price, $context);
 
         $price = $this->calculator->calculate($definition, $context);
 
@@ -103,13 +101,11 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         }
         $prices->sortByQuantity();
 
-        $reference = ReferencePriceDto::createFromEntity($product);
-
         $calculated = new CalculatedPriceCollection();
         foreach ($prices as $price) {
             $quantity = $price->getQuantityEnd() ?? $price->getQuantityStart();
 
-            $definition = $this->buildDefinition($product, $price->getPrice(), $context, $reference, $quantity);
+            $definition = $this->buildDefinition($product, $price->getPrice(), $context, $quantity);
 
             $calculated->add($this->calculator->calculate($definition, $context));
         }
@@ -127,9 +123,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
                 return;
             }
 
-            $reference = ReferencePriceDto::createFromEntity($product);
-
-            $definition = $this->buildDefinition($product, $price, $context, $reference);
+            $definition = $this->buildDefinition($product, $price, $context);
 
             $calculated = CalculatedCheapestPrice::createFrom(
                 $this->calculator->calculate($definition, $context)
@@ -146,9 +140,7 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
             return;
         }
 
-        $reference = ReferencePriceDto::createFromCheapestPrice($cheapest);
-
-        $definition = $this->buildDefinition($product, $cheapest->getPrice(), $context, $reference);
+        $definition = $this->buildDefinition($product, $cheapest->getPrice(), $context);
 
         $calculated = CalculatedCheapestPrice::createFrom(
             $this->calculator->calculate($definition, $context)
@@ -164,15 +156,11 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         Entity $product,
         PriceCollection $prices,
         ChannelContext $context,
-        ReferencePriceDto $reference,
         int $quantity = 1
     ): QuantityPriceDefinition {
         $price = $this->getPriceValue($prices, $context);
 
         $definition = new QuantityPriceDefinition($price, $quantity);
-        $definition->setReferencePriceDefinition(
-            $this->buildReferencePriceDefinition($reference)
-        );
         $definition->setListPrice(
             $this->getListPrice($prices, $context)
         );
@@ -239,25 +227,6 @@ class ProductPriceCalculator extends AbstractProductPriceCalculator
         }
 
         return $value;
-    }
-
-    private function buildReferencePriceDefinition(ReferencePriceDto $definition): ?ReferencePriceDefinition
-    {
-        if (
-            $definition->getPurchase() === null
-            || $definition->getPurchase() <= 0
-            || $definition->getUnitId() === null
-            || $definition->getReference() === null
-            || $definition->getReference() <= 0
-            || $definition->getPurchase() === $definition->getReference()
-        ) {
-            return null;
-        }
-
-        return new ReferencePriceDefinition(
-            $definition->getPurchase(),
-            $definition->getReference(),
-        );
     }
 
     private function filterRulePrices(ProductPriceCollection $rules, ChannelContext $context): ?ProductPriceCollection

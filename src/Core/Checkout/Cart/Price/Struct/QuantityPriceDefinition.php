@@ -22,8 +22,6 @@ class QuantityPriceDefinition extends Struct implements PriceDefinitionInterface
 
     protected bool $isCalculated = true;
 
-    protected ?ReferencePriceDefinition $referencePriceDefinition = null;
-
     protected ?float $listPrice = null;
 
     protected ?float $regulationPrice = null;
@@ -102,11 +100,6 @@ class QuantityPriceDefinition extends Struct implements PriceDefinitionInterface
         ];
     }
 
-    public function getReferencePriceDefinition(): ?ReferencePriceDefinition
-    {
-        return $this->referencePriceDefinition;
-    }
-
     public function getListPrice(): ?float
     {
         return $this->listPrice ? FloatComparator::cast($this->listPrice) : null;
@@ -137,10 +130,5 @@ class QuantityPriceDefinition extends Struct implements PriceDefinitionInterface
     public function setIsCalculated(bool $isCalculated): void
     {
         $this->isCalculated = $isCalculated;
-    }
-
-    public function setReferencePriceDefinition(?ReferencePriceDefinition $referencePriceDefinition): void
-    {
-        $this->referencePriceDefinition = $referencePriceDefinition;
     }
 }
