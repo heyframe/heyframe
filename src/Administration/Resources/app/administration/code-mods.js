@@ -7,8 +7,8 @@ const colors = require('picocolors');
 const path = require('path');
 const { globSync } = require('glob');
 
-// Available Shopware versions
-const shopwareVersions = [
+// Available HeyFrame versions
+const heyframeVersions = [
     '6.6',
     '6.7',
 ];
@@ -28,8 +28,8 @@ const optionDefinitions = [
         type: String,
     },
     {
-        description: 'Shopware root. Default ../../../../../',
-        name: 'shopware-root',
+        description: 'HeyFrame root. Default ../../../../../',
+        name: 'heyframe-root',
         alias: 'r',
         type: String,
     },
@@ -54,8 +54,8 @@ const optionDefinitions = [
     },
     {
         // eslint-disable-next-line max-len
-        description: `Define the Shopware version for loading the correct codemods. Available: ${shopwareVersions.join(', ')}`,
-        name: 'shopware-version',
+        description: `Define the HeyFrame version for loading the correct codemods. Available: ${heyframeVersions.join(', ')}`,
+        name: 'heyframe-version',
         alias: 'v',
         type: String,
     },
@@ -64,17 +64,17 @@ const optionDefinitions = [
 // Command help
 const sections = [
     {
-        header: 'Shopware Admin code mods',
-        content: 'Run shopware code mods in your plugin!',
+        header: 'HeyFrame Admin code mods',
+        content: 'Run heyframe code mods in your plugin!',
     },
     {
         header: 'Synopsis',
         content: [
-            '{bold Run as npm script inside <shopwareRoot>/src/Administration/Resources/app/administration}:',
+            '{bold Run as npm script inside <heyframeRoot>/src/Administration/Resources/app/administration}:',
             '$ npm run code-mods -- [{bold --fix}] {bold --plugin-name} {underline SwagExamplePlugin}',
             '$ npm run code-mods -- {bold --help}',
             '',
-            '{bold Run as composer script inside <shopwareRoot>}:',
+            '{bold Run as composer script inside <heyframeRoot>}:',
             '$ composer run admin:code-mods -- [{bold --fix}] {bold --plugin-name} {underline SwagExamplePlugin}',
             '$ composer run admin:code-mods -- {bold --help}',
         ],
@@ -95,9 +95,9 @@ const sections = [
         process.exit();
     }
 
-    const shopwareVersion = options['shopware-version'];
-    if (shopwareVersion && !shopwareVersions.includes(shopwareVersion)) {
-        console.error(colors.red('Invalid Shopware version. Available: 6.6, 6.7'));
+    const heyframeVersion = options['heyframe-version'];
+    if (heyframeVersion && !heyframeVersions.includes(heyframeVersion)) {
+        console.error(colors.red('Invalid HeyFrame version. Available: 6.6, 6.7'));
         process.exit(1);
     }
 
@@ -108,8 +108,8 @@ const sections = [
     }
 
     let customPluginsPath = path.resolve('../../../../../custom/plugins');
-    if (options['shopware-root']) {
-        let optionsRoot = options['shopware-root'];
+    if (options['heyframe-root']) {
+        let optionsRoot = options['heyframe-root'];
 
         // remove trailing slash
         optionsRoot = optionsRoot.replace(/\/$/, '');
@@ -163,7 +163,7 @@ const sections = [
 
         const fix = options.fix;
         try {
-            await lintFiles([workingDir], fix, shopwareVersion);
+            await lintFiles([workingDir], fix, heyframeVersion);
 
             // only copy back changes if fix is requested
             if (fix) {
@@ -216,8 +216,8 @@ function createESLintInstance(overrideConfig, fix) {
 }
 
 // Lint the specified files and return the results
-async function lintAndFix(eslint, filePaths, shopwareVersion) {
-    const results = await eslint.lintFiles(filePaths, shopwareVersion);
+async function lintAndFix(eslint, filePaths, heyframeVersion) {
+    const results = await eslint.lintFiles(filePaths, heyframeVersion);
 
     // Apply automatic fixes and output fixed code
     await ESLint.outputFixes(results);
@@ -236,7 +236,7 @@ async function outputLintingResults(results, eslint) {
 }
 
 // Put previous functions all together
-async function lintFiles(filePaths, fix, shopwareVersion) {
+async function lintFiles(filePaths, fix, heyframeVersion) {
     // The ESLint configuration. Alternatively, you could load the configuration
     // from a .eslintrc file or just use the default config.
     const overrideConfig = {
@@ -254,7 +254,7 @@ async function lintFiles(filePaths, fix, shopwareVersion) {
                 files: ['**/*.html.twig'],
                 rules: {
                     ...(() => {
-                        if (isVersionNewerOrSame(shopwareVersion, '6.7')) {
+                        if (isVersionNewerOrSame(heyframeVersion, '6.7')) {
                             return {
                                 'sw-deprecation-rules/no-deprecated-components': ['error', {
                                     fix: true,
@@ -299,7 +299,7 @@ async function lintFiles(filePaths, fix, shopwareVersion) {
             {
                 extends: [
                     'plugin:vue/vue3-recommended',
-                    '@shopware-ag/eslint-config-base',
+                    '@heyframe-ag/eslint-config-base',
                 ],
                 files: ['**/*.js'],
                 excludedFiles: [
@@ -331,7 +331,7 @@ async function lintFiles(filePaths, fix, shopwareVersion) {
                 ],
                 extends: [
                     'plugin:vue/vue3-recommended',
-                    '@shopware-ag/eslint-config-base',
+                    '@heyframe-ag/eslint-config-base',
                 ],
                 parser: '@typescript-eslint/parser',
                 parserOptions: {
@@ -459,7 +459,7 @@ async function lintFiles(filePaths, fix, shopwareVersion) {
     };
 
     const eslint = createESLintInstance(overrideConfig, fix);
-    const results = await lintAndFix(eslint, filePaths, shopwareVersion);
+    const results = await lintAndFix(eslint, filePaths, heyframeVersion);
     return outputLintingResults(results, eslint);
 }
 

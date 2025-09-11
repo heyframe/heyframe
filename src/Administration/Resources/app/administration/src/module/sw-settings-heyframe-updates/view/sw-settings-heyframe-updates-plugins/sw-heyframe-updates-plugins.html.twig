@@ -1,0 +1,51 @@
+{% block sw_heyframe_updates_plugins %}
+<mt-card
+    position-identifier="sw-heyframe-updates-plugins"
+    :title="$t('sw-settings-heyframe-updates.cards.extensions')"
+    :is-loading="isLoading"
+>
+    <template #grid>
+        <sw-data-grid
+            :show-selection="false"
+            :data-source="plugins"
+            :columns="columns"
+        >
+
+            {% block sw_heyframe_updates_plugins_column_icon %}
+            <template
+                #column-icon="{ item, isInlineEdit }"
+            >
+                <sw-color-badge
+                    v-if="item.statusVariant"
+                    :variant="item.statusVariant"
+                    :rounded="true"
+                />
+                <sw-color-badge
+                    v-else
+                    :color="item.statusColor"
+                    :rounded="true"
+                />&nbsp;
+
+                <template v-if="item.statusMessage === 'notCompatible'">
+                    {{ item.statusMessage }} {{ $t('sw-settings-heyframe-updates.plugins.pluginWillBeDeactivatedHint') }}
+                </template>
+                <template v-else-if="item.statusMessage">
+                    {{ item.statusMessage }}
+                </template>
+                <template v-else>
+                    {{ $t('sw-settings-heyframe-updates.plugins.pluginNotInStore') }}
+                </template>
+            </template>
+            {% endblock %}
+
+            {% block sw_heyframe_updates_plugins_column_action %}
+            <template #actions="{item}">
+                <sw-context-menu-item @click="openMyExtensions()">
+                    {{ $t('sw-settings-heyframe-updates.plugins.actions.openMyExtensions') }}
+                </sw-context-menu-item>
+            </template>
+            {% endblock %}
+        </sw-data-grid>
+    </template>
+</mt-card>
+{% endblock %}

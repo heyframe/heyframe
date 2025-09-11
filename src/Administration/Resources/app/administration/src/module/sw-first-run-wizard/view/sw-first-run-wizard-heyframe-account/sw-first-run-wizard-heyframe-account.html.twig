@@ -1,0 +1,71 @@
+{% block sw_first_run_wizard_heyframe_account %}
+<div class="sw-first-run-wizard-heyframe-account">
+    <sw-container columns="1fr 1fr">
+        <img
+            class="sw-first-run-wizard-heyframe-account__illustration"
+            :src="assetFilter('/administration/administration/static/img/first-run-wizard/heyframe-account.svg')"
+            alt=""
+        >
+        <div>
+            <h5 class="headline">
+                {{ $tc('sw-first-run-wizard.heyframeAccount.headline') }}
+            </h5>
+            <p
+                class="message"
+                v-html="$tc('sw-first-run-wizard.heyframeAccount.message')"
+            ></p>
+            <p class="create-account">
+                {{ $tc('sw-first-run-wizard.heyframeAccount.registerAccountText') }}
+                <a
+                    class="external-link"
+                    :href="$tc('sw-first-run-wizard.heyframeAccount.registerAccountUrl')"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    {{ $tc('sw-first-run-wizard.heyframeAccount.registerAccountHere') }}
+                </a>.
+            </p>
+            <div class="input-fields">
+
+                <mt-text-field
+                    v-model="heyframeId"
+                    name="heyframeId"
+                    validation="required"
+                    :label="$tc('sw-first-run-wizard.heyframeAccount.emailAddressLabel')"
+                    :placeholder="$tc('sw-first-run-wizard.heyframeAccount.emailAddressPlaceholder')"
+                />
+            </div>
+
+            <div class="input-fields">
+                <mt-password-field
+                    v-model="password"
+                    :label="$tc('sw-first-run-wizard.heyframeAccount.passwordLabel')"
+                    :placeholder="$tc('sw-first-run-wizard.heyframeAccount.passwordPlaceholder')"
+                />
+            </div>
+            <p class="forgot-password">
+                <a
+                    class="external-link"
+                    :href="$tc('sw-first-run-wizard.heyframeAccount.forgotPasswordUrl')"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    {{ $tc('sw-first-run-wizard.heyframeAccount.forgotPasswordText') }}
+                </a>
+            </p>
+
+            <div
+                v-if="accountError"
+                class="sw-first-run-wizard-heyframe-account__error"
+            >
+                <mt-banner
+                    :title="$tc('global.default.error')"
+                    variant="critical"
+                >
+                    {{ $tc('sw-first-run-wizard.error.messageLoginDataInvalid') }}
+                </mt-banner>
+            </div>
+        </div>
+    </sw-container>
+</div>
+{% endblock %}

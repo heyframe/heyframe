@@ -33,7 +33,7 @@ if (isCi) {
 
 module.exports = {
     cacheDirectory: process.env.JEST_CACHE_DIR,
-    preset: '@shopware-ag/jest-preset-sw6-admin',
+    preset: '@heyframe-ag/jest-preset-sw6-admin',
     globals: {
         adminPath: process.env.ADMIN_PATH,
         projectRoot: process.env.PROJECT_ROOT,
@@ -78,14 +78,14 @@ module.exports = {
     },
 
     transformIgnorePatterns: [
-        '/node_modules/(?!(@shopware-ag/meteor-component-library|@shopware-ag/meteor-icon-kit|uuidv7|other)/)',
+        '/node_modules/(?!(@heyframe-ag/meteor-component-library|@heyframe-ag/meteor-icon-kit|uuidv7|other)/)',
     ],
 
     moduleNameMapper: {
         '^test(.*)$': '<rootDir>/test$1',
-        '^\@shopware-ag\/admin-extension-sdk\/es\/(.*)': '<rootDir>/node_modules/@shopware-ag/admin-extension-sdk/umd/$1',
-        '^\@shopware-ag\/meteor-admin-sdk\/es\/(.*)': '<rootDir>/node_modules/@shopware-ag/meteor-admin-sdk/umd/$1',
-        '^@shopware-ag/meteor-component-library$': '<rootDir>/node_modules/@shopware-ag/meteor-component-library/dist/common/index.js',
+        '^\@heyframe-ag\/admin-extension-sdk\/es\/(.*)': '<rootDir>/node_modules/@heyframe-ag/admin-extension-sdk/umd/$1',
+        '^\@heyframe-ag\/meteor-admin-sdk\/es\/(.*)': '<rootDir>/node_modules/@heyframe-ag/meteor-admin-sdk/umd/$1',
+        '^@heyframe-ag/meteor-component-library$': '<rootDir>/node_modules/@heyframe-ag/meteor-component-library/dist/common/index.js',
         '^lodash-es$': 'lodash',
         vue$: 'vue/dist/vue.cjs.js',
     },
@@ -100,7 +100,7 @@ module.exports = {
             },
         ],
         ['jest-junit', {
-            suiteName: 'Shopware 6 Unit Tests',
+            suiteName: 'HeyFrame 6 Unit Tests',
             outputDirectory: join(process.env.PROJECT_ROOT, '/build/artifacts/jest'),
             outputName: 'administration.junit.xml',
         }],
