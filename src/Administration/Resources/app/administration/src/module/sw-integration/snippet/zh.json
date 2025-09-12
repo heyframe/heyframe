@@ -1,8 +1,8 @@
 {
   "sw-integration": {
     "general": {
-      "mainMenuItemIndex": "集成",
-      "headlineIntegrations": "集成",
+      "mainMenuItemIndex": "系统集成",
+      "headlineIntegrations": "系统集成",
       "buttonCreateIntegration": "添加集成",
       "heroHeadlineIntegrations": "管理集成",
       "heroDescriptionIntegrations": "HeyFrame 提供强大的 API，可将第三方系统完美整合到您的流程中。为了建立正确的通信，HeyFrame 要求外部应用先通过单独的安全密钥进行身份验证。您可以在此处创建这些密钥，从而能够单独跟踪外部应用引入的更改。"
@@ -42,7 +42,7 @@
   "sw-privileges": {
     "permissions": {
       "integration": {
-        "label": "集成"
+        "label": "系统集成"
       }
     }
   }

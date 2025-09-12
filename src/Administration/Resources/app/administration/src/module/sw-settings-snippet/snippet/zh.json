@@ -6,8 +6,8 @@
   },
   "sw-settings-snippet": {
     "general": {
-      "mainMenuItemGeneral": "片段",
-      "description": "在这里管理片段。",
+      "mainMenuItemGeneral": "文本片段",
+      "description": "在这里管理文本片段。",
       "copyName": "复制",
       "errorBackRoutingTitle": "无效的页面请求",
       "errorBackRoutingMessage": "无法加载请求的页面。您将被重定向。",
@@ -92,7 +92,7 @@
   "sw-privileges": {
     "permissions": {
       "snippet": {
-        "label": "片段"
+        "label": "文本片段"
       }
     }
   }

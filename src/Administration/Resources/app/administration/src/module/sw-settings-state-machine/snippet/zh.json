@@ -1,7 +1,7 @@
 {
   "sw-settings-state-machine": {
     "general": {
-      "mainMenuItemGeneral": "状态管理"
+      "mainMenuItemGeneral": "状态机"
     },
     "list": {
       "grid": {

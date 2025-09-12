@@ -74,7 +74,6 @@
     "ext-xml": "*",
     "ext-zip": "*",
     "ext-zlib": "*",
-    "ext-http": "*",
     "composer-runtime-api": "^2.1",
     "async-aws/core": "^1.22",
     "cocur/slugify": "^4.3.0",
@@ -216,14 +215,14 @@
   "repositories": [
     {
       "type": "path",
-      "url": "plugins/*",
+      "url": "custom/plugins/*",
       "options": {
         "symlink": true
       }
     },
     {
       "type": "path",
-      "url": "static-plugins/*",
+      "url": "custom/static-plugins/*",
       "options": {
         "symlink": true
       }

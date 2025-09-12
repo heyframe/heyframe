@@ -1,8 +1,8 @@
 {
   "sw-settings-services": {
     "general": {
-      "title": "HeyFrame 服务",
-      "description": "管理在你的 HeyFrame 实例中可用的服务。",
+      "title": "云服务",
+      "description": "管理可用的云服务。",
       "activate": "激活",
       "deactivate": "停用"
     },

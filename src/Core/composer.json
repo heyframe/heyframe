@@ -58,7 +58,6 @@
         "ext-xml": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
-        "ext-http": "*",
         "composer-runtime-api": "^2.1",
         "cocur/slugify": "^4.3.0",
         "composer/composer": "^2.8.5",

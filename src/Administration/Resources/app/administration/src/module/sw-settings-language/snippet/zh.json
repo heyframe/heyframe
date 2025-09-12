@@ -1,7 +1,7 @@
 {
   "sw-settings-language": {
     "general": {
-      "mainMenuItemGeneral": "语言设置",
+      "mainMenuItemGeneral": "语言",
       "placeholderSearchBar": "搜索语言..."
     },
     "list": {
