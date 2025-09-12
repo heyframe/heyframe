@@ -53,8 +53,8 @@ class StatesUpdater
 
         $updates = [];
         foreach ($products as $product) {
-            $newStates = $this->getNewStates($product);
             $oldStates = $product['states'] ? json_decode((string) $product['states'], true, 512, \JSON_THROW_ON_ERROR) : [];
+            $newStates = $this->getNewStates($product, $oldStates);
 
             if (\count(array_diff($newStates, $oldStates)) === 0) {
                 continue;
@@ -91,14 +91,16 @@ class StatesUpdater
      *
      * @return string[]
      */
-    private function getNewStates(array $product): array
+    private function getNewStates(array $product, array $oldStates): array
     {
-        $states = [];
+        $states = $oldStates;
 
-        if ((int) $product['hasDownloads'] === 1) {
-            $states[] = State::IS_DOWNLOAD;
-        } else {
+        if (!\in_array(State::IS_VIRTUAL, $states, true)) {
             $states[] = State::IS_VIRTUAL;
+        }
+
+        if ((int) $product['hasDownloads'] === 1 && !\in_array(State::IS_DOWNLOAD, $states, true)) {
+            $states[] = State::IS_DOWNLOAD;
         }
 
         return $states;
