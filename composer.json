@@ -6,11 +6,12 @@
     "framework"
   ],
   "homepage": "https://www.heyframe.net",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "replace": {
     "heyframe/core": "self.version",
     "heyframe/administration": "self.version",
     "heyframe/frontend": "self.version",
+    "heyframe/elasticsearch": "self.version",
     "symfony/polyfill-ctype": "*",
     "symfony/polyfill-iconv": "*",
     "symfony/polyfill-mbstring": "*",
