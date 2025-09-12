@@ -13,8 +13,7 @@
       "tabCommerce": "Commerce",
       "tabContent": "Content",
       "tabAutomation": "Automation",
-      "tabPlugins": "Extensions",
-      "textSettingRenameBanner": "The setting <b>Scale units</b> has been renamed to <b>Product units</b>."
+      "tabPlugins": "Extensions"
     },
     "system-config": {
       "labelChannelSelect": "Channel",

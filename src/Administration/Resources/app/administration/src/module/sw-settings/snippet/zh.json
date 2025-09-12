@@ -13,8 +13,7 @@
       "tabCommerce": "交易",
       "tabContent": "内容",
       "tabAutomation": "自动化",
-      "tabPlugins": "扩展",
-      "textSettingRenameBanner": "设置 <b>Scale units</b> 已重命名为 <b>产品单位</b>。"
+      "tabPlugins": "扩展"
     },
     "system-config": {
       "labelChannelSelect": "销售渠道",
