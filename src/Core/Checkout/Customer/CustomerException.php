@@ -43,7 +43,6 @@ class CustomerException extends HttpException
     public const WISHLIST_PRODUCT_NOT_FOUND = 'CHECKOUT__WISHLIST_PRODUCT_NOT_FOUND';
     public const CUSTOMER_AUTH_THROTTLED = 'CHECKOUT__CUSTOMER_AUTH_THROTTLED';
     public const CUSTOMER_CHANGE_PAYMENT_ERROR = 'CHECKOUT__CUSTOMER_CHANGE_PAYMENT_METHOD_NOT_FOUND';
-    public const CUSTOMER_GUEST_AUTH_INVALID = 'CHECKOUT__CUSTOMER_AUTH_INVALID';
     public const IMITATE_CUSTOMER_INVALID_TOKEN = 'CHECKOUT__IMITATE_CUSTOMER_INVALID_TOKEN';
     public const MISSING_ROUTE_ANNOTATION = 'CHECKOUT__MISSING_ROUTE_ANNOTATION';
     public const MISSING_ROUTE_CHANNEL = 'CHECKOUT__MISSING_ROUTE_CHANNEL';
@@ -211,15 +210,6 @@ class CustomerException extends HttpException
         );
     }
 
-    public static function guestAccountInvalidAuth(): HeyFrameHttpException
-    {
-        return new self(
-            Response::HTTP_FORBIDDEN,
-            self::CUSTOMER_GUEST_AUTH_INVALID,
-            'Guest account is not allowed to login'
-        );
-    }
-
     public static function passwordPoliciesUpdated(): PasswordPoliciesUpdatedException
     {
         return new PasswordPoliciesUpdatedException();
@@ -338,16 +328,6 @@ class CustomerException extends HttpException
             self::INVALID_OPTION,
             'Option "{{ option }}" must be of type "{{ type }}" for constraint {{ constraint }}',
             ['option' => $option, 'type' => $type, 'constraint' => $constraint]
-        );
-    }
-
-    public static function registeredCustomerCannotBeConverted(string $customerId): self
-    {
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::REGISTERED_CUSTOMER_CANNOT_BE_CONVERTED,
-            'Customer with id "{{ customerId }}" is not a guest',
-            ['customerId' => $customerId],
         );
     }
 

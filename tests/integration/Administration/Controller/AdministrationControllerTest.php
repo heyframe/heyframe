@@ -272,7 +272,7 @@ class AdministrationControllerTest extends TestCase
             'currencyId' => Defaults::CURRENCY,
             'paymentMethodId' => $paymentMethod->getId(),
             'paymentMethods' => [['id' => $paymentMethod->getId()]],
-            'navigationId' => $this->getValidNavigationId(),
+            'navigationId' => $this->getValidCategoryId(),
             'countryId' => $this->getValidCountryId(null),
             'currencies' => [['id' => Defaults::CURRENCY]],
             'languages' => $channelOverride['languages'] ?? [['id' => Defaults::LANGUAGE_SYSTEM]],

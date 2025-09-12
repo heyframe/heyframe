@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Order\OrderStates;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
+use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
@@ -158,10 +159,10 @@ trait BasicTestDataBehaviour
         return $id;
     }
 
-    protected function getValidNavigationId(): string
+    protected function getValidCategoryId(): string
     {
-        /** @var EntityRepository<NavigationCollection> $repository */
-        $repository = static::getContainer()->get('navigation.repository');
+        /** @var EntityRepository<CategoryCollection> $repository */
+        $repository = static::getContainer()->get('category.repository');
 
         $criteria = (new Criteria())
             ->setLimit(1)

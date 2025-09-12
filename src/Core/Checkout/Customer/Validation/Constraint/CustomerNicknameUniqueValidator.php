@@ -30,19 +30,15 @@ class CustomerNicknameUniqueValidator extends ConstraintValidator
 
         $query = $this->connection->createQueryBuilder();
 
-        /** @var array{nickname: string, guest: int, bound_channel_id: string|null}[] $results */
+        /** @var array{nickname: string, bound_channel_id: string|null}[] $results */
         $results = $query
-            ->select('nickname', 'guest', 'LOWER(HEX(bound_channel_id)) as bound_channel_id')
+            ->select('nickname', 'LOWER(HEX(bound_channel_id)) as bound_channel_id')
             ->from('customer')
             ->where($query->expr()->eq('nickname', $query->createPositionalParameter($value)))
             ->executeQuery()
             ->fetchAllAssociative();
 
         $results = \array_filter($results, static function (array $entry) use ($constraint) {
-            // Filter out guest entries
-            if ($entry['guest']) {
-                return false;
-            }
 
             if ($entry['bound_channel_id'] === null) {
                 return true;

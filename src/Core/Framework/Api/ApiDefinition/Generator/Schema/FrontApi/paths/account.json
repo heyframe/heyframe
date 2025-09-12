@@ -801,114 +801,14 @@
                                         "description": "Password for the customer. Required, unless `guest` is `true`",
                                         "type": "string"
                                     },
-                                    "salutationId": {
-                                        "description": "Id of the salutation for the customer account. Fetch options using `salutation` endpoint.",
-                                        "type": "string"
-                                    },
-                                    "firstName": {
-                                        "description": "Customer first name. Value will be reused for shipping and billing address if not provided explicitly.",
-                                        "type": "string"
-                                    },
-                                    "lastName": {
-                                        "description": "Customer last name. Value will be reused for shipping and billing address if not provided explicitly.",
-                                        "type": "string"
-                                    },
-                                    "acceptedDataProtection": {
-                                        "description": "Flag indicating accepted data protection",
-                                        "type": "boolean"
-                                    },
                                     "frontendUrl": {
                                         "description": "URL of the frontend for that registration. Used in confirmation emails. Has to be one of the configured domains of the sales channel.",
-                                        "type": "string"
-                                    },
-                                    "billingAddress": {
-                                        "$ref": "#/components/schemas/CustomerAddress"
-                                    },
-                                    "shippingAddress": {
-                                        "$ref": "#/components/schemas/CustomerAddress"
-                                    },
-                                    "guest": {
-                                        "description": "If set, will create a guest customer. Guest customers can re-use an email address and don't need a password.",
-                                        "type": "boolean",
-                                        "default": false
-                                    },
-                                    "birthdayDay": {
-                                        "description": "Birthday day",
-                                        "type": "integer"
-                                    },
-                                    "birthdayMonth": {
-                                        "description": "Birthday month",
-                                        "type": "integer"
-                                    },
-                                    "birthdayYear": {
-                                        "description": "Birthday year",
-                                        "type": "integer"
-                                    },
-                                    "title": {
-                                        "description": "(Academic) title of the customer",
-                                        "type": "string"
-                                    },
-                                    "affiliateCode": {
-                                        "description": "Field can be used to store an affiliate tracking code",
-                                        "type": "string"
-                                    },
-                                    "campaignCode": {
-                                        "description": "Field can be used to store a campaign tracking code",
                                         "type": "string"
                                     }
                                 },
                                 "required": [
                                     "email",
-                                    "password",
-                                    "firstName",
-                                    "lastName",
-                                    "acceptedDataProtection",
-                                    "frontendUrl",
-                                    "billingAddress"
-                                ],
-                                "oneOf": [
-                                    {
-                                        "properties": {
-                                            "accountType": {
-                                                "description": "Type of the customer account. Default value is 'private'.",
-                                                "type": "string",
-                                                "enum": ["private"],
-                                                "default": "private"
-                                            },
-                                            "company": {
-                                                "type": "null"
-                                            },
-                                            "vatIds": {
-                                                "type": "null"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "required": [
-                                            "accountType",
-                                            "company",
-                                            "vatIds"
-                                        ],
-                                        "properties": {
-                                            "accountType": {
-                                                "description": "Type of the customer account. Can be `private` or `business`.",
-                                                "type": "string",
-                                                "enum": ["business"]
-                                            },
-                                            "company": {
-                                                "description": "Company of the customer. Only required when `accountType` is `business`.",
-                                                "type": "string"
-                                            },
-                                            "vatIds": {
-                                                "description": "VAT IDs of the customer's company. Only valid when `accountType` is `business`.",
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "string"
-                                                },
-                                                "minItems": 1
-                                            }
-                                        }
-                                    }
+                                    "password"
                                 ],
                                 "type": "object"
                             }

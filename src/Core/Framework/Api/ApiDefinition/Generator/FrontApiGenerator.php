@@ -47,7 +47,7 @@ class FrontApiGenerator implements ApiDefinitionGeneratorInterface
         array $bundles,
         private readonly BundleSchemaPathCollection $bundleSchemaPathCollection,
     ) {
-        $this->schemaPath = $bundles['Framework']['path'] . '/Api/ApiDefinition/Generator/Schema/StoreApi';
+        $this->schemaPath = $bundles['Framework']['path'] . '/Api/ApiDefinition/Generator/Schema/FrontApi';
     }
 
     public function supports(string $format, string $api): bool
