@@ -9,7 +9,7 @@
     },
     "general": {
       "mainMenuItemGeneral": "客户",
-      "mainMenuItemList": "客户列表",
+      "mainMenuItemList": "客户",
       "mainMenuItemAdd": "添加客户",
       "descriptionTextModule": "在此管理客户信息。",
       "placeholderSearchBar": "搜索客户...",

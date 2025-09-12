@@ -177,7 +177,7 @@ The admin menu only supports up to three levels of nesting.`,
                 return '';
             }
 
-            return `${this.currentUser.firstName} ${this.currentUser.lastName}`;
+            return `${this.currentUser.username}`;
         },
 
         avatarUrl() {
@@ -186,14 +186,6 @@ The admin menu only supports up to three levels of nesting.`,
             }
 
             return null;
-        },
-
-        firstName() {
-            return this.currentUser ? this.currentUser.firstName : '';
-        },
-
-        lastName() {
-            return this.currentUser ? this.currentUser.lastName : '';
         },
 
         extensionMenuItems() {
