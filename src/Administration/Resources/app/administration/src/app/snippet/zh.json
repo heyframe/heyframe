@@ -150,7 +150,7 @@
       }
     },
     "sw-admin-menu": {
-      "linkLogout": "退出登录",
+      "linkLogout": "注销",
       "linkMinimizeMenu": "收起菜单",
       "textHeyFrameAdmin": "HeyFrame 管理后台",
       "textProjectName": "管理后台",

@@ -1,9 +1,9 @@
 {
   "sw-profile": {
     "general": {
-      "mainMenuItemGeneral": "个人资料",
+      "mainMenuItemGeneral": "个人中心",
       "description": "在这里管理您的个人资料。",
-      "headlineProfile": "您的个人资料"
+      "headlineProfile": "个人中心"
     },
     "index": {
       "buttonSaveLabel": "保存",

@@ -5,7 +5,7 @@
       "labelTag": "标签"
     },
     "general": {
-      "mainMenuItemGeneral": "流程构建器",
+      "mainMenuItemGeneral": "流程",
       "descriptionTextModule": "流程构建器",
       "placeholderSearchBar": "搜索流程...",
       "tabMyFlows": "我的流程",
@@ -360,7 +360,7 @@
   "sw-privileges": {
     "permissions": {
       "flow": {
-        "label": "流程构建器"
+        "label": "流程"
       }
     }
   }

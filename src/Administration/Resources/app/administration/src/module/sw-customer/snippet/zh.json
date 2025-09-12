@@ -201,7 +201,7 @@
       "modalTitle": "以 {firstname} {lastname} 身份登录",
       "modalDescription": "请选择您希望以 {firstname} {lastname} 身份登录的销售渠道。",
       "modalInfo": "请在完成操作后记得 {logout}。",
-      "modalInfoLogout": "退出登录",
+      "modalInfoLogout": "注销",
       "modalInfoNoDomains": "未找到活动域名，请检查销售渠道设置。",
       "labelCancel": "关闭"
     },
