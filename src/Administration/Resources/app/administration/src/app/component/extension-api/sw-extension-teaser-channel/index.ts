@@ -1,9 +1,9 @@
-import template from './sw-extension-teaser-sales-channel.html.twig';
-import './sw-extension-teaser-sales-channel.scss';
+import template from './sw-extension-teaser-channel.html.twig';
+import './sw-extension-teaser-channel.scss';
 
-interface TeaserSalesChannelConfig {
+interface TeaserChannelConfig {
     positionId: string;
-    salesChannel: {
+    channel: {
         title: string;
         description: string;
         iconName: string;
@@ -26,14 +26,14 @@ interface TeaserSalesChannelConfig {
  * @description A teaser sales channel for upselling service only, no public usage
  * @example-type dynamic
  * @component-example
- * <sw-extension-teaser-sales-channel />
+ * <sw-extension-teaser-channel />
  */
 export default HeyFrame.Component.wrapComponentConfig({
     template,
 
     computed: {
-        teaserSalesChannels(): TeaserSalesChannelConfig[] {
-            return HeyFrame.Store.get('teaserPopover').salesChannels || [];
+        teaserChannels(): TeaserChannelConfig[] {
+            return HeyFrame.Store.get('teaserPopover').channels || [];
         },
     },
 });

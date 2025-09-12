@@ -15,10 +15,10 @@ export default class LiveSearchService extends ApiService {
         this.name = 'liveSearchService';
     }
 
-    search({ salesChannelId, search, order }, contextToken, additionalParams = {}, additionalHeaders = {}) {
-        const route = `_proxy/front-api/${salesChannelId}/search`;
+    search({ channelId, search, order }, contextToken, additionalParams = {}, additionalHeaders = {}) {
+        const route = `_proxy/front-api/${channelId}/search`;
         const payload = {
-            salesChannelId,
+            channelId,
             search,
             order,
         };

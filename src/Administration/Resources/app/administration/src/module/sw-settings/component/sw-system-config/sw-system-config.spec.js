@@ -18,7 +18,7 @@ let wrapper;
 async function createWrapper(defaultValues = {}) {
     return mount(await wrapTestComponent('sw-system-config'), {
         props: {
-            salesChannelSwitchable: true,
+            channelSwitchable: true,
             domain: 'ConfigRenderer.config',
         },
         global: {
@@ -31,7 +31,7 @@ async function createWrapper(defaultValues = {}) {
                 'sw-form-field-renderer': await wrapTestComponent('sw-form-field-renderer'),
                 'sw-password-field-deprecated': await wrapTestComponent('sw-password-field-deprecated'),
                 'sw-ignore-class': true,
-                'sw-sales-channel-switch': await wrapTestComponent('sw-sales-channel-switch'),
+                'sw-channel-switch': await wrapTestComponent('sw-channel-switch'),
                 'sw-entity-single-select': await wrapTestComponent('sw-entity-single-select'),
                 'sw-label': await wrapTestComponent('sw-label'),
                 'sw-inherit-wrapper': await wrapTestComponent('sw-inherit-wrapper'),
@@ -91,9 +91,9 @@ async function createWrapper(defaultValues = {}) {
             provide: {
                 systemConfigApiService: {
                     getConfig: () => Promise.resolve(createConfig()),
-                    getValues: (domain, salesChannelId) => {
-                        if (defaultValues[domain] && defaultValues[domain][salesChannelId]) {
-                            return Promise.resolve(defaultValues[domain][salesChannelId]);
+                    getValues: (domain, channelId) => {
+                        if (defaultValues[domain] && defaultValues[domain][channelId]) {
+                            return Promise.resolve(defaultValues[domain][channelId]);
                         }
 
                         return Promise.resolve({});
@@ -708,32 +708,32 @@ describe('src/module/sw-settings/component/sw-system-config/sw-system-config', (
         wrapper = await createWrapper();
         await flushPromises();
 
-        const selectionText = wrapper.find('#salesChannelSelect .sw-entity-single-select__selection-text');
+        const selectionText = wrapper.find('#channelSelect .sw-entity-single-select__selection-text');
 
-        expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
+        expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
     });
 
     it('should change the sales channel', async () => {
         wrapper = await createWrapper();
         await flushPromises();
 
-        let salesChannelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelSalesChannelSelect"]');
-        let selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+        let channelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelChannelSelect"]');
+        let selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
 
-        expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
+        expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
 
-        // open salesChannel switch field
-        await salesChannelSwitch.find('.sw-select__selection').trigger('click');
+        // open channel switch field
+        await channelSwitch.find('.sw-select__selection').trigger('click');
         await flushPromises();
 
-        salesChannelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelSalesChannelSelect"]');
+        channelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelChannelSelect"]');
 
         // select headless sales channel
-        const selectOptionTwo = salesChannelSwitch.find('.sw-select-option--2');
+        const selectOptionTwo = channelSwitch.find('.sw-select-option--2');
         expect(selectOptionTwo.text()).toBe('Headless');
         await selectOptionTwo.trigger('click');
 
-        selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+        selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
         expect(selectionText.text()).toBe('Headless');
     });
 
@@ -802,24 +802,24 @@ describe('src/module/sw-settings/component/sw-system-config/sw-system-config', (
 
             await flushPromises();
 
-            const salesChannelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelSalesChannelSelect"]');
-            let selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+            const channelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelChannelSelect"]');
+            let selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
 
-            expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
+            expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
 
-            // open salesChannel switch field
-            await salesChannelSwitch.find('.sw-select__selection').trigger('click');
+            // open channel switch field
+            await channelSwitch.find('.sw-select__selection').trigger('click');
             await flushPromises();
 
             // select headless sales channel
-            const selectOptionTwo = salesChannelSwitch.find('.sw-select-option--2');
+            const selectOptionTwo = channelSwitch.find('.sw-select-option--2');
             expect(selectOptionTwo.text()).toBe('Headless');
 
             await selectOptionTwo.trigger('click');
             await flushPromises();
 
             // check if headless sales channel is activated
-            selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+            selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
             expect(selectionText.text()).toBe('Headless');
 
             // check if value in dom shows the inherit value
@@ -870,23 +870,23 @@ describe('src/module/sw-settings/component/sw-system-config/sw-system-config', (
 
             await flushPromises();
 
-            const salesChannelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelSalesChannelSelect"]');
-            let selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+            const channelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelChannelSelect"]');
+            let selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
 
-            expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
+            expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
 
-            // open salesChannel switch field
-            await salesChannelSwitch.find('.sw-select__selection').trigger('click');
+            // open channel switch field
+            await channelSwitch.find('.sw-select__selection').trigger('click');
             await flushPromises();
 
             // select headless sales channel
-            const selectOptionTwo = salesChannelSwitch.find('.sw-select-option--2');
+            const selectOptionTwo = channelSwitch.find('.sw-select-option--2');
             expect(selectOptionTwo.text()).toBe('Headless');
             await selectOptionTwo.trigger('click');
             await flushPromises();
 
             // check if headless sales channel is activated
-            selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+            selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
             expect(selectionText.text()).toBe('Headless');
 
             // check if value in dom shows the direct value
@@ -937,23 +937,23 @@ describe('src/module/sw-settings/component/sw-system-config/sw-system-config', (
 
             await flushPromises();
 
-            const salesChannelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelSalesChannelSelect"]');
-            let selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+            const channelSwitch = wrapper.find('.sw-field[label="sw-settings.system-config.labelChannelSelect"]');
+            let selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
 
-            expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
+            expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
 
-            // open salesChannel switch field
-            await salesChannelSwitch.find('.sw-select__selection').trigger('click');
+            // open channel switch field
+            await channelSwitch.find('.sw-select__selection').trigger('click');
             await flushPromises();
 
             // select headless sales channel
-            const selectOptionTwo = salesChannelSwitch.find('.sw-select-option--2');
+            const selectOptionTwo = channelSwitch.find('.sw-select-option--2');
             expect(selectOptionTwo.text()).toBe('Headless');
             await selectOptionTwo.trigger('click');
             await flushPromises();
 
             // check if headless sales channel is activated
-            selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+            selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
             expect(selectionText.text()).toBe('Headless');
 
             // check if value in dom shows the direct value

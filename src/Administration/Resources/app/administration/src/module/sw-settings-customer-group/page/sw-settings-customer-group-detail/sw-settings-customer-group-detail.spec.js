@@ -107,8 +107,8 @@ async function createWrapper(privileges = []) {
                                     name: 'Net price customer group',
                                     displayGross: false,
                                     registrationActive: true,
-                                    registrationSalesChannels: new EntityCollection(
-                                        '/customer-group/1/registration-sales-channels',
+                                    registrationChannels: new EntityCollection(
+                                        '/customer-group/1/registration-channels',
                                         'channel',
                                         Context.api,
                                         null,
@@ -127,7 +127,7 @@ async function createWrapper(privileges = []) {
                                     {
                                         id: '123',
                                         seoPathInfo: 'Hello-world',
-                                        salesChannel: {
+                                        channel: {
                                             translated: {
                                                 name: 'Storefront',
                                             },

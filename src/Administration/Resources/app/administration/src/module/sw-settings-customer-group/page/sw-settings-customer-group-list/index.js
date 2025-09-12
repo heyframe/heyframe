@@ -122,9 +122,9 @@ export default {
 
         customerGroupCanBeDeleted(customerGroup) {
             const hasNoCustomers = customerGroup.customers.length === 0;
-            const hasNoSalesChannel = customerGroup.salesChannels.length === 0;
+            const hasNoChannel = customerGroup.channels.length === 0;
 
-            return hasNoCustomers && hasNoSalesChannel;
+            return hasNoCustomers && hasNoChannel;
         },
 
         deleteCustomerGroup(customerGroup) {

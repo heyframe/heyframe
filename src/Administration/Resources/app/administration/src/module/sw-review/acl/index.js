@@ -11,7 +11,7 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
                 'product_review:read',
                 'customer:read',
                 'product:read',
-                'sales_channel:read',
+                'channel:read',
                 'user_config:read',
                 'user_config:create',
                 'user_config:update',

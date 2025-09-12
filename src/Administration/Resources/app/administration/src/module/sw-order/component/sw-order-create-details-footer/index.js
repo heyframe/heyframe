@@ -43,29 +43,29 @@ export default {
     computed: {
         context: {
             get() {
-                return this.customer ? this.customer.salesChannel : {};
+                return this.customer ? this.customer.channel : {};
             },
 
             set(context) {
-                if (this.customer) this.customer.salesChannel = context;
+                if (this.customer) this.customer.channel = context;
             },
         },
 
-        salesChannelId: {
+        channelId: {
             get() {
-                return this.customer ? this.customer.salesChannelId : null;
+                return this.customer ? this.customer.channelId : null;
             },
 
-            set(salesChannelId) {
-                if (this.customer) this.customer.salesChannelId = salesChannelId;
+            set(channelId) {
+                if (this.customer) this.customer.channelId = channelId;
             },
         },
 
-        salesChannelCriteria() {
+        channelCriteria() {
             const criteria = new Criteria(1, 25);
 
-            if (this.salesChannelId) {
-                criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            if (this.channelId) {
+                criteria.addFilter(Criteria.equals('channels.id', this.channelId));
             }
 
             return criteria;
@@ -74,8 +74,8 @@ export default {
         paymentMethodCriteria() {
             const criteria = new Criteria(1, 25);
 
-            if (this.salesChannelId) {
-                criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            if (this.channelId) {
+                criteria.addFilter(Criteria.equals('channels.id', this.channelId));
             }
 
             criteria.addFilter(Criteria.equals('afterOrderEnabled', 1));
@@ -91,8 +91,8 @@ export default {
             return Store.get('swOrder').currencyId;
         },
 
-        defaultSalesChannel() {
-            return Store.get('swOrder').defaultSalesChannel;
+        defaultChannel() {
+            return Store.get('swOrder').defaultChannel;
         },
 
         isCartTokenAvailable() {
@@ -133,7 +133,7 @@ export default {
                 'paymentMethodId',
             ];
             contextKeys.forEach((key) => {
-                this.context[key] = this.context[key] || this.defaultSalesChannel[key];
+                this.context[key] = this.context[key] || this.defaultChannel[key];
             });
         },
 
@@ -141,7 +141,7 @@ export default {
             Store.get('swOrder')
                 .updateOrderContext({
                     context: this.context,
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                 })
                 .then(() => {
@@ -159,7 +159,7 @@ export default {
             Store.get('swOrder')
                 .updateCustomerContext({
                     customerId: this.customer.id,
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                 })
                 .then((response) => {
@@ -178,7 +178,7 @@ export default {
 
             Store.get('swOrder')
                 .getCart({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                 })
                 .finally(() => {

@@ -37,7 +37,7 @@ export default {
 
             if (this.documentNumberPreview === this.documentConfig.documentNumber) {
                 this.numberRangeService
-                    .reserve(`document_${this.currentDocumentType.technicalName}`, this.order.salesChannelId, false)
+                    .reserve(`document_${this.currentDocumentType.technicalName}`, this.order.channelId, false)
                     .then((response) => {
                         this.documentConfig.custom.deliveryNoteNumber = response.number;
                         if (response.number !== this.documentConfig.documentNumber) {

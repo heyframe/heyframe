@@ -33,7 +33,6 @@ class Migration1536233210ChannelDomain extends MigrationStep
               `custom_fields` json DEFAULT NULL,
               `created_at` datetime(3) NOT NULL,
               `updated_at` datetime(3) DEFAULT NULL,
-              `measurement_units` json DEFAULT NULL,
               PRIMARY KEY (`id`),
               UNIQUE KEY `uniq.channel_domain.url` (`url`),
               KEY `fk.channel_domain.currency_id` (`currency_id`),

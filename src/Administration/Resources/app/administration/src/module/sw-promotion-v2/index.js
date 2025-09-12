@@ -48,8 +48,8 @@ HeyFrame.Component.register(
     () => import('./component/sw-promotion-v2-empty-state-hero'),
 );
 HeyFrame.Component.register(
-    'sw-promotion-v2-sales-channel-select',
-    () => import('./component/sw-promotion-v2-sales-channel-select'),
+    'sw-promotion-v2-channel-select',
+    () => import('./component/sw-promotion-v2-channel-select'),
 );
 HeyFrame.Component.register('sw-promotion-discount-component', () => import('./component/sw-promotion-discount-component'));
 HeyFrame.Component.register('sw-promotion-v2-detail', () => import('./page/sw-promotion-v2-detail'));

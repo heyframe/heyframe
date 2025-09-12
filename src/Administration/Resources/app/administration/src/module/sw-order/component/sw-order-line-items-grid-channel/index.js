@@ -1,6 +1,6 @@
-import template from './sw-order-line-items-grid-sales-channel.html.twig';
+import template from './sw-order-line-items-grid-channel.html.twig';
 import { LineItemType } from '../../order.types';
-import './sw-order-line-items-grid-sales-channel.scss';
+import './sw-order-line-items-grid-channel.scss';
 
 /**
  * @sw-package checkout
@@ -19,7 +19,7 @@ export default {
     ],
 
     props: {
-        salesChannelId: {
+        channelId: {
             type: String,
             required: true,
             default: '',
@@ -54,7 +54,7 @@ export default {
         positionIdentifier: {
             type: String,
             required: false,
-            default: 'sw-order-line-items-grid-sales-channel',
+            default: 'sw-order-line-items-grid-channel',
         },
     },
 

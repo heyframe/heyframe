@@ -45,7 +45,7 @@ describe('src/app/init-pre/api-services.init.ts', () => {
                 'promotionSyncService',
                 'recommendationsService',
                 'ruleConditionsConfigApiService',
-                'salesChannelService',
+                'channelService',
                 'scheduledTaskService',
                 'searchService',
                 'seoUrlTemplateService',
@@ -117,7 +117,7 @@ describe('src/app/init-pre/api-services.init.ts', () => {
         expect(HeyFrame.Service('promotionSyncService')).toBeUndefined();
         expect(HeyFrame.Service('recommendationsService')).toBeUndefined();
         expect(HeyFrame.Service('ruleConditionsConfigApiService')).toBeUndefined();
-        expect(HeyFrame.Service('salesChannelService')).toBeUndefined();
+        expect(HeyFrame.Service('channelService')).toBeUndefined();
         expect(HeyFrame.Service('scheduledTaskService')).toBeUndefined();
         expect(HeyFrame.Service('searchService')).toBeUndefined();
         expect(HeyFrame.Service('seoUrlTemplateService')).toBeUndefined();
@@ -178,7 +178,7 @@ describe('src/app/init-pre/api-services.init.ts', () => {
         expect(HeyFrame.Service('promotionSyncService')).toBeDefined();
         expect(HeyFrame.Service('recommendationsService')).toBeDefined();
         expect(HeyFrame.Service('ruleConditionsConfigApiService')).toBeDefined();
-        expect(HeyFrame.Service('salesChannelService')).toBeDefined();
+        expect(HeyFrame.Service('channelService')).toBeDefined();
         expect(HeyFrame.Service('scheduledTaskService')).toBeDefined();
         expect(HeyFrame.Service('searchService')).toBeDefined();
         expect(HeyFrame.Service('seoUrlTemplateService')).toBeDefined();

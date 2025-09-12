@@ -17,7 +17,7 @@ export default {
 
     inject: ['feature'],
 
-    emits: ['sales-channel-change'],
+    emits: ['channel-change'],
 
     props: {
         customer: {
@@ -68,8 +68,8 @@ export default {
     },
 
     methods: {
-        onSalesChannelChange(salesChannelId) {
-            this.$emit('sales-channel-change', salesChannelId);
+        onChannelChange(channelId) {
+            this.$emit('channel-change', channelId);
         },
     },
 };

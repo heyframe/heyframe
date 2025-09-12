@@ -360,7 +360,7 @@
                         name="selection-label-property"
                         v-bind="{ item }"
                     >
-                        {{ item.salesChannel.translated.name }}: {{ item.product.translated.name }}
+                        {{ item.channel.translated.name }}: {{ item.product.translated.name }}
                     </slot>
                 </template>
 
@@ -369,7 +369,7 @@
                         name="result-label-property"
                         v-bind="{ item, searchTerm, highlightSearchTerm }"
                     >
-                        {{ item.salesChannel.translated.name }}: {{ item.product.translated.name }}
+                        {{ item.channel.translated.name }}: {{ item.product.translated.name }}
                     </slot>
                 </template>
             </sw-entity-multi-id-select>

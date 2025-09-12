@@ -19,8 +19,8 @@ async function createWrapper() {
             },
             props: {
                 customer: {
-                    salesChannelId: '98432def39fc4624b33213a56b8c944d',
-                    salesChannel: {
+                    channelId: '98432def39fc4624b33213a56b8c944d',
+                    channel: {
                         paymentMethodId: null,
                     },
                 },

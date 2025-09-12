@@ -50,7 +50,7 @@ describe('src/module/sw-settings-seo/component/sw-seo-main-category', () => {
         const wrapper = await createWrapper();
 
         const mainCategory = {
-            salesChannelId: 'salesChannelId1',
+            channelId: 'channelId1',
             categoryId: 'categoryId1',
             category: { id: 'categoryId1', translated: { name: 'Category 1' } },
         };
@@ -60,11 +60,11 @@ describe('src/module/sw-settings-seo/component/sw-seo-main-category', () => {
             categories: [
                 { id: 'categoryId1', translated: { name: 'Category 1' } },
             ],
-            currentSalesChannelId: 'salesChannelId1',
+            currentChannelId: 'channelId1',
         });
         await wrapper.vm.$nextTick();
 
-        expect(wrapper.vm.mainCategoryForSalesChannel).toEqual(mainCategory);
+        expect(wrapper.vm.mainCategoryForChannel).toEqual(mainCategory);
 
         await wrapper.vm.onMainCategorySelected(null);
         await wrapper.vm.$nextTick();

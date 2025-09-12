@@ -14,7 +14,7 @@ export default {
     ],
 
     props: {
-        salesChannels: {
+        channels: {
             type: Array,
             required: false,
             default: () => {

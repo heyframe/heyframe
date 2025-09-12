@@ -756,7 +756,7 @@ describe('src/module/sw-bulk-edit/page/sw-bulk-edit-product', () => {
             visibilities: [
                 {
                     productId: 'productId123',
-                    salesChannelId: 'salesChannelId345',
+                    channelId: 'channelId345',
                     visibility: 30,
                 },
             ],
@@ -778,7 +778,7 @@ describe('src/module/sw-bulk-edit/page/sw-bulk-edit-product', () => {
         expect(changeField.field).toBe('visibilities');
         expect(changeField.type).toBe('overwrite');
         expect(changeField.value[0].productId).toBe('productId123');
-        expect(changeField.value[0].salesChannelId).toBe('salesChannelId345');
+        expect(changeField.value[0].channelId).toBe('channelId345');
         expect(changeField.value[0].visibility).toBe(30);
     });
 

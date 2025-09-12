@@ -16,7 +16,7 @@
         position-identifier="sw-order-create-base-line-items__before"
     />
 
-    <sw-order-line-items-grid-sales-channel
+    <sw-order-line-items-grid-channel
         class="sw-order-create-general__line-items"
         position-identifier="sw-order-create-line-items"
         :is-loading="isLoading"
@@ -24,7 +24,7 @@
         editable
         :cart="cart"
         :currency="currency"
-        :sales-channel-id="context.salesChannel.id"
+        :channel-id="context.channel.id"
         :is-customer-active="isCustomerActive"
         @on-save-item="onSaveItem"
         @on-remove-items="onRemoveItems"
@@ -127,7 +127,7 @@
             </sw-card-section>
         </template>
 
-    </sw-order-line-items-grid-sales-channel>
+    </sw-order-line-items-grid-channel>
 
     <sw-extension-component-section
         position-identifier="sw-order-create-base-line-items__after"

@@ -132,15 +132,15 @@
 
         {% block sw_customer_base_form_channel_field %}
         <sw-entity-single-select
-            class="sw-customer-base-form__sales-channel-select"
+            class="sw-customer-base-form__channel-select"
             entity="channel"
-            :label="$tc('sw-customer.baseForm.labelSalesChannel')"
-            :placeholder="$tc('sw-customer.baseForm.placeholderSalesChannel')"
-            :value="customer.salesChannelId"
-            :error="customerSalesChannelIdError"
+            :label="$tc('sw-customer.baseForm.labelChannel')"
+            :placeholder="$tc('sw-customer.baseForm.placeholderChannel')"
+            :value="customer.channelId"
+            :error="customerChannelIdError"
             required
             show-clearable-button
-            @update:value="onSalesChannelChange"
+            @update:value="onChannelChange"
         />
         {% endblock %}
 

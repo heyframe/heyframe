@@ -253,21 +253,6 @@
         </mt-banner>
         {% endblock %}
 
-        {% block sw_channel_detail_base_general_input_shipping_methods %}
-        <sw-channel-defaults-select
-            v-if="!isProductComparison"
-            :channel="channel"
-            property-name="shippingMethods"
-            :property-label="$tc('sw-channel.detail.labelInputShippingMethods')"
-            default-property-name="shippingMethodId"
-            :disabled="!acl.can('channel.editor') || undefined"
-            :default-property-label="$tc('sw-channel.detail.labelInputDefaultShippingMethod')"
-            :disabled-tooltip-message="$tc('sw-channel.detail.tooltipDisabledShippingMethod')"
-            should-show-active-state
-            :criteria="shippingMethodCriteria"
-        />
-        {% endblock %}
-
         {% block sw_channel_detail_base_general_input_currencies %}
         <sw-channel-defaults-select
             v-if="!isProductComparison"
@@ -281,18 +266,6 @@
             :criteria="currencyCriteria"
         />
         {% endblock %}
-
-        <sw-radio-field
-            v-model:value="channel.taxCalculationType"
-            :label="$tc('sw-channel.detail.labelTaxCalculation')"
-            :help-text="helpTextTaxCalculation"
-            block
-            class="sw-channel-detail__tax-calculation"
-            identification="taxCalculation"
-            :disabled="!acl.can('channel.editor') || undefined"
-            :description="$tc('sw-channel.detail.descriptionTaxCalculation')"
-            :options="taxCalculationTypeOptions"
-        />
     </mt-card>
     {% endblock %}
 

@@ -108,12 +108,12 @@
 
                             <template v-if="!item.type.global && !item.global">
                                 <sw-label
-                                    v-for="numberRangeSalesChannel in item.numberRangeSalesChannels"
-                                    :key="numberRangeSalesChannel.id"
+                                    v-for="numberRangeChannel in item.numberRangeChannels"
+                                    :key="numberRangeChannel.id"
                                     class="sw-settings-number-range-list__columns-assignment-tag"
                                     size="medium"
                                 >
-                                    {{ numberRangeSalesChannel.salesChannel.translated.name }}
+                                    {{ numberRangeChannel.channel.translated.name }}
                                 </sw-label>
                             </template>
                         </template>

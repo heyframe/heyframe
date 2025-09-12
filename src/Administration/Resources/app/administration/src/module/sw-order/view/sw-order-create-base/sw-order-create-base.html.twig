@@ -18,7 +18,7 @@
         v-if="showPromotionModal"
         :is-loading="isLoading"
         :currency="currency"
-        :sales-channel-id="customer.salesChannelId"
+        :channel-id="customer.channelId"
         @close="onClosePromotionModal"
         @save="onSavePromotionModal"
     />
@@ -84,11 +84,11 @@
         <template #grid>
             <sw-container type="row">
                 {% block sw_order_create_base_line_items_grid %}
-                <sw-order-line-items-grid-sales-channel
-                    ref="sw-order-line-item-grid-sales-channel"
+                <sw-order-line-items-grid-channel
+                    ref="sw-order-line-item-grid-channel"
                     :cart="cart"
                     :currency="currency"
-                    :sales-channel-id="salesChannelId"
+                    :channel-id="channelId"
                     :is-loading="isLoading"
                     :is-customer-active="isCustomerActive"
                     editable

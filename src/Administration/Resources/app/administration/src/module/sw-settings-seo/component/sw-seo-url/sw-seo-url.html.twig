@@ -15,8 +15,8 @@
             {% block sw_seo_url_card_seo_path %}
             <sw-inherit-wrapper
                 v-model:value="currentSeoUrl.seoPathInfo"
-                :has-parent="currentSalesChannelId !== null && !isHeadlessSalesChannel && hasDefaultTemplate"
-                :inherited-value="(currentSeoUrl.salesChannelId !== null && !isHeadlessSalesChannel) ? defaultSeoUrl.seoPathInfo : null"
+                :has-parent="currentChannelId !== null && !isHeadlessChannel && hasDefaultTemplate"
+                :inherited-value="(currentSeoUrl.channelId !== null && !isHeadlessChannel) ? defaultSeoUrl.seoPathInfo : null"
             >
 
                 <template #content="props">
@@ -26,8 +26,8 @@
                         :is-inheritance-field="props.isInheritField"
                         :is-inherited="props.isInherited"
                         :model-value="props.currentValue"
-                        :disabled="props.isInherited || isHeadlessSalesChannel || !allowInput"
-                        :disable-inheritance-toggle="isHeadlessSalesChannel"
+                        :disabled="props.isInherited || isHeadlessChannel || !allowInput"
+                        :disable-inheritance-toggle="isHeadlessChannel"
                         :label="$tc('sw-seo-url.labelSeoPathInfo')"
                         :help-text="seoUrlHelptext"
                         @update:model-value="props.updateCurrentValue"
@@ -46,11 +46,11 @@
             v-if="!showEmptySeoUrlError"
             #toolbar
         >
-            <sw-sales-channel-switch
-                ref="salesChannelSwitch"
+            <sw-channel-switch
+                ref="channelSwitch"
                 :disabled="disabled || undefined"
-                :label="$tc('sw-seo-url.labelSalesChannelSelect')"
-                @change-sales-channel-id="onSalesChannelChanged"
+                :label="$tc('sw-seo-url.labelChannelSelect')"
+                @change-channel-id="onChannelChanged"
             />
         </template>
         {% endblock %}
@@ -61,7 +61,7 @@
         >
             <slot
                 name="seo-additional"
-                v-bind="{currentSalesChannelId}"
+                v-bind="{currentChannelId}"
             >
                 {% block sw_seo_url_additional %}{% endblock %}
             </slot>

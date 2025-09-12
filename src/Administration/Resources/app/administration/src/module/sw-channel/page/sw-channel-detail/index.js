@@ -33,16 +33,6 @@ export default {
             isLoading: false,
             customFieldSets: [],
             isSaveSuccessful: false,
-            productComparison: {
-                newProductExport: null,
-                productComparisonAccessUrl: null,
-                invalidFileName: false,
-                templateOptions: [],
-                templates: null,
-                templateName: null,
-                showTemplateModal: false,
-                selectedTemplate: null,
-            },
         };
     },
 
@@ -57,31 +47,12 @@ export default {
             return this.placeholder(this.channel, 'name');
         },
 
-        productExport() {
-            if (this.channel && this.channel.productExports.first()) {
-                return this.channel.productExports.first();
-            }
-
-            if (this.productComparison.newProductExport) {
-                return this.productComparison.newProductExport;
-            }
-
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.productComparison.newProductExport = this.productExportRepository.create();
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.productComparison.newProductExport.interval = 0;
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.productComparison.newProductExport.generateByCronjob = false;
-
-            return this.productComparison.newProductExport;
-        },
-
         isStorefront() {
             if (!this.channel) {
-                return this.$route.params.typeId === Defaults.storefrontChannelTypeId;
+                return this.$route.params.typeId === Defaults.frontendChannelTypeId;
             }
 
-            return this.channel.typeId === Defaults.storefrontChannelTypeId;
+            return this.channel.typeId === Defaults.frontendChannelTypeId;
         },
 
         isProductComparison() {
@@ -116,10 +87,10 @@ export default {
             return this.repositoryFactory.create('product_export');
         },
 
-        storefrontChannelCriteria() {
+        frontendChannelCriteria() {
             const criteria = new Criteria(1, 25);
 
-            return criteria.addFilter(Criteria.equals('typeId', Defaults.storefrontChannelTypeId));
+            return criteria.addFilter(Criteria.equals('typeId', Defaults.frontendChannelTypeId));
         },
 
         tooltipSave() {
@@ -162,7 +133,6 @@ export default {
                 scope: this,
             });
             this.loadEntityData();
-            this.loadProductExportTemplates();
         },
 
         loadEntityData() {
@@ -194,9 +164,6 @@ export default {
                         // eslint-disable-next-line inclusive-language/use-inclusive-words
                         this.channel.maintenanceIpWhitelist = [];
                     }
-
-                    this.generateAccessUrl();
-
                     this.isLoading = false;
                 });
         },
@@ -205,7 +172,6 @@ export default {
             const criteria = new Criteria(1, 25);
 
             criteria.addAssociation('paymentMethods');
-            criteria.addAssociation('shippingMethods');
             criteria.addAssociation('countries');
             criteria.getAssociation('currencies').addSorting(Criteria.sort('name', 'ASC'));
             criteria.addAssociation('domains');
@@ -213,51 +179,12 @@ export default {
                 .getAssociation('languages')
                 .addSorting(Criteria.sort('name', 'ASC'))
                 .addFilter(Criteria.equals('active', true));
-            criteria.addAssociation('analytics');
-
-            criteria.addAssociation('productExports');
-            criteria.addAssociation('productExports.channelDomain.channel');
 
             criteria.getAssociation('domains.language').addSorting(Criteria.sort('name', 'ASC'));
             criteria.getAssociation('domains.snippetSet').addSorting(Criteria.sort('name', 'ASC'));
             criteria.addAssociation('domains.currency');
-            criteria.addAssociation('domains.productExports');
 
             return criteria;
-        },
-
-        onTemplateSelected(templateName) {
-            if (this.productComparison.templates === null || this.productComparison.templates[templateName] === undefined) {
-                return;
-            }
-
-            this.productComparison.selectedTemplate = this.productComparison.templates[templateName];
-            const contentChanged = Object.keys(this.productComparison.selectedTemplate).some((value) => {
-                return this.productExport[value] !== this.productComparison.selectedTemplate[value];
-            });
-
-            if (!contentChanged) {
-                return;
-            }
-
-            this.productComparison.showTemplateModal = true;
-        },
-
-        onTemplateModalClose() {
-            this.productComparison.selectedTemplate = null;
-            this.productComparison.templateName = null;
-            this.productComparison.showTemplateModal = false;
-        },
-
-        onTemplateModalConfirm() {
-            Object.keys(this.productComparison.selectedTemplate).forEach((value) => {
-                this.productExport[value] = this.productComparison.selectedTemplate[value];
-            });
-            this.onTemplateModalClose();
-
-            this.createNotificationInfo({
-                message: this.$tc('sw-channel.detail.productComparison.templates.message.template-applied-message'),
-            });
         },
 
         loadCustomFieldSets() {
@@ -271,30 +198,8 @@ export default {
             });
         },
 
-        generateAccessUrl() {
-            if (!this.productExport.channelDomain) {
-                this.productComparison.productComparisonAccessUrl = '';
-                return;
-            }
-
-            const domainUrl = this.productExport.channelDomain.url.replace(/\/+$/g, '');
-            // eslint-disable-next-line max-len
-            this.productComparison.productComparisonAccessUrl = `${domainUrl}/front-api/product-export/${this.productExport.accessKey}/${this.productExport.fileName}`;
-        },
-
-        loadProductExportTemplates() {
-            this.productComparison.templateOptions = Object.values(
-                this.exportTemplateService.getProductExportTemplateRegistry(),
-            );
-            this.productComparison.templates = this.exportTemplateService.getProductExportTemplateRegistry();
-        },
-
         saveFinish() {
             this.isSaveSuccessful = false;
-        },
-
-        setInvalidFileName(invalidFileName) {
-            this.productComparison.invalidFileName = invalidFileName;
         },
 
         async onSave() {

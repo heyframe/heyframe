@@ -96,7 +96,7 @@ describe('module/sw-customer/page/sw-customer-create', () => {
             customer: {
                 id: '1',
                 email: null,
-                boundSalesChannelId: null,
+                boundChannelId: null,
             },
         });
 
@@ -150,7 +150,7 @@ describe('module/sw-customer/page/sw-customer-create', () => {
                 email: 'user@domain.com',
                 accountType: 'business',
                 password: 'heyframe',
-                salesChannelId: 'a7921464677a4ef591683d144beecd24',
+                channelId: 'a7921464677a4ef591683d144beecd24',
             },
             address: {
                 company: 'HeyFrame',
@@ -184,7 +184,7 @@ describe('module/sw-customer/page/sw-customer-create', () => {
                 email: 'user@domain.com',
                 accountType: 'business',
                 password: 'heyframe',
-                salesChannelId: 'a7921464677a4ef591683d144beecd24',
+                channelId: 'a7921464677a4ef591683d144beecd24',
             },
             address: {
                 company: 'HeyFrame',
@@ -241,7 +241,7 @@ describe('module/sw-customer/page/sw-customer-create', () => {
             customer: {
                 id: '1',
                 email: 'ytn@heyframe.com',
-                boundSalesChannelId: null,
+                boundChannelId: null,
             },
         });
 

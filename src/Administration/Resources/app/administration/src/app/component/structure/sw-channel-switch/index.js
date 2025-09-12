@@ -1,7 +1,7 @@
 /**
  * @sw-package discovery
  */
-import template from './sw-sales-channel-switch.html.twig';
+import template from './sw-channel-switch.html.twig';
 
 const { debug } = HeyFrame.Utils;
 
@@ -12,13 +12,13 @@ const { debug } = HeyFrame.Utils;
  * @status ready
  * @example-type code-only
  * @component-example
- * <sw-sales-channel-switch></sw-sales-channel-switch>
+ * <sw-channel-switch></sw-channel-switch>
  */
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 export default {
     template,
 
-    emits: ['change-sales-channel-id'],
+    emits: ['change-channel-id'],
 
     props: {
         disabled: {
@@ -45,17 +45,17 @@ export default {
 
     data() {
         return {
-            salesChannelId: '',
-            lastSalesChannelId: '',
-            newSalesChannelId: '',
+            channelId: '',
+            lastChannelId: '',
+            newChannelId: '',
             showUnsavedChangesModal: false,
         };
     },
 
     methods: {
         onChange(id) {
-            this.salesChannelId = id;
-            this.newSalesChannelId = id;
+            this.channelId = id;
+            this.newChannelId = id;
 
             this.checkAbort();
         },
@@ -64,13 +64,13 @@ export default {
             if (typeof this.abortChangeFunction === 'function') {
                 if (
                     this.abortChangeFunction({
-                        oldSalesChannelId: this.lastSalesChannelId,
-                        newSalesChannelId: this.salesChannelId,
+                        oldChannelId: this.lastChannelId,
+                        newChannelId: this.channelId,
                     })
                 ) {
                     this.showUnsavedChangesModal = true;
-                    this.salesChannelId = this.lastSalesChannelId;
-                    this.$refs.salesChannelSelect.loadSelected();
+                    this.channelId = this.lastChannelId;
+                    this.$refs.channelSelect.loadSelected();
                     return;
                 }
             }
@@ -78,38 +78,38 @@ export default {
             this.emitChange();
         },
         emitChange() {
-            this.lastSalesChannelId = this.salesChannelId;
+            this.lastChannelId = this.channelId;
 
-            this.$emit('change-sales-channel-id', this.salesChannelId);
+            this.$emit('change-channel-id', this.channelId);
         },
         onCloseChangesModal() {
             this.showUnsavedChangesModal = false;
-            this.newSalesChannelId = '';
+            this.newChannelId = '';
         },
         onClickSaveChanges() {
             let save = {};
-            // Check if save function exists and wait for it before changing the salesChannel
+            // Check if save function exists and wait for it before changing the channel
             if (typeof this.saveChangesFunction === 'function') {
                 save = this.saveChangesFunction();
             } else {
-                debug.warn('sw-sales-channel-switch', 'You need to implement an own save function to save the changes!');
+                debug.warn('sw-channel-switch', 'You need to implement an own save function to save the changes!');
             }
             return Promise.resolve(save).then(() => {
-                this.changeToNewSalesChannel();
+                this.changeToNewChannel();
                 this.onCloseChangesModal();
             });
         },
         onClickRevertUnsavedChanges() {
-            this.changeToNewSalesChannel();
+            this.changeToNewChannel();
             this.onCloseChangesModal();
         },
-        changeToNewSalesChannel(salesChannelId) {
-            if (salesChannelId) {
-                this.newSalesChannelId = salesChannelId;
+        changeToNewChannel(channelId) {
+            if (channelId) {
+                this.newChannelId = channelId;
             }
-            this.salesChannelId = this.newSalesChannelId;
-            this.newSalesChannelId = '';
-            this.$refs.salesChannelSelect.loadSelected();
+            this.channelId = this.newChannelId;
+            this.newChannelId = '';
+            this.$refs.channelSelect.loadSelected();
             this.emitChange();
         },
     },

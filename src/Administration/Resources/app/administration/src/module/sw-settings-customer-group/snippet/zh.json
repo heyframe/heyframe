@@ -1,8 +1,8 @@
 {
   "sw-settings-customer-group": {
     "general": {
-      "mainMenuItemGeneral": "客户群组",
-      "buttonCreate": "添加客户群组",
+      "mainMenuItemGeneral": "客户组",
+      "buttonCreate": "添加客户组",
       "buttonSave": "保存",
       "placeholderSearchBar": "搜索客户群组..."
     },
@@ -11,7 +11,7 @@
       "columnDisplayGross": "含税显示"
     },
     "detail": {
-      "cardTitle": "客户群组",
+      "cardTitle": "客户组",
       "fieldNameLabel": "名称",
       "fieldDisplayGrossLabel": "税显示",
       "fieldDisplayGrossValues": "含税 | 不含税",
@@ -35,15 +35,15 @@
       "linkUrlButton": "生成 URL",
       "technicalUrl": "技术 URL",
       "technicalUrlHelpText": "技术 URL 可作为分类模块中的“可自定义链接”使用，并提供自动语言映射。",
-      "availabilitySalesChannel": "可用销售渠道",
+      "availabilityChannel": "可用销售渠道",
       "infoText": "商店用户可以通过此自定义表单注册，但仅在您在客户模块中接受请求后才会分配到该客户群组。您可以使用以下字段自定义此表单。",
-      "seoUrlLabel": "{salesChannelName} URL ({languageName})",
+      "seoUrlLabel": "{channelName} URL ({languageName})",
       "domainBanner": "每个销售渠道配置的域名都会列出 SEO URL。"
     },
     "modal": {
       "seoUrl": {
         "title": "URL 设置",
-        "salesChannel": "销售渠道",
+        "channel": "销售渠道",
         "urlSuffix": "URL 后缀",
         "exampleUrl": "示例 URL",
         "generate": "生成"

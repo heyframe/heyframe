@@ -128,16 +128,16 @@ export default {
                 return false;
             }
 
-            if (this.customer.boundSalesChannel) {
-                if (!this.customer.boundSalesChannel.active) {
+            if (this.customer.boundChannel) {
+                if (!this.customer.boundChannel.active) {
                     return false;
                 }
 
-                if (this.customer.boundSalesChannel.typeId !== Defaults.storefrontSalesChannelTypeId) {
+                if (this.customer.boundChannel.typeId !== Defaults.storefrontChannelTypeId) {
                     return false;
                 }
 
-                if (!this.customer.boundSalesChannel.domains?.length) {
+                if (!this.customer.boundChannel.domains?.length) {
                     return false;
                 }
             }
@@ -154,16 +154,16 @@ export default {
                 return this.$tc('sw-customer.card.tooltipImitateCustomerInactive');
             }
 
-            if (this.customer.boundSalesChannel) {
-                if (!this.customer.boundSalesChannel.active) {
-                    return this.$tc('sw-customer.card.tooltipImitateCustomerInactiveSalesChannel');
+            if (this.customer.boundChannel) {
+                if (!this.customer.boundChannel.active) {
+                    return this.$tc('sw-customer.card.tooltipImitateCustomerInactiveChannel');
                 }
 
-                if (this.customer.boundSalesChannel.typeId !== Defaults.storefrontSalesChannelTypeId) {
+                if (this.customer.boundChannel.typeId !== Defaults.storefrontChannelTypeId) {
                     return this.$tc('sw-customer.card.tooltipImitateCustomerNoStorefront');
                 }
 
-                if (!this.customer.boundSalesChannel.domains?.length) {
+                if (!this.customer.boundChannel.domains?.length) {
                     return this.$tc('sw-customer.card.tooltipImitateCustomerNoDomain');
                 }
             }
@@ -171,8 +171,8 @@ export default {
             return this.$tc('sw-privileges.tooltip.warning');
         },
 
-        hasSingleBoundSalesChannelUrl() {
-            return this.customer.boundSalesChannel?.domains?.length === 1;
+        hasSingleBoundChannelUrl() {
+            return this.customer.boundChannel?.domains?.length === 1;
         },
 
         currentUser() {
@@ -200,14 +200,14 @@ export default {
         },
 
         async onImitateCustomer() {
-            if (this.hasSingleBoundSalesChannelUrl) {
+            if (this.hasSingleBoundChannelUrl) {
                 this.contextStoreService
-                    .generateImitateCustomerToken(this.customer.id, this.customer.boundSalesChannel.id)
+                    .generateImitateCustomerToken(this.customer.id, this.customer.boundChannel.id)
                     .then((response) => {
                         const handledResponse = ApiService.handleResponse(response);
 
-                        this.contextStoreService.redirectToSalesChannelUrl(
-                            this.customer.boundSalesChannel.domains.first().url,
+                        this.contextStoreService.redirectToChannelUrl(
+                            this.customer.boundChannel.domains.first().url,
                             handledResponse.token,
                             this.customer.id,
                             this.currentUser?.id,

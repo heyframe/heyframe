@@ -83,13 +83,13 @@ export default {
             const criteria = new Criteria(1, 1);
 
             criteria
-                .addAssociation('registrationSalesChannels')
-                .getAssociation('registrationSalesChannels')
+                .addAssociation('registrationChannels')
+                .getAssociation('registrationChannels')
                 .addAssociation('domains')
                 .addAssociation('seoUrls');
 
             criteria
-                .getAssociation('registrationSalesChannels')
+                .getAssociation('registrationChannels')
                 .getAssociation('seoUrls')
                 .addFilter(Criteria.equals('pathInfo', `/customer-group-registration/${this.customerGroupId}`))
                 .addFilter(Criteria.equals('isCanonical', true))
@@ -98,7 +98,7 @@ export default {
             return criteria;
         },
 
-        registrationSalesChannelCriteria() {
+        registrationChannelCriteria() {
             const criteria = new Criteria(1, 25);
 
             criteria
@@ -118,18 +118,18 @@ export default {
         seoUrlCriteria() {
             const criteria = new Criteria(1, 25);
 
-            if (this.customerGroup?.registrationSalesChannels?.length) {
-                const salesChannelIds = this.customerGroup.registrationSalesChannels?.getIds();
+            if (this.customerGroup?.registrationChannels?.length) {
+                const channelIds = this.customerGroup.registrationChannels?.getIds();
 
-                criteria.addFilter(Criteria.equalsAny('salesChannelId', salesChannelIds));
+                criteria.addFilter(Criteria.equalsAny('channelId', channelIds));
             }
 
             criteria.addFilter(Criteria.equals('pathInfo', `/customer-group-registration/${this.customerGroupId}`));
             criteria.addFilter(Criteria.equals('languageId', HeyFrame.Context.api.languageId));
             criteria.addFilter(Criteria.equals('isCanonical', true));
-            criteria.addAssociation('salesChannel.domains');
+            criteria.addAssociation('channel.domains');
             criteria.addGroupField('seoPathInfo');
-            criteria.addGroupField('salesChannelId');
+            criteria.addGroupField('channelId');
 
             return criteria;
         },
@@ -245,7 +245,7 @@ export default {
          * @deprecated tag:v6.8.0 - Will be removed without replacement.
          */
         async loadSeoUrls() {
-            if (!this.customerGroup?.registrationSalesChannels?.length) {
+            if (!this.customerGroup?.registrationChannels?.length) {
                 this.seoUrls = [];
                 return;
             }
@@ -272,7 +272,7 @@ export default {
         getSeoUrl(seoUrl) {
             let shopUrl = '';
 
-            seoUrl.salesChannel.domains.forEach((domain) => {
+            seoUrl.channel.domains.forEach((domain) => {
                 if (domain.languageId === seoUrl.languageId) {
                     shopUrl = domain.url;
                 }

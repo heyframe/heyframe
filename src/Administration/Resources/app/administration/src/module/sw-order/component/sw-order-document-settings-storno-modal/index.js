@@ -80,7 +80,7 @@ export default {
     methods: {
         createdComponent() {
             this.numberRangeService
-                .reserve(`document_${this.currentDocumentType.technicalName}`, this.order.salesChannelId, true)
+                .reserve(`document_${this.currentDocumentType.technicalName}`, this.order.channelId, true)
                 .then((response) => {
                     this.documentConfig.documentNumber = response.number;
                     this.documentNumberPreview = this.documentConfig.documentNumber;
@@ -97,7 +97,7 @@ export default {
 
             if (this.documentNumberPreview === this.documentConfig.documentNumber) {
                 this.numberRangeService
-                    .reserve(`document_${this.currentDocumentType.technicalName}`, this.order.salesChannelId, false)
+                    .reserve(`document_${this.currentDocumentType.technicalName}`, this.order.channelId, false)
                     .then((response) => {
                         this.documentConfig.custom.stornoNumber = response.number;
                         if (response.number !== this.documentConfig.documentNumber) {

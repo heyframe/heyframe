@@ -7,7 +7,7 @@ import { mount } from '@vue/test-utils';
 const customer = {
     id: '1',
     email: null,
-    boundSalesChannelId: null,
+    boundChannelId: null,
     vatIds: [
         '9f8f091c-db81-4ef3-862c-9c554a34cdc4',
     ],

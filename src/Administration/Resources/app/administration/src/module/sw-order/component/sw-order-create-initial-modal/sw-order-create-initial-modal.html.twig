@@ -59,10 +59,10 @@
                     {% endblock %}
 
                     {% block sw_order_create_modal_tabs_content_products %}
-                    <sw-order-line-items-grid-sales-channel
+                    <sw-order-line-items-grid-channel
                         v-show="active === 'products'"
                         :is-loading="isProductGridLoading"
-                        :sales-channel-id="salesChannelId"
+                        :channel-id="channelId"
                         :cart="cart"
                         :currency="currency"
                         :is-customer-active="isCustomerActive"

@@ -45,17 +45,17 @@ export default {
             required: true,
             type: String,
         },
-        salesChannelId: {
+        channelId: {
             required: false,
             type: String,
             default: null,
         },
-        salesChannelSwitchable: {
+        channelSwitchable: {
             type: Boolean,
             required: false,
             default: false,
         },
-        // Shows the value of salesChannel=null as placeholder when the salesChannelSwitchable prop is true
+        // Shows the value of channel=null as placeholder when the channelSwitchable prop is true
         inherit: {
             type: Boolean,
             required: false,
@@ -66,18 +66,18 @@ export default {
 
     data() {
         return {
-            currentSalesChannelId: this.salesChannelId,
+            currentChannelId: this.channelId,
             isLoading: false,
             config: {},
             actualConfigData: {},
-            salesChannelModel: null,
+            channelModel: null,
             hasCssFields: false,
         };
     },
 
     computed: {
-        isNotDefaultSalesChannel() {
-            return this.currentSalesChannelId !== null;
+        isNotDefaultChannel() {
+            return this.currentChannelId !== null;
         },
 
         typesWithMapInheritanceSupport() {
@@ -120,7 +120,7 @@ export default {
 
     methods: {
         getFieldError(fieldName) {
-            return mapSystemConfigErrors(ErrorResolverSystemConfig.ENTITY_NAME, this.salesChannelId, fieldName);
+            return mapSystemConfigErrors(ErrorResolverSystemConfig.ENTITY_NAME, this.channelId, fieldName);
         },
 
         async createdComponent() {
@@ -152,22 +152,22 @@ export default {
 
         readAll() {
             this.isLoading = true;
-            // Return when data for this salesChannel was already loaded
-            if (this.actualConfigData.hasOwnProperty(this.currentSalesChannelId)) {
+            // Return when data for this channel was already loaded
+            if (this.actualConfigData.hasOwnProperty(this.currentChannelId)) {
                 this.isLoading = false;
                 return Promise.resolve();
             }
 
-            return this.loadCurrentSalesChannelConfig();
+            return this.loadCurrentChannelConfig();
         },
 
-        async loadCurrentSalesChannelConfig() {
+        async loadCurrentChannelConfig() {
             this.isLoading = true;
 
             try {
-                const values = await this.systemConfigApiService.getValues(this.domain, this.currentSalesChannelId);
+                const values = await this.systemConfigApiService.getValues(this.domain, this.currentChannelId);
 
-                this.actualConfigData[this.currentSalesChannelId] = values;
+                this.actualConfigData[this.currentChannelId] = values;
             } finally {
                 this.isLoading = false;
             }
@@ -194,8 +194,8 @@ export default {
             });
         },
 
-        onSalesChannelChanged(salesChannelId) {
-            this.currentSalesChannelId = salesChannelId;
+        onChannelChanged(channelId) {
+            this.currentChannelId = channelId;
             this.readAll();
         },
 
@@ -305,7 +305,7 @@ export default {
         },
 
         emitConfig() {
-            this.$emit('config-changed', this.actualConfigData[this.currentSalesChannelId]);
+            this.$emit('config-changed', this.actualConfigData[this.currentChannelId]);
         },
 
         kebabCase(value) {

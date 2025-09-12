@@ -10,7 +10,7 @@ async function createWrapper(privileges = []) {
         }),
         {
             props: {
-                currentSalesChannelId: null,
+                currentChannelId: null,
                 searchTerms: null,
                 searchResults: null,
                 isLoading: false,

@@ -72,7 +72,7 @@ describe('src/app/init-post/worker.init.ts', () => {
         'HeyFrame\\Core\\Content\\ProductStream\\DataAbstractionLayer\\ProductStreamIndexingMessage',
         'HeyFrame\\Core\\Content\\Category\\DataAbstractionLayer\\CategoryIndexingMessage',
         'HeyFrame\\Core\\Content\\Media\\DataAbstractionLayer\\MediaIndexingMessage',
-        'HeyFrame\\Core\\System\\SalesChannel\\DataAbstractionLayer\\SalesChannelIndexingMessage',
+        'HeyFrame\\Core\\System\\Channel\\DataAbstractionLayer\\ChannelIndexingMessage',
         'HeyFrame\\Core\\Content\\Rule\\DataAbstractionLayer\\RuleIndexingMessage',
         'HeyFrame\\Core\\Content\\Product\\DataAbstractionLayer\\ProductIndexingMessage',
         'HeyFrame\\Elasticsearch\\Framework\\Indexing\\ElasticsearchIndexingMessage',

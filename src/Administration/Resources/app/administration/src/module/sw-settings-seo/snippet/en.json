@@ -21,7 +21,7 @@
       "messageSaveSuccess": "SEO URL templates have been saved.",
       "preview": "Preview:",
       "placeholderSelectVariables": "Search and select...",
-      "labelSalesChannelSelect": "Sales Channel",
+      "labelChannelSelect": "Channel",
       "textUrlPreviewNotPossible": "A preview for this template could not be generated.",
       "textUrlNoEntitiesForPreview": "No {entity} available.",
       "textUrlPreviewEmptyTemplate": "The template is empty, SEO URLs for {entity} won't be generated.",
@@ -36,10 +36,10 @@
   },
   "sw-seo-url": {
     "titleCard": "SEO URLs",
-    "labelSalesChannelSelect": "Sales Channel",
+    "labelChannelSelect": "Channel",
     "labelSeoPathInfo": "SEO path",
     "textEmptySeoUrls": "There are no SEO URLs yet.",
-    "textSeoUrlsDisallowedForHeadless": "SEO URLs cannot be assigned to a headless Sales Channel.",
+    "textSeoUrlsDisallowedForHeadless": "SEO URLs cannot be assigned to a headless Channel.",
     "labelMainCategory": "Main category",
     "placeholderMainCategory": "Choose a main category..."
   }

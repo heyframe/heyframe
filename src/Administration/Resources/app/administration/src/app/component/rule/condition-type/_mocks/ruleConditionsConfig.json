@@ -1,5 +1,5 @@
 {
-  "salesChannel": {
+  "channel": {
     "operatorSet": {
       "operators": [
         "=",
@@ -9,7 +9,7 @@
     },
     "fields": [
       {
-        "name": "salesChannelIds",
+        "name": "channelIds",
         "type": "multi-entity-id-select",
         "config": {
           "entity": "channel"

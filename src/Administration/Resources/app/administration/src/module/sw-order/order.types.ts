@@ -95,14 +95,14 @@ interface Context {
     languageIdChain: Array<string>;
 }
 
-interface SalesChannelContext {
+interface ChannelContext {
     token: string;
     customer: Entity<'customer'> | null;
     paymentMethod: Entity<'payment_method'>;
     shippingMethod: Entity<'shipping_method'>;
     currency: Entity<'currency'>;
     context: Context;
-    salesChannel: Entity<'channel'>;
+    channel: Entity<'channel'>;
 }
 
 interface ContextSwitchParameters {
@@ -126,7 +126,7 @@ export type {
     ContextSwitchParameters,
     LineItem,
     PromotionCodeTag,
-    SalesChannelContext,
+    ChannelContext,
 };
 
 /**

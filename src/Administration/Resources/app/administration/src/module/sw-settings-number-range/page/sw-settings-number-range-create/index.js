@@ -108,7 +108,7 @@ export default {
             this.isShowProductWarning = numberRange && numberRange.technicalName === 'product';
             this.numberRange.global = this.isShowProductWarning;
 
-            this.loadSalesChannels();
+            this.loadChannels();
         },
     },
 };

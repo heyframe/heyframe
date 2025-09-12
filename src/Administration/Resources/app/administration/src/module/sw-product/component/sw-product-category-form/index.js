@@ -36,7 +36,7 @@ export default {
         return {
             displayVisibilityDetail: false,
             multiSelectVisible: true,
-            salesChannel: null,
+            channel: null,
             defaultVisibility: 30,
         };
     },
@@ -78,7 +78,7 @@ export default {
             return this.repositoryFactory.create(this.product.visibilities.entity);
         },
 
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
     },
@@ -89,8 +89,8 @@ export default {
 
     methods: {
         createdComponent() {
-            this.salesChannel = new EntityCollection(
-                '/sales-channel',
+            this.channel = new EntityCollection(
+                '/channel',
                 'channel',
                 HeyFrame.Context.api,
                 new Criteria(1, 25),
@@ -106,14 +106,14 @@ export default {
         },
 
         visibilitiesRemoveInheritanceFunction(newValue) {
-            newValue.forEach(({ productVersionId, salesChannelId, salesChannel, visibility }) => {
+            newValue.forEach(({ productVersionId, channelId, channel, visibility }) => {
                 const visibilities = this.productVisibilityRepository.create(Context.api);
 
                 Object.assign(visibilities, {
                     productId: this.product.id,
                     productVersionId,
-                    salesChannelId,
-                    salesChannel,
+                    channelId,
+                    channel,
                     visibility,
                 });
 

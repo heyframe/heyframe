@@ -46,7 +46,7 @@ export default {
                     'firstName',
                     'lastName',
                     'email',
-                    'salesChannelId',
+                    'channelId',
                     'customerNumber',
                     'groupId',
                 ],
@@ -132,15 +132,15 @@ export default {
             const criteria = new Criteria();
             criteria.setLimit(1);
 
-            if (this.customer?.salesChannelId) {
-                criteria.addFilter(Criteria.equals('salesChannelDefaultAssignments.id', this.customer.salesChannelId));
+            if (this.customer?.channelId) {
+                criteria.addFilter(Criteria.equals('channelDefaultAssignments.id', this.customer.channelId));
             }
 
             return criteria;
         },
 
         languageId() {
-            return this.loadLanguage(this.customer.salesChannelId);
+            return this.loadLanguage(this.customer.channelId);
         },
 
         salutationRepository() {
@@ -157,10 +157,10 @@ export default {
     },
 
     watch: {
-        'customer.salesChannelId'(salesChannelId) {
+        'customer.channelId'(channelId) {
             this.systemConfigApiService.getValues('core.systemWideLoginRegistration').then((response) => {
-                if (response['core.systemWideLoginRegistration.isCustomerBoundToSalesChannel']) {
-                    this.customer.boundSalesChannelId = salesChannelId;
+                if (response['core.systemWideLoginRegistration.isCustomerBoundToChannel']) {
+                    this.customer.boundChannelId = channelId;
                 }
             });
         },
@@ -226,7 +226,7 @@ export default {
             let numberRangePromise = Promise.resolve();
             if (this.customerNumberPreview === this.customer.customerNumber) {
                 numberRangePromise = this.numberRangeService
-                    .reserve('customer', this.customer.salesChannelId)
+                    .reserve('customer', this.customer.channelId)
                     .then((response) => {
                         this.customerNumberPreview = response.number;
                         this.customer.customerNumber = response.number;
@@ -261,9 +261,9 @@ export default {
                 });
         },
 
-        onChangeSalesChannel(salesChannelId) {
-            this.customer.salesChannelId = salesChannelId;
-            this.numberRangeService.reserve('customer', salesChannelId, true).then((response) => {
+        onChangeChannel(channelId) {
+            this.customer.channelId = channelId;
+            this.numberRangeService.reserve('customer', channelId, true).then((response) => {
                 this.customerNumberPreview = response.number;
                 this.customer.customerNumber = response.number;
             });
@@ -283,7 +283,7 @@ export default {
         },
 
         validateEmail() {
-            const { id, email, boundSalesChannelId } = this.customer;
+            const { id, email, boundChannelId } = this.customer;
 
             if (!email) {
                 return Promise.resolve({ isValid: true });
@@ -293,7 +293,7 @@ export default {
                 .checkCustomerEmail({
                     id,
                     email,
-                    boundSalesChannelId,
+                    boundChannelId,
                 })
                 .then((emailIsValid) => {
                     return emailIsValid;
@@ -310,10 +310,10 @@ export default {
                 });
         },
 
-        async loadLanguage(salesChannelId) {
+        async loadLanguage(channelId) {
             const languageId = HeyFrame.Context.api.languageId;
 
-            if (!salesChannelId) {
+            if (!channelId) {
                 return languageId;
             }
 

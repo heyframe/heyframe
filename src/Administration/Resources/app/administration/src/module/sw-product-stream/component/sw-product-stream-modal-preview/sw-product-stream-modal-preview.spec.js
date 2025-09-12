@@ -8,7 +8,7 @@ const responses = global.repositoryFactoryMock.responses;
 
 responses.addResponse({
     method: 'Post',
-    url: '/search-ids/sales-channel',
+    url: '/search-ids/channel',
     status: 200,
     response: {
         data: [],
@@ -186,38 +186,38 @@ describe('src/module/sw-product-stream/component/sw-product-stream-modal-preview
 
     it('should load sales channel successfully', async () => {
         const wrapper = await createWrapper();
-        const salesChannelData = {
+        const channelData = {
             id: '1',
-            name: 'Sales Channel 1',
+            name: 'Channel 1',
             currency: {
                 id: '1',
                 isoCode: 'PLN',
             },
             currencyId: '2',
         };
-        wrapper.vm.selectedSalesChannel = '1';
+        wrapper.vm.selectedChannel = '1';
 
-        jest.spyOn(wrapper.vm.salesChannelRepository, 'get').mockImplementation(() => {
-            return Promise.resolve(salesChannelData);
+        jest.spyOn(wrapper.vm.channelRepository, 'get').mockImplementation(() => {
+            return Promise.resolve(channelData);
         });
 
-        await wrapper.vm.loadSalesChannelById();
+        await wrapper.vm.loadChannelById();
 
-        expect(wrapper.vm.salesChannelRepository.get).toHaveBeenCalledTimes(1);
-        expect(wrapper.vm.selectedCurrencyIsoCode).toEqual(salesChannelData.currency.isoCode);
-        expect(wrapper.vm.selectedCurrencyId).toEqual(salesChannelData.currencyId);
+        expect(wrapper.vm.channelRepository.get).toHaveBeenCalledTimes(1);
+        expect(wrapper.vm.selectedCurrencyIsoCode).toEqual(channelData.currency.isoCode);
+        expect(wrapper.vm.selectedCurrencyId).toEqual(channelData.currencyId);
     });
 
     it('should not load sales channel', async () => {
         const wrapper = await createWrapper();
 
-        jest.spyOn(wrapper.vm.salesChannelRepository, 'get').mockImplementation(() => {
+        jest.spyOn(wrapper.vm.channelRepository, 'get').mockImplementation(() => {
             return Promise.resolve({});
         });
 
-        await wrapper.vm.loadSalesChannelById();
+        await wrapper.vm.loadChannelById();
 
-        expect(wrapper.vm.salesChannelRepository.get).toHaveBeenCalledTimes(0);
+        expect(wrapper.vm.channelRepository.get).toHaveBeenCalledTimes(0);
     });
 
     it('should map filters for search with rule Is not equal to any of', async () => {

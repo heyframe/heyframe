@@ -10,9 +10,9 @@ import mitt from 'mitt';
 interface Events extends Record<string | symbol, unknown> {
     'sw-product-detail-save-finish': undefined;
     'sw-language-switch-change-application-language': { languageId: string };
-    'sw-sales-channel-detail-sales-channel-change': undefined;
-    'sw-sales-channel-detail-base-sales-channel-change': undefined;
-    'sw-sales-channel-list-add-new-channel': undefined;
+    'sw-channel-detail-channel-change': undefined;
+    'sw-channel-detail-base-channel-change': undefined;
+    'sw-channel-list-add-new-channel': undefined;
     'sw-media-library-item-updated': undefined;
 }
 

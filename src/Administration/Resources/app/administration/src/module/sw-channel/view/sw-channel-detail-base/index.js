@@ -53,7 +53,7 @@ export default {
         },
 
         // eslint-disable-next-line vue/require-default-prop
-        storefrontChannelCriteria: {
+        frontendChannelCriteria: {
             type: Criteria,
             required: false,
         },
@@ -95,7 +95,7 @@ export default {
             defaultSnippetSetId: '71a916e745114d72abafbfdc51cbd9d0',
             isLoadingDomains: false,
             deleteDomain: null,
-            storefrontDomains: [],
+            frontendDomains: [],
             selectedStorefrontChannel: null,
             invalidFileName: false,
             isFileNameChecking: false,
@@ -104,9 +104,6 @@ export default {
             mainCategoriesCollection: null,
             footerCategoriesCollection: null,
             serviceCategoriesCollection: null,
-            defaultMeasurementSystemId: null,
-            defaultLengthUnitId: null,
-            defaultWeightUnitId: null,
         };
     },
 
@@ -116,12 +113,12 @@ export default {
         },
 
         isStorefront() {
-            return this.channel?.typeId === Defaults.storefrontChannelTypeId;
+            return this.channel?.typeId === Defaults.frontendChannelTypeId;
         },
 
         isDomainAware() {
             const domainAware = [
-                Defaults.storefrontChannelTypeId,
+                Defaults.frontendChannelTypeId,
                 Defaults.apiChannelTypeId,
             ];
             return domainAware.includes(this.channel.typeId);
@@ -137,20 +134,6 @@ export default {
 
         isHeadlessChannel() {
             return this.channel?.typeId === Defaults.apiChannelTypeId;
-        },
-
-        storefrontChannelDomainCriteria() {
-            const criteria = new Criteria(1, 25);
-
-            return criteria.addFilter(Criteria.equals('channelId', this.productExport.storefrontChannelId));
-        },
-
-        storefrontChannelCurrencyCriteria() {
-            const criteria = new Criteria(1, 25);
-
-            criteria.addAssociation('channels');
-
-            return criteria.addFilter(Criteria.equals('channels.id', this.productExport.storefrontChannelId));
         },
 
         paymentMethodCriteria() {
@@ -228,8 +211,8 @@ export default {
                 : 'info';
         },
 
-        storefrontDomainsLoaded() {
-            return this.storefrontDomains.length > 0;
+        frontendDomainsLoaded() {
+            return this.frontendDomains.length > 0;
         },
 
         domainRepository() {
@@ -510,7 +493,7 @@ export default {
             }
 
             // eslint-disable-next-line max-len
-            return `php bin/console product-export:generate ${this.channel.productExports[0].storefrontChannelId} ${this.channel.productExports[0].id}`;
+            return `php bin/console product-export:generate ${this.channel.productExports[0].frontendChannelId} ${this.channel.productExports[0].id}`;
         },
 
         templateSelectOptions() {
@@ -539,9 +522,6 @@ export default {
         });
 
         this.createCategoryCollections();
-        this.defaultMeasurementSystemId = this.channel?.measurementSystemId;
-        this.defaultLengthUnitId = this.channel?.lengthUnitId;
-        this.defaultWeightUnitId = this.channel?.weightUnitId;
     },
 
     methods: {
@@ -638,8 +618,8 @@ export default {
             }
         },
 
-        onStorefrontSelectionChange(storefrontChannelId) {
-            this.channelRepository.get(storefrontChannelId).then((entity) => {
+        onStorefrontSelectionChange(frontendChannelId) {
+            this.channelRepository.get(frontendChannelId).then((entity) => {
                 this.channel.languageId = entity.languageId;
                 this.channel.currencyId = entity.currencyId;
                 this.channel.paymentMethodId = entity.paymentMethodId;
@@ -651,21 +631,21 @@ export default {
             });
         },
 
-        onStorefrontDomainSelectionChange(storefrontChannelDomainId) {
-            this.globalDomainRepository.get(storefrontChannelDomainId).then((entity) => {
+        onStorefrontDomainSelectionChange(frontendChannelDomainId) {
+            this.globalDomainRepository.get(frontendChannelDomainId).then((entity) => {
                 this.productExport.channelDomain = entity;
                 this.productExport.currencyId = entity.currencyId;
                 this.$emit('domain-changed');
             });
         },
 
-        loadStorefrontDomains(storefrontChannelId) {
+        loadStorefrontDomains(frontendChannelId) {
             const criteria = new Criteria(1, 25);
 
-            criteria.addFilter(Criteria.equals('channelId', storefrontChannelId));
+            criteria.addFilter(Criteria.equals('channelId', frontendChannelId));
 
             this.globalDomainRepository.search(criteria).then((searchResult) => {
-                this.storefrontDomains = searchResult;
+                this.frontendDomains = searchResult;
             });
         },
 

@@ -1,4 +1,4 @@
-import template from './sw-category-sales-channel-multi-select.html.twig';
+import template from './sw-category-channel-multi-select.html.twig';
 
 const { EntityCollection } = HeyFrame.Data;
 
@@ -12,7 +12,7 @@ export default {
     emits: ['item-add'],
 
     computed: {
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
     },

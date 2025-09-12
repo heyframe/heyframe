@@ -7,7 +7,7 @@
 >
     {% block sw_customer_imitate_customer_modal_alert %}
     <mt-banner
-        v-if="hasSalesChannelDomains"
+        v-if="hasChannelDomains"
     >
         <i18n-t
             keypath="sw-customer.imitateCustomerModal.modalInfo"
@@ -30,7 +30,7 @@
 
     {% block sw_customer_imitate_customer_modal_description %}
     <div
-        v-if="hasSalesChannelDomains"
+        v-if="hasChannelDomains"
         class="imitate-customer-modal-description"
     >
         {{ modalDescription }}
@@ -39,17 +39,17 @@
 
     {% block sw_customer_imitate_customer_modal_body %}
     <sw-container
-        v-if="hasSalesChannelDomains"
+        v-if="hasChannelDomains"
         class="imitate-customer-modal-container"
         columns="1fr"
         gap="8px 0px"
     >
         {% block sw_customer_imitate_customer_modal_channel_domain_items %}
         <sw-context-menu-item
-            v-for="salesChannelDomain of salesChannelDomains"
-            :key="salesChannelDomain.id"
+            v-for="channelDomain of channelDomains"
+            :key="channelDomain.id"
             target="_blank"
-            @click="onSalesChannelDomainMenuItemClick(salesChannelDomain.salesChannelId, salesChannelDomain.url)"
+            @click="onChannelDomainMenuItemClick(channelDomain.channelId, channelDomain.url)"
         >
 
             <div
@@ -58,10 +58,10 @@
                 gap="10px 0px"
             >
                 <div class="imitate-customer-modal-item-header">
-                    {{ salesChannelDomain.salesChannel.translated.name }}
+                    {{ channelDomain.channel.translated.name }}
                 </div>
                 <div class="imitate-customer-modal-item-url">
-                    {{ salesChannelDomain.url }}
+                    {{ channelDomain.url }}
                 </div>
                 <mt-icon
                     name="regular-external-link-s"

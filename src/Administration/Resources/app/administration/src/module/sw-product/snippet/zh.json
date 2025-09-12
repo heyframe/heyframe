@@ -3,7 +3,7 @@
     "visibility": {
       "textHeadline": "每个销售渠道的商品展示模式",
       "placeholderVisibility": "选择销售渠道...",
-      "columnSalesChannel": "销售渠道",
+      "columnChannel": "销售渠道",
       "columnAll": "可见",
       "columnSearchOnly": "在列表中隐藏",
       "columnLinkOnly": "在列表和搜索中隐藏",
@@ -540,7 +540,7 @@
         "label": "厂家",
         "placeholder": "选择厂家..."
       },
-      "salesChannelsFilter": {
+      "channelsFilter": {
         "label": "销售渠道",
         "placeholder": "选择销售渠道..."
       },

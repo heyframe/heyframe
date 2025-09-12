@@ -7,7 +7,7 @@
       "infoGlobalTypeTitle": "全局编号范围类型 \"{typeName}\"",
       "infoGlobal": "全局编号范围的类型无法修改，但你可以在概览中为大多数类型和特定销售渠道创建额外的编号范围。",
       "infoGlobalTitle": "全局编号范围 \"{name}\"",
-      "infoSalesChannelBound": "要更改编号范围类型，请先移除所有销售渠道的分配。"
+      "infoChannelBound": "要更改编号范围类型，请先移除所有销售渠道的分配。"
     },
     "list": {
       "textHeadline": "编号范围列表",
@@ -38,7 +38,7 @@
       "labelPreview": "预览",
       "labelAdvanced": "高级模式",
       "labelType": "类型",
-      "labelSalesChannel": "销售渠道",
+      "labelChannel": "销售渠道",
       "placeholderName": "输入名称...",
       "placeholderDescription": "输入描述...",
       "placeholderPrefix": "输入前缀...",

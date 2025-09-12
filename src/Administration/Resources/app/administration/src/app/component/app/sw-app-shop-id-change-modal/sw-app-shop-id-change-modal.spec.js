@@ -47,8 +47,8 @@ describe('sw-app-shop-id-change-modal', () => {
                                 },
                                 channel_domain_urls: {
                                     identifier: 'channel_domain_urls',
-                                    storedStamp: 'old-sales-channel-domain-urls',
-                                    expectedStamp: 'new-sales-channel-domain-urls',
+                                    storedStamp: 'old-channel-domain-urls',
+                                    expectedStamp: 'new-channel-domain-urls',
                                     score: 25,
                                 },
                             },

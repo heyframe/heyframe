@@ -302,7 +302,7 @@ describe('asyncComponent/base/sw-chart', () => {
     it('should convert the data structure', async () => {
         const seriesToConvert = [
             {
-                name: 'Sales Channel Orders',
+                name: 'Channel Orders',
                 data: [
                     { x: 'Saleschannel A', y: 23 },
                     { x: 'Saleschannel B', y: 17 },

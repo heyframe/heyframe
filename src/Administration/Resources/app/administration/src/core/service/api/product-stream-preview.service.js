@@ -12,20 +12,20 @@ export default class ProductStreamPreviewService extends ApiService {
     }
 
     /**
-     * @param {string} salesChannelId
+     * @param {string} channelId
      * @param {Criteria} criteria
      * @param {Array} filter
      * @param {Object} additionalHeaders
      *
      * @returns Object
      */
-    preview(salesChannelId, criteria, filter, additionalHeaders = {}) {
+    preview(channelId, criteria, filter, additionalHeaders = {}) {
         const body = deepMergeObject(criteria.parse(), {
             filter,
         });
 
         return this.httpClient
-            .post(`_admin/product-stream-preview/${salesChannelId}`, body, {
+            .post(`_admin/product-stream-preview/${channelId}`, body, {
                 headers: this.getBasicHeaders(additionalHeaders),
             })
             .then((response) => ApiService.handleResponse(response));

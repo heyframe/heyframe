@@ -1,17 +1,17 @@
 {
   "sw-product": {
     "visibility": {
-      "textHeadline": "Product display modes per Sales Channel",
-      "placeholderVisibility": "Select Sales Channels...",
-      "columnSalesChannel": "Sales Channel",
+      "textHeadline": "Product display modes per Channel",
+      "placeholderVisibility": "Select Channels...",
+      "columnChannel": "Channel",
       "columnAll": "Visible",
       "columnSearchOnly": "Hide in listings",
       "columnLinkOnly": "Hide in listings and search",
       "visibilityModalDescription": "“Hide in listing” will exclude the product from product overview listings but also from product sliders and cross selling lists. Selecting the option “Hide in listing and search” will also exclude the product from search actions. Products can still be reached via URL.",
-      "linkAdvancedVisibility": "Set visibility for selected Sales Channels",
-      "labelVisibility": "Sales Channels",
-      "bodyVisibility": "Add Sales Channels in which this product should be displayed. You may further define the product visibility for each Storefront Sales Channel via the link below.",
-      "errorMessage": "Unable to load default Sales Channel configuration."
+      "linkAdvancedVisibility": "Set visibility for selected Channels",
+      "labelVisibility": "Channels",
+      "bodyVisibility": "Add Channels in which this product should be displayed. You may further define the product visibility for each Storefront Channel via the link below.",
+      "errorMessage": "Unable to load default Channel configuration."
     },
     "general": {
       "mainMenuItemGeneral": "Products",
@@ -59,7 +59,7 @@
       "helpTextSearchKeyword": "The product in the Storefront can also be found using these keywords.",
       "helpTextTags": "Tags are meant for internal use only. They can help you manage groups of products, apply rules or serve as custom search terms.",
       "categoriesTitle": "Categories and tags",
-      "descriptionCategories": "Add categories so that the product can be found via the Storefront main menu or by API connections. Make sure you select  categories that are available and active in the selected Sales Channel.",
+      "descriptionCategories": "Add categories so that the product can be found via the Storefront main menu or by API connections. Make sure you select  categories that are available and active in the selected Channel.",
       "descriptionTags": "Tags help you find products faster. They make it easier to group products and can be  utilised to automate task with the Rule Builder."
     },
     "priceForm": {
@@ -113,7 +113,7 @@
       "labelEan": "GTIN/EAN",
       "labelManufacturerNumber": "Manufacturer product number",
       "labelStock": "Stock",
-      "labelActive": "Active for all selected Sales Channels",
+      "labelActive": "Active for all selected Channels",
       "labelShippingFree": "Free shipping",
       "labelMarkAsTopseller": "Highlight product",
       "labelIsCloseout": "Clearance sale",
@@ -140,7 +140,7 @@
     },
     "measurementForm": {
       "description": "Enter the product measurements using the units available to you. When displayed to your customers, they will be automatically converted based on the {link}.",
-      "linkText": "Sales Channel settings"
+      "linkText": "Channel settings"
     },
     "packagingForm": {
       "description": "Define how the product is sold and packaged. This information is shown to customers in the storefront.",
@@ -242,7 +242,7 @@
       "columnCreatedAt": "Created at",
       "columnUpdatedAt": "Updated at",
       "columnReleaseDate": "Release date",
-      "columnVisibilities": "Sales Channels",
+      "columnVisibilities": "Channels",
       "columnCategories": "Categories",
       "columnTags": "Tags",
       "columnActions": "Action(s)",
@@ -540,9 +540,9 @@
         "label": "Manufacturer",
         "placeholder": "Select manufacturer..."
       },
-      "salesChannelsFilter": {
-        "label": "Sales Channels",
-        "placeholder": "Select Sales Channels..."
+      "channelsFilter": {
+        "label": "Channels",
+        "placeholder": "Select Channels..."
       },
       "categoriesFilter": {
         "label": "Categories",

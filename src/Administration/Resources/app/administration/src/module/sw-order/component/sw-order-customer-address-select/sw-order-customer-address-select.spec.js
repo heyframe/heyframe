@@ -42,7 +42,7 @@ const addresses = [
 
 const customerData = {
     id: '123',
-    salesChannel: {
+    channel: {
         languageId: 'english',
     },
     billingAddressId: '1',

@@ -74,12 +74,12 @@ export default () => {
     HeyFrame.Component.register('sw-search-bar-item', () => import('src/app/component/structure/sw-search-bar-item/index'));
     HeyFrame.Component.register('sw-search-bar', () => import('src/app/component/structure/sw-search-bar/index'));
     HeyFrame.Component.register(
-        'sw-sales-channel-switch',
-        () => import('src/app/component/structure/sw-sales-channel-switch/index'),
+        'sw-channel-switch',
+        () => import('src/app/component/structure/sw-channel-switch/index'),
     );
     HeyFrame.Component.register(
-        'sw-sales-channel-config',
-        () => import('src/app/component/structure/sw-sales-channel-config/index'),
+        'sw-channel-config',
+        () => import('src/app/component/structure/sw-channel-config/index'),
     );
     HeyFrame.Component.register('sw-page', () => import('src/app/component/structure/sw-page/index'));
     HeyFrame.Component.register('sw-modals-renderer', () => import('src/app/component/structure/sw-modals-renderer/index'));
@@ -341,8 +341,8 @@ export default () => {
         () => import('src/app/component/extension-api/sw-iframe-renderer/index'),
     );
     HeyFrame.Component.register(
-        'sw-extension-teaser-sales-channel',
-        () => import('src/app/component/extension-api/sw-extension-teaser-sales-channel/index'),
+        'sw-extension-teaser-channel',
+        () => import('src/app/component/extension-api/sw-extension-teaser-channel/index'),
     );
     HeyFrame.Component.register(
         'sw-extension-teaser-popover',

@@ -23,9 +23,9 @@ HeyFrame.Component.register(
     () => import('./component/sw-category-entry-point-overwrite-modal'),
 );
 HeyFrame.Component.extend(
-    'sw-category-sales-channel-multi-select',
+    'sw-category-channel-multi-select',
     'sw-entity-multi-select',
-    () => import('./component/sw-category-sales-channel-multi-select'),
+    () => import('./component/sw-category-channel-multi-select'),
 );
 HeyFrame.Component.register('sw-category-detail', () => import('./page/sw-category-detail'));
 HeyFrame.Component.register('sw-category-detail-base', () => import('./view/sw-category-detail-base'));

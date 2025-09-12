@@ -7,7 +7,7 @@ import 'src/module/sw-product/page/sw-product-detail/store';
 import { nextTick } from 'vue';
 
 describe('module/sw-product/component/sw-product-category-form', () => {
-    const defaultSalesChannelData = {};
+    const defaultChannelData = {};
 
     async function createWrapper(productEntityOverride, parentProductOverride) {
         const productEntity = {
@@ -88,7 +88,7 @@ describe('module/sw-product/component/sw-product-category-form', () => {
                     },
                     systemConfigApiService: {
                         getConfig: () => Promise.resolve(),
-                        getValues: () => Promise.resolve(defaultSalesChannelData),
+                        getValues: () => Promise.resolve(defaultChannelData),
                     },
                     feature: {
                         isActive: () => true,

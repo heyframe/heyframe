@@ -116,7 +116,7 @@ describe('src/module/sw-order/page/sw-order-create', () => {
             id: 'swOrder',
             state() {
                 return {
-                    defaultSalesChannel: null,
+                    defaultChannel: null,
                     cart: {
                         token: 'CART-TOKEN',
                         lineItems: [{}],

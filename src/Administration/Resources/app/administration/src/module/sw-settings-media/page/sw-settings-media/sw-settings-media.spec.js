@@ -42,7 +42,7 @@ async function createWrapper() {
                     'sw-help-center-v2': true,
                     'router-link': true,
                     'sw-app-actions': true,
-                    'sw-sales-channel-switch': true,
+                    'sw-channel-switch': true,
                     'sw-context-menu-item': true,
                     'sw-form-field-renderer': true,
                     'sw-inherit-wrapper': true,

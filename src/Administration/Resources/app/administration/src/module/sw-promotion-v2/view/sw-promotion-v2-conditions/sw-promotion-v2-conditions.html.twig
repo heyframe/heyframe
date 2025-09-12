@@ -8,13 +8,13 @@
     >
 
         {% block sw_promotion_v2_conditions_pre_conditions_channel_selection %}
-        <sw-promotion-v2-sales-channel-select
-            class="sw-promotion-v2-conditions__sales-channel-selection"
+        <sw-promotion-v2-channel-select
+            class="sw-promotion-v2-conditions__channel-selection"
             :promotion="promotion"
-            :entity-collection="promotion.salesChannels"
+            :entity-collection="promotion.channels"
             :disabled="!acl.can('promotion.editor')"
-            :label="$tc('sw-promotion-v2.detail.conditions.preConditions.labelPromotionSalesChannel')"
-            :placeholder="$tc('sw-promotion-v2.detail.conditions.preConditions.labelPromotionSalesChannel')"
+            :label="$tc('sw-promotion-v2.detail.conditions.preConditions.labelPromotionChannel')"
+            :placeholder="$tc('sw-promotion-v2.detail.conditions.preConditions.labelPromotionChannel')"
         />
         {% endblock %}
 

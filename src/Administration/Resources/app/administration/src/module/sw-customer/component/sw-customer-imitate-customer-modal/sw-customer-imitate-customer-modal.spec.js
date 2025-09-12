@@ -8,15 +8,15 @@ const responses = global.repositoryFactoryMock.responses;
 
 responses.addResponse({
     method: 'Post',
-    url: '/search/sales-channel-domain',
+    url: '/search/channel-domain',
     status: 200,
     response: {
         data: [
             {
                 attributes: {
-                    id: 'sales-channel-domain-id',
-                    salesChannelId: 'sales-channel-id',
-                    salesChannel: {
+                    id: 'channel-domain-id',
+                    channelId: 'channel-id',
+                    channel: {
                         translated: {
                             name: 'Test sales channel',
                         },
@@ -57,7 +57,7 @@ async function createWrapper() {
                         generateImitateCustomerToken: async () => ({
                             token: 'a-token',
                         }),
-                        redirectToSalesChannelUrl: () => {},
+                        redirectToChannelUrl: () => {},
                     },
                 },
             },
@@ -65,7 +65,7 @@ async function createWrapper() {
                 customer: {
                     id: 'customer-id',
                     email: null,
-                    boundSalesChannelId: null,
+                    boundChannelId: null,
                 },
             },
         },
@@ -80,7 +80,7 @@ describe('module/sw-customer-imitate-customer-modal', () => {
 
         await flushPromises();
 
-        expect(wrapper.vm.salesChannelDomains).toHaveLength(1);
+        expect(wrapper.vm.channelDomains).toHaveLength(1);
     });
 
     it('should forward modal close', async () => {
@@ -100,7 +100,7 @@ describe('module/sw-customer-imitate-customer-modal', () => {
         wrapper = await createWrapper();
 
         const generateTokenSpy = jest.spyOn(wrapper.vm.contextStoreService, 'generateImitateCustomerToken');
-        const redirectSalesChannelSpy = jest.spyOn(wrapper.vm.contextStoreService, 'redirectToSalesChannelUrl');
+        const redirectChannelSpy = jest.spyOn(wrapper.vm.contextStoreService, 'redirectToChannelUrl');
 
         await flushPromises();
 
@@ -111,7 +111,7 @@ describe('module/sw-customer-imitate-customer-modal', () => {
 
         await flushPromises();
 
-        expect(generateTokenSpy).toHaveBeenCalledWith('customer-id', 'sales-channel-id');
-        expect(redirectSalesChannelSpy).toHaveBeenCalledWith('http://localhost:8000', 'a-token', 'customer-id', undefined);
+        expect(generateTokenSpy).toHaveBeenCalledWith('customer-id', 'channel-id');
+        expect(redirectChannelSpy).toHaveBeenCalledWith('http://localhost:8000', 'a-token', 'customer-id', undefined);
     });
 });

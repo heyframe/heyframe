@@ -132,11 +132,11 @@ export default {
             return criteria;
         },
 
-        salesChannelCriteria() {
+        channelCriteria() {
             const criteria = new Criteria(1, 25);
 
-            if (this.order.salesChannelId) {
-                criteria.addFilter(Criteria.equals('salesChannels.id', this.order.salesChannelId));
+            if (this.order.channelId) {
+                criteria.addFilter(Criteria.equals('channels.id', this.order.channelId));
             }
 
             return criteria;

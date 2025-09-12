@@ -46,15 +46,15 @@
 
     {% block sw_settings_search_view_live_search_channel %}
     <sw-single-select
-        class="sw-settings-search-live-search__sales-channel-select"
+        class="sw-settings-search-live-search__channel-select"
         value-property="id"
         label-property="translated.name"
-        :placeholder="$tc('sw-settings-search.liveSearchTab.textPlaceholderSalesChannel')"
-        :label="$tc('sw-settings-search.liveSearchTab.labelSalesChannelSelect')"
-        :value="salesChannelId"
-        :options="salesChannels"
+        :placeholder="$tc('sw-settings-search.liveSearchTab.textPlaceholderChannel')"
+        :label="$tc('sw-settings-search.liveSearchTab.labelChannelSelect')"
+        :value="channelId"
+        :options="channels"
         show-clearable-button
-        @update:value="changeSalesChannel"
+        @update:value="changeChannel"
     />
     {% endblock %}
 

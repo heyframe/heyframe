@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils';
  * @sw-package inventory
  */
 
-const salesChannelFixture = {
+const channelFixture = {
     id: '12345',
     translated: {
         name: 'Storefront',
@@ -15,8 +15,8 @@ const visibilityFixture = {
     id: '12345',
     productId: '12345',
     visibility: 30,
-    salesChannelInternal: {
-        ...salesChannelFixture,
+    channelInternal: {
+        ...channelFixture,
     },
 };
 
@@ -90,7 +90,7 @@ describe('src/module/sw-settings-listing/component/sw-product-visibility-detail'
         const wrapper = await createWrapper();
         await flushPromises();
 
-        expect(wrapper.find('.sw-product-visibility-detail__name').text()).toBe(salesChannelFixture.translated.name);
+        expect(wrapper.find('.sw-product-visibility-detail__name').text()).toBe(channelFixture.translated.name);
         const radio = wrapper.find('.sw-product-visibility-detail__link-only input');
 
         await radio.setChecked();
@@ -105,9 +105,9 @@ describe('src/module/sw-settings-listing/component/sw-product-visibility-detail'
         createStateMapper({
             visibilities: [
                 {
-                    id: salesChannelFixture.id,
-                    salesChannel: {
-                        ...salesChannelFixture,
+                    id: channelFixture.id,
+                    channel: {
+                        ...channelFixture,
                         translated: {
                             name,
                         },

@@ -45,19 +45,19 @@ function generateCustomers() {
             firstName: `Quynh ${i}`,
             lastName: 'Nguyen',
             email: `quynh${i}@example.com`,
-            salesChannelId: '1234',
+            channelId: '1234',
             customerNumber: `sw${i}`,
-            salesChannel: {
+            channel: {
                 translated: {
                     name: 'Storefront',
                 },
             },
-            boundSalesChannel: {
+            boundChannel: {
                 translated: {
                     name: 'Storefront',
                 },
             },
-            boundSalesChannelId: '1234',
+            boundChannelId: '1234',
         });
     }
 
@@ -177,7 +177,7 @@ async function createWrapper() {
                         get: () => Promise.resolve({ ...customers[0] }),
                         searchIds: () =>
                             Promise.resolve({
-                                data: customers.map((customer) => customer.salesChannelId),
+                                data: customers.map((customer) => customer.channelId),
                             }),
                     }),
                 },
@@ -208,10 +208,10 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
                     Promise.resolve({
                         status: 200,
                     }),
-                getSalesChannelContext: () =>
+                getChannelContext: () =>
                     Promise.resolve({
                         data: {
-                            salesChannelId: '1234',
+                            channelId: '1234',
                         },
                     }),
             };
@@ -325,7 +325,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
     });
 
     it('should refresh grid list after adding new customer successfully', async () => {
-        customers[0].boundSalesChannelId = customers[0].salesChannelId;
+        customers[0].boundChannelId = customers[0].channelId;
 
         setCustomerData([]);
 
@@ -401,7 +401,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
     });
 
     it('should set the customer language id when customer has a language id', async () => {
-        customers[0].salesChannel.languageId = '1234';
+        customers[0].channel.languageId = '1234';
         setCustomerData(customers);
 
         const wrapper = await createWrapper();
@@ -414,7 +414,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
     });
 
     it('should reset language to default if system language exists in customer sales channel languages', async () => {
-        customers[0].salesChannel.languages = [
+        customers[0].channel.languages = [
             {
                 id: '2fbb5fe2e29a4d70aa5854ce7ce3e20b',
             },
@@ -439,7 +439,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
     });
 
     it('should set customer is null when close modal', async () => {
-        customers[0].boundSalesChannelId = null;
+        customers[0].boundChannelId = null;
         setCustomerData(customers);
 
         HeyFrame.Store.get('swOrder').setCartToken('HE6KD7HOCC3TCS0AX903KCA6JHXCTXU2');
@@ -452,16 +452,16 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
 
         await flushPromises();
 
-        expect(wrapper.find('.sw-order-customer-grid__sales-channel-selection-modal').exists()).toBeTruthy();
+        expect(wrapper.find('.sw-order-customer-grid__channel-selection-modal').exists()).toBeTruthy();
 
         await wrapper.findByText('button', 'global.default.cancel').trigger('click');
 
         expect(wrapper.vm.customer).toBeNull();
-        expect(wrapper.find('.sw-order-customer-grid__sales-channel-selection-modal').exists()).toBeFalsy();
+        expect(wrapper.find('.sw-order-customer-grid__channel-selection-modal').exists()).toBeFalsy();
     });
 
     it('should call handleSelectCustomer after sales channel selected', async () => {
-        customers[0].boundSalesChannelId = null;
+        customers[0].boundChannelId = null;
         setCustomerData(customers);
 
         HeyFrame.Store.get('swOrder').setCartToken('HE6KD7HOCC3TCS0AX903KCA6JHXCTXU2');
@@ -474,7 +474,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
         const firstRow = wrapper.find('.sw-data-grid__body .sw-data-grid__row--0');
         await firstRow.find('.sw-field__radio-input input').setChecked(true);
 
-        let select = wrapper.find('.sw-order-customer-grid__sales-channel-selection');
+        let select = wrapper.find('.sw-order-customer-grid__channel-selection');
         await select.trigger('click');
 
         await flushPromises();
@@ -488,7 +488,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
         await entityItem.at(0).trigger('click');
         await flushPromises();
 
-        const buttonSelect = wrapper.findByText('button', 'sw-order.initialModal.customerGrid.buttonSelectSalesChannel');
+        const buttonSelect = wrapper.findByText('button', 'sw-order.initialModal.customerGrid.buttonSelectChannel');
         expect(buttonSelect.attributes('disabled')).toBeUndefined();
 
         await buttonSelect.trigger('click');
@@ -497,7 +497,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
     });
 
     it('should show sales channel select modal when customer sales channel is not in the allowed list and has no bound sales channel', async () => {
-        customers[0].boundSalesChannelId = null;
+        customers[0].boundChannelId = null;
 
         setCustomerData(customers);
 
@@ -511,12 +511,12 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
 
         await flushPromises();
 
-        expect(wrapper.find('.sw-order-customer-grid__sales-channel-selection-modal').exists()).toBeTruthy();
+        expect(wrapper.find('.sw-order-customer-grid__channel-selection-modal').exists()).toBeTruthy();
     });
 
     it('should handle select customer when customer sales channel is in the allowed list and has a bound sales channel', async () => {
-        customers[0].salesChannelId = '1234';
-        customers[0].boundSalesChannelId = '1234';
+        customers[0].channelId = '1234';
+        customers[0].boundChannelId = '1234';
         setCustomerData(customers);
 
         HeyFrame.Store.get('swOrder').setCartToken('HE6KD7HOCC3TCS0AX903KCA6JHXCTXU2');
@@ -537,7 +537,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
     });
 
     it('should show customer changes modal when switching to a different customer whose sales channel is different from the current one', async () => {
-        customers[0].boundSalesChannelId = '1234';
+        customers[0].boundChannelId = '1234';
         setCustomerData(customers);
 
         HeyFrame.Store.get('swOrder').setCartToken('HE6KD7HOCC3TCS0AX903KCA6JHXCTXU2');
@@ -546,8 +546,8 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
 
         await wrapper.setData({
             customerDraft: {
-                boundSalesChannelId: null,
-                salesChannelId: '123456',
+                boundChannelId: null,
+                channelId: '123456',
             },
         });
 
@@ -568,7 +568,7 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
     });
 
     it('should handle select customer when select customer changes', async () => {
-        customers[0].boundSalesChannelId = '1234';
+        customers[0].boundChannelId = '1234';
         setCustomerData(customers);
 
         HeyFrame.Store.get('swOrder').setCartToken('HE6KD7HOCC3TCS0AX903KCA6JHXCTXU2');
@@ -577,8 +577,8 @@ describe('src/module/sw-order/view/sw-order-customer-grid', () => {
 
         await wrapper.setData({
             customerDraft: {
-                boundSalesChannelId: null,
-                salesChannelId: '123456',
+                boundChannelId: null,
+                channelId: '123456',
             },
         });
 

@@ -16,7 +16,7 @@ async function createWrapper() {
                 id: 'aNiceId',
                 name: '',
                 displayGross: true,
-                registrationSalesChannels: [],
+                registrationChannels: [],
                 isNew: () => true,
             };
         },

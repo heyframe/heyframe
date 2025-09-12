@@ -135,23 +135,23 @@
 
                 {% block sw_cms_layout_assignment_modal_shop_pages_select_channel_field %}
                 <sw-entity-single-select
-                    v-model:value="shopPageSalesChannelId"
-                    class="sw-cms-layout-assignment-modal__sales-channel-select"
+                    v-model:value="shopPageChannelId"
+                    class="sw-cms-layout-assignment-modal__channel-select"
                     entity="channel"
-                    :label="$tc('sw-cms.components.cmsLayoutAssignmentModal.labelSalesChannel')"
-                    :placeholder="$tc('sw-cms.components.cmsLayoutAssignmentModal.placeholderSalesChannel')"
-                    :reset-option="$tc('sw-cms.components.cmsLayoutAssignmentModal.resetOptionSalesChannel')"
-                    :help-text="$tc('sw-cms.components.cmsLayoutAssignmentModal.helpTextSalesChannel')"
+                    :label="$tc('sw-cms.components.cmsLayoutAssignmentModal.labelChannel')"
+                    :placeholder="$tc('sw-cms.components.cmsLayoutAssignmentModal.placeholderChannel')"
+                    :reset-option="$tc('sw-cms.components.cmsLayoutAssignmentModal.resetOptionChannel')"
+                    :help-text="$tc('sw-cms.components.cmsLayoutAssignmentModal.helpTextChannel')"
                     show-clearable-button
-                    @update:value="onInputSalesChannelSelect"
+                    @update:value="onInputChannelSelect"
                 />
                 {% endblock %}
 
                 {% block sw_cms_layout_assignment_modal_shop_pages_select_field %}
                 <sw-inherit-wrapper
-                    v-model:value="selectedShopPages[shopPageSalesChannelId]"
+                    v-model:value="selectedShopPages[shopPageChannelId]"
                     :inherited-value="selectedShopPages.null"
-                    :has-parent="shopPageSalesChannelId !== null"
+                    :has-parent="shopPageChannelId !== null"
                     :label="$tc('sw-cms.components.cmsLayoutAssignmentModal.labelShopPages')"
                 >
                     <template #content="props">

@@ -16,7 +16,7 @@ export default {
     ],
 
     props: {
-        currentSalesChannelId: {
+        currentChannelId: {
             type: String,
             required: false,
             default: null,
@@ -49,7 +49,7 @@ export default {
 
     data() {
         return {
-            mainCategoryForSalesChannel: null,
+            mainCategoryForChannel: null,
         };
     },
 
@@ -58,30 +58,30 @@ export default {
             return this.repositoryFactory.create('main_category');
         },
 
-        isHeadlessSalesChannel() {
-            if (HeyFrame.Store.get('swSeoUrl').salesChannelCollection === null) {
+        isHeadlessChannel() {
+            if (HeyFrame.Store.get('swSeoUrl').channelCollection === null) {
                 return true;
             }
 
-            const salesChannel = HeyFrame.Store.get('swSeoUrl').salesChannelCollection.find((entry) => {
-                return entry.id === this.currentSalesChannelId;
+            const channel = HeyFrame.Store.get('swSeoUrl').channelCollection.find((entry) => {
+                return entry.id === this.currentChannelId;
             });
 
             // from Defaults.php
-            return this.currentSalesChannelId !== null && salesChannel.typeId === 'f183ee5650cf4bdb8a774337575067a6';
+            return this.currentChannelId !== null && channel.typeId === 'f183ee5650cf4bdb8a774337575067a6';
         },
 
         selectedCategory() {
-            return this.mainCategoryForSalesChannel !== null ? this.mainCategoryForSalesChannel.categoryId : null;
+            return this.mainCategoryForChannel !== null ? this.mainCategoryForChannel.categoryId : null;
         },
     },
 
     watch: {
-        currentSalesChannelId() {
-            this.refreshMainCategoryForSalesChannel();
+        currentChannelId() {
+            this.refreshMainCategoryForChannel();
         },
         mainCategories() {
-            this.refreshMainCategoryForSalesChannel();
+            this.refreshMainCategoryForChannel();
         },
     },
 
@@ -91,13 +91,13 @@ export default {
 
     methods: {
         createdComponent() {
-            this.refreshMainCategoryForSalesChannel();
+            this.refreshMainCategoryForChannel();
         },
         onMainCategorySelected(categoryId) {
             if (!categoryId) {
-                if (this.mainCategoryForSalesChannel) {
-                    this.$emit('main-category-remove', this.mainCategoryForSalesChannel);
-                    this.mainCategoryForSalesChannel = null;
+                if (this.mainCategoryForChannel) {
+                    this.$emit('main-category-remove', this.mainCategoryForChannel);
+                    this.mainCategoryForChannel = null;
                 }
                 return;
             }
@@ -106,30 +106,30 @@ export default {
                 return value.id === categoryId;
             });
 
-            if (this.mainCategoryForSalesChannel !== null) {
-                this.mainCategoryForSalesChannel.category = selectedCategory;
-                this.mainCategoryForSalesChannel.categoryId = selectedCategory.id;
+            if (this.mainCategoryForChannel !== null) {
+                this.mainCategoryForChannel.category = selectedCategory;
+                this.mainCategoryForChannel.categoryId = selectedCategory.id;
                 return;
             }
 
             const mainCategory = this.mainCategoryRepository.create();
-            mainCategory.salesChannelId = this.currentSalesChannelId;
+            mainCategory.channelId = this.currentChannelId;
             mainCategory.category = selectedCategory;
             mainCategory.categoryId = selectedCategory.id;
             this.$emit('main-category-add', mainCategory);
-            this.refreshMainCategoryForSalesChannel();
+            this.refreshMainCategoryForChannel();
         },
-        refreshMainCategoryForSalesChannel() {
+        refreshMainCategoryForChannel() {
             const mainCategory = this.mainCategories.find((category) => {
-                return category.salesChannelId === this.currentSalesChannelId;
+                return category.channelId === this.currentChannelId;
             });
 
             if (mainCategory === undefined) {
-                this.mainCategoryForSalesChannel = null;
+                this.mainCategoryForChannel = null;
                 return;
             }
 
-            this.mainCategoryForSalesChannel = mainCategory;
+            this.mainCategoryForChannel = mainCategory;
         },
     },
 };

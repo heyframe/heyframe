@@ -49,12 +49,12 @@ const swCategoryDetailStore = HeyFrame.Store.register({
                         this.isCategoryColumn = false;
                         if (category.parentId) {
                             const parentCriteria = new Criteria(1, 25);
-                            parentCriteria.addAssociation('footerSalesChannels');
+                            parentCriteria.addAssociation('footerChannels');
 
                             return repository.get(category.parentId, apiContext, parentCriteria).then((parent) => {
                                 category.parent = parent ?? undefined;
 
-                                this.isCategoryColumn = category.parent?.footerSalesChannels?.length !== 0;
+                                this.isCategoryColumn = category.parent?.footerChannels?.length !== 0;
 
                                 return category;
                             });

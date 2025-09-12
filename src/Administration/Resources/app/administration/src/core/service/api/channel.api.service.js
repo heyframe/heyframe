@@ -6,10 +6,10 @@ import ApiService from '../api.service';
  * @extends ApiService
  * @sw-package discovery
  */
-class SalesChannelApiService extends ApiService {
-    constructor(httpClient, loginService, apiEndpoint = 'sales-channel') {
+class ChannelApiService extends ApiService {
+    constructor(httpClient, loginService, apiEndpoint = 'channel') {
         super(httpClient, loginService, apiEndpoint);
-        this.name = 'salesChannelService';
+        this.name = 'channelService';
     }
 
     /**
@@ -24,7 +24,7 @@ class SalesChannelApiService extends ApiService {
         const headers = this.getBasicHeaders(additionalHeaders);
 
         return this.httpClient
-            .get('/_action/access-key/sales-channel', {
+            .get('/_action/access-key/channel', {
                 params,
                 headers,
             })
@@ -35,4 +35,4 @@ class SalesChannelApiService extends ApiService {
 }
 
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
-export default SalesChannelApiService;
+export default ChannelApiService;

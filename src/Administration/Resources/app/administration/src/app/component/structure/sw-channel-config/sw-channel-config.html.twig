@@ -1,17 +1,17 @@
 {% block sw_channel_config %}
 <div
-    class="sw-sales-channel-config"
-    @salesChannelChanged="save"
+    class="sw-channel-config"
+    @channelChanged="save"
 >
-    <div class="sw-sales-channel-config__global-sales-channel-switch">
+    <div class="sw-channel-config__global-channel-switch">
         {% block sw_channel_config_switch %}
         <slot
             name="select"
-            v-bind="{ onInput, selectedSalesChannelId, salesChannel }"
+            v-bind="{ onInput, selectedChannelId, channel }"
         >
             <sw-single-select
-                v-model:value="selectedSalesChannelId"
-                :options="salesChannel"
+                v-model:value="selectedChannelId"
+                :options="channel"
                 label-property="translated.name"
                 value-property="id"
                 show-clearable-button
@@ -23,7 +23,7 @@
 
     <slot
         name="content"
-        v-bind="{ actualConfigData, allConfigs, selectedSalesChannelId }"
+        v-bind="{ actualConfigData, allConfigs, selectedChannelId }"
     ></slot>
 </div>
 {% endblock %}

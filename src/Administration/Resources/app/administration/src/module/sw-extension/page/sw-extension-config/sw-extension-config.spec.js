@@ -30,7 +30,7 @@ describe('src/module/sw-extension/page/sw-extension-config.spec', () => {
                     'sw-help-center-v2': true,
                     'sw-meteor-navigation': true,
                     'sw-tabs': true,
-                    'sw-sales-channel-switch': true,
+                    'sw-channel-switch': true,
 
                     'sw-form-field-renderer': true,
                     'sw-inherit-wrapper': true,

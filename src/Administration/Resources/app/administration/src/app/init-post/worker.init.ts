@@ -318,20 +318,20 @@ function registerThumbnailMiddleware(factory: typeof WorkerNotificationFactory) 
         },
     });
 
-    factory.register('SalesChannelIndexingMessage', {
-        name: 'HeyFrame\\Core\\System\\SalesChannel\\DataAbstractionLayer\\SalesChannelIndexingMessage',
+    factory.register('ChannelIndexingMessage', {
+        name: 'HeyFrame\\Core\\System\\Channel\\DataAbstractionLayer\\ChannelIndexingMessage',
         fn: function middleware(next, { entry, $root, notification }) {
             messageQueueNotification(
-                'salesChannel',
+                'channel',
                 ids,
                 next,
                 entry,
                 $root,
                 notification,
                 {
-                    title: 'global.notification-center.worker-listener.salesChannel.title',
-                    message: 'global.notification-center.worker-listener.salesChannel.message',
-                    success: 'global.notification-center.worker-listener.salesChannel.messageSuccess',
+                    title: 'global.notification-center.worker-listener.channel.title',
+                    message: 'global.notification-center.worker-listener.channel.message',
+                    success: 'global.notification-center.worker-listener.channel.messageSuccess',
                 },
                 50,
             );

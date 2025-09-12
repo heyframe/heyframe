@@ -33,7 +33,7 @@ function getSnippetSetData() {
             id: 'a2f95068665e4498ae98a2318a7963df',
             iso: 'de-DE',
             name: 'BASE de-DE',
-            salesChannelDomains: [],
+            channelDomains: [],
             snippets: [],
             updatedAt: null,
         },

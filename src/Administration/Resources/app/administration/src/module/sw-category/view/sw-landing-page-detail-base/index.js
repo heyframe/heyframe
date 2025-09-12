@@ -34,7 +34,7 @@ export default {
         ...mapPropertyErrors('landingPage', [
             'name',
             'url',
-            'salesChannels',
+            'channels',
         ]),
 
         landingPage() {

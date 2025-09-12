@@ -7,7 +7,7 @@ const { Context } = HeyFrame;
 const { EntityCollection } = HeyFrame.Data;
 
 async function createWrapper() {
-    const salesChannelCollection = new EntityCollection('/channel', 'channel', Context.api, null, [
+    const channelCollection = new EntityCollection('/channel', 'channel', Context.api, null, [
         {
             id: '',
             name: '',
@@ -74,7 +74,7 @@ async function createWrapper() {
                 },
             },
             props: {
-                salesChannelCollection,
+                channelCollection,
             },
         },
     );
@@ -114,7 +114,7 @@ describe('src/module/sw-category/component/sw-category-entry-point-modal', () =>
 
         const wrapper = await createWrapper();
 
-        expect(wrapper.vm.salesChannelOptions).toHaveLength(1);
+        expect(wrapper.vm.channelOptions).toHaveLength(1);
         expect(wrapper.vm.hasNotAppliedChanges()).toBe(false);
     });
 
@@ -124,13 +124,13 @@ describe('src/module/sw-category/component/sw-category-entry-point-modal', () =>
         const wrapper = await createWrapper();
 
         // change the 'homeName' of the currently selected sales channel (the first one)
-        wrapper.vm.selectedSalesChannel.homeName = 'newName';
+        wrapper.vm.selectedChannel.homeName = 'newName';
         // original should still be untouched
-        expect(wrapper.vm.salesChannelCollection[0].homeName).toBe('');
+        expect(wrapper.vm.channelCollection[0].homeName).toBe('');
 
         // expect to be able to apply this change back to the original
         expect(wrapper.vm.hasNotAppliedChanges()).toBe(true);
         wrapper.vm.applyChanges();
-        expect(wrapper.vm.salesChannelCollection[0].homeName).toBe('newName');
+        expect(wrapper.vm.channelCollection[0].homeName).toBe('newName');
     });
 });

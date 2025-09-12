@@ -357,11 +357,11 @@ export default {
 
         visibilitiesCriteria() {
             const criteria = new Criteria(1, 25);
-            criteria.addAssociation('salesChannel');
+            criteria.addAssociation('channel');
             criteria.addAssociation('product');
 
             if (typeof this.searchTerm === 'string' && this.searchTerm.length > 0) {
-                criteria.addQuery(Criteria.contains('salesChannel.name', this.searchTerm), 400);
+                criteria.addQuery(Criteria.contains('channel.name', this.searchTerm), 400);
                 criteria.addQuery(Criteria.contains('product.name', this.searchTerm), 500);
             }
 
@@ -395,11 +395,11 @@ export default {
                     return '';
                 }
 
-                if (!item.salesChannel || !item.product) {
+                if (!item.channel || !item.product) {
                     return item.id;
                 }
 
-                return `${item.salesChannel.translated.name}: ${item.product.translated.name}`;
+                return `${item.channel.translated.name}: ${item.product.translated.name}`;
             };
         },
 

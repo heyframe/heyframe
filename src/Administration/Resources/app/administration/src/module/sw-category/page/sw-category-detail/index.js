@@ -65,7 +65,7 @@ export default {
             categoryCheckedItem: 0,
             landingPageCheckedItem: 0,
             entryPointOverwriteConfirmed: false,
-            entryPointOverwriteSalesChannels: null,
+            entryPointOverwriteChannels: null,
         };
     },
 
@@ -117,7 +117,7 @@ export default {
         },
 
         showEntryPointOverwriteModal() {
-            return this.entryPointOverwriteSalesChannels !== null && this.entryPointOverwriteSalesChannels.length;
+            return this.entryPointOverwriteChannels !== null && this.entryPointOverwriteChannels.length;
         },
 
         cmsPage() {
@@ -215,9 +215,9 @@ export default {
             criteria
                 .addAssociation('tags')
                 .addAssociation('media')
-                .addAssociation('navigationSalesChannels.homeCmsPage.previewMedia')
-                .addAssociation('serviceSalesChannels')
-                .addAssociation('footerSalesChannels')
+                .addAssociation('navigationChannels.homeCmsPage.previewMedia')
+                .addAssociation('serviceChannels')
+                .addAssociation('footerChannels')
                 .addAssociation('translations');
 
             return criteria;
@@ -227,7 +227,7 @@ export default {
             const criteria = new Criteria(1, 1);
 
             criteria.addAssociation('tags');
-            criteria.addAssociation('salesChannels');
+            criteria.addAssociation('channels');
 
             return criteria;
         },
@@ -696,33 +696,33 @@ export default {
         },
 
         checkForEntryPointOverwrite() {
-            this.entryPointOverwriteSalesChannels = new EntityCollection('/channel', 'channel', Context.api);
+            this.entryPointOverwriteChannels = new EntityCollection('/channel', 'channel', Context.api);
 
-            this.category.navigationSalesChannels.forEach((salesChannel) => {
-                if (salesChannel.navigationCategoryId !== null && salesChannel.navigationCategoryId !== this.categoryId) {
-                    this.entryPointOverwriteSalesChannels.add(salesChannel);
+            this.category.navigationChannels.forEach((channel) => {
+                if (channel.navigationCategoryId !== null && channel.navigationCategoryId !== this.categoryId) {
+                    this.entryPointOverwriteChannels.add(channel);
                 }
             });
 
-            this.category.footerSalesChannels.forEach((salesChannel) => {
-                if (salesChannel.footerCategoryId !== null && salesChannel.footerCategoryId !== this.categoryId) {
-                    this.entryPointOverwriteSalesChannels.add(salesChannel);
+            this.category.footerChannels.forEach((channel) => {
+                if (channel.footerCategoryId !== null && channel.footerCategoryId !== this.categoryId) {
+                    this.entryPointOverwriteChannels.add(channel);
                 }
             });
 
-            this.category.serviceSalesChannels.forEach((salesChannel) => {
-                if (salesChannel.serviceCategoryId !== null && salesChannel.serviceCategoryId !== this.categoryId) {
-                    this.entryPointOverwriteSalesChannels.add(salesChannel);
+            this.category.serviceChannels.forEach((channel) => {
+                if (channel.serviceCategoryId !== null && channel.serviceCategoryId !== this.categoryId) {
+                    this.entryPointOverwriteChannels.add(channel);
                 }
             });
         },
 
         cancelEntryPointOverwrite() {
-            this.entryPointOverwriteSalesChannels = null;
+            this.entryPointOverwriteChannels = null;
         },
 
         confirmEntryPointOverwrite() {
-            this.entryPointOverwriteSalesChannels = null;
+            this.entryPointOverwriteChannels = null;
             this.entryPointOverwriteConfirmed = true;
             this.$nextTick(() => {
                 this.onSave();
@@ -739,8 +739,8 @@ export default {
             }
 
             if (this.landingPageId !== 'create') {
-                if (this.landingPage.salesChannels.length === 0) {
-                    this.addLandingPageSalesChannelError();
+                if (this.landingPage.channels.length === 0) {
+                    this.addLandingPageChannelError();
 
                     return Promise.resolve();
                 }
@@ -765,8 +765,8 @@ export default {
                 .catch(() => {
                     this.isLoading = false;
 
-                    if (this.landingPage.salesChannels.length === 0) {
-                        this.addLandingPageSalesChannelError();
+                    if (this.landingPage.channels.length === 0) {
+                        this.addLandingPageChannelError();
 
                         return;
                     }
@@ -777,7 +777,7 @@ export default {
                 });
         },
 
-        addLandingPageSalesChannelError() {
+        addLandingPageChannelError() {
             const heyframeError = new HeyFrame.Classes.HeyFrameError({
                 code: 'landing_page_channel_blank',
                 detail: 'This value should not be blank.',
@@ -785,7 +785,7 @@ export default {
             });
 
             HeyFrame.Store.get('error').addApiError({
-                expression: `landing_page.${this.landingPage.id}.salesChannels`,
+                expression: `landing_page.${this.landingPage.id}.channels`,
                 error: heyframeError,
             });
 

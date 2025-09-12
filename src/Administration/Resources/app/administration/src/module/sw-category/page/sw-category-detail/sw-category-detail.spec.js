@@ -62,9 +62,9 @@ describe('src/module/sw-category/page/sw-category-detail', () => {
                             get: () =>
                                 Promise.resolve({
                                     slotConfig: '',
-                                    navigationSalesChannels: [],
-                                    footerSalesChannels: [],
-                                    serviceSalesChannels: [],
+                                    navigationChannels: [],
+                                    footerChannels: [],
+                                    serviceChannels: [],
                                 }),
                         }),
                     },
@@ -212,9 +212,9 @@ describe('src/module/sw-category/page/sw-category-detail', () => {
         HeyFrame.Store.get('swCategoryDetail').category = {
             slotConfig: '',
             cmsPageId: 'foo',
-            navigationSalesChannels: [],
-            footerSalesChannels: [],
-            serviceSalesChannels: [],
+            navigationChannels: [],
+            footerChannels: [],
+            serviceChannels: [],
         };
 
         await wrapper.setData({

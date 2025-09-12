@@ -7,7 +7,7 @@
         v-if="showPromotionModal"
         :is-loading="isLoading"
         :currency="currency"
-        :sales-channel-id="salesChannelId"
+        :channel-id="channelId"
         @close="onClosePromotionModal"
         @save="onSavePromotionModal"
     />
@@ -148,11 +148,11 @@
 
             {% block sw_order_create_details__order_channel %}
             <sw-entity-single-select
-                v-model:value="salesChannelId"
+                v-model:value="channelId"
                 disabled
                 entity="channel"
-                class="sw-order-create-options__sales-channel"
-                :label="$tc('sw-order.createBase.labelSalesChannel')"
+                class="sw-order-create-options__channel"
+                :label="$tc('sw-order.createBase.labelChannel')"
                 required
             />
             {% endblock %}

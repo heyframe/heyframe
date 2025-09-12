@@ -32,7 +32,7 @@ async function createWrapper() {
                                 entity: 'review',
                                 customerId: 'd4c3b2a1',
                                 productId: 'd4c3b2a1',
-                                salesChannelId: 'd4c3b2a1',
+                                channelId: 'd4c3b2a1',
                                 customer: {
                                     name: 'Customer Number 1',
                                 },
@@ -42,7 +42,7 @@ async function createWrapper() {
                                         name: 'Product Number 1',
                                     },
                                 },
-                                salesChannel: {
+                                channel: {
                                     name: 'Channel Number 1',
                                     translated: {
                                         name: 'Channel Number 1',

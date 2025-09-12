@@ -35,8 +35,8 @@ export default {
             noEntityError: [],
             variableStores: {},
             seoUrlTemplateRepository: {},
-            salesChannelId: null,
-            salesChannels: [],
+            channelId: null,
+            channels: [],
             selectedProperty: null,
         };
     },
@@ -44,21 +44,21 @@ export default {
     computed: {
         ...mapCollectionPropertyErrors('seoUrlTemplates', ['template']),
 
-        salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+        channelRepository() {
+            return this.repositoryFactory.create('channel');
         },
 
-        salesChannelIsHeadless() {
-            const currentSalesChannel = this.salesChannels.find((entity) => {
-                return entity.id === this.salesChannelId;
+        channelIsHeadless() {
+            const currentChannel = this.channels.find((entity) => {
+                return entity.id === this.channelId;
             });
 
-            if (!currentSalesChannel) {
+            if (!currentChannel) {
                 return false;
             }
 
             // from Defaults.php
-            return currentSalesChannel.typeId === 'f183ee5650cf4bdb8a774337575067a6';
+            return currentChannel.typeId === 'f183ee5650cf4bdb8a774337575067a6';
         },
     },
 
@@ -87,16 +87,16 @@ export default {
                 Criteria.not('and', [Criteria.equals('path', null)]),
             );
 
-            this.fetchSalesChannels();
+            this.fetchChannels();
             this.fetchSeoUrlTemplates();
         },
-        fetchSeoUrlTemplates(salesChannelId = null) {
+        fetchSeoUrlTemplates(channelId = null) {
             const criteria = new Criteria(1, 25);
 
-            if (!salesChannelId) {
-                salesChannelId = null;
+            if (!channelId) {
+                channelId = null;
             }
-            criteria.addFilter(Criteria.equals('salesChannelId', salesChannelId));
+            criteria.addFilter(Criteria.equals('channelId', channelId));
 
             this.isLoading = true;
 
@@ -107,7 +107,7 @@ export default {
                     }
                 });
 
-                if (!salesChannelId) {
+                if (!channelId) {
                     // Save the defaults as blueprint for creating dynamically new entities
                     response.forEach((entity) => {
                         if (!this.defaultSeoUrlTemplates.has(entity)) {
@@ -115,7 +115,7 @@ export default {
                         }
                     });
                 } else {
-                    this.createSeoUrlTemplatesFromDefaultRoutes(salesChannelId);
+                    this.createSeoUrlTemplatesFromDefaultRoutes(channelId);
                 }
                 this.isLoading = false;
 
@@ -132,18 +132,18 @@ export default {
                 });
             });
         },
-        createSeoUrlTemplatesFromDefaultRoutes(salesChannelId) {
+        createSeoUrlTemplatesFromDefaultRoutes(channelId) {
             // Iterate over the default seo url templates and create new entities for the actual sales channel
             // if they do not exist
             this.defaultSeoUrlTemplates.forEach((defaultEntity) => {
                 const entityAlreadyExists = this.seoUrlTemplates.some((entity) => {
-                    return entity.routeName === defaultEntity.routeName && entity.salesChannelId === salesChannelId;
+                    return entity.routeName === defaultEntity.routeName && entity.channelId === channelId;
                 });
 
                 if (!entityAlreadyExists) {
                     const entity = this.seoUrlTemplateRepository.create();
                     entity.routeName = defaultEntity.routeName;
-                    entity.salesChannelId = salesChannelId;
+                    entity.channelId = channelId;
                     entity.entityName = defaultEntity.entityName;
                     entity.template = null;
                     this.seoUrlTemplates.add(entity);
@@ -187,7 +187,7 @@ export default {
             return seoUrlTemplate.routeName;
         },
         getPlaceholder(seoUrlTemplate) {
-            if (!seoUrlTemplate.salesChannelId) {
+            if (!seoUrlTemplate.channelId) {
                 return null;
             }
 
@@ -222,7 +222,7 @@ export default {
                         HeyFrame.Context.api,
                         new Criteria(1, 25),
                     );
-                    this.fetchSeoUrlTemplates(this.salesChannelId);
+                    this.fetchSeoUrlTemplates(this.channelId);
                     this.createSaveSuccessNotification();
                 })
                 .catch(() => {
@@ -309,18 +309,18 @@ export default {
                     this.previewLoadingStates[entity.id] = false;
                 });
         },
-        fetchSalesChannels() {
-            this.salesChannelRepository.search(new Criteria(1, 25)).then((response) => {
-                this.salesChannels = response;
+        fetchChannels() {
+            this.channelRepository.search(new Criteria(1, 25)).then((response) => {
+                this.channels = response;
             });
         },
-        onSalesChannelChanged(salesChannelId) {
-            this.salesChannelId = salesChannelId;
-            this.fetchSeoUrlTemplates(salesChannelId);
+        onChannelChanged(channelId) {
+            this.channelId = channelId;
+            this.fetchSeoUrlTemplates(channelId);
         },
-        getTemplatesForSalesChannel(salesChannelId) {
+        getTemplatesForChannel(channelId) {
             return this.seoUrlTemplates.filter((templateEntity) => {
-                return templateEntity.salesChannelId === salesChannelId;
+                return templateEntity.channelId === channelId;
             });
         },
     },

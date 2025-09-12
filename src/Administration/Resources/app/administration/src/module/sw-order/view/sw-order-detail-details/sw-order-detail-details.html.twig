@@ -72,7 +72,7 @@
             v-model:value="delivery.shippingMethodId"
             entity="shipping_method"
             disabled
-            :criteria="salesChannelCriteria"
+            :criteria="channelCriteria"
             :label="$tc('sw-order.createBase.detailsFooter.labelShippingMethod')"
             :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderShippingMethod')"
             show-clearable-button
@@ -166,11 +166,11 @@
 
         {% block sw_order_detail_details_order_channel %}
         <sw-entity-single-select
-            v-model:value="order.salesChannelId"
+            v-model:value="order.channelId"
             entity="channel"
             disabled
-            :label="$tc('sw-order.createBase.detailsFooter.labelSalesChannel')"
-            :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderSalesChannel')"
+            :label="$tc('sw-order.createBase.detailsFooter.labelChannel')"
+            :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderChannel')"
             show-clearable-button
         />
         {% endblock %}
@@ -180,7 +180,7 @@
             v-model:value="order.languageId"
             entity="language"
             disabled
-            :criteria="salesChannelCriteria"
+            :criteria="channelCriteria"
             :label="$tc('sw-order.createBase.detailsFooter.labelOrderLanguage')"
             :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderOrderLanguage')"
             show-clearable-button

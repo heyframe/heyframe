@@ -34,8 +34,8 @@ async function createWrapper() {
                         'disabled',
                     ],
                 },
-                'sw-promotion-v2-sales-channel-select': {
-                    template: '<input type="select" class="sw-field sw-promotion-v2-sales-channel-select"></input>',
+                'sw-promotion-v2-channel-select': {
+                    template: '<input type="select" class="sw-field sw-promotion-v2-channel-select"></input>',
                     props: [
                         'value',
                         'disabled',
@@ -89,13 +89,13 @@ async function createWrapper() {
                 apiAlias: null,
                 id: 'promotionId',
                 setgroups: [],
-                salesChannels: [
+                channels: [
                     {
                         promotionId: 'promotionId',
-                        salesChannelId: 'salesChannelId',
+                        channelId: 'channelId',
                         priority: 1,
                         createdAt: '2020-08-17T13:24:52.692+00:00',
-                        id: 'promotionSalesChannelId',
+                        id: 'promotionChannelId',
                     },
                 ],
                 discounts: [],

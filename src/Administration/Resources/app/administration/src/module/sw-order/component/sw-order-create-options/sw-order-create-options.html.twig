@@ -29,7 +29,7 @@
             v-model:value="context.languageId"
             entity="language"
             class="sw-order-create-options__order-language"
-            :criteria="salesChannelCriteria"
+            :criteria="channelCriteria"
             :label="$tc('sw-order.createBase.labelOrderLanguage')"
             :placeholder="$tc('sw-order.createBase.placeholderOrderLanguage')"
             show-clearable-button
@@ -96,7 +96,7 @@
             v-model:value="context.currencyId"
             class="sw-order-create-options__currency-select"
             entity="currency"
-            :criteria="salesChannelCriteria"
+            :criteria="channelCriteria"
             :label="$tc('sw-order.createBase.labelCurrency')"
             :placeholder="$tc('sw-order.createBase.placeholderCurrency')"
             show-clearable-button

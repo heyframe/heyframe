@@ -401,7 +401,7 @@
         "customer_address": "Address",
         "customer_group": "Customer group",
         "customer_group_translation": "Customer group translation",
-        "customer_group_registration_channels": "Sales Channel for customer group registrations",
+        "customer_group_registration_channels": "Channel for customer group registrations",
         "customer_recovery": "Recovery",
         "customer_tag": "Tag"
       }
@@ -419,7 +419,7 @@
       "entities": {
         "document": "Document",
         "document_base_config": "Basic config",
-        "document_base_config_channel": "Basic config for Sales Channels",
+        "document_base_config_channel": "Basic config for Channels",
         "document_type": "Type",
         "document_type_translation": "Type translation"
       }
@@ -451,7 +451,7 @@
         "mail_template": "Email template",
         "mail_template_translation": "Email template translation",
         "mail_template_media": "Media",
-        "mail_template_channel": "Sales Channel",
+        "mail_template_channel": "Channel",
         "mail_template_type": "Type",
         "mail_template_type_translation": "Type translation"
       }
@@ -552,7 +552,7 @@
         "promotion_order_rule": "Order rule",
         "promotion_persona_customer": "Persona customer",
         "promotion_persona_rule": "Persona rule",
-        "promotion_channel": "Sales Channel",
+        "promotion_channel": "Channel",
         "promotion_setgroup": "Promotion set group",
         "promotion_setgroup_rule": "Promotion set group rule"
       }
@@ -565,9 +565,9 @@
       }
     },
     "channel": {
-      "title": "Sales Channels",
+      "title": "Channels",
       "entities": {
-        "channel": "Sales Channel",
+        "channel": "Channel",
         "channel_analytics": "Analytics",
         "channel_country": "Country",
         "channel_currency": "Currency",
@@ -575,9 +575,9 @@
         "channel_language": "Language",
         "channel_payment_method": "Payment method",
         "channel_shipping_method": "Shipping method",
-        "channel_translation": "Sales Channel translation",
-        "channel_type": "Sales Channel type",
-        "channel_type_translation": "Sales Channel type translation"
+        "channel_translation": "Channel translation",
+        "channel_type": "Channel type",
+        "channel_type_translation": "Channel type translation"
       }
     },
     "settings": {
@@ -591,7 +591,7 @@
         "locale": "Locale",
         "locale_translation": "Locale translation",
         "number_range": "Number range",
-        "number_range_channel": "Number range Sales Channel",
+        "number_range_channel": "Number range Channel",
         "number_range_state": "Number range state",
         "number_range_type": "Number range type",
         "salutation": "Salutation",
@@ -615,7 +615,7 @@
     "social_shopping": {
       "title": "Social shopping",
       "entities": {
-        "swag_social_shopping_channel": "Sales Channel",
+        "swag_social_shopping_channel": "Channel",
         "swag_social_shopping_product_error": "Product error"
       }
     },
@@ -631,7 +631,7 @@
         "theme": "Theme",
         "theme_translation": "Theme translation",
         "theme_media": "Media",
-        "theme_channel": "Sales Channel"
+        "theme_channel": "Channel"
       }
     },
     "additional_privileges": {

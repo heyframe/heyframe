@@ -151,7 +151,7 @@ export default {
 
             const { number } = await this.numberRangeService.reserve(
                 `document_${technicalName}`,
-                this.order.salesChannelId,
+                this.order.channelId,
                 isPreview,
             );
 

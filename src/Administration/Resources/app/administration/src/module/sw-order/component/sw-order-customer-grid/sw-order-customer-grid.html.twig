@@ -82,8 +82,8 @@
                 </template>
                 {% endblock %}
 
-                <template #column-salesChannel="{ item }">
-                    {{ item.boundSalesChannelId ? item?.boundSalesChannel.translated.name : $tc('sw-order.initialModal.customerGrid.labelAllChannel') }}
+                <template #column-channel="{ item }">
+                    {{ item.boundChannelId ? item?.boundChannel.translated.name : $tc('sw-order.initialModal.customerGrid.labelAllChannel') }}
                 </template>
 
                 {% block sw_settings_product_feature_set_list_grid_columns_actions %}
@@ -129,37 +129,37 @@
 
         {% block sw_order_customer_grid_channel_select_modal %}
         <sw-modal
-            v-if="showSalesChannelSelectModal"
-            class="sw-order-customer-grid__sales-channel-selection-modal"
-            :title="$tc('sw-order.initialModal.customerGrid.titleSelectSalesChannel')"
-            @modal-close="onCloseSalesChannelSelectModal"
+            v-if="showChannelSelectModal"
+            class="sw-order-customer-grid__channel-selection-modal"
+            :title="$tc('sw-order.initialModal.customerGrid.titleSelectChannel')"
+            @modal-close="onCloseChannelSelectModal"
         >
             <template #default>
                 {% block sw_order_customer_grid_channel_description %}
-                <p class="sw-order-customer-grid__sales-channel-selection--description">
-                    {{ $tc('sw-order.initialModal.customerGrid.descriptionSelectSalesChannel') }}
+                <p class="sw-order-customer-grid__channel-selection--description">
+                    {{ $tc('sw-order.initialModal.customerGrid.descriptionSelectChannel') }}
                 </p>
                 {% endblock %}
 
                 {% block sw_order_customer_grid_channel_select %}
                 <sw-entity-single-select
-                    class="sw-order-customer-grid__sales-channel-selection"
+                    class="sw-order-customer-grid__channel-selection"
                     entity="channel"
-                    :criteria="salesChannelCriteria"
-                    :label="$tc('sw-order.initialModal.customerGrid.labelSalesChannel')"
-                    :placeholder="$tc('sw-order.initialModal.customerGrid.placeholderSalesChannel')"
-                    :value="customer.salesChannelId"
-                    @update:value="onSalesChannelChange"
+                    :criteria="channelCriteria"
+                    :label="$tc('sw-order.initialModal.customerGrid.labelChannel')"
+                    :placeholder="$tc('sw-order.initialModal.customerGrid.placeholderChannel')"
+                    :value="customer.channelId"
+                    @update:value="onChannelChange"
                 />
                 {% endblock %}
 
                 {% block sw_order_customer_grid_channel_notification_alert %}
                 <mt-banner
-                    class="sw-order-customer-grid__sales-channel-selection--notification-alert"
+                    class="sw-order-customer-grid__channel-selection--notification-alert"
                     variant="attention"
                     :show-icon="false"
                 >
-                    {{ $tc('sw-order.initialModal.customerGrid.alertSelectSalesChannel') }}
+                    {{ $tc('sw-order.initialModal.customerGrid.alertSelectChannel') }}
                 </mt-banner>
                 {% endblock %}
             </template>
@@ -169,7 +169,7 @@
                 <mt-button
                     size="small"
                     variant="secondary"
-                    @click="onCloseSalesChannelSelectModal"
+                    @click="onCloseChannelSelectModal"
                 >
                     {{ $tc('global.default.cancel') }}
                 </mt-button>
@@ -180,10 +180,10 @@
                     size="small"
                     variant="primary"
                     :is-loading="isLoading"
-                    :disabled="isSelectSalesChannelDisabled"
-                    @click="onSelectSalesChannel"
+                    :disabled="isSelectChannelDisabled"
+                    @click="onSelectChannel"
                 >
-                    {{ $tc('sw-order.initialModal.customerGrid.buttonSelectSalesChannel') }}
+                    {{ $tc('sw-order.initialModal.customerGrid.buttonSelectChannel') }}
                 </mt-button>
                 {% endblock %}
             </template>
@@ -195,7 +195,7 @@
             v-if="showCustomerChangesModal"
             class="sw-order-customer-grid__customer-changes-modal"
             :title="$tc('sw-order.initialModal.customerGrid.titleCustomerChanges')"
-            @modal-close="onCloseSalesChannelSelectModal"
+            @modal-close="onCloseChannelSelectModal"
         >
             <template #default>
                 {% block sw_order_customer_grid_customer_changes_modal_description %}

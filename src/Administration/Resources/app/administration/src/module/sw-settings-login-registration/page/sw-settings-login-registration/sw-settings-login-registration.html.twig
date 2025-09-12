@@ -64,7 +64,7 @@
                 {% block sw_setting_login_registration_system_config %}
                 <sw-system-config
                     ref="systemConfig"
-                    sales-channel-switchable
+                    channel-switchable
                     domain="core.loginRegistration"
                     @loading-changed="onLoginRegistrationLoadingChanged"
                 />
@@ -73,7 +73,7 @@
                 {% block sw_setting_login_registration_system_wide %}
                 <sw-system-config
                     ref="systemConfigSystemWide"
-                    :sales-channel-switchable="false"
+                    :channel-switchable="false"
                     domain="core.systemWideLoginRegistration"
                     @loading-changed="onSystemWideLoadingChanged"
                 />

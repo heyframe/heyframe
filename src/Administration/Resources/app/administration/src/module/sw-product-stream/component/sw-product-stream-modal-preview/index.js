@@ -43,7 +43,7 @@ export default {
     data() {
         return {
             products: [],
-            selectedSalesChannel: null,
+            selectedChannel: null,
             searchTerm: '',
             page: 1,
             total: false,
@@ -56,11 +56,11 @@ export default {
     },
 
     computed: {
-        salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+        channelRepository() {
+            return this.repositoryFactory.create('channel');
         },
 
-        salesChannelCriteria() {
+        channelCriteria() {
             return new Criteria(1, 1)
                 .addFilter(
                     Criteria.not('OR', [
@@ -145,7 +145,7 @@ export default {
         createdComponent() {
             this.isLoading = true;
 
-            return this.loadSalesChannels()
+            return this.loadChannels()
                 .then(() => {
                     return this.loadEntityData();
                 })
@@ -163,10 +163,10 @@ export default {
             });
         },
 
-        onSalesChannelChange() {
+        onChannelChange() {
             this.page = 1;
             this.isLoading = true;
-            this.loadSalesChannelById()
+            this.loadChannelById()
                 .then(() => {
                     return this.loadEntityData();
                 })
@@ -176,12 +176,12 @@ export default {
         },
 
         loadEntityData() {
-            if (!this.selectedSalesChannel) {
+            if (!this.selectedChannel) {
                 return false;
             }
 
             return this.productStreamPreviewService
-                .preview(this.selectedSalesChannel, this.previewCriteria, this.mapFiltersForSearch(this.filters), {
+                .preview(this.selectedChannel, this.previewCriteria, this.mapFiltersForSearch(this.filters), {
                     'sw-currency-id': this.selectedCurrencyId,
                     'sw-inheritance': true,
                 })
@@ -191,9 +191,9 @@ export default {
                 });
         },
 
-        loadSalesChannels() {
-            return this.salesChannelRepository.searchIds(this.salesChannelCriteria).then(({ data }) => {
-                this.selectedSalesChannel = data.at(0);
+        loadChannels() {
+            return this.channelRepository.searchIds(this.channelCriteria).then(({ data }) => {
+                this.selectedChannel = data.at(0);
             });
         },
 
@@ -260,20 +260,20 @@ export default {
             });
         },
 
-        loadSalesChannelById() {
-            if (this.selectedSalesChannel === null) {
+        loadChannelById() {
+            if (this.selectedChannel === null) {
                 return Promise.resolve();
             }
 
-            const criteria = this.salesChannelCriteria;
+            const criteria = this.channelCriteria;
 
             criteria.addAssociation('currency');
 
-            return this.salesChannelRepository
-                .get(this.selectedSalesChannel, HeyFrame.Context.api, this.salesChannelCriteria)
-                .then((salesChannel) => {
-                    this.selectedCurrencyIsoCode = salesChannel.currency.isoCode;
-                    this.selectedCurrencyId = salesChannel.currencyId;
+            return this.channelRepository
+                .get(this.selectedChannel, HeyFrame.Context.api, this.channelCriteria)
+                .then((channel) => {
+                    this.selectedCurrencyIsoCode = channel.currency.isoCode;
+                    this.selectedCurrencyId = channel.currencyId;
                 });
         },
 

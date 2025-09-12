@@ -190,7 +190,7 @@ describe('module/sw-flow/component/sw-flow-set-entity-custom-field-modal', () =>
             mailAware: true,
             name: 'checkout.order.place',
             orderAware: true,
-            salesChannelAware: true,
+            channelAware: true,
             userAware: false,
             webhookAware: true,
         };

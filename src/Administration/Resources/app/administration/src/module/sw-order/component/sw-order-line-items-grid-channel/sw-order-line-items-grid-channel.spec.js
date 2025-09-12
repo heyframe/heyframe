@@ -128,7 +128,7 @@ const mockMultipleTaxesItem = {
 
 async function createWrapper() {
     return mount(
-        await wrapTestComponent('sw-order-line-items-grid-sales-channel', {
+        await wrapTestComponent('sw-order-line-items-grid-channel', {
             sync: true,
         }),
         {
@@ -144,7 +144,7 @@ async function createWrapper() {
                     isoCode: 'EUR',
                     symbol: '€',
                 },
-                salesChannelId: '',
+                channelId: '',
             },
             global: {
                 directives: {
@@ -229,7 +229,7 @@ async function createWrapper() {
     );
 }
 
-describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel', () => {
+describe('src/module/sw-order/component/sw-order-line-items-grid-channel', () => {
     it('should show empty state when there is not item', async () => {
         const wrapper = await createWrapper({});
 
@@ -279,7 +279,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
         });
 
         const creditTax = wrapper.find('.sw-data-grid__row--2').find('.sw-data-grid__cell--tax');
-        const creditTaxTooltip = creditTax.find('.sw-order-line-items-grid-sales-channel__item-tax-tooltip');
+        const creditTaxTooltip = creditTax.find('.sw-order-line-items-grid-channel__item-tax-tooltip');
 
         expect(creditTaxTooltip.exists()).toBeFalsy();
     });
@@ -294,7 +294,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
         });
 
         const creditTax = wrapper.find('.sw-data-grid__row--0').find('.sw-data-grid__cell--tax');
-        const taxDetailTooltip = creditTax.find('.sw-order-line-items-grid-sales-channel__item-tax-tooltip');
+        const taxDetailTooltip = creditTax.find('.sw-order-line-items-grid-channel__item-tax-tooltip');
 
         expect(taxDetailTooltip.isVisible()).toBeTruthy();
     });
@@ -308,7 +308,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
             },
         });
 
-        const taxDetailTooltip = wrapper.find('.sw-order-line-items-grid-sales-channel__item-tax-tooltip');
+        const taxDetailTooltip = wrapper.find('.sw-order-line-items-grid-channel__item-tax-tooltip');
 
         expect(taxDetailTooltip.attributes()['tooltip-message']).toBe(
             'sw-order.createBase.tax<br>10%: -€3.33<br>20%: -€13.33',
@@ -430,7 +430,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
         let itemRows = wrapper.findAll('.sw-data-grid__body .sw-data-grid__row');
         expect(itemRows).toHaveLength(0);
 
-        const buttonAddItem = wrapper.find('.sw-order-line-items-grid-sales-channel__add-product');
+        const buttonAddItem = wrapper.find('.sw-order-line-items-grid-channel__add-product');
         await buttonAddItem.trigger('click');
 
         itemRows = wrapper.findAll('.sw-data-grid__body .sw-data-grid__row');
@@ -453,7 +453,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
             },
             isCustomerActive: true,
         });
-        const buttonAddItem = wrapper.find('.sw-order-line-items-grid-sales-channel__add-product');
+        const buttonAddItem = wrapper.find('.sw-order-line-items-grid-channel__add-product');
         await buttonAddItem.trigger('click');
 
         const itemRows = wrapper.findAll('.sw-data-grid__body .sw-data-grid__row');
@@ -490,7 +490,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
             },
             isCustomerActive: true,
         });
-        const buttonAddCustomItem = wrapper.find('.sw-order-line-items-grid-sales-channel__add-custom-item');
+        const buttonAddCustomItem = wrapper.find('.sw-order-line-items-grid-channel__add-custom-item');
         await buttonAddCustomItem.trigger('click');
 
         const itemRows = wrapper.findAll('.sw-data-grid__body .sw-data-grid__row');
@@ -520,7 +520,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
             },
             isCustomerActive: true,
         });
-        const buttonAddCreditItem = wrapper.find('.sw-order-line-items-grid-sales-channel__add-credit-item');
+        const buttonAddCreditItem = wrapper.find('.sw-order-line-items-grid-channel__add-credit-item');
         await buttonAddCreditItem.trigger('click');
 
         const itemRows = wrapper.findAll('.sw-data-grid__body .sw-data-grid__row');
@@ -550,7 +550,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
             },
             isCustomerActive: true,
         });
-        const buttonAddCreditItem = wrapper.find('.sw-order-line-items-grid-sales-channel__add-product');
+        const buttonAddCreditItem = wrapper.find('.sw-order-line-items-grid-channel__add-product');
         await buttonAddCreditItem.trigger('click');
 
         const itemRows = wrapper.findAll('.sw-data-grid__body .sw-data-grid__row');
@@ -578,7 +578,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
             },
             isCustomerActive: true,
         });
-        const buttonAddCreditItem = wrapper.find('.sw-order-line-items-grid-sales-channel__add-credit-item');
+        const buttonAddCreditItem = wrapper.find('.sw-order-line-items-grid-channel__add-credit-item');
         await buttonAddCreditItem.trigger('click');
         expect(HeyFrame.Store.get('swOrder').cart.lineItems).toHaveLength(1);
 
@@ -604,7 +604,7 @@ describe('src/module/sw-order/component/sw-order-line-items-grid-sales-channel',
             },
             isCustomerActive: true,
         });
-        const buttonAddCreditItem = wrapper.find('.sw-order-line-items-grid-sales-channel__add-credit-item');
+        const buttonAddCreditItem = wrapper.find('.sw-order-line-items-grid-channel__add-credit-item');
         await buttonAddCreditItem.trigger('click');
 
         const itemRows = wrapper.findAll('.sw-data-grid__body .sw-data-grid__row');

@@ -85,11 +85,11 @@
                     :is="Component"
                     :is-loading="isLoading"
                     :product-search-configs="productSearchConfigs"
-                    :current-sales-channel-id="currentSalesChannelId"
+                    :current-channel-id="currentChannelId"
                     :search-terms="searchTerms"
                     :search-results="searchResults"
                     @edit-change="onEditChanged"
-                    @sales-channel-change="onSalesChannelChanged"
+                    @channel-change="onChannelChanged"
                     @live-search-results-change="onLiveSearchResultsChanged"
                     @excluded-search-terms-load="getProductSearchConfigs"
                 />

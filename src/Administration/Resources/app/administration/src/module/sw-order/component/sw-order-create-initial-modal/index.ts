@@ -1,7 +1,7 @@
 import template from './sw-order-create-initial-modal.html.twig';
 import './sw-order-create-initial-modal.scss';
 
-import type { Cart, LineItem, SalesChannelContext, ContextSwitchParameters, CartDelivery } from '../../order.types';
+import type { Cart, LineItem, ChannelContext, ContextSwitchParameters, CartDelivery } from '../../order.types';
 
 import { LineItemType } from '../../order.types';
 
@@ -52,16 +52,16 @@ export default Component.wrapComponentConfig({
     },
 
     computed: {
-        salesChannelId(): string {
-            return this.customer?.salesChannelId ?? '';
+        channelId(): string {
+            return this.customer?.channelId ?? '';
         },
 
-        salesChannelContext(): SalesChannelContext {
+        channelContext(): ChannelContext {
             return Store.get('swOrder').context;
         },
 
         currency(): Entity<'currency'> {
-            return this.salesChannelContext.currency;
+            return this.channelContext.currency;
         },
 
         cart(): Cart {
@@ -92,7 +92,7 @@ export default Component.wrapComponentConfig({
     },
 
     watch: {
-        salesChannelContext(value: SalesChannelContext): void {
+        channelContext(value: ChannelContext): void {
             // Update context after switching customer successfully
             this.context = {
                 ...this.context,
@@ -157,7 +157,7 @@ export default Component.wrapComponentConfig({
 
             try {
                 await Store.get('swOrder').saveLineItem({
-                    salesChannelId: this.salesChannelId,
+                    channelId: this.channelId,
                     contextToken: this.cart.token,
                     item,
                 });
@@ -170,7 +170,7 @@ export default Component.wrapComponentConfig({
             if (!this.customer) return;
 
             await Store.get('swOrder').saveMultipleLineItems({
-                salesChannelId: this.customer?.salesChannelId,
+                channelId: this.customer?.channelId,
                 contextToken: this.cart.token,
                 items: this.promotionCodeItems as unknown as LineItem[],
             });
@@ -185,7 +185,7 @@ export default Component.wrapComponentConfig({
 
             try {
                 await Store.get('swOrder').removeLineItems({
-                    salesChannelId: this.salesChannelId,
+                    channelId: this.channelId,
                     contextToken: this.cart.token,
                     lineItemKeys: lineItemKeys,
                 });
@@ -205,13 +205,13 @@ export default Component.wrapComponentConfig({
         async updateOrderContext(): Promise<void> {
             await Store.get('swOrder').updateOrderContext({
                 context: this.context,
-                salesChannelId: this.salesChannelId,
+                channelId: this.channelId,
                 contextToken: this.cart.token,
             });
         },
 
         disableAutoAppliedPromotions(): Promise<void> {
-            const additionalParams = { salesChannelId: this.salesChannelId };
+            const additionalParams = { channelId: this.channelId };
 
             return Service('cartStoreService')
                 .disableAutomaticPromotions(this.cart.token, additionalParams)
@@ -232,7 +232,7 @@ export default Component.wrapComponentConfig({
             if (!this.customer) return;
 
             await Store.get('swOrder').modifyShippingCosts({
-                salesChannelId: this.customer?.salesChannelId,
+                channelId: this.customer?.channelId,
                 contextToken: this.cart.token,
                 shippingCosts: this.cartDelivery?.shippingCosts,
             });
@@ -240,7 +240,7 @@ export default Component.wrapComponentConfig({
 
         cancelCart(): Promise<void> {
             return Store.get('swOrder').cancelCart({
-                salesChannelId: this.salesChannelId,
+                channelId: this.channelId,
                 contextToken: this.cart.token,
             });
         },

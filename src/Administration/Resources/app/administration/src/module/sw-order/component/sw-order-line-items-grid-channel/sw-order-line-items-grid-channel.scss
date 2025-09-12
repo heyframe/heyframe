@@ -4,7 +4,7 @@
 $sw-order-line-item-grid-trash: $color-crimson-500;
 $sw-order-line-item-border: $color-gray-300;
 
-.sw-order-line-items-grid-sales-channel {
+.sw-order-line-items-grid-channel {
     .mt-card__toolbar {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -20,7 +20,7 @@ $sw-order-line-item-border: $color-gray-300;
         height: auto;
     }
 
-    .sw-order-line-items-grid-sales-channel__item-payload-options .sw-product-variant-info {
+    .sw-order-line-items-grid-channel__item-payload-options .sw-product-variant-info {
         white-space: normal;
         text-overflow: unset;
         padding-right: 0;

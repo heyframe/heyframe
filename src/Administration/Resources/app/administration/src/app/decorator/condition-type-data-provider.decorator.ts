@@ -36,9 +36,9 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
         scopes: ['checkout'],
         group: 'customer',
     });
-    ruleConditionService.addCondition('salesChannel', {
+    ruleConditionService.addCondition('channel', {
         component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.salesChannelRule',
+        label: 'global.sw-condition.condition.channelRule',
         scopes: ['global'],
         group: 'general',
     });
@@ -580,9 +580,9 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
         group: 'order',
     });
 
-    ruleConditionService.addCondition('adminSalesChannelSource', {
+    ruleConditionService.addCondition('adminChannelSource', {
         component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.adminSalesChannelSourceRule',
+        label: 'global.sw-condition.condition.adminChannelSourceRule',
         scopes: ['checkout'],
         group: 'order',
     });

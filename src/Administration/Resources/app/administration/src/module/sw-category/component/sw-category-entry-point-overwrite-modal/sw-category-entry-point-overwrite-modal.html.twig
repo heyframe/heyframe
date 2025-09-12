@@ -7,20 +7,20 @@
 >
 
     <p class="sw-confirm-modal__text">
-        {{ $tc('sw-category.entry-point-overwrite-modal.textBefore', {}, salesChannels.length) }}
+        {{ $tc('sw-category.entry-point-overwrite-modal.textBefore', {}, channels.length) }}
     </p>
 
     <ul>
         <li
-            v-for="salesChannel in salesChannels"
-            :key="salesChannel.translated.name"
+            v-for="channel in channels"
+            :key="channel.translated.name"
         >
-            {{ salesChannel.translated.name }}
+            {{ channel.translated.name }}
         </li>
     </ul>
 
     <p class="sw-confirm-modal__text">
-        {{ $tc('sw-category.entry-point-overwrite-modal.textAfter', {}, salesChannels.length) }}
+        {{ $tc('sw-category.entry-point-overwrite-modal.textAfter', {}, channels.length) }}
     </p>
 </sw-confirm-modal>
 {% endblock %}

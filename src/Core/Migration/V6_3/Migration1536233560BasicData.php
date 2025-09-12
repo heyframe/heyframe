@@ -209,8 +209,8 @@ class Migration1536233560BasicData extends MigrationStep
         $storefrontApi = Uuid::fromHexToBytes(Defaults::CHANNEL_TYPE_API);
 
         $connection->insert('channel_type', ['id' => $storefront, 'icon_name' => 'regular-globe', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('channel_type_translation', ['channel_type_id' => $storefront, 'language_id' => $languageEN, 'name' => 'Storefront', 'manufacturer' => 'HeyFrame AG', 'description' => 'Sales channel with HTML storefront', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('channel_type_translation', ['channel_type_id' => $storefront, 'language_id' => $languageZH, 'name' => 'Storefront', 'manufacturer' => 'HeyFrame AG', 'description' => '带有 HTML 网页的渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_type_translation', ['channel_type_id' => $storefront, 'language_id' => $languageEN, 'name' => 'Frontend', 'manufacturer' => 'HeyFrame AG', 'description' => 'Sales channel with HTML storefront', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_type_translation', ['channel_type_id' => $storefront, 'language_id' => $languageZH, 'name' => 'Frontend', 'manufacturer' => 'HeyFrame AG', 'description' => '带有 HTML 网页的渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         $connection->insert('channel_type', ['id' => $storefrontApi, 'icon_name' => 'regular-rocket', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('channel_type_translation', ['channel_type_id' => $storefrontApi, 'language_id' => $languageEN, 'name' => 'Headless', 'manufacturer' => 'HeyFrame AG', 'description' => 'API only channel', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);

@@ -324,7 +324,7 @@ describe('sw-order-document-settings-credit-note-modal', () => {
 
         await wrapper.setProps({
             order: {
-                salesChannelId: 'Headless',
+                channelId: 'Headless',
                 currency: {
                     isoCode: 'USD',
                 },

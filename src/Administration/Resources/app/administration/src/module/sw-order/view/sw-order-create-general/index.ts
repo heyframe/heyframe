@@ -1,5 +1,5 @@
 import template from './sw-order-create-general.html.twig';
-import type { CalculatedTax, CartDelivery, LineItem, Cart, PromotionCodeTag, SalesChannelContext } from '../../order.types';
+import type { CalculatedTax, CartDelivery, LineItem, Cart, PromotionCodeTag, ChannelContext } from '../../order.types';
 
 /**
  * @sw-package checkout
@@ -38,7 +38,7 @@ export default Component.wrapComponentConfig({
             return Store.get('swOrder').context.currency;
         },
 
-        context(): SalesChannelContext {
+        context(): ChannelContext {
             return Store.get('swOrder').context;
         },
 
@@ -147,7 +147,7 @@ export default Component.wrapComponentConfig({
 
             await Store.get('swOrder')
                 .saveLineItem({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                     item,
                 })
@@ -162,7 +162,7 @@ export default Component.wrapComponentConfig({
 
             Store.get('swOrder')
                 .modifyShippingCosts({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                     shippingCosts: this.cartDelivery.shippingCosts,
                 })
@@ -180,7 +180,7 @@ export default Component.wrapComponentConfig({
 
             await Store.get('swOrder')
                 .removeLineItems({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                     lineItemKeys: lineItemKeys,
                 })
@@ -209,7 +209,7 @@ export default Component.wrapComponentConfig({
             if (!this.customer) return;
 
             await Store.get('swOrder').getCart({
-                salesChannelId: this.customer.salesChannelId,
+                channelId: this.customer.channelId,
                 contextToken: this.cart.token,
             });
         },

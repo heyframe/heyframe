@@ -23,7 +23,7 @@ export default {
             type: Object,
             required: true,
         },
-        salesChannelId: {
+        channelId: {
             type: String,
             required: false,
             default: null,
@@ -63,7 +63,7 @@ export default {
 
         disableAutomaticPromotions() {
             this.isLoading = true;
-            const additionalParams = { salesChannelId: this.salesChannelId };
+            const additionalParams = { channelId: this.channelId };
 
             Service('cartStoreService')
                 .disableAutomaticPromotions(this.cart.token, additionalParams)

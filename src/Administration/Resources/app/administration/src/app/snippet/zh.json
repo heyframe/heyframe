@@ -103,7 +103,7 @@
           "message": "媒体文件已索引。 | 还剩 1 个文件... | 还剩 {n} 个文件...",
           "messageSuccess": "媒体文件索引完成。"
         },
-        "salesChannel": {
+        "channel": {
           "title": "正在索引销售渠道",
           "message": "销售渠道已索引。 | 还剩 1 个销售渠道... | 还剩 {n} 个销售渠道...",
           "messageSuccess": "销售渠道索引完成。"
@@ -628,7 +628,7 @@
         "property": "G P R | A P R",
         "manufacturer": "G M | A M",
         "settings-rule": "G S R | A R",
-        "sales-channel": " | A S",
+        "channel": " | A S",
         "cms": "G E | A E",
         "dashboard": "G H | &nbsp;",
         "product-stream": "G D | &nbsp;",
@@ -673,7 +673,7 @@
         },
         "placeholder": "搜索条件...",
         "orderCountRule": "已完成订单数量",
-        "salesChannelRule": "销售渠道",
+        "channelRule": "销售渠道",
         "currencyRule": "货币",
         "languageRule": "语言",
         "customerIsActiveRule": "客户活跃",
@@ -734,7 +734,7 @@
         "orderTrackingCodeRule": "追踪码",
         "orderDeliveryStatusRule": "发货状态（流程）",
         "orderCreatedByAdminRule": "管理员创建订单（流程）",
-        "adminSalesChannelSourceRule": "后台适用",
+        "adminChannelSourceRule": "后台适用",
         "orderTransactionStatusRule": "支付状态",
         "orderStatusRule": "订单状态",
         "orderCustomFieldRule": "带自定义字段订单",
@@ -1315,7 +1315,7 @@
       "warning": "警告"
     }
   },
-  "sw-sales-channel-switch": {
+  "sw-channel-switch": {
     "messageModalUnsavedChanges": "当前销售渠道有未保存的更改。是否要立即保存？",
     "placeholderSelect": "搜索...",
     "titleModalUnsavedChanges": "未保存的更改",

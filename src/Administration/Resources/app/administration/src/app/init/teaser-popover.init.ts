@@ -6,7 +6,7 @@
  */
 
 import 'src/app/store/teaser-popover.store';
-import type { TeaserSalesChannelConfig, TeaserPopoverConfig } from 'src/app/store/teaser-popover.store';
+import type { TeaserChannelConfig, TeaserPopoverConfig } from 'src/app/store/teaser-popover.store';
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 export default function initializeTeaserPopovers(): void {
     const store = HeyFrame.Store.get('teaserPopover');
@@ -14,10 +14,10 @@ export default function initializeTeaserPopovers(): void {
     HeyFrame.ExtensionAPI.handle(
         // @ts-expect-error - There are no types for this as it is private API
         '__upsellingTeaserPopover',
-        (configuration: TeaserSalesChannelConfig | TeaserPopoverConfig) => {
-            if (configuration.positionId === 'sales-channel') {
+        (configuration: TeaserChannelConfig | TeaserPopoverConfig) => {
+            if (configuration.positionId === 'channel') {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-                store.addSalesChannel(configuration as TeaserSalesChannelConfig);
+                store.addChannel(configuration as TeaserChannelConfig);
                 return;
             }
 

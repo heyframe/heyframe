@@ -1,7 +1,7 @@
 /**
  * @sw-package discovery
  */
-import template from './sw-sales-channel-config.html.twig';
+import template from './sw-channel-config.html.twig';
 
 const { Criteria } = HeyFrame.Data;
 
@@ -19,7 +19,7 @@ export default {
 
     emits: [
         'update:value',
-        'salesChannelChanged',
+        'channelChanged',
     ],
 
     props: {
@@ -45,25 +45,25 @@ export default {
     data() {
         return {
             allConfigs: {},
-            selectedSalesChannelId: null,
-            salesChannel: [],
+            selectedChannelId: null,
+            channel: [],
         };
     },
 
     computed: {
         actualConfigData: {
             get() {
-                return this.allConfigs[this.selectedSalesChannelId];
+                return this.allConfigs[this.selectedChannelId];
             },
             set(config) {
                 this.allConfigs = {
                     ...this.allConfigs,
-                    [this.selectedSalesChannelId]: config,
+                    [this.selectedChannelId]: config,
                 };
             },
         },
 
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
     },
@@ -87,20 +87,20 @@ export default {
 
     methods: {
         createdComponent() {
-            if (!this.salesChannel.length) {
-                this.salesChannelRepository.search(this.criteria, HeyFrame.Context.api).then((res) => {
+            if (!this.channel.length) {
+                this.channelRepository.search(this.criteria, HeyFrame.Context.api).then((res) => {
                     res.add({
                         id: null,
                         translated: {
-                            name: this.$tc('sw-sales-channel-switch.labelDefaultOption'),
+                            name: this.$tc('sw-channel-switch.labelDefaultOption'),
                         },
                     });
 
-                    this.salesChannel = res;
+                    this.channel = res;
                 });
             }
 
-            if (this.allConfigs[this.selectedSalesChannelId]) {
+            if (this.allConfigs[this.selectedChannelId]) {
                 return;
             }
 
@@ -112,12 +112,12 @@ export default {
         },
 
         readAll() {
-            return this.systemConfigApiService.getValues(this.domain, this.selectedSalesChannelId);
+            return this.systemConfigApiService.getValues(this.domain, this.selectedChannelId);
         },
 
-        onInput(salesChannelId) {
-            this.selectedSalesChannelId = salesChannelId;
-            this.$emit('salesChannelChanged');
+        onInput(channelId) {
+            this.selectedChannelId = channelId;
+            this.$emit('channelChanged');
             this.createdComponent();
         },
 

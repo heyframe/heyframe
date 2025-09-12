@@ -9,7 +9,7 @@
         :placeholder="$tc('sw-seo-url.placeholderMainCategory')"
         :label="overwriteLabel ? undefined : $tc('sw-seo-url.labelMainCategory')"
         :value="selectedCategory"
-        :disabled="currentSalesChannelId === null || !allowEdit"
+        :disabled="currentChannelId === null || !allowEdit"
         @update:value="onMainCategorySelected"
     />
     {% endblock %}

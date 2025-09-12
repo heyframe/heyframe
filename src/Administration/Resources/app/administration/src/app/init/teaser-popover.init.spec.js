@@ -29,8 +29,8 @@ describe('src/app/init/teaser-popover.init.ts', () => {
         expect(teaserButtonStore.identifier[positionId].props.locationId).toBe('locationId');
 
         await send('__upsellingTeaserPopover', {
-            positionId: 'sales-channel',
-            salesChannel: {
+            positionId: 'channel',
+            channel: {
                 title: 'Facebook',
                 description: 'Sell products on Facebook',
                 iconName: 'facebook',
@@ -45,10 +45,10 @@ describe('src/app/init/teaser-popover.init.ts', () => {
             },
         });
 
-        expect(teaserButtonStore.salesChannels).toHaveLength(1);
-        expect(teaserButtonStore.salesChannels[0]).toStrictEqual({
-            positionId: 'sales-channel',
-            salesChannel: {
+        expect(teaserButtonStore.channels).toHaveLength(1);
+        expect(teaserButtonStore.channels[0]).toStrictEqual({
+            positionId: 'channel',
+            channel: {
                 title: 'Facebook',
                 description: 'Sell products on Facebook',
                 iconName: 'facebook',

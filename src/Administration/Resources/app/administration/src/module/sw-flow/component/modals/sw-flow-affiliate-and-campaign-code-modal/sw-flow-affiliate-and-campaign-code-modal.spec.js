@@ -121,7 +121,7 @@ describe('module/sw-flow/component/sw-flow-affiliate-and-campaign-code-modal', (
             mailAware: true,
             name: 'checkout.customer.login',
             orderAware: false,
-            salesChannelAware: true,
+            channelAware: true,
             userAware: false,
             webhookAware: true,
         };

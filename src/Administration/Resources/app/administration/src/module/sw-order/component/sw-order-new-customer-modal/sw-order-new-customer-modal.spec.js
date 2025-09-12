@@ -157,7 +157,7 @@ describe('src/module/sw-order/component/sw-order-new-customer-modal', () => {
                 email: 'user@domain.com',
                 accountType: 'business',
                 password: 'heyframe',
-                salesChannelId: 'a7921464677a4ef591683d144beecd24',
+                channelId: 'a7921464677a4ef591683d144beecd24',
                 company: 'HeyFrame',
             },
         });
@@ -198,7 +198,7 @@ describe('src/module/sw-order/component/sw-order-new-customer-modal', () => {
                 email: 'user@domain.com',
                 accountType: 'business',
                 password: 'heyframe',
-                salesChannelId: 'a7921464677a4ef591683d144beecd24',
+                channelId: 'a7921464677a4ef591683d144beecd24',
                 company: 'HeyFrame',
             },
         });

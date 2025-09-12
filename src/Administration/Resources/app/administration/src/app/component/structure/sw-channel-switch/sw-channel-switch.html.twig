@@ -1,14 +1,14 @@
 {% block sw_channel_switch %}
-<div class="sw-sales-channel-switch">
+<div class="sw-channel-switch">
     {% block sw_channel_switch_modal %}
     <sw-modal
         v-if="showUnsavedChangesModal"
-        :title="$tc('sw-sales-channel-switch.titleModalUnsavedChanges')"
+        :title="$tc('sw-channel-switch.titleModalUnsavedChanges')"
         variant="small"
         @modal-close="onCloseChangesModal"
     >
         {% block sw_channel_switch_message %}
-        <p>{{ $tc('sw-sales-channel-switch.messageModalUnsavedChanges') }}</p>
+        <p>{{ $tc('sw-channel-switch.messageModalUnsavedChanges') }}</p>
         {% endblock %}
         {% block sw_channel_switch_footer %}
         <template #modal-footer>
@@ -28,7 +28,7 @@
                 variant="secondary"
                 @click="onClickRevertUnsavedChanges"
             >
-                {{ $tc('sw-sales-channel-switch.titleModalButtonRevertUnsavedChanges') }}
+                {{ $tc('sw-channel-switch.titleModalButtonRevertUnsavedChanges') }}
             </mt-button>
             {% endblock %}
 
@@ -47,14 +47,14 @@
     {% endblock %}
     {% block sw_channel_switch_select %}
     <sw-entity-single-select
-        id="salesChannelSelect"
-        ref="salesChannelSelect"
+        id="channelSelect"
+        ref="channelSelect"
         :disabled="disabled"
-        :placeholder="$tc('sw-sales-channel-switch.labelDefaultOption')"
+        :placeholder="$tc('sw-channel-switch.labelDefaultOption')"
         :label="label"
-        :search-placeholder="$tc('sw-sales-channel-switch.placeholderSelect')"
-        :reset-option="$tc('sw-sales-channel-switch.labelDefaultOption')"
-        :value="salesChannelId"
+        :search-placeholder="$tc('sw-channel-switch.placeholderSelect')"
+        :reset-option="$tc('sw-channel-switch.labelDefaultOption')"
+        :value="channelId"
         entity="channel"
         show-clearable-button
         @update:value="onChange"

@@ -34,7 +34,7 @@ function mockMailTemplateData() {
         {
             id: 'mailTemplate1',
             description: 'HeyFrame default template',
-            subject: 'Your order with {{ salesChannel.name }} is being processed.',
+            subject: 'Your order with {{ channel.name }} is being processed.',
             mailTemplateTypeId: '5',
             mailTemplateType: {
                 id: '89',
@@ -50,7 +50,7 @@ function mockMailTemplateData() {
         {
             id: 'mailTemplate2',
             description: 'Registration confirmation',
-            subject: 'Your order with {{ salesChannel.name }} is being processed.',
+            subject: 'Your order with {{ channel.name }} is being processed.',
             mailTemplateTypeId: '2',
             mailTemplateType: {
                 id: '89',

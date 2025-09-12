@@ -8,13 +8,13 @@ import type { LoginService } from '../login.service';
 import type { ContextSwitchParameters } from '../../../module/sw-order/order.types';
 
 /**
- * Gateway for the API end point "sales-channel-context"
+ * Gateway for the API end point "channel-context"
  * Uses the _proxy endpoint of the admin api to connect to the store-api endpoint cart
  * @class
  * @extends ApiService
  */
 class StoreContextService extends ApiService {
-    constructor(httpClient: AxiosInstance, loginService: LoginService, apiEndpoint = 'sales-channel-context') {
+    constructor(httpClient: AxiosInstance, loginService: LoginService, apiEndpoint = 'channel-context') {
         super(httpClient, loginService, apiEndpoint, 'application/json');
 
         this.name = 'contextStoreService';
@@ -22,7 +22,7 @@ class StoreContextService extends ApiService {
 
     updateCustomerContext(
         customerId: string,
-        salesChannelId: string,
+        channelId: string,
         contextToken: string,
         additionalParams = {},
         additionalHeaders = {},
@@ -38,7 +38,7 @@ class StoreContextService extends ApiService {
             route,
             {
                 customerId: customerId,
-                salesChannelId: salesChannelId,
+                channelId: channelId,
                 permissions: permissions,
             },
             { ...additionalParams, headers },
@@ -47,12 +47,12 @@ class StoreContextService extends ApiService {
 
     updateContext(
         context: ContextSwitchParameters,
-        salesChannelId: string,
+        channelId: string,
         contextToken: string | null,
         additionalParams = {},
         additionalHeaders = {},
     ) {
-        const route = `_proxy/front-api/${salesChannelId}/context`;
+        const route = `_proxy/front-api/${channelId}/context`;
         const headers = this.getBasicHeaders({
             ...additionalHeaders,
             'sw-context-token': contextToken,
@@ -64,13 +64,13 @@ class StoreContextService extends ApiService {
         });
     }
 
-    getSalesChannelContext(
-        salesChannelId: string,
+    getChannelContext(
+        channelId: string,
         contextToken: string | null,
         additionalParams = {},
         additionalHeaders = {},
     ) {
-        const route = `_proxy/front-api/${salesChannelId}/context`;
+        const route = `_proxy/front-api/${channelId}/context`;
         const headers = this.getBasicHeaders({
             ...additionalHeaders,
             'sw-context-token': contextToken,
@@ -79,7 +79,7 @@ class StoreContextService extends ApiService {
         return this.httpClient.get(route, { ...additionalParams, headers });
     }
 
-    generateImitateCustomerToken(customerId: string, salesChannelId: string, additionalParams = {}, additionalHeaders = {}) {
+    generateImitateCustomerToken(customerId: string, channelId: string, additionalParams = {}, additionalHeaders = {}) {
         const route = '_proxy/generate-imitate-customer-token';
         const headers = this.getBasicHeaders(additionalHeaders);
 
@@ -87,16 +87,16 @@ class StoreContextService extends ApiService {
             route,
             {
                 customerId,
-                salesChannelId,
+                channelId,
             },
             { ...additionalParams, headers },
         );
     }
 
-    redirectToSalesChannelUrl(salesChannelDomainUrl: string, token: string, customerId: string, userId: string) {
+    redirectToChannelUrl(channelDomainUrl: string, token: string, customerId: string, userId: string) {
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = `${salesChannelDomainUrl}/account/login/imitate-customer`;
+        form.action = `${channelDomainUrl}/account/login/imitate-customer`;
         form.target = '_blank';
         document.body.appendChild(form);
 

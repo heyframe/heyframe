@@ -12,20 +12,20 @@ const mockOrderWithMailHeaderFooter = {
         firstName: 'Test',
         lastName: 'Tester',
     },
-    salesChannel: {
+    channel: {
         mailHeaderFooterId: uuid.get('headerFooter'),
     },
-    salesChannelId: uuid.get('salesChannelId0'),
+    channelId: uuid.get('channelId0'),
 };
 
 const mockOrderWithoutMailHeaderFooter = {
     orderCustomer: {
         email: 'test@heyframe.com',
     },
-    salesChannel: {
+    channel: {
         mailHeaderFooterId: null,
     },
-    salesChannelId: uuid.get('salesChannelId1'),
+    channelId: uuid.get('channelId1'),
 };
 
 const mockDocuments = [
@@ -412,12 +412,12 @@ describe('src/module/sw-order/component/sw-order-send-document-modal', () => {
             {
                 getIds: expect.any(Function),
             },
-            mockOrderWithMailHeaderFooter.salesChannelId,
+            mockOrderWithMailHeaderFooter.channelId,
             false,
             [mockDocuments[0].id],
             {
                 order: mockOrderWithMailHeaderFooter,
-                salesChannel: mockOrderWithMailHeaderFooter.salesChannel,
+                channel: mockOrderWithMailHeaderFooter.channel,
                 document: mockDocuments[0],
                 a11yDocuments: [
                     {

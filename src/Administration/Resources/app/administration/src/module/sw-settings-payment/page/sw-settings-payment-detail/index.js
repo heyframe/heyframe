@@ -121,8 +121,8 @@ export default {
 
             if (this.acl.can('payment.deleter')) {
                 criteria.getAssociation('customers').setLimit(1);
-                criteria.getAssociation('salesChannels').setLimit(1);
-                criteria.getAssociation('salesChannelDefaultAssignments').setLimit(1);
+                criteria.getAssociation('channels').setLimit(1);
+                criteria.getAssociation('channelDefaultAssignments').setLimit(1);
                 criteria.getAssociation('orderTransactions').setLimit(1);
             }
 
@@ -132,9 +132,9 @@ export default {
         forbidDelete() {
             return (
                 this.paymentMethod.orderTransactions?.length !== 0 ||
-                this.paymentMethod.salesChannels?.length !== 0 ||
+                this.paymentMethod.channels?.length !== 0 ||
                 this.paymentMethod.customers?.length !== 0 ||
-                this.paymentMethod.salesChannelDefaultAssignments?.length !== 0
+                this.paymentMethod.channelDefaultAssignments?.length !== 0
             );
         },
 

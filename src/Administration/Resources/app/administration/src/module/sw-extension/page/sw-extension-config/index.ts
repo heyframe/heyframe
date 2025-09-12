@@ -6,7 +6,7 @@ import './sw-extension-config.scss';
 const { Mixin } = HeyFrame;
 
 type ComponentData = {
-    salesChannelId: string | null;
+    channelId: string | null;
     extension: Extension | null;
     fromLink: RouteLocationNamedRaw | null;
 };
@@ -42,7 +42,7 @@ export default HeyFrame.Component.wrapComponentConfig({
 
     data(): ComponentData {
         return {
-            salesChannelId: null,
+            channelId: null,
             extension: null,
             fromLink: null,
         };

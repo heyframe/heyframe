@@ -143,7 +143,7 @@ export default HeyFrame.Component.wrapComponentConfig({
 
             try {
                 const { data } = (await Store.get('swOrder').saveOrder({
-                    salesChannelId: this.customer!.salesChannelId,
+                    channelId: this.customer!.channelId,
                     contextToken: this.cart.token,
                 })) as {
                     data: {
@@ -193,7 +193,7 @@ export default HeyFrame.Component.wrapComponentConfig({
 
             void Store.get('swOrder')
                 .cancelCart({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                 })
                 .then(() => this.redirectToOrderList());

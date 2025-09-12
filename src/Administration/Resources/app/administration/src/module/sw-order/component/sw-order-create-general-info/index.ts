@@ -1,6 +1,6 @@
 import './sw-order-create-general-info.scss';
 import template from './sw-order-create-general-info.html.twig';
-import type { Cart, SalesChannelContext } from '../../order.types';
+import type { Cart, ChannelContext } from '../../order.types';
 
 /**
  * @sw-package checkout
@@ -28,7 +28,7 @@ export default Component.wrapComponentConfig({
             required: true,
         },
         context: {
-            type: Object as PropType<SalesChannelContext>,
+            type: Object as PropType<ChannelContext>,
             required: true,
         },
         isLoading: {

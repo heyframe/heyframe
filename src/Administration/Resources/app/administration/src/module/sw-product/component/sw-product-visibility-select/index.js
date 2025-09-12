@@ -47,7 +47,7 @@ export default {
     methods: {
         isSelected(item) {
             return this.currentCollection.some((entity) => {
-                return entity.salesChannelId === item.id;
+                return entity.channelId === item.id;
             });
         },
 
@@ -55,7 +55,7 @@ export default {
             // Remove when already selected
             if (this.isSelected(item)) {
                 const associationEntity = this.currentCollection.find((entity) => {
-                    return entity.salesChannelId === item.id;
+                    return entity.channelId === item.id;
                 });
                 this.remove(associationEntity);
 
@@ -63,17 +63,17 @@ export default {
             }
 
             // Create new entity
-            const newSalesChannelAssociation = this.associationRepository.create(this.entityCollection.context);
-            newSalesChannelAssociation.productId = this.product.id;
-            newSalesChannelAssociation.productVersionId = this.product.versionId;
-            newSalesChannelAssociation.salesChannelId = item.id;
-            newSalesChannelAssociation.visibility = this.defaultVisibility;
-            newSalesChannelAssociation.salesChannel = item;
+            const newChannelAssociation = this.associationRepository.create(this.entityCollection.context);
+            newChannelAssociation.productId = this.product.id;
+            newChannelAssociation.productVersionId = this.product.versionId;
+            newChannelAssociation.channelId = item.id;
+            newChannelAssociation.visibility = this.defaultVisibility;
+            newChannelAssociation.channel = item;
 
             this.$emit('item-add', item);
 
             const changedCollection = EntityCollection.fromCollection(this.currentCollection);
-            changedCollection.add(newSalesChannelAssociation);
+            changedCollection.add(newChannelAssociation);
 
             this.emitChanges(changedCollection);
             this.onSelectExpanded();

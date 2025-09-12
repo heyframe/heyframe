@@ -6,9 +6,9 @@
     :is-loading="isLoading"
 >
     <template #toolbar>
-        <sw-sales-channel-switch
-            :label="$tc('sw-seo-url-template-card.general.labelSalesChannelSelect')"
-            @change-sales-channel-id="onSalesChannelChanged"
+        <sw-channel-switch
+            :label="$tc('sw-seo-url-template-card.general.labelChannelSelect')"
+            @change-channel-id="onChannelChanged"
         />
     </template>
 
@@ -22,9 +22,9 @@
     {% endblock %}
 
     {% block sw_seo_url_template_card_entries %}
-    <template v-if="!isLoading && !salesChannelIsHeadless">
+    <template v-if="!isLoading && !channelIsHeadless">
         <div
-            v-for="(seoUrlTemplate, index) in getTemplatesForSalesChannel(salesChannelId)"
+            v-for="(seoUrlTemplate, index) in getTemplatesForChannel(channelId)"
             :key="index"
             class="sw-seo-url-template-card__seo-url"
         >
@@ -35,7 +35,7 @@
                 {% block sw_seo_url_template_card_entries_input_wrapper %}
                 <sw-inherit-wrapper
                     v-model:value="seoUrlTemplate.template"
-                    :has-parent="seoUrlTemplate.salesChannelId !== null"
+                    :has-parent="seoUrlTemplate.channelId !== null"
                     :inherited-value="getPlaceholder(seoUrlTemplate)"
                     @update:value="onInput(seoUrlTemplate)"
                 >
@@ -136,7 +136,7 @@
             {% endblock %}
         </div>
     </template>
-    <div v-if="salesChannelIsHeadless && !isLoading">
+    <div v-if="channelIsHeadless && !isLoading">
         {{ $tc('sw-seo-url.textSeoUrlsDisallowedForHeadless') }}
     </div>
     {% endblock %}

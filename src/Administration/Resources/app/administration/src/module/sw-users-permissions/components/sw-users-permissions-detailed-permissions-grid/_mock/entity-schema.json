@@ -77,7 +77,7 @@
         "localField": "id",
         "referenceField": "currencyId"
       },
-      "salesChannelDefaultAssignments": {
+      "channelDefaultAssignments": {
         "type": "association",
         "relation": "one_to_many",
         "entity": "channel",
@@ -85,7 +85,7 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -100,26 +100,26 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
         "localField": "id",
         "referenceField": "currencyId"
       },
-      "salesChannels": {
+      "channels": {
         "type": "association",
         "relation": "many_to_many",
         "entity": "channel",
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
       },
-      "salesChannelDomains": {
+      "channelDomains": {
         "type": "association",
         "relation": "one_to_many",
         "entity": "channel_domain",
@@ -127,7 +127,7 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -152,7 +152,7 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -370,33 +370,33 @@
         "localField": "id",
         "referenceField": "parentId"
       },
-      "salesChannels": {
+      "channels": {
         "type": "association",
         "relation": "many_to_many",
         "entity": "channel",
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
       },
-      "salesChannelDefaultAssignments": {
+      "channelDefaultAssignments": {
         "type": "association",
         "relation": "one_to_many",
         "entity": "channel",
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
         "localField": "id",
         "referenceField": "languageId"
       },
-      "salesChannelDomains": {
+      "channelDomains": {
         "type": "association",
         "relation": "one_to_many",
         "entity": "channel_domain",
@@ -404,7 +404,7 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -419,7 +419,7 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -434,7 +434,7 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -449,7 +449,7 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -464,7 +464,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -479,7 +479,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -494,7 +494,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -509,7 +509,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -524,7 +524,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -539,7 +539,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -554,7 +554,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -569,7 +569,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -584,7 +584,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -599,7 +599,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -614,7 +614,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -629,7 +629,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -644,7 +644,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -659,14 +659,14 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
         "localField": "id",
         "referenceField": "languageId"
       },
-      "salesChannelTranslations": {
+      "channelTranslations": {
         "type": "association",
         "relation": "one_to_many",
         "entity": "channel_translation",
@@ -674,14 +674,14 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
         "localField": "id",
         "referenceField": "languageId"
       },
-      "salesChannelTypeTranslations": {
+      "channelTypeTranslations": {
         "type": "association",
         "relation": "one_to_many",
         "entity": "channel_type_translation",
@@ -689,7 +689,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -704,7 +704,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -719,7 +719,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -734,7 +734,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -749,7 +749,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -764,7 +764,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -779,7 +779,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -794,7 +794,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -809,7 +809,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -824,7 +824,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -839,7 +839,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -854,7 +854,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -869,7 +869,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -884,7 +884,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -899,7 +899,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -914,7 +914,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -929,7 +929,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -944,7 +944,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -959,7 +959,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -974,7 +974,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -989,7 +989,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -1004,7 +1004,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -1019,7 +1019,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -1034,7 +1034,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -1049,7 +1049,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -1147,7 +1147,7 @@
           "restrict_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -1291,7 +1291,7 @@
           "required": true
         }
       },
-      "salesChannelId": {
+      "channelId": {
         "type": "uuid",
         "flags": {
           "required": true
@@ -1525,18 +1525,18 @@
         "localField": "languageId",
         "referenceField": "id"
       },
-      "salesChannel": {
+      "channel": {
         "type": "association",
         "relation": "many_to_one",
         "entity": "channel",
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
-        "localField": "salesChannelId",
+        "localField": "channelId",
         "referenceField": "id"
       },
       "addresses": {
@@ -1881,7 +1881,7 @@
           "search_ranking": 0.5,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -2780,7 +2780,7 @@
           "required": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
@@ -2854,7 +2854,7 @@
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ],
           "inherited": true
@@ -2872,7 +2872,7 @@
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
@@ -3029,7 +3029,7 @@
           "inherited": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
@@ -3049,7 +3049,7 @@
           "inherited": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
@@ -3061,7 +3061,7 @@
           "inherited": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
@@ -3209,7 +3209,7 @@
           "inherited": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -3256,7 +3256,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -3272,7 +3272,7 @@
           "inherited": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -3287,7 +3287,7 @@
           "cascade_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -3330,7 +3330,7 @@
           "set_null_on_delete": true,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -3720,7 +3720,7 @@
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -3937,19 +3937,19 @@
           "required": true
         }
       },
-      "storefrontSalesChannelId": {
+      "storefrontChannelId": {
         "type": "uuid",
         "flags": {
           "required": true
         }
       },
-      "salesChannelId": {
+      "channelId": {
         "type": "uuid",
         "flags": {
           "required": true
         }
       },
-      "salesChannelDomainId": {
+      "channelDomainId": {
         "type": "uuid",
         "flags": {
           "required": true
@@ -4035,28 +4035,28 @@
         "localField": "productStreamId",
         "referenceField": "id"
       },
-      "storefrontSalesChannel": {
+      "storefrontChannel": {
         "type": "association",
         "relation": "many_to_one",
         "entity": "channel",
         "flags": [],
-        "localField": "storefrontSalesChannelId",
+        "localField": "storefrontChannelId",
         "referenceField": "id"
       },
-      "salesChannel": {
+      "channel": {
         "type": "association",
         "relation": "many_to_one",
         "entity": "channel",
         "flags": [],
-        "localField": "salesChannelId",
+        "localField": "channelId",
         "referenceField": "id"
       },
-      "salesChannelDomain": {
+      "channelDomain": {
         "type": "association",
         "relation": "many_to_one",
         "entity": "channel_domain",
         "flags": [],
-        "localField": "salesChannelDomainId",
+        "localField": "channelDomainId",
         "referenceField": "id"
       },
       "currency": {
@@ -4588,7 +4588,7 @@
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -4679,7 +4679,7 @@
         "type": "uuid",
         "flags": []
       },
-      "salesChannelId": {
+      "channelId": {
         "type": "uuid",
         "flags": {
           "required": true
@@ -4697,7 +4697,7 @@
           "search_ranking": 250,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
@@ -4708,7 +4708,7 @@
           "search_ranking": 250,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         }
@@ -4768,25 +4768,25 @@
           "search_ranking": 250,
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
         "localField": "customerId",
         "referenceField": "id"
       },
-      "salesChannel": {
+      "channel": {
         "type": "association",
         "relation": "many_to_one",
         "entity": "channel",
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
-        "localField": "salesChannelId",
+        "localField": "channelId",
         "referenceField": "id"
       },
       "language": {
@@ -4796,7 +4796,7 @@
         "flags": {
           "read_protected": [
             [
-              "HeyFrame\\Core\\Framework\\Api\\Context\\SalesChannelApiSource"
+              "HeyFrame\\Core\\Framework\\Api\\Context\\ChannelApiSource"
             ]
           ]
         },
@@ -5429,7 +5429,7 @@
           "required": true
         }
       },
-      "salesChannelId": {
+      "channelId": {
         "type": "uuid",
         "flags": {
           "required": true
@@ -5441,12 +5441,12 @@
           "required": true
         }
       },
-      "salesChannel": {
+      "channel": {
         "type": "association",
         "relation": "many_to_one",
         "entity": "channel",
         "flags": [],
-        "localField": "salesChannelId",
+        "localField": "channelId",
         "referenceField": "id"
       },
       "product": {

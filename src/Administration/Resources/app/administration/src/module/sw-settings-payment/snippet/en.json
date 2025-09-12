@@ -63,7 +63,7 @@
       "hintTextTechnicalNameIsProvided": "The technical name has been provided by {name}.",
       "delete": {
         "textHeadline": "Delete payment method",
-        "textAlert": "This payment method is used in rules, Sales Channels or orders and can therefore not be deleted.",
+        "textAlert": "This payment method is used in rules, Channels or orders and can therefore not be deleted.",
         "textButton": "Delete payment method",
         "modal": {
           "textConfirmation": "Do you really want to delete this payment method?",

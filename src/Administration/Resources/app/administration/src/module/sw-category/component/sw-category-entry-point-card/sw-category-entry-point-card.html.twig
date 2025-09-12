@@ -33,12 +33,12 @@
 
         {% block sw_category_detail_entry_point_navigation_list_link %}
         <router-link
-            v-for="salesChannel in initialNavigationSalesChannels"
-            :key="salesChannel.id"
-            :to="{ name: 'sw.channel.detail.base', params: { id: salesChannel.id }}"
+            v-for="channel in initialNavigationChannels"
+            :key="channel.id"
+            :to="{ name: 'sw.channel.detail.base', params: { id: channel.id }}"
             class="sw-category-entry-point-card__navigation-entry"
         >
-            {{ salesChannel.translated.name }}
+            {{ channel.translated.name }}
         </router-link>
         {% endblock %}
 
@@ -46,21 +46,21 @@
     {% endblock %}
 
     {% block sw_category_entry_point_card_channel_selection %}
-    <sw-category-sales-channel-multi-select
+    <sw-category-channel-multi-select
         v-if="associatedCollection"
-        class="sw-category-entry-point-card__sales-channel-selection"
+        class="sw-category-entry-point-card__channel-selection"
         :entity-collection="associatedCollection"
-        :label="salesChannelSelectionLabel"
-        :criteria="salesChannelCriteria"
-        :placeholder="$tc('sw-category.base.entry-point-card.placeholderSalesChannels')"
+        :label="channelSelectionLabel"
+        :criteria="channelCriteria"
+        :placeholder="$tc('sw-category.base.entry-point-card.placeholderChannels')"
         :disabled="!selectedEntryPoint || !acl.can('category.editor')"
-        @update:entity-collection="onSalesChannelChange"
+        @update:entity-collection="onChannelChange"
     />
     {% endblock %}
 
     {% block sw_category_entry_point_card_button_configure_home %}
     <mt-button
-        v-if="selectedEntryPoint === 'navigationSalesChannels' && category.navigationSalesChannels.length > 0"
+        v-if="selectedEntryPoint === 'navigationChannels' && category.navigationChannels.length > 0"
         class="sw-category-entry-point-card__button-configure-home"
         ghost
         size="small"
@@ -74,7 +74,7 @@
     {% block sw_category_entry_point_card_configure_home_modal %}
     <sw-category-entry-point-modal
         v-if="configureHomeModalVisible"
-        :sales-channel-collection="category.navigationSalesChannels"
+        :channel-collection="category.navigationChannels"
         @modal-close="closeConfigureHomeModal"
     />
     {% endblock %}

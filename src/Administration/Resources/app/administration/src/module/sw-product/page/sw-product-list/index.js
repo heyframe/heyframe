@@ -163,9 +163,9 @@ export default {
                     placeholder: this.$tc('sw-product.filters.manufacturerFilter.placeholder'),
                 },
                 'visibilities-filter': {
-                    property: 'visibilities.salesChannel',
-                    label: this.$tc('sw-product.filters.salesChannelsFilter.label'),
-                    placeholder: this.$tc('sw-product.filters.salesChannelsFilter.placeholder'),
+                    property: 'visibilities.channel',
+                    label: this.$tc('sw-product.filters.channelsFilter.label'),
+                    placeholder: this.$tc('sw-product.filters.channelsFilter.placeholder'),
                 },
                 'categories-filter': {
                     property: 'categories',

@@ -70,7 +70,7 @@ class ChannelCreateFrontendCommand extends ChannelCreateCommand
                 ],
             ],
             'navigationCategoryDepth' => 3,
-            'name' => $input->getOption('name') ?? 'Storefront',
+            'name' => $input->getOption('name') ?? 'Frontend',
         ];
     }
 

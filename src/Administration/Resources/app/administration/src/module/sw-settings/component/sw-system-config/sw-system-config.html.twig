@@ -1,12 +1,12 @@
 {% block sw_system_config %}
 <div class="sw-system-config">
     <div
-        v-if="salesChannelSwitchable && config.length > 1"
-        class="sw-system-config__global-sales-channel-switch"
+        v-if="channelSwitchable && config.length > 1"
+        class="sw-system-config__global-channel-switch"
     >
-        <sw-sales-channel-switch
-            :label="$tc('sw-settings.system-config.labelSalesChannelSelect')"
-            @change-sales-channel-id="onSalesChannelChanged"
+        <sw-channel-switch
+            :label="$tc('sw-settings.system-config.labelChannelSelect')"
+            @change-channel-id="onChannelChanged"
         />
     </div>
     {% block sw_system_config_content_card %}
@@ -24,15 +24,15 @@
 
         <slot
             name="beforeElements"
-            v-bind="{ card, config: actualConfigData[currentSalesChannelId] }"
+            v-bind="{ card, config: actualConfigData[currentChannelId] }"
         ></slot>
         <template
-            v-if="salesChannelSwitchable && config.length === 1"
+            v-if="channelSwitchable && config.length === 1"
             #toolbar
         >
-            <sw-sales-channel-switch
-                :label="$tc('sw-settings.system-config.labelSalesChannelSelect')"
-                @change-sales-channel-id="onSalesChannelChanged"
+            <sw-channel-switch
+                :label="$tc('sw-settings.system-config.labelChannelSelect')"
+                @change-channel-id="onChannelChanged"
             />
         </template>
         <template v-if="hasCssFields">
@@ -47,13 +47,13 @@
             <template v-for="element in card.elements">
                 <slot
                     name="card-element"
-                    v-bind="{ element: getElementBind(element), config: actualConfigData[currentSalesChannelId], card }"
+                    v-bind="{ element: getElementBind(element), config: actualConfigData[currentChannelId], card }"
                 >
                     {% block sw_system_config_content_card_field %}
                     <sw-inherit-wrapper
-                        v-model:value="actualConfigData[currentSalesChannelId][element.name]"
+                        v-model:value="actualConfigData[currentChannelId][element.name]"
                         v-bind="getInheritWrapperBind(element)"
-                        :has-parent="isNotDefaultSalesChannel"
+                        :has-parent="isNotDefaultChannel"
                         :inherited-value="getInheritedValue(element)"
                         :class="'sw-system-config--field-' + kebabCase(getElementBind(element).name)"
                     >
@@ -75,7 +75,7 @@
         </template>
         <slot
             name="afterElements"
-            v-bind="{ card, config: actualConfigData[currentSalesChannelId], index, isNotDefaultSalesChannel, inheritance: actualConfigData.null }"
+            v-bind="{ card, config: actualConfigData[currentChannelId], index, isNotDefaultChannel, inheritance: actualConfigData.null }"
         >
         </slot>
     </mt-card>

@@ -3,7 +3,7 @@
  */
 import { mount } from '@vue/test-utils';
 
-const salesChannels = [
+const channels = [
     {
         name: 'Storefront',
         id: '7e0e4a256138402c82a20fcbb4fbb858',
@@ -152,7 +152,7 @@ async function createWrapper() {
 
                             return {
                                 search: () => {
-                                    return Promise.resolve(salesChannels);
+                                    return Promise.resolve(channels);
                                 },
                             };
                         },
@@ -179,7 +179,7 @@ async function createWrapper() {
             },
 
             props: {
-                currentSalesChannelId: null,
+                currentChannelId: null,
                 searchTerms: '',
                 searchResults: {},
             },
@@ -196,7 +196,7 @@ describe('src/module/sw-settings-search/component/sw-settings-search-live-search
     });
 
     it('should render the sales channel select', async () => {
-        expect(wrapper.find('.sw-settings-search-live-search__sales-channel-select').exists()).toBeTruthy();
+        expect(wrapper.find('.sw-settings-search-live-search__channel-select').exists()).toBeTruthy();
     });
 
     it('should show the search box disabled on no sales channel selected', async () => {
@@ -208,20 +208,20 @@ describe('src/module/sw-settings-search/component/sw-settings-search-live-search
         const searchBox = wrapper.find('.sw-simple-search-field input');
         expect(searchBox.attributes().disabled).toBeDefined();
 
-        const salesChannelSwitch = wrapper.find(
-            '.sw-settings-search-live-search__sales-channel-select .sw-select__selection',
+        const channelSwitch = wrapper.find(
+            '.sw-settings-search-live-search__channel-select .sw-select__selection',
         );
-        await salesChannelSwitch.trigger('click');
+        await channelSwitch.trigger('click');
         await flushPromises();
         await wrapper.find('.sw-select-option--0').trigger('click');
         expect(searchBox.attributes().disabled).toBeFalsy();
     });
 
     it('should show no results message if search keywords is nothing', async () => {
-        const salesChannelSwitch = wrapper.find(
-            '.sw-settings-search-live-search__sales-channel-select .sw-select__selection',
+        const channelSwitch = wrapper.find(
+            '.sw-settings-search-live-search__channel-select .sw-select__selection',
         );
-        await salesChannelSwitch.trigger('click');
+        await channelSwitch.trigger('click');
         await flushPromises();
         await wrapper.find('.sw-select-option--0').trigger('click');
         await flushPromises();
@@ -242,10 +242,10 @@ describe('src/module/sw-settings-search/component/sw-settings-search-live-search
     });
 
     it('should show one result for search', async () => {
-        const salesChannelSwitch = wrapper.find(
-            '.sw-settings-search-live-search__sales-channel-select .sw-select__selection',
+        const channelSwitch = wrapper.find(
+            '.sw-settings-search-live-search__channel-select .sw-select__selection',
         );
-        await salesChannelSwitch.trigger('click');
+        await channelSwitch.trigger('click');
         await flushPromises();
         await wrapper.find('.sw-select-option--0').trigger('click');
         await flushPromises();
@@ -273,10 +273,10 @@ describe('src/module/sw-settings-search/component/sw-settings-search-live-search
     });
 
     it('should able to click on search glass to search', async () => {
-        const salesChannelSwitch = wrapper.find(
-            '.sw-settings-search-live-search__sales-channel-select .sw-select__selection',
+        const channelSwitch = wrapper.find(
+            '.sw-settings-search-live-search__channel-select .sw-select__selection',
         );
-        await salesChannelSwitch.trigger('click');
+        await channelSwitch.trigger('click');
         await flushPromises();
         await wrapper.find('.sw-select-option--0').trigger('click');
         await flushPromises();
@@ -299,10 +299,10 @@ describe('src/module/sw-settings-search/component/sw-settings-search-live-search
     });
 
     it('should show multiple results for search', async () => {
-        const salesChannelSwitch = wrapper.find(
-            '.sw-settings-search-live-search__sales-channel-select .sw-select__selection',
+        const channelSwitch = wrapper.find(
+            '.sw-settings-search-live-search__channel-select .sw-select__selection',
         );
-        await salesChannelSwitch.trigger('click');
+        await channelSwitch.trigger('click');
         await flushPromises();
         await wrapper.find('.sw-select-option--0').trigger('click');
         await flushPromises();
@@ -340,10 +340,10 @@ describe('src/module/sw-settings-search/component/sw-settings-search-live-search
         const searchSpy = jest.spyOn(wrapper.vm.liveSearchService, 'search');
 
         // Select sales channel
-        const salesChannelSwitch = wrapper.find(
-            '.sw-settings-search-live-search__sales-channel-select .sw-select__selection',
+        const channelSwitch = wrapper.find(
+            '.sw-settings-search-live-search__channel-select .sw-select__selection',
         );
-        await salesChannelSwitch.trigger('click');
+        await channelSwitch.trigger('click');
         await flushPromises();
 
         await wrapper.find('.sw-select-option--0').trigger('click');

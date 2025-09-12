@@ -6,9 +6,9 @@ import { mount } from '@vue/test-utils';
 const categoryMock = {
     media: [],
     name: 'Computer parts',
-    footerSalesChannels: [],
-    navigationSalesChannels: [],
-    serviceSalesChannels: [],
+    footerChannels: [],
+    navigationChannels: [],
+    serviceChannels: [],
     productAssignmentType: 'product',
     isNew: () => false,
 };

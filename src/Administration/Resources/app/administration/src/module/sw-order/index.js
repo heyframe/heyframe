@@ -28,8 +28,8 @@ HeyFrame.Component.register(
 HeyFrame.Component.register('sw-order-nested-line-items-row', () => import('./component/sw-order-nested-line-items-row'));
 HeyFrame.Component.register('sw-order-line-items-grid', () => import('./component/sw-order-line-items-grid'));
 HeyFrame.Component.register(
-    'sw-order-line-items-grid-sales-channel',
-    () => import('./component/sw-order-line-items-grid-sales-channel'),
+    'sw-order-line-items-grid-channel',
+    () => import('./component/sw-order-line-items-grid-channel'),
 );
 HeyFrame.Component.register('sw-order-delivery-metadata', () => import('./component/sw-order-delivery-metadata'));
 HeyFrame.Component.register('sw-order-customer-comment', () => import('./component/sw-order-customer-comment'));

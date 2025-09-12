@@ -34,7 +34,7 @@ export default {
                 minSearchLength: 2,
             },
             isLoading: false,
-            currentSalesChannelId: null,
+            currentChannelId: null,
             searchTerms: '',
             searchResults: null,
             defaultConfig: null,
@@ -237,9 +237,9 @@ export default {
             this.isSaveSuccessful = false;
         },
 
-        fetchSalesChannels() {
-            this.salesChannelRepository.search(new Criteria(1, 25)).then((response) => {
-                this.salesChannels = response;
+        fetchChannels() {
+            this.channelRepository.search(new Criteria(1, 25)).then((response) => {
+                this.channels = response;
             });
         },
 
@@ -260,8 +260,8 @@ export default {
             }
         },
 
-        onSalesChannelChanged(salesChannelId) {
-            this.currentSalesChannelId = salesChannelId;
+        onChannelChanged(channelId) {
+            this.currentChannelId = channelId;
         },
 
         onLiveSearchResultsChanged({ searchTerms, searchResults }) {

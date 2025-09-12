@@ -71,8 +71,8 @@ export default {
             criteria.setTerm(this.term);
             criteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, this.naturalSorting));
             criteria.addAssociation('type');
-            criteria.addAssociation('numberRangeSalesChannels');
-            criteria.addAssociation('numberRangeSalesChannels.salesChannel');
+            criteria.addAssociation('numberRangeChannels');
+            criteria.addAssociation('numberRangeChannels.channel');
 
             this.numberRangeRepository
                 .search(criteria)

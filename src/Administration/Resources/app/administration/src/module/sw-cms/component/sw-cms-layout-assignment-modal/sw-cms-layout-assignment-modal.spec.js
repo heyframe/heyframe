@@ -166,8 +166,8 @@ async function createWrapper(layoutType = 'product_list', systemConfigApiService
                 },
                 provide: {
                     systemConfigApiService: {
-                        getValues: jest.fn((domain, salesChannelId) => {
-                            if (salesChannelId === null) {
+                        getValues: jest.fn((domain, channelId) => {
+                            if (channelId === null) {
                                 return Promise.resolve({
                                     'core.basicInformation.contactPage': 'uuid007',
                                     'core.basicInformation.imprintPage': 'uuid2',
@@ -176,7 +176,7 @@ async function createWrapper(layoutType = 'product_list', systemConfigApiService
                                 });
                             }
 
-                            if (salesChannelId === 'storefront_id') {
+                            if (channelId === 'storefront_id') {
                                 return Promise.resolve({
                                     'core.basicInformation.contactPage': 'uuid007',
                                     'core.basicInformation.imprintPage': 'uuid2',
@@ -184,7 +184,7 @@ async function createWrapper(layoutType = 'product_list', systemConfigApiService
                                 });
                             }
 
-                            if (salesChannelId === 'headless_id') {
+                            if (channelId === 'headless_id') {
                                 return Promise.resolve({
                                     'core.basicInformation.contactPage': 'uuid1',
                                     'core.basicInformation.imprintPage': 'uuid2',
@@ -621,11 +621,11 @@ describe('module/sw-cms/component/sw-cms-layout-assignment-modal', () => {
 
         // Set new sales channel id
         await wrapper.setData({
-            shopPageSalesChannelId: 'storefront_id',
+            shopPageChannelId: 'storefront_id',
         });
 
         // Trigger sales channel select change
-        await wrapper.find('.sw-cms-layout-assignment-modal__sales-channel-select').trigger('change');
+        await wrapper.find('.sw-cms-layout-assignment-modal__channel-select').trigger('change');
 
         expect(wrapper.vm.selectedShopPages.storefront_id).toEqual([
             'core.basicInformation.contactPage',
@@ -642,11 +642,11 @@ describe('module/sw-cms/component/sw-cms-layout-assignment-modal', () => {
 
         // Set new sales channel id
         await wrapper.setData({
-            shopPageSalesChannelId: 'headless_id',
+            shopPageChannelId: 'headless_id',
         });
 
         // Trigger sales channel select change
-        await wrapper.find('.sw-cms-layout-assignment-modal__sales-channel-select').trigger('change');
+        await wrapper.find('.sw-cms-layout-assignment-modal__channel-select').trigger('change');
 
         // Value should be null for inheritance switch
         expect(wrapper.vm.selectedShopPages.headless_id).toBeNull();
@@ -656,15 +656,15 @@ describe('module/sw-cms/component/sw-cms-layout-assignment-modal', () => {
         global.activeAclRoles = ['system.system_config'];
 
         const wrapper = await createWrapper('page');
-        const onInputSalesChannelSelectSpy = jest.spyOn(wrapper.vm, 'onInputSalesChannelSelect');
+        const onInputChannelSelectSpy = jest.spyOn(wrapper.vm, 'onInputChannelSelect');
 
         // Select shop page tab
         await wrapper.find('.sw-cms-layout-assignment-modal__tab-shop-pages').trigger('click');
 
         // Trigger sales channel select change
-        await wrapper.find('.sw-cms-layout-assignment-modal__sales-channel-select').trigger('change');
+        await wrapper.find('.sw-cms-layout-assignment-modal__channel-select').trigger('change');
 
-        expect(onInputSalesChannelSelectSpy).toHaveBeenCalledTimes(1);
+        expect(onInputChannelSelectSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should contain all available shop pages', async () => {

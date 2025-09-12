@@ -59,7 +59,7 @@ export default {
                     },
                 },
                 {
-                    label: this.$tc('sw-settings-custom-field.customField.entity.salesChannel'),
+                    label: this.$tc('sw-settings-custom-field.customField.entity.channel'),
                     value: 'channel',
                 },
                 {

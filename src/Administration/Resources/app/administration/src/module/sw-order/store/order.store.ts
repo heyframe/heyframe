@@ -6,7 +6,7 @@ import type {
     ContextSwitchParameters,
     LineItem,
     PromotionCodeTag,
-    SalesChannelContext,
+    ChannelContext,
 } from '../order.types';
 
 /**
@@ -37,8 +37,8 @@ interface SwOrderState {
     cart: Cart;
     disabledAutoPromotion: boolean;
     promotionCodes: PromotionCodeTag[];
-    defaultSalesChannel: Entity<'channel'> | null;
-    context: SalesChannelContext;
+    defaultChannel: Entity<'channel'> | null;
+    context: ChannelContext;
     customer: Entity<'customer'> | null;
 }
 
@@ -47,7 +47,7 @@ const swOrderStore = HeyFrame.Store.register({
 
     state: (): SwOrderState => ({
         customer: null,
-        defaultSalesChannel: null,
+        defaultChannel: null,
         cart: {
             token: null,
             lineItems: [],
@@ -76,7 +76,7 @@ const swOrderStore = HeyFrame.Store.register({
                     decimals: 2,
                 },
             } as Entity<'currency'>,
-            salesChannel: {
+            channel: {
                 id: '',
             } as Entity<'channel'>,
             context: {
@@ -116,8 +116,8 @@ const swOrderStore = HeyFrame.Store.register({
             this.customer = customer;
         },
 
-        setDefaultSalesChannel(salesChannel: Entity<'channel'> | null) {
-            this.defaultSalesChannel = salesChannel;
+        setDefaultChannel(channel: Entity<'channel'> | null) {
+            this.defaultChannel = channel;
         },
 
         setCartToken(token: string) {
@@ -138,7 +138,7 @@ const swOrderStore = HeyFrame.Store.register({
             this.context.currency = currency;
         },
 
-        setContext(context: SalesChannelContext) {
+        setContext(context: ChannelContext) {
             this.context = context;
         },
 
@@ -160,13 +160,13 @@ const swOrderStore = HeyFrame.Store.register({
 
         selectExistingCustomer({ customer }: { customer: Entity<'customer'> | null }) {
             this.setCustomer(customer);
-            this.setDefaultSalesChannel(customer?.salesChannel ?? null);
+            this.setDefaultChannel(customer?.channel ?? null);
         },
 
-        createCart({ salesChannelId }: { salesChannelId: string }) {
+        createCart({ channelId }: { channelId: string }) {
             return (
                 Service('cartStoreService')
-                    .createCart(salesChannelId)
+                    .createCart(channelId)
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                     .then((response: AxiosResponse): string => {
                         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -176,137 +176,137 @@ const swOrderStore = HeyFrame.Store.register({
                     })
                     .then((contextToken) => {
                         return Service('contextStoreService')
-                            .getSalesChannelContext(salesChannelId, contextToken)
-                            .then((response: AxiosResponse) => this.setContext(response.data as SalesChannelContext));
+                            .getChannelContext(channelId, contextToken)
+                            .then((response: AxiosResponse) => this.setContext(response.data as ChannelContext));
                     })
             );
         },
 
-        getCart({ salesChannelId, contextToken }: { salesChannelId: string; contextToken: string }) {
+        getCart({ channelId, contextToken }: { channelId: string; contextToken: string }) {
             if (`${contextToken}`.length !== 32) {
                 throw new Error('Invalid context token');
             }
 
             return Promise.all([
                 Service('cartStoreService')
-                    .getCart(salesChannelId, contextToken)
+                    .getCart(channelId, contextToken)
                     .then((response: AxiosResponse) => this.setCart(response.data as Cart)),
                 Service('contextStoreService')
-                    .getSalesChannelContext(salesChannelId, contextToken)
-                    .then((response: AxiosResponse) => this.setContext(response.data as SalesChannelContext)),
+                    .getChannelContext(channelId, contextToken)
+                    .then((response: AxiosResponse) => this.setContext(response.data as ChannelContext)),
             ]);
         },
 
-        cancelCart({ salesChannelId, contextToken }: { salesChannelId: string; contextToken: string }) {
+        cancelCart({ channelId, contextToken }: { channelId: string; contextToken: string }) {
             if (`${contextToken}`.length !== 32) {
                 throw new Error('Invalid context token');
             }
 
             return Service('cartStoreService')
-                .cancelCart(salesChannelId, contextToken)
+                .cancelCart(channelId, contextToken)
                 .then(() => this.$reset());
         },
 
         updateCustomerContext({
             customerId,
-            salesChannelId,
+            channelId,
             contextToken,
         }: {
             customerId: string;
-            salesChannelId: string;
+            channelId: string;
             contextToken: string;
         }) {
-            return Service('contextStoreService').updateCustomerContext(customerId, salesChannelId, contextToken);
+            return Service('contextStoreService').updateCustomerContext(customerId, channelId, contextToken);
         },
 
         updateOrderContext({
             context,
-            salesChannelId,
+            channelId,
             contextToken,
         }: {
             context: ContextSwitchParameters;
-            salesChannelId: string;
+            channelId: string;
             contextToken: string;
         }) {
-            return Service('contextStoreService').updateContext(context, salesChannelId, contextToken);
+            return Service('contextStoreService').updateContext(context, channelId, contextToken);
         },
 
-        getContext({ salesChannelId, contextToken }: { salesChannelId: string; contextToken: string }) {
-            return Service('contextStoreService').getSalesChannelContext(salesChannelId, contextToken);
+        getContext({ channelId, contextToken }: { channelId: string; contextToken: string }) {
+            return Service('contextStoreService').getChannelContext(channelId, contextToken);
         },
 
-        saveOrder({ salesChannelId, contextToken }: { salesChannelId: string; contextToken: string }) {
-            return Service('checkoutStoreService').checkout(salesChannelId, contextToken);
+        saveOrder({ channelId, contextToken }: { channelId: string; contextToken: string }) {
+            return Service('checkoutStoreService').checkout(channelId, contextToken);
         },
 
         removeLineItems({
-            salesChannelId,
+            channelId,
             contextToken,
             lineItemKeys,
         }: {
-            salesChannelId: string;
+            channelId: string;
             contextToken: string;
             lineItemKeys: string[];
         }) {
             return Service('cartStoreService')
-                .removeLineItems(salesChannelId, contextToken, lineItemKeys)
+                .removeLineItems(channelId, contextToken, lineItemKeys)
                 .then((response: AxiosResponse) => this.setCart(response.data as Cart));
         },
 
         saveLineItem({
-            salesChannelId,
+            channelId,
             contextToken,
             item,
         }: {
-            salesChannelId: string;
+            channelId: string;
             contextToken: string;
             item: LineItem;
         }) {
             return Service('cartStoreService')
-                .saveLineItem(salesChannelId, contextToken, item)
+                .saveLineItem(channelId, contextToken, item)
                 .then((response: AxiosResponse) => this.setCart(response.data as Cart));
         },
 
         saveMultipleLineItems({
-            salesChannelId,
+            channelId,
             contextToken,
             items,
         }: {
-            salesChannelId: string;
+            channelId: string;
             contextToken: string;
             items: LineItem[];
         }) {
             return Service('cartStoreService')
-                .addMultipleLineItems(salesChannelId, contextToken, items)
+                .addMultipleLineItems(channelId, contextToken, items)
                 .then((response: AxiosResponse) => this.setCart(response.data as Cart));
         },
 
         addPromotionCode({
-            salesChannelId,
+            channelId,
             contextToken,
             code,
         }: {
-            salesChannelId: string;
+            channelId: string;
             contextToken: string;
             code: string;
         }): Promise<void> {
             return Service('cartStoreService')
-                .addPromotionCode(salesChannelId, contextToken, code)
+                .addPromotionCode(channelId, contextToken, code)
                 .then((response) => this.setCart(response.data as Cart));
         },
 
         modifyShippingCosts({
-            salesChannelId,
+            channelId,
             contextToken,
             shippingCosts,
         }: {
-            salesChannelId: string;
+            channelId: string;
             contextToken: string;
             shippingCosts: CalculatedPrice;
         }) {
             return (
                 Service('cartStoreService')
-                    ?.modifyShippingCosts(salesChannelId, contextToken, shippingCosts)
+                    ?.modifyShippingCosts(channelId, contextToken, shippingCosts)
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                     .then((response: AxiosResponse) => this.setCart(response.data.data as Cart))
             );

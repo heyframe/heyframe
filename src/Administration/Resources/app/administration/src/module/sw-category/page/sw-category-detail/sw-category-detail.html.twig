@@ -234,7 +234,7 @@
             {% block sw_category_content_entry_point_overwrite_modal %}
             <sw-category-entry-point-overwrite-modal
                 v-if="showEntryPointOverwriteModal"
-                :sales-channels="entryPointOverwriteSalesChannels"
+                :channels="entryPointOverwriteChannels"
                 @cancel="cancelEntryPointOverwrite"
                 @confirm="confirmEntryPointOverwrite"
             />

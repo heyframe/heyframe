@@ -38,14 +38,14 @@
 
         {% block sw_landing_page_detail_base_seo_form_channel %}
         <sw-entity-multi-select
-            v-model:entity-collection="landingPage.salesChannels"
+            v-model:entity-collection="landingPage.channels"
             required
             class="sw-landing-page-detail-base__channel"
             entity-name="channel"
             :disabled="!acl.can('landing_page.editor')"
-            :label="$tc('sw-landing-page.base.seo.labelSalesChannel')"
-            :placeholder="$tc('sw-landing-page.base.seo.placeholderSalesChannel')"
-            :error="landingPageSalesChannelsError"
+            :label="$tc('sw-landing-page.base.seo.labelChannel')"
+            :placeholder="$tc('sw-landing-page.base.seo.placeholderChannel')"
+            :error="landingPageChannelsError"
         />
         {% endblock %}
 

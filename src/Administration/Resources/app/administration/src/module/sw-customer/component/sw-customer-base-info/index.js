@@ -64,7 +64,7 @@ export default {
 
         languageCriteria() {
             const criteria = new Criteria(1, 25);
-            criteria.addFilter(Criteria.equals('salesChannels.id', this.customer.salesChannelId));
+            criteria.addFilter(Criteria.equals('channels.id', this.customer.channelId));
 
             return criteria;
         },

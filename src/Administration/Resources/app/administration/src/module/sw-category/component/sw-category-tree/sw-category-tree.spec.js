@@ -249,13 +249,13 @@ describe('src/module/sw-category/component/sw-category-tree', () => {
     });
 
     [
-        { serviceSalesChannels: [{ id: '4d9ef75adbb149aa99785a0a969b3b7a' }] },
+        { serviceChannels: [{ id: '4d9ef75adbb149aa99785a0a969b3b7a' }] },
         {
-            navigationSalesChannels: [
+            navigationChannels: [
                 { id: '4d9ef75adbb149aa99785a0a969b3b7b' },
             ],
         },
-        { footerSalesChannels: [{ id: '4d9ef75adbb149aa99785a0a969b3b7c' }] },
+        { footerChannels: [{ id: '4d9ef75adbb149aa99785a0a969b3b7c' }] },
     ].forEach((entryPoint) => {
         it(`should not be able to delete a category having ${Object.keys(entryPoint)[0]} as initial entry point`, async () => {
             const wrapper = await createWrapper();
@@ -285,7 +285,7 @@ describe('src/module/sw-category/component/sw-category-tree', () => {
         });
     });
 
-    it('should not be able to delete a category having serviceSalesChannels as initial entry point', async () => {
+    it('should not be able to delete a category having serviceChannels as initial entry point', async () => {
         const wrapper = await createWrapper();
         wrapper.vm.createNotificationError = jest.fn();
 
@@ -294,7 +294,7 @@ describe('src/module/sw-category/component/sw-category-tree', () => {
         });
 
         const entryPoint = {
-            serviceSalesChannels: [{ id: '4d9ef75adbb149aa99785a0a969b3b7a' }],
+            serviceChannels: [{ id: '4d9ef75adbb149aa99785a0a969b3b7a' }],
         };
         const category = {
             id: '1a',
@@ -404,37 +404,37 @@ describe('src/module/sw-category/component/sw-category-tree', () => {
                 1: {
                     id: '1',
                     parentId: '1',
-                    navigationSalesChannels: null,
+                    navigationChannels: null,
                     afterCategoryId: null,
                 },
                 2: {
                     id: '2',
                     parentId: '1',
-                    navigationSalesChannels: null,
+                    navigationChannels: null,
                     afterCategoryId: '1',
                 },
                 3: {
                     id: '3',
                     parentId: '1',
-                    navigationSalesChannels: null,
+                    navigationChannels: null,
                     afterCategoryId: '2',
                 },
                 4: {
                     id: '4',
                     parentId: '1',
-                    navigationSalesChannels: null,
+                    navigationChannels: null,
                     afterCategoryId: '3',
                 },
                 5: {
                     id: '5',
                     parentId: '1',
-                    navigationSalesChannels: null,
+                    navigationChannels: null,
                     afterCategoryId: '4',
                 },
                 6: {
                     id: '6',
                     parentId: '1',
-                    navigationSalesChannels: null,
+                    navigationChannels: null,
                     afterCategoryId: '5',
                 },
             },
@@ -451,37 +451,37 @@ describe('src/module/sw-category/component/sw-category-tree', () => {
             1: {
                 id: '1',
                 parentId: '1',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: null,
             },
             2: {
                 id: '2',
                 parentId: '1',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '1',
             },
             3: {
                 id: '3',
                 parentId: '1',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '2',
             },
             4: {
                 id: '4',
                 parentId: '1',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '3',
             },
             5: {
                 id: '5',
                 parentId: '1',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '4',
             },
             6: {
                 id: '6',
                 parentId: '1',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '5',
             },
         };
@@ -489,35 +489,35 @@ describe('src/module/sw-category/component/sw-category-tree', () => {
             7: {
                 id: '7',
                 parentId: '2',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '2',
                 path: '|1|2|',
             },
             8: {
                 id: '8',
                 parentId: '2',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '7',
                 path: '|1|2|',
             },
             9: {
                 id: '9',
                 parentId: '8',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '8',
                 path: '|1|2|8|',
             },
             10: {
                 id: '10',
                 parentId: '8',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '9',
                 path: '|1|2|8|',
             },
             11: {
                 id: '11',
                 parentId: '8',
-                navigationSalesChannels: null,
+                navigationChannels: null,
                 afterCategoryId: '10',
                 path: '|1|2|8|',
             },

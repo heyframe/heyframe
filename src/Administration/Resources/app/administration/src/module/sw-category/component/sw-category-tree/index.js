@@ -102,9 +102,9 @@ export default {
 
         criteria() {
             return new Criteria(1, 500)
-                .addAssociation('navigationSalesChannels')
-                .addAssociation('footerSalesChannels')
-                .addAssociation('serviceSalesChannels');
+                .addAssociation('navigationChannels')
+                .addAssociation('footerChannels')
+                .addAssociation('serviceChannels');
         },
 
         criteriaWithChildren() {
@@ -157,9 +157,9 @@ export default {
             if (oldVal && newVal.id === oldVal.id) {
                 const affectedCategoryIds = [
                     newVal.id,
-                    ...oldVal.navigationSalesChannels.map((salesChannel) => salesChannel.navigationCategoryId),
-                    ...oldVal.footerSalesChannels.map((salesChannel) => salesChannel.footerCategoryId),
-                    ...oldVal.serviceSalesChannels.map((salesChannel) => salesChannel.serviceCategoryId),
+                    ...oldVal.navigationChannels.map((channel) => channel.navigationCategoryId),
+                    ...oldVal.footerChannels.map((channel) => channel.footerCategoryId),
+                    ...oldVal.serviceChannels.map((channel) => channel.serviceCategoryId),
                 ];
 
                 const criteria = Criteria.fromCriteria(this.criteria).setIds(
@@ -291,8 +291,8 @@ export default {
 
             const hasNavigationCategories = ids.some((id) => {
                 return (
-                    this.loadedCategories[id]?.navigationSalesChannels !== null &&
-                    this.loadedCategories[id]?.navigationSalesChannels.length > 0
+                    this.loadedCategories[id]?.navigationChannels !== null &&
+                    this.loadedCategories[id]?.navigationChannels.length > 0
                 );
             });
 
@@ -557,26 +557,26 @@ export default {
 
         isHighlighted({ data: category }) {
             return (
-                (category.navigationSalesChannels !== null && category.navigationSalesChannels.length > 0) ||
-                (category.serviceSalesChannels !== null && category.serviceSalesChannels.length > 0) ||
-                (category.footerSalesChannels !== null && category.footerSalesChannels.length > 0)
+                (category.navigationChannels !== null && category.navigationChannels.length > 0) ||
+                (category.serviceChannels !== null && category.serviceChannels.length > 0) ||
+                (category.footerChannels !== null && category.footerChannels.length > 0)
             );
         },
 
         isErrorNavigationEntryPoint(category) {
-            const { navigationSalesChannels, serviceSalesChannels, footerSalesChannels } = category;
+            const { navigationChannels, serviceChannels, footerChannels } = category;
 
             return [
-                navigationSalesChannels,
-                serviceSalesChannels,
-                footerSalesChannels,
+                navigationChannels,
+                serviceChannels,
+                footerChannels,
             ].some((navigation) => navigation !== null && navigation?.length > 0);
         },
 
         entryPointWarningMessage(category) {
-            const { serviceSalesChannels, footerSalesChannels } = category;
+            const { serviceChannels, footerChannels } = category;
 
-            if (serviceSalesChannels !== null && serviceSalesChannels?.length > 0) {
+            if (serviceChannels !== null && serviceChannels?.length > 0) {
                 return this.$tc(
                     'sw-category.general.errorNavigationEntryPoint',
                     {
@@ -586,7 +586,7 @@ export default {
                 );
             }
 
-            if (footerSalesChannels !== null && footerSalesChannels?.length > 0) {
+            if (footerChannels !== null && footerChannels?.length > 0) {
                 return this.$tc(
                     'sw-category.general.errorNavigationEntryPoint',
                     {

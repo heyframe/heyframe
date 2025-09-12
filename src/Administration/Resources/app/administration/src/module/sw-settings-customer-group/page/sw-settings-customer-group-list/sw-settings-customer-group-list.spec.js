@@ -116,14 +116,14 @@ function createCustomerGroupWithCustomer() {
         customers: [
             {},
         ],
-        salesChannels: [],
+        channels: [],
     };
 }
 
 function createDeletableCustomerGroup() {
     return {
         customers: [],
-        salesChannels: [],
+        channels: [],
     };
 }
 
@@ -134,14 +134,14 @@ describe('src/module/sw-settings-customer-group/page/sw-settings-customer-group-
         expect(wrapper.vm).toBeTruthy();
     });
 
-    it('should return false if customer group has a customer and/or SalesChannel assigned to it', async () => {
+    it('should return false if customer group has a customer and/or Channel assigned to it', async () => {
         const wrapper = await createWrapper();
         const customerGroup = createCustomerGroupWithCustomer();
 
         expect(wrapper.vm.customerGroupCanBeDeleted(customerGroup)).toBe(false);
     });
 
-    it('should return true if customer group has no customer and no SalesChannel assigned to id', async () => {
+    it('should return true if customer group has no customer and no Channel assigned to id', async () => {
         const wrapper = await createWrapper();
         const customerGroup = createDeletableCustomerGroup();
 

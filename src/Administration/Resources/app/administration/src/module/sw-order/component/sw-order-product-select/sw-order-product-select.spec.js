@@ -26,7 +26,7 @@ const createWrapper = async () => {
                 precision: 2,
                 label: '',
             },
-            salesChannelId: '1',
+            channelId: '1',
         },
         global: {
             stubs: {
@@ -209,7 +209,7 @@ describe('src/module/sw-order/component/sw-order-product-select', () => {
         expect(criteria.filters[0].queries[1].value).toBeNull();
 
         expect(criteria.filters[1].type).toBe('equals');
-        expect(criteria.filters[1].field).toBe('visibilities.salesChannelId');
+        expect(criteria.filters[1].field).toBe('visibilities.channelId');
         expect(criteria.filters[1].value).toBe('1');
         expect(criteria.filters[2].type).toBe('equals');
         expect(criteria.filters[2].field).toBe('active');

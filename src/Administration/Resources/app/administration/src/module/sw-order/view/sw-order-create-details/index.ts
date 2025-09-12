@@ -3,7 +3,7 @@ import template from './sw-order-create-details.html.twig';
 import type {
     Cart,
     LineItem,
-    SalesChannelContext,
+    ChannelContext,
     PromotionCodeTag,
     ContextSwitchParameters,
     CartDelivery,
@@ -56,8 +56,8 @@ export default Component.wrapComponentConfig({
     },
 
     computed: {
-        salesChannelId(): string {
-            return this.salesChannelContext?.salesChannel.id || '';
+        channelId(): string {
+            return this.channelContext?.channel.id || '';
         },
 
         customer(): Entity<'customer'> | null {
@@ -72,7 +72,7 @@ export default Component.wrapComponentConfig({
             return Store.get('swOrder').context.currency;
         },
 
-        salesChannelContext(): SalesChannelContext {
+        channelContext(): ChannelContext {
             return Store.get('swOrder').context;
         },
 
@@ -103,14 +103,14 @@ export default Component.wrapComponentConfig({
 
         shippingMethodCriteria(): CriteriaType {
             const criteria = new Criteria(1, 25);
-            criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            criteria.addFilter(Criteria.equals('channels.id', this.channelId));
 
             return criteria;
         },
 
         paymentMethodCriteria(): CriteriaType {
             const criteria = new Criteria(1, 25);
-            criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            criteria.addFilter(Criteria.equals('channels.id', this.channelId));
 
             criteria.addFilter(Criteria.equals('active', 1));
 
@@ -119,14 +119,14 @@ export default Component.wrapComponentConfig({
 
         languageCriteria(): CriteriaType {
             const criteria = new Criteria(1, 25);
-            criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            criteria.addFilter(Criteria.equals('channels.id', this.channelId));
 
             return criteria;
         },
 
         currencyCriteria(): CriteriaType {
             const criteria = new Criteria(1, 25);
-            criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            criteria.addFilter(Criteria.equals('channels.id', this.channelId));
 
             return criteria;
         },
@@ -213,16 +213,16 @@ export default Component.wrapComponentConfig({
 
             this.context = {
                 ...this.context,
-                currencyId: this.salesChannelContext.context.currencyId,
-                languageId: this.salesChannelContext.context.languageIdChain[0],
-                shippingMethodId: this.salesChannelContext.shippingMethod.id,
-                paymentMethodId: this.salesChannelContext.paymentMethod.id,
+                currencyId: this.channelContext.context.currencyId,
+                languageId: this.channelContext.context.languageIdChain[0],
+                shippingMethodId: this.channelContext.shippingMethod.id,
+                paymentMethodId: this.channelContext.paymentMethod.id,
                 // eslint-disable-next-line max-len
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-                billingAddressId: this.salesChannelContext.customer?.activeBillingAddress?.id ?? '',
+                billingAddressId: this.channelContext.customer?.activeBillingAddress?.id ?? '',
                 // eslint-disable-next-line max-len
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
-                shippingAddressId: this.salesChannelContext.customer?.activeShippingAddress?.id ?? '',
+                shippingAddressId: this.channelContext.customer?.activeShippingAddress?.id ?? '',
             };
         },
 
@@ -231,7 +231,7 @@ export default Component.wrapComponentConfig({
             await Store.get('swOrder')
                 .updateOrderContext({
                     context: this.context,
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                 })
                 .then(() => {
@@ -243,7 +243,7 @@ export default Component.wrapComponentConfig({
             if (!this.customer) return;
 
             await Store.get('swOrder').getCart({
-                salesChannelId: this.customer.salesChannelId,
+                channelId: this.customer.channelId,
                 contextToken: this.cart.token,
             });
         },
@@ -264,7 +264,7 @@ export default Component.wrapComponentConfig({
 
             await Store.get('swOrder')
                 .removeLineItems({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                     lineItemKeys: lineItemKeys,
                 })
@@ -330,7 +330,7 @@ export default Component.wrapComponentConfig({
             this.isLoading = true;
             void this.cartStoreService
                 .enableAutomaticPromotions(this.cart.token, {
-                    salesChannelId: this.salesChannelId,
+                    channelId: this.channelId,
                 })
                 .then(() => {
                     Store.get('swOrder').setDisabledAutoPromotion(false);
@@ -367,7 +367,7 @@ export default Component.wrapComponentConfig({
 
             Store.get('swOrder')
                 .modifyShippingCosts({
-                    salesChannelId: this.salesChannelId,
+                    channelId: this.channelId,
                     contextToken: this.cart.token,
                     shippingCosts: this.cartDelivery.shippingCosts,
                 })
@@ -406,7 +406,7 @@ export default Component.wrapComponentConfig({
 
             await Store.get('swOrder')
                 .addPromotionCode({
-                    salesChannelId: this.customer?.salesChannelId,
+                    channelId: this.customer?.channelId,
                     contextToken: this.cart.token,
                     code,
                 })

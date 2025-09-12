@@ -89,8 +89,8 @@ export default {
                 .addAssociation('addresses')
                 .addAssociation('group')
                 .addAssociation('salutation')
-                .addAssociation('salesChannel.domains')
-                .addAssociation('boundSalesChannel.domains')
+                .addAssociation('channel.domains')
+                .addAssociation('boundChannel.domains')
                 .addAssociation('lastPaymentMethod')
                 .addAssociation('defaultBillingAddress.country')
                 .addAssociation('defaultBillingAddress.countryState')
@@ -100,7 +100,7 @@ export default {
                 .addAssociation('defaultShippingAddress.salutation')
                 .addAssociation('tags')
                 .addAssociation('requestedGroup')
-                .addAssociation('boundSalesChannel');
+                .addAssociation('boundChannel');
 
             criteria.getAssociation('addresses').addSorting(Criteria.sort('firstName'), 'ASC', false);
 
@@ -212,13 +212,13 @@ export default {
         },
 
         validateEmail() {
-            const { id, email, boundSalesChannelId } = this.customer;
+            const { id, email, boundChannelId } = this.customer;
 
             return this.customerValidationService
                 .checkCustomerEmail({
                     id,
                     email,
-                    boundSalesChannelId,
+                    boundChannelId,
                 })
                 .then((emailIsValid) => {
                     if (this.errorEmailCustomer) {

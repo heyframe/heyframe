@@ -6,7 +6,7 @@ import { mount } from '@vue/test-utils';
 
 async function createWrapper() {
     return mount(
-        await wrapTestComponent('sw-extension-teaser-sales-channel', {
+        await wrapTestComponent('sw-extension-teaser-channel', {
             sync: true,
         }),
         {
@@ -19,19 +19,19 @@ async function createWrapper() {
     );
 }
 
-describe('src/app/component/extension-api/sw-extension-teaser-sales-channel', () => {
+describe('src/app/component/extension-api/sw-extension-teaser-channel', () => {
     let wrapper = null;
     let store = null;
 
     beforeEach(async () => {
         store = HeyFrame.Store.get('teaserPopover');
-        store.salesChannels = [];
+        store.channels = [];
     });
 
     it('should render correctly', async () => {
-        store.addSalesChannel({
+        store.addChannel({
             positionId: 'positionId',
-            salesChannel: {
+            channel: {
                 title: 'Facebook',
                 description: 'Sell products on Facebook',
                 iconName: 'regular-facebook',
@@ -47,14 +47,14 @@ describe('src/app/component/extension-api/sw-extension-teaser-sales-channel', ()
         });
 
         wrapper = await createWrapper();
-        const salesChannels = wrapper.findAll('.sw-extension-teaser-sales-channel');
+        const channels = wrapper.findAll('.sw-extension-teaser-channel');
 
-        expect(salesChannels).toHaveLength(1);
+        expect(channels).toHaveLength(1);
 
-        const salesChannel = salesChannels[0];
-        expect(salesChannel.findComponent('.mt-icon').vm.name).toBe('regular-facebook');
-        expect(salesChannel.find('.sw-extension-teaser-sales-channel__item-name').text()).toBe('Facebook');
-        expect(salesChannel.find('.sw-extension-teaser-sales-channel__item-description').text()).toBe(
+        const channel = channels[0];
+        expect(channel.findComponent('.mt-icon').vm.name).toBe('regular-facebook');
+        expect(channel.find('.sw-extension-teaser-channel__item-name').text()).toBe('Facebook');
+        expect(channel.find('.sw-extension-teaser-channel__item-description').text()).toBe(
             'Sell products on Facebook',
         );
     });

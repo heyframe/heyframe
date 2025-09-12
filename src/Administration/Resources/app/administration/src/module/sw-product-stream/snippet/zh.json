@@ -96,7 +96,7 @@
         "releaseDate": "发布日期",
         "restockTime": "补货时间",
         "sales": "销量",
-        "salesChannel": "销售渠道",
+        "channel": "销售渠道",
         "shippingFree": "免运费",
         "stock": "库存",
         "tags": "标签",

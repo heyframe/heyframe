@@ -2069,16 +2069,16 @@ describe('core/factory/async-component.factory.ts', () => {
             }),
         }).forEach(({ testCase, components }) => {
             it(`${testCase}`, async () => {
-                // Social Shopping - sw-sales-channel-detail (override)
+                // Social Shopping - sw-channel-detail (override)
                 ComponentFactory.override('detail-component', components.A());
-                // Storefront - sw-sales-channel-detail (override)
+                // Storefront - sw-channel-detail (override)
                 ComponentFactory.override('detail-component', components.B());
-                // Social Shopping - sw-sales-channel-create (override)
+                // Social Shopping - sw-channel-create (override)
                 ComponentFactory.override('create-component', components.C());
-                // Administration - sw-sales-channel-create (extend)
+                // Administration - sw-channel-create (extend)
                 ComponentFactory.extend('create-component', 'detail-component', components.D());
 
-                // Administation - sw-sales-channel-detail (register)
+                // Administation - sw-channel-detail (register)
                 ComponentFactory.register('detail-component', components.E());
 
                 //  <div>foobar<div>First overridden.</div></div>
@@ -3163,7 +3163,7 @@ describe('core/factory/async-component.factory.ts', () => {
                 template: '{% block swag_a %}a {{ message }}{% endblock %}',
 
                 computed: {
-                    salesChannelRepository() {
+                    channelRepository() {
                         return {
                             create: () => ({ id: 'ajip23845iokasmf' }),
                         };
@@ -3184,7 +3184,7 @@ describe('core/factory/async-component.factory.ts', () => {
                 methods: {
                     createdComponent() {
                         // eslint-disable-next-line no-unused-vars
-                        const salesChannel = this.salesChannelRepository.create();
+                        const channel = this.channelRepository.create();
                         this.$super('createdComponent');
                     },
                 },
@@ -3195,14 +3195,14 @@ describe('core/factory/async-component.factory.ts', () => {
         }).forEach(({ testCase, components }) => {
             it(`${testCase}`, async () => {
                 // Register a base component with a method and a computed
-                ComponentFactory.register('sw-sales-channel-detail', components.A());
+                ComponentFactory.register('sw-channel-detail', components.A());
 
                 // Extend the base component, altering the method and computed
-                ComponentFactory.extend('sw-sales-channel-create', 'sw-sales-channel-detail', components.B());
+                ComponentFactory.extend('sw-channel-create', 'sw-channel-detail', components.B());
 
-                ComponentFactory.override('sw-sales-channel-detail', components.C());
+                ComponentFactory.override('sw-channel-detail', components.C());
 
-                const component = await ComponentFactory.build('sw-sales-channel-create');
+                const component = await ComponentFactory.build('sw-channel-create');
                 const wrapper = await mount(component, {});
 
                 expect(wrapper.html()).toBe('c');

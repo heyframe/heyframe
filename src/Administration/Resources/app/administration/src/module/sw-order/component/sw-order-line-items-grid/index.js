@@ -176,8 +176,8 @@ export default {
             ];
         },
 
-        salesChannelId() {
-            return this.order?.salesChannelId ?? '';
+        channelId() {
+            return this.order?.channelId ?? '';
         },
 
         isProductNumberColumnVisible() {

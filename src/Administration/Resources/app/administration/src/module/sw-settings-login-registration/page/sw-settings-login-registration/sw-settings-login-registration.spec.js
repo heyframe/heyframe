@@ -27,7 +27,7 @@ async function createWrapper() {
                     systemConfigApiService: {
                         getConfig: () =>
                             Promise.resolve({
-                                'core.systemWideLoginRegistration.isCustomerBoundToSalesChannel': true,
+                                'core.systemWideLoginRegistration.isCustomerBoundToChannel': true,
                             }),
                     },
                 },
@@ -50,7 +50,7 @@ async function createWrapper() {
                     'sw-search-bar': true,
                     'sw-notification-center': true,
                     'sw-skeleton': true,
-                    'sw-sales-channel-switch': true,
+                    'sw-channel-switch': true,
 
                     'sw-form-field-renderer': true,
                     'sw-inherit-wrapper': true,

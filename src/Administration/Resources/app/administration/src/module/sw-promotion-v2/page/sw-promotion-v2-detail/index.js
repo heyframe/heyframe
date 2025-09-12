@@ -81,7 +81,7 @@ export default {
                 .addAssociation('personaRules')
                 .addAssociation('orderRules')
                 .addAssociation('cartRules')
-                .addAssociation('salesChannels');
+                .addAssociation('channels');
 
             criteria.getAssociation('discounts').addSorting(Criteria.sort('createdAt', 'ASC'));
 

@@ -42,7 +42,7 @@ async function createWrapper() {
         },
         'sw-tabs-item': true,
         'sw-order-customer-grid': true,
-        'sw-order-line-items-grid-sales-channel': true,
+        'sw-order-line-items-grid-channel': true,
         'sw-order-create-options': true,
         'sw-loader': true,
         'router-link': true,
@@ -126,7 +126,7 @@ describe('src/module/sw-order/view/sw-order-create-initial-modal', () => {
 
         expect(wrapper.find('sw-order-customer-grid-stub').attributes('style')).toBeUndefined();
 
-        expect(wrapper.findComponent('sw-order-line-items-grid-sales-channel-stub').attributes('style')).toBe(
+        expect(wrapper.findComponent('sw-order-line-items-grid-channel-stub').attributes('style')).toBe(
             'display: none;',
         );
 
@@ -138,7 +138,7 @@ describe('src/module/sw-order/view/sw-order-create-initial-modal', () => {
 
         expect(wrapper.find('sw-order-customer-grid-stub').isVisible()).toBeFalsy();
 
-        expect(wrapper.findComponent('sw-order-line-items-grid-sales-channel-stub').attributes('style')).toBeFalsy();
+        expect(wrapper.findComponent('sw-order-line-items-grid-channel-stub').attributes('style')).toBeFalsy();
 
         expect(wrapper.find('sw-order-create-options-stub').isVisible()).toBeFalsy();
 
@@ -148,7 +148,7 @@ describe('src/module/sw-order/view/sw-order-create-initial-modal', () => {
 
         expect(wrapper.find('sw-order-customer-grid-stub').isVisible()).toBeFalsy();
 
-        expect(wrapper.findComponent('sw-order-line-items-grid-sales-channel-stub').attributes('style')).toBe(
+        expect(wrapper.findComponent('sw-order-line-items-grid-channel-stub').attributes('style')).toBe(
             'display: none;',
         );
 
@@ -182,7 +182,7 @@ describe('src/module/sw-order/view/sw-order-create-initial-modal', () => {
     it('should be able to save line item', async () => {
         const wrapper = await createWrapper();
 
-        const productGrid = wrapper.findComponent('sw-order-line-items-grid-sales-channel-stub');
+        const productGrid = wrapper.findComponent('sw-order-line-items-grid-channel-stub');
         productGrid.vm.$emit('on-save-item', lineItem);
 
         await flushPromises();
@@ -193,7 +193,7 @@ describe('src/module/sw-order/view/sw-order-create-initial-modal', () => {
     it('should be able to remove line item', async () => {
         const wrapper = await createWrapper();
 
-        const productGrid = wrapper.findComponent('sw-order-line-items-grid-sales-channel-stub');
+        const productGrid = wrapper.findComponent('sw-order-line-items-grid-channel-stub');
         productGrid.vm.$emit('on-remove-items', ['product1']);
 
         await flushPromises();
@@ -287,7 +287,7 @@ describe('src/module/sw-order/view/sw-order-create-initial-modal', () => {
         expect(wrapper.emitted('order-preview')).toBeTruthy();
     });
 
-    it('should update context when salesChannelContext change', async () => {
+    it('should update context when channelContext change', async () => {
         const wrapper = await createWrapper();
 
         expect(wrapper.vm.context).toEqual({

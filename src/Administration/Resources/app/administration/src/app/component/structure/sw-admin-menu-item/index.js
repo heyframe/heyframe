@@ -142,7 +142,7 @@ export default {
         },
 
         subIsActive(path, entryId) {
-            // this is an extra case for the sw-sales-channel menu, without this all sales-channels
+            // this is an extra case for the sw-channel menu, without this all channels
             // would have the selection highlight as soon as one is selected.
             if (this.$route.name?.startsWith('sw.channel.') && entryId) {
                 return this.$route.params?.id === entryId;

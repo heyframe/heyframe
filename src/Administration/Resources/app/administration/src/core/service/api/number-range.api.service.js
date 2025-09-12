@@ -19,13 +19,13 @@ class NumberRangeApiService extends ApiService {
      * reserve a number range value
      *
      * @param {string} typeName
-     * @param {string} [salesChannelId]
+     * @param {string} [channelId]
      * @param {boolean} preview [preview=false]
      * @param {Object} [additionalHeaders = {}]
      * @returns {Promise<T>}
      */
-    reserve(typeName, salesChannelId = '', preview = false, additionalHeaders = {}) {
-        const urlSuffix = salesChannelId ? `/${salesChannelId}` : '';
+    reserve(typeName, channelId = '', preview = false, additionalHeaders = {}) {
+        const urlSuffix = channelId ? `/${channelId}` : '';
         const url = `_action/number-range/reserve/${typeName}${urlSuffix}`;
 
         const headers = this.getBasicHeaders(additionalHeaders);

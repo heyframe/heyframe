@@ -95,7 +95,7 @@ export default {
                 .addAssociation('defaultBillingAddress')
                 .addAssociation('group')
                 .addAssociation('requestedGroup')
-                .addAssociation('boundSalesChannel');
+                .addAssociation('boundChannel');
 
             this.filterCriteria.forEach((filter) => {
                 defaultCriteria.addFilter(filter);
@@ -380,8 +380,8 @@ export default {
                     useCustomSort: true,
                 },
                 {
-                    property: 'boundSalesChannelId',
-                    label: 'sw-customer.list.columnBoundSalesChannel',
+                    property: 'boundChannelId',
+                    label: 'sw-customer.list.columnBoundChannel',
                     allowResize: true,
                     visible: false,
                     useCustomSort: true,

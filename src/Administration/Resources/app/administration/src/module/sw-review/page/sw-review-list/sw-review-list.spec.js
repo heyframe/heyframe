@@ -24,7 +24,7 @@ async function createWrapper() {
                                     entity: 'review',
                                     customerId: 'd4c3b2a1',
                                     productId: 'd4c3b2a1',
-                                    salesChannelId: 'd4c3b2a1',
+                                    channelId: 'd4c3b2a1',
                                 },
                             ]);
                         },
@@ -35,7 +35,7 @@ async function createWrapper() {
                                     entity: 'review',
                                     customerId: 'd4c3b2a1',
                                     productId: 'd4c3b2a1',
-                                    salesChannelId: 'd4c3b2a1',
+                                    channelId: 'd4c3b2a1',
                                     sourceEntitiy: 'product-review',
                                 },
                             ]);

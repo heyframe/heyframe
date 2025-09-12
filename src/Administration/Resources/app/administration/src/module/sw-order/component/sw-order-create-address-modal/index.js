@@ -156,7 +156,7 @@ export default {
 
             await Store.get('swOrder').updateOrderContext({
                 context,
-                salesChannelId: this.activeCustomer.salesChannelId,
+                channelId: this.activeCustomer.channelId,
                 contextToken: this.cart.token,
             });
 

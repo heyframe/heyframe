@@ -7,13 +7,13 @@
     <div>
         {% block sw_order_create_details_footer_channel %}
         <sw-entity-single-select
-            v-model:value="salesChannelId"
+            v-model:value="channelId"
             disabled
             size="small"
             entity="channel"
             class="sw-order-create-details-footer__item"
-            :label="$tc('sw-order.createBase.detailsFooter.labelSalesChannel')"
-            :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderSalesChannel')"
+            :label="$tc('sw-order.createBase.detailsFooter.labelChannel')"
+            :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderChannel')"
             show-clearable-button
         />
         {% endblock %}
@@ -41,7 +41,7 @@
             entity="shipping_method"
             class="sw-order-create-details-footer__item"
             :disabled="!isCustomerActive"
-            :criteria="salesChannelCriteria"
+            :criteria="channelCriteria"
             :label="$tc('sw-order.createBase.detailsFooter.labelShippingMethod')"
             :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderShippingMethod')"
         />
@@ -56,7 +56,7 @@
             entity="language"
             class="sw-order-create-details-footer__item"
             :disabled="!isCustomerActive"
-            :criteria="salesChannelCriteria"
+            :criteria="channelCriteria"
             :label="$tc('sw-order.createBase.detailsFooter.labelOrderLanguage')"
             :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderOrderLanguage')"
             show-clearable-button
@@ -70,7 +70,7 @@
             entity="currency"
             class="sw-order-create-details-footer__item"
             :disabled="!isCustomerActive"
-            :criteria="salesChannelCriteria"
+            :criteria="channelCriteria"
             :label="$tc('sw-order.createBase.detailsFooter.labelCurrency')"
             :placeholder="$tc('sw-order.createBase.detailsFooter.placeholderCurrency')"
             show-clearable-button

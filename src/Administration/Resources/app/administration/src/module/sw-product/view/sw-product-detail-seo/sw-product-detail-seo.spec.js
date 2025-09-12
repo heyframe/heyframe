@@ -20,7 +20,7 @@ const productNotInheritedCategoryDataMock = {
             {
                 apiAlias: null,
                 routeName: 'frontend.detail.page',
-                salesChannelId: storefrontId,
+                channelId: storefrontId,
             },
         ],
         mainCategories: [
@@ -29,7 +29,7 @@ const productNotInheritedCategoryDataMock = {
                 category: {},
                 categoryId: uuid.get('category A'),
                 extensions: {},
-                salesChannelId: storefrontId,
+                channelId: storefrontId,
             },
         ],
         categories: [{ id: uuid.get('category A') }],
@@ -38,7 +38,7 @@ const productNotInheritedCategoryDataMock = {
         id: uuid.get('parentProduct'),
         categories: [{ id: uuid.get('category B') }],
     },
-    currentSalesChannelId: storefrontId,
+    currentChannelId: storefrontId,
 };
 
 const productInheritedCategoryDataMock = {
@@ -49,7 +49,7 @@ const productInheritedCategoryDataMock = {
     },
 };
 
-const salesChannelRepositoryMock = {
+const channelRepositoryMock = {
     search: () => {
         return Promise.resolve(
             createEntityCollection([
@@ -87,7 +87,7 @@ const mainCategoryRepositoryMock = {
 
 const repositoryMockFactory = (entity) => {
     if (entity === 'channel') {
-        return salesChannelRepositoryMock;
+        return channelRepositoryMock;
     }
 
     if (entity === 'seo_url') {
@@ -126,7 +126,7 @@ async function createWrapper(privileges = []) {
             stubs: {
                 'mt-card': {
                     data() {
-                        return { currentSalesChannelId: null };
+                        return { currentChannelId: null };
                     },
                     template: '<div><slot name="toolbar"></slot><slot></slot></div>',
                 },
@@ -136,7 +136,7 @@ async function createWrapper(privileges = []) {
                     sync: true,
                 }),
                 'sw-seo-main-category': await wrapTestComponent('sw-seo-main-category', { sync: true }),
-                'sw-sales-channel-switch': await wrapTestComponent('sw-sales-channel-switch', { sync: true }),
+                'sw-channel-switch': await wrapTestComponent('sw-channel-switch', { sync: true }),
                 'sw-entity-single-select': await wrapTestComponent('sw-entity-single-select'),
                 'sw-inherit-wrapper': await wrapTestComponent('sw-inherit-wrapper', { sync: true }),
                 'sw-text-field': await wrapTestComponent('sw-text-field', {
@@ -185,7 +185,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
             category: {},
             categoryId: '9e3bd98cd39e451ba477fc306e28af7d',
             extensions: {},
-            salesChannelId: '6eaf45a9682d43e59dd4deb8bd116de0',
+            channelId: '6eaf45a9682d43e59dd4deb8bd116de0',
         });
 
         expect(wrapper.vm.product.mainCategories).toEqual(
@@ -195,7 +195,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                     category: {},
                     categoryId: '9e3bd98cd39e451ba477fc306e28af7d',
                     extensions: {},
-                    salesChannelId: '6eaf45a9682d43e59dd4deb8bd116de0',
+                    channelId: '6eaf45a9682d43e59dd4deb8bd116de0',
                 },
             ]),
         );
@@ -213,21 +213,21 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
 
         expect(wrapper.vm.product.mainCategories).toHaveLength(1);
 
-        const salesChannelSwitch = wrapper.find('.sw-field[label="sw-seo-url.labelSalesChannelSelect"]');
-        let selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
-        expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
-        await salesChannelSwitch.find('.sw-select__selection').trigger('click');
+        const channelSwitch = wrapper.find('.sw-field[label="sw-seo-url.labelChannelSelect"]');
+        let selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
+        expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
+        await channelSwitch.find('.sw-select__selection').trigger('click');
         await wrapper.vm.$nextTick();
         await flushPromises();
 
-        const selectStoreFront = salesChannelSwitch.find('.sw-select-option--1');
+        const selectStoreFront = channelSwitch.find('.sw-select-option--1');
         expect(selectStoreFront.text()).toBe('Storefront');
         await selectStoreFront.trigger('click');
         await flushPromises();
 
-        selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+        selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
         expect(selectionText.text()).toBe('Storefront');
-        expect(wrapper.vm.currentSalesChannelId).toEqual(storefrontId);
+        expect(wrapper.vm.currentChannelId).toEqual(storefrontId);
 
         const inheritanceSwitch = wrapper.find(`.${classes.cardSeoAdditional} .${classes.inheritanceSwitch}`);
         expect(inheritanceSwitch).toBeTruthy();
@@ -240,14 +240,14 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                     category: {},
                     categoryId: uuid.get('category A'),
                     extensions: {},
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             seoUrls: [
                 {
                     apiAlias: null,
                     routeName: 'frontend.detail.page',
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             categories: [],
@@ -268,7 +268,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                 {
                     apiAlias: null,
                     routeName: 'frontend.detail.page',
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             mainCategories: [
@@ -277,7 +277,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                     category: {},
                     categoryId: uuid.get('category A'),
                     extensions: {},
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             categories: [{ id: uuid.get('category A') }],
@@ -287,21 +287,21 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
         expect(wrapper.vm.product.categories).toHaveLength(1);
         expect(wrapper.vm.categories).toEqual(expect.arrayContaining(wrapper.vm.product.categories));
 
-        const salesChannelSwitch = wrapper.find('.sw-field[label="sw-seo-url.labelSalesChannelSelect"]');
-        let selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
-        expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
-        await salesChannelSwitch.find('.sw-select__selection').trigger('click');
+        const channelSwitch = wrapper.find('.sw-field[label="sw-seo-url.labelChannelSelect"]');
+        let selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
+        expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
+        await channelSwitch.find('.sw-select__selection').trigger('click');
         await wrapper.vm.$nextTick();
         await flushPromises();
 
-        const selectStoreFront = salesChannelSwitch.find('.sw-select-option--1');
+        const selectStoreFront = channelSwitch.find('.sw-select-option--1');
         expect(selectStoreFront.text()).toBe('Storefront');
         await selectStoreFront.trigger('click');
         await wrapper.vm.$nextTick();
 
-        selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+        selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
         expect(selectionText.text()).toBe('Storefront');
-        expect(wrapper.vm.currentSalesChannelId).toEqual(storefrontId);
+        expect(wrapper.vm.currentChannelId).toEqual(storefrontId);
 
         const inheritanceSwitch = wrapper.find(`.${classes.cardSeoAdditional} .${classes.inheritanceSwitch}`);
         expect(inheritanceSwitch.exists()).toBe(false);
@@ -315,7 +315,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                 {
                     apiAlias: null,
                     routeName: 'frontend.detail.page',
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             mainCategories: [
@@ -324,7 +324,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                     category: {},
                     categoryId: uuid.get('category A'),
                     extensions: {},
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             categories: [{ id: uuid.get('category A') }],
@@ -338,22 +338,22 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
 
         expect(wrapper.vm.categories).toEqual(expect.arrayContaining(wrapper.vm.parentProduct.categories));
 
-        const salesChannelSwitch = wrapper.find('.sw-field[label="sw-seo-url.labelSalesChannelSelect"]');
-        let selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
-        expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
-        await salesChannelSwitch.find('.sw-select__selection').trigger('click');
+        const channelSwitch = wrapper.find('.sw-field[label="sw-seo-url.labelChannelSelect"]');
+        let selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
+        expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
+        await channelSwitch.find('.sw-select__selection').trigger('click');
         await wrapper.vm.$nextTick();
         await flushPromises();
 
-        const selectHeadless = salesChannelSwitch.find('.sw-select-option--2');
+        const selectHeadless = channelSwitch.find('.sw-select-option--2');
         expect(selectHeadless.text()).toBe('Headless');
         await selectHeadless.trigger('click');
         await wrapper.vm.$nextTick();
         await flushPromises();
 
-        selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+        selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
         expect(selectionText.text()).toBe('Headless');
-        expect(wrapper.vm.currentSalesChannelId).toEqual(uuid.get('headless'));
+        expect(wrapper.vm.currentChannelId).toEqual(uuid.get('headless'));
 
         HeyFrame.Store.get('swProductDetail').product = {
             mainCategories: [
@@ -362,14 +362,14 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                     category: {},
                     categoryId: uuid.get('category A'),
                     extensions: {},
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             seoUrls: [
                 {
                     apiAlias: null,
                     routeName: 'frontend.detail.page',
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             categories: [],
@@ -394,7 +394,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                 {
                     apiAlias: null,
                     routeName: 'frontend.detail.page',
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             mainCategories: [
@@ -403,7 +403,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
                     category: {},
                     categoryId: uuid.get('category A'),
                     extensions: {},
-                    salesChannelId: storefrontId,
+                    channelId: storefrontId,
                 },
             ],
             categories: [],
@@ -418,22 +418,22 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
         expect(wrapper.vm.product.mainCategories).toHaveLength(1);
         expect(wrapper.vm.categories).toEqual(expect.arrayContaining(wrapper.vm.parentProduct.categories));
 
-        const salesChannelSwitch = wrapper.find('.sw-field[label="sw-seo-url.labelSalesChannelSelect"]');
-        let selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
-        expect(selectionText.text()).toBe('sw-sales-channel-switch.labelDefaultOption');
-        await salesChannelSwitch.find('.sw-select__selection').trigger('click');
+        const channelSwitch = wrapper.find('.sw-field[label="sw-seo-url.labelChannelSelect"]');
+        let selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
+        expect(selectionText.text()).toBe('sw-channel-switch.labelDefaultOption');
+        await channelSwitch.find('.sw-select__selection').trigger('click');
         await wrapper.vm.$nextTick();
         await flushPromises();
 
-        const selectStoreFront = salesChannelSwitch.find('.sw-select-option--1');
+        const selectStoreFront = channelSwitch.find('.sw-select-option--1');
         expect(selectStoreFront.text()).toBe('Storefront');
         await selectStoreFront.trigger('click');
         await wrapper.vm.$nextTick();
         await flushPromises();
 
-        selectionText = salesChannelSwitch.find('.sw-entity-single-select__selection-text');
+        selectionText = channelSwitch.find('.sw-entity-single-select__selection-text');
         expect(selectionText.text()).toBe('Storefront');
-        expect(wrapper.vm.currentSalesChannelId).toEqual(storefrontId);
+        expect(wrapper.vm.currentChannelId).toEqual(storefrontId);
 
         const inheritanceSwitch = wrapper.find(`.${classes.cardSeoAdditional} .${classes.inheritanceSwitch}`);
         expect(inheritanceSwitch).toBeTruthy();
@@ -449,7 +449,7 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
             id: 'productId1',
             mainCategories: createEntityCollection([
                 {
-                    salesChannelId: 'salesChannelId1',
+                    channelId: 'channelId1',
                     categoryId: 'categoryId1',
                 },
             ]),
@@ -459,19 +459,19 @@ describe('src/module/sw-product/view/sw-product-detail-seo', () => {
             id: 'productId2',
             mainCategories: createEntityCollection([
                 {
-                    salesChannelId: 'salesChannelId1',
+                    channelId: 'channelId1',
                     categoryId: 'categoryId1',
                 },
             ]),
         };
 
         await wrapper.vm.$nextTick();
-        wrapper.vm.currentSalesChannelId = 'salesChannelId1';
+        wrapper.vm.currentChannelId = 'channelId1';
 
         expect(productDetailStore.product.mainCategories).toHaveLength(1);
 
         wrapper.vm.productMainCategory = {
-            salesChannelId: 'salesChannelId1',
+            channelId: 'channelId1',
             categoryId: 'categoryId2',
         };
         await wrapper.vm.$nextTick();

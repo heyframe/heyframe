@@ -69,7 +69,7 @@ export default {
             productNumberPreview: '',
             isSaveSuccessful: false,
             cloning: false,
-            defaultSalesChannelVisibility: 30,
+            defaultChannelVisibility: 30,
             previousLengthUnit: null,
             previousWeightUnit: null,
             updateSeoPromises: [],
@@ -177,7 +177,7 @@ export default {
             return this.repositoryFactory.create('custom_field_set');
         },
 
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
 
@@ -237,7 +237,7 @@ export default {
             criteria
                 .addAssociation('cover.media')
                 .addAssociation('categories')
-                .addAssociation('visibilities.salesChannel')
+                .addAssociation('visibilities.channel')
                 .addAssociation('options')
                 .addAssociation('configuratorSettings.option')
                 .addAssociation('unit')
@@ -678,26 +678,26 @@ export default {
                         this.product.taxId = result;
                     });
 
-                    this.getDefaultSalesChannels().then((result) => {
+                    this.getDefaultChannels().then((result) => {
                         if (type.isEmpty(result)) {
                             return;
                         }
 
                         this.product.active = result.defaultActive;
 
-                        if (!result.defaultSalesChannelIds || result.defaultSalesChannelIds.length <= 0) {
+                        if (!result.defaultChannelIds || result.defaultChannelIds.length <= 0) {
                             return;
                         }
 
-                        this.fetchSalesChannelByIds(result.defaultSalesChannelIds).then((salesChannels) => {
-                            if (!salesChannels.length) {
+                        this.fetchChannelByIds(result.defaultChannelIds).then((channels) => {
+                            if (!channels.length) {
                                 return;
                             }
 
-                            salesChannels.forEach((salesChannel) => {
+                            channels.forEach((channel) => {
                                 const visibilities = this.createProductVisibilityEntity(
                                     result.defaultVisibilities,
-                                    salesChannel,
+                                    channel,
                                 );
                                 this.product.visibilities.push(visibilities);
                             });
@@ -890,36 +890,36 @@ export default {
                 });
         },
 
-        getDefaultSalesChannels() {
-            return this.systemConfigApiService.getValues('core.defaultSalesChannel').then((response) => {
+        getDefaultChannels() {
+            return this.systemConfigApiService.getValues('core.defaultChannel').then((response) => {
                 if (type.isEmpty(response)) {
                     return {};
                 }
 
                 return {
-                    defaultSalesChannelIds: response?.['core.defaultSalesChannel.salesChannel'],
-                    defaultVisibilities: response?.['core.defaultSalesChannel.visibility'],
-                    defaultActive: !!response?.['core.defaultSalesChannel.active'],
+                    defaultChannelIds: response?.['core.defaultChannel.channel'],
+                    defaultVisibilities: response?.['core.defaultChannel.visibility'],
+                    defaultActive: !!response?.['core.defaultChannel.active'],
                 };
             });
         },
 
-        fetchSalesChannelByIds(ids) {
+        fetchChannelByIds(ids) {
             const criteria = new Criteria(1, 25);
 
             criteria.addFilter(Criteria.equalsAny('id', ids));
 
-            return this.salesChannelRepository.search(criteria);
+            return this.channelRepository.search(criteria);
         },
 
-        createProductVisibilityEntity(visibility, salesChannel) {
+        createProductVisibilityEntity(visibility, channel) {
             const visibilities = this.productVisibilityRepository.create(Context.api);
 
             Object.assign(visibilities, {
-                visibility: visibility[salesChannel.id] || this.defaultSalesChannelVisibility,
+                visibility: visibility[channel.id] || this.defaultChannelVisibility,
                 productId: this.product.id,
-                salesChannelId: salesChannel.id,
-                salesChannel: salesChannel,
+                channelId: channel.id,
+                channel: channel,
             });
 
             return visibilities;

@@ -6,7 +6,7 @@
       "lastName",
       "email",
       "groupId",
-      "salesChannelId",
+      "channelId",
       "customerNumber",
       "password",
       "vatIds",

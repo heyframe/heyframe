@@ -140,7 +140,7 @@ export default {
 
             const criteria = new Criteria(1, 25)
                 .addAssociation('customer')
-                .addAssociation('salesChannel')
+                .addAssociation('channel')
                 .addAssociation('product');
 
             const context = {

@@ -167,7 +167,7 @@ describe('src/module/sw-order/page/sw-order-detail', () => {
             'orderCustomer',
             'language',
             'lineItems',
-            'salesChannel',
+            'channel',
             'addresses',
             'deliveries',
             'transactions',

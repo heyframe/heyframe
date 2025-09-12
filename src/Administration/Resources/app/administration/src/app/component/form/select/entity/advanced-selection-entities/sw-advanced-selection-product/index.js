@@ -110,7 +110,7 @@ export default {
                 },
                 {
                     property: 'visibilities',
-                    dataIndex: 'visibilities.salesChannel',
+                    dataIndex: 'visibilities.channel',
                     label: this.$tc('sw-product.list.columnVisibilities'),
                     allowResize: true,
                     sortable: false,
@@ -162,9 +162,9 @@ export default {
                     placeholder: this.$tc('sw-product.filters.manufacturerFilter.placeholder'),
                 },
                 'visibilities-filter': {
-                    property: 'visibilities.salesChannel',
-                    label: this.$tc('sw-product.filters.salesChannelsFilter.label'),
-                    placeholder: this.$tc('sw-product.filters.salesChannelsFilter.placeholder'),
+                    property: 'visibilities.channel',
+                    label: this.$tc('sw-product.filters.channelsFilter.label'),
+                    placeholder: this.$tc('sw-product.filters.channelsFilter.placeholder'),
                 },
                 'categories-filter': {
                     property: 'categories',
@@ -210,7 +210,7 @@ export default {
                 'media',
                 'manufacturer',
                 'options.group',
-                'visibilities.salesChannel',
+                'visibilities.channel',
                 'categories',
                 'tags',
             ];

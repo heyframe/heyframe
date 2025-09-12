@@ -16,7 +16,7 @@
       "columnTransactionState": "Payment status",
       "columnDeliveryState": "Delivery status",
       "columnOrderNumber": "Order number",
-      "columnSalesChannel": "Sales Channel",
+      "columnChannel": "Channel",
       "columnAffiliateCode": "Affiliate code",
       "columnCampaignCode": "Campaign code",
       "orderDate": "Order date",
@@ -79,12 +79,12 @@
       "labelShippingAddress": "Shipping address",
       "placeholderBillingAddress": "Select billing address...",
       "placeholderShippingAddress": "Select shipping address...",
-      "labelSalesChannel": "Sales Channel",
+      "labelChannel": "Channel",
       "labelPaymentMethod": "Payment method",
       "labelShippingMethod": "Shipping method",
       "labelOrderLanguage": "Order language",
       "labelCurrency": "Currency",
-      "placeholderSalesChannel": "Select Sales Channels...",
+      "placeholderChannel": "Select Channels...",
       "placeholderPaymentMethod": "Select payment method...",
       "placeholderShippingMethod": "Select shipping method...",
       "placeholderOrderLanguage": "Select order language...",
@@ -121,12 +121,12 @@
         "placeholderAddress": "Select address..."
       },
       "detailsFooter": {
-        "labelSalesChannel": "Sales channel",
+        "labelChannel": "Sales channel",
         "labelPaymentMethod": "Payment method",
         "labelShippingMethod": "Shipping method",
         "labelOrderLanguage": "Order language",
         "labelCurrency": "Currency",
-        "placeholderSalesChannel": "Select Sales Channels...",
+        "placeholderChannel": "Select Channels...",
         "placeholderPaymentMethod": "Select payment method...",
         "placeholderShippingMethod": "Select shipping method...",
         "placeholderOrderLanguage": "Select order language...",
@@ -223,7 +223,7 @@
       "summaryLabelTaxes": "plus {taxRate}% VAT",
       "labelOrderStatus": "Order status",
       "labelPaymentStatus": "Payment status",
-      "labelSalesChannel": "Sales Channel",
+      "labelChannel": "Channel",
       "labelOrderDate": "Order date",
       "headlineBillingAddress": "Billing address",
       "headlineDeliveryAddress": "Shipping address",
@@ -503,14 +503,14 @@
         "contextOpenButton": "Open",
         "columnCustomerName": "Name",
         "columnCustomerNumber": "Customer number",
-        "columnSalesChannel": "Sales Channel",
+        "columnChannel": "Channel",
         "columnEmailAddress": "Email address",
-        "titleSelectSalesChannel": "Select Sales Channel",
-        "descriptionSelectSalesChannel": "The selected customer has access to multiple Sales Channels, please select the Sales Channel you wish to use for this order.",
-        "alertSelectSalesChannel": "Because the selected Sales channel channel determines the available products and options, changing it will remove the products and reset the options.",
-        "labelSalesChannel": "Use Sales Channel",
-        "placeholderSalesChannel": "Select a Sales Channel...",
-        "buttonSelectSalesChannel": "Select",
+        "titleSelectChannel": "Select Channel",
+        "descriptionSelectChannel": "The selected customer has access to multiple Channels, please select the Channel you wish to use for this order.",
+        "alertSelectChannel": "Because the selected Sales channel channel determines the available products and options, changing it will remove the products and reset the options.",
+        "labelChannel": "Use Channel",
+        "placeholderChannel": "Select a Channel...",
+        "buttonSelectChannel": "Select",
         "labelAllChannel": "All Channels",
         "titleCustomerChanges": "Change Customer",
         "descriptionCustomerChanges": "Are you sure you want to change the customer for this order? This customer has a different sales channel, this will remove the products and reset the options.",
@@ -526,7 +526,7 @@
         "labelShippingCosts": "Shipping costs"
       },
       "tooltip": {
-        "customerUnavailable": "This customer can only use one sales channel. The Sales Channel is currently inactive or does not exist anymore."
+        "customerUnavailable": "This customer can only use one sales channel. The Channel is currently inactive or does not exist anymore."
       }
     },
     "filters": {
@@ -570,9 +570,9 @@
         "label": "Shipping method",
         "placeholder": "Select shipping method..."
       },
-      "salesChannelFilter": {
-        "label": "Sales Channels",
-        "placeholder": "Select Sales Channels..."
+      "channelFilter": {
+        "label": "Channels",
+        "placeholder": "Select Channels..."
       },
       "orderNumberFilter": {
         "label": "Order number",

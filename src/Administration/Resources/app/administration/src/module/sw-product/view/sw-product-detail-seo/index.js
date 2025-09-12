@@ -16,7 +16,7 @@ export default {
 
     data() {
         return {
-            currentSalesChannelId: undefined,
+            currentChannelId: undefined,
         };
     },
 
@@ -46,9 +46,9 @@ export default {
         },
 
         parentMainCategory() {
-            if (this.parentProduct.mainCategories && this.currentSalesChannelId) {
+            if (this.parentProduct.mainCategories && this.currentChannelId) {
                 return this.parentProduct.mainCategories.find((category) => {
-                    return category.salesChannelId === this.currentSalesChannelId;
+                    return category.channelId === this.currentChannelId;
                 });
             }
 
@@ -58,13 +58,13 @@ export default {
         productMainCategory: {
             get() {
                 return this.product.mainCategories.find((category) => {
-                    return category.salesChannelId === this.currentSalesChannelId;
+                    return category.channelId === this.currentChannelId;
                 });
             },
             set(newMainCategory) {
                 if (!newMainCategory) {
                     this.product.mainCategories = this.product.mainCategories.filter((category) => {
-                        return category.salesChannelId !== this.currentSalesChannelId;
+                        return category.channelId !== this.currentChannelId;
                     });
                     return;
                 }
@@ -72,7 +72,7 @@ export default {
                 const newEntity = this.mainCategoryRepository.create();
                 newEntity.productId = this.product.id;
                 newEntity.categoryId = newMainCategory.categoryId;
-                newEntity.salesChannelId = newMainCategory.salesChannelId;
+                newEntity.channelId = newMainCategory.channelId;
 
                 if (newMainCategory.category) {
                     newEntity.category = newMainCategory.category;
@@ -97,12 +97,12 @@ export default {
             }
 
             this.product.mainCategories = this.product.mainCategories.filter((item) => {
-                return item.salesChannelId !== mainCategory.salesChannelId;
+                return item.channelId !== mainCategory.channelId;
             });
         },
 
-        onChangeSalesChannel(currentSalesChannelId) {
-            this.currentSalesChannelId = currentSalesChannelId;
+        onChangeChannel(currentChannelId) {
+            this.currentChannelId = currentChannelId;
         },
     },
 };

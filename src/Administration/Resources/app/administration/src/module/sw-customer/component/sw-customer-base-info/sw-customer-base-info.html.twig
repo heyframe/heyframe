@@ -213,19 +213,19 @@
         {% block sw_customer_base_metadata_bound_channel %}
         <sw-description-list>
             {% block sw_customer_base_metadata_bound_channel_label %}
-            <dt class="sw-customer-base-info__label sw-bound-sales-channel__label">
-                {{ $tc('sw-customer.baseInfo.labelBoundSalesChannel') }}
-                <sw-help-text :text="$tc('sw-customer.baseInfo.helpTextBoundSalesChannel')" />
+            <dt class="sw-customer-base-info__label sw-bound-channel__label">
+                {{ $tc('sw-customer.baseInfo.labelBoundChannel') }}
+                <sw-help-text :text="$tc('sw-customer.baseInfo.helpTextBoundChannel')" />
             </dt>
             {% endblock %}
 
             {% block sw_customer_base_metadata_bound_saleschannel_content %}
-            <dd class="sw-customer-base__label-bound-sales-channel">
-                <template v-if="customer.boundSalesChannelId">
-                    {{ customer.boundSalesChannel.translated.name }}
+            <dd class="sw-customer-base__label-bound-channel">
+                <template v-if="customer.boundChannelId">
+                    {{ customer.boundChannel.translated.name }}
                 </template>
                 <template v-else>
-                    {{ $tc('sw-customer.baseInfo.emptyBoundSalesChannel') }}
+                    {{ $tc('sw-customer.baseInfo.emptyBoundChannel') }}
                 </template>
             </dd>
             {% endblock %}

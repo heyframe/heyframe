@@ -19,9 +19,9 @@ export type TeaserPopoverConfig = {
 };
 
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
-export type TeaserSalesChannelConfig = {
+export type TeaserChannelConfig = {
     positionId: string;
-    salesChannel: {
+    channel: {
         title: string;
         description: string;
         iconName: string;
@@ -42,7 +42,7 @@ const teaserPopoverStore = HeyFrame.Store.register({
 
     state: () => ({
         identifier: {} as Record<string, TeaserPopoverConfig>,
-        salesChannels: [] as TeaserSalesChannelConfig[],
+        channels: [] as TeaserChannelConfig[],
     }),
 
     actions: {
@@ -53,9 +53,9 @@ const teaserPopoverStore = HeyFrame.Store.register({
             };
         },
 
-        addSalesChannel(popoverComponent: TeaserSalesChannelConfig): void {
+        addChannel(popoverComponent: TeaserChannelConfig): void {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            this.salesChannels.push(popoverComponent);
+            this.channels.push(popoverComponent);
         },
     },
 });

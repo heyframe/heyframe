@@ -16,7 +16,7 @@ export default {
     emits: ['modal-close'],
 
     props: {
-        salesChannelCollection: {
+        channelCollection: {
             type: Array,
             required: true,
         },
@@ -25,8 +25,8 @@ export default {
     data() {
         return {
             temporaryCollection: [],
-            salesChannelOptions: [],
-            selectedSalesChannelId: '',
+            channelOptions: [],
+            selectedChannelId: '',
             showLayoutSelectionModal: false,
             pageTypes: [
                 'page',
@@ -39,8 +39,8 @@ export default {
     },
 
     computed: {
-        selectedSalesChannel() {
-            return this.temporaryCollection.find((channel) => channel.id === this.selectedSalesChannelId);
+        selectedChannel() {
+            return this.temporaryCollection.find((channel) => channel.id === this.selectedChannelId);
         },
     },
 
@@ -50,28 +50,28 @@ export default {
 
     methods: {
         createdComponent() {
-            this.salesChannelCollection.forEach((salesChannel) => {
+            this.channelCollection.forEach((channel) => {
                 this.temporaryCollection.push({
-                    id: salesChannel.id,
-                    name: salesChannel.name,
-                    homeEnabled: salesChannel.homeEnabled,
-                    homeName: salesChannel.homeName,
-                    homeMetaTitle: salesChannel.homeMetaTitle,
-                    homeMetaDescription: salesChannel.homeMetaDescription,
-                    homeKeywords: salesChannel.homeKeywords,
-                    homeCmsPageId: salesChannel.homeCmsPageId,
-                    homeCmsPage: salesChannel.homeCmsPage ? { ...salesChannel.homeCmsPage } : null,
-                    translated: salesChannel.translated ? { ...salesChannel.translated } : null,
+                    id: channel.id,
+                    name: channel.name,
+                    homeEnabled: channel.homeEnabled,
+                    homeName: channel.homeName,
+                    homeMetaTitle: channel.homeMetaTitle,
+                    homeMetaDescription: channel.homeMetaDescription,
+                    homeKeywords: channel.homeKeywords,
+                    homeCmsPageId: channel.homeCmsPageId,
+                    homeCmsPage: channel.homeCmsPage ? { ...channel.homeCmsPage } : null,
+                    translated: channel.translated ? { ...channel.translated } : null,
                 });
 
-                this.salesChannelOptions.push({
-                    value: salesChannel.id,
-                    label: salesChannel.translated ? salesChannel.translated.name : salesChannel.name,
+                this.channelOptions.push({
+                    value: channel.id,
+                    label: channel.translated ? channel.translated.name : channel.name,
                 });
             });
 
-            if (this.salesChannelCollection.length > 0) {
-                this.selectedSalesChannelId = this.salesChannelOptions[0].value;
+            if (this.channelCollection.length > 0) {
+                this.selectedChannelId = this.channelOptions[0].value;
             }
         },
 
@@ -91,8 +91,8 @@ export default {
         },
 
         onLayoutSelect(layoutId, layout) {
-            this.selectedSalesChannel.homeCmsPage = layout;
-            this.selectedSalesChannel.homeCmsPageId = layoutId;
+            this.selectedChannel.homeCmsPage = layout;
+            this.selectedChannel.homeCmsPageId = layoutId;
         },
 
         onLayoutReset() {
@@ -101,10 +101,10 @@ export default {
 
         openInPagebuilder() {
             let to = { name: 'sw.cms.create' };
-            if (this.selectedSalesChannel.homeCmsPage) {
+            if (this.selectedChannel.homeCmsPage) {
                 to = {
                     name: 'sw.cms.detail',
-                    params: { id: this.selectedSalesChannel.homeCmsPageId },
+                    params: { id: this.selectedChannel.homeCmsPageId },
                 };
             }
 
@@ -135,17 +135,17 @@ export default {
 
         applyChanges() {
             for (let i = 0; i < this.temporaryCollection.length; i += 1) {
-                const tempSalesChannel = this.temporaryCollection[i];
-                const realSalesChannel = this.salesChannelCollection[i];
+                const tempChannel = this.temporaryCollection[i];
+                const realChannel = this.channelCollection[i];
 
-                realSalesChannel.name = tempSalesChannel.name;
-                realSalesChannel.homeEnabled = tempSalesChannel.homeEnabled;
-                realSalesChannel.homeName = tempSalesChannel.homeName;
-                realSalesChannel.homeMetaTitle = tempSalesChannel.homeMetaTitle;
-                realSalesChannel.homeMetaDescription = tempSalesChannel.homeMetaDescription;
-                realSalesChannel.homeKeywords = tempSalesChannel.homeKeywords;
-                realSalesChannel.homeCmsPageId = tempSalesChannel.homeCmsPageId;
-                realSalesChannel.homeCmsPage = tempSalesChannel.homeCmsPage;
+                realChannel.name = tempChannel.name;
+                realChannel.homeEnabled = tempChannel.homeEnabled;
+                realChannel.homeName = tempChannel.homeName;
+                realChannel.homeMetaTitle = tempChannel.homeMetaTitle;
+                realChannel.homeMetaDescription = tempChannel.homeMetaDescription;
+                realChannel.homeKeywords = tempChannel.homeKeywords;
+                realChannel.homeCmsPageId = tempChannel.homeCmsPageId;
+                realChannel.homeCmsPage = tempChannel.homeCmsPage;
             }
 
             this.closeModal();
@@ -153,7 +153,7 @@ export default {
 
         hasNotAppliedChanges() {
             for (let i = 0; i < this.temporaryCollection.length; i += 1) {
-                const original = this.salesChannelCollection[i];
+                const original = this.channelCollection[i];
                 const copy = this.temporaryCollection[i];
 
                 if (

@@ -41,14 +41,14 @@ export default {
 
     methods: {
         visibilitiesRemoveInheritanceFunction(newValue) {
-            newValue.forEach(({ productVersionId, salesChannelId, salesChannel, visibility }) => {
+            newValue.forEach(({ productVersionId, channelId, channel, visibility }) => {
                 const visibilities = this.productVisibilityRepository.create(Context.api);
 
                 Object.assign(visibilities, {
                     productId: this.product.id,
                     productVersionId,
-                    salesChannelId,
-                    salesChannel,
+                    channelId,
+                    channel,
                     visibility,
                 });
 

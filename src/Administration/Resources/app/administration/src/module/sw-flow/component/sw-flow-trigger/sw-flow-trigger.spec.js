@@ -45,17 +45,17 @@ const mockBusinessEvents = [
     {
         name: 'checkout.customer.before.login',
         mailAware: true,
-        aware: ['HeyFrame\\Core\\Framework\\Event\\SalesChannelAware'],
+        aware: ['HeyFrame\\Core\\Framework\\Event\\ChannelAware'],
     },
     {
         name: 'checkout.customer.changed-payment-method',
         mailAware: false,
-        aware: ['HeyFrame\\Core\\Framework\\Event\\SalesChannelAware'],
+        aware: ['HeyFrame\\Core\\Framework\\Event\\ChannelAware'],
     },
     {
         name: 'checkout.customer.deleted',
         mailAware: true,
-        aware: ['HeyFrame\\Core\\Framework\\Event\\SalesChannelAware'],
+        aware: ['HeyFrame\\Core\\Framework\\Event\\ChannelAware'],
     },
     {
         name: 'checkout.disabledElement',

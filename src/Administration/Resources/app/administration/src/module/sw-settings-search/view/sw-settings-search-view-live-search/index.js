@@ -8,7 +8,7 @@ export default {
     template,
 
     props: {
-        currentSalesChannelId: {
+        currentChannelId: {
             type: String,
             required: false,
             default: null,

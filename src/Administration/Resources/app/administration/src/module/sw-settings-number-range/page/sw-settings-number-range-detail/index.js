@@ -36,7 +36,7 @@ export default {
         return {
             numberRangeId: undefined,
             numberRange: {},
-            salesChannels: [],
+            channels: [],
             advanced: false,
             simplePossible: true,
             prefix: '',
@@ -65,8 +65,8 @@ export default {
                 this.numberRange.type.global ||
                 this.numberRange.global ||
                 (this.numberRange.type !== null &&
-                    this.numberRange.numberRangeSalesChannels &&
-                    this.numberRange.numberRangeSalesChannels.length > 0) ||
+                    this.numberRange.numberRangeChannels &&
+                    this.numberRange.numberRangeChannels.length > 0) ||
                 !this.acl.can('number_ranges.editor')
             );
         },
@@ -79,7 +79,7 @@ export default {
             const criteria = new Criteria(1, 25);
 
             criteria.addAssociation('type');
-            criteria.addAssociation('numberRangeSalesChannels');
+            criteria.addAssociation('numberRangeChannels');
 
             return criteria;
         },
@@ -108,38 +108,38 @@ export default {
             return criteria;
         },
 
-        salesChannelCriteria() {
+        channelCriteria() {
             const criteria = new Criteria(1, 25);
 
             criteria.addFilter(
                 Criteria.multi('OR', [
-                    Criteria.equals('numberRangeSalesChannels.numberRange.id', this.numberRange.id),
+                    Criteria.equals('numberRangeChannels.numberRange.id', this.numberRange.id),
                     Criteria.not('OR', [
-                        Criteria.equals('numberRangeSalesChannels.numberRangeTypeId', this.numberRange.typeId),
+                        Criteria.equals('numberRangeChannels.numberRangeTypeId', this.numberRange.typeId),
                     ]),
                 ]),
             );
 
-            criteria.addAssociation('numberRangeSalesChannels');
+            criteria.addAssociation('numberRangeChannels');
 
             return criteria;
         },
 
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
 
-        numberRangeSalesChannelsRepository() {
+        numberRangeChannelsRepository() {
             return this.repositoryFactory.create('number_range_channel');
         },
 
-        selectedNumberRangeSalesChannels() {
-            if (!this.numberRange.numberRangeSalesChannels) {
+        selectedNumberRangeChannels() {
+            if (!this.numberRange.numberRangeChannels) {
                 return [];
             }
 
-            return this.numberRange.numberRangeSalesChannels.map((numberRangeSalesChannel) => {
-                return numberRangeSalesChannel.salesChannelId;
+            return this.numberRange.numberRangeChannels.map((numberRangeChannel) => {
+                return numberRangeChannel.channelId;
             });
         },
 
@@ -234,7 +234,7 @@ export default {
 
             this.getState();
             this.splitPattern();
-            await this.loadSalesChannels();
+            await this.loadChannels();
         },
 
         loadCustomFieldSets() {
@@ -293,9 +293,9 @@ export default {
             });
         },
 
-        loadSalesChannels() {
-            return this.salesChannelRepository.search(this.salesChannelCriteria).then((salesChannel) => {
-                this.salesChannels = salesChannel;
+        loadChannels() {
+            return this.channelRepository.search(this.channelCriteria).then((channel) => {
+                this.channels = channel;
             });
         },
 
@@ -381,20 +381,20 @@ export default {
         },
 
         onChangeType() {
-            this.loadSalesChannels();
+            this.loadChannels();
         },
 
-        addSalesChannel(salesChannel) {
-            const newNumberRangeSalesChannel = this.numberRangeSalesChannelsRepository.create();
+        addChannel(channel) {
+            const newNumberRangeChannel = this.numberRangeChannelsRepository.create();
 
-            newNumberRangeSalesChannel.numberRangeId = this.numberRange.id;
-            newNumberRangeSalesChannel.numberRangeTypeId = this.numberRange.typeId;
-            newNumberRangeSalesChannel.salesChannelId = salesChannel.id;
+            newNumberRangeChannel.numberRangeId = this.numberRange.id;
+            newNumberRangeChannel.numberRangeTypeId = this.numberRange.typeId;
+            newNumberRangeChannel.channelId = channel.id;
 
-            this.numberRange.numberRangeSalesChannels.push(newNumberRangeSalesChannel);
+            this.numberRange.numberRangeChannels.push(newNumberRangeChannel);
 
             // fix select gets out of view
-            if (this.numberRange.numberRangeSalesChannels.length <= 1) {
+            if (this.numberRange.numberRangeChannels.length <= 1) {
                 this.$nextTick().then(() => {
                     const scrollableArea = document.querySelector('.sw-card-view__content');
 
@@ -405,19 +405,19 @@ export default {
             }
         },
 
-        removeSalesChannel(salesChannel) {
-            const numberRangeSalesChannelToRemove = this.numberRange.numberRangeSalesChannels.find((nRsalesChannel) => {
-                return nRsalesChannel.salesChannelId === salesChannel.id;
+        removeChannel(channel) {
+            const numberRangeChannelToRemove = this.numberRange.numberRangeChannels.find((nRchannel) => {
+                return nRchannel.channelId === channel.id;
             });
 
-            this.numberRange.numberRangeSalesChannels.remove(numberRangeSalesChannelToRemove.id);
+            this.numberRange.numberRangeChannels.remove(numberRangeChannelToRemove.id);
         },
 
-        noSalesChannelSelected() {
+        noChannelSelected() {
             return (
                 this.numberRange.global === false &&
                 (this.numberRange.type.global === false || this.numberRange.type.global === null) &&
-                (!this.numberRange.numberRangeSalesChannels || this.numberRange.numberRangeSalesChannels.length === 0)
+                (!this.numberRange.numberRangeChannels || this.numberRange.numberRangeChannels.length === 0)
             );
         },
     },

@@ -43,7 +43,7 @@ const addresses = [
 
 const customerData = {
     id: '123',
-    salesChannel: {
+    channel: {
         languageId: 'english',
     },
     billingAddressId: '1',
@@ -52,7 +52,7 @@ const customerData = {
 };
 
 const context = {
-    salesChannel: {
+    channel: {
         id: '1',
     },
     customer: {
@@ -203,7 +203,7 @@ describe('src/module/sw-order/view/sw-order-create-options', () => {
         HeyFrame.Service().register('contextStoreService', () => {
             return {
                 updateContext: () => Promise.resolve({}),
-                getSalesChannelContext: () => Promise.resolve(contextResponse),
+                getChannelContext: () => Promise.resolve(contextResponse),
             };
         });
 

@@ -35,16 +35,12 @@ HeyFrame.Component.extend(
 HeyFrame.Component.register('sw-channel-list', () => import('./page/sw-channel-list'));
 HeyFrame.Component.register('sw-channel-detail-base', () => import('./view/sw-channel-detail-base'));
 HeyFrame.Component.register('sw-channel-detail-products', () => import('./view/sw-channel-detail-products'));
-HeyFrame.Component.register('sw-channel-detail-analytics', () => import('./view/sw-channel-detail-analytics'));
 HeyFrame.Component.extend(
     'sw-channel-create-base',
     'sw-channel-detail-base',
     () => import('./view/sw-channel-create-base'),
 );
-HeyFrame.Component.register(
-    'sw-channel-detail-product-comparison',
-    () => import('./view/sw-channel-detail-product-comparison'),
-);
+
 HeyFrame.Component.register(
     'sw-channel-detail-product-comparison-preview',
     () => import('./view/sw-channel-detail-product-comparison-preview'),
@@ -67,7 +63,6 @@ HeyFrame.Component.register(
 );
 HeyFrame.Component.register('sw-channel-menu', () => import('./component/structure/sw-channel-menu'));
 
-HeyFrame.Component.register('sw-channel-measurement', () => import('./component/sw-channel-measurement'));
 /* eslint-enable max-len, sw-deprecation-rules/private-feature-declarations */
 
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
@@ -75,7 +70,7 @@ Module.register('sw-channel', {
     type: 'core',
     name: 'channel',
     title: 'sw-channel.general.titleMenuItems',
-    description: 'The module for managing Sales Channels.',
+    description: 'The module for managing Channels.',
     version: '1.0.0',
     targetVersion: '1.0.0',
     color: '#14D7A5',
@@ -125,22 +120,6 @@ Module.register('sw-channel', {
                 products: {
                     component: 'sw-channel-detail-products',
                     path: 'products',
-                    meta: {
-                        parentPath: 'sw.channel.list',
-                        privilege: 'channel.viewer',
-                    },
-                },
-                productComparison: {
-                    component: 'sw-channel-detail-product-comparison',
-                    path: 'product-comparison',
-                    meta: {
-                        parentPath: 'sw.channel.list',
-                        privilege: 'channel.viewer',
-                    },
-                },
-                analytics: {
-                    component: 'sw-channel-detail-analytics',
-                    path: 'analytics',
                     meta: {
                         parentPath: 'sw.channel.list',
                         privilege: 'channel.viewer',

@@ -158,7 +158,7 @@ export default {
 
             this.subject = localMailTemplate.subject;
 
-            if (!this.order.salesChannel || !this.order.salesChannel.mailHeaderFooterId) {
+            if (!this.order.channel || !this.order.channel.mailHeaderFooterId) {
                 return this.mailService
                     .buildRenderPreview(localMailTemplate.mailTemplateType, localMailTemplate)
                     .then((result) => {
@@ -168,7 +168,7 @@ export default {
 
             const mailTemplateWithHeaderFooter = { ...localMailTemplate };
             return this.mailHeaderFooterRepository
-                .search(new Criteria(1, 1).addFilter(Criteria.equals('id', this.order.salesChannel.mailHeaderFooterId)))
+                .search(new Criteria(1, 1).addFilter(Criteria.equals('id', this.order.channel.mailHeaderFooterId)))
                 .then((mailHeaderFooter) => {
                     if (mailHeaderFooter[0].headerHtml) {
                         mailTemplateWithHeaderFooter.contentHtml =
@@ -214,12 +214,12 @@ export default {
                             {
                                 getIds: () => {},
                             },
-                            this.order.salesChannelId,
+                            this.order.channelId,
                             false,
                             [this.document.id],
                             {
                                 order: this.order,
-                                salesChannel: this.order.salesChannel,
+                                channel: this.order.channel,
                                 document: this.document,
                                 a11yDocuments: this.a11yDocuments,
                             },

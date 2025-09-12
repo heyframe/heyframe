@@ -31,8 +31,8 @@ export default {
     data() {
         return {
             selectedEntryPoint: this.getInitialEntryPointFromCategory(),
-            initialNavigationSalesChannels: this.category.navigationSalesChannels,
-            addedNavigationSalesChannels: new EntityCollection('/channel', 'channel', Context.api),
+            initialNavigationChannels: this.category.navigationChannels,
+            addedNavigationChannels: new EntityCollection('/channel', 'channel', Context.api),
             configureHomeModalVisible: false,
         };
     },
@@ -41,15 +41,15 @@ export default {
         entryPoints() {
             return [
                 {
-                    value: 'navigationSalesChannels',
+                    value: 'navigationChannels',
                     label: this.$tc('sw-category.base.entry-point-card.types.labelMainNavigation'),
                 },
                 {
-                    value: 'footerSalesChannels',
+                    value: 'footerChannels',
                     label: this.$tc('sw-category.base.entry-point-card.types.labelFooterNavigation'),
                 },
                 {
-                    value: 'serviceSalesChannels',
+                    value: 'serviceChannels',
                     label: this.$tc('sw-category.base.entry-point-card.types.labelServiceNavigation'),
                 },
             ];
@@ -57,7 +57,7 @@ export default {
 
         associatedCollection() {
             if (this.hasExistingNavigation) {
-                return this.addedNavigationSalesChannels;
+                return this.addedNavigationChannels;
             }
 
             return this.category[this.selectedEntryPoint];
@@ -65,11 +65,11 @@ export default {
 
         helpText() {
             switch (this.selectedEntryPoint) {
-                case 'navigationSalesChannels':
+                case 'navigationChannels':
                     return this.$tc('sw-category.base.entry-point-card.types.helpTextMainNavigation');
-                case 'footerSalesChannels':
+                case 'footerChannels':
                     return this.$tc('sw-category.base.entry-point-card.types.helpTextFooterNavigation');
-                case 'serviceSalesChannels':
+                case 'serviceChannels':
                     return this.$tc('sw-category.base.entry-point-card.types.helpTextServiceNavigation');
                 default:
                     return '';
@@ -77,24 +77,24 @@ export default {
         },
 
         hasExistingNavigation() {
-            return this.initialNavigationSalesChannels.length > 0;
+            return this.initialNavigationChannels.length > 0;
         },
 
-        salesChannelSelectionLabel() {
+        channelSelectionLabel() {
             if (this.hasExistingNavigation) {
-                return this.$tc('sw-category.base.entry-point-card.labelSalesChannelsAdd');
+                return this.$tc('sw-category.base.entry-point-card.labelChannelsAdd');
             }
 
             return this.$tc('global.entities.channel', 2);
         },
 
-        salesChannelCriteria() {
+        channelCriteria() {
             const criteria = new Criteria(1, 25);
 
             if (this.hasExistingNavigation) {
                 criteria.addFilter(
                     Criteria.not('or', [
-                        Criteria.equalsAny('id', this.initialNavigationSalesChannels.getIds()),
+                        Criteria.equalsAny('id', this.initialNavigationChannels.getIds()),
                     ]),
                 );
             }
@@ -105,55 +105,55 @@ export default {
 
     watch: {
         category(newCategory) {
-            this.initialNavigationSalesChannels = newCategory.navigationSalesChannels;
-            this.addedNavigationSalesChannels = new EntityCollection('/channel', 'channel', Context.api);
+            this.initialNavigationChannels = newCategory.navigationChannels;
+            this.addedNavigationChannels = new EntityCollection('/channel', 'channel', Context.api);
             this.selectedEntryPoint = this.getInitialEntryPointFromCategory();
         },
     },
 
     methods: {
         getInitialEntryPointFromCategory() {
-            if (this.category.navigationSalesChannels && this.category.navigationSalesChannels.length > 0) {
-                return 'navigationSalesChannels';
+            if (this.category.navigationChannels && this.category.navigationChannels.length > 0) {
+                return 'navigationChannels';
             }
 
-            if (this.category.footerSalesChannels && this.category.footerSalesChannels.length > 0) {
-                return 'footerSalesChannels';
+            if (this.category.footerChannels && this.category.footerChannels.length > 0) {
+                return 'footerChannels';
             }
 
-            if (this.category.serviceSalesChannels && this.category.serviceSalesChannels.length > 0) {
-                return 'serviceSalesChannels';
+            if (this.category.serviceChannels && this.category.serviceChannels.length > 0) {
+                return 'serviceChannels';
             }
 
             return '';
         },
 
         onEntryPointChange() {
-            this.resetSalesChannelCollections();
+            this.resetChannelCollections();
         },
 
-        onSalesChannelChange(changedEntityCollection) {
+        onChannelChange(changedEntityCollection) {
             const entryPoint = this.selectedEntryPoint;
 
             if (this.hasExistingNavigation) {
-                const joinedNavigationCollection = EntityCollection.fromCollection(this.initialNavigationSalesChannels);
+                const joinedNavigationCollection = EntityCollection.fromCollection(this.initialNavigationChannels);
                 changedEntityCollection.forEach((item) => {
                     joinedNavigationCollection.add(item);
                 });
-                this.addedNavigationSalesChannels = changedEntityCollection;
+                this.addedNavigationChannels = changedEntityCollection;
                 changedEntityCollection = joinedNavigationCollection;
             }
 
             changedEntityCollection.source = this.category[entryPoint].source;
-            this.resetSalesChannelCollections();
+            this.resetChannelCollections();
 
             this.category[entryPoint] = changedEntityCollection;
         },
 
-        resetSalesChannelCollections() {
+        resetChannelCollections() {
             const entryPoint = this.selectedEntryPoint;
 
-            const salesChannelsCollectionToReset = this.entryPoints.reduce((accumulator, { value }) => {
+            const channelsCollectionToReset = this.entryPoints.reduce((accumulator, { value }) => {
                 if (value === entryPoint) {
                     return accumulator;
                 }
@@ -162,7 +162,7 @@ export default {
                 return accumulator;
             }, []);
 
-            salesChannelsCollectionToReset.forEach((collection) => {
+            channelsCollectionToReset.forEach((collection) => {
                 const ids = collection.getIds();
 
                 ids.forEach((id) => {

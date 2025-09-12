@@ -99,7 +99,7 @@ export default function createSearchTypeService() {
         },
         channel: {
             entityName: 'channel',
-            placeholderSnippet: 'sw-sales-channel.general.placeholderSearchBar',
+            placeholderSnippet: 'sw-channel.general.placeholderSearchBar',
             listingRoute: 'sw.channel.index',
             hideOnGlobalSearchBar: true,
         },

@@ -17,7 +17,7 @@
       "textSettingRenameBanner": "设置 <b>Scale units</b> 已重命名为 <b>产品单位</b>。"
     },
     "system-config": {
-      "labelSalesChannelSelect": "销售渠道",
+      "labelChannelSelect": "销售渠道",
       "inherited": "继承",
       "compileNotice": "此配置包含可在主题中使用的字段。请编译主题以使更改生效。",
       "scssHelpText": "SCSS 变量名："

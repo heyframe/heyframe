@@ -111,7 +111,7 @@ export default {
             searchTypes: null,
             showTypeSelectContainer: false,
             typeSelectResults: [],
-            salesChannelTypes: [],
+            channelTypes: [],
             moduleFactory: Application.getContainer('factory').module || {},
             showResultsSearchTrends: false,
             resultsSearchTrends: [],
@@ -145,22 +145,22 @@ export default {
             return placeholder;
         },
 
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
 
-        salesChannelTypeRepository() {
+        channelTypeRepository() {
             return this.repositoryFactory.create('channel_type');
         },
 
-        salesChannelCriteria() {
+        channelCriteria() {
             const criteria = new Criteria(1, 25);
             criteria.addAssociation('type');
 
             return criteria;
         },
 
-        canCreateSalesChannels() {
+        canCreateChannels() {
             return this.acl.can('channel.creator');
         },
 
@@ -271,8 +271,8 @@ export default {
 
             this.userSearchPreference = await this.searchRankingService.getUserSearchPreference();
 
-            if (this.canCreateSalesChannels) {
-                await this.loadSalesChannelType();
+            if (this.canCreateChannels) {
+                await this.loadChannelType();
             }
         },
 
@@ -853,10 +853,10 @@ export default {
             this.showResultsSearchTrends = false;
         },
 
-        loadSalesChannelType() {
+        loadChannelType() {
             return new Promise((resolve) => {
-                this.salesChannelTypeRepository.search(new Criteria(1, 25)).then((response) => {
-                    this.salesChannelTypes = response;
+                this.channelTypeRepository.search(new Criteria(1, 25)).then((response) => {
+                    this.channelTypes = response;
                     resolve(response);
                 });
             });
@@ -893,7 +893,7 @@ export default {
                 moduleEntities.push(...matches.filter((item) => !item.privilege || this.acl.can(item.privilege)));
             });
 
-            moduleEntities.push(...this.getSalesChannelTypesBySearchTerm(regex));
+            moduleEntities.push(...this.getChannelTypesBySearchTerm(regex));
 
             moduleEntities = moduleEntities.filter((item) => item?.entity);
 
@@ -940,15 +940,15 @@ export default {
             return entities;
         },
 
-        getSalesChannelTypesBySearchTerm(regex) {
-            return this.salesChannelTypes.reduce((salesChannelTypes, saleChannelType) => {
+        getChannelTypesBySearchTerm(regex) {
+            return this.channelTypes.reduce((channelTypes, saleChannelType) => {
                 if (!saleChannelType?.translated.name.toLowerCase().match(regex)) {
-                    return salesChannelTypes;
+                    return channelTypes;
                 }
 
                 return [
                     {
-                        name: 'sales-channel',
+                        name: 'channel',
                         icon: saleChannelType?.iconName ?? 'regular-server',
                         color: '#14D7A5',
                         entity: 'channel',

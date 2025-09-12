@@ -137,7 +137,7 @@ export default {
             criteria
                 .addAssociation('cover')
                 .addAssociation('categories')
-                .addAssociation('visibilities.salesChannel')
+                .addAssociation('visibilities.channel')
                 .addAssociation('options')
                 .addAssociation('configuratorSettings.option')
                 .addAssociation('unit')
@@ -1187,7 +1187,7 @@ export default {
                 };
 
                 if (key === 'visibilities') {
-                    change.mappingReferenceField = 'salesChannelId';
+                    change.mappingReferenceField = 'channelId';
                 } else if (key === 'media') {
                     change.mappingReferenceField = 'mediaId';
                 } else if (key === 'prices') {

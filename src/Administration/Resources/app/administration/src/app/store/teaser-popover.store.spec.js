@@ -46,9 +46,9 @@ describe('teaser-popover.store', () => {
     });
 
     it('can update teaser sales channel', () => {
-        store.addSalesChannel({
+        store.addChannel({
             positionId: 'positionId',
-            salesChannel: {
+            channel: {
                 title: 'Facebook',
                 description: 'Sell products on Facebook',
                 iconName: 'facebook',
@@ -63,10 +63,10 @@ describe('teaser-popover.store', () => {
             },
         });
 
-        expect(store.salesChannels).toStrictEqual([
+        expect(store.channels).toStrictEqual([
             {
                 positionId: 'positionId',
-                salesChannel: {
+                channel: {
                     title: 'Facebook',
                     description: 'Sell products on Facebook',
                     iconName: 'facebook',

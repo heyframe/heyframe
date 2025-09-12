@@ -46,12 +46,12 @@ const advancedModeSettings = {
     },
 };
 
-const defaultSalesChannelData = {
-    'core.defaultSalesChannel.active': false,
-    'core.defaultSalesChannel.salesChannel': [
+const defaultChannelData = {
+    'core.defaultChannel.active': false,
+    'core.defaultChannel.channel': [
         '98432def39fc4624b33213a56b8c944d',
     ],
-    'core.defaultSalesChannel.visibility': {
+    'core.defaultChannel.visibility': {
         '98432def39fc4624b33213a56b8c944d': 10,
     },
 };
@@ -104,7 +104,7 @@ describe('module/sw-product/page/sw-product-detail', () => {
                             Promise.resolve({
                                 'core.tax.defaultTaxRate': '',
                             }),
-                        getValues: () => Promise.resolve(defaultSalesChannelData),
+                        getValues: () => Promise.resolve(defaultChannelData),
                     },
                     entityValidationService: {
                         validate: (entity, customValidator) => {

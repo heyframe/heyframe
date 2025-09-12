@@ -15,7 +15,7 @@ function getSnippetSets() {
             apiAlias: null,
             id: 'a2f95068665e4498ae98a2318a7963df',
             snippets: [],
-            salesChannelDomains: [],
+            channelDomains: [],
         },
         {
             name: 'BASE en-GB',
@@ -27,7 +27,7 @@ function getSnippetSets() {
             apiAlias: null,
             id: 'e54dba2ba96741868e6b6642504c6932',
             snippets: [],
-            salesChannelDomains: [],
+            channelDomains: [],
         },
     ];
 

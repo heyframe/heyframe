@@ -19,7 +19,7 @@ export default {
 
     emits: [
         'live-search-results-change',
-        'sales-channel-change',
+        'channel-change',
     ],
 
     mixins: [
@@ -27,7 +27,7 @@ export default {
     ],
 
     props: {
-        currentSalesChannelId: {
+        currentChannelId: {
             type: String,
             required: false,
             default: null,
@@ -49,8 +49,8 @@ export default {
     data() {
         return {
             liveSearchTerm: '',
-            salesChannels: [],
-            salesChannelId: this.currentSalesChannelId,
+            channels: [],
+            channelId: this.currentChannelId,
             productSortings: [],
             productSortingKey: null,
             liveSearchResults: null,
@@ -60,7 +60,7 @@ export default {
     },
 
     computed: {
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
 
@@ -69,7 +69,7 @@ export default {
         },
 
         isSearchEnable() {
-            return this.salesChannelId !== null;
+            return this.channelId !== null;
         },
 
         searchColumns() {
@@ -100,7 +100,7 @@ export default {
 
         searchParams() {
             const params = {
-                salesChannelId: this.salesChannelId,
+                channelId: this.channelId,
                 search: this.liveSearchTerm,
             };
 
@@ -118,7 +118,7 @@ export default {
 
     methods: {
         createdComponent() {
-            this.fetchSalesChannels();
+            this.fetchChannels();
             this.fetchProductSortings();
             this.liveSearchTerm = this.searchTerms;
             this.liveSearchResults = this.searchResults;
@@ -156,9 +156,9 @@ export default {
                 });
         },
 
-        fetchSalesChannels() {
-            this.salesChannelRepository.search(new Criteria(1, 25)).then((response) => {
-                this.salesChannels = response;
+        fetchChannels() {
+            this.channelRepository.search(new Criteria(1, 25)).then((response) => {
+                this.channels = response;
             });
         },
 
@@ -173,9 +173,9 @@ export default {
             });
         },
 
-        changeSalesChannel(salesChannelId) {
-            this.salesChannelId = salesChannelId;
-            this.$emit('sales-channel-change', salesChannelId);
+        changeChannel(channelId) {
+            this.channelId = channelId;
+            this.$emit('channel-change', channelId);
         },
 
         onShowExampleModal() {

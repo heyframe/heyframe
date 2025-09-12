@@ -24,7 +24,7 @@ async function createWrapper() {
                 'sw-card-section': await wrapTestComponent('sw-card-section', { sync: true }),
                 'sw-description-list': await wrapTestComponent('sw-description-list', { sync: true }),
                 'sw-order-saveable-field': await wrapTestComponent('sw-order-saveable-field', { sync: true }),
-                'sw-order-line-items-grid-sales-channel': {
+                'sw-order-line-items-grid-channel': {
                     template: `
                         <div>
                             <slot name="footer"></slot>

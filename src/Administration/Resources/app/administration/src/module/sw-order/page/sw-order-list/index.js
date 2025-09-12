@@ -50,7 +50,7 @@ export default {
                 'delivery-status-filter',
                 'payment-method-filter',
                 'shipping-method-filter',
-                'sales-channel-filter',
+                'channel-filter',
                 'billing-country-filter',
                 'customer-group-filter',
                 'shipping-country-filter',
@@ -94,7 +94,7 @@ export default {
             });
 
             criteria.addAssociation('billingAddress');
-            criteria.addAssociation('salesChannel');
+            criteria.addAssociation('channel');
             criteria.addAssociation('orderCustomer');
             criteria.addAssociation('currency');
             criteria.addAssociation('documents');
@@ -150,10 +150,10 @@ export default {
                     labelProperty: 'key',
                     criteriaFilterType: 'equalsAny',
                 },
-                'sales-channel-filter': {
-                    property: 'salesChannel',
-                    label: this.$tc('sw-order.filters.salesChannelFilter.label'),
-                    placeholder: this.$tc('sw-order.filters.salesChannelFilter.placeholder'),
+                'channel-filter': {
+                    property: 'channel',
+                    label: this.$tc('sw-order.filters.channelFilter.label'),
+                    placeholder: this.$tc('sw-order.filters.channelFilter.placeholder'),
                 },
                 'order-value-filter': {
                     property: 'amountTotal',
@@ -403,8 +403,8 @@ export default {
                     primary: true,
                 },
                 {
-                    property: 'salesChannel.name',
-                    label: 'sw-order.list.columnSalesChannel',
+                    property: 'channel.name',
+                    label: 'sw-order.list.columnChannel',
                     allowResize: true,
                     visible: false,
                 },

@@ -6,7 +6,7 @@ const swSeoUrlStore = HeyFrame.Store.register({
 
     state() {
         return {
-            salesChannelCollection: null as EntitySchema.EntityCollection<'sales_channel'> | null,
+            channelCollection: null as EntitySchema.EntityCollection<'channel'> | null,
             seoUrlCollection: null as EntitySchema.EntityCollection<'seo_url'> | null,
             originalSeoUrls: [] as EntitySchema.Entities['seo_url'][],
             defaultSeoUrl: null as EntitySchema.Entities['seo_url'] | null,

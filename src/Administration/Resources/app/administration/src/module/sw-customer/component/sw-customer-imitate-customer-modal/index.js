@@ -33,7 +33,7 @@ export default {
 
     data() {
         return {
-            salesChannelDomains: [],
+            channelDomains: [],
         };
     },
 
@@ -52,7 +52,7 @@ export default {
             });
         },
 
-        salesChannelDomainRepository() {
+        channelDomainRepository() {
             return this.repositoryFactory.create('channel_domain');
         },
 
@@ -60,23 +60,23 @@ export default {
             return HeyFrame.Store.get('session').currentUser;
         },
 
-        salesChannelDomainCriteria() {
+        channelDomainCriteria() {
             const criteria = new Criteria();
-            criteria.addAssociation('salesChannel');
-            criteria.addFilter(Criteria.equals('salesChannel.typeId', HeyFrame.Defaults.storefrontSalesChannelTypeId));
-            criteria.addFilter(Criteria.equals('salesChannel.active', true));
-            criteria.addSorting(Criteria.sort('salesChannel.name', 'ASC'));
+            criteria.addAssociation('channel');
+            criteria.addFilter(Criteria.equals('channel.typeId', HeyFrame.Defaults.storefrontChannelTypeId));
+            criteria.addFilter(Criteria.equals('channel.active', true));
+            criteria.addSorting(Criteria.sort('channel.name', 'ASC'));
             criteria.addSorting(Criteria.sort('languageId', 'DESC'));
 
-            if (this.customer.boundSalesChannelId) {
-                criteria.addFilter(Criteria.equals('salesChannelId', this.customer.boundSalesChannelId));
+            if (this.customer.boundChannelId) {
+                criteria.addFilter(Criteria.equals('channelId', this.customer.boundChannelId));
             }
 
             return criteria;
         },
 
-        hasSalesChannelDomains() {
-            return this.salesChannelDomains !== null && this.salesChannelDomains.length > 0;
+        hasChannelDomains() {
+            return this.channelDomains !== null && this.channelDomains.length > 0;
         },
     },
 
@@ -86,17 +86,17 @@ export default {
 
     methods: {
         async createdComponent() {
-            this.fetchSalesChannelDomains();
+            this.fetchChannelDomains();
         },
 
-        async onSalesChannelDomainMenuItemClick(salesChannelId, salesChannelDomainUrl) {
+        async onChannelDomainMenuItemClick(channelId, channelDomainUrl) {
             this.contextStoreService
-                .generateImitateCustomerToken(this.customer.id, salesChannelId)
+                .generateImitateCustomerToken(this.customer.id, channelId)
                 .then((response) => {
                     const handledResponse = ApiService.handleResponse(response);
 
-                    this.contextStoreService.redirectToSalesChannelUrl(
-                        salesChannelDomainUrl,
+                    this.contextStoreService.redirectToChannelUrl(
+                        channelDomainUrl,
                         handledResponse.token,
                         this.customer.id,
                         this.currentUser?.id,
@@ -113,11 +113,11 @@ export default {
             this.$emit('modal-close');
         },
 
-        fetchSalesChannelDomains() {
-            this.salesChannelDomainRepository
-                .search(this.salesChannelDomainCriteria, HeyFrame.Context.api)
+        fetchChannelDomains() {
+            this.channelDomainRepository
+                .search(this.channelDomainCriteria, HeyFrame.Context.api)
                 .then((loadedDomains) => {
-                    this.salesChannelDomains = loadedDomains;
+                    this.channelDomains = loadedDomains;
                 });
         },
     },

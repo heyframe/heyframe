@@ -96,7 +96,7 @@
         "releaseDate": "Release date",
         "restockTime": "Restock time",
         "sales": "Sales",
-        "salesChannel": "Sales Channel",
+        "channel": "Channel",
         "shippingFree": "Free shipping",
         "stock": "Stock",
         "tags": "Tags",
@@ -117,7 +117,7 @@
         "property_group": "Property",
         "property_group_option": "Property value",
         "product_manufacturer": "Manufacturer",
-        "product_visibility": "Product in Sales Channel",
+        "product_visibility": "Product in Channel",
         "percentage": "Percentage ratio price/list price",
         "states": "Product state",
         "productStates": {

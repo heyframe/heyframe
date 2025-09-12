@@ -55,13 +55,13 @@ export default {
                 {
                     value: 'link',
                     label: this.typeLinkLabel,
-                    disabled: this.isSalesChannelEntryPoint,
+                    disabled: this.isChannelEntryPoint,
                 },
             ];
         },
 
         typeLinkLabel() {
-            if (this.isSalesChannelEntryPoint) {
+            if (this.isChannelEntryPoint) {
                 return this.$tc('sw-category.base.general.types.linkUnavailable');
             }
 
@@ -82,11 +82,11 @@ export default {
             return null;
         },
 
-        isSalesChannelEntryPoint() {
+        isChannelEntryPoint() {
             return (
-                this.category.navigationSalesChannels.length > 0 ||
-                this.category.serviceSalesChannels.length > 0 ||
-                this.category.footerSalesChannels.length > 0
+                this.category.navigationChannels.length > 0 ||
+                this.category.serviceChannels.length > 0 ||
+                this.category.footerChannels.length > 0
             );
         },
 

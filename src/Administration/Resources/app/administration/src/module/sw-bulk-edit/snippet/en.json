@@ -131,8 +131,8 @@
           "placeholder": "Enter tags..."
         },
         "visibilities": {
-          "changeLabel": "Change: Sales Channel",
-          "placeholder": "Select Sales Channels..."
+          "changeLabel": "Change: Channel",
+          "placeholder": "Select Channels..."
         },
         "searchKeywords": {
           "changeLabel": "Change: Search keywords",

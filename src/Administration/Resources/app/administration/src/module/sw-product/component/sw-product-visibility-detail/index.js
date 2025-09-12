@@ -47,9 +47,9 @@ export default {
             const names = {};
 
             this.filteredItems.forEach((item) => {
-                names[item.id] = item.salesChannelInternal
-                    ? item.salesChannelInternal.translated.name
-                    : item.salesChannel.translated.name;
+                names[item.id] = item.channelInternal
+                    ? item.channelInternal.translated.name
+                    : item.channel.translated.name;
             });
 
             return names;

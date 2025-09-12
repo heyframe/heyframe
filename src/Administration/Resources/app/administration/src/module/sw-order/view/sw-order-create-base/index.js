@@ -70,7 +70,7 @@ export default {
                 .addAssociation('addresses')
                 .addAssociation('group')
                 .addAssociation('salutation')
-                .addAssociation('salesChannel')
+                .addAssociation('channel')
                 .addAssociation('lastPaymentMethod')
                 .addAssociation('defaultBillingAddress.country')
                 .addAssociation('defaultBillingAddress.countryState')
@@ -92,8 +92,8 @@ export default {
             return Store.get('swOrder').customer;
         },
 
-        salesChannelId() {
-            return this.customer?.salesChannelId ?? '';
+        channelId() {
+            return this.customer?.channelId ?? '';
         },
 
         isCustomerActive() {
@@ -271,8 +271,8 @@ export default {
             this.onSelectExistingCustomer(customer.id);
         },
 
-        async createCart(salesChannelId) {
-            await Store.get('swOrder').createCart({ salesChannelId });
+        async createCart(channelId) {
+            await Store.get('swOrder').createCart({ channelId });
         },
 
         async loadCart() {
@@ -281,7 +281,7 @@ export default {
 
             Store.get('swOrder')
                 .getCart({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                 })
                 .finally(() => this.updateLoading(false));
@@ -294,7 +294,7 @@ export default {
                 const customer = await this.customerRepository.get(customerId, HeyFrame.Context.api, this.defaultCriteria);
 
                 if (!this.cart.token) {
-                    await this.createCart(customer.salesChannelId);
+                    await this.createCart(customer.channelId);
                 }
 
                 this.setCustomer(customer);
@@ -313,7 +313,7 @@ export default {
         async updateCustomerContext() {
             await Store.get('swOrder').updateCustomerContext({
                 customerId: this.customer.id,
-                salesChannelId: this.customer.salesChannelId,
+                channelId: this.customer.channelId,
                 contextToken: this.cart.token,
             });
         },
@@ -323,7 +323,7 @@ export default {
         },
 
         setCurrency(customer) {
-            this.currencyRepository.get(customer.salesChannel.currencyId).then((currency) => {
+            this.currencyRepository.get(customer.channel.currencyId).then((currency) => {
                 Store.get('swOrder').setCurrency(currency);
             });
         },
@@ -412,7 +412,7 @@ export default {
 
             Store.get('swOrder')
                 .saveLineItem({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                     item,
                 })
@@ -424,7 +424,7 @@ export default {
 
             Store.get('swOrder')
                 .removeLineItems({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                     lineItemKeys: lineItemKeys,
                 })
@@ -457,7 +457,7 @@ export default {
 
             Store.get('swOrder')
                 .addPromotionCode({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                     code,
                 })
@@ -523,7 +523,7 @@ export default {
 
             Store.get('swOrder')
                 .modifyShippingCosts({
-                    salesChannelId: this.customer.salesChannelId,
+                    channelId: this.customer.channelId,
                     contextToken: this.cart.token,
                     shippingCosts: this.cartDelivery.shippingCosts,
                 })
@@ -546,7 +546,7 @@ export default {
         enableAutomaticPromotions() {
             this.updateLoading(true);
             const additionalParams = {
-                salesChannelId: this.customer.salesChannelId,
+                channelId: this.customer.channelId,
             };
             Service('cartStoreService')
                 .enableAutomaticPromotions(this.cart.token, additionalParams)

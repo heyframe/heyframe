@@ -46,15 +46,15 @@ export default Component.wrapComponentConfig({
     },
 
     computed: {
-        salesChannelId(): string {
-            return Store.get('swOrder').context?.salesChannel?.id ?? '';
+        channelId(): string {
+            return Store.get('swOrder').context?.channel?.id ?? '';
         },
 
-        salesChannelCriteria(): CriteriaType {
+        channelCriteria(): CriteriaType {
             const criteria = new Criteria();
 
-            if (this.salesChannelId) {
-                criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            if (this.channelId) {
+                criteria.addFilter(Criteria.equals('channels.id', this.channelId));
             }
 
             return criteria;
@@ -64,8 +64,8 @@ export default Component.wrapComponentConfig({
             const criteria = new Criteria();
             criteria.addFilter(Criteria.equals('active', 1));
 
-            if (this.salesChannelId) {
-                criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            if (this.channelId) {
+                criteria.addFilter(Criteria.equals('channels.id', this.channelId));
             }
 
             return criteria;
@@ -75,8 +75,8 @@ export default Component.wrapComponentConfig({
             const criteria = new Criteria();
             criteria.addFilter(Criteria.equals('active', 1));
 
-            if (this.salesChannelId) {
-                criteria.addFilter(Criteria.equals('salesChannels.id', this.salesChannelId));
+            if (this.channelId) {
+                criteria.addFilter(Criteria.equals('channels.id', this.channelId));
             }
 
             return criteria;
@@ -185,7 +185,7 @@ export default Component.wrapComponentConfig({
         },
 
         async updateCartContext(): Promise<void> {
-            if (!this.salesChannelId) {
+            if (!this.channelId) {
                 return;
             }
 
@@ -196,14 +196,14 @@ export default Component.wrapComponentConfig({
         async updateOrderContext(): Promise<void> {
             await Store.get('swOrder').updateOrderContext({
                 context: this.context,
-                salesChannelId: this.salesChannelId,
+                channelId: this.channelId,
                 contextToken: this.cart.token,
             });
         },
 
         async loadCart(): Promise<void> {
             await Store.get('swOrder').getCart({
-                salesChannelId: this.salesChannelId,
+                channelId: this.channelId,
                 contextToken: this.cart.token,
             });
         },

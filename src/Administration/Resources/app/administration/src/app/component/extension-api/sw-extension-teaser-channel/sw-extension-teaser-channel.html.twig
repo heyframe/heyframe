@@ -1,0 +1,41 @@
+{% block sw_extension_teaser_channel %}
+<div>
+    <template
+        v-for="teaserChannel in teaserChannels"
+        :key="teaserChannel.channel.title"
+    >
+        <div class="sw-extension-teaser-channel">
+            <div class="sw-extension-teaser-channel__info">
+                <span
+                    class="sw-extension-teaser-channel__icon"
+                    role="button"
+                    tabindex="0"
+                >
+                    <mt-icon
+                        v-if="teaserChannel.channel.iconName"
+                        :name="teaserChannel.channel.iconName"
+                        size="24px"
+                    />
+                </span>
+
+                <div class="sw-extension-teaser-channel__item-content">
+                    <h3
+                        class="sw-extension-teaser-channel__item-name"
+                        role="button"
+                        tabindex="0"
+                    >{{ $tc(teaserChannel.channel.title) }}</h3>
+                    <div
+                        class="sw-extension-teaser-channel__item-description"
+                        role="button"
+                        tabindex="0"
+                    >{{ $tc(teaserChannel.channel.description) }}</div>
+                </div>
+            </div>
+
+            <sw-extension-teaser-popover
+                :component="teaserChannel.popoverComponent"
+            />
+        </div>
+    </template>
+</div>
+{% endblock %}

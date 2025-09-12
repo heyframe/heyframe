@@ -138,18 +138,18 @@
                                             </sw-description-list>
                                             {% endblock %}
 
-                                            {% block sw_customer_base_metadata_sales_channel %}
+                                            {% block sw_customer_base_metadata_channel %}
                                             <sw-description-list>
 
-                                                {% block sw_customer_base_metadata_sales_channel_label %}
+                                                {% block sw_customer_base_metadata_channel_label %}
                                                 <dt class="sw-review-base-info__label">
-                                                    {{ $tc('sw-review.detail.labelSalesChannel') }}
+                                                    {{ $tc('sw-review.detail.labelChannel') }}
                                                 </dt>
                                                 {% endblock %}
 
-                                                {% block sw_customer_base_metadata_sales_channel_content %}
+                                                {% block sw_customer_base_metadata_channel_content %}
                                                 <dd>
-                                                    {{ review.salesChannel.name }}
+                                                    {{ review.channel.name }}
                                                 </dd>
                                                 {% endblock %}
                                             </sw-description-list>

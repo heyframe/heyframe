@@ -22,7 +22,7 @@ export default {
                 .addAssociation('addresses')
                 .addAssociation('group')
                 .addAssociation('salutation')
-                .addAssociation('salesChannel')
+                .addAssociation('channel')
                 .addAssociation('lastPaymentMethod')
                 .addAssociation('defaultBillingAddress.country')
                 .addAssociation('defaultBillingAddress.countryState')

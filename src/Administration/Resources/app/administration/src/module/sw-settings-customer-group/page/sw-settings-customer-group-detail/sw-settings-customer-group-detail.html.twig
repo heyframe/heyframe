@@ -191,12 +191,12 @@
 
                     {% block sw_settings_customer_group_detail_content_registration_url_card_channel %}
                     <sw-entity-multi-select
-                        v-model:entity-collection="customerGroup.registrationSalesChannels"
-                        name="sw-field--customerGroup-registrationSalesChannels"
-                        class="sw-settings-customer-group-detail__sales-channel"
-                        :label="$tc('sw-settings-customer-group.registration.availabilitySalesChannel')"
+                        v-model:entity-collection="customerGroup.registrationChannels"
+                        name="sw-field--customerGroup-registrationChannels"
+                        class="sw-settings-customer-group-detail__channel"
+                        :label="$tc('sw-settings-customer-group.registration.availabilityChannel')"
                         :disabled="!acl.can('customer_groups.editor') || undefined"
-                        :criteria="registrationSalesChannelCriteria"
+                        :criteria="registrationChannelCriteria"
                     />
                     {% endblock %}
 
@@ -214,23 +214,23 @@
                     {% endblock %}
 
                     <mt-banner
-                        v-if="customerGroup.registrationSalesChannels?.length > 0"
+                        v-if="customerGroup.registrationChannels?.length > 0"
                         variant="info"
                     >
                         {{ $t('sw-settings-customer-group.registration.domainBanner') }}
                     </mt-banner>
 
                     {% block sw_settings_customer_group_detail_content_registration_url_card_seo_url %}
-                    <template v-for="salesChannel in customerGroup.registrationSalesChannels">
-                        <template v-for="domain in salesChannel.domains">
-                            <template v-for="seoUrl in salesChannel.seoUrls">
+                    <template v-for="channel in customerGroup.registrationChannels">
+                        <template v-for="domain in channel.domains">
+                            <template v-for="seoUrl in channel.seoUrls">
                                 <template v-if="domain.languageId === seoUrl.languageId">
                                 {% block sw_settings_customer_group_detail_content_registration_url_card_seo_url_inner %}
                                     <mt-text-field
                                         :key="`${seoUrl.id}-${domain.id}`"
                                         :model-value="`${domain.url}/${seoUrl.seoPathInfo}`"
                                         :label="$tc('sw-settings-customer-group.registration.seoUrlLabel', {
-                                            salesChannelName: salesChannel.translated.name,
+                                            channelName: channel.translated.name,
                                             languageName: seoUrl.language.name
                                         })"
                                         :copyable="true"

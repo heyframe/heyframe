@@ -49,10 +49,10 @@ export default {
             page: {
                 sections: [],
             },
-            salesChannels: [],
+            channels: [],
             isLoading: false,
             isSaveSuccessful: false,
-            currentSalesChannelKey: null,
+            currentChannelKey: null,
             selectedBlockSectionId: null,
             currentMappingEntity: null,
             currentMappingEntityRepo: null,
@@ -145,7 +145,7 @@ export default {
             return this.repositoryFactory.create('cms_slot');
         },
 
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
 
@@ -338,11 +338,11 @@ export default {
                 const criteria = new Criteria(1, 25);
                 criteria.addFilter(Criteria.equals('typeId', defaultStorefrontId));
 
-                this.salesChannelRepository.search(criteria).then((response) => {
-                    this.salesChannels = response;
+                this.channelRepository.search(criteria).then((response) => {
+                    this.channels = response;
 
-                    if (this.salesChannels.length > 0) {
-                        this.currentSalesChannelKey = this.salesChannels[0].id;
+                    if (this.channels.length > 0) {
+                        this.currentChannelKey = this.channels[0].id;
                         this.loadPage(this.pageId);
                     }
                 });
@@ -497,8 +497,8 @@ export default {
         onChangeLanguage() {
             this.isLoading = true;
 
-            return this.salesChannelRepository.search(new Criteria(1, 25)).then((response) => {
-                this.salesChannels = response;
+            return this.channelRepository.search(new Criteria(1, 25)).then((response) => {
+                this.channels = response;
                 const isSystemDefaultLanguage = HeyFrame.Store.get('context').isSystemDefaultLanguage;
                 this.cmsPageState.setIsSystemDefaultLanguage(isSystemDefaultLanguage);
                 return this.loadPage(this.pageId);

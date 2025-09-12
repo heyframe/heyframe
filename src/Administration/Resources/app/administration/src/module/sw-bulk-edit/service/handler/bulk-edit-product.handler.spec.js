@@ -486,10 +486,10 @@ describe('module/sw-bulk-edit/service/handler/bulk-edit-product.handler', () => 
                     {
                         type: 'overwrite',
                         field: 'visibilities',
-                        mappingReferenceField: 'salesChannelId',
+                        mappingReferenceField: 'channelId',
                         value: [
-                            { salesChannelId: 'scn_1', visibility: 20 },
-                            { salesChannelId: 'scn_2', visibility: 30 },
+                            { channelId: 'scn_1', visibility: 20 },
+                            { channelId: 'scn_2', visibility: 30 },
                         ],
                     },
                 ],
@@ -500,12 +500,12 @@ describe('module/sw-bulk-edit/service/handler/bulk-edit-product.handler', () => 
                         payload: [
                             {
                                 productId: 'product_2',
-                                salesChannelId: 'scn_1',
+                                channelId: 'scn_1',
                                 visibility: 20,
                             },
                             {
                                 productId: 'product_1',
-                                salesChannelId: 'scn_2',
+                                channelId: 'scn_2',
                                 visibility: 30,
                             },
                             {
@@ -533,23 +533,23 @@ describe('module/sw-bulk-edit/service/handler/bulk-edit-product.handler', () => 
                             id: 'product_scn_1',
                             productId: 'product_1',
                             visibility: 20,
-                            salesChannelId: 'scn_1',
+                            channelId: 'scn_1',
                         },
                         {
                             id: 'product_scn_2',
                             productId: 'product_2',
                             visibility: 20,
-                            salesChannelId: 'scn_2',
+                            channelId: 'scn_2',
                         },
                         {
                             id: 'product_scn_3',
                             productId: 'product_1',
-                            salesChannelId: 'scn_3',
+                            channelId: 'scn_3',
                         },
                         {
                             id: 'product_scn_4',
                             productId: 'product_2',
-                            salesChannelId: 'scn_4',
+                            channelId: 'scn_4',
                         },
                     ],
                 },
@@ -1236,7 +1236,7 @@ describe('module/sw-bulk-edit/service/handler/bulk-edit-product.handler', () => 
                         productId: {
                             type: 'uuid',
                         },
-                        salesChannelId: {
+                        channelId: {
                             type: 'uuid',
                         },
                         visibility: {

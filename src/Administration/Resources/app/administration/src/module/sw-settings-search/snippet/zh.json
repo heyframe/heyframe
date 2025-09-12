@@ -100,8 +100,8 @@
     "liveSearchTab": {
       "titleCard": "销售渠道即时搜索",
       "textDescription": "在下方测试你的自定义搜索设置。",
-      "labelSalesChannelSelect": "销售渠道",
-      "textPlaceholderSalesChannel": "选择销售渠道...",
+      "labelChannelSelect": "销售渠道",
+      "textPlaceholderChannel": "选择销售渠道...",
       "textPlaceholderSorting": "选择排序...",
       "linkRebuildSearchIndex": "重建搜索索引",
       "labelName": "搜索结果",

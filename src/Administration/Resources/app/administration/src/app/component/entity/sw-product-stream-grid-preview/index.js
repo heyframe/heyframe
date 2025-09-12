@@ -71,11 +71,11 @@ export default {
             return this.repositoryFactory.create('currency');
         },
 
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
 
-        salesChannelCriteria() {
+        channelCriteria() {
             return new Criteria(1, 1)
                 .addFilter(
                     Criteria.not('OR', [
@@ -204,8 +204,8 @@ export default {
                 ]),
             );
 
-            return this.salesChannelRepository
-                .searchIds(this.salesChannelCriteria)
+            return this.channelRepository
+                .searchIds(this.channelCriteria)
                 .then(({ data }) => {
                     return this.productStreamPreviewService.preview(data.at(0), this.criteria, [], {
                         'sw-currency-id': Context.app.systemCurrencyId,

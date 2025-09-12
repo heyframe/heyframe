@@ -19,7 +19,7 @@ export default {
             required: true,
         },
 
-        salesChannelId: {
+        channelId: {
             type: String,
             required: true,
             default: '',
@@ -76,7 +76,7 @@ export default {
                 ]),
             );
 
-            criteria.addFilter(Criteria.equals('visibilities.salesChannelId', this.salesChannelId));
+            criteria.addFilter(Criteria.equals('visibilities.channelId', this.channelId));
             criteria.addFilter(Criteria.equals('active', true));
             criteria.setTotalCountMode(0);
 

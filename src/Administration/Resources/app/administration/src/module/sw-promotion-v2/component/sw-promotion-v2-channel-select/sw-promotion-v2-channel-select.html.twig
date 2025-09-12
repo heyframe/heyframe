@@ -1,8 +1,8 @@
 {% block sw_promotion_v2_channel_selection %}
 <sw-multi-select
-    v-model:value="salesChannelIds"
+    v-model:value="channelIds"
     v-bind="$attrs"
-    :options="salesChannels"
+    :options="channels"
     value-property="id"
     label-property="name"
 >

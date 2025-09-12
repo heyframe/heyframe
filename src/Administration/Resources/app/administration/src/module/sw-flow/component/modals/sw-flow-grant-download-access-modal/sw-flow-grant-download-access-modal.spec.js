@@ -50,7 +50,7 @@ describe('module/sw-flow/component/sw-flow-grant-download-access-modal', () => {
             mailAware: false,
             name: 'action.grant.download.access',
             orderAware: true,
-            salesChannelAware: false,
+            channelAware: false,
             userAware: false,
             webhookAware: false,
         };

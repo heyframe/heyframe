@@ -35,7 +35,7 @@ export default HeyFrame.Component.wrapComponentConfig({
 
     data() {
         return {
-            shopPageSalesChannelId: null as string | null,
+            shopPageChannelId: null as string | null,
             previousCategories: [] as Entity<'category'>[],
             previousCategoryIds: [] as string[],
             previousLandingPages: [] as Entity<'landing_page'>[],
@@ -178,27 +178,27 @@ export default HeyFrame.Component.wrapComponentConfig({
             const shopPages: Record<string, Record<string, string | null>> = {};
             let deletions = 0;
 
-            Object.keys(this.selectedShopPages).forEach((salesChannelId) => {
-                shopPages[salesChannelId] = {};
+            Object.keys(this.selectedShopPages).forEach((channelId) => {
+                shopPages[channelId] = {};
 
-                if (this.selectedShopPages[salesChannelId] === null) {
+                if (this.selectedShopPages[channelId] === null) {
                     return;
                 }
 
-                this.selectedShopPages[salesChannelId].forEach((name) => {
-                    shopPages[salesChannelId][name] = this.page.id;
+                this.selectedShopPages[channelId].forEach((name) => {
+                    shopPages[channelId][name] = this.page.id;
                 });
             });
 
             // Set deleted items to null for API request
-            Object.keys(this.previousShopPages).forEach((salesChannelId) => {
-                if (this.previousShopPages[salesChannelId] === null) {
+            Object.keys(this.previousShopPages).forEach((channelId) => {
+                if (this.previousShopPages[channelId] === null) {
                     return;
                 }
 
-                this.previousShopPages[salesChannelId].forEach((name) => {
-                    if (shopPages[salesChannelId][name] === undefined) {
-                        shopPages[salesChannelId][name] = null;
+                this.previousShopPages[channelId].forEach((name) => {
+                    if (shopPages[channelId][name] === undefined) {
+                        shopPages[channelId][name] = null;
                         deletions += 1;
                     }
                 });
@@ -223,14 +223,14 @@ export default HeyFrame.Component.wrapComponentConfig({
                 return false;
             }
 
-            if (this.selectedShopPages.hasOwnProperty(this.shopPageSalesChannelId!)) {
+            if (this.selectedShopPages.hasOwnProperty(this.shopPageChannelId!)) {
                 return false;
             }
 
             this.isLoading = true;
 
             return this.systemConfigApiService
-                .getValues(this.systemConfigDomain, this.shopPageSalesChannelId as null)
+                .getValues(this.systemConfigDomain, this.shopPageChannelId as null)
                 .then((values: { [key: string]: unknown }) => {
                     const pages: string[] = [];
 
@@ -245,8 +245,8 @@ export default HeyFrame.Component.wrapComponentConfig({
                     });
 
                     if (pages.length > 0) {
-                        this.selectedShopPages[this.shopPageSalesChannelId!] = pages;
-                    } else this.selectedShopPages[this.shopPageSalesChannelId!] = null;
+                        this.selectedShopPages[this.shopPageChannelId!] = pages;
+                    } else this.selectedShopPages[this.shopPageChannelId!] = null;
 
                     this.previousShopPages = cloneDeep(this.selectedShopPages);
                 })
@@ -469,7 +469,7 @@ export default HeyFrame.Component.wrapComponentConfig({
             this.onConfirm();
         },
 
-        onInputSalesChannelSelect() {
+        onInputChannelSelect() {
             void this.loadSystemConfig();
         },
 

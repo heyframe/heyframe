@@ -2,10 +2,10 @@
 <div class="sw-first-run-wizard-defaults">
 
     {% block sw_first_run_wizard_defaults_channel_card %}
-    <sw-settings-listing-default-sales-channel
-        ref="defaultSalesChannelCard"
+    <sw-settings-listing-default-channel
+        ref="defaultChannelCard"
         :is-loading="isLoading"
-        @vue:mounted="() => defaultSalesChannelCardLoaded = true"
+        @vue:mounted="() => defaultChannelCardLoaded = true"
     />
     {% endblock %}
 

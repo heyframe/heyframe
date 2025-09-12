@@ -20,20 +20,20 @@ export default {
     data() {
         return {
             isLoading: false,
-            defaultSalesChannelCardLoaded: false,
-            salesChannel: null,
+            defaultChannelCardLoaded: false,
+            channel: null,
             configData: {
                 null: {
-                    'core.defaultSalesChannel.salesChannel': [],
-                    'core.defaultSalesChannel.active': true,
-                    'core.defaultSalesChannel.visibility': {},
+                    'core.defaultChannel.channel': [],
+                    'core.defaultChannel.active': true,
+                    'core.defaultChannel.visibility': {},
                 },
             },
         };
     },
 
     computed: {
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
 
@@ -45,7 +45,7 @@ export default {
                     position: 'right',
                     variant: 'primary',
                     action: this.nextAction.bind(this),
-                    disabled: !this.defaultSalesChannelCardLoaded,
+                    disabled: !this.defaultChannelCardLoaded,
                 },
             ];
 
@@ -90,7 +90,7 @@ export default {
         async nextAction() {
             this.isLoading = true;
 
-            await this.$refs.defaultSalesChannelCard.saveSalesChannelVisibilityConfig();
+            await this.$refs.defaultChannelCard.saveChannelVisibilityConfig();
 
             this.isLoading = false;
             this.$emit('frw-redirect', 'sw.first.run.wizard.index.mailer.selection');
@@ -100,8 +100,8 @@ export default {
             this.$emit('buttons-update', this.buttonConfig);
         },
 
-        updateSalesChannel(salesChannel) {
-            this.salesChannel = salesChannel;
+        updateChannel(channel) {
+            this.channel = channel;
         },
     },
 };

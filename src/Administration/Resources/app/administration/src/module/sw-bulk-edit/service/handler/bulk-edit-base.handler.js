@@ -38,7 +38,7 @@ class BulkEditBaseHandler {
         {
             type: 'overwrite',
             field: 'visibilities',
-            mappingReferenceField: 'salesChannelId',
+            mappingReferenceField: 'channelId',
             value: ProductVisibilitiesCollection
         },
         { type: 'overwrite', field: 'categories', value: [{id: 'category_1'}, {id: 'category_2'}]}
@@ -428,7 +428,7 @@ class BulkEditBaseHandler {
         criteria.addFilter(Criteria.equalsAny(referenceKey, this.entityIds));
 
         /**
-         * change.mappingReferenceField to handle special cases like product.visibilities, it will be salesChannelId
+         * change.mappingReferenceField to handle special cases like product.visibilities, it will be channelId
          * It's OneToMany association but behave similar to a ManyToMany association
          * We need to prefetch the OneToMany associations to avoid unique constraint.
          * e.g `product_visibility`.`product_id_channel_id`

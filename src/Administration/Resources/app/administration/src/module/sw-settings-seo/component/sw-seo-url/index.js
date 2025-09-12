@@ -15,12 +15,12 @@ export default {
 
     inject: ['repositoryFactory'],
 
-    emits: ['on-change-sales-channel'],
+    emits: ['on-change-channel'],
 
     mixins: [],
 
     props: {
-        salesChannelId: {
+        channelId: {
             type: String,
             required: false,
             default: null,
@@ -62,7 +62,7 @@ export default {
 
     data() {
         return {
-            currentSalesChannelId: this.salesChannelId,
+            currentChannelId: this.channelId,
             showEmptySeoUrlError: false,
         };
     },
@@ -88,29 +88,29 @@ export default {
             return this.repositoryFactory.create('seo_url');
         },
 
-        salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+        channelRepository() {
+            return this.repositoryFactory.create('channel');
         },
 
-        isHeadlessSalesChannel() {
+        isHeadlessChannel() {
             if (!HeyFrame.Store.get('swSeoUrl')) {
                 return true;
             }
 
-            if (HeyFrame.Store.get('swSeoUrl').salesChannelCollection === null) {
+            if (HeyFrame.Store.get('swSeoUrl').channelCollection === null) {
                 return true;
             }
 
-            const salesChannel = HeyFrame.Store.get('swSeoUrl').salesChannelCollection.find((entry) => {
-                return entry.id === this.currentSalesChannelId;
+            const channel = HeyFrame.Store.get('swSeoUrl').channelCollection.find((entry) => {
+                return entry.id === this.currentChannelId;
             });
 
             // from Defaults.php
-            return this.currentSalesChannelId !== null && salesChannel?.typeId === 'f183ee5650cf4bdb8a774337575067a6';
+            return this.currentChannelId !== null && channel?.typeId === 'f183ee5650cf4bdb8a774337575067a6';
         },
 
         seoUrlHelptext() {
-            return this.isHeadlessSalesChannel ? this.$tc('sw-seo-url.textSeoUrlsDisallowedForHeadless') : null;
+            return this.isHeadlessChannel ? this.$tc('sw-seo-url.textSeoUrlsDisallowedForHeadless') : null;
         },
 
         hasAdditionalSeoSlot() {
@@ -118,7 +118,7 @@ export default {
         },
 
         allowInput() {
-            return this.hasDefaultTemplate || this.currentSalesChannelId !== null;
+            return this.hasDefaultTemplate || this.currentChannelId !== null;
         },
     },
 
@@ -141,19 +141,19 @@ export default {
 
     methods: {
         createdComponent() {
-            this.initSalesChannelCollection();
+            this.initChannelCollection();
             this.initSeoUrlCollection();
             if (!this.showEmptySeoUrlError) {
                 this.refreshCurrentSeoUrl();
             }
         },
 
-        initSalesChannelCollection() {
-            const salesChannelCriteria = new Criteria(1, this.resultLimit);
-            salesChannelCriteria.addAssociation('type');
+        initChannelCollection() {
+            const channelCriteria = new Criteria(1, this.resultLimit);
+            channelCriteria.addAssociation('type');
 
-            this.salesChannelRepository.search(salesChannelCriteria).then((salesChannelCollection) => {
-                HeyFrame.Store.get('swSeoUrl').salesChannelCollection = salesChannelCollection;
+            this.channelRepository.search(channelCriteria).then((channelCollection) => {
+                HeyFrame.Store.get('swSeoUrl').channelCollection = channelCollection;
             });
         },
 
@@ -167,7 +167,7 @@ export default {
             );
 
             const defaultSeoUrlData = this.urls.find((entityData) => {
-                return entityData.salesChannelId === null;
+                return entityData.channelId === null;
             });
 
             if (defaultSeoUrlData === undefined && (this.hasDefaultTemplate || this.urls.length <= 0)) {
@@ -211,7 +211,7 @@ export default {
             const actualLanguageId = HeyFrame.Context.api.languageId;
 
             const currentSeoUrl = this.seoUrlCollection.find((entity) => {
-                return entity.languageId === actualLanguageId && entity.salesChannelId === this.currentSalesChannelId;
+                return entity.languageId === actualLanguageId && entity.channelId === this.currentChannelId;
             });
 
             if (!currentSeoUrl) {
@@ -225,7 +225,7 @@ export default {
                 entity.foreignKey = this.defaultSeoUrl?.foreignKey ?? seoUrl.foreignKey;
                 entity.isCanonical = true;
                 entity.languageId = actualLanguageId;
-                entity.salesChannelId = this.currentSalesChannelId;
+                entity.channelId = this.currentChannelId;
                 entity.routeName = this.defaultSeoUrl?.routeName ?? seoUrl.routeName;
                 entity.pathInfo = this.defaultSeoUrl?.pathInfo ?? seoUrl.pathInfo;
                 entity.isModified = true;
@@ -239,9 +239,9 @@ export default {
 
             HeyFrame.Store.get('swSeoUrl').currentSeoUrl = currentSeoUrl;
         },
-        onSalesChannelChanged(salesChannelId) {
-            this.currentSalesChannelId = salesChannelId;
-            this.$emit('on-change-sales-channel', salesChannelId);
+        onChannelChanged(channelId) {
+            this.currentChannelId = channelId;
+            this.$emit('on-change-channel', channelId);
             this.refreshCurrentSeoUrl();
         },
     },

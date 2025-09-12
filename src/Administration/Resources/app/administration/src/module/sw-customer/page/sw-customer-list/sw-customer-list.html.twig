@@ -182,9 +182,9 @@
                 </template>
                 {% endblock %}
 
-                {% block sw_customer_list_grid_columns_boundSalesChannel %}
-                <template #column-boundSalesChannelId="{ item }">
-                    {{ item.boundSalesChannelId ? item.boundSalesChannel.translated.name : $tc('sw-customer.list.emptyBoundSalesChannel') }}
+                {% block sw_customer_list_grid_columns_boundChannel %}
+                <template #column-boundChannelId="{ item }">
+                    {{ item.boundChannelId ? item.boundChannel.translated.name : $tc('sw-customer.list.emptyBoundChannel') }}
                 </template>
                 {% endblock %}
 

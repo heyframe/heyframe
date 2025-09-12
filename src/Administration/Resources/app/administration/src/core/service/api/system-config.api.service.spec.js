@@ -38,7 +38,7 @@ describe('system-config.api.service', () => {
         axiosMock
             .onGet('_action/system-config', {
                 params: {
-                    salesChannelId: null,
+                    channelId: null,
                     domain: 'system-config.domain',
                 },
             })
@@ -59,7 +59,7 @@ describe('system-config.api.service', () => {
         axiosMock
             .onGet('_action/system-config', {
                 params: {
-                    salesChannelId: null,
+                    channelId: null,
                     domain: 'system-config.domain',
                 },
             })

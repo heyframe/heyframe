@@ -216,7 +216,7 @@ describe('module/sw-flow/service/flow-builder.service.js', () => {
         ];
 
         const allowedAware = [
-            'HeyFrame\\Core\\Framework\\Event\\SalesChannelAware',
+            'HeyFrame\\Core\\Framework\\Event\\ChannelAware',
             'HeyFrame\\Core\\Framework\\Event\\OrderAware',
             'HeyFrame\\Core\\Framework\\Event\\MailAware',
             'HeyFrame\\Core\\Framework\\Event\\CustomerAware',

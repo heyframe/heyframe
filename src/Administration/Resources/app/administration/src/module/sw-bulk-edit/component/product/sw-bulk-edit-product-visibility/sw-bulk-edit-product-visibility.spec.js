@@ -47,8 +47,8 @@ describe('sw-bulk-edit-product-visibility', () => {
                 {
                     productId: 'productId',
                     productVersionId: 'productVersionId',
-                    salesChannel: {},
-                    salesChannelId: 'salesChannelId',
+                    channel: {},
+                    channelId: 'channelId',
                     visibility: 30,
                 },
             ],

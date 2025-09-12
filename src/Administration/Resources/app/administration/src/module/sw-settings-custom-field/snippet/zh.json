@@ -96,7 +96,7 @@
         "paymentMethod": "支付方式",
         "country": "国家",
         "customer": "客户",
-        "salesChannel": "销售渠道",
+        "channel": "销售渠道",
         "manufacturer": "制造商",
         "dynamicProductGroup": "动态产品组",
         "shoppingExperienceLayout": "购物体验布局"

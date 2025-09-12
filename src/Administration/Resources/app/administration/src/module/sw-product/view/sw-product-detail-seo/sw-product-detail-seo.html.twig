@@ -25,7 +25,7 @@
         :has-default-template="false"
         :disabled="!acl.can('product.editor')"
         :urls="product.seoUrls"
-        @on-change-sales-channel="onChangeSalesChannel"
+        @on-change-channel="onChangeChannel"
     >
         {% block sw_product_detail_seo_urls_content %}
         <template #seo-additional="props">
@@ -33,7 +33,7 @@
             <sw-inherit-wrapper
                 v-if="product.mainCategories"
                 v-model:value="productMainCategory"
-                :has-parent="!!parentProduct.id && !!props.currentSalesChannelId && product.categories.length === 0"
+                :has-parent="!!parentProduct.id && !!props.currentChannelId && product.categories.length === 0"
                 :label="$tc('sw-seo-url.labelMainCategory')"
                 :inherited-value="parentMainCategory"
             >
@@ -41,7 +41,7 @@
                 <template #content="{ currentValue, isInherited }">
                     {% block sw_product_detail_seo_urls_content_seo_additional_edit %}
                     <sw-seo-main-category
-                        :current-sales-channel-id="props.currentSalesChannelId"
+                        :current-channel-id="props.currentChannelId"
                         :categories="categories"
                         :main-categories="isInherited ? parentProduct.mainCategories : product.mainCategories"
                         :overwrite-label="true"

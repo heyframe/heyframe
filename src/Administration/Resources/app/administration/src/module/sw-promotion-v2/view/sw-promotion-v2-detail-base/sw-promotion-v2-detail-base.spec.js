@@ -71,13 +71,13 @@ async function createWrapper() {
                 apiAlias: null,
                 id: 'promotionId',
                 setgroups: [],
-                salesChannels: [
+                channels: [
                     {
                         promotionId: 'promotionId',
-                        salesChannelId: 'salesChannelId',
+                        channelId: 'channelId',
                         priority: 1,
                         createdAt: '2020-08-17T13:24:52.692+00:00',
-                        id: 'promotionSalesChannelId',
+                        id: 'promotionChannelId',
                     },
                 ],
                 discounts: [],

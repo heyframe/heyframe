@@ -12,9 +12,9 @@ async function createWrapper({
     HeyFrame.Store.get('swCategoryDetail').category = {
         media: [],
         name: 'Computer parts',
-        footerSalesChannels: [],
-        navigationSalesChannels: [],
-        serviceSalesChannels: [],
+        footerChannels: [],
+        navigationChannels: [],
+        serviceChannels: [],
         productAssignmentType: 'product',
         isNew: () => false,
     };
