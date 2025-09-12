@@ -93,48 +93,11 @@ export default {
                 criteria.addFilter(filter);
             });
 
-            criteria.addAssociation('billingAddress');
             criteria.addAssociation('channel');
             criteria.addAssociation('orderCustomer');
             criteria.addAssociation('currency');
-            criteria.addAssociation('documents');
             criteria.addAssociation('stateMachineState');
             criteria.addAssociation('primaryOrderTransaction.stateMachineState');
-            criteria.addAssociation('primaryOrderDelivery.stateMachineState');
-            criteria.addAssociation('primaryOrderDelivery.shippingOrderAddress');
-
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                criteria.addAssociation('addresses');
-
-                criteria
-                    .getAssociation('transactions')
-                    .addAssociation('stateMachineState')
-                    .addSorting(Criteria.sort('createdAt'));
-
-                criteria
-                    .addAssociation('primaryOrderTransaction.paymentMethod')
-                    .addAssociation('primaryOrderDelivery.shippingMethod')
-                    .addAssociation('primaryOrderDelivery.shippingOrderAddress.country');
-
-                criteria
-                    .getAssociation('deliveries')
-                    .addAssociation('stateMachineState')
-                    .addAssociation('shippingOrderAddress')
-                    .addAssociation('shippingMethod');
-            }
-
-            return criteria;
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - will be removed without replacement
-         */
-        filterSelectCriteria() {
-            const criteria = new Criteria(1, 1);
-
-            criteria.addAggregation(Criteria.terms('affiliateCodes', 'affiliateCode', null, null, null));
-            criteria.addAggregation(Criteria.terms('campaignCodes', 'campaignCode', null, null, null));
-            criteria.addAggregation(Criteria.terms('promotionCodes', 'lineItems.payload.code', null, null, null));
 
             return criteria;
         },
@@ -170,12 +133,6 @@ export default {
                     label: this.$tc('sw-order.filters.paymentStatusFilter.label'),
                     placeholder: this.$tc('sw-order.filters.paymentStatusFilter.placeholder'),
                 },
-                'delivery-status-filter': {
-                    property: 'primaryOrderDelivery.stateMachineState',
-                    criteria: this.getStatusCriteria('order_delivery.state'),
-                    label: this.$tc('sw-order.filters.deliveryStatusFilter.label'),
-                    placeholder: this.$tc('sw-order.filters.deliveryStatusFilter.placeholder'),
-                },
                 'status-filter': {
                     property: 'stateMachineState',
                     criteria: this.getStatusCriteria('order.state'),
@@ -204,22 +161,6 @@ export default {
                     label: this.$tc('sw-order.filters.tagFilter.label'),
                     placeholder: this.$tc('sw-order.filters.tagFilter.placeholder'),
                 },
-                'affiliate-code-filter': {
-                    property: 'affiliateCode',
-                    type: 'string-filter',
-                    label: this.$tc('sw-order.filters.affiliateCodeFilter.label'),
-                    placeholder: this.$tc('sw-order.filters.affiliateCodeFilter.placeholder'),
-                    valueProperty: 'key',
-                    labelProperty: 'key',
-                },
-                'campaign-code-filter': {
-                    property: 'campaignCode',
-                    type: 'string-filter',
-                    label: this.$tc('sw-order.filters.campaignCodeFilter.label'),
-                    placeholder: this.$tc('sw-order.filters.campaignCodeFilter.placeholder'),
-                    valueProperty: 'key',
-                    labelProperty: 'key',
-                },
                 'promotion-code-filter': {
                     property: 'lineItems.payload.code',
                     type: 'string-filter',
@@ -228,32 +169,10 @@ export default {
                     valueProperty: 'key',
                     labelProperty: 'key',
                 },
-                'document-filter': {
-                    property: 'documents',
-                    label: this.$tc('sw-order.filters.documentFilter.label'),
-                    placeholder: this.$tc('sw-order.filters.documentFilter.placeholder'),
-                    optionHasCriteria: this.$tc('sw-order.filters.documentFilter.textHasCriteria'),
-                    optionNoCriteria: this.$tc('sw-order.filters.documentFilter.textNoCriteria'),
-                },
                 'payment-method-filter': {
                     property: 'primaryOrderTransaction.paymentMethod',
                     label: this.$tc('sw-order.filters.paymentMethodFilter.label'),
                     placeholder: this.$tc('sw-order.filters.paymentMethodFilter.placeholder'),
-                },
-                'shipping-method-filter': {
-                    property: 'primaryOrderDelivery.shippingMethod',
-                    label: this.$tc('sw-order.filters.shippingMethodFilter.label'),
-                    placeholder: this.$tc('sw-order.filters.shippingMethodFilter.placeholder'),
-                },
-                'billing-country-filter': {
-                    property: 'billingAddress.country',
-                    label: this.$tc('sw-order.filters.billingCountryFilter.label'),
-                    placeholder: this.$tc('sw-order.filters.billingCountryFilter.placeholder'),
-                },
-                'shipping-country-filter': {
-                    property: 'primaryOrderDelivery.shippingOrderAddress.country',
-                    label: this.$tc('sw-order.filters.shippingCountryFilter.label'),
-                    placeholder: this.$tc('sw-order.filters.shippingCountryFilter.placeholder'),
                 },
                 'customer-group-filter': {
                     property: 'orderCustomer.customer.group',
@@ -409,8 +328,8 @@ export default {
                     visible: false,
                 },
                 {
-                    property: 'orderCustomer.firstName',
-                    dataIndex: 'orderCustomer.lastName,orderCustomer.firstName',
+                    property: 'orderCustomer.nickname',
+                    dataIndex: 'orderCustomer.lastName,orderCustomer.nickname',
                     label: 'sw-order.list.columnCustomerName',
                     allowResize: true,
                 },
@@ -419,18 +338,6 @@ export default {
                     label: 'sw-order.list.columnCustomerCompany',
                     allowResize: true,
                     visible: false,
-                },
-                {
-                    property: 'billingAddressId',
-                    dataIndex: 'billingAddress.street',
-                    label: 'sw-order.list.columnBillingAddress',
-                    allowResize: true,
-                    visible: false,
-                },
-                {
-                    property: 'primaryOrderDelivery.shippingOrderAddress.street',
-                    label: 'sw-order.list.columnDeliveryAddress',
-                    allowResize: true,
                 },
                 {
                     property: 'amountTotal',
@@ -449,28 +356,9 @@ export default {
                     allowResize: true,
                 },
                 {
-                    property: 'primaryOrderDelivery.stateMachineState.name',
-                    label: 'sw-order.list.columnDeliveryState',
-                    allowResize: true,
-                },
-                {
                     property: 'orderDateTime',
                     label: 'sw-order.list.orderDate',
                     allowResize: true,
-                },
-                {
-                    property: 'affiliateCode',
-                    inlineEdit: 'string',
-                    label: 'sw-order.list.columnAffiliateCode',
-                    allowResize: true,
-                    visible: false,
-                },
-                {
-                    property: 'campaignCode',
-                    inlineEdit: 'string',
-                    label: 'sw-order.list.columnCampaignCode',
-                    allowResize: true,
-                    visible: false,
                 },
             ];
         },
@@ -483,23 +371,6 @@ export default {
 
         getVariantFromPaymentState(order) {
             let technicalName = order.primaryOrderTransaction?.stateMachineState.technicalName;
-
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                technicalName = order.transactions.last().stateMachineState.technicalName;
-
-                // set the payment status to the first transaction that is not cancelled
-                for (let i = 0; i < order.transactions.length; i += 1) {
-                    if (
-                        ![
-                            'cancelled',
-                            'failed',
-                        ].includes(order.transactions[i].stateMachineState.technicalName)
-                    ) {
-                        technicalName = order.transactions[i].stateMachineState.technicalName;
-                        break;
-                    }
-                }
-            }
 
             return this.stateStyleDataProviderService.getStyle('order_transaction.state', technicalName).colorCode;
         },

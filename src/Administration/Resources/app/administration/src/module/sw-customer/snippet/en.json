@@ -67,14 +67,9 @@
       "labelCreatedByAdmin": "Created by admin",
       "columnFirstName": "First name",
       "columnLastName": "Last name",
-      "columnStreet": "Street",
-      "columnZip": "Postal code",
-      "columnCity": "City",
       "columnEmail": "Email address",
       "columnLastLogin": "Last login",
       "columnActions": "Action(s)",
-      "columnAffiliateCode": "Affiliate code",
-      "columnCampaignCode": "Campaign code",
       "columnBoundChannel": "Channel",
       "columnActive": "Active",
       "columnCreatedAt": "Created at",
@@ -87,10 +82,7 @@
       "textDeleteConfirm": "Are you sure you want to delete the customer \"{name}\"?",
       "buttonDelete": "Delete",
       "titleSidebarItemRefresh": "Refresh",
-      "titleSidebarItemFilter": "Filter",
-      "titleSidebarItemFilterAffiliateCode": "Affiliate code",
-      "titleSidebarItemFilterCampaignCode": "Campaign code",
-      "titleSidebarItemFilterRequestedGroup": "Show only customer group requests"
+      "titleSidebarItemFilter": "Filter"
     },
     "baseForm": {
       "labelSalutation": "Salutation",
@@ -108,7 +100,6 @@
       "labelPassword": "Password",
       "placeholderPassword": "Enter password...",
       "helpTextPassword": "After saving the customer the password can only be changed directly by the customer.",
-      "placeholderSalutation": "Select salutation...",
       "placeholderTitle": "Enter title...",
       "placeholderFirstName": "Enter first name...",
       "placeholderLastName": "Enter last name...",
@@ -174,15 +165,10 @@
       "columnCompany": "Company",
       "columnFirstName": "First name",
       "columnLastName": "Last name",
-      "columnStreet": "Street",
-      "columnZipCode": "Postal code",
-      "columnCity": "City",
       "columnActions": "Actions",
       "contextMenuEdit": "Edit",
       "contextMenuDelete": "Delete",
-      "contextMenuDuplicate": "Duplicate",
-      "contextMenuDefaultShippingAddress": "Set as default delivery address",
-      "contextMenuDefaultBillingAddress": "Set as default billing address"
+      "contextMenuDuplicate": "Duplicate"
     },
     "detailOrder": {
       "searchbarPlaceholder": "Search orders",
@@ -254,10 +240,6 @@
         "label": "Customer number",
         "placeholder": "Enter customer number..."
       },
-      "salutation": {
-        "label": "Salutation",
-        "placeholder": "Select salutation..."
-      },
       "status": {
         "label": "Status",
         "placeholder": "Select status..."
@@ -266,40 +248,12 @@
         "label": "Customer group",
         "placeholder": "Select customer group..."
       },
-      "billingCountry": {
-        "label": "Billing country",
-        "placeholder": "Select billing countries..."
-      },
-      "shippingCountry": {
-        "label": "Shipping country",
-        "placeholder": "Select shipping countries..."
-      },
       "tags": {
         "label": "Tags",
         "placeholder": "Select tags..."
       },
-      "affiliateCode": {
-        "label": "Affiliate code",
-        "placeholder": "Enter affiliate code..."
-      },
-      "campaignCode": {
-        "label": "Campaign code",
-        "placeholder": "Enter campaign code..."
-      },
-      "customerGroupRequest": {
-        "label": "Customer group requests",
-        "placeholder": "Select request status...",
-        "textHasCriteria": "Open customer groups requests",
-        "textNoCriteria": "No customer group requests"
-      },
       "messageEmptyTitle": "Nothing found",
       "messageEmptySubline": "Edit your filters to find results."
-    },
-    "customerType": {
-      "labelAccountType": "Customer type",
-      "placeholderAccountType": "Select customer type...",
-      "labelPrivate": "Private",
-      "labelBusiness": "Commercial"
     }
   },
   "sw-privileges": {

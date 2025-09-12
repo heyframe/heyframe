@@ -92,9 +92,7 @@ export default {
             });
 
             defaultCriteria
-                .addAssociation('defaultBillingAddress')
                 .addAssociation('group')
-                .addAssociation('requestedGroup')
                 .addAssociation('boundChannel');
 
             this.filterCriteria.forEach((filter) => {
@@ -102,23 +100,6 @@ export default {
             });
 
             return defaultCriteria;
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - will be removed without replacement
-         */
-        filterSelectCriteria() {
-            const criteria = new Criteria(1, 1);
-            criteria.addFilter(
-                Criteria.not('AND', [
-                    Criteria.equals('affiliateCode', null),
-                    Criteria.equals('campaignCode', null),
-                ]),
-            );
-            criteria.addAggregation(Criteria.terms('affiliateCodes', 'affiliateCode', null, null, null));
-            criteria.addAggregation(Criteria.terms('campaignCodes', 'campaignCode', null, null, null));
-
-            return criteria;
         },
 
         listFilterOptions() {
@@ -132,36 +113,6 @@ export default {
                     labelProperty: 'key',
                     criteriaFilterType: 'equals',
                 },
-                'affiliate-code-filter': {
-                    property: 'affiliateCode',
-                    type: 'string-filter',
-                    label: this.$tc('sw-customer.filter.affiliateCode.label'),
-                    placeholder: this.$tc('sw-customer.filter.affiliateCode.placeholder'),
-                    valueProperty: 'key',
-                    labelProperty: 'key',
-                },
-                'campaign-code-filter': {
-                    property: 'campaignCode',
-                    type: 'string-filter',
-                    label: this.$tc('sw-customer.filter.campaignCode.label'),
-                    placeholder: this.$tc('sw-customer.filter.campaignCode.placeholder'),
-                    valueProperty: 'key',
-                    labelProperty: 'key',
-                },
-                'customer-group-request-filter': {
-                    property: 'requestedGroupId',
-                    type: 'existence-filter',
-                    label: this.$tc('sw-customer.filter.customerGroupRequest.label'),
-                    placeholder: this.$tc('sw-customer.filter.customerGroupRequest.placeholder'),
-                    optionHasCriteria: this.$tc('sw-customer.filter.customerGroupRequest.textHasCriteria'),
-                    optionNoCriteria: this.$tc('sw-customer.filter.customerGroupRequest.textNoCriteria'),
-                },
-                'salutation-filter': {
-                    property: 'salutation',
-                    label: this.$tc('sw-customer.filter.salutation.label'),
-                    placeholder: this.$tc('sw-customer.filter.salutation.placeholder'),
-                    labelProperty: 'displayName',
-                },
                 'account-status-filter': {
                     property: 'active',
                     label: this.$tc('sw-customer.filter.status.label'),
@@ -171,16 +122,6 @@ export default {
                     property: 'group',
                     label: this.$tc('sw-customer.filter.customerGroup.label'),
                     placeholder: this.$tc('sw-customer.filter.customerGroup.placeholder'),
-                },
-                'billing-address-country-filter': {
-                    property: 'defaultBillingAddress.country',
-                    label: this.$tc('sw-customer.filter.billingCountry.label'),
-                    placeholder: this.$tc('sw-customer.filter.billingCountry.placeholder'),
-                },
-                'shipping-address-country-filter': {
-                    property: 'defaultShippingAddress.country',
-                    label: this.$tc('sw-customer.filter.shippingCountry.label'),
-                    placeholder: this.$tc('sw-customer.filter.shippingCountry.placeholder'),
                 },
                 'tags-filter': {
                     property: 'tags',
@@ -318,25 +259,6 @@ export default {
                     useCustomSort: true,
                 },
                 {
-                    property: 'defaultBillingAddress.street',
-                    label: 'sw-customer.list.columnStreet',
-                    allowResize: true,
-                    useCustomSort: true,
-                },
-                {
-                    property: 'defaultBillingAddress.zipcode',
-                    label: 'sw-customer.list.columnZip',
-                    align: 'right',
-                    allowResize: true,
-                    useCustomSort: true,
-                },
-                {
-                    property: 'defaultBillingAddress.city',
-                    label: 'sw-customer.list.columnCity',
-                    allowResize: true,
-                    useCustomSort: true,
-                },
-                {
                     property: 'customerNumber',
                     dataIndex: 'customerNumber',
                     naturalSorting: true,
@@ -361,22 +283,6 @@ export default {
                     inlineEdit: 'string',
                     label: 'sw-customer.list.columnEmail',
                     allowResize: true,
-                    useCustomSort: true,
-                },
-                {
-                    property: 'affiliateCode',
-                    inlineEdit: 'string',
-                    label: 'sw-customer.list.columnAffiliateCode',
-                    allowResize: true,
-                    visible: false,
-                    useCustomSort: true,
-                },
-                {
-                    property: 'campaignCode',
-                    inlineEdit: 'string',
-                    label: 'sw-customer.list.columnCampaignCode',
-                    allowResize: true,
-                    visible: false,
                     useCustomSort: true,
                 },
                 {

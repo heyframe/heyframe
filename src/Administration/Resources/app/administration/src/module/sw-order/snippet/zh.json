@@ -2,23 +2,18 @@
   "sw-order": {
     "general": {
       "mainMenuItemGeneral": "订单",
-      "mainMenuItemList": "总览",
+      "mainMenuItemList": "订单",
       "descriptionTextModule": "在这里管理收到的订单。",
       "placeholderSearchBar": "搜索订单..."
     },
     "list": {
       "columnCustomerCompany": "公司",
-      "columnCustomerName": "客户姓名",
-      "columnBillingAddress": "账单地址",
-      "columnDeliveryAddress": "收货地址",
+      "columnCustomerName": "客户名称",
       "columnAmount": "金额",
       "columnState": "订单状态",
       "columnTransactionState": "支付状态",
-      "columnDeliveryState": "发货状态",
       "columnOrderNumber": "订单号",
       "columnChannel": "销售渠道",
-      "columnAffiliateCode": "推广码",
-      "columnCampaignCode": "活动码",
       "orderDate": "下单时间",
       "buttonAddOrder": "新建订单",
       "textOrders": "订单",
@@ -530,12 +525,6 @@
       }
     },
     "filters": {
-      "documentFilter": {
-        "label": "单据",
-        "placeholder": "选择单据状态...",
-        "textHasCriteria": "至少分配了一份单据",
-        "textNoCriteria": "未分配任何单据"
-      },
       "orderDateFilter": {
         "label": "下单日期",
         "options": {
@@ -558,17 +547,9 @@
         "label": "付款状态",
         "placeholder": "选择付款状态..."
       },
-      "deliveryStatusFilter": {
-        "label": "发货状态",
-        "placeholder": "选择发货状态..."
-      },
       "paymentMethodFilter": {
         "label": "付款方式",
         "placeholder": "选择付款方式..."
-      },
-      "shippingMethodFilter": {
-        "label": "配送方式",
-        "placeholder": "选择配送方式..."
       },
       "channelFilter": {
         "label": "销售渠道",
@@ -582,18 +563,6 @@
         "label": "客户编号",
         "placeholder": "输入客户编号..."
       },
-      "billingCountryFilter": {
-        "label": "账单国家",
-        "placeholder": "选择账单国家..."
-      },
-      "shippingCountryFilter": {
-        "label": "收货国家",
-        "placeholder": "选择收货国家..."
-      },
-      "customerGroupFilter": {
-        "label": "客户组",
-        "placeholder": "选择客户组..."
-      },
       "tagFilter": {
         "label": "标签",
         "placeholder": "选择标签..."
@@ -601,14 +570,6 @@
       "productFilter": {
         "label": "商品",
         "placeholder": "选择商品..."
-      },
-      "affiliateCodeFilter": {
-        "label": "联盟代码",
-        "placeholder": "输入联盟代码..."
-      },
-      "campaignCodeFilter": {
-        "label": "推广代码",
-        "placeholder": "输入推广代码..."
       },
       "promotionCodeFilter": {
         "label": "优惠码",

@@ -9,16 +9,11 @@
     "list": {
       "columnCustomerCompany": "Company",
       "columnCustomerName": "Customer name",
-      "columnBillingAddress": "Billing address",
-      "columnDeliveryAddress": "Delivery address",
       "columnAmount": "Total",
       "columnState": "Order status",
       "columnTransactionState": "Payment status",
-      "columnDeliveryState": "Delivery status",
       "columnOrderNumber": "Order number",
       "columnChannel": "Channel",
-      "columnAffiliateCode": "Affiliate code",
-      "columnCampaignCode": "Campaign code",
       "orderDate": "Order date",
       "buttonAddOrder": "Add order",
       "textOrders": "Orders",
@@ -530,12 +525,6 @@
       }
     },
     "filters": {
-      "documentFilter": {
-        "label": "Documents",
-        "placeholder": "Select document status...",
-        "textHasCriteria": "At least one document assigned",
-        "textNoCriteria": "No documents assigned"
-      },
       "orderDateFilter": {
         "label": "Order date",
         "options": {
@@ -558,17 +547,9 @@
         "label": "Payment status",
         "placeholder": "Select payment status..."
       },
-      "deliveryStatusFilter": {
-        "label": "Delivery status",
-        "placeholder": "Select delivery status..."
-      },
       "paymentMethodFilter": {
         "label": "Payment method",
         "placeholder": "Select payment method..."
-      },
-      "shippingMethodFilter": {
-        "label": "Shipping method",
-        "placeholder": "Select shipping method..."
       },
       "channelFilter": {
         "label": "Channels",
@@ -582,18 +563,6 @@
         "label": "Customer number",
         "placeholder": "Enter customer number..."
       },
-      "billingCountryFilter": {
-        "label": "Billing country",
-        "placeholder": "Select billing countries..."
-      },
-      "shippingCountryFilter": {
-        "label": "Shipping country",
-        "placeholder": "Select shipping countries..."
-      },
-      "customerGroupFilter": {
-        "label": "Customer group",
-        "placeholder": "Select customer group..."
-      },
       "tagFilter": {
         "label": "Tags",
         "placeholder": "Select tags..."
@@ -601,14 +570,6 @@
       "productFilter": {
         "label": "Products",
         "placeholder": "Select products..."
-      },
-      "affiliateCodeFilter": {
-        "label": "Affiliate code",
-        "placeholder": "Enter affiliate code..."
-      },
-      "campaignCodeFilter": {
-        "label": "Campaign code",
-        "placeholder": "Enter campaign code..."
       },
       "promotionCodeFilter": {
         "label": "Promotion code",
