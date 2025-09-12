@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\ProductStream;
 
 use HeyFrame\Core\Content\Category\CategoryDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingDefinition;
-use HeyFrame\Core\Content\ProductExport\ProductExportDefinition;
 use HeyFrame\Core\Content\ProductStream\Aggregate\ProductStreamFilter\ProductStreamFilterDefinition;
 use HeyFrame\Core\Content\ProductStream\Aggregate\ProductStreamTranslation\ProductStreamTranslationDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -67,7 +66,6 @@ class ProductStreamDefinition extends EntityDefinition
             (new TranslationsAssociationField(ProductStreamTranslationDefinition::class, 'product_stream_id'))->addFlags(new Required()),
             (new OneToManyAssociationField('filters', ProductStreamFilterDefinition::class, 'product_stream_id'))->addFlags(new CascadeDelete()),
             new OneToManyAssociationField('productCrossSellings', ProductCrossSellingDefinition::class, 'product_stream_id'),
-            new OneToManyAssociationField('productExports', ProductExportDefinition::class, 'product_stream_id', 'id'),
             new OneToManyAssociationField('categories', CategoryDefinition::class, 'product_stream_id'),
         ]);
     }

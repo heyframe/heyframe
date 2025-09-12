@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\ProductStream;
 
 use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingCollection;
-use HeyFrame\Core\Content\ProductExport\ProductExportCollection;
 use HeyFrame\Core\Content\ProductStream\Aggregate\ProductStreamFilter\ProductStreamFilterCollection;
 use HeyFrame\Core\Content\ProductStream\Aggregate\ProductStreamTranslation\ProductStreamTranslationCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
@@ -103,16 +102,6 @@ class ProductStreamEntity extends Entity
     public function setTranslations(ProductStreamTranslationCollection $translations): void
     {
         $this->translations = $translations;
-    }
-
-    public function getProductExports(): ?ProductExportCollection
-    {
-        return $this->productExports;
-    }
-
-    public function setProductExports(ProductExportCollection $productExports): void
-    {
-        $this->productExports = $productExports;
     }
 
     public function getProductCrossSellings(): ?ProductCrossSellingCollection
