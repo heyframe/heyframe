@@ -32,7 +32,7 @@ Module.register('sw-settings-cart', {
     },
 
     settingsItem: {
-        group: 'general',
+        group: 'commerce',
         to: 'sw.settings.cart.index',
         icon: 'regular-shopping-cart',
         privilege: 'system.system_config',

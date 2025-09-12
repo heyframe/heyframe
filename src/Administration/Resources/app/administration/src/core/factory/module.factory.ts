@@ -69,12 +69,12 @@ interface SettingsItem {
         | 'general'
         | 'localization'
         | 'customer'
+        | 'commerce'
         | 'content'
         | 'automation'
         | 'system'
         | 'account'
-        | 'plugins'
-        | (string & {});
+        | 'plugins';
     to: string;
     icon?: string;
     iconComponent?: unknown;

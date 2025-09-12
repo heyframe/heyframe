@@ -139,7 +139,7 @@ class Migration1536233560BasicData extends MigrationStep
 
         $membershipPlanId = Uuid::randomBytes();
         $connection->insert('dict_item', ['id' => $membershipPlanId, 'dict_id' => $id, 'value' => 'membership_plan', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('dict_item_translation', ['dict_item_id' => $membershipPlanId, 'language_id' => $languageZH, 'label' => '会员计划', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $membershipPlanId, 'language_id' => $languageZH, 'label' => '客户计划', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('dict_item_translation', ['dict_item_id' => $membershipPlanId, 'language_id' => $languageEN, 'label' => 'Membership Plan', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         $walletRechargeId = Uuid::randomBytes();

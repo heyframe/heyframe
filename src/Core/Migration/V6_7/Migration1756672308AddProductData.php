@@ -67,7 +67,7 @@ class Migration1756672308AddProductData extends MigrationStep
         $connection->insert('property_group_translation', [
             'property_group_id' => $groupId,
             'language_id' => $defaultLangId,
-            'name' => '会员计划',
+            'name' => '客户计划',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
         $connection->insert('property_group_translation', [
@@ -85,7 +85,7 @@ class Migration1756672308AddProductData extends MigrationStep
         $connection->insert('property_group_option_translation', [
             'property_group_option_id' => $monthlyId,
             'language_id' => $defaultLangId,
-            'name' => '月度会员',
+            'name' => '月度客户',
             'position' => 1,
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
@@ -106,7 +106,7 @@ class Migration1756672308AddProductData extends MigrationStep
         $connection->insert('property_group_option_translation', [
             'property_group_option_id' => $yearlyId,
             'language_id' => $defaultLangId,
-            'name' => '年度会员',
+            'name' => '年度客户',
             'position' => 1,
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
@@ -127,7 +127,7 @@ class Migration1756672308AddProductData extends MigrationStep
         $connection->insert('property_group_option_translation', [
             'property_group_option_id' => $lifetimeId,
             'language_id' => $defaultLangId,
-            'name' => '永久会员',
+            'name' => '永久客户',
             'position' => 1,
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);

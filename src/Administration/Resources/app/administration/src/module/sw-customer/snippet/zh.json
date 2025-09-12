@@ -1,41 +1,41 @@
 {
   "sw-customer": {
     "error": {
-      "COMPANY_IS_REQUIRED": "商业会员必须填写公司名称。",
+      "COMPANY_IS_REQUIRED": "商业客户必须填写公司名称。",
       "passwordDoNotMatch": "新密码与确认密码不一致。"
     },
     "notification": {
       "requiredFields": "请填写所有必填字段。"
     },
     "general": {
-      "mainMenuItemGeneral": "会员",
-      "mainMenuItemList": "会员列表",
-      "mainMenuItemAdd": "添加会员",
-      "descriptionTextModule": "在此管理会员信息。",
-      "placeholderSearchBar": "搜索会员...",
-      "newCustomer": "新会员",
+      "mainMenuItemGeneral": "客户",
+      "mainMenuItemList": "客户列表",
+      "mainMenuItemAdd": "添加客户",
+      "descriptionTextModule": "在此管理客户信息。",
+      "placeholderSearchBar": "搜索客户...",
+      "newCustomer": "新客户",
       "tooltipLanguageSwitch": "无法切换语言，因为没有可翻译字段。"
     },
     "customerGroupRegistration": {
-      "alert": "会员申请加入会员组 \"{name}\"。",
+      "alert": "客户申请加入客户组 \"{name}\"。",
       "accept": "通过",
-      "acceptMessage": "会员组已更改",
+      "acceptMessage": "客户组已更改",
       "decline": "拒绝",
       "declineMessage": "申请已被拒绝",
       "errorMessage": "无法处理该请求",
       "notification": {
         "title": "商户状态申请",
-        "message": "会员 \"{name}\" 请求加入会员组 \"{groupName}\"。",
-        "openCustomer": "查看会员"
+        "message": "客户 \"{name}\" 请求加入客户组 \"{groupName}\"。",
+        "openCustomer": "查看客户"
       }
     },
     "card": {
-      "buttonImitateCustomer": "以会员身份登录",
-      "tooltipImitateCustomerGuest": "访客会员无法模拟登录。",
-      "tooltipImitateCustomerInactive": "非活跃会员无法模拟登录。",
-      "tooltipImitateCustomerInactiveSalesChannel": "会员所属的销售渠道未激活。",
-      "tooltipImitateCustomerNoDomain": "会员的销售渠道未配置域名。",
-      "tooltipImitateCustomerNoStorefront": "会员的销售渠道类型不是 Storefront。",
+      "buttonImitateCustomer": "以客户身份登录",
+      "tooltipImitateCustomerGuest": "访客客户无法模拟登录。",
+      "tooltipImitateCustomerInactive": "非活跃客户无法模拟登录。",
+      "tooltipImitateCustomerInactiveSalesChannel": "客户所属的销售渠道未激活。",
+      "tooltipImitateCustomerNoDomain": "客户的销售渠道未配置域名。",
+      "tooltipImitateCustomerNoStorefront": "客户的销售渠道类型不是 Storefront。",
       "placeholderTitle": "称谓",
       "placeholderFirstName": "名",
       "placeholderLastName": "姓",
@@ -55,13 +55,13 @@
       "placeholderVatId": "输入增值税号..."
     },
     "list": {
-      "textCustomers": "会员",
-      "textCustomersTotal": "暂无会员 | 1 位会员 | {count} 位会员",
-      "buttonAddCustomer": "添加会员",
+      "textCustomers": "客户",
+      "textCustomersTotal": "暂无客户 | 1 位客户 | {count} 位客户",
+      "buttonAddCustomer": "添加客户",
       "columnCompany": "公司",
-      "columnCustomerNumber": "会员编号",
+      "columnCustomerNumber": "客户编号",
       "columnName": "姓名",
-      "columnGroup": "会员组",
+      "columnGroup": "客户组",
       "columnGroupRequested": "申请",
       "columnNameGuestLabel": "访客账户",
       "labelCreatedByAdmin": "管理员创建",
@@ -83,14 +83,14 @@
       "contextMenuDelete": "删除",
       "contextMenuDuplicate": "复制",
       "contextMenuEdit": "编辑",
-      "messageEmpty": "暂无会员",
-      "textDeleteConfirm": "确认要删除会员 \"{name}\" 吗？",
+      "messageEmpty": "暂无客户",
+      "textDeleteConfirm": "确认要删除客户 \"{name}\" 吗？",
       "buttonDelete": "删除",
       "titleSidebarItemRefresh": "刷新",
       "titleSidebarItemFilter": "筛选",
       "titleSidebarItemFilterAffiliateCode": "推广码",
       "titleSidebarItemFilterCampaignCode": "活动码",
-      "titleSidebarItemFilterRequestedGroup": "仅显示会员组申请"
+      "titleSidebarItemFilterRequestedGroup": "仅显示客户组申请"
     },
     "baseForm": {
       "labelSalutation": "称谓",
@@ -100,21 +100,21 @@
       "labelEmail": "邮箱地址",
       "labelPhoneNumber": "手机号",
       "labelCompany": "公司",
-      "labelCustomerGroup": "会员组",
+      "labelCustomerGroup": "客户组",
       "labelSalesChannel": "销售渠道",
       "labelPaymentMethod": "支付方式",
-      "labelCustomerNumber": "会员编号",
+      "labelCustomerNumber": "客户编号",
       "labelBirthday": "生日",
       "labelPassword": "密码",
       "placeholderPassword": "输入密码...",
-      "helpTextPassword": "保存会员后，密码只能由会员本人修改。",
+      "helpTextPassword": "保存客户后，密码只能由客户本人修改。",
       "placeholderSalutation": "选择称谓...",
       "placeholderTitle": "输入称号...",
       "placeholderFirstName": "输入名...",
       "placeholderLastName": "输入姓...",
       "placeholderEmail": "输入邮箱地址...",
-      "placeholderCustomerNumber": "输入会员编号...",
-      "placeholderCustomerGroup": "选择会员组...",
+      "placeholderCustomerNumber": "输入客户编号...",
+      "placeholderCustomerGroup": "选择客户组...",
       "placeholderSalesChannel": "选择销售渠道...",
       "placeholderPaymentMethod": "选择支付方式...",
       "labelTags": "标签",
@@ -122,8 +122,8 @@
     },
     "baseInfo": {
       "contactEmail": "邮箱地址",
-      "labelCustomerNumber": "会员编号",
-      "labelCustomerGroup": "会员组",
+      "labelCustomerNumber": "客户编号",
+      "labelCustomerGroup": "客户组",
       "labelBirthday": "生日",
       "labelLastLogin": "最后登录",
       "labelLanguage": "语言",
@@ -142,7 +142,7 @@
       "emptyTextBirthday": "暂无信息",
       "labelBoundSalesChannel": "销售渠道",
       "emptyBoundSalesChannel": "全部",
-      "helpTextBoundSalesChannel": "此会员可登录以下销售渠道",
+      "helpTextBoundSalesChannel": "此客户可登录以下销售渠道",
       "placeholderCustomerAffiliateCode": "输入推广码...",
       "placeholderCustomerCampaignCode": "输入活动码..."
     },
@@ -155,7 +155,7 @@
       "buttonAddAddress": "添加地址",
       "buttonTitleEditAddress": "编辑地址",
       "buttonSave": "保存",
-      "buttonEdit": "编辑会员",
+      "buttonEdit": "编辑客户",
       "buttonChangePassword": "修改密码",
       "labelAccountActiveField": "账户已激活"
     },
@@ -193,7 +193,7 @@
       "columnContextOpenOrder": "查看订单",
       "emptyTitle": "暂无订单",
       "emptySearchTitle": "未找到结果",
-      "emptySubline": "在这里管理会员的订单",
+      "emptySubline": "在这里管理客户的订单",
       "buttonCreateOrder": "添加订单",
       "ordersTitle": "订单列表"
     },
@@ -243,16 +243,16 @@
       "buttonEdit": "编辑",
       "tabGeneral": "基本信息",
       "tabAddresses": "地址信息",
-      "messageSaveError": "会员保存失败。",
-      "messageSaveSuccess": "会员 \"{name}\" 已保存。",
+      "messageSaveError": "客户保存失败。",
+      "messageSaveSuccess": "客户 \"{name}\" 已保存。",
       "notificationPasswordErrorMessage": "提交的密码不一致。",
-      "notificationImitateCustomerErrorMessage": "模拟会员登录出错，请确保允许弹出窗口。",
+      "notificationImitateCustomerErrorMessage": "模拟客户登录出错，请确保允许弹出窗口。",
       "labelCreatedByAdmin": "管理员创建"
     },
     "filter": {
       "customerNumber": {
-        "label": "会员编号",
-        "placeholder": "输入会员编号..."
+        "label": "客户编号",
+        "placeholder": "输入客户编号..."
       },
       "salutation": {
         "label": "称谓",
@@ -263,8 +263,8 @@
         "placeholder": "选择状态..."
       },
       "customerGroup": {
-        "label": "会员分组",
-        "placeholder": "选择会员分组..."
+        "label": "客户分组",
+        "placeholder": "选择客户分组..."
       },
       "billingCountry": {
         "label": "账单国家",
@@ -287,17 +287,17 @@
         "placeholder": "输入活动码..."
       },
       "customerGroupRequest": {
-        "label": "会员分组请求",
+        "label": "客户分组请求",
         "placeholder": "选择请求状态...",
-        "textHasCriteria": "存在未处理的会员分组请求",
-        "textNoCriteria": "暂无会员分组请求"
+        "textHasCriteria": "存在未处理的客户分组请求",
+        "textNoCriteria": "暂无客户分组请求"
       },
       "messageEmptyTitle": "未找到结果",
       "messageEmptySubline": "调整筛选条件以查看结果。"
     },
     "customerType": {
-      "labelAccountType": "会员类型",
-      "placeholderAccountType": "选择会员类型...",
+      "labelAccountType": "客户类型",
+      "placeholderAccountType": "选择客户类型...",
       "labelPrivate": "个人",
       "labelBusiness": "企业"
     }
@@ -305,7 +305,7 @@
   "sw-privileges": {
     "permissions": {
       "customer": {
-        "label": "会员"
+        "label": "客户"
       }
     }
   }
