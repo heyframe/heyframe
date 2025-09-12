@@ -48,7 +48,7 @@ class LineItemProductStatesRule extends Rule
         return [
             'operator' => RuleConstraints::stringOperators(false),
             'productState' => RuleConstraints::choice([
-                State::IS_PHYSICAL,
+                State::IS_VIRTUAL,
                 State::IS_DOWNLOAD,
             ]),
         ];
@@ -59,7 +59,7 @@ class LineItemProductStatesRule extends Rule
         return (new RuleConfig())
             ->operatorSet(RuleConfig::OPERATOR_SET_STRING)
             ->selectField('productState', [
-                State::IS_PHYSICAL,
+                State::IS_VIRTUAL,
                 State::IS_DOWNLOAD,
             ]);
     }

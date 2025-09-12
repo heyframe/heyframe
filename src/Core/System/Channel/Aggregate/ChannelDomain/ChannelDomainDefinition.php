@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\System\Channel\Aggregate\ChannelDomain;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
@@ -11,7 +10,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;

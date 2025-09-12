@@ -3,15 +3,24 @@
 namespace HeyFrame\Core\Content\Product;
 
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemDefinition;
+use HeyFrame\Core\Content\Category\CategoryDefinition;
+use HeyFrame\Core\Content\Product\Aggregate\ProductCategory\ProductCategoryDefinition;
+use HeyFrame\Core\Content\Product\Aggregate\ProductCategoryTree\ProductCategoryTreeDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductOption\ProductOptionDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductProperty\ProductPropertyDefinition;
+use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewDefinition;
+use HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordDefinition;
+use HeyFrame\Core\Content\Product\Aggregate\ProductStreamMapping\ProductStreamMappingDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTag\ProductTagDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
+use HeyFrame\Core\Content\ProductStream\ProductStreamDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
+use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryDefinition;
+use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AutoIncrementField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
@@ -137,11 +146,15 @@ class ProductDefinition extends EntityDefinition
             (new FloatField('reference_unit', 'referenceUnit'))->addFlags(new ApiAware(), new Inherited()),
             (new PriceField('purchase_prices', 'purchasePrices'))->addFlags(new Inherited()),
             (new DateTimeField('release_date', 'releaseDate'))->addFlags(new ApiAware(), new Inherited()),
+            (new FloatField('rating_average', 'ratingAverage'))->addFlags(new ApiAware(), new WriteProtected(), new Inherited()),
             (new ManyToManyIdField('property_ids', 'propertyIds', 'properties'))->addFlags(new ApiAware(), new Inherited()),
             (new ManyToManyIdField('option_ids', 'optionIds', 'options'))->addFlags(new ApiAware(), new Inherited()),
+            (new ManyToManyIdField('stream_ids', 'streamIds', 'streams'))->addFlags(new ApiAware(), new Inherited()),
             (new ManyToManyIdField('tag_ids', 'tagIds', 'tags'))->addFlags(new Inherited(), new ApiAware()),
+            (new ManyToManyIdField('category_ids', 'categoryIds', 'categories'))->addFlags(new ApiAware(), new Inherited()),
             (new ChildCountField())->addFlags(new ApiAware()),
             (new IntField('sales', 'sales'))->addFlags(new ApiAware(), new WriteProtected()),
+            (new ListField('states', 'states', StringField::class))->addFlags(new ApiAware(), new WriteProtected()),
             (new StringField('product_type', 'productType'))->addFlags(new ApiAware(), new Required(), new Inherited()),
 
             (new TranslatedField('metaDescription'))->addFlags(new ApiAware(), new Inherited()),
@@ -166,11 +179,21 @@ class ProductDefinition extends EntityDefinition
             (new OneToManyAssociationField('configuratorSettings', ProductConfiguratorSettingDefinition::class, 'product_id', 'id'))->addFlags(new ApiAware(), new CascadeDelete()),
 
             (new OneToManyAssociationField('visibilities', ProductVisibilityDefinition::class, 'product_id'))->addFlags(new CascadeDelete(), new Inherited()),
+            (new OneToManyAssociationField('searchKeywords', ProductSearchKeywordDefinition::class, 'product_id'))->addFlags(new CascadeDelete(false)),
+
+            (new OneToManyAssociationField('productReviews', ProductReviewDefinition::class, 'product_id'))->addFlags(new ApiAware(), new CascadeDelete(false)),
+
+            (new OneToManyAssociationField('mainCategories', MainCategoryDefinition::class, 'product_id'))->addFlags(new ApiAware(), new CascadeDelete()),
+
+            (new OneToManyAssociationField('seoUrls', SeoUrlDefinition::class, 'foreign_key'))->addFlags(new ApiAware()),
 
             (new OneToManyAssociationField('orderLineItems', OrderLineItemDefinition::class, 'product_id'))->addFlags(new SetNullOnDelete()),
 
             (new ManyToManyAssociationField('options', PropertyGroupOptionDefinition::class, ProductOptionDefinition::class, 'product_id', 'property_group_option_id'))->addFlags(new ApiAware(), new CascadeDelete()),
             (new ManyToManyAssociationField('tags', TagDefinition::class, ProductTagDefinition::class, 'product_id', 'tag_id'))->addFlags(new CascadeDelete(), new Inherited(), new ApiAware()),
+            (new ManyToManyAssociationField('categories', CategoryDefinition::class, ProductCategoryDefinition::class, 'product_id', 'category_id'))->addFlags(new ApiAware(), new CascadeDelete(), new Inherited()),
+            (new ManyToManyAssociationField('categoriesRo', CategoryDefinition::class, ProductCategoryTreeDefinition::class, 'product_id', 'category_id'))->addFlags(new ApiAware(), new CascadeDelete(false), new WriteProtected()),
+            (new ManyToManyAssociationField('streams', ProductStreamDefinition::class, ProductStreamMappingDefinition::class, 'product_id', 'product_stream_id'))->addFlags(new ApiAware(), new CascadeDelete()),
 
             (new ManyToManyAssociationField('properties', PropertyGroupOptionDefinition::class, ProductPropertyDefinition::class, 'product_id', 'property_group_option_id'))->addFlags(new ApiAware(), new CascadeDelete(), new Inherited()),
             (new TranslationsAssociationField(ProductTranslationDefinition::class, 'product_id'))->addFlags(new ApiAware(), new Inherited(), new Required()),

@@ -234,7 +234,6 @@
       "buttonDelete": "删除",
       "columnName": "名称",
       "columnProductNumber": "商品编号",
-      "columnManufacturer": "制造商",
       "columnActive": "启用",
       "columnPrice": "价格",
       "columnInStock": "库存",
@@ -536,13 +535,9 @@
       "priceFilter": {
         "label": "价格"
       },
-      "manufacturerFilter": {
-        "label": "厂家",
-        "placeholder": "选择厂家..."
-      },
       "channelsFilter": {
-        "label": "销售渠道",
-        "placeholder": "选择销售渠道..."
+        "label": "渠道",
+        "placeholder": "选择渠道..."
       },
       "categoriesFilter": {
         "label": "分类",

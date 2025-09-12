@@ -52,10 +52,23 @@ class Configuration implements ConfigurationInterface
                 ->append($this->createSearchSection())
                 ->append($this->createTelemetrySection())
                 ->append($this->createRedisSection())
-                ->append($this->createSsoLoginSection())
+                ->append($this->createProductStreamSection())
             ->end();
 
         return $treeBuilder;
+    }
+
+    private function createProductStreamSection(): ArrayNodeDefinition
+    {
+        $treeBuilder = new TreeBuilder('product_stream');
+        $rootNode = $treeBuilder->getRootNode();
+
+        $rootNode
+            ->children()
+                ->booleanNode('indexing')->defaultTrue()->end()
+            ->end();
+
+        return $rootNode;
     }
 
     private function createFilesystemSection(): ArrayNodeDefinition
@@ -1036,31 +1049,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end();
-
-        return $rootNode;
-    }
-
-    private function createSsoLoginSection(): ArrayNodeDefinition
-    {
-        $treeBuilder = new TreeBuilder('admin_login');
-        $rootNode = $treeBuilder->getRootNode();
-        $rootNode->addDefaultsIfNotSet()
-            ->children()
-                ->booleanNode('use_default')->defaultTrue()->end();
-
-        $rootNode
-            ->children()
-                ->booleanNode('use_default')->isRequired()->end()
-                ->scalarNode('client_id')->isRequired()->end()
-                ->scalarNode('client_secret')->isRequired()->end()
-                ->scalarNode('redirect_uri')->isRequired()->end()
-                ->scalarNode('base_url')->isRequired()->end()
-                ->scalarNode('authorize_path')->isRequired()->end()
-                ->scalarNode('token_path')->isRequired()->end()
-                ->scalarNode('jwks_path')->isRequired()->end()
-                ->scalarNode('scope')->isRequired()->end()
-                ->scalarNode('register_url')->isRequired()->end()
             ->end();
 
         return $rootNode;

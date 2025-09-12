@@ -133,8 +133,14 @@ class ProductHydrator extends EntityHydrator
         if (isset($row[$root . '.sales'])) {
             $entity->sales = (int) $row[$root . '.sales'];
         }
+        if (isset($row[$root . '.states'])) {
+            $entity->states = $definition->decode('states', self::value($row, $root, 'states'));
+        }
         if (\array_key_exists($root . '.cheapestPrice', $row)) {
             $entity->cheapestPrice = $definition->decode('cheapestPrice', self::value($row, $root, 'cheapestPrice'));
+        }
+        if (isset($row[$root . '.ratingAverage'])) {
+            $entity->ratingAverage = (float) $row[$root . '.ratingAverage'];
         }
         if (isset($row[$root . '.createdAt'])) {
             $entity->createdAt = new \DateTimeImmutable($row[$root . '.createdAt']);
@@ -150,6 +156,9 @@ class ProductHydrator extends EntityHydrator
         $this->customFields($definition, $row, $root, $entity, $definition->getField('customFields'), $context);
         $this->manyToMany($row, $root, $entity, $definition->getField('options'));
         $this->manyToMany($row, $root, $entity, $definition->getField('properties'));
+        $this->manyToMany($row, $root, $entity, $definition->getField('categories'));
+        $this->manyToMany($row, $root, $entity, $definition->getField('categoriesRo'));
+        $this->manyToMany($row, $root, $entity, $definition->getField('streams'));
         $this->manyToMany($row, $root, $entity, $definition->getField('tags'));
 
         return $entity;

@@ -36,7 +36,12 @@ class ProductIndexer extends EntityIndexer
     final public const VARIANT_LISTING_UPDATER = 'product.variant-listing';
     final public const CHILD_COUNT_UPDATER = 'product.child-count';
     final public const MANY_TO_MANY_ID_FIELD_UPDATER = 'product.many-to-many-id-field';
+    final public const CATEGORY_DENORMALIZER_UPDATER = 'product.category-denormalizer';
     final public const CHEAPEST_PRICE_UPDATER = 'product.cheapest-price';
+    final public const RATING_AVERAGE_UPDATER = 'product.rating-average';
+    final public const STREAM_UPDATER = 'product.stream';
+    final public const SEARCH_KEYWORD_UPDATER = 'product.search-keyword';
+    final public const STATES_UPDATER = 'product.states';
     private const UPDATE_IDS_CHUNK_SIZE = 50;
 
     /**
@@ -49,12 +54,17 @@ class ProductIndexer extends EntityIndexer
         private readonly EntityRepository $repository,
         private readonly Connection $connection,
         private readonly VariantListingUpdater $variantListingUpdater,
+        private readonly ProductCategoryDenormalizer $categoryDenormalizer,
         private readonly InheritanceUpdater $inheritanceUpdater,
+        private readonly RatingAverageUpdater $ratingAverageUpdater,
+        private readonly SearchKeywordUpdater $searchKeywordUpdater,
         private readonly ChildCountUpdater $childCountUpdater,
         private readonly ManyToManyIdFieldUpdater $manyToManyIdFieldUpdater,
         private readonly AbstractStockStorage $stockStorage,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly CheapestPriceUpdater $cheapestPriceUpdater,
+        private readonly AbstractProductStreamUpdater $streamUpdater,
+        private readonly StatesUpdater $statesUpdater,
         private readonly MessageBusInterface $messageBus
     ) {
     }
@@ -178,15 +188,45 @@ class ProductIndexer extends EntityIndexer
             });
         }
 
+        if ($message->allow(self::STREAM_UPDATER)) {
+            Profiler::trace('product:indexer:streams', function () use ($ids, $context): void {
+                $this->streamUpdater->updateProducts($ids, $context);
+            });
+        }
+
         if ($message->allow(self::MANY_TO_MANY_ID_FIELD_UPDATER)) {
             Profiler::trace('product:indexer:many-to-many', function () use ($ids, $context): void {
                 $this->manyToManyIdFieldUpdater->update(ProductDefinition::ENTITY_NAME, $ids, $context);
             });
         }
 
+        if ($message->allow(self::CATEGORY_DENORMALIZER_UPDATER)) {
+            Profiler::trace('product:indexer:category', function () use ($ids, $context): void {
+                $this->categoryDenormalizer->update($ids, $context);
+            });
+        }
+
         if ($message->allow(self::CHEAPEST_PRICE_UPDATER)) {
             Profiler::trace('product:indexer:cheapest-price', function () use ($parentIds, $context): void {
                 $this->cheapestPriceUpdater->update($parentIds, $context);
+            });
+        }
+
+        if ($message->allow(self::RATING_AVERAGE_UPDATER)) {
+            Profiler::trace('product:indexer:rating', function () use ($parentIds, $context): void {
+                $this->ratingAverageUpdater->update($parentIds, $context);
+            });
+        }
+
+        if ($message->allow(self::SEARCH_KEYWORD_UPDATER)) {
+            Profiler::trace('product:indexer:search-keywords', function () use ($ids, $context): void {
+                $this->searchKeywordUpdater->update($ids, $context);
+            });
+        }
+
+        if ($message->allow(self::STATES_UPDATER)) {
+            Profiler::trace('product:indexer:states', function () use ($ids, $context): void {
+                $this->statesUpdater->update($ids, $context);
             });
         }
 
@@ -213,7 +253,11 @@ class ProductIndexer extends EntityIndexer
             self::VARIANT_LISTING_UPDATER,
             self::CHILD_COUNT_UPDATER,
             self::MANY_TO_MANY_ID_FIELD_UPDATER,
+            self::CATEGORY_DENORMALIZER_UPDATER,
             self::CHEAPEST_PRICE_UPDATER,
+            self::RATING_AVERAGE_UPDATER,
+            self::STREAM_UPDATER,
+            self::SEARCH_KEYWORD_UPDATER,
         ];
     }
 

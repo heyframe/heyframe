@@ -234,7 +234,6 @@
       "buttonDelete": "Delete",
       "columnName": "Name",
       "columnProductNumber": "Product number",
-      "columnManufacturer": "Manufacturer",
       "columnActive": "Active",
       "columnPrice": "Price",
       "columnInStock": "In stock",
@@ -535,10 +534,6 @@
       },
       "priceFilter": {
         "label": "Price"
-      },
-      "manufacturerFilter": {
-        "label": "Manufacturer",
-        "placeholder": "Select manufacturer..."
       },
       "channelsFilter": {
         "label": "Channels",

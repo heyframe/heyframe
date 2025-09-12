@@ -48,7 +48,6 @@ export default {
                 'release-date-filter',
                 'stock-filter',
                 'price-filter',
-                'manufacturer-filter',
                 'visibilities-filter',
                 'categories-filter',
                 'sales-filter',
@@ -107,8 +106,6 @@ export default {
             productCriteria.setTerm(this.term);
             productCriteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, this.naturalSorting));
             productCriteria.addAssociation('cover.media');
-            productCriteria.addAssociation('manufacturer');
-            productCriteria.addAssociation('tax');
 
             this.filterCriteria.forEach((filter) => {
                 productCriteria.addFilter(filter);
@@ -156,11 +153,6 @@ export default {
                     placeholder: this.$tc('sw-product.filters.imagesFilter.placeholder'),
                     optionHasCriteria: this.$tc('sw-product.filters.imagesFilter.textHasCriteria'),
                     optionNoCriteria: this.$tc('sw-product.filters.imagesFilter.textNoCriteria'),
-                },
-                'manufacturer-filter': {
-                    property: 'manufacturer',
-                    label: this.$tc('sw-product.filters.manufacturerFilter.label'),
-                    placeholder: this.$tc('sw-product.filters.manufacturerFilter.placeholder'),
                 },
                 'visibilities-filter': {
                     property: 'visibilities.channel',
@@ -406,11 +398,6 @@ export default {
                     naturalSorting: true,
                     label: this.$tc('sw-product.list.columnProductNumber'),
                     align: 'right',
-                    allowResize: true,
-                },
-                {
-                    property: 'manufacturer.name',
-                    label: this.$tc('sw-product.list.columnManufacturer'),
                     allowResize: true,
                 },
                 {

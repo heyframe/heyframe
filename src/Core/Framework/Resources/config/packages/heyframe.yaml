@@ -571,3 +571,5 @@ heyframe:
         routing_overwrite:
         stats:
 
+    product_stream:
+        indexing: true

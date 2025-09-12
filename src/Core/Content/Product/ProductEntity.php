@@ -3,14 +3,19 @@
 namespace HeyFrame\Core\Content\Product;
 
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
+use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceCollection;
+use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingConfig;
+use HeyFrame\Core\Content\ProductStream\ProductStreamCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
+use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
+use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -118,6 +123,8 @@ class ProductEntity extends Entity implements \Stringable
 
     protected ?ProductTranslationCollection $translations = null;
 
+    protected ?CategoryCollection $categories = null;
+
     protected ?CustomFieldSetCollection $customFieldSets = null;
 
     protected ?TagCollection $tags = null;
@@ -128,6 +135,8 @@ class ProductEntity extends Entity implements \Stringable
 
     protected ?ProductConfiguratorSettingCollection $configuratorSettings = null;
 
+    protected ?CategoryCollection $categoriesRo = null;
+
     protected ?string $coverId = null;
 
     protected ?ProductVisibilityCollection $visibilities = null;
@@ -137,6 +146,19 @@ class ProductEntity extends Entity implements \Stringable
      */
     protected ?array $tagIds = null;
 
+    /**
+     * @var array<string>|null
+     */
+    protected ?array $categoryIds = null;
+
+    protected ?ProductReviewCollection $productReviews = null;
+
+    protected ?MainCategoryCollection $mainCategories = null;
+
+    protected ?SeoUrlCollection $seoUrls = null;
+
+    protected ?float $ratingAverage = null;
+
     protected ?OrderLineItemCollection $orderLineItems = null;
 
     protected ?bool $customFieldSetSelectionActive = null;
@@ -144,6 +166,13 @@ class ProductEntity extends Entity implements \Stringable
     protected ?string $canonicalProductId = null;
 
     protected ?ProductEntity $canonicalProduct = null;
+
+    protected ?ProductStreamCollection $streams = null;
+
+    /**
+     * @var array<int, string>
+     */
+    protected array $states = [];
 
     public function __construct()
     {
@@ -457,6 +486,16 @@ class ProductEntity extends Entity implements \Stringable
         $this->translations = $translations;
     }
 
+    public function getCategories(): ?CategoryCollection
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(CategoryCollection $categories): void
+    {
+        $this->categories = $categories;
+    }
+
     public function getCustomFieldSets(): ?CustomFieldSetCollection
     {
         return $this->customFieldSets;
@@ -505,6 +544,16 @@ class ProductEntity extends Entity implements \Stringable
     public function setConfiguratorSettings(ProductConfiguratorSettingCollection $configuratorSettings): void
     {
         $this->configuratorSettings = $configuratorSettings;
+    }
+
+    public function getCategoriesRo(): ?CategoryCollection
+    {
+        return $this->categoriesRo;
+    }
+
+    public function setCategoriesRo(CategoryCollection $categoriesRo): void
+    {
+        $this->categoriesRo = $categoriesRo;
     }
 
     public function getAutoIncrement(): int
@@ -693,5 +742,87 @@ class ProductEntity extends Entity implements \Stringable
     public function setCanonicalProduct(ProductEntity $product): void
     {
         $this->canonicalProduct = $product;
+    }
+
+    public function getStreams(): ?ProductStreamCollection
+    {
+        return $this->streams;
+    }
+
+    public function setStreams(ProductStreamCollection $streams): void
+    {
+        $this->streams = $streams;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function getStates(): array
+    {
+        return $this->states;
+    }
+
+    /**
+     * @param array<int, string> $states
+     */
+    public function setStates(array $states): void
+    {
+        $this->states = $states;
+    }
+
+    /**
+     * @return array<string>|null
+     */
+    public function getCategoryIds(): ?array
+    {
+        return $this->categoryIds;
+    }
+
+    /**
+     * @param array<string>|null $categoryIds
+     */
+    public function setCategoryIds(?array $categoryIds): void
+    {
+        $this->categoryIds = $categoryIds;
+    }
+
+    public function getProductReviews(): ?ProductReviewCollection
+    {
+        return $this->productReviews;
+    }
+
+    public function setProductReviews(ProductReviewCollection $productReviews): void
+    {
+        $this->productReviews = $productReviews;
+    }
+
+    public function getMainCategories(): ?MainCategoryCollection
+    {
+        return $this->mainCategories;
+    }
+
+    public function setMainCategories(MainCategoryCollection $mainCategories): void
+    {
+        $this->mainCategories = $mainCategories;
+    }
+
+    public function getSeoUrls(): ?SeoUrlCollection
+    {
+        return $this->seoUrls;
+    }
+
+    public function setSeoUrls(SeoUrlCollection $seoUrls): void
+    {
+        $this->seoUrls = $seoUrls;
+    }
+
+    public function getRatingAverage(): ?float
+    {
+        return $this->ratingAverage;
+    }
+
+    public function setRatingAverage(?float $ratingAverage): void
+    {
+        $this->ratingAverage = $ratingAverage;
     }
 }
