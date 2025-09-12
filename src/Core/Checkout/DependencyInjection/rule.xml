@@ -172,26 +172,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemDimensionWidthRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemDimensionHeightRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemDimensionLengthRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemDimensionWeightRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemDimensionVolumeRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemPurchasePriceRule">
             <tag name="heyframe.rule.definition"/>
         </service>

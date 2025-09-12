@@ -34,8 +34,6 @@ class CustomerException extends HttpException
     public const CUSTOMER_IDS_PARAMETER_IS_MISSING = 'CHECKOUT__CUSTOMER_IDS_PARAMETER_IS_MISSING';
     public const PRODUCT_IDS_PARAMETER_IS_MISSING = 'CHECKOUT__PRODUCT_IDS_PARAMETER_IS_MISSING';
     public const CUSTOMER_AUTH_BAD_CREDENTIALS = 'CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS';
-    public const CUSTOMER_ADDRESS_IS_ACTIVE = 'CHECKOUT__CUSTOMER_ADDRESS_IS_ACTIVE';
-    public const CUSTOMER_GROUP_REGISTRATION_NOT_FOUND = 'CHECKOUT__CUSTOMER_GROUP_REGISTRATION_NOT_FOUND';
     public const CUSTOMER_NOT_FOUND_BY_HASH = 'CHECKOUT__CUSTOMER_NOT_FOUND_BY_HASH';
     public const CUSTOMER_NOT_FOUND_BY_ID = 'CHECKOUT__CUSTOMER_NOT_FOUND_BY_ID';
     public const WISHLIST_IS_NOT_ACTIVATED = 'CHECKOUT__WISHLIST_IS_NOT_ACTIVATED';
@@ -150,26 +148,6 @@ class CustomerException extends HttpException
     public static function badCredentials(): BadCredentialsException
     {
         return new BadCredentialsException();
-    }
-
-    public static function cannotDeleteActiveAddress(string $id): HeyFrameHttpException
-    {
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::CUSTOMER_ADDRESS_IS_ACTIVE,
-            'Customer address with id "{{ addressId }}" is an active address and cannot be deleted.',
-            ['addressId' => $id]
-        );
-    }
-
-    public static function customerGroupRegistrationConfigurationNotFound(string $customerGroupId): HeyFrameHttpException
-    {
-        return new self(
-            Response::HTTP_NOT_FOUND,
-            self::CUSTOMER_GROUP_REGISTRATION_NOT_FOUND,
-            'Customer group registration for id {{ customerGroupId }} not found.',
-            ['customerGroupId' => $customerGroupId]
-        );
     }
 
     public static function customerNotFoundByHash(string $hash): CustomerNotFoundByHashException
