@@ -64,8 +64,6 @@ class ChannelDomainDefinition extends EntityDefinition
             (new ManyToOneAssociationField('language', 'language_id', LanguageDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new ManyToOneAssociationField('currency', 'currency_id', CurrencyDefinition::class, 'id', false))->addFlags(new ApiAware()),
             new ManyToOneAssociationField('snippetSet', 'snippet_set_id', SnippetSetDefinition::class, 'id', false),
-            (new OneToOneAssociationField('channelDefaultHreflang', 'id', 'hreflang_default_domain_id', ChannelDefinition::class, false))->addFlags(new ApiAware()),
-            (new BoolField('hreflang_use_only_locale', 'hreflangUseOnlyLocale'))->addFlags(new ApiAware()),
             (new CustomFields())->addFlags(new ApiAware()),
         ]);
     }

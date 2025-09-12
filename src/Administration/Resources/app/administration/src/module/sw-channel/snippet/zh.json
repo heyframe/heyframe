@@ -97,7 +97,7 @@
       "titleDomainItem": "URL {index}",
       "labelInputCurrency": "货币",
       "labelInputLanguage": "语言",
-      "labelInputSnippet": "词条集",
+      "labelInputSnippet": "文本片段",
       "buttonDeleteDomain": "删除域名",
       "messageDeleteDomainError": "域名 \"{url}\" 无法删除，因为它与现有商品导出绑定。",
       "buttonAddDomain": "新增域名",
@@ -132,7 +132,7 @@
       "textActiveDescription": "关闭渠道后，访客和 API 都无法访问。",
       "columnDomainUrl": "网址",
       "columnDomainLanguage": "语言",
-      "columnDomainSnippetSet": "词条集",
+      "columnDomainSnippetSet": "文本片段",
       "maintenanceModeTitle": "维护模式",
       "maintenanceModeDescription": "维护模式下，访客无法访问渠道。但你可以通过白名单 IP 正常访问，用于调试或维护。",
       "labelMaintenanceActive": "开启维护模式",
@@ -149,21 +149,7 @@
         "columnProductNumber": "商品编号",
         "inheritVariantNotRemovableTooltip": "这个变体的渠道分配继承自主商品，无法移除。"
       },
-      "hreflang": {
-        "title": "Hreflang",
-        "titleCard": "Hreflang 集成",
-        "titleDescription": "hreflang 标签用于指定内容的语言，Google 会在搜索结果中显示相应语言。",
-        "enableCheckbox": "启用 hreflang",
-        "defaultDomain": "默认 hreflang 域名",
-        "domainSettings": {
-          "label": "本地化方式",
-          "byIso": "按 ISO 标准",
-          "byIsoHelpText": "根据 ISO 精确指定语言和目标国家。",
-          "byAbbreviation": "按语言",
-          "byAbbreviationHelpText": "只按语言本地化，多个国家共用同一输出语言。"
-        }
-      },
-      "titleShippingPayment": "支付和配送",
+      "titlePayment": "支付",
       "productAssignmentModal": {
         "title": "添加商品",
         "singleProducts": "选择商品",

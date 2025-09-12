@@ -22,10 +22,6 @@ HeyFrame.Component.register('sw-channel-modal', () => import('./component/sw-cha
 HeyFrame.Component.register('sw-channel-modal-grid', () => import('./component/sw-channel-modal-grid'));
 HeyFrame.Component.register('sw-channel-modal-detail', () => import('./component/sw-channel-modal-detail'));
 HeyFrame.Component.register('sw-channel-detail-domains', () => import('./component/sw-channel-detail-domains'));
-HeyFrame.Component.register(
-    'sw-channel-detail-hreflang',
-    () => import('./component/sw-channel-detail-hreflang'),
-);
 HeyFrame.Component.register('sw-channel-detail', () => import('./page/sw-channel-detail'));
 HeyFrame.Component.extend(
     'sw-channel-create',

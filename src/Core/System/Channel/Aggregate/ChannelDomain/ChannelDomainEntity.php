@@ -35,10 +35,6 @@ class ChannelDomainEntity extends Entity
 
     protected ?LanguageEntity $language = null;
 
-    protected ?ChannelEntity $channelDefaultHreflang = null;
-
-    protected bool $hreflangUseOnlyLocale;
-
     public function getUrl(): string
     {
         return $this->url;
@@ -127,25 +123,5 @@ class ChannelDomainEntity extends Entity
     public function setSnippetSet(?SnippetSetEntity $snippetSet): void
     {
         $this->snippetSet = $snippetSet;
-    }
-
-    public function isHreflangUseOnlyLocale(): bool
-    {
-        return $this->hreflangUseOnlyLocale;
-    }
-
-    public function setHreflangUseOnlyLocale(bool $hreflangUseOnlyLocale): void
-    {
-        $this->hreflangUseOnlyLocale = $hreflangUseOnlyLocale;
-    }
-
-    public function getChannelDefaultHreflang(): ?ChannelEntity
-    {
-        return $this->channelDefaultHreflang;
-    }
-
-    public function setChannelDefaultHreflang(?ChannelEntity $channelDefaultHreflang): void
-    {
-        $this->channelDefaultHreflang = $channelDefaultHreflang;
     }
 }

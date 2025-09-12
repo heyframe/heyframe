@@ -28,8 +28,6 @@ class Migration1536232940Channel extends MigrationStep
               `short_name` VARCHAR(45) NULL,
               `configuration` JSON NULL,
               `navigation_category_depth` int NOT NULL DEFAULT '2',
-              `hreflang_active` tinyint unsigned DEFAULT '0',
-              `hreflang_default_domain_id` binary(16) DEFAULT NULL,
               `access_key` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
               `language_id` BINARY(16) NOT NULL,
               `currency_id` BINARY(16) NOT NULL,

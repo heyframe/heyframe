@@ -216,7 +216,7 @@
         v-if="channel"
         position-identifier="sw-channel-detail-base-shipping-payment"
         :is-loading="isLoading"
-        :title="$tc('sw-channel.detail.titleShippingPayment')"
+        :title="$tc('sw-channel.detail.titlePayment')"
     >
         {% block sw_channel_detail_base_disabled_payments_methods_warning %}
         <mt-banner
@@ -267,15 +267,6 @@
         />
         {% endblock %}
     </mt-card>
-    {% endblock %}
-
-    {% block sw_channel_detail_base_options_hreflang %}
-    <sw-channel-detail-hreflang
-        v-if="channel && isStorefront"
-        :channel="channel"
-        :disabled="!acl.can('channel.editor') || undefined"
-        :is-loading="isLoading"
-    />
     {% endblock %}
 
     {% block sw_channel_detail_base_options_domains %}

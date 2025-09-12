@@ -15,7 +15,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainCollection;
-use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainEntity;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelTranslation\ChannelTranslationCollection;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelType\ChannelTypeEntity;
 use HeyFrame\Core\System\Country\CountryCollection;
@@ -140,12 +139,6 @@ class ChannelEntity extends Entity
      * @var list<string>|null
      */
     protected ?array $paymentMethodIds = null;
-
-    protected bool $hreflangActive;
-
-    protected ?string $hreflangDefaultDomainId = null;
-
-    protected ?ChannelDomainEntity $hreflangDefaultDomain = null;
 
     protected ?CustomerGroupCollection $customerGroupsRegistrations = null;
 
@@ -613,36 +606,6 @@ class ChannelEntity extends Entity
     public function setNavigationDepth(int $navigationDepth): void
     {
         $this->navigationDepth = $navigationDepth;
-    }
-
-    public function isHreflangActive(): bool
-    {
-        return $this->hreflangActive;
-    }
-
-    public function setHreflangActive(bool $hreflangActive): void
-    {
-        $this->hreflangActive = $hreflangActive;
-    }
-
-    public function getHreflangDefaultDomainId(): ?string
-    {
-        return $this->hreflangDefaultDomainId;
-    }
-
-    public function setHreflangDefaultDomainId(?string $hreflangDefaultDomainId): void
-    {
-        $this->hreflangDefaultDomainId = $hreflangDefaultDomainId;
-    }
-
-    public function getHreflangDefaultDomain(): ?ChannelDomainEntity
-    {
-        return $this->hreflangDefaultDomain;
-    }
-
-    public function setHreflangDefaultDomain(?ChannelDomainEntity $hreflangDefaultDomain): void
-    {
-        $this->hreflangDefaultDomain = $hreflangDefaultDomain;
     }
 
     public function getCustomerGroupsRegistrations(): ?CustomerGroupCollection

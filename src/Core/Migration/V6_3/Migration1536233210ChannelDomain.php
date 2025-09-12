@@ -29,7 +29,6 @@ class Migration1536233210ChannelDomain extends MigrationStep
               `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
               `currency_id` binary(16) NOT NULL,
               `snippet_set_id` binary(16) NOT NULL,
-              `hreflang_use_only_locale` tinyint unsigned DEFAULT \'0\',
               `custom_fields` json DEFAULT NULL,
               `created_at` datetime(3) NOT NULL,
               `updated_at` datetime(3) DEFAULT NULL,

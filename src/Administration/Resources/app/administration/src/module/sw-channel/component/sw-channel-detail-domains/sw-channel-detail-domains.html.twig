@@ -173,14 +173,6 @@
             {% endblock %}
         </sw-container>
 
-        {% block sw_channel_detail_domains_hreflang %}
-        <sw-radio-field
-            v-model:value="currentDomain.hreflangUseOnlyLocale"
-            :label="$tc('sw-channel.detail.hreflang.domainSettings.label')"
-            identification="hreflang"
-            :options="hreflangLocalisationOptions"
-        />
-        {% endblock %}
         {% endblock %}
 
         <template #modal-footer>

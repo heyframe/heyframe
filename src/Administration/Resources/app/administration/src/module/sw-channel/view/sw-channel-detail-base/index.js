@@ -19,7 +19,6 @@ export default {
 
     inject: [
         'channelService',
-        'productExportService',
         'repositoryFactory',
         'knownIpsService',
         'acl',
@@ -530,26 +529,6 @@ export default {
                 .generateKey()
                 .then((response) => {
                     this.channel.accessKey = response.accessKey;
-                })
-                .catch(() => {
-                    this.createNotificationError({
-                        message: this.$tc('sw-channel.detail.messageAPIError'),
-                    });
-                });
-        },
-
-        onGenerateProductExportKey(displaySaveNotification = true) {
-            this.productExportService
-                .generateKey()
-                .then((response) => {
-                    this.productExport.accessKey = response.accessKey;
-                    this.$emit('access-key-changed');
-
-                    if (displaySaveNotification) {
-                        this.createNotificationInfo({
-                            message: this.$tc('sw-channel.detail.productComparison.messageAccessKeyChanged'),
-                        });
-                    }
                 })
                 .catch(() => {
                     this.createNotificationError({
