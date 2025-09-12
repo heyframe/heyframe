@@ -1,70 +1,70 @@
 {
   "sw-settings-services": {
     "general": {
-      "title": "HeyFrame Services",
-      "description": "Manage the services that are available in your HeyFrame instance.",
-      "activate": "Activate",
-      "deactivate": "Deactivate"
+      "title": "HeyFrame 服务",
+      "description": "管理在你的 HeyFrame 实例中可用的服务。",
+      "activate": "激活",
+      "deactivate": "停用"
     },
     "exception": {
-      "service-list": "Error loading services"
+      "service-list": "加载服务时出错"
     },
     "sw-settings-services-hero": {
-      "title": "Future proof your store with HeyFrame Services",
-      "intro": "Services are cloud-based extensions that add specific features to your HeyFrame store. Unlike traditional software components, services run independently of the core product and can be activated or updated without changes in the core product. They allow us to respond quickly to new needs while keeping your main system stable and streamlined.",
-      "bullet-point-integrated": "Seamlessly integrated and automatically updated",
-      "bullet-point-flexible": "Highly flexible and independent from the HeyFrame core",
-      "bullet-point-transparent": "Transparent and consent-based data usage",
-      "bullet-point-scalable": "Scalable and reliable for demanding workflows including AI and machine learning",
-      "give-feedback": "Give feedback",
-      "learn-more": "Learn more"
+      "title": "通过 HeyFrame 服务让你的商城未来可持续发展",
+      "intro": "服务是基于云的扩展，可以为你的 HeyFrame 商城添加特定功能。与传统软件组件不同，服务独立于核心产品运行，可在不更改核心产品的情况下激活或更新。它们允许我们快速响应新需求，同时保持你的主系统稳定高效。",
+      "bullet-point-integrated": "无缝集成并自动更新",
+      "bullet-point-flexible": "高度灵活，独立于 HeyFrame 核心",
+      "bullet-point-transparent": "透明且基于用户同意的数据使用",
+      "bullet-point-scalable": "可扩展且可靠，适用于包括 AI 与机器学习在内的高负载工作流",
+      "give-feedback": "提供反馈",
+      "learn-more": "了解更多"
     },
     "index": {
-      "available-services": "Available services",
-      "services-are-disabled": "HeyFrame Services are deactivated",
-      "services-are-disabled-cta": "You are currently missing out on all HeyFrame Services, including advanced AI tools and much more. Activate HeyFrame Services to take advantage of all the current and future Services we have to offer.",
-      "services-are-disabled-button-label": "Activate Services",
-      "services-enabled": "Services enabled",
-      "services-scheduled": "Services are scheduled to be installed and activated. This can take a moment.",
-      "label-documentation-link": "Documentation",
-      "label-tos-link": "Terms & Conditions",
-      "installing-services-title": "Installing HeyFrame Services",
-      "installing-services-description": "This might take a while. You will be notified as soon as the installations are complete. In the meantime you can freely use your HeyFrame administration."
+      "available-services": "可用服务",
+      "services-are-disabled": "HeyFrame 服务已停用",
+      "services-are-disabled-cta": "你当前无法使用所有 HeyFrame 服务，包括高级 AI 工具等更多功能。激活 HeyFrame 服务以享受我们提供的所有当前及未来服务。",
+      "services-are-disabled-button-label": "激活服务",
+      "services-enabled": "服务已启用",
+      "services-scheduled": "服务已排程安装和激活，这可能需要一些时间。",
+      "label-documentation-link": "文档",
+      "label-tos-link": "条款与条件",
+      "installing-services-title": "正在安装 HeyFrame 服务",
+      "installing-services-description": "此过程可能需要一些时间。安装完成后你将收到通知。在此期间，你仍可自由使用 HeyFrame 管理后台。"
     },
     "service-card": {
-      "status-active": "Active",
-      "status-awaiting-permissions": "Awaits permissions",
-      "status-inactive": "Inactive",
-      "updated-at-label": "Last updated: {updatedAt}",
-      "version": "Version: {version}",
+      "status-active": "已激活",
+      "status-awaiting-permissions": "等待权限",
+      "status-inactive": "未激活",
+      "updated-at-label": "最后更新：{updatedAt}",
+      "version": "版本：{version}",
       "deactivate-modal": {
-        "warning": "Are you sure you want to deactivate “{serviceName}”?",
-        "consequences": "This will result in an immediate loss of access to the Service and all associated processes."
+        "warning": "你确定要停用“{serviceName}”吗？",
+        "consequences": "这将立即失去对该服务及所有相关流程的访问权限。"
       },
-      "permissions": "Show permissions"
+      "permissions": "显示权限"
     },
     "grant-permissions": {
-      "title": "Unlock the full potential of HeyFrame Services",
-      "description": "To deliver their full value, certain HeyFrame Services need permissions to access key areas of your store, like product information or order data. These permissions are identical to those used by HeyFrame extensions, and each Service only accesses the permissions it needs to function. Your data is always handled responsibly.",
-      "label-button-grant-permissions": "Grant permissions",
-      "label-link-more-information": "More information"
+      "title": "释放 HeyFrame 服务的全部潜力",
+      "description": "为了充分发挥价值，某些 HeyFrame 服务需要访问商城关键区域（如商品信息或订单数据）的权限。这些权限与 HeyFrame 扩展使用的权限相同，每个服务只访问其运行所需的权限。你的数据始终受到安全处理。",
+      "label-button-grant-permissions": "授予权限",
+      "label-link-more-information": "更多信息"
     },
     "revoke-permissions-modal": {
-      "title": "Revoke permissions",
-      "p-1": "Are you sure you want to revoke permissions?",
-      "p-2": "This will deactivate certain HeyFrame Services and result in loss of all related functionality.",
-      "label-button-revoke-permissions": "Revoke permissions"
+      "title": "撤销权限",
+      "p-1": "你确定要撤销权限吗？",
+      "p-2": "这将停用某些 HeyFrame 服务，并导致所有相关功能失效。",
+      "label-button-revoke-permissions": "撤销权限"
     },
     "deactivate-modal": {
-      "title": "Deactivate HeyFrame Services",
-      "p-1": "Are you sure you want to deactivate HeyFrame Services?",
-      "p-2": "This will result in losing access to all current and future HeyFrame Services. We'd like to know what you don't like about HeyFrame Services. Give us your feedback so we can improve HeyFrame Services in the future!",
-      "label-feedback-link": "Give feedback"
+      "title": "停用 HeyFrame 服务",
+      "p-1": "你确定要停用 HeyFrame 服务吗？",
+      "p-2": "这将导致失去对所有当前及未来 HeyFrame 服务的访问权限。我们希望了解你对 HeyFrame 服务的不满之处，请提供反馈以便我们在未来改进服务！",
+      "label-feedback-link": "提供反馈"
     },
     "dashboard-banner": {
-      "title": "Introducing HeyFrame Services",
-      "description": "Transform your HeyFrame experience into something extraordinary with our cloud-based Services that effortlessly blend into your Administration. Enjoy automatic updates and cutting-edge features, all powered by HeyFrame, designed to elevate your business.",
-      "label-button-explore": "Explore now"
+      "title": "HeyFrame 服务介绍",
+      "description": "通过我们的云端服务，将你的 HeyFrame 体验提升到全新高度，这些服务与管理后台无缝融合。享受自动更新和前沿功能，由 HeyFrame 提供支持，帮助提升你的业务。",
+      "label-button-explore": "立即探索"
     }
   }
 }

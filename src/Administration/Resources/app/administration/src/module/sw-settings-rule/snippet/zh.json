@@ -1,157 +1,157 @@
 {
   "sw-settings-rule": {
     "error-codes": {
-      "INVALID_DATE_RANGE": "Invalid date range: The start date must precede the end date."
+      "INVALID_DATE_RANGE": "日期范围无效：开始日期必须早于结束日期。"
     },
     "general": {
-      "mainMenuItemGeneral": "Rule builder",
-      "placeholderSearchBar": "Search all rules...",
-      "descriptionTextModule": "Manage rules here."
+      "mainMenuItemGeneral": "规则构建器",
+      "placeholderSearchBar": "搜索所有规则...",
+      "descriptionTextModule": "在这里管理规则。"
     },
     "filter": {
       "conditionFilter": {
-        "label": "Conditions",
-        "placeholder": "Select conditions..."
+        "label": "条件",
+        "placeholder": "选择条件..."
       },
       "groupFilter": {
-        "label": "Condition types",
-        "placeholder": "Select condition types..."
+        "label": "条件类型",
+        "placeholder": "选择条件类型..."
       },
       "assignmentFilter": {
-        "label": "Assignments",
-        "placeholder": "Select assignments...",
+        "label": "应用对象",
+        "placeholder": "选择应用对象...",
         "values": {
-          "cartPromotions": "Promotion cart rules",
-          "orderPromotions": "Promotion order rules",
-          "personaPromotions": "Promotion customer rules",
-          "promotionSetGroups": "Promotion set group rules",
-          "promotionDiscounts": "Promotion discount product rules",
-          "flowSequences": "Flows",
-          "paymentMethods": "Payment methods",
-          "productPrices": "Product price rules",
-          "shippingMethodPriceCalculations": "Shipping method price matrices",
-          "shippingMethodPrices": "Shipping method price rules",
-          "shippingMethods": "Shipping method availability rules"
+          "cartPromotions": "购物车促销规则",
+          "orderPromotions": "订单促销规则",
+          "personaPromotions": "客户促销规则",
+          "promotionSetGroups": "促销套组规则",
+          "promotionDiscounts": "促销折扣商品规则",
+          "flowSequences": "流程",
+          "paymentMethods": "支付方式",
+          "productPrices": "商品价格规则",
+          "shippingMethodPriceCalculations": "配送方式价格矩阵",
+          "shippingMethodPrices": "配送方式价格规则",
+          "shippingMethods": "配送方式可用性规则"
         }
       },
       "tagFilter": {
-        "label": "Tags",
-        "placeholder": "Select tags..."
+        "label": "标签",
+        "placeholder": "选择标签..."
       }
     },
     "list": {
-      "columnTaxProviders": "Tax Provider assignments",
-      "columnWarehouseGroup": "Warehouse group assignments",
-      "textHeadline": "Rule builder",
-      "buttonAddRule": "Create rule",
-      "columnName": "Rule",
-      "columnDescription": "Description",
-      "columnDateCreated": "Creation date",
-      "columnDateUpdated": "Updated at",
-      "columnPriority": "Priority",
-      "columnStatus": "Status",
-      "columnTags": "Tags",
-      "columnCartPromotions": "Promotion cart rule assignments",
-      "columnOrderPromotions": "Promotion order rule assignments",
-      "columnPersonaPromotions": "Promotion customer rule assignments",
-      "columnPromotionSetGroups": "Promotion set group rule assignments",
-      "columnPromotionDiscounts": "Promotion discount product rule assignments",
-      "columnFlowSequences": "Flow assignments",
-      "columnPaymentMethods": "Payment method assignments",
-      "columnProductPrices": "Product price assignments",
-      "columnShippingMethodPriceCalculations": "Shipping method price matrix assignments",
-      "columnShippingMethodPrices": "Shipping method price assignments",
-      "columnShippingMethods": "Shipping method assignments",
-      "contextMenuDuplicate": "Duplicate",
-      "titleSidebarItemRefresh": "Refresh",
-      "valid": "Valid",
-      "invalid": "Invalid",
-      "messageEmpty": "No rules yet",
+      "columnTaxProviders": "税务提供者分配",
+      "columnWarehouseGroup": "仓库组分配",
+      "textHeadline": "规则构建器",
+      "buttonAddRule": "创建规则",
+      "columnName": "规则",
+      "columnDescription": "描述",
+      "columnDateCreated": "创建日期",
+      "columnDateUpdated": "更新日期",
+      "columnPriority": "优先级",
+      "columnStatus": "状态",
+      "columnTags": "标签",
+      "columnCartPromotions": "购物车促销规则分配",
+      "columnOrderPromotions": "订单促销规则分配",
+      "columnPersonaPromotions": "客户促销规则分配",
+      "columnPromotionSetGroups": "促销套组规则分配",
+      "columnPromotionDiscounts": "促销折扣商品规则分配",
+      "columnFlowSequences": "流程分配",
+      "columnPaymentMethods": "支付方式分配",
+      "columnProductPrices": "商品价格分配",
+      "columnShippingMethodPriceCalculations": "配送方式价格矩阵分配",
+      "columnShippingMethodPrices": "配送方式价格分配",
+      "columnShippingMethods": "配送方式分配",
+      "contextMenuDuplicate": "复制",
+      "titleSidebarItemRefresh": "刷新",
+      "valid": "有效",
+      "invalid": "无效",
+      "messageEmpty": "暂无规则",
       "assignments": {
-        "taxProviders": "Tax Provider | Tax Providers",
-        "warehouseGroup": "Warehouse group | Warehouse groups",
-        "cartPromotions": "promotion cart rule | promotion cart rules",
-        "orderPromotions": "promotion order rule | promotion order rules",
-        "personaPromotions": "promotion customer rule | promotion customer rules",
-        "promotionSetGroups": "promotion set group rule | promotion set group rules",
-        "promotionDiscounts": "promotion discount product rule | promotion discount product rules",
-        "flowSequences": "flow | flows",
-        "paymentMethods": "payment method | payment methods",
-        "productPrices": "product price | product prices",
-        "shippingMethodPriceCalculations": "shipping method price matrix | shipping method price matrices",
-        "shippingMethodPrices": "shipping method price | shipping method prices",
-        "shippingMethods": "shipping method | shipping methods"
+        "taxProviders": "税务提供者 | 税务提供者",
+        "warehouseGroup": "仓库组 | 仓库组",
+        "cartPromotions": "购物车促销规则 | 购物车促销规则",
+        "orderPromotions": "订单促销规则 | 订单促销规则",
+        "personaPromotions": "客户促销规则 | 客户促销规则",
+        "promotionSetGroups": "促销套组规则 | 促销套组规则",
+        "promotionDiscounts": "促销折扣商品规则 | 促销折扣商品规则",
+        "flowSequences": "流程 | 流程",
+        "paymentMethods": "支付方式 | 支付方式",
+        "productPrices": "商品价格 | 商品价格",
+        "shippingMethodPriceCalculations": "配送方式价格矩阵 | 配送方式价格矩阵",
+        "shippingMethodPrices": "配送方式价格 | 配送方式价格",
+        "shippingMethods": "配送方式 | 配送方式"
       }
     },
     "detail": {
-      "textHeadline": "New rule",
-      "buttonSave": "Save",
-      "titleCard": "General",
-      "labelName": "Name",
-      "labelDescription": "Description",
-      "labelPriority": "Priority",
-      "labelType": "Type",
-      "placeholderName": "Set a name for this rule...",
-      "placeholderDescription": "Set a description for this rule...",
-      "placeholderPriority": "Set a priority for this rule...",
-      "placeholderTags": "Enter a tag...",
-      "messageSaveSuccess": "The rule \"{name}\" has been saved.",
-      "ruleCard": "Condition",
-      "messageSaveError": "An error occurred while saving rule",
-      "tabGeneral": "General",
-      "tabAssignments": "Assignments",
-      "buttonAddAssignment":  "Add assignment",
+      "textHeadline": "新建规则",
+      "buttonSave": "保存",
+      "titleCard": "基本信息",
+      "labelName": "名称",
+      "labelDescription": "描述",
+      "labelPriority": "优先级",
+      "labelType": "类型",
+      "placeholderName": "设置规则名称...",
+      "placeholderDescription": "设置规则描述...",
+      "placeholderPriority": "设置规则优先级...",
+      "placeholderTags": "输入标签...",
+      "messageSaveSuccess": "规则 \"{name}\" 已保存。",
+      "ruleCard": "条件",
+      "messageSaveError": "保存规则时发生错误",
+      "tabGeneral": "基本信息",
+      "tabAssignments": "应用对象",
+      "buttonAddAssignment": "添加应用对象",
       "associations": {
-        "shippingMethods": "Shipping methods",
-        "promotions": "Promotions",
-        "products": "Product price rules",
-        "shippingMethodPrices": "Shipping method price rules",
-        "paymentMethods": "Payment methods",
-        "promotionCustomerRules": "Promotion customer rules",
-        "promotionOrderRules": "Promotion order rules",
-        "promotionCartRules": "Promotion cart rules",
-        "promotionDiscountRules": "Promotion discount product rules",
-        "promotionGroupRules": "Promotion set group rules",
-        "shippingMethodAvailabilityRule": "Shipping method availability rules",
-        "flows": "Flow Builders",
-        "taxProviders": "Tax Providers"
+        "shippingMethods": "配送方式",
+        "promotions": "促销",
+        "products": "商品价格规则",
+        "shippingMethodPrices": "配送方式价格规则",
+        "paymentMethods": "支付方式",
+        "promotionCustomerRules": "客户促销规则",
+        "promotionOrderRules": "订单促销规则",
+        "promotionCartRules": "购物车促销规则",
+        "promotionDiscountRules": "折扣商品规则",
+        "promotionGroupRules": "促销套组规则",
+        "shippingMethodAvailabilityRule": "配送方式可用性规则",
+        "flows": "流程构建器",
+        "taxProviders": "税务提供者"
       },
-      "typeHasNoAssociations": "No rules assigned",
-      "hasNoAssociations": "This rule is not in use",
-      "associationsLoadingError": "Unable to load rule assignments.",
-      "textModalDelete": "Do you really want to remove this assignment?",
-      "textModalBulkDelete": "Are you sure you want to remove this assignment? | Are you sure you want to remove these {count} assignments?",
-      "titleModalDelete": "Delete assignment",
+      "typeHasNoAssociations": "未分配规则",
+      "hasNoAssociations": "此规则未被使用",
+      "associationsLoadingError": "无法加载规则分配。",
+      "textModalDelete": "你确定要移除此应用对象吗？",
+      "textModalBulkDelete": "你确定要移除此应用对象吗？ | 你确定要移除这 {count} 个应用对象吗？",
+      "titleModalDelete": "删除应用对象",
       "types": {
-        "shipping": "Shipping",
-        "payment": "Payment",
-        "price": "Price",
-        "flowBuilder": "Flow Builder"
+        "shipping": "配送",
+        "payment": "支付",
+        "price": "价格",
+        "flowBuilder": "流程构建器"
       },
       "groups": {
-        "general": "General",
-        "cart": "Shopping cart",
-        "items": "Items in shopping cart",
-        "customers": "Customers",
-        "promotions": "Marketing & promotions",
-        "flow": "Flow Builder",
-        "orders": "Orders",
-        "misc": "Miscellaneous"
+        "general": "基本信息",
+        "cart": "购物车",
+        "items": "购物车商品",
+        "customers": "客户",
+        "promotions": "营销与促销",
+        "flow": "流程构建器",
+        "orders": "订单",
+        "misc": "其他"
       },
-      "textUnsavedConditions": "There are unsaved changes in this rule. Save changes in order to add assignments."
+      "textUnsavedConditions": "此规则有未保存的更改。请先保存以添加应用对象。"
     },
     "conditionFilter": {
-      "infoText": "Use filters to define which line items have to fulfil this condition."
+      "infoText": "使用过滤器定义哪些商品行必须满足此条件。"
     },
     "conditionModal": {
-      "modalTitle": "Filter",
-      "messageSaveError": "An error occurred while saving the filter."
+      "modalTitle": "过滤器",
+      "messageSaveError": "保存过滤器时发生错误。"
     }
   },
   "sw-privileges": {
     "permissions": {
       "rule": {
-        "label": "Rule builder"
+        "label": "规则构建器"
       }
     }
   }

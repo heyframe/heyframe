@@ -1,64 +1,64 @@
 {
   "sw-settings-customer-group": {
     "general": {
-      "mainMenuItemGeneral": "Customer groups",
-      "buttonCreate": "Add customer group",
-      "buttonSave": "Save",
-      "placeholderSearchBar": "Search customer groups..."
+      "mainMenuItemGeneral": "客户群组",
+      "buttonCreate": "添加客户群组",
+      "buttonSave": "保存",
+      "placeholderSearchBar": "搜索客户群组..."
     },
     "list": {
-      "columnName": "Name",
-      "columnDisplayGross": "Tax display"
+      "columnName": "名称",
+      "columnDisplayGross": "含税显示"
     },
     "detail": {
-      "cardTitle": "Customer group",
-      "fieldNameLabel": "Name",
-      "fieldDisplayGrossLabel": "Tax display",
-      "fieldDisplayGrossValues": "Gross | Net",
-      "placeholderName": "Enter a name...",
-      "placeholderNewCustomerGroup": "New customer group",
-      "notificationErrorMessage": "An error occured while saving your customer group.",
-      "registrationForm": "Custom signup form"
+      "cardTitle": "客户群组",
+      "fieldNameLabel": "名称",
+      "fieldDisplayGrossLabel": "税显示",
+      "fieldDisplayGrossValues": "含税 | 不含税",
+      "placeholderName": "输入名称...",
+      "placeholderNewCustomerGroup": "新客户群组",
+      "notificationErrorMessage": "保存客户群组时发生错误。",
+      "registrationForm": "自定义注册表单"
     },
     "registration": {
-      "formTitle": "Signup form",
-      "placeholderTitle": "Enter a title...",
-      "placeholderIntroduction": "Enter an introduction...",
-      "placeholderSeoMetaDescription": "Enter a SEO meta description...",
-      "title": "Title",
-      "introduction": "Introduction",
-      "onlyCompaniesCanRegister": "Company signup form",
-      "onlyCompaniesCanRegisterHelpText": "Adds fields for company name, VAT Reg.No. and department.",
-      "seoMetaDescription": "SEO meta description",
-      "linkUrlsTitle": "URLs",
-      "linkUrlDescription": "Click the button on the right to generate URLs linking to request forms to every Sales Channel.",
-      "linkUrlButton": "Generate URLs",
-      "technicalUrl": "Technical URL",
-      "technicalUrlHelpText": "Technical URLs can be used as \"customisable link\" within the category module and will provide an automatic language mapping.",
-      "availabilitySalesChannel": "Available Sales Channels",
-      "infoText": "Shop users can sign up through this custom form, but will be assigned to the customer group only after you accepted the request in the customer module. You can customise this form with the fields below.",
+      "formTitle": "注册表单",
+      "placeholderTitle": "输入标题...",
+      "placeholderIntroduction": "输入简介...",
+      "placeholderSeoMetaDescription": "输入 SEO 元描述...",
+      "title": "标题",
+      "introduction": "简介",
+      "onlyCompaniesCanRegister": "公司注册表单",
+      "onlyCompaniesCanRegisterHelpText": "添加公司名称、增值税号和部门字段。",
+      "seoMetaDescription": "SEO 元描述",
+      "linkUrlsTitle": "链接 URL",
+      "linkUrlDescription": "点击右侧按钮，为每个销售渠道生成请求表单链接 URL。",
+      "linkUrlButton": "生成 URL",
+      "technicalUrl": "技术 URL",
+      "technicalUrlHelpText": "技术 URL 可作为分类模块中的“可自定义链接”使用，并提供自动语言映射。",
+      "availabilitySalesChannel": "可用销售渠道",
+      "infoText": "商店用户可以通过此自定义表单注册，但仅在您在客户模块中接受请求后才会分配到该客户群组。您可以使用以下字段自定义此表单。",
       "seoUrlLabel": "{salesChannelName} URL ({languageName})",
-      "domainBanner": "SEO URLs are listed for each domain configured per SalesChannel."
+      "domainBanner": "每个销售渠道配置的域名都会列出 SEO URL。"
     },
     "modal": {
       "seoUrl": {
-        "title": "URL settings",
-        "salesChannel": "Sales Channel",
-        "urlSuffix": "URL suffix",
-        "exampleUrl": "Example URL",
-        "generate": "Generate"
+        "title": "URL 设置",
+        "salesChannel": "销售渠道",
+        "urlSuffix": "URL 后缀",
+        "exampleUrl": "示例 URL",
+        "generate": "生成"
       }
     },
     "notification": {
-      "errorMessageCannotDeleteCustomerGroup": "There are still Sales Channels and/or customers assigned to this customer group, therefore it cannot be deleted.",
-      "errorUnableToCreateSeoUrls": "The URLs could not be generated",
-      "successfulGeneratedSeoUrls": "The URLs were generated"
+      "errorMessageCannotDeleteCustomerGroup": "该客户群组仍有销售渠道和/或客户分配，无法删除。",
+      "errorUnableToCreateSeoUrls": "URL 生成失败",
+      "successfulGeneratedSeoUrls": "URL 已生成"
     }
   },
   "sw-privileges": {
     "permissions": {
       "customer_groups": {
-        "label": "Customer groups"
+        "label": "客户群组"
       }
     }
   }

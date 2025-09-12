@@ -243,7 +243,8 @@
     "admin:unit:watch": "Launches the interactive jest unit test-suite watcher for the Admin",
     "build:js": "Builds Administration & Storefront",
     "build:js:admin": "Builds the Administration",
-    "build:js:component-library": "Builds the component library"
+    "build:js:component-library": "Builds the component library",
+    "lint:snippets": "Validates existence of snippets in all core-supported languages"
   },
   "scripts": {
     "admin:code-mods": "@npm:admin run code-mods --",
@@ -305,6 +306,7 @@
     "npm:component-library:bin": "export PROJECT_ROOT=\"$PWD\"; cd src/Administration/Resources/app/administration/build/nuxt-component-library; export PATH=\"$PWD/node_modules/.bin/:$PATH\"; \"$PROJECT_ROOT\"/bin/exec-with-env ",
     "stylelint:admin": "@npm:admin run lint:scss",
     "stylelint:admin:fix": "@npm:admin run lint:scss-fix",
+    "lint:snippets": "@php bin/console snippets:validate",
     "watch:admin": [
       "Composer\\Config::disableProcessTimeout",
       "@php bin/console feature:dump",

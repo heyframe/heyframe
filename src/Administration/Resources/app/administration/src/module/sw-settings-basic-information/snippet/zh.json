@@ -1,31 +1,31 @@
 {
   "sw-settings-basic-information": {
     "general": {
-      "mainMenuItemGeneral": "Basic information",
-      "description": "Change basic information here.",
-      "textHeadline": "Basic information",
-      "buttonSave": "Save",
-      "messageSaveSuccess": "Configuration has been saved."
+      "mainMenuItemGeneral": "基本信息",
+      "description": "在这里修改基本信息。",
+      "textHeadline": "基本信息",
+      "buttonSave": "保存",
+      "messageSaveSuccess": "配置已保存。"
     },
     "captcha": {
       "label": {
-        "honeypot": "Honeypot",
-        "basicCaptcha": "Basic CAPTCHA",
+        "honeypot": "隐藏字段验证",
+        "basicCaptcha": "基础验证码",
         "googleReCaptchaV2": "Google reCAPTCHA v2",
-        "googleReCaptchaV2SiteKey": "Google reCAPTCHA v2 site key",
-        "googleReCaptchaV2SecretKey": "Google reCAPTCHA v2 secret key",
-        "googleReCaptchaV2Invisible": "Invisible Google reCAPTCHA v2",
+        "googleReCaptchaV2SiteKey": "Google reCAPTCHA v2 网站密钥",
+        "googleReCaptchaV2SecretKey": "Google reCAPTCHA v2 密钥",
+        "googleReCaptchaV2Invisible": "隐形 Google reCAPTCHA v2",
         "googleReCaptchaV3": "Google reCAPTCHA v3",
-        "googleReCaptchaV3SiteKey": "Google reCAPTCHA v3 site key",
-        "googleReCaptchaV3SecretKey": "Google reCAPTCHA v3 secret key",
-        "googleReCaptchaV3ThresholdScore": "Google reCAPTCHA v3 threshold score",
-        "googleReCaptchaV2CheckboxDescription": "The \"I'm not a robot\" checkbox requires the user to click a checkbox indicating the user is not a robot. This will either pass the user immediately (with no CAPTCHA) or challenge them to validate whether or not they are human. This is the simplest option to integrate with and only requires two lines of HTML to render the checkbox.",
-        "googleReCaptchaV2InvisibleDescription": "The invisible reCAPTCHA badge does not require the user to click on a checkbox, instead it is invoked directly when the user clicks on an existing button on your site or can be invoked via a JavaScript API call. The integration requires a JavaScript callback when reCAPTCHA verification is complete. By default only the most suspicious traffic will be prompted to solve a CAPTCHA. To alter this behaviour edit your site security preference under advanced settings.",
-        "googleReCaptchaV3Description": "reCAPTCHA v3 allows you to verify if an interaction is legitimate without any user interaction. It is a pure JavaScript API returning a score, giving you the ability to take action in the context of your site: for instance requiring additional factors of authentication, sending a post to moderation, or throttling bots that may be scraping content.",
-        "googleReCaptchaV3DescriptionThresholdScore": "reCAPTCHA v3 returns a score for each request without user friction. The score is based on interactions with your site and enables you to take an appropriate action for your site. Threshold score values range from 0.0 to 1.0."
+        "googleReCaptchaV3SiteKey": "Google reCAPTCHA v3 网站密钥",
+        "googleReCaptchaV3SecretKey": "Google reCAPTCHA v3 密钥",
+        "googleReCaptchaV3ThresholdScore": "Google reCAPTCHA v3 阈值分数",
+        "googleReCaptchaV2CheckboxDescription": "“我不是机器人”复选框要求用户点击确认自己不是机器人。通过复选框后，用户可能直接通过（无需验证码）或者需要验证人机身份。这是最简单的集成方式，只需两行 HTML 就能显示复选框。",
+        "googleReCaptchaV2InvisibleDescription": "隐形 reCAPTCHA 不需要用户点击复选框，而是在用户点击页面上的某个按钮时触发，或者通过 JavaScript API 调用触发。集成时需要设置 JavaScript 回调，验证码验证完成后调用。默认情况下，只有最可疑的访问才会被要求输入验证码。可在高级设置中调整安全策略。",
+        "googleReCaptchaV3Description": "reCAPTCHA v3 可以在无需用户操作的情况下判断交互是否合法。它通过 JavaScript 返回一个评分，让你可以针对网站采取相应措施，比如增加额外验证、发送内容审核请求，或者限制可能抓取内容的机器人。",
+        "googleReCaptchaV3DescriptionThresholdScore": "reCAPTCHA v3 会为每次请求返回一个评分，不会打扰用户。评分基于用户与网站的交互，可用来采取相应措施。阈值分数范围从 0.0 到 1.0。"
       },
-      "basicCaptchaNoticeTitle": "Note",
-      "basicCaptchaNotice": "The Basic Captcha solution is not considered as accessible. We recommend using a solution that does not require user interaction."
+      "basicCaptchaNoticeTitle": "注意",
+      "basicCaptchaNotice": "基础验证码不够友好，可能无法满足无障碍要求。建议使用无需用户操作的验证方案。"
     }
   }
 }

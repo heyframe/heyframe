@@ -1,53 +1,53 @@
 {
   "sw-settings-language": {
     "general": {
-      "mainMenuItemGeneral": "Languages",
-      "placeholderSearchBar": "Search languages..."
+      "mainMenuItemGeneral": "语言设置",
+      "placeholderSearchBar": "搜索语言..."
     },
     "list": {
-      "textHeadline": "Languages",
-      "textDeleteConfirm": "Are you sure you want to delete the language \"{name}\"? This will delete all content in this language and can not be undone!",
-      "columnName": "Name",
-      "columnActive": "Active",
-      "columnLocaleName": "Locale",
-      "columnIsoCode": "ISO Code ",
-      "columnInherit": "Inherit from",
-      "columnDefault": "Default",
-      "defaultLabel": "Default",
-      "buttonAddLanguage": "Add language",
-      "contextMenuEdit": "Edit",
-      "messageDeleteSuccess": "Language \"{name}\" has been deleted.",
-      "buttonDelete": "Delete",
-      "titleSidebarFilter": "Filter",
-      "titleSidebarQuickFilter": "Quick filter",
-      "textFilterRootLanguages": "Show only \"root\" languages",
-      "textFilterInheritedLanguages": "Show only inherited languages",
-      "manageSnippets": "Manage snippets",
-      "cardTitle": "Languages",
-      "cardSubtitle": "Languages can be assigned to Sales Channel domains in order to display the appropriate translations. They also enable the translation of content in categories, products, Shopping Experience pages, etc."
+      "textHeadline": "语言列表",
+      "textDeleteConfirm": "你确定要删除语言 \"{name}\" 吗？这会删除该语言下的所有内容，且无法恢复！",
+      "columnName": "名称",
+      "columnActive": "启用",
+      "columnLocaleName": "地区",
+      "columnIsoCode": "ISO 代码",
+      "columnInherit": "继承自",
+      "columnDefault": "默认",
+      "defaultLabel": "默认",
+      "buttonAddLanguage": "添加语言",
+      "contextMenuEdit": "编辑",
+      "messageDeleteSuccess": "语言 \"{name}\" 已删除。",
+      "buttonDelete": "删除",
+      "titleSidebarFilter": "筛选",
+      "titleSidebarQuickFilter": "快速筛选",
+      "textFilterRootLanguages": "仅显示“根”语言",
+      "textFilterInheritedLanguages": "仅显示继承语言",
+      "manageSnippets": "管理文本片段",
+      "cardTitle": "语言",
+      "cardSubtitle": "可以将语言分配给销售渠道域名，以显示对应翻译。同时也支持分类、产品、购物体验页面等内容的翻译。"
     },
     "detail": {
-      "textHeadline": "New language",
-      "titleCard": "Settings",
-      "messageSaveSuccess": "Language \"{name}\" has been saved.",
-      "labelName": "Name",
-      "labelActive": "Active",
-      "labelLocale": "Locale",
-      "labelParent": "Inherit from",
-      "labelIsoCode": "ISO code",
-      "placeholderName": "Enter name...",
-      "placeholderPleaseSelect": "Please select...",
-      "tooltipLanguageNotChoosable": "You cannot use a language which is already inheriting from another language.",
-      "tooltipInheritanceNotPossible": "The system default language can not inherit from another language.",
-      "textAlertChangeParent": "Changing the parent language can lead to inconsistencies in your translations.",
-      "textIsoCodeIsInUse": "This ISO code is already in use.",
-      "textLanguageHasParent": "This language is already inheriting from another language."
+      "textHeadline": "新建语言",
+      "titleCard": "设置",
+      "messageSaveSuccess": "语言 \"{name}\" 已保存。",
+      "labelName": "名称",
+      "labelActive": "启用",
+      "labelLocale": "地区",
+      "labelParent": "继承自",
+      "labelIsoCode": "ISO 代码",
+      "placeholderName": "输入名称...",
+      "placeholderPleaseSelect": "请选择...",
+      "tooltipLanguageNotChoosable": "无法选择已经继承自其他语言的语言。",
+      "tooltipInheritanceNotPossible": "系统默认语言无法继承其他语言。",
+      "textAlertChangeParent": "更改父语言可能导致翻译不一致。",
+      "textIsoCodeIsInUse": "该 ISO 代码已被使用。",
+      "textLanguageHasParent": "该语言已经继承自其他语言。"
     }
   },
   "sw-privileges": {
     "permissions": {
       "language": {
-        "label": "Languages"
+        "label": "语言"
       }
     }
   }

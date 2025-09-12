@@ -1,84 +1,84 @@
 {
   "sw-settings-payment": {
     "general": {
-      "mainMenuItemGeneral": "Payment methods",
-      "placeholderSearchBar": "Search all payment methods..."
+      "mainMenuItemGeneral": "支付方式",
+      "placeholderSearchBar": "搜索所有支付方式..."
     },
     "overview": {
-      "openSortingModalButton": "Edit display order in checkout",
-      "editDetails": "Edit details",
-      "activeToggle": "Active",
-      "missingEditorPermission": "You don't have the permissions, to edit payment methods.",
+      "openSortingModalButton": "编辑结账时显示顺序",
+      "editDetails": "编辑详情",
+      "activeToggle": "启用",
+      "missingEditorPermission": "你没有权限编辑支付方式。",
       "notification": {
-        "activationSuccess": "{name} successfully activated.",
-        "deactivationSuccess": "{name} successfully deactivated.",
-        "activationError": "{name} could not be activated.",
-        "deactivationError": "{name} could not be deactivated."
+        "activationSuccess": "{name} 已成功启用。",
+        "deactivationSuccess": "{name} 已成功停用。",
+        "activationError": "{name} 启用失败。",
+        "deactivationError": "{name} 停用失败。"
       }
     },
     "sorting-modal": {
-      "modalTitle": "Display order in checkout",
-      "subTitle": "Use drag & drop to define the order of payment methods displayed during checkout.",
-      "saveSuccessful": "The order of payment methods has been updated.",
-      "errorMessage": "An error occurred while updating the order of payment methods."
+      "modalTitle": "结账显示顺序",
+      "subTitle": "通过拖拽调整结账时支付方式的显示顺序。",
+      "saveSuccessful": "支付方式顺序已更新。",
+      "errorMessage": "更新支付方式顺序时发生错误。"
     },
     "list": {
-      "textHeadline": "Payment",
-      "textDeleteConfirm": "Are you sure you want to delete the payment method \"{name}\"?",
-      "columnName": "Name",
-      "columnDescription": "Description",
-      "columnActive": "Active",
-      "columnPosition": "Position",
-      "columnExtension": "Extension",
-      "buttonAddPaymentMethod": "Add payment method",
-      "contextMenuEdit": "Edit",
-      "contextMenuDelete": "Delete",
-      "messageDeleteSuccess": "Payment method \"{name}\" has been deleted.",
-      "buttonDelete": "Delete",
-      "pluginDeleteTitleText": "Plugin payment methods cannot be deleted."
+      "textHeadline": "支付方式列表",
+      "textDeleteConfirm": "你确定要删除支付方式 \"{name}\" 吗？",
+      "columnName": "名称",
+      "columnDescription": "描述",
+      "columnActive": "启用",
+      "columnPosition": "位置",
+      "columnExtension": "扩展",
+      "buttonAddPaymentMethod": "添加支付方式",
+      "contextMenuEdit": "编辑",
+      "contextMenuDelete": "删除",
+      "messageDeleteSuccess": "支付方式 \"{name}\" 已删除。",
+      "buttonDelete": "删除",
+      "pluginDeleteTitleText": "插件支付方式无法删除。"
     },
     "detail": {
-      "textHeadline": "New payment method",
-      "titleCard": "Payment methods",
-      "messageSaveSuccess": "Payment method \"{name}\" has been saved.",
-      "messageSaveError": "Payment method \"{name}\" could not be saved.",
-      "labelName": "Name",
-      "labelTechnicalName": "Technical name",
-      "labelPosition": "Position",
-      "labelActive": "Active",
-      "labelAfterOrderEnabled": "Allow payment change after checkout",
-      "labelDescription": "Description",
+      "textHeadline": "新建支付方式",
+      "titleCard": "支付方式",
+      "messageSaveSuccess": "支付方式 \"{name}\" 已保存。",
+      "messageSaveError": "支付方式 \"{name}\" 保存失败。",
+      "labelName": "名称",
+      "labelTechnicalName": "技术名称",
+      "labelPosition": "位置",
+      "labelActive": "启用",
+      "labelAfterOrderEnabled": "允许结账后更改支付方式",
+      "labelDescription": "描述",
       "labelLogoUpload": "Logo",
       "sidebar": {
-        "labelUseAsLogo": "Use as logo"
+        "labelUseAsLogo": "作为 Logo 使用"
       },
-      "topRule": "Availability rule",
-      "placeholderName": "Enter name...",
-      "placeholderTechnicalName": "Enter technical name...",
-      "placeholderPosition": "Enter position...",
-      "placeholderDescription": "Enter description...",
-      "placeholderAvailabilityRule": "Choose availability rule...",
-      "buttonSave": "Save",
-      "helpTextTechnicalName": "The technical name is used to uniquely reference the payment method. A subsequent change to the technical name can cause payment integrations that rely on it to no longer work.",
-      "hintTextTechnicalNameIsProvided": "The technical name has been provided by {name}.",
+      "topRule": "可用性规则",
+      "placeholderName": "输入名称...",
+      "placeholderTechnicalName": "输入技术名称...",
+      "placeholderPosition": "输入位置...",
+      "placeholderDescription": "输入描述...",
+      "placeholderAvailabilityRule": "选择可用性规则...",
+      "buttonSave": "保存",
+      "helpTextTechnicalName": "技术名称用于唯一标识支付方式。修改技术名称可能导致依赖它的支付集成失效。",
+      "hintTextTechnicalNameIsProvided": "技术名称由 {name} 提供。",
       "delete": {
-        "textHeadline": "Delete payment method",
-        "textAlert": "This payment method is used in rules, Sales Channels or orders and can therefore not be deleted.",
-        "textButton": "Delete payment method",
+        "textHeadline": "删除支付方式",
+        "textAlert": "该支付方式已在规则、销售渠道或订单中使用，无法删除。",
+        "textButton": "删除支付方式",
         "modal": {
-          "textConfirmation": "Do you really want to delete this payment method?",
-          "buttonDelete": "Delete"
+          "textConfirmation": "你确定要删除此支付方式吗？",
+          "buttonDelete": "删除"
         }
       }
     }
   },
   "sw-plugin-box": {
-    "buttonPluginSettings": "Extension settings"
+    "buttonPluginSettings": "扩展设置"
   },
   "sw-privileges": {
     "permissions": {
       "payment": {
-        "label": "Payment methods"
+        "label": "支付方式"
       }
     }
   }

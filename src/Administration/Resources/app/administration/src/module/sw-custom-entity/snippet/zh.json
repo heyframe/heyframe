@@ -1,15 +1,15 @@
 {
-    "sw-custom-entity": {
-        "general": {
-            "mainMenuItemGeneral": "Custom Entity",
-            "emptyState": "No Custom Entities yet",
-            "emptyStateSubline": "Manage Custom Entities here."
-        },
-        "detail": {
-            "tabs": {
-                "layout": "Layout",
-                "seo": "SEO"
-            }
-        }
+  "sw-custom-entity": {
+    "general": {
+      "mainMenuItemGeneral": "自定义实体",
+      "emptyState": "尚无自定义实体",
+      "emptyStateSubline": "在此管理自定义实体。"
+    },
+    "detail": {
+      "tabs": {
+        "layout": "布局",
+        "seo": "SEO"
+      }
     }
+  }
 }

@@ -1,148 +1,148 @@
 {
   "sw-profile": {
     "general": {
-      "mainMenuItemGeneral": "Profiles",
-      "description": "Manage your profile here.",
-      "headlineProfile": "Your profile"
+      "mainMenuItemGeneral": "个人资料",
+      "description": "在这里管理您的个人资料。",
+      "headlineProfile": "您的个人资料"
     },
     "index": {
-      "buttonSaveLabel": "Save",
-      "titleInfoCard": "Profile information",
-      "titleImageCard": "Profile image",
-      "titlePasswordCard": "Password",
-      "labelFirstNameField": "First name",
-      "labelLastNameField": "Last name",
-      "labelUsernameField": "Username",
-      "labelEmailField": "Email address",
-      "labelTimezoneField": "Timezone",
-      "labelOldPassword": "Old password",
-      "placeholderOldPassword": "Enter old password...",
-      "labelNewPassword": "New password",
-      "placeholderNewPassword": "Enter new password...",
-      "labelNewPasswordConfirm": "Confirm password",
-      "placeholderNewPasswordConfirm": "Re-enter new password...",
-      "notificationPasswordErrorMessage": "The submitted passwords do not match.",
-      "notificationNewPasswordIsSameAsOldErrorMessage": "The new password is identical with your old one. Please choose a new password.",
-      "notificationInvalidEmailErrorMessage": "Please enter a valid email address.",
-      "notificationSaveSuccessMessage": "Profile information have been saved.",
-      "notificationSaveErrorMessage": "Profile information could not be saved.",
-      "labelUploadAvatar": "Upload avatar",
-      "labelUseAsAvatar": "Use as avatar"
+      "buttonSaveLabel": "保存",
+      "titleInfoCard": "个人信息",
+      "titleImageCard": "头像",
+      "titlePasswordCard": "密码",
+      "labelFirstNameField": "名",
+      "labelLastNameField": "姓",
+      "labelUsernameField": "用户名",
+      "labelEmailField": "电子邮箱",
+      "labelTimezoneField": "时区",
+      "labelOldPassword": "旧密码",
+      "placeholderOldPassword": "输入旧密码...",
+      "labelNewPassword": "新密码",
+      "placeholderNewPassword": "输入新密码...",
+      "labelNewPasswordConfirm": "确认密码",
+      "placeholderNewPasswordConfirm": "再次输入新密码...",
+      "notificationPasswordErrorMessage": "提交的密码不匹配。",
+      "notificationNewPasswordIsSameAsOldErrorMessage": "新密码与旧密码相同，请选择新的密码。",
+      "notificationInvalidEmailErrorMessage": "请输入有效的电子邮箱地址。",
+      "notificationSaveSuccessMessage": "个人资料已保存。",
+      "notificationSaveErrorMessage": "个人资料无法保存。",
+      "labelUploadAvatar": "上传头像",
+      "labelUseAsAvatar": "设为头像"
     },
     "tabGeneral": {
-      "title": "General"
+      "title": "常规"
     },
     "tabSearchPreferences": {
-      "title": "Search preferences",
+      "title": "搜索偏好",
       "alert_elasticsearch": {
-        "title": "Elasticsearch is now enabled",
-        "text": "You have enabled the elasticsearch for the admin search, these fields are searchable and you can't turn it off, however you can turn off which entities are searchable"
+        "title": "已启用 Elasticsearch",
+        "text": "您已启用管理员搜索的 Elasticsearch，这些字段可搜索且无法关闭，但可以选择哪些实体可被搜索。"
       },
       "cardSearchBehavior": {
-        "title": "Search behavior",
-        "subtitle": "Predefine your Administration's search behaviour",
-        "labelMinSearchTermLength": "Minimal search term length"
+        "title": "搜索行为",
+        "subtitle": "预定义管理后台的搜索行为",
+        "labelMinSearchTermLength": "最短搜索词长度"
       },
       "cardSearchContent": {
-        "title": "Searchable content",
-        "subtitle": "Set the searchable content for each module and entry",
-        "buttonSelect": "Select all",
-        "buttonDeselect": "Deselect all",
-        "buttonReset": "Reset to default"
+        "title": "可搜索内容",
+        "subtitle": "为每个模块和条目设置可搜索的内容",
+        "buttonSelect": "全选",
+        "buttonDeselect": "取消全选",
+        "buttonReset": "恢复默认"
       },
       "modules": {
         "order": {
-          "countryName": "Country",
-          "city": "City",
-          "street": "Street",
-          "company": "Company",
-          "zipcode": "Postal code",
-          "lastName": "Last name",
-          "firstName": "First name",
-          "phoneNumber": "Phone number",
-          "additionalAddressLine1": "Additional address line 1",
-          "additionalAddressLine2": "Additional address line 2",
-          "trackingCodes": "Tracking codes",
-          "amountTotal": "Amount total",
-          "orderNumber": "Order number",
-          "email": "Email address",
-          "tagsName": "Tags",
-          "customerNumber": "Customer number",
-          "documentNumber": "Document number",
-          "promotionCode": "Applied promotion codes"
+          "countryName": "国家",
+          "city": "城市",
+          "street": "街道",
+          "company": "公司",
+          "zipcode": "邮政编码",
+          "lastName": "姓",
+          "firstName": "名",
+          "phoneNumber": "电话号码",
+          "additionalAddressLine1": "地址附加行1",
+          "additionalAddressLine2": "地址附加行2",
+          "trackingCodes": "追踪码",
+          "amountTotal": "总金额",
+          "orderNumber": "订单号",
+          "email": "电子邮箱",
+          "tagsName": "标签",
+          "customerNumber": "客户编号",
+          "documentNumber": "文档编号",
+          "promotionCode": "使用的优惠码"
         },
         "customer": {
-          "tagsName": "Tags",
-          "email": "Email address",
-          "company": "Company",
-          "firstName": "First name",
-          "lastName": "Last name",
-          "customerNumber": "Customer number",
-          "countryName": "Country",
-          "city": "City",
-          "street": "Street",
-          "zipcode": "Postal code",
-          "phoneNumber": "Phone number",
-          "additionalAddressLine1": "Additional address line 1",
-          "additionalAddressLine2": "Additional address line 2"
+          "tagsName": "标签",
+          "email": "电子邮箱",
+          "company": "公司",
+          "firstName": "名",
+          "lastName": "姓",
+          "customerNumber": "客户编号",
+          "countryName": "国家",
+          "city": "城市",
+          "street": "街道",
+          "zipcode": "邮政编码",
+          "phoneNumber": "电话号码",
+          "additionalAddressLine1": "地址附加行1",
+          "additionalAddressLine2": "地址附加行2"
         },
         "product": {
           "ean": "GTIN/EAN",
-          "name": "Name",
-          "tagsName": "Tags",
-          "productNumber": "Product number",
-          "manufacturerNumber": "Manufacturer number",
-          "customSearchKeywords": "SEO keywords"
+          "name": "名称",
+          "tagsName": "标签",
+          "productNumber": "产品编号",
+          "manufacturerNumber": "制造商编号",
+          "customSearchKeywords": "SEO 关键字"
         },
         "media": {
-          "alt": "Alt text",
-          "tagsName": "Tags",
-          "title": "Title",
-          "fileName": "Name",
-          "mediaFolderName": "Folder",
-          "path": "Path"
+          "alt": "替代文本",
+          "tagsName": "标签",
+          "title": "标题",
+          "fileName": "文件名",
+          "mediaFolderName": "文件夹",
+          "path": "路径"
         },
         "landing_page": {
-          "name": "Name",
-          "tagsName": "Tags"
+          "name": "名称",
+          "tagsName": "标签"
         },
         "category": {
-          "name": "Name",
-          "tagsName": "Tags"
+          "name": "名称",
+          "tagsName": "标签"
         },
         "shipping_method": {
-          "name": "Name"
+          "name": "名称"
         },
         "payment_method": {
-          "name": "Name"
+          "name": "名称"
         },
         "customer_group": {
-          "name": "Name"
+          "name": "名称"
         },
         "channel": {
-          "name": "Name"
+          "name": "名称"
         },
         "property": {
-          "name": "Name"
+          "name": "名称"
         },
         "property_group": {
-          "name": "Name"
+          "name": "名称"
         },
         "promotion": {
-          "name": "Name",
-          "code": "Code"
+          "name": "名称",
+          "code": "代码"
         },
         "product_stream": {
-          "name": "Name"
+          "name": "名称"
         },
         "newsletter_recipient": {
-          "email": "Email address"
+          "email": "电子邮箱"
         },
         "product_manufacturer": {
-          "name": "Name"
+          "name": "名称"
         },
         "cms_page": {
-          "name": "Name"
+          "name": "名称"
         }
       }
     }
@@ -150,7 +150,7 @@
   "sw-privileges": {
     "additional_permissions": {
       "user": {
-        "update_profile": "Update own profile"
+        "update_profile": "更新自己的个人资料"
       }
     }
   }
