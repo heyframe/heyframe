@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Content\Product\Channel\Review;
 
-use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryFacadeHookFactory;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\ChannelRepositoryFacadeHookFactory;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryFacadeHookFactory;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAware;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAwareTrait;

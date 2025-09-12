@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Content\Product\Channel\Listing\Processor;
 
-use HeyFrame\Core\Content\Product\ProductException;
 use HeyFrame\Core\Content\Product\Channel\Listing\ProductListingResult;
 use HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingCollection;
 use HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingEntity;
+use HeyFrame\Core\Content\Product\ProductException;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;

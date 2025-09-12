@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Content\Product\Channel\Listing;
 
-use HeyFrame\Core\Content\Product\Events\ProductListingCriteriaEvent;
-use HeyFrame\Core\Content\Product\Events\ProductListingResultEvent;
 use HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor;
 use HeyFrame\Core\Content\Product\Channel\Search\ResolvedCriteriaProductSearchRoute;
+use HeyFrame\Core\Content\Product\Events\ProductListingCriteriaEvent;
+use HeyFrame\Core\Content\Product\Events\ProductListingResultEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;

@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Content\Product\Channel\Listing\Processor;
 
-use HeyFrame\Core\Content\Product\Events\ProductListingCollectFilterEvent;
 use HeyFrame\Core\Content\Product\Channel\Listing\Filter\AbstractListingFilterHandler;
 use HeyFrame\Core\Content\Product\Channel\Listing\FilterCollection;
 use HeyFrame\Core\Content\Product\Channel\Listing\ProductListingResult;
+use HeyFrame\Core\Content\Product\Events\ProductListingCollectFilterEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Aggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\FilterAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;

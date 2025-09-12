@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Content\Product\Channel\Listing;
 
-use HeyFrame\Core\Content\Product\ProductCollection;
 use HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingCollection;
+use HeyFrame\Core\Content\Product\ProductCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\Log\Package;
 

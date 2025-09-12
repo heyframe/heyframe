@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Content\Product\Channel\Search;
 
+use HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor;
 use HeyFrame\Core\Content\Product\Events\ProductSearchCriteriaEvent;
 use HeyFrame\Core\Content\Product\Events\ProductSearchResultEvent;
 use HeyFrame\Core\Content\Product\ProductEvents;
-use HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder;

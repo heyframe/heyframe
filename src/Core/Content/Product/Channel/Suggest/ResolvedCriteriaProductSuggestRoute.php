@@ -3,12 +3,12 @@
 namespace HeyFrame\Core\Content\Product\Channel\Suggest;
 
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
+use HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor;
+use HeyFrame\Core\Content\Product\Channel\ProductAvailableFilter;
 use HeyFrame\Core\Content\Product\Events\ProductSuggestCriteriaEvent;
 use HeyFrame\Core\Content\Product\Events\ProductSuggestResultEvent;
 use HeyFrame\Core\Content\Product\ProductEvents;
 use HeyFrame\Core\Content\Product\ProductException;
-use HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor;
-use HeyFrame\Core\Content\Product\Channel\ProductAvailableFilter;
 use HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
