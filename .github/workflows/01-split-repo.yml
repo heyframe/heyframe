@@ -8,6 +8,7 @@ on:
       - src/Administration/**/*
       - src/Core/**/*
       - src/Frontend/**/*
+      - src/Elasticsearch/**/*
 
 env:
   GITHUB_TOKEN: ${{ secrets.TOKEN }}
@@ -28,6 +29,9 @@ jobs:
           -
             local_path: 'Frontend'
             split_repository: 'frontend'
+
+          - local_path: 'Elasticsearch'
+            split_repository: 'elasticsearch'
     steps:
       -   uses: actions/checkout@v4
 
