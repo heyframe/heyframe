@@ -155,9 +155,9 @@ HeyFrame.Module.register('sw-extension', {
                         },
                     },
                 },
-                recommendation: {
-                    path: 'recommendation',
-                    component: 'sw-extension-my-extensions-recommendation',
+                uni: {
+                    path: 'uni',
+                    component: 'sw-extension-my-extensions-uni',
                     meta: {
                         privilege: 'system.plugin_maintain',
                     },

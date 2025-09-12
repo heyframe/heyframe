@@ -26,7 +26,7 @@
         "update": "更新"
       },
       "account": {
-        "headline": "HeyFrame 账号",
+        "headline": "账号",
         "isLoggedIn": "HeyFrame 账号已成功连接。请前往“应用”或“主题”标签查看已购买的扩展是否列出。如果未显示，请检查你的 Showware 账号，并确保已设置正确的扩展域名。",
         "login": "登录",
         "logout": "登出",
@@ -45,8 +45,8 @@
       "tabs": {
         "app": "应用",
         "theme": "主题",
-        "recommendation": "推荐",
-        "heyframeAccount": "HeyFrame 账号"
+        "uni": "小程序",
+        "heyframeAccount": "账号"
       },
       "fileUpload": {
         "buttonFileUpload": "上传扩展",
