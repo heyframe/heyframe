@@ -2,50 +2,6 @@
     "openapi": "3.1.0",
     "info": [],
     "paths": {
-        "/account/newsletter-recipient": {
-            "post": {
-                "tags": [
-                    "Profile",
-                    "Newsletter",
-                    "Endpoints supporting Criteria"
-                ],
-                "summary": "Fetch newsletter recipients",
-                "description": "Perform a filtered search for newsletter recipients.",
-                "operationId": "readNewsletterRecipient",
-                "requestBody": {
-                    "required": false,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/Criteria"
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AccountNewsletterRecipient"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKey": [],
-                        "ContextToken": []
-                    }
-                ]
-            }
-        },
         "/account/change-profile": {
             "post": {
                 "tags": ["Profile"],
@@ -472,146 +428,6 @@
                 ]
             }
         },
-        "/account/address/{addressId}": {
-            "delete": {
-                "tags": ["Address"],
-                "summary": "Delete an address of a customer",
-                "description": "Delete an address of customer.\n\n    Only addresses which are not set as default addresses for shipping or billing can be deleted. You can check the current default addresses of your customer using the profile information endpoint and change them using the default address endpoint.\n\n    **A customer must have at least one address (which can be used for shipping and billing).**\n\n    An automatic fallback is not applied.",
-                "operationId": "deleteCustomerAddress",
-                "parameters": [
-                    {
-                        "name": "addressId",
-                        "in": "path",
-                        "description": "ID of the address to be deleted.",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content response, when the address has been deleted"
-                    },
-                    "400": {
-                        "description": "Response containing a list of errors, most likely due to the address being in use"
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKey": [],
-                        "ContextToken": []
-                    }
-                ]
-            },
-            "patch": {
-                "tags": ["Address"],
-                "summary": "Modify an address of a customer",
-                "description": "Modifies an existing address of a customer.",
-                "operationId": "updateCustomerAddress",
-                "parameters": [
-                    {
-                        "name": "addressId",
-                        "in": "path",
-                        "description": "Address ID",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CustomerAddressBody"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "allOf": [
-                                        {
-                                            "$ref": "#/components/schemas/CustomerAddress"
-                                        },
-                                        {
-                                            "$ref": "#/components/schemas/CustomerAddressRead"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKey": [],
-                        "ContextToken": []
-                    }
-                ]
-            }
-        },
-        "/account/list-address": {
-            "post": {
-                "tags": ["Address", "Endpoints supporting Criteria "],
-                "summary": "Fetch addresses of a customer",
-                "description": "Lists all addresses of the current customer and allows filtering them based on a criteria.",
-                "operationId": "listAddress",
-                "requestBody": {
-                    "required": false,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/Criteria"
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "allOf": [
-                                        {
-                                            "type": "object",
-                                            "required": ["elements"],
-                                            "properties": {
-                                                "elements": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "$ref": "#/components/schemas/CustomerAddress"
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "$ref": "#/components/schemas/EntitySearchResult"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKey": [],
-                        "ContextToken": []
-                    }
-                ]
-            }
-        },
         "/account/login": {
             "post": {
                 "tags": ["Login & Registration"],
@@ -645,59 +461,6 @@
                     },
                     "401": {
                         "description": "If credentials are incorrect an error is returned",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/failure"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKey": []
-                    }
-                ]
-            }
-        },
-        "/account/login/imitate-customer": {
-            "post": {
-                "tags": ["Login & Registration"],
-                "summary": "Imitate the log in as a customer",
-                "description": "Imitate the log in as a customer given a generated token.",
-                "operationId": "imitateCustomerLogin",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": ["token", "customerId", "userId"],
-                                "properties": {
-                                    "token": {
-                                        "description": "Generated customer impersonation token",
-                                        "type": "string"
-                                    },
-                                    "customerId": {
-                                        "description": "ID of the customer",
-                                        "type": "string"
-                                    },
-                                    "userId": {
-                                        "description": "ID of the user who generated the token",
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "$ref": "#/components/responses/ContextTokenResponse"
-                    },
-                    "400": {
-                        "description": "If the token is incorrect an error is returned",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -785,7 +548,7 @@
             "post": {
                 "tags": ["Login & Registration"],
                 "summary": "Register a customer",
-                "description": "Registers a customer. Used both for normal customers and guest customers.See the Guide \"Register a customer\" for more information on customer registration.",
+                "description": "Registers a customer. Used both for normal customers.See the Guide \"Register a customer\" for more information on customer registration.",
                 "operationId": "register",
                 "requestBody": {
                     "required": true,
@@ -794,15 +557,11 @@
                             "schema": {
                                 "properties": {
                                     "email": {
-                                        "description": "Email of the customer. Has to be unique, unless `guest` is `true`",
+                                        "description": "Email of the customer. Has to be unique",
                                         "type": "string"
                                     },
                                     "password": {
-                                        "description": "Password for the customer. Required, unless `guest` is `true`",
-                                        "type": "string"
-                                    },
-                                    "frontendUrl": {
-                                        "description": "URL of the frontend for that registration. Used in confirmation emails. Has to be one of the configured domains of the sales channel.",
+                                        "description": "Password for the customer. Required",
                                         "type": "string"
                                     }
                                 },
@@ -906,7 +665,7 @@
                                         "type": "string"
                                     },
                                     "frontendUrl": {
-                                        "description": "URL of the frontend to use for the generated reset link. It has to be a domain that is configured in the sales channel domain settings.",
+                                        "description": "URL of the frontend to use for the generated reset link. It has to be a domain that is configured in the channel domain settings.",
                                         "type": "string"
                                     }
                                 },
@@ -930,108 +689,6 @@
                 "security": [
                     {
                         "ApiKey": []
-                    }
-                ]
-            }
-        },
-        "/account/address/default-shipping/{addressId}": {
-            "patch": {
-                "tags": ["Address"],
-                "summary": "Change a customer's default shipping address",
-                "description": "Updates the default (preselected) shipping addresses of a customer.",
-                "operationId": "defaultShippingAddress",
-                "parameters": [
-                    {
-                        "name": "addressId",
-                        "in": "path",
-                        "description": "Address ID",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKey": [],
-                        "ContextToken": []
-                    }
-                ]
-            }
-        },
-        "/account/address/default-billing/{addressId}": {
-            "patch": {
-                "tags": ["Address"],
-                "summary": "Change a customer's default billing address",
-                "description": "Updates the default (preselected) billing addresses of a customer.",
-                "operationId": "defaultBillingAddress",
-                "parameters": [
-                    {
-                        "name": "addressId",
-                        "in": "path",
-                        "description": "Address ID",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKey": [],
-                        "ContextToken": []
-                    }
-                ]
-            }
-        },
-        "/account/address": {
-            "post": {
-                "tags": ["Address"],
-                "summary": "Create a new address for a customer",
-                "description": "Creates a new address for a customer.",
-                "operationId": "createCustomerAddress",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CustomerAddressBody"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "allOf": [
-                                        {
-                                            "$ref": "#/components/schemas/CustomerAddress"
-                                        },
-                                        {
-                                            "$ref": "#/components/schemas/CustomerAddressRead"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKey": [],
-                        "ContextToken": []
                     }
                 ]
             }

@@ -15,5 +15,5 @@ abstract class AbstractRegisterRoute
 {
     abstract public function getDecorated(): AbstractRegisterRoute;
 
-    abstract public function register(RequestDataBag $data, ChannelContext $context, bool $validateFrontendUrl = true, ?DataValidationDefinition $additionalValidationDefinitions = null): CustomerResponse;
+    abstract public function register(RequestDataBag $data, ChannelContext $context, ?DataValidationDefinition $additionalValidationDefinitions = null): CustomerResponse;
 }

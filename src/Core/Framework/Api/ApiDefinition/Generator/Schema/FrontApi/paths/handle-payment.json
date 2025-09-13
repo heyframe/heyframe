@@ -4,7 +4,7 @@
     "paths": {
         "/handle-payment": {
             "post": {
-                "tags": ["Payment & Shipping"],
+                "tags": ["Payment"],
                 "summary": "Initiate a payment for an order",
                 "description": "This generic endpoint is should be called to initiate a payment flow after an order has been created. The details of the payment flow can differ depending on the payment integration and might require calling additional operations or the setup of webhooks.\n\nThe endpoint internally calls the payment handler of the payment method currently set for the order.",
                 "operationId": "handlePaymentMethod",
@@ -59,7 +59,7 @@
                 ]
             },
             "get": {
-                "tags": ["Payment & Shipping"],
+                "tags": ["Payment"],
                 "summary": "Initiate a payment for an order",
                 "description": "This generic endpoint is should be called to initiate a payment flow after an order has been created. The details of the payment flow can differ depending on the payment integration and might require calling additional operations or the setup of webhooks.\n\nThe endpoint internally calls the payment handler of the payment method currently set for the order. Please prefer the POST version of this endpoint.",
                 "operationId": "handlePaymentMethodGet",

@@ -76,7 +76,6 @@ class RegisterRoute extends AbstractRegisterRoute
     public function register(
         RequestDataBag $data,
         ChannelContext $context,
-        bool $validateFrontendUrl = true,
         ?DataValidationDefinition $additionalValidationDefinitions = null
     ): CustomerResponse {
         EmailIdnConverter::encodeDataBag($data);
@@ -90,7 +89,7 @@ class RegisterRoute extends AbstractRegisterRoute
             $data->set('nickname', \sprintf('HF%s', $nickname));
         }
 
-        $this->validateRegistrationData($data, $context, $additionalValidationDefinitions, $validateFrontendUrl);
+        $this->validateRegistrationData($data, $context, $additionalValidationDefinitions);
 
         $customer = $this->mapCustomerData($data, $context);
 
@@ -164,17 +163,11 @@ class RegisterRoute extends AbstractRegisterRoute
         DataBag $data,
         ChannelContext $context,
         ?DataValidationDefinition $additionalValidations,
-        bool $validateFrontendUrl
     ): void {
         $definition = $this->getCustomerCreateValidationDefinition($data, $context);
 
         if ($additionalValidations) {
             $definition->merge($additionalValidations);
-        }
-
-        if ($validateFrontendUrl) {
-            $definition
-                ->add('frontendUrl', new NotBlank(), new Choice($this->getDomainUrls($context)));
         }
 
         if ($this->systemConfigService->get('core.loginRegistration.requireDataProtectionCheckbox', $context->getChannelId())) {
@@ -188,17 +181,6 @@ class RegisterRoute extends AbstractRegisterRoute
         }
 
         throw new ConstraintViolationException($violations, $data->all());
-    }
-
-    /**
-     * @return list<string>
-     */
-    private function getDomainUrls(ChannelContext $context): array
-    {
-        $channelDomainCollection = $context->getChannel()->getDomains();
-        \assert($channelDomainCollection instanceof ChannelDomainCollection);
-
-        return array_values(array_map(static fn (ChannelDomainEntity $domainEntity) => rtrim($domainEntity->getUrl(), '/'), $channelDomainCollection->getElements()));
     }
 
     private function getBirthday(DataBag $data): ?\DateTimeInterface

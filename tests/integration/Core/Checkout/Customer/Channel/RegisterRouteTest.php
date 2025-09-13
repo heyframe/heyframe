@@ -106,17 +106,11 @@ class RegisterRouteTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private function getRegistrationData(string $storefrontUrl = 'http://localhost'): array
+    private function getRegistrationData(): array
     {
         return [
-            'nickname' => 'Mustermann',
             'password' => '12345678',
             'email' => 'teg-reg@example.com',
-            'active' => true,
-            'birthdayYear' => 2000,
-            'birthdayMonth' => 1,
-            'birthdayDay' => 22,
-            'frontendUrl' => $storefrontUrl,
         ];
     }
 }
