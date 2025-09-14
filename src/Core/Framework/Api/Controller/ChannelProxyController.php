@@ -328,9 +328,6 @@ class ChannelProxyController extends AbstractController
             $context->getToken(),
             [
                 'customerId' => $parameters[self::CUSTOMER_ID],
-                'billingAddressId' => null,
-                'shippingAddressId' => null,
-                'shippingMethodId' => null,
                 'paymentMethodId' => null,
                 'languageId' => null,
                 'currencyId' => null,

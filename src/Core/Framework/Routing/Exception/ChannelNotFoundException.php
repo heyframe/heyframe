@@ -11,7 +11,7 @@ class ChannelNotFoundException extends HeyFrameHttpException
 {
     public function __construct()
     {
-        parent::__construct('No matching sales channel found.');
+        parent::__construct('No matching channel found.');
     }
 
     public function getErrorCode(): string

@@ -48,6 +48,7 @@ class Migration1536232960Customer extends MigrationStep
               `last_order_date` DATETIME(3),
               `order_count` INT(5) NOT NULL DEFAULT 0,
               `order_total_amount` double DEFAULT '0',
+              `last_updated_password_at` datetime(3) DEFAULT NULL,
               `tag_ids` json DEFAULT NULL,
               `custom_fields` JSON NULL,
               `created_by_id` binary(16) DEFAULT NULL,
