@@ -42,7 +42,9 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?string $name = null;
 
     protected string $nickname;
+
     protected ?\DateTimeInterface $lastUpdatedPasswordAt = null;
+
     /**
      * @internal
      */
@@ -522,6 +524,7 @@ class CustomerEntity extends Entity implements \Stringable
     {
         $this->nickname = $nickname;
     }
+
     public function getLastUpdatedPasswordAt(): ?\DateTimeInterface
     {
         return $this->lastUpdatedPasswordAt;
@@ -531,6 +534,7 @@ class CustomerEntity extends Entity implements \Stringable
     {
         $this->lastUpdatedPasswordAt = $lastUpdatedPasswordAt;
     }
+
     public function getMemberships(): ?CustomerMembershipsCollection
     {
         return $this->memberships;

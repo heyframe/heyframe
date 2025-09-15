@@ -52,15 +52,17 @@ class Migration1536233560BasicData extends MigrationStep
         $this->createSystemConfigOptions($connection);
         $this->createDefaultSnippetSets($connection);
         $this->createDefaultMediaFolders($connection);
+        $this->createCmsPages($connection);
     }
 
     private function createDefaultMediaFolders(Connection $connection): void
     {
         $queue = new MultiInsertQueryQueue($connection);
 
-        $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(),  'entity' => 'product', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(), 'entity' => 'product', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(), 'entity' => 'user', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(), 'entity' => 'customer', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(), 'entity' => 'cms_page', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $queue->execute();
 
         $notCreatedDefaultFolders = $connection->executeQuery('
@@ -1439,8 +1441,8 @@ class Migration1536233560BasicData extends MigrationStep
         $languageZh = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
 
         // first locales
-        $connection->insert('locale', ['id' => $localeEn, 'code' => 'en-GB',  'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('locale', ['id' => $localeZh, 'code' => 'zh-CN',  'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('locale', ['id' => $localeEn, 'code' => 'en-GB', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('locale', ['id' => $localeZh, 'code' => 'zh-CN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         // second languages
         $connection->insert('language', [
@@ -1499,5 +1501,19 @@ class Migration1536233560BasicData extends MigrationStep
         }
 
         return $this->enGbLanguageId;
+    }
+
+    private function createCmsPages(Connection $connection): void
+    {
+        $languageZh = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
+        $languageEn = Uuid::fromHexToBytes($this->getEnGbLanguageId());
+
+        // cms page
+        $page = ['id' => Uuid::randomBytes(), 'type' => 'product_list', 'locked' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
+        $pageEng = ['cms_page_id' => $page['id'], 'language_id' => $languageEn, 'name' => 'Default listing layout', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
+        $pageChinese = ['cms_page_id' => $page['id'], 'language_id' => $languageZh, 'name' => '默认列表布局', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
+        $connection->insert('cms_page', $page);
+        $connection->insert('cms_page_translation', $pageEng);
+        $connection->insert('cms_page_translation', $pageChinese);
     }
 }

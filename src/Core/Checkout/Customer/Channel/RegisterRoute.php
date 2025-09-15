@@ -29,8 +29,6 @@ use HeyFrame\Core\Framework\Validation\DataValidationFactoryInterface;
 use HeyFrame\Core\Framework\Validation\DataValidator;
 use HeyFrame\Core\Framework\Validation\Exception\ConstraintViolationException;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainCollection;
-use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainEntity;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\Context\ChannelContextPersister;
 use HeyFrame\Core\System\Channel\Context\ChannelContextServiceInterface;
@@ -39,7 +37,6 @@ use HeyFrame\Core\System\Channel\FrontApiCustomFieldMapper;
 use HeyFrame\Core\System\NumberRange\ValueGenerator\NumberRangeValueGeneratorInterface;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

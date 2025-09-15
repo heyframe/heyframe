@@ -1020,7 +1020,6 @@ class EntityReader implements EntityReaderInterface
         $limit = (int) $fieldCriteria->getOffset() + (int) $fieldCriteria->getLimit();
         $offset = (int) $fieldCriteria->getOffset() + 1;
 
-
         $wrapper->setParameter('limit', $limit);
         $wrapper->setParameter('offset', $offset);
 

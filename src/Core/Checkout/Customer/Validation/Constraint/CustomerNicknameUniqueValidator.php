@@ -39,7 +39,6 @@ class CustomerNicknameUniqueValidator extends ConstraintValidator
             ->fetchAllAssociative();
 
         $results = \array_filter($results, static function (array $entry) use ($constraint) {
-
             if ($entry['bound_channel_id'] === null) {
                 return true;
             }

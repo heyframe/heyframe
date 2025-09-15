@@ -183,5 +183,9 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="HeyFrame\Core\Checkout\Customer\Channel\CustomerRoute" public="true">
+            <argument type="service" id="customer.repository"/>
+        </service>
+
     </services>
 </container>
