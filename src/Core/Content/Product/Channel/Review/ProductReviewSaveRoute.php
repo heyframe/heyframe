@@ -54,7 +54,7 @@ class ProductReviewSaveRoute extends AbstractProductReviewSaveRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/product/{productId}/review', name: 'store-api.product-review.save', methods: ['POST'], defaults: ['_loginRequired' => true])]
+    #[Route(path: '/front-api/product/{productId}/review', name: 'front-api.product-review.save', methods: ['POST'], defaults: ['_loginRequired' => true])]
     public function save(string $productId, RequestDataBag $data, ChannelContext $context): NoContentResponse
     {
         $channelId = $context->getChannelId();

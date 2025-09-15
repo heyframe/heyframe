@@ -40,8 +40,8 @@ class ResolvedCriteriaProductSuggestRoute extends AbstractProductSuggestRoute
     }
 
     #[Route(
-        path: '/store-api/search-suggest',
-        name: 'store-api.search.suggest',
+        path: '/front-api/search-suggest',
+        name: 'front-api.search.suggest',
         defaults: ['_entity' => 'product'],
         methods: ['POST']
     )]

@@ -5,8 +5,6 @@ namespace HeyFrame\Core\Checkout\Cart\Price;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\ListPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePrice;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePriceDefinition;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\RegulationPrice;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
 use HeyFrame\Core\Framework\Log\Package;
@@ -31,13 +29,10 @@ class GrossPriceCalculator
             $config
         );
 
-        $reference = $this->calculateReferencePrice($unitPrice, $definition->getReferencePriceDefinition(), $config);
-
         return new CalculatedPrice(
             $unitPrice,
             $price,
             $definition->getQuantity(),
-            $reference,
             $this->calculateListPrice($unitPrice, $definition, $config),
             $this->calculateRegulationPrice($definition, $config)
         );
@@ -75,26 +70,5 @@ class GrossPriceCalculator
         $regulationPrice = $this->priceRounding->cashRound($price, $config);
 
         return new RegulationPrice($regulationPrice);
-    }
-
-    private function calculateReferencePrice(float $price, ?ReferencePriceDefinition $definition, CashRoundingConfig $config): ?ReferencePrice
-    {
-        if (!$definition) {
-            return null;
-        }
-
-        if ($definition->getPurchaseUnit() <= 0 || $definition->getReferenceUnit() <= 0) {
-            return null;
-        }
-
-        $price = $price / $definition->getPurchaseUnit() * $definition->getReferenceUnit();
-
-        $price = $this->priceRounding->mathRound($price, $config);
-
-        return new ReferencePrice(
-            $price,
-            $definition->getPurchaseUnit(),
-            $definition->getReferenceUnit()
-        );
     }
 }

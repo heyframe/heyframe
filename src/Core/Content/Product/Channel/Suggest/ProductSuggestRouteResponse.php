@@ -4,13 +4,13 @@ namespace HeyFrame\Core\Content\Product\Channel\Suggest;
 
 use HeyFrame\Core\Content\Product\Channel\Listing\ProductListingResult;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<ProductListingResult>
+ * @extends FrontApiResponse<ProductListingResult>
  */
 #[Package('discovery')]
-class ProductSuggestRouteResponse extends StoreApiResponse
+class ProductSuggestRouteResponse extends FrontApiResponse
 {
     public function getListingResult(): ProductListingResult
     {

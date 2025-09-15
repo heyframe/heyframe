@@ -34,7 +34,7 @@ class ProductSearchRoute extends AbstractProductSearchRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/search', name: 'store-api.search', methods: ['POST'], defaults: ['_entity' => 'product'])]
+    #[Route(path: '/front-api/search', name: 'front-api.search', methods: ['POST'], defaults: ['_entity' => 'product'])]
     public function load(Request $request, ChannelContext $context, Criteria $criteria): ProductSearchRouteResponse
     {
         $criteria->addState(Criteria::STATE_ELASTICSEARCH_AWARE);

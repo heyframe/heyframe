@@ -326,5 +326,87 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <tag name="heyframe.sync.fk_resolver"/>
         </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader">
+            <argument type="service" id="channel.product.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\ProductCloseoutFilterFactory"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Search\ProductSearchRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader"/>
+        </service>
+
+       <service id="HeyFrame\Core\Content\Product\Channel\Search\ResolvedCriteriaProductSearchRoute" decorates="HeyFrame\Core\Content\Product\Channel\Search\ProductSearchRoute" decoration-priority="-2000" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Search\ResolvedCriteriaProductSearchRoute.inner"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor">
+            <argument type="tagged_iterator" tag="heyframe.listing.processor" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\AggregationListingProcessor">
+            <argument type="tagged_iterator" tag="heyframe.listing.filter.handler" />
+            <argument type="service" id="event_dispatcher" />
+            <tag name="heyframe.listing.processor" />
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\SortingListingProcessor">
+            <tag name="heyframe.listing.processor"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="product_sorting.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\AssociationLoadingListingProcessor">
+            <tag name="heyframe.listing.processor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\BehaviorListingProcessor">
+            <tag name="heyframe.listing.processor" priority="-1000"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\PagingListingProcessor">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument>%heyframe.api.store.max_limit%</argument>
+            <tag name="heyframe.listing.processor"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\ResolveCriteriaProductListingRoute" decorates="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingRoute" decoration-priority="-2000" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ResolveCriteriaProductListingRoute.inner"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor"/>
+        </service>
+
+        <!-- decorated by cached route -->
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader" />
+            <argument type="service" id="category.repository"/>
+            <argument type="service" id="HeyFrame\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Suggest\ProductSuggestRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Suggest\ResolvedCriteriaProductSuggestRoute"
+                 decorates="HeyFrame\Core\Content\Product\Channel\Suggest\ProductSuggestRoute"
+                 decoration-priority="-2000" public="true">
+
+            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Suggest\ResolvedCriteriaProductSuggestRoute.inner"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\CompositeListingProcessor"/>
+        </service>
+
     </services>
 </container>

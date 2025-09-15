@@ -13,6 +13,10 @@ use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\AbstractPaymentHandler;
 use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\FilterPickerInterface;
 use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\FilterSorterInterface;
 use HeyFrame\Core\Content\Flow\Dispatching\Storer\FlowStorer;
+use HeyFrame\Core\Content\Product\Channel\Listing\Filter\AbstractListingFilterHandler;
+use HeyFrame\Core\Content\Product\Channel\Listing\Processor\AbstractListingProcessor;
+use HeyFrame\Core\Content\Seo\SeoUrlRoute\SeoUrlRouteInterface;
+use HeyFrame\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\AdapterFactoryInterface;
 use HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\TemplateNamespaceHierarchyBuilderInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\BulkEntityExtension;
@@ -126,12 +130,28 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
             ->addTag('flow.storer');
 
         $container
+            ->registerForAutoconfiguration(AbstractUrlProvider::class)
+            ->addTag('heyframe.sitemap_url_provider');
+
+        $container
             ->registerForAutoconfiguration(AdapterFactoryInterface::class)
             ->addTag('heyframe.filesystem.factory');
 
         $container
+            ->registerForAutoconfiguration(SeoUrlRouteInterface::class)
+            ->addTag('heyframe.seo_url.route');
+
+        $container
             ->registerForAutoconfiguration(AbstractValueGenerator::class)
             ->addTag('heyframe.value_generator_pattern');
+
+        $container
+            ->registerForAutoconfiguration(AbstractListingProcessor::class)
+            ->addTag('heyframe.listing.processor');
+
+        $container
+              ->registerForAutoconfiguration(AbstractListingFilterHandler::class)
+              ->addTag('heyframe.listing.filter.handler');
 
         $container
             ->registerForAutoconfiguration(TemplateNamespaceHierarchyBuilderInterface::class)

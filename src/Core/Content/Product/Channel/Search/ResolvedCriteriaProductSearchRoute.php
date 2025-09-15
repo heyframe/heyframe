@@ -41,7 +41,7 @@ class ResolvedCriteriaProductSearchRoute extends AbstractProductSearchRoute
         return $this->decorated;
     }
 
-    #[Route(path: '/store-api/search', name: 'store-api.search', methods: ['POST'], defaults: ['_entity' => 'product'])]
+    #[Route(path: '/front-api/search', name: 'front-api.search', methods: ['POST'], defaults: ['_entity' => 'product'])]
     public function load(Request $request, ChannelContext $context, Criteria $criteria): ProductSearchRouteResponse
     {
         $criteria->addState(self::STATE);

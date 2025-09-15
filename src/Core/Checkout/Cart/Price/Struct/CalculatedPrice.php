@@ -13,7 +13,6 @@ class CalculatedPrice extends Struct
         protected float $unitPrice,
         protected float $totalPrice,
         protected int $quantity = 1,
-        protected ?ReferencePrice $referencePrice = null,
         protected ?ListPrice $listPrice = null,
         protected ?RegulationPrice $regulationPrice = null
     ) {
@@ -34,11 +33,6 @@ class CalculatedPrice extends Struct
     public function getQuantity(): int
     {
         return $this->quantity;
-    }
-
-    public function getReferencePrice(): ?ReferencePrice
-    {
-        return $this->referencePrice;
     }
 
     public function getListPrice(): ?ListPrice

@@ -43,6 +43,9 @@ class Migration1536232880Category extends MigrationStep
               PRIMARY KEY (`id`, `version_id`),
               KEY `idx.level` (`level`),
               KEY `idx.auto_increment` (`auto_increment`),
+              KEY `fk.category.media_id` (`media_id`),
+              KEY `fk.category.parent_id` (`parent_id`,`parent_version_id`),
+              KEY `fk.category.after_category_id` (`after_category_id`,`after_category_version_id`),
               CONSTRAINT `fk.category.media_id` FOREIGN KEY (`media_id`)
                 REFERENCES `media` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
               CONSTRAINT `fk.category.parent_id` FOREIGN KEY (`parent_id`, `parent_version_id`)
