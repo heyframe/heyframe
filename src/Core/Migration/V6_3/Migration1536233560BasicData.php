@@ -5,7 +5,7 @@ namespace HeyFrame\Core\Migration\V6_3;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Checkout\Order\OrderStates;
-use HeyFrame\Core\Checkout\Wallet\Cart\PaymentHandler\WalletPayment;
+use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\AlipayHandler;
 use HeyFrame\Core\Content\Category\CategoryDefinition;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
@@ -135,19 +135,9 @@ class Migration1536233560BasicData extends MigrationStep
         $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
 
         $id = Uuid::randomBytes();
-        $connection->insert('dict', ['id' => $id, '`key`' => 'productType', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('dict_translation', ['dict_id' => $id, 'language_id' => $languageEN, 'label' => 'Product Type', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('dict_translation', ['dict_id' => $id, 'language_id' => $languageZH, 'label' => '产品类型', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-
-        $membershipPlanId = Uuid::randomBytes();
-        $connection->insert('dict_item', ['id' => $membershipPlanId, 'dict_id' => $id, 'value' => 'membership_plan', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('dict_item_translation', ['dict_item_id' => $membershipPlanId, 'language_id' => $languageZH, 'label' => '客户计划', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('dict_item_translation', ['dict_item_id' => $membershipPlanId, 'language_id' => $languageEN, 'label' => 'Membership Plan', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-
-        $walletRechargeId = Uuid::randomBytes();
-        $connection->insert('dict_item', ['id' => $walletRechargeId, 'dict_id' => $id, 'value' => 'wallet_recharge', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('dict_item_translation', ['dict_item_id' => $walletRechargeId, 'language_id' => $languageZH, 'label' => '钱包充值', 'position' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('dict_item_translation', ['dict_item_id' => $walletRechargeId, 'language_id' => $languageEN, 'label' => 'Wallet Recharge', 'position' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict', ['id' => $id, '`key`' => 'gender', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_translation', ['dict_id' => $id, 'language_id' => $languageEN, 'label' => 'Gender', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_translation', ['dict_id' => $id, 'language_id' => $languageZH, 'label' => '性别', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createChannel(Connection $connection): void
@@ -240,7 +230,7 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('rule_condition', ['id' => Uuid::randomBytes(), 'rule_id' => $ruleId, 'type' => 'cartCartAmount', 'value' => json_encode(['operator' => '>=', 'amount' => 0]), 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         $debit = Uuid::randomBytes();
-        $connection->insert('payment_method', ['id' => $debit, 'handler_identifier' => WalletPayment::class, 'technical_name' => 'wallet', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method', ['id' => $debit, 'handler_identifier' => AlipayHandler::class, 'technical_name' => 'wallet', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('payment_method_translation', ['payment_method_id' => $debit, 'language_id' => $languageEN, 'name' => 'Balance Payment', 'description' => 'Pay directly with your account balance — safe, fast', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('payment_method_translation', ['payment_method_id' => $debit, 'language_id' => $languageZH, 'name' => '余额支付', 'description' => '使用账户余额直接完成支付，安全快捷', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }

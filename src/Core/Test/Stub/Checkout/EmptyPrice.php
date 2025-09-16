@@ -15,7 +15,6 @@ class EmptyPrice extends CalculatedPrice
         ?ListPrice $listPrice = null,
         ?RegulationPrice $regulationPrice = null
     ) {
-
         parent::__construct($unitPrice, $totalPrice, $quantity, $listPrice, $regulationPrice);
     }
 }
