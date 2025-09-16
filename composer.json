@@ -279,6 +279,10 @@
       "@npm:admin run build",
       "@php bin/console assets:install"
     ],
+    "build:uni:h5": [
+      "@pnpm:uni run build:h5",
+      "@php bin/console assets:install"
+    ],
     "build:js:component-library": [
       "@npm:component-library run generate"
     ],
@@ -302,6 +306,8 @@
     ],
     "npm:admin": "@npm:admin:bin npm",
     "npm:admin:bin": "export PROJECT_ROOT=\"$PWD\"; cd src/Administration/Resources/app/administration; export PATH=\"$PWD/node_modules/.bin/:$PATH\"; \"$PROJECT_ROOT\"/bin/exec-with-env ",
+    "pnpm:uni": "@pnpm:uni:bin pnpm",
+    "pnpm:uni:bin": "export PROJECT_ROOT=\"$PWD\"; cd src/Uni/Resources/app/uni; export PATH=\"$PWD/node_modules/.bin/:$PATH\"; \"$PROJECT_ROOT\"/bin/exec-with-env ",
     "npm:admin:check-license": "export ALLOWED_LICENSES=\"$(sed -z 's/\\n/;/g' .allowed-licenses)\"; cd src/Administration/Resources/app/administration; bash -c \"node_modules/.bin/license-checker-rseidelsohn --onlyAllow \\\"$ALLOWED_LICENSES\\\" --excludePrivatePackages\"",
     "npm:component-library": "@npm:component-library:bin npm",
     "npm:component-library:bin": "export PROJECT_ROOT=\"$PWD\"; cd src/Administration/Resources/app/administration/build/nuxt-component-library; export PATH=\"$PWD/node_modules/.bin/:$PATH\"; \"$PROJECT_ROOT\"/bin/exec-with-env ",
@@ -314,6 +320,10 @@
       "@php bin/console bundle:dump",
       "@admin:generate-entity-schema-types",
       "@npm:admin run dev"
+    ],
+    "watch:uni:h5": [
+      "@php bin/console bundle:dump",
+      "@pnpm:uni run dev:h5"
     ],
     "phpstan": [
       "Composer\\Config::disableProcessTimeout",
