@@ -18,19 +18,6 @@ class CustomerEvents
     final public const CUSTOMER_AGGREGATION_LOADED_EVENT = 'customer.aggregation.result.loaded';
 
     final public const CUSTOMER_ID_SEARCH_RESULT_LOADED_EVENT = 'customer.id.search.result.loaded';
-
-    final public const CUSTOMER_ADDRESS_WRITTEN_EVENT = 'customer_address.written';
-
-    final public const CUSTOMER_ADDRESS_DELETED_EVENT = 'customer_address.deleted';
-
-    final public const CUSTOMER_ADDRESS_LOADED_EVENT = 'customer_address.loaded';
-
-    final public const CUSTOMER_ADDRESS_SEARCH_RESULT_LOADED_EVENT = 'customer_address.search.result.loaded';
-
-    final public const CUSTOMER_ADDRESS_AGGREGATION_LOADED_EVENT = 'customer_address.aggregation.result.loaded';
-
-    final public const CUSTOMER_ADDRESS_ID_SEARCH_RESULT_LOADED_EVENT = 'customer_address.id.search.result.loaded';
-
     final public const CUSTOMER_CHANGED_PAYMENT_METHOD_EVENT = 'checkout.customer.changed-payment-method';
 
     final public const CUSTOMER_BEFORE_LOGIN_EVENT = 'checkout.customer.before.login';
@@ -76,14 +63,5 @@ class CustomerEvents
     final public const CUSTOMER_GROUP_TRANSLATION_AGGREGATION_LOADED_EVENT = 'customer_group_translation.aggregation.result.loaded';
 
     final public const CUSTOMER_GROUP_TRANSLATION_ID_SEARCH_RESULT_LOADED_EVENT = 'customer_group_translation.id.search.result.loaded';
-
-    final public const MAPPING_REGISTER_ADDRESS_BILLING = 'checkout.customer.channel.register.billing_address';
-
-    final public const MAPPING_REGISTER_ADDRESS_SHIPPING = 'checkout.customer.channel.register.shipping_address';
-
     final public const MAPPING_REGISTER_CUSTOMER = 'checkout.customer.channel.register.customer';
-
-    final public const MAPPING_CUSTOMER_PROFILE_SAVE = 'checkout.customer.channel.profile.update';
-
-    final public const MAPPING_ADDRESS_CREATE = 'checkout.customer.channel.address.create';
 }

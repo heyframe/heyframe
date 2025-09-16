@@ -88,10 +88,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Rule\DifferentAddressesRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\Rule\EmailRule">
             <tag name="heyframe.rule.definition"/>
         </service>
