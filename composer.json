@@ -12,6 +12,7 @@
     "heyframe/administration": "self.version",
     "heyframe/frontend": "self.version",
     "heyframe/elasticsearch": "self.version",
+    "heyframe/uni": "self.version",
     "symfony/polyfill-ctype": "*",
     "symfony/polyfill-iconv": "*",
     "symfony/polyfill-mbstring": "*",
@@ -241,7 +242,7 @@
     "admin:generate-data-set-list": "Generate the list of all data sets. Used to track breaking changes.",
     "admin:unit": "Launches the jest unit test-suite for the Admin",
     "admin:unit:watch": "Launches the interactive jest unit test-suite watcher for the Admin",
-    "build:js": "Builds Administration & Storefront",
+    "build:js": "Builds Administration & Frontend",
     "build:js:admin": "Builds the Administration",
     "build:js:component-library": "Builds the component library",
     "lint:snippets": "Validates existence of snippets in all core-supported languages"

@@ -9,6 +9,7 @@ on:
       - src/Core/**/*
       - src/Frontend/**/*
       - src/Elasticsearch/**/*
+      - src/Uni/**/*
 
 env:
   GITHUB_TOKEN: ${{ secrets.TOKEN }}
@@ -32,6 +33,9 @@ jobs:
 
           - local_path: 'Elasticsearch'
             split_repository: 'elasticsearch'
+
+          - local_path: 'Uni/Resources/app/uni'
+            split_repository: 'heyuni'
     steps:
       -   uses: actions/checkout@v4
 
