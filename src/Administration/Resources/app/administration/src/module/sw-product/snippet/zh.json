@@ -17,7 +17,7 @@
       "mainMenuItemGeneral": "商品",
       "mainMenuItemList": "商品",
       "mainMenuItemAdd": "新增商品",
-      "descriptionTextModule": "在这里管理商品。",
+      "descriptionTextModule": "在这里，您可以添加新商品、修改价格与库存、更新商品详情。",
       "placeholderSearchBar": "搜索商品...",
       "inheritanceModuleName": "当前商品",
       "backToParent": "返回到变体总览",
@@ -266,7 +266,7 @@
       "notificationVariantSaveSuccess": "成功保存 \"{variantName}\"。",
       "variantDeleteModalTitle": "删除变体",
       "variantDeleteModalText": "确定要删除变体 \"{variantName}\" 吗？",
-      "messageEmpty": "暂无商品",
+      "messageEmpty": "没有商品数据",
       "textDeleteConfirm": "确定要删除商品 \"{name}\" 吗？ | 确定要删除这 {count} 个商品吗？",
       "titleSidebarItemRefresh": "刷新",
       "messageSaveSuccess": "商品 \"{name}\" 已保存。"
