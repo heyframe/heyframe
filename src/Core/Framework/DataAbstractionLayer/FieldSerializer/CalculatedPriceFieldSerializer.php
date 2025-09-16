@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\FieldSerializer;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\ListPrice;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePrice;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
@@ -46,17 +45,6 @@ class CalculatedPriceFieldSerializer extends JsonFieldSerializer
             return null;
         }
 
-        $referencePriceDefinition = null;
-        if (isset($decoded['referencePrice'])) {
-            $refPrice = $decoded['referencePrice'];
-
-            $referencePriceDefinition = new ReferencePrice(
-                $refPrice['price'],
-                $refPrice['purchaseUnit'],
-                $refPrice['referenceUnit'],
-            );
-        }
-
         $listPrice = null;
         if (isset($decoded['listPrice'])) {
             $listPrice = ListPrice::createFromUnitPrice(
@@ -69,7 +57,6 @@ class CalculatedPriceFieldSerializer extends JsonFieldSerializer
             (float) $decoded['unitPrice'],
             (float) $decoded['totalPrice'],
             (int) $decoded['quantity'],
-            $referencePriceDefinition,
             $listPrice
         );
     }

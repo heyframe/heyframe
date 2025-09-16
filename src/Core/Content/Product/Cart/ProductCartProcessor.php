@@ -16,7 +16,6 @@ use HeyFrame\Core\Checkout\Cart\LineItem\QuantityInformation;
 use HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\ReferencePriceDefinition;
 use HeyFrame\Core\Checkout\CheckoutPermissions;
 use HeyFrame\Core\Content\Product\Channel\ChannelProductEntity;
 use HeyFrame\Core\Content\Product\Channel\Price\AbstractProductPriceCalculator;
@@ -341,15 +340,6 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
         $definition = new QuantityPriceDefinition($price->getUnitPrice(), $quantity);
         if ($price->getListPrice() !== null) {
             $definition->setListPrice($price->getListPrice()->getPrice());
-        }
-
-        if ($price->getReferencePrice() !== null) {
-            $definition->setReferencePriceDefinition(
-                new ReferencePriceDefinition(
-                    $price->getReferencePrice()->getPurchaseUnit(),
-                    $price->getReferencePrice()->getReferenceUnit(),
-                )
-            );
         }
 
         return $definition;
