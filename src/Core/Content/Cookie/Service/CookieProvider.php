@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Cookie\Service;
 
-use HeyFrame\Core\Content\Cookie\CookieException;
 use HeyFrame\Core\Content\Cookie\Event\CookieGroupCollectEvent;
 use HeyFrame\Core\Content\Cookie\Struct\CookieEntry;
 use HeyFrame\Core\Content\Cookie\Struct\CookieEntryCollection;
@@ -16,7 +15,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @internal
- *
  */
 #[Package('framework')]
 class CookieProvider

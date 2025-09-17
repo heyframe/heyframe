@@ -17,7 +17,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\CustomField\CustomFieldService;
-use HeyFrame\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearcher;
 use HeyFrame\Elasticsearch\Product\ElasticsearchOptimizeSwitch;
 use HeyFrame\Elasticsearch\Product\SearchFieldConfig;
 use OpenSearchDSL\BuilderInterface;

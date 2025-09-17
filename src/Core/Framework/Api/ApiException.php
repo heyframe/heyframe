@@ -249,6 +249,7 @@ class ApiException extends HttpException
             ['operation' => $operation]
         );
     }
+
     public static function unsupportedFrontApiSchemaEndpoint(): self
     {
         return new self(
@@ -257,6 +258,7 @@ class ApiException extends HttpException
             'The Store-API does not support the entity schema endpoint. Use `/front-api/_info/openapi3.json` for the OpenAPI specification.'
         );
     }
+
     public static function invalidVersionId(string $versionId): self
     {
         return new self(
