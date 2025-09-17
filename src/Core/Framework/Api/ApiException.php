@@ -39,6 +39,7 @@ class ApiException extends HttpException
     public const API_NOT_EXISTING_RELATION_EXCEPTION = 'FRAMEWORK__NOT_EXISTING_RELATION_EXCEPTION';
 
     public const API_UNSUPPORTED_OPERATION_EXCEPTION = 'FRAMEWORK__UNSUPPORTED_OPERATION_EXCEPTION';
+    public const API_UNSUPPORTED_FRONT_API_SCHEMA_ENDPOINT = 'FRAMEWORK__UNSUPPORTED_FRONT_API_SCHEMA_ENDPOINT';
     public const API_INVALID_VERSION_ID = 'FRAMEWORK__INVALID_VERSION_ID';
     public const API_TYPE_PARAMETER_INVALID = 'FRAMEWORK__API_TYPE_PARAMETER_INVALID';
     public const API_APP_ID_PARAMETER_IS_MISSING = 'FRAMEWORK__APP_ID_PARAMETER_IS_MISSING';
@@ -248,7 +249,14 @@ class ApiException extends HttpException
             ['operation' => $operation]
         );
     }
-
+    public static function unsupportedFrontApiSchemaEndpoint(): self
+    {
+        return new self(
+            Response::HTTP_BAD_REQUEST,
+            self::API_UNSUPPORTED_FRONT_API_SCHEMA_ENDPOINT,
+            'The Store-API does not support the entity schema endpoint. Use `/front-api/_info/openapi3.json` for the OpenAPI specification.'
+        );
+    }
     public static function invalidVersionId(string $versionId): self
     {
         return new self(
