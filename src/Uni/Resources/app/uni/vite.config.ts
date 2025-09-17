@@ -2,7 +2,7 @@ import {defineConfig, loadEnv} from "vite";
 import Uni from '@dcloudio/vite-plugin-uni'
 import * as path from "node:path";
 import colors from 'picocolors';
-import UniManifest from './build/vite-plugins/uni-manifest-plugin'
+import UniManifest from './vite/vite-plugins/uni-manifest-plugin'
 
 export default defineConfig(({command, mode}) => {
   const isProd = command === 'build';

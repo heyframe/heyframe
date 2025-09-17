@@ -1,6 +1,6 @@
 import path from 'node:path'
 import process from 'node:process'
-import { defineManifestConfig } from './build/vite-plugins/uni-manifest-plugin'
+import { defineManifestConfig } from './vite/vite-plugins/uni-manifest-plugin'
 import { loadEnv } from 'vite'
 
 function getMode() {
