@@ -5,6 +5,7 @@ namespace HeyFrame\Core\System\Channel\Context;
 use HeyFrame\Core\Checkout\Cart\CartRuleLoader;
 use HeyFrame\Core\Checkout\Cart\Channel\CartService;
 use HeyFrame\Core\Checkout\CheckoutPermissions;
+use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Random;
 use HeyFrame\Core\Profiling\Profiler;
@@ -97,6 +98,10 @@ class ChannelContextService implements ChannelContextServiceInterface
             }
 
             $context = $this->factory->create($token, $parameters->getChannelId(), $session);
+
+            if ($parameters->getOriginalContext()?->hasState(Context::ELASTICSEARCH_EXPLAIN_MODE)) {
+                $context->addState(Context::ELASTICSEARCH_EXPLAIN_MODE);
+            }
 
             $this->eventDispatcher->dispatch(new ChannelContextCreatedEvent($context, $token, $session));
 

@@ -22,6 +22,7 @@ class Context extends Struct
     final public const CRUD_API_SCOPE = 'crud';
 
     final public const SKIP_TRIGGER_FLOW = 'skipTriggerFlow';
+    final public const ELASTICSEARCH_EXPLAIN_MODE = 'explain-mode';
 
     protected string $scope = self::USER_SCOPE;
 

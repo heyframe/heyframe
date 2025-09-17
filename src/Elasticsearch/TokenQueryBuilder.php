@@ -52,7 +52,7 @@ class TokenQueryBuilder
     public function build(string $entity, string $token, array $configs, Context $context): ?BuilderInterface
     {
         $languageIdChain = $context->getLanguageIdChain();
-        $explainMode = $context->hasState(ElasticsearchEntitySearcher::EXPLAIN_MODE);
+        $explainMode = $context->hasState(Context::ELASTICSEARCH_EXPLAIN_MODE);
 
         $tokenQueries = [];
 

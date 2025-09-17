@@ -52,6 +52,7 @@ class ChannelProxyController extends AbstractController
     private const CUSTOMER_ID = ChannelContextService::CUSTOMER_ID;
 
     private const CHANNEL_ID = 'channelId';
+    private const SEARCH_ROUTE = 'search';
 
     private const ADMIN_ORDER_PERMISSIONS = [
         CheckoutPermissions::ALLOW_PRODUCT_PRICE_OVERWRITES => true,
@@ -197,7 +198,9 @@ class ChannelProxyController extends AbstractController
         $subrequest->attributes->set(PlatformRequest::ATTRIBUTE_OAUTH_CLIENT_ID, $channel->getAccessKey());
 
         $channelContext = $this->fetchChannelContext($channelId, $subrequest, $context);
-
+        if ($path === self::SEARCH_ROUTE) {
+            $channelContext->getContext()->addState(Context::ELASTICSEARCH_EXPLAIN_MODE);
+        }
         $subrequest->attributes->set(PlatformRequest::ATTRIBUTE_CHANNEL_CONTEXT_OBJECT, $channelContext);
         $subrequest->attributes->set(PlatformRequest::ATTRIBUTE_CONTEXT_OBJECT, $channelContext->getContext());
 
