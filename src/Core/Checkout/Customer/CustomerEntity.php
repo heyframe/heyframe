@@ -33,10 +33,6 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?string $lastPaymentMethodId = null;
 
-    protected string $defaultBillingAddressId;
-
-    protected string $defaultShippingAddressId;
-
     protected string $customerNumber;
 
     protected ?string $name = null;
@@ -113,10 +109,6 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected ?UserEntity $updatedBy = null;
 
-    protected ?CustomerMembershipsCollection $memberships = null;
-
-    protected ?CustomerMembershipsLevelsCollection $levels = null;
-
     public function __toString(): string
     {
         return $this->getNickname();
@@ -160,26 +152,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setLastPaymentMethodId(?string $lastPaymentMethodId): void
     {
         $this->lastPaymentMethodId = $lastPaymentMethodId;
-    }
-
-    public function getDefaultBillingAddressId(): string
-    {
-        return $this->defaultBillingAddressId;
-    }
-
-    public function setDefaultBillingAddressId(string $defaultBillingAddressId): void
-    {
-        $this->defaultBillingAddressId = $defaultBillingAddressId;
-    }
-
-    public function getDefaultShippingAddressId(): string
-    {
-        return $this->defaultShippingAddressId;
-    }
-
-    public function setDefaultShippingAddressId(string $defaultShippingAddressId): void
-    {
-        $this->defaultShippingAddressId = $defaultShippingAddressId;
     }
 
     public function getCustomerNumber(): string

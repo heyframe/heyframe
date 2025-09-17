@@ -62,18 +62,7 @@ class CustomerBeforeDeleteSubscriber implements EventSubscriberInterface
         if ($source instanceof ChannelApiSource) {
             $channelId = $source->getChannelId();
         }
-
-        $criteria = (new Criteria($ids))
-            ->addAssociations([
-                'salutation',
-                'defaultBillingAddress.country',
-                'defaultBillingAddress.countryState',
-                'defaultBillingAddress.salutation',
-                'defaultShippingAddress.country',
-                'defaultShippingAddress.countryState',
-                'defaultShippingAddress.salutation',
-            ]);
-
+        $criteria = new Criteria();
         $customers = $this->customerRepository->search($criteria, $context)->getEntities();
 
         $event->addSuccess(function () use ($customers, $context, $channelId, $criteria): void {

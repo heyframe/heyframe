@@ -5,9 +5,6 @@ namespace HeyFrame\Core\Test\Integration\Traits;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryStates;
 use HeyFrame\Core\Checkout\Order\OrderStates;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
@@ -40,12 +37,10 @@ trait OrderFixture
     private function getOrderData(string $orderId, Context $context): array
     {
         $orderCustomerId = Uuid::randomHex();
-        $addressId = Uuid::randomHex();
         $orderLineItemId = Uuid::randomHex();
         $countryStateId = Uuid::randomHex();
         $customerId = Uuid::randomHex();
         $orderNumber = Uuid::randomHex();
-        $deliveryId = Uuid::randomHex();
 
         /** @var EntityRepository<ChannelCollection> $channelRepository */
         $channelRepository = static::getContainer()->get('channel.repository');
@@ -57,16 +52,13 @@ trait OrderFixture
         static::assertInstanceOf(ChannelEntity::class, $channel);
 
         $paymentMethodId = $channel->getPaymentMethodId();
-        $shippingMethodId = $channel->getShippingMethodId();
-        $salutationId = $this->getValidSalutationId();
         $countryId = $this->getValidCountryId(TestDefaults::CHANNEL);
 
         $order = [
             [
                 'id' => $orderId,
                 'orderNumber' => $orderNumber,
-                'price' => new CartPrice(10, 10, 10, new CalculatedTaxCollection(), new TaxRuleCollection(), CartPrice::TAX_STATE_NET),
-                'shippingCosts' => new CalculatedPrice(10, 10, new CalculatedTaxCollection(), new TaxRuleCollection()),
+                'price' => new CartPrice(10, 10, 10),
                 'stateId' => static::getContainer()->get(InitialStateIdLoader::class)->get(OrderStates::STATE_MACHINE),
                 'versionId' => Defaults::LIVE_VERSION,
                 'paymentMethodId' => $paymentMethodId,
@@ -76,38 +68,6 @@ trait OrderFixture
                 'orderDateTime' => '2019-04-01 08:36:43.267',
                 'itemRounding' => json_decode(json_encode(new CashRoundingConfig(2, 0.01, true), \JSON_THROW_ON_ERROR), true, 512, \JSON_THROW_ON_ERROR),
                 'totalRounding' => json_decode(json_encode(new CashRoundingConfig(2, 0.01, true), \JSON_THROW_ON_ERROR), true, 512, \JSON_THROW_ON_ERROR),
-                'deliveries' => [
-                    [
-                        'id' => $deliveryId,
-                        'stateId' => static::getContainer()->get(InitialStateIdLoader::class)->get(OrderDeliveryStates::STATE_MACHINE),
-                        'shippingMethodId' => $shippingMethodId,
-                        'shippingCosts' => new CalculatedPrice(10, 10, new CalculatedTaxCollection(), new TaxRuleCollection()),
-                        'shippingDateEarliest' => (new \DateTimeImmutable())->format(Defaults::STORAGE_DATE_FORMAT),
-                        'shippingDateLatest' => (new \DateTimeImmutable())->format(Defaults::STORAGE_DATE_FORMAT),
-                        'shippingOrderAddress' => [
-                            'salutationId' => $salutationId,
-                            'firstName' => 'Floy',
-                            'lastName' => 'Glover',
-                            'zipcode' => '59438-0403',
-                            'city' => 'Stellaberg',
-                            'street' => 'street',
-                            'country' => [
-                                'name' => 'kasachstan',
-                                'id' => $countryId,
-                            ],
-                        ],
-                        'trackingCodes' => [
-                            'CODE-1',
-                            'CODE-2',
-                        ],
-                        'positions' => [
-                            [
-                                'price' => new CalculatedPrice(10, 10, new CalculatedTaxCollection(), new TaxRuleCollection()),
-                                'orderLineItemId' => $orderLineItemId,
-                            ],
-                        ],
-                    ],
-                ],
                 'lineItems' => [
                     [
                         'id' => $orderLineItemId,
@@ -115,8 +75,8 @@ trait OrderFixture
                         'quantity' => 1,
                         'type' => 'test',
                         'label' => 'test',
-                        'price' => new CalculatedPrice(10, 10, new CalculatedTaxCollection(), new TaxRuleCollection()),
-                        'priceDefinition' => new QuantityPriceDefinition(10, new TaxRuleCollection()),
+                        'price' => new CalculatedPrice(10, 10),
+                        'priceDefinition' => new QuantityPriceDefinition(10),
                         'priority' => 100,
                         'good' => true,
                     ],
@@ -126,61 +86,18 @@ trait OrderFixture
                 'orderCustomer' => [
                     'id' => $orderCustomerId,
                     'email' => 'test@example.com',
-                    'firstName' => 'Noe',
-                    'lastName' => 'Hill',
-                    'salutationId' => $salutationId,
-                    'title' => 'Doc',
+                    'nickname' => 'Noe',
                     'customerNumber' => 'Test',
                     'orderVersionId' => Defaults::LIVE_VERSION,
                     'customer' => [
                         'id' => $customerId,
                         'email' => 'test@example.com',
-                        'firstName' => 'Noe',
-                        'lastName' => 'Hill',
-                        'salutationId' => $salutationId,
+                        'nickname' => 'Noe',
                         'title' => 'Doc',
                         'customerNumber' => 'Test',
                         'guest' => true,
                         'group' => ['name' => 'testse2323'],
                         'channelId' => TestDefaults::CHANNEL,
-                        'defaultBillingAddressId' => $addressId,
-                        'defaultShippingAddressId' => $addressId,
-                        'addresses' => [
-                            [
-                                'id' => $addressId,
-                                'salutationId' => $salutationId,
-                                'firstName' => 'Floy',
-                                'lastName' => 'Glover',
-                                'zipcode' => '59438-0403',
-                                'city' => 'Stellaberg',
-                                'street' => 'street',
-                                'countryStateId' => $countryStateId,
-                                'country' => [
-                                    'name' => 'kasachstan',
-                                    'id' => $countryId,
-                                    'states' => [
-                                        [
-                                            'id' => $countryStateId,
-                                            'name' => 'oklahoma',
-                                            'shortCode' => 'OH',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                'billingAddressId' => $addressId,
-                'addresses' => [
-                    [
-                        'salutationId' => $salutationId,
-                        'firstName' => 'Floy',
-                        'lastName' => 'Glover',
-                        'zipcode' => '59438-0403',
-                        'city' => 'Stellaberg',
-                        'street' => 'street',
-                        'countryId' => $countryId,
-                        'id' => $addressId,
                     ],
                 ],
             ],

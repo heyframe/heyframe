@@ -14,8 +14,7 @@ use HeyFrame\Core\Test\TestDefaults;
  * @final
  * How to use:
  * $x = (new CustomerBuilder(new IdsCollection(), 'p1'))
- *          ->firstName('Max')
- *          ->lastName('Muster')
+ *          ->nickname('Max')
  *          ->group('standard')
  *          ->build();
  */
@@ -27,53 +26,27 @@ class CustomerBuilder
 
     public string $id;
 
-    protected string $firstName = 'Max';
-
-    protected string $lastName = 'Mustermann';
+    protected string $nickname = 'Mustermann';
 
     protected string $email = 'max@mustermann.com';
 
     protected string $customerGroupId;
-
-    protected string $defaultBillingAddressId;
-
-    /**
-     * @var array<string, mixed>
-     */
-    protected array $defaultBillingAddress = [];
-
-    protected string $defaultShippingAddressId;
-
-    /**
-     * @var array<string, mixed>
-     */
-    protected array $addresses = [];
 
     /**
      * @var array<string, mixed>
      */
     protected array $group = [];
 
-    /**
-     * @var array<string, mixed>
-     */
-    protected array $salutation = [];
-
     public function __construct(
         IdsCollection $ids,
         protected string $customerNumber,
         protected string $channelId = TestDefaults::CHANNEL,
         string $customerGroup = 'customer-group',
-        string $billingAddress = 'default-address',
-        string $shippingAddress = 'default-address'
     ) {
         $this->ids = $ids;
         $this->id = $ids->create($customerNumber);
-        $this->salutation = self::salutation($ids);
 
         $this->customerGroup($customerGroup);
-        $this->defaultBillingAddress($billingAddress);
-        $this->defaultShippingAddress($shippingAddress);
     }
 
     public function customerNumber(string $customerNumber): self
@@ -83,16 +56,9 @@ class CustomerBuilder
         return $this;
     }
 
-    public function firstName(string $firstName): self
+    public function nickname(string $nickname): self
     {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function lastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
+        $this->nickname = $nickname;
 
         return $this;
     }
@@ -106,65 +72,6 @@ class CustomerBuilder
         ];
 
         return $this;
-    }
-
-    /**
-     * @param array<string, mixed> $customParams
-     */
-    public function defaultBillingAddress(string $key, array $customParams = []): self
-    {
-        $this->addAddress($key, $customParams);
-
-        $defaultBillingAddress = $this->addresses;
-        $defaultBillingAddress[$key]['id'] = $this->ids->get($key);
-        $this->defaultBillingAddress = $defaultBillingAddress[$key];
-        $this->defaultBillingAddressId = $this->ids->get($key);
-
-        return $this;
-    }
-
-    /**
-     * @param array<string, mixed> $customParams
-     */
-    public function defaultShippingAddress(string $key, array $customParams = []): self
-    {
-        $this->addAddress($key, $customParams);
-        $this->defaultShippingAddressId = $this->ids->get($key);
-
-        return $this;
-    }
-
-    /**
-     * @param array<string, mixed> $customParams
-     */
-    public function addAddress(string $key, array $customParams = []): self
-    {
-        $address = \array_replace([
-            'firstName' => $this->firstName,
-            'lastName' => $this->lastName,
-            'city' => 'Bielefeld',
-            'salutation' => self::salutation($this->ids),
-            'street' => 'Buchenweg 5',
-            'zipcode' => '33062',
-            'countryId' => $this->getCountry(),
-        ], $customParams);
-
-        $this->addresses[$key] = $address;
-
-        return $this;
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    private static function salutation(IdsCollection $ids): array
-    {
-        return [
-            'id' => $ids->get('salutation'),
-            'salutationKey' => 'salutation',
-            'displayName' => 'test',
-            'letterName' => 'test',
-        ];
     }
 
     private static function connection(): Connection

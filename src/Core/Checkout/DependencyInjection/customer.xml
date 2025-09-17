@@ -11,16 +11,6 @@
             <tag name="heyframe.entity.hookable"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMembershipsLevels\CustomerMembershipsLevelsDefinition">
-            <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMemberships\CustomerMembershipsDefinition">
-            <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupTranslation\CustomerGroupTranslationDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>
