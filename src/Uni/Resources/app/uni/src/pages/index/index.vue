@@ -13,7 +13,7 @@
       >
         <image
           class="product-cover"
-          :src="product.cover?.media?.url || '/static/icon/default/3d-placeholder.svg'"
+          :src="product.cover?.media?.url || '/static/logo.png'"
         />
         <text class="product-name">{{ product.name }}</text>
         <text class="product-price">¥{{ product.calculatedPrice?.unitPrice || 0 }}</text>
