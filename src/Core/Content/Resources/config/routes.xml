@@ -4,12 +4,13 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="../../Product/**/*Controller.php" type="attribute" />
-    <import resource="../../Media/**/*Controller.php" type="attribute" />
-    <import resource="../../Media/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Product/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Flow/**/*Controller.php" type="attribute" />
-    <import resource="../../Category/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Seo/Channel/**/*Route.php" type="attribute" />
-    <import resource="../../Sitemap/Channel/**/*Route.php" type="attribute" />
+    <import resource="../../Product/**/*Controller.php" type="attribute"/>
+    <import resource="../../Media/**/*Controller.php" type="attribute"/>
+    <import resource="../../Media/Channel/**/*Route.php" type="attribute"/>
+    <import resource="../../Cookie/Channel/**/*Route.php" type="attribute"/>
+    <import resource="../../Product/Channel/**/*Route.php" type="attribute"/>
+    <import resource="../../Flow/**/*Controller.php" type="attribute"/>
+    <import resource="../../Category/Channel/**/*Route.php" type="attribute"/>
+    <import resource="../../Seo/Channel/**/*Route.php" type="attribute"/>
+    <import resource="../../Sitemap/Channel/**/*Route.php" type="attribute"/>
 </routes>
