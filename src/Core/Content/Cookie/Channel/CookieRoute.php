@@ -11,9 +11,6 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @experimental stableVersion:v6.8.0 feature:COOKIE_GROUPS_STORE_API
- */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('framework')]
 class CookieRoute extends AbstractCookieRoute
@@ -31,7 +28,7 @@ class CookieRoute extends AbstractCookieRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/cookie-groups', name: 'store-api.cookie.groups', methods: [Request::METHOD_GET])]
+    #[Route(path: '/front-api/cookie-groups', name: 'front-api.cookie.groups', methods: [Request::METHOD_GET])]
     public function getCookieGroups(Request $request, ChannelContext $channelContext): CookieRouteResponse
     {
         $cookieGroups = $this->cookieProvider->getCookieGroups($channelContext);
