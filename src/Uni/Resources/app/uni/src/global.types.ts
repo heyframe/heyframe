@@ -1,7 +1,6 @@
 import type {default as Bottle, Decorator} from 'bottlejs';
 import type ApiServiceFactory from '@/core/factory/api-service.factory';
 import type AccountService from "@/core/service/api/account.service";
-import type {ContextStore} from "@/app/store/context.store";
 import type { ComponentInternalInstance, PropType as VuePropType } from 'vue';
 import type {ApiContextStore} from "@/app/store/api.context.store";
 export interface SubContainer<ContainerName extends string> {
@@ -69,7 +68,6 @@ declare global {
   }
 
   interface PiniaRootState {
-    context: ContextStore;
     apiContext: ApiContextStore;
   }
 

@@ -1,4 +1,5 @@
 import Store from '@/app/store';
+import '@/app/store/api.context.store'
 import HeyUni from "@/heyuni-instance";
 /**
  * @sw-package framework

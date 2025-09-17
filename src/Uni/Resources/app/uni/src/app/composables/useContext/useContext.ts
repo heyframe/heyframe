@@ -1,28 +1,28 @@
-import type { Ref } from "vue";
+import {ref, Ref} from "vue";
+import { injectLocal } from '@/app/share/injectLocal'
+import { provideLocal } from '@/app/share/provideLocal'
 import { computed, unref } from "vue";
-import HeyUni from "@/heyuni-instance";
+
 export function useContext<T>(
-  key: string,
+  injectionName: string,
   params?: {
     context?: Ref<T> | T;
     replace?: T;
-  }
-): Ref<T> {
-  let contextStore = HeyUni.Store.get('context');
-  if (params?.context) {
-    contextStore.set(key, params.context);
-  }
+  },
+) {
+  const isNewContext = !!params?.context;
 
+  const _context: Ref<T> = isNewContext
+    ? (ref(unref(params?.context)) as Ref<T>)
+    : (injectLocal(injectionName, ref()) as Ref<T>);
+  provideLocal(injectionName, _context);
+
+  /**
+   * Used for global context to replace it with new Value. Used mainly for session context
+   */
   if (params?.replace) {
-    contextStore.set(key, params.replace);
+    _context.value = unref(params.replace);
   }
 
-  return computed<T>({
-    get() {
-      return contextStore.get<T>(key);
-    },
-    set(v: T) {
-      contextStore.set(key, v);
-    },
-  });
+  return _context;
 }

@@ -1,9 +1,10 @@
-import {Schemas} from "@heyframe/uni-api-client/api-types/frontApiTypes";
 import {useHeyFrameContext} from "@/app/composables/useHeyFrameContext/useHeyFrameContext";
-import {operations} from "@/api-client/api-types/frontApiTypes";
+import {operations, Schemas} from "@/api-client/api-types/frontApiTypes";
 import {useCategory} from "@/app/composables/useCategory/useCategory";
 import type {Ref} from "vue";
-import {inject, provide, ref,computed} from "vue";
+import {inject, provide, ref, computed} from "vue";
+import {createInjectionState} from "@/app/share/createInjectionState";
+import {createSharedComposable} from "@/app/share/createSharedComposable";
 
 function isObject<T>(item: T): boolean {
   return item && typeof item === "object" && !Array.isArray(item);
@@ -112,6 +113,42 @@ export function useListing(params?: {
   });
 }
 
+const [_createCategoryListingContext, _categoryListingContext] =
+  createInjectionState(
+    () => {
+      return useListing({listingType: "categoryListing"});
+    },
+    {
+      injectionKey: "categoryListing",
+    },
+  );
+
+export const createCategoryListingContext = _createCategoryListingContext;
+
+/**
+ * Temporary workaround over `useListing` to support shared data. This composable API will change in the future.
+ *
+ * You need to call `createCategoryListingContext` before this composable.
+ */
+export const useCategoryListing = () => {
+  const listingContext = _categoryListingContext();
+
+  if (!listingContext) {
+    throw new Error(
+      "[useCategoryListing] Please call `createCategoryListingContext` on the appropriate parent component",
+    );
+  }
+
+  return listingContext;
+};
+
+/**
+ * Temporary workaround over `useListing` to support shared data. This composable API will change in the future.
+ */
+export const useProductSearchListing = createSharedComposable(() =>
+  useListing({listingType: "productSearchListing"}),
+);
+
 export function createListingComposable({
                                           searchMethod,
                                           searchDefaults,
@@ -127,14 +164,16 @@ export function createListingComposable({
 }) {
   const loading = ref(false);
 
-  const _storeInitialListing = inject<
-    Ref<Schemas["ProductListingResult"] | null>
-  >(`useListingInitial-${listingKey}`, ref(null));
+  const _storeInitialListing: Ref<Schemas["ProductListingResult"] | null> =
+    inject<Ref<Schemas["ProductListingResult"] | null>>(
+      `useListingInitial-${listingKey}`
+    ) ?? ref(null);
   provide(`useListingInitial-${listingKey}`, _storeInitialListing);
 
-  const _storeAppliedListing = inject<
-    Ref<Schemas["ProductListingResult"] | null>
-  >(`useListingApplied-${listingKey}`, ref(null));
+  const _storeAppliedListing: Ref<Schemas["ProductListingResult"] | null> =
+    inject<Ref<Schemas["ProductListingResult"] | null>>(
+      `useListingApplied-${listingKey}`
+    ) ?? ref(null);
   provide(`useListingApplied-${listingKey}`, _storeAppliedListing);
 
   const getInitialListing = computed(() => _storeInitialListing.value);
@@ -160,13 +199,14 @@ export function createListingComposable({
       loading.value = false;
     }
   }
+
   const getCurrentListing = computed(() => {
     return _storeAppliedListing.value || getInitialListing.value;
   });
   const getElements = computed(() => {
     return getCurrentListing.value?.elements || [];
   });
-  return{
+  return {
     search,
     getElements
   }

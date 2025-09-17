@@ -21,6 +21,7 @@ export default defineConfig(({command, mode}) => {
     resolve: {
       alias: {
         '@': path.join(process.cwd(), './src'),
+        '@icon': path.join(process.cwd(), './src/static/icon'),
       },
     },
     server: {

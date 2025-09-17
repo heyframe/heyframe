@@ -1,42 +1,55 @@
 <template>
   <view class="content">
-    <image class="logo" src="/static/logo.png"/>
+    <image class="logo" src="/static/icon/default/arrow-down.svg"/>
     <view class="text-area">
       <text class="title">{{ userInfo?.nickname }}</text>
+    </view>
+    <uni-badge text="1"></uni-badge>
+
+    <view class="product-list">
+      <view
+        class="product-item"
+        v-for="product in products"
+        :key="product.id"
+      >
+        <image
+          class="product-cover"
+          :src="product.cover?.media?.url || '/static/icon/default/3d-placeholder.svg'"
+        />
+        <text class="product-name">{{ product.name }}</text>
+        <text class="product-price">¥{{ product.calculatedPrice?.unitPrice || 0 }}</text>
+      </view>
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
-import {ref,onMounted} from 'vue'
-import HeyUni from "@/heyuni-instance";
-import AccountService from "@/core/service/api/account.service";
-import {useUser} from "@/app/composables/useUser/useUser";
+import { ref, onMounted } from 'vue';
+import { useUser } from "@/app/composables/useUser/useUser";
+import uniBadge from '@dcloudio/uni-ui/lib/uni-badge/uni-badge.vue';
 import {useListing} from "@/app/composables/useListing/useListing";
 
-const title = ref('Hello')
-
-
-// let loginService = HeyUni.Service('accountService') as AccountService;
-// loginService.loginByEmail('test@test.com','heyframe');
-
-
 const userComposable = useUser();
-const userInfo = ref(null);
+const userInfo = ref<any>(null);
+const products = ref<any[]>([]);
+
+const { search, getElements } = useListing({
+  listingType: "categoryListing",
+  categoryId: "77b959cf66de4c1590c7f9b7da3982f3", // entrypoint to browse
+  defaultSearchCriteria: { // set the default criteria
+    limit: 3,
+    p: 1,
+  },
+});
+
 onMounted(async () => {
+  // 登录用户
   await userComposable.login({ username: 'test@test.com', password: 'heyframe' });
-  userInfo.value = userComposable.user.value
+  userInfo.value = userComposable.user.value;
 
-  const { search, getElements } = useListing({
-    listingType: "categoryListing",
-    categoryId: "77b959cf66de4c1590c7f9b7da3982f3", // entrypoint to browse
-    defaultSearchCriteria: { // set the default criteria
-      limit: 3,
-      p: 1,
-    },
-  });
 
-  search({ // invoke search() method
+
+  await search({ // invoke search() method
     includes: { // omit this parameter if you want to use the whole product entity
       product: ["id", "name", "cover", "calculatedPrice", "translated"],
       product_media: ["media"],
@@ -44,8 +57,8 @@ onMounted(async () => {
     },
   });
 
+  products.value = getElements.value.slice(0, 3);
 });
-
 </script>
 
 <style>
@@ -73,5 +86,35 @@ onMounted(async () => {
 .title {
   font-size: 36rpx;
   color: #8f8f94;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30rpx;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.product-cover {
+  width: 150rpx;
+  height: 150rpx;
+  margin-bottom: 10rpx;
+}
+
+.product-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.product-price {
+  font-size: 28rpx;
+  color: #ff5722;
 }
 </style>
