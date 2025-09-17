@@ -1,9 +1,11 @@
 <template>
   <view class="content">
+
     <view class="text-area">
       <text class="title">{{ userInfo?.nickname }}</text>
     </view>
-    <uni-badge text="1"></uni-badge>
+
+    <NutButton type="primary">主要按钮</NutButton>
 
     <view class="product-list">
       <view
@@ -25,7 +27,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useUser } from "@/app/composables/useUser/useUser";
-import uniBadge from '@dcloudio/uni-ui/lib/uni-badge/uni-badge.vue';
 import {useListing} from "@/app/composables/useListing/useListing";
 
 const userComposable = useUser();

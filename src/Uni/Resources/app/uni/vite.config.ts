@@ -3,6 +3,9 @@ import Uni from '@dcloudio/vite-plugin-uni'
 import * as path from "node:path";
 import colors from 'picocolors';
 import UniManifest from './vite/vite-plugins/uni-manifest-plugin'
+import UniComponents from '@uni-helper/vite-plugin-uni-components'
+import {NutResolver} from "@heyframe/nutui-uniapp";
+import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig(({command, mode}) => {
   const isProd = command === 'build';
@@ -18,12 +21,40 @@ export default defineConfig(({command, mode}) => {
     base,
     plugins: [
       UniManifest(),
+      UniComponents({
+        deep: true,
+        dts: 'src/components.d.ts',
+        resolvers: [NutResolver()],
+      }),
+      AutoImport({
+        imports: [
+          'vue',
+          'pinia',
+          'uni-app',
+          {
+            '@heyframe/nutui-uniapp/composables': [
+              'useNotify',
+              'useToast',
+            ],
+          },
+        ],
+        dts: 'src/auto-imports.d.ts',
+        dirs: ['src/composables', 'src/stores'],
+        vueTemplate: true,
+      }),
       // @ts-expect-error
       Uni.default(),
     ],
     resolve: {
       alias: {
         '@': path.join(process.cwd(), './src'),
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "@heyframe/nutui-uniapp/styles/variables";',
+        },
       },
     },
     server: {
