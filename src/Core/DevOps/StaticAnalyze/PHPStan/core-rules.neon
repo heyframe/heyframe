@@ -18,3 +18,4 @@ rules:
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\AclValidPermissionsInRouteAttributesRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\HeyFrameNamespaceStyleRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\AttributeFinalRule
+    - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\NameConstantEntityDefinition
