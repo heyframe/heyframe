@@ -6,6 +6,7 @@ import UniManifest from './vite/vite-plugins/uni-manifest-plugin'
 import UniComponents from '@uni-helper/vite-plugin-uni-components'
 import {NutResolver} from "@heyframe/nutui-uniapp";
 import AutoImport from 'unplugin-auto-import/vite'
+import UnoCSS from 'unocss/vite'
 
 export default defineConfig(({command, mode}) => {
   const isProd = command === 'build';
@@ -26,6 +27,7 @@ export default defineConfig(({command, mode}) => {
         dts: 'src/components.d.ts',
         resolvers: [NutResolver()],
       }),
+      UnoCSS(),
       AutoImport({
         imports: [
           'vue',

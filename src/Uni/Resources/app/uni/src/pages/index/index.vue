@@ -1,12 +1,9 @@
 <template>
   <view class="content">
-
+    <nut-button type="info">信息按钮</nut-button>
     <view class="text-area">
       <text class="title">{{ userInfo?.nickname }}</text>
     </view>
-
-    <NutButton type="primary">主要按钮</NutButton>
-
     <view class="product-list">
       <view
         class="product-item"
@@ -46,8 +43,6 @@ onMounted(async () => {
   // 登录用户
   await userComposable.login({ username: 'test@test.com', password: 'heyframe' });
   userInfo.value = userComposable.user.value;
-
-
 
   await search({ // invoke search() method
     includes: { // omit this parameter if you want to use the whole product entity
