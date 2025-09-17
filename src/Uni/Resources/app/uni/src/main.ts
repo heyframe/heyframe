@@ -1,5 +1,6 @@
 import HeyUni from "@/heyuni-instance";
 import '@/app/main';
+import 'uno.css'
 
 import { apiConfig } from '@/config/env';
 

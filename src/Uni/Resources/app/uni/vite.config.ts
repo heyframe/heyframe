@@ -1,5 +1,5 @@
 import {defineConfig, loadEnv} from "vite";
-import Uni from '@dcloudio/vite-plugin-uni'
+import Uni from '@uni-helper/plugin-uni'
 import * as path from "node:path";
 import colors from 'picocolors';
 import UniManifest from './vite/vite-plugins/uni-manifest-plugin'
@@ -27,7 +27,6 @@ export default defineConfig(({command, mode}) => {
         dts: 'src/components.d.ts',
         resolvers: [NutResolver()],
       }),
-      UnoCSS(),
       AutoImport({
         imports: [
           'vue',
@@ -44,8 +43,8 @@ export default defineConfig(({command, mode}) => {
         dirs: ['src/composables', 'src/stores'],
         vueTemplate: true,
       }),
-      // @ts-expect-error
-      Uni.default(),
+      Uni(),
+      UnoCSS(),
     ],
     resolve: {
       alias: {

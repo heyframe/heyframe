@@ -1,6 +1,6 @@
 import {computed, type ComputedRef, type Ref, ref} from "vue";
 import {useHeyFrameContext} from "@/app/composables/useHeyFrameContext/useHeyFrameContext";
-import {Schemas} from "@heyframe/uni-api-client/api-types/frontApiTypes";
+import type {Schemas} from "@/api-client/api-types/frontApiTypes";
 
 export type UseUserReturn = {
   /**

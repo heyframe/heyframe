@@ -2,7 +2,7 @@
   <view class="content">
     <nut-button type="info">信息按钮</nut-button>
     <view class="text-area">
-      <text class="title">{{ userInfo?.nickname }}</text>
+      <text class="bg-amber">{{ userInfo?.nickname }}</text>
     </view>
     <view class="product-list">
       <view

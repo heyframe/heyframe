@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "paths": {
       "@/*": ["./src/*"],
-      "@img/*": ["./src/static/*"]
+      "@static/*": ["./src/static/*"]
     },
     "resolveJsonModule": true,
     "types": [
@@ -27,15 +27,10 @@
     "plugins": ["@uni-helper/uni-types/volar-plugin"]
   },
   "include": [
-    "package.json",
     "src/**/*.ts",
-    "src/**/*.js",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.jsx",
-    "src/**/*.vue",
-    "src/**/*.json",
-    "node_modules"
+    "src/**/*.vue"
   ],
   "exclude": ["node_modules"]
 }
