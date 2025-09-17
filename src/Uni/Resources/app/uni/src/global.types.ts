@@ -3,6 +3,9 @@ import type ApiServiceFactory from '@/core/factory/api-service.factory';
 import type AccountService from "@/core/service/api/account.service";
 import type { ComponentInternalInstance, PropType as VuePropType } from 'vue';
 import type {ApiContextStore} from "@/app/store/api.context.store";
+import type LocaleFactory from '@/core/factory/locale.factory';
+
+
 export interface SubContainer<ContainerName extends string> {
   $decorator(name: string | Decorator, func?: Decorator): this;
 
@@ -53,6 +56,7 @@ declare global {
   interface FactoryContainer extends SubContainer<'factory'> {
     serviceFactory: $TSFixMe;
     apiService: typeof ApiServiceFactory;
+    locale: typeof LocaleFactory;
   }
 
   /**

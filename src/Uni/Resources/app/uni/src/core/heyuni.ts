@@ -8,6 +8,7 @@ import useApiContext from '@/app/composables/useApiContext/use-api-context';
 import HttpFactory from '@/core/factory/http.factory';
 import ApiService from '@/core/service/api.service';
 import ApiContextFactory from '@/core/factory/api-context.factory';
+import LocaleFactory from "@/core/factory/locale.factory";
 
 
 // strict mode was set to false because it was defined wrong previously
@@ -19,6 +20,9 @@ application
     .addFactory('apiService', () => {
         return ApiServiceFactory;
     })
+  .addFactory('locale', () => {
+    return LocaleFactory;
+  })
     .addFactory('serviceFactory', () => {
         return ServiceFactory;
     });

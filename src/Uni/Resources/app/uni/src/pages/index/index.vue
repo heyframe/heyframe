@@ -1,6 +1,5 @@
 <template>
   <view class="content">
-    <image class="logo" src="/static/icon/default/arrow-down.svg"/>
     <view class="text-area">
       <text class="title">{{ userInfo?.nickname }}</text>
     </view>
