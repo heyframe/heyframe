@@ -1,14 +1,14 @@
-import type { AppPlus } from './appPlus'
-import type { H5 } from './h5'
-import type { MpAlipay } from './mpAlipay'
-import type { MpBaidu } from './mpBaidu'
-import type { MpKuaishou } from './mpKuaishou'
-import type { MpLark } from './mpLark'
-import type { MpQq } from './mpQq'
-import type { MpToutiao } from './mpToutiao'
-import type { MpWeixin } from './mpWeixin'
-import type { QuickappWebview, QuickappWebviewHuawei, QuickappWebviewUnion } from './quickappWebview'
-import type { UniStatistics } from './uniStatistics'
+import type {AppPlus} from './appPlus'
+import type {H5} from './h5'
+import type {MpAlipay} from './mpAlipay'
+import type {MpBaidu} from './mpBaidu'
+import type {MpKuaishou} from './mpKuaishou'
+import type {MpLark} from './mpLark'
+import type {MpQq} from './mpQq'
+import type {MpToutiao} from './mpToutiao'
+import type {MpWeixin} from './mpWeixin'
+import type {QuickappWebview, QuickappWebviewHuawei, QuickappWebviewUnion} from './quickappWebview'
+import type {UniStatistics} from './uniStatistics'
 
 export * from './appPlus'
 export * from './common'
@@ -142,4 +142,5 @@ export interface ManifestConfig {
   [x: string]: any
 }
 
-export interface UserManifestConfig extends ManifestConfig {}
+export interface UserManifestConfig extends ManifestConfig {
+}

@@ -24,7 +24,6 @@ export default defineManifestConfig({
   'description': '',
   'versionName': '1.0.0',
   'versionCode': '100',
-  'transformPx': false,
   'locale': VITE_FALLBACK_LOCALE, // 'zh-Hans'
   'h5': {
     router: {
