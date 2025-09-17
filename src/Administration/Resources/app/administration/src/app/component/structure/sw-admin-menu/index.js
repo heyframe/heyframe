@@ -1,8 +1,8 @@
 import template from './sw-admin-menu.html.twig';
 import './sw-admin-menu.scss';
 
-const { Mixin } = HeyFrame;
-const { dom, types } = HeyFrame.Utils;
+const {Mixin} = HeyFrame;
+const {dom, types} = HeyFrame.Utils;
 
 /**
  * @sw-package framework
@@ -231,6 +231,8 @@ The admin menu only supports up to three levels of nesting.`,
     beforeUnmount() {
         document.removeEventListener('mousemove', this.onMouseMoveDocument);
         document.removeEventListener('mouseleave', this.onFlyoutLeave);
+
+        this.beforeUnmountedComponent();
     },
 
     methods: {
@@ -240,13 +242,18 @@ The admin menu only supports up to three levels of nesting.`,
             this.collapseMenuOnSmallViewports();
             this.getUser();
 
-            HeyFrame.Utils.EventBus.on('sw-admin-menu/toggle-offcanvas', (state) => {
-                this.isOffCanvasShown = state;
-            });
+            HeyFrame.Utils.EventBus.on('sw-admin-menu/toggle-offcanvas', this.onToggleCanvas);
 
             this.initNavigation();
         },
 
+        beforeUnmountedComponent() {
+            HeyFrame.Utils.EventBus.off('sw-admin-menu/toggle-offcanvas', this.onToggleCanvas);
+        },
+
+        onToggleCanvas(state) {
+            this.isOffCanvasShown = state;
+        },
         initNavigation() {
             this.adminMenuStore.adminModuleNavigation = this.menuService.getNavigationFromAdminModules();
 
@@ -591,7 +598,7 @@ The admin menu only supports up to three levels of nesting.`,
                 window.clearTimeout(this.subMenuTimer);
             }
             this.flyoutColor = entry.color;
-            this.activeEntry = { entry, target, parentEntries };
+            this.activeEntry = {entry, target, parentEntries};
         },
 
         deactivatePreviousMenuItem() {

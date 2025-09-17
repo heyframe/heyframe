@@ -47,10 +47,10 @@ export default {
         HeyFrame.Utils.EventBus.on('on-change-notification-center-visibility', this.changeVisibility);
     },
 
-    beforeDestroyed() {
+    beforeUnmount() {
         this.unsubscribeFromStore?.();
 
-        this.$root.$off('on-change-notification-center-visibility', this.changeVisibility);
+        HeyFrame.Utils.EventBus.off('on-change-notification-center-visibility', this.changeVisibility);
     },
 
     methods: {
