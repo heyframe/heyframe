@@ -145,6 +145,7 @@
         "twig/intl-extra": "^3.10.0",
         "twig/string-extra": "^3.10.0",
         "twig/twig": "^3.21.1",
+        "wechatpay/wechatpay": "^1.4",
         "zircote/swagger-php": "^4.9.2"
     },
     "require-dev": {
