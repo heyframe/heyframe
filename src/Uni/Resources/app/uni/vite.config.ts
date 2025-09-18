@@ -7,6 +7,7 @@ import UniComponents from '@uni-helper/vite-plugin-uni-components'
 import {NutResolver} from "@heyframe/nutui-uniapp";
 import AutoImport from 'unplugin-auto-import/vite'
 import UnoCSS from 'unocss/vite'
+import ViteRestart from 'vite-plugin-restart'
 
 export default defineConfig(({command, mode}) => {
   const isProd = command === 'build';
@@ -42,6 +43,9 @@ export default defineConfig(({command, mode}) => {
         dts: 'src/auto-imports.d.ts',
         dirs: ['src/composables', 'src/stores'],
         vueTemplate: true,
+      }),
+      ViteRestart({
+        restart: ['vite.config.js'],
       }),
       Uni(),
       UnoCSS(),
