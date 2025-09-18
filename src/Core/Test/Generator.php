@@ -74,7 +74,7 @@ class Generator extends TestCase
             $channel = new ChannelEntity();
             $channel->setId(TestDefaults::CHANNEL);
             $channel->setNavigationCategoryId(self::NAVIGATION_CATEGORY);
-            $channel->setNavigationDepth(2);
+            $channel->setNavigationCategoryDepth(2);
         }
 
         if (!$currency) {

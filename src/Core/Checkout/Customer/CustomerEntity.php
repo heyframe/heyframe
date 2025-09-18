@@ -3,8 +3,6 @@
 namespace HeyFrame\Core\Checkout\Customer;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMemberships\CustomerMembershipsCollection;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMembershipsLevels\CustomerMembershipsLevelsCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
@@ -16,6 +14,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelEntity;
 use HeyFrame\Core\System\Language\LanguageEntity;
 use HeyFrame\Core\System\User\UserEntity;
+use HeyWallet\Checkout\Wallet\WalletEntity;
 
 #[Package('checkout')]
 class CustomerEntity extends Entity implements \Stringable
@@ -108,7 +107,7 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?string $updatedById = null;
 
     protected ?UserEntity $updatedBy = null;
-
+    protected WalletEntity $wallet;
     public function __toString(): string
     {
         return $this->getNickname();
@@ -507,26 +506,6 @@ class CustomerEntity extends Entity implements \Stringable
         $this->lastUpdatedPasswordAt = $lastUpdatedPasswordAt;
     }
 
-    public function getMemberships(): ?CustomerMembershipsCollection
-    {
-        return $this->memberships;
-    }
-
-    public function setMemberships(CustomerMembershipsCollection $memberships): void
-    {
-        $this->memberships = $memberships;
-    }
-
-    public function getLevels(): ?CustomerMembershipsLevelsCollection
-    {
-        return $this->levels;
-    }
-
-    public function setLevels(CustomerMembershipsLevelsCollection $levels): void
-    {
-        $this->levels = $levels;
-    }
-
     public function getAvatarId(): ?string
     {
         return $this->avatarId;
@@ -546,4 +525,15 @@ class CustomerEntity extends Entity implements \Stringable
     {
         $this->avatarMedia = $avatarMedia;
     }
+
+    public function getWallet(): WalletEntity
+    {
+        return $this->wallet;
+    }
+
+    public function setWallet(WalletEntity $wallet): void
+    {
+        $this->wallet = $wallet;
+    }
+
 }

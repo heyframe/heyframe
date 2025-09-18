@@ -107,6 +107,7 @@ class ExtensionStruct extends Struct
     protected string $type;
 
     protected bool $isTheme = false;
+    protected bool $isUni = false;
 
     /**
      * @see AppEntity::$configurable
@@ -649,5 +650,15 @@ class ExtensionStruct extends Struct
     public function setInAppPurchases(array $inAppPurchases): void
     {
         $this->inAppPurchases = $inAppPurchases;
+    }
+
+    public function isUni(): bool
+    {
+        return $this->isUni;
+    }
+
+    public function setIsUni(bool $isUni): void
+    {
+        $this->isUni = $isUni;
     }
 }

@@ -30,6 +30,7 @@ use HeyFrame\Core\Framework\Store\Struct\VariantCollection;
 use HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider;
 use HeyFrame\Core\System\SystemConfig\Service\ConfigurationService;
 use HeyFrame\Frontend\Framework\ThemeInterface;
+use HeyFrame\Frontend\Theme\ThemeCollection;
 use HeyFrame\Uni\Framework\UniInterface;
 use Symfony\Component\Intl\Languages;
 use Symfony\Component\Intl\Locales;

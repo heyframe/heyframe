@@ -46,7 +46,7 @@ class ChannelEntity extends Entity
 
     protected string $navigationCategoryVersionId;
 
-    protected int $navigationDepth;
+    protected int $navigationCategoryDepth;
 
     /**
      * @var array<string, mixed>|null
@@ -598,15 +598,16 @@ class ChannelEntity extends Entity
         $this->paymentMethodIds = $paymentMethodIds;
     }
 
-    public function getNavigationDepth(): int
+    public function getNavigationCategoryDepth(): int
     {
-        return $this->navigationDepth;
+        return $this->navigationCategoryDepth;
     }
 
-    public function setNavigationDepth(int $navigationDepth): void
+    public function setNavigationCategoryDepth(int $navigationCategoryDepth): void
     {
-        $this->navigationDepth = $navigationDepth;
+        $this->navigationCategoryDepth = $navigationCategoryDepth;
     }
+
 
     public function getCustomerGroupsRegistrations(): ?CustomerGroupCollection
     {
