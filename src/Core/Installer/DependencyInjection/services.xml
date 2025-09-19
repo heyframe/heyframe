@@ -2,12 +2,12 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
         <parameter key="heyframe.installer.supportedLanguages" type="collection">
             <parameter key="cs" type="collection">
                 <parameter key="id">cs-CZ</parameter>
-                <parameter key="label">Český</parameter>
+                <parameter key="label">Čeština</parameter>
             </parameter>
             <parameter key="da-DK" type="collection">
                 <parameter key="id">da-DK</parameter>
@@ -42,7 +42,7 @@
                 <parameter key="label">Nederlands</parameter>
             </parameter>
             <parameter key="no" type="collection">
-                <parameter key="id">no-NO</parameter>
+                <parameter key="id">nn-NO</parameter>
                 <parameter key="label">Norsk</parameter>
             </parameter>
             <parameter key="pl" type="collection">
@@ -166,6 +166,16 @@
 
         <service id="heyframe.installer.guzzle" class="GuzzleHttp\Client"/>
 
+        <service id="HeyFrame\Core\System\Snippet\Service\AbstractTranslationConfigLoader"
+                 alias="HeyFrame\Core\System\Snippet\Service\TranslationConfigLoader"/>
+        <service id="HeyFrame\Core\System\Snippet\Service\TranslationConfigLoader">
+            <argument type="service" id="filesystem"/>
+        </service>
+
+        <service id="HeyFrame\Core\System\Snippet\Struct\TranslationConfig" lazy="true" public="true">
+            <factory service="HeyFrame\Core\System\Snippet\Service\AbstractTranslationConfigLoader" method="load"/>
+        </service>
+
         <service id="HeyFrame\Core\Installer\License\LicenseFetcher">
             <argument type="service" id="heyframe.installer.guzzle"/>
             <argument>%heyframe.installer.tosUrls%</argument>
@@ -221,6 +231,7 @@
             <argument type="service" id="HeyFrame\Core\Installer\Configuration\ShopConfigurationService"/>
             <argument type="service" id="HeyFrame\Core\Installer\Configuration\AdminConfigurationService"/>
             <argument type="service" id="translator"/>
+            <argument type="service" id="HeyFrame\Core\System\Snippet\Struct\TranslationConfig"/>
             <argument>%heyframe.installer.supportedLanguages%</argument>
             <argument>%heyframe.installer.supportedCurrencies%</argument>
 
@@ -273,7 +284,12 @@
         <service id="HeyFrame\Core\Installer\Finish\UniqueIdGenerator">
             <argument type="string">%kernel.project_dir%</argument>
         </service>
-
+        <service id="HeyFrame\Core\Installer\Controller\TranslationController" public="true">
+            <argument type="string">%kernel.project_dir%</argument>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
         <service id="GuzzleHttp\Client"/>
     </services>
 </container>
