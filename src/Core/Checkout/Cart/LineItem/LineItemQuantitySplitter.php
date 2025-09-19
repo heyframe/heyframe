@@ -45,7 +45,6 @@ class LineItemQuantitySplitter
             $unitPrice,
             $unitPrice * $quantity,
             $tmpItem->getQuantity(),
-            $lineItemPrice->getReferencePrice(),
             $lineItemPrice->getListPrice(),
             $lineItemPrice->getRegulationPrice(),
         );

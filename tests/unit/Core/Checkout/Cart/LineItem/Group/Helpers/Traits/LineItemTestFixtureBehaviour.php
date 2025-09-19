@@ -37,8 +37,8 @@ trait LineItemTestFixtureBehaviour
             $grossPrice,
             $grossPrice,
             1,
+            $listPrice,
             null,
-            $listPrice
         ));
 
         return $product;

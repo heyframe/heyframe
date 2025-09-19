@@ -1006,7 +1006,6 @@ EOF;
             'currencyVersionId' => Defaults::LIVE_VERSION,
             'paymentMethodId' => $this->getValidPaymentMethodId(),
             'paymentMethodVersionId' => Defaults::LIVE_VERSION,
-            'shippingMethodVersionId' => Defaults::LIVE_VERSION,
             'navigationVersionId' => Defaults::LIVE_VERSION,
             'countryId' => $this->getValidCountryId(),
             'countryVersionId' => Defaults::LIVE_VERSION,
