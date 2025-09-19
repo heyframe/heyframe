@@ -422,7 +422,7 @@ frame-ancestors 'none';
 
         <service id="HeyFrame\Core\Framework\Adapter\Twig\StringTemplateRenderer">
             <argument type="service" id="twig"/>
-            <argument>%twig.cache%</argument>
+            <argument>%heyframe.cache.twig.string_template_renderer_cache_dir%</argument>
         </service>
 
         <service id="HeyFrame\Core\Framework\Adapter\Twig\TemplateIterator"
