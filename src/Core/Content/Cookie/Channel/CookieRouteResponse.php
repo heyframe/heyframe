@@ -4,18 +4,34 @@ namespace HeyFrame\Core\Content\Cookie\Channel;
 
 use HeyFrame\Core\Content\Cookie\Struct\CookieGroupCollection;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\Framework\Struct\ArrayStruct;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
  * @codeCoverageIgnore
  *
- * @extends StoreApiResponse<CookieGroupCollection>
+ * @extends FrontApiResponse<ArrayStruct<array{elements: CookieGroupCollection, hash: string}>>
  */
 #[Package('framework')]
-class CookieRouteResponse extends StoreApiResponse
+class CookieRouteResponse extends FrontApiResponse
 {
+    public function __construct(
+        CookieGroupCollection $cookieGroups,
+        string $hash,
+    ) {
+        parent::__construct(new ArrayStruct([
+            'elements' => $cookieGroups,
+            'hash' => $hash,
+        ], 'cookie_groups_hash'));
+    }
+
     public function getCookieGroups(): CookieGroupCollection
     {
-        return $this->object;
+        return $this->object->get('elements');
+    }
+
+    public function getHash(): string
+    {
+        return $this->object->get('hash');
     }
 }
