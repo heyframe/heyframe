@@ -56,6 +56,14 @@ export default HeyFrame.Component.wrapComponentConfig({
             return this.cmsServiceState.elementRegistry[this.element.type];
         },
 
+        elementModalTitle() {
+            const title = this.$t('sw-cms.detail.title.elementSettingsModal');
+            if (this.elementConfig?.label !== undefined) {
+                return `${title} (${this.$t(this.elementConfig.label)})`;
+            }
+            return title;
+        },
+
         cmsElements() {
             const currentPageType = HeyFrame.Store.get('cmsPage').currentPageType;
 
