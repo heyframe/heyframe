@@ -2,11 +2,8 @@
 
 namespace HeyFrame\Core\Checkout\Order\Channel;
 
-use HeyFrame\Core\Checkout\Cart\CartException;
-use HeyFrame\Core\Checkout\Cart\Exception\CustomerNotLoggedInException;
 use HeyFrame\Core\Checkout\Cart\Rule\PaymentMethodRule;
 use HeyFrame\Core\Checkout\Order\Event\OrderCriteriaEvent;
-use HeyFrame\Core\Checkout\Order\Exception\WrongGuestCredentialsException;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Checkout\Order\OrderException;
@@ -54,7 +51,7 @@ class OrderRoute extends AbstractOrderRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/front-api/order', name: 'front-api.order', methods: ['GET', 'POST'], defaults: ['_entity' => 'order'])]
+    #[Route(path: '/front-api/order', name: 'front-api.order', defaults: ['_entity' => 'order'], methods: ['GET', 'POST'])]
     public function load(Request $request, ChannelContext $context, Criteria $criteria): OrderRouteResponse
     {
         ReplicaConnection::ensurePrimary();
@@ -77,10 +74,6 @@ class OrderRoute extends AbstractOrderRoute
         if ($context->getCustomer()) {
             $criteria->addFilter(new EqualsFilter('order.orderCustomer.customerId', $context->getCustomerId()));
         } elseif ($deepLinkFilter === null) {
-            // @deprecated tag:v6.8.0 - remove this if block
-            if (!Feature::isActive('v6.8.0.0')) {
-                throw CartException::customerNotLoggedIn(); // @phpstan-ignore heyframe.domainException
-            }
             throw OrderException::customerNotLoggedIn();
         }
 
@@ -103,9 +96,6 @@ class OrderRoute extends AbstractOrderRoute
             } catch (RateLimitExceededException $exception) {
                 throw OrderException::customerAuthThrottledException($exception->getWaitTime(), $exception);
             }
-
-            $order = $orders->first();
-            $this->checkGuestAuth($order, $request);
         }
 
         if (isset($cacheKey)) {
@@ -201,47 +191,5 @@ class OrderRoute extends AbstractOrderRoute
         $latestOrderDate = (new \DateTime())->setTimezone(new \DateTimeZone('Asia/Shanghai'))->modify(-abs(30) . ' Day');
 
         return $orders->filter(fn (OrderEntity $order) => $order->getCreatedAt() > $latestOrderDate || $order->getUpdatedAt() > $latestOrderDate);
-    }
-
-    /**
-     * @throws CustomerNotLoggedInException
-     * @throws WrongGuestCredentialsException
-     */
-    private function checkGuestAuth(?OrderEntity $order, Request $request): void
-    {
-        if ($order === null) {
-            throw OrderException::guestNotAuthenticated();
-        }
-
-        $orderCustomer = $order->getOrderCustomer();
-        if ($orderCustomer === null) {
-            // @deprecated tag:v6.8.0 - remove this if block
-            if (!Feature::isActive('v6.8.0.0')) {
-                throw CartException::customerNotLoggedIn(); // @phpstan-ignore heyframe.domainException
-            }
-            throw OrderException::customerNotLoggedIn();
-        }
-
-        $guest = $orderCustomer->getCustomer() !== null && $orderCustomer->getCustomer()->getGuest();
-        // Throw exception when customer is not guest
-        if (!$guest) {
-            // @deprecated tag:v6.8.0 - remove this if block
-            if (!Feature::isActive('v6.8.0.0')) {
-                throw CartException::customerNotLoggedIn(); // @phpstan-ignore heyframe.domainException
-            }
-            throw OrderException::customerNotLoggedIn();
-        }
-
-        // Verify email and zip code with this order
-        if ($request->get('email', false) && $request->get('zipcode', false)) {
-            $zipCode = $order->getBillingAddress()?->getZipcode();
-            if ($zipCode === null
-                || strtolower($request->get('email')) !== strtolower($orderCustomer->getEmail())
-                || strtoupper($request->get('zipcode')) !== strtoupper($zipCode)) {
-                throw OrderException::wrongGuestCredentials();
-            }
-        } else {
-            throw OrderException::guestNotAuthenticated();
-        }
     }
 }

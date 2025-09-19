@@ -7,11 +7,9 @@ use HeyFrame\Core\Checkout\Cart\Exception\CartTokenNotFoundException;
 use HeyFrame\Core\Checkout\Cart\Exception\CustomerNotLoggedInException;
 use HeyFrame\Core\Checkout\Cart\Exception\InvalidCartException;
 use HeyFrame\Core\Checkout\Cart\Exception\LineItemNotFoundException;
-use HeyFrame\Core\Checkout\Customer\Exception\AddressNotFoundException;
 use HeyFrame\Core\Checkout\Order\Exception\EmptyCartException;
 use HeyFrame\Core\Content\Flow\Exception\CustomerDeletedException;
 use HeyFrame\Core\Framework\Feature;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
@@ -468,11 +466,6 @@ class CartException extends HttpException
             'Unsupported value of type {{ type }} in {{ class }}',
             ['type' => $type, 'class' => $class]
         );
-    }
-
-    public static function addressNotFound(string $id): HeyFrameHttpException
-    {
-        return new AddressNotFoundException($id);
     }
 
     public static function hashMismatch(string $token): self

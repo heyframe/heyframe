@@ -8,6 +8,7 @@ use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationCollection;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionTranslation\PromotionTranslationCollection;
 use HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTranslationCollection;
+use HeyFrame\Core\Content\Cms\Aggregate\CmsPageTranslation\CmsPageTranslationEntity;
 use HeyFrame\Core\Content\Media\Aggregate\MediaTranslation\MediaTranslationCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOptionTranslation\PropertyGroupOptionTranslationCollection;
@@ -440,62 +441,6 @@ class LanguageEntity extends Entity
         $this->cmsPageTranslations = $cmsPageTranslations;
     }
 
-    /**
-     * @return EntityCollection<CmsSlotTranslationEntity>|null
-     */
-    public function getCmsSlotTranslations(): ?Collection
-    {
-        return $this->cmsSlotTranslations;
-    }
-
-    /**
-     * @param EntityCollection<CmsSlotTranslationEntity> $cmsSlotTranslations
-     */
-    public function setCmsSlotTranslations(Collection $cmsSlotTranslations): void
-    {
-        $this->cmsSlotTranslations = $cmsSlotTranslations;
-    }
-
-    public function getMailTemplateTranslations(): ?MailTemplateCollection
-    {
-        return $this->mailTemplateTranslations;
-    }
-
-    public function setMailTemplateTranslations(MailTemplateCollection $mailTemplateTranslations): void
-    {
-        $this->mailTemplateTranslations = $mailTemplateTranslations;
-    }
-
-    public function getDocumentTypeTranslations(): ?DocumentTypeTranslationCollection
-    {
-        return $this->documentTypeTranslations;
-    }
-
-    public function setDocumentTypeTranslations(DocumentTypeTranslationCollection $documentTypeTranslations): void
-    {
-        $this->documentTypeTranslations = $documentTypeTranslations;
-    }
-
-    public function getDeliveryTimeTranslations(): ?DeliveryTimeCollection
-    {
-        return $this->deliveryTimeTranslations;
-    }
-
-    public function setDeliveryTimeTranslations(DeliveryTimeCollection $deliveryTimeTranslations): void
-    {
-        $this->deliveryTimeTranslations = $deliveryTimeTranslations;
-    }
-
-    public function getNewsletterRecipients(): ?NewsletterRecipientCollection
-    {
-        return $this->newsletterRecipients;
-    }
-
-    public function setNewsletterRecipients(NewsletterRecipientCollection $newsletterRecipients): void
-    {
-        $this->newsletterRecipients = $newsletterRecipients;
-    }
-
     public function getOrders(): ?OrderCollection
     {
         return $this->orders;
@@ -514,36 +459,6 @@ class LanguageEntity extends Entity
     public function setNumberRangeTypeTranslations(NumberRangeTypeTranslationCollection $numberRangeTypeTranslations): void
     {
         $this->numberRangeTypeTranslations = $numberRangeTypeTranslations;
-    }
-
-    public function getMailTemplateTypeTranslations(): ?MailTemplateTypeDefinition
-    {
-        return $this->mailTemplateTypeTranslations;
-    }
-
-    public function setMailTemplateTypeTranslations(MailTemplateTypeDefinition $mailTemplateTypeTranslations): void
-    {
-        $this->mailTemplateTypeTranslations = $mailTemplateTypeTranslations;
-    }
-
-    public function getProductSearchKeywords(): ?ProductSearchKeywordCollection
-    {
-        return $this->productSearchKeywords;
-    }
-
-    public function setProductSearchKeywords(ProductSearchKeywordCollection $productSearchKeywords): void
-    {
-        $this->productSearchKeywords = $productSearchKeywords;
-    }
-
-    public function getProductKeywordDictionaries(): ?ProductKeywordDictionaryCollection
-    {
-        return $this->productKeywordDictionaries;
-    }
-
-    public function setProductKeywordDictionaries(ProductKeywordDictionaryCollection $productKeywordDictionaries): void
-    {
-        $this->productKeywordDictionaries = $productKeywordDictionaries;
     }
 
     public function getPromotionTranslations(): ?PromotionTranslationCollection
@@ -566,66 +481,6 @@ class LanguageEntity extends Entity
         $this->numberRangeTranslations = $numberRangeTranslations;
     }
 
-    public function getProductReviews(): ?ProductReviewCollection
-    {
-        return $this->productReviews;
-    }
-
-    public function setProductReviews(ProductReviewCollection $productReviews): void
-    {
-        $this->productReviews = $productReviews;
-    }
-
-    public function getSeoUrlTranslations(): ?SeoUrlCollection
-    {
-        return $this->seoUrlTranslations;
-    }
-
-    public function setSeoUrlTranslations(SeoUrlCollection $seoUrlTranslations): void
-    {
-        $this->seoUrlTranslations = $seoUrlTranslations;
-    }
-
-    public function getTaxRuleTypeTranslations(): ?TaxRuleTypeTranslationCollection
-    {
-        return $this->taxRuleTypeTranslations;
-    }
-
-    public function setTaxRuleTypeTranslations(TaxRuleTypeTranslationCollection $taxRuleTypeTranslations): void
-    {
-        $this->taxRuleTypeTranslations = $taxRuleTypeTranslations;
-    }
-
-    public function getProductCrossSellingTranslations(): ?ProductCrossSellingTranslationCollection
-    {
-        return $this->productCrossSellingTranslations;
-    }
-
-    public function setProductCrossSellingTranslations(ProductCrossSellingTranslationCollection $productCrossSellingTranslations): void
-    {
-        $this->productCrossSellingTranslations = $productCrossSellingTranslations;
-    }
-
-    public function getImportExportProfileTranslations(): ?ImportExportProfileTranslationCollection
-    {
-        return $this->importExportProfileTranslations;
-    }
-
-    public function setImportExportProfileTranslations(ImportExportProfileTranslationCollection $importExportProfileTranslations): void
-    {
-        $this->importExportProfileTranslations = $importExportProfileTranslations;
-    }
-
-    public function getProductFeatureSetTranslations(): ?ProductFeatureSetTranslationCollection
-    {
-        return $this->productFeatureSetTranslations;
-    }
-
-    public function setProductFeatureSetTranslations(ProductFeatureSetTranslationCollection $productFeatureSetTranslations): void
-    {
-        $this->productFeatureSetTranslations = $productFeatureSetTranslations;
-    }
-
     public function getAppTranslations(): ?AppTranslationCollection
     {
         return $this->appTranslations;
@@ -644,46 +499,6 @@ class LanguageEntity extends Entity
     public function setActionButtonTranslations(ActionButtonTranslationCollection $actionButtonTranslations): void
     {
         $this->actionButtonTranslations = $actionButtonTranslations;
-    }
-
-    public function getProductSortingTranslations(): ?ProductSortingTranslationCollection
-    {
-        return $this->productSortingTranslations;
-    }
-
-    public function setProductSortingTranslations(ProductSortingTranslationCollection $productSortingTranslations): void
-    {
-        $this->productSortingTranslations = $productSortingTranslations;
-    }
-
-    public function getProductSearchConfig(): ?ProductSearchConfigEntity
-    {
-        return $this->productSearchConfig;
-    }
-
-    public function setProductSearchConfig(ProductSearchConfigEntity $productSearchConfig): void
-    {
-        $this->productSearchConfig = $productSearchConfig;
-    }
-
-    public function getLandingPageTranslations(): ?LandingPageTranslationCollection
-    {
-        return $this->landingPageTranslations;
-    }
-
-    public function setLandingPageTranslations(LandingPageTranslationCollection $landingPageTranslations): void
-    {
-        $this->landingPageTranslations = $landingPageTranslations;
-    }
-
-    public function getAppCmsBlockTranslations(): ?AppCmsBlockTranslationCollection
-    {
-        return $this->appCmsBlockTranslations;
-    }
-
-    public function setAppCmsBlockTranslations(AppCmsBlockTranslationCollection $appCmsBlockTranslations): void
-    {
-        $this->appCmsBlockTranslations = $appCmsBlockTranslations;
     }
 
     public function getAppScriptConditionTranslations(): ?AppScriptConditionTranslationCollection
@@ -709,15 +524,5 @@ class LanguageEntity extends Entity
     public function getApiAlias(): string
     {
         return 'language';
-    }
-
-    public function getTaxProviderTranslations(): ?TaxProviderTranslationCollection
-    {
-        return $this->taxProviderTranslations;
-    }
-
-    public function setTaxProviderTranslations(TaxProviderTranslationCollection $taxProviderTranslations): void
-    {
-        $this->taxProviderTranslations = $taxProviderTranslations;
     }
 }

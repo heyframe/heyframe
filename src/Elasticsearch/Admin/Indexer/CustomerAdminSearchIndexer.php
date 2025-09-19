@@ -4,7 +4,6 @@ namespace HeyFrame\Elasticsearch\Admin\Indexer;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressDefinition;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerTag\CustomerTagDefinition;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
@@ -59,24 +58,9 @@ final class CustomerAdminSearchIndexer extends AbstractAdminIndexer
         $ids = [];
 
         $customerIds = $event->getPrimaryKeysWithPropertyChange($this->getEntity(), [
-            'firstName',
-            'lastName',
+            'nickname',
             'email',
-            'company',
             'customerNumber',
-        ]);
-
-        $addresses = $event->getPrimaryKeysWithPropertyChange(CustomerAddressDefinition::ENTITY_NAME, [
-            'firstName',
-            'lastName',
-            'company',
-            'city',
-            'street',
-            'zipcode',
-            'phoneNumber',
-            'additionalAddressLine1',
-            'additionalAddressLine2',
-            'countryId',
         ]);
 
         if (!empty($addresses)) {

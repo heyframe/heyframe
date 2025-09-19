@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Order;
 
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\Log\Package;
@@ -59,13 +58,6 @@ class OrderCollection extends EntityCollection
     {
         return new ChannelCollection(
             $this->fmap(fn (OrderEntity $order) => $order->getChannel())
-        );
-    }
-
-    public function getBillingAddress(): OrderAddressCollection
-    {
-        return new OrderAddressCollection(
-            $this->fmap(fn (OrderEntity $order) => $order->getAddresses())
         );
     }
 

@@ -801,25 +801,6 @@ class RecalculationServiceTest extends TestCase
         }
     }
 
-    private function addAddressToCustomer(
-        string $customerId,
-        string $firstName,
-        string $lastName,
-        string $street,
-        string $city,
-        string $zipcode
-    ): string {
-        $addressId = Uuid::randomHex();
-
-        $customer = [
-            'id' => $customerId,
-        ];
-
-        static::getContainer()->get('customer.repository')->upsert([$customer], $this->context);
-
-        return $addressId;
-    }
-
     private function createProduct(string $name, float $price): string
     {
         $productId = Uuid::randomHex();
@@ -859,40 +840,6 @@ class RecalculationServiceTest extends TestCase
                 [
                     'scope' => PromotionDiscountEntity::SCOPE_CART,
                     'type' => $type,
-                    'value' => $discountValue,
-                    'considerAdvancedRules' => false,
-                ],
-            ],
-        ];
-
-        if ($code) {
-            $data['name'] = $code;
-            $data['useCodes'] = true;
-            $data['code'] = $code;
-        }
-
-        static::getContainer()->get('promotion.repository')->create([$data], $this->context);
-
-        return $promotionId;
-    }
-
-    private function createShippingDiscount(float $discountValue, ?string $code = null): string
-    {
-        $promotionId = Uuid::randomHex();
-
-        $data = [
-            'id' => $promotionId,
-            'name' => 'delivery promotion',
-            'active' => true,
-            'useCodes' => false,
-            'useSetGroups' => false,
-            'channels' => [
-                ['channelId' => TestDefaults::CHANNEL, 'priority' => 1],
-            ],
-            'discounts' => [
-                [
-                    'scope' => PromotionDiscountEntity::SCOPE_DELIVERY,
-                    'type' => PromotionDiscountEntity::TYPE_PERCENTAGE,
                     'value' => $discountValue,
                     'considerAdvancedRules' => false,
                 ],
@@ -1274,55 +1221,6 @@ class RecalculationServiceTest extends TestCase
         $content = json_decode((string) $response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
 
         return [$order, $content];
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed without replacement
-     */
-    private function toggleAutomaticPromotions(string $orderId, string $versionId, string $promotionId, \DateTimeInterface $orderDateTime, string $stateId): void
-    {
-        $orderRepository = $this->orderRepository;
-
-        $data = [
-            'skipAutomaticPromotions' => false,
-        ];
-
-        // add promotion item to order
-        $this->getBrowser()->jsonRequest(
-            'POST',
-            \sprintf('/api/_action/order/%s/toggleAutomaticPromotions', $orderId),
-            $data,
-            [
-                'HTTP_' . PlatformRequest::HEADER_VERSION_ID => $versionId,
-            ],
-        );
-        $response = $this->getBrowser()->getResponse();
-
-        static::assertSame(Response::HTTP_OK, $response->getStatusCode(), (string) $response->getContent());
-
-        // read versioned order
-        $criteria = new Criteria([$orderId]);
-        $criteria->addAssociation('lineItems');
-        $order = $orderRepository->search($criteria, $this->context->createWithVersionId($versionId))->get($orderId);
-        static::assertNotEmpty($order);
-        static::assertNotNull($order->getLineItems());
-        static::assertCount(3, $order->getLineItems());
-        static::assertSame($order->getOrderDateTime()->format(Defaults::STORAGE_DATE_TIME_FORMAT), $orderDateTime->format(Defaults::STORAGE_DATE_TIME_FORMAT));
-
-        $promotionItem = $order->getLineItems()->filterByProperty('type', 'promotion')->first();
-
-        static::assertNotNull($promotionItem);
-        $payload = $promotionItem->getPayload();
-        static::assertNotNull($payload);
-
-        static::assertSame($payload['promotionId'], $promotionId);
-
-        $content = json_decode((string) $response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
-        static::assertCount(1, $content['errors']);
-
-        $errors = array_values($content['errors']);
-        static::assertSame($errors[0]['translatedMessage'], 'Discount "auto promotion" has been added');
-        static::assertSame($stateId, $order->getStateId());
     }
 
     private function createPaymentMethod(string $ruleId): string

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Customer;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressCollection;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
@@ -54,32 +53,6 @@ class CustomerCollection extends EntityCollection
         return $this->filter(fn (CustomerEntity $customer) => $customer->getLastPaymentMethodId() === $id);
     }
 
-    /**
-     * @return array<string>
-     */
-    public function getDefaultBillingAddressIds(): array
-    {
-        return $this->fmap(fn (CustomerEntity $customer) => $customer->getDefaultBillingAddressId());
-    }
-
-    public function filterByDefaultBillingAddressId(string $id): self
-    {
-        return $this->filter(fn (CustomerEntity $customer) => $customer->getDefaultBillingAddressId() === $id);
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function getDefaultShippingAddressIds(): array
-    {
-        return $this->fmap(fn (CustomerEntity $customer) => $customer->getDefaultShippingAddressId());
-    }
-
-    public function filterByDefaultShippingAddressId(string $id): self
-    {
-        return $this->filter(fn (CustomerEntity $customer) => $customer->getDefaultShippingAddressId() === $id);
-    }
-
     public function getGroups(): CustomerGroupCollection
     {
         return new CustomerGroupCollection(
@@ -99,33 +72,6 @@ class CustomerCollection extends EntityCollection
         return new PaymentMethodCollection(
             $this->fmap(fn (CustomerEntity $customer) => $customer->getLastPaymentMethod())
         );
-    }
-
-    public function getDefaultBillingAddress(): CustomerAddressCollection
-    {
-        return new CustomerAddressCollection(
-            $this->fmap(fn (CustomerEntity $customer) => $customer->getDefaultBillingAddress())
-        );
-    }
-
-    public function getDefaultShippingAddress(): CustomerAddressCollection
-    {
-        return new CustomerAddressCollection(
-            $this->fmap(fn (CustomerEntity $customer) => $customer->getDefaultShippingAddress())
-        );
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function getListVatIds(): array
-    {
-        return $this->fmap(fn (CustomerEntity $customer) => $customer->getVatIds());
-    }
-
-    public function filterByVatId(string $id): self
-    {
-        return $this->filter(fn (CustomerEntity $customer) => \in_array($id, $customer->getVatIds() ?? [], true));
     }
 
     public function getApiAlias(): string

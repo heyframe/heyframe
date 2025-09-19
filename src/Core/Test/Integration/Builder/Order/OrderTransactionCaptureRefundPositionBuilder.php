@@ -3,8 +3,6 @@
 namespace HeyFrame\Core\Test\Integration\Builder\Order;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Content\Test\Product\ProductBuilder;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
@@ -44,8 +42,6 @@ class OrderTransactionCaptureRefundPositionBuilder
                 ->add('price', new CalculatedPrice(
                     420.69,
                     420.69,
-                    new CalculatedTaxCollection(),
-                    new TaxRuleCollection()
                 ))
                 ->build());
         }
@@ -53,7 +49,7 @@ class OrderTransactionCaptureRefundPositionBuilder
 
     public function amount(float $amount): self
     {
-        $this->amount = new CalculatedPrice($amount, $amount, new CalculatedTaxCollection(), new TaxRuleCollection());
+        $this->amount = new CalculatedPrice($amount, $amount);
 
         return $this;
     }

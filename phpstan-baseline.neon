@@ -7,12 +7,6 @@ parameters:
 			path: src/Core/Checkout/Customer/Validation/Constraint/CustomerVatIdentificationValidator.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Content/Cms/Subscriber/CmsPageDefaultChangeSubscriber.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Content\\Flow\\Dispatching\\FlowBuilder\:\:build\(\) has parameter \$flowSequences with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -517,42 +511,6 @@ parameters:
 			path: src/Core/Content/LandingPage/LandingPageEntity.php
 
 		-
-			message: '#^Method HeyFrame\\Core\\Content\\MailTemplate\\Aggregate\\MailTemplateType\\MailTemplateTypeEntity\:\:getAvailableEntities\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Content/MailTemplate/Aggregate/MailTemplateType/MailTemplateTypeEntity.php
-
-		-
-			message: '#^Method HeyFrame\\Core\\Content\\MailTemplate\\Aggregate\\MailTemplateType\\MailTemplateTypeEntity\:\:getTemplateData\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Content/MailTemplate/Aggregate/MailTemplateType/MailTemplateTypeEntity.php
-
-		-
-			message: '#^Method HeyFrame\\Core\\Content\\MailTemplate\\Aggregate\\MailTemplateType\\MailTemplateTypeEntity\:\:setAvailableEntities\(\) has parameter \$availableEntities with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Content/MailTemplate/Aggregate/MailTemplateType/MailTemplateTypeEntity.php
-
-		-
-			message: '#^Method HeyFrame\\Core\\Content\\MailTemplate\\Aggregate\\MailTemplateType\\MailTemplateTypeEntity\:\:setTemplateData\(\) has parameter \$templateData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Content/MailTemplate/Aggregate/MailTemplateType/MailTemplateTypeEntity.php
-
-		-
-			message: '#^Property HeyFrame\\Core\\Content\\MailTemplate\\Aggregate\\MailTemplateType\\MailTemplateTypeEntity\:\:\$availableEntities type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Content/MailTemplate/Aggregate/MailTemplateType/MailTemplateTypeEntity.php
-
-		-
-			message: '#^Property HeyFrame\\Core\\Content\\MailTemplate\\Aggregate\\MailTemplateType\\MailTemplateTypeEntity\:\:\$templateData type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Content/MailTemplate/Aggregate/MailTemplateType/MailTemplateTypeEntity.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Content\\Media\\Event\\MediaFolderConfigurationIndexerEvent\:\:__construct\(\) has parameter \$ids with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -717,12 +675,6 @@ parameters:
 		-
 			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
 			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Content/ProductExport/ScheduledTask/ProductExportPartialGenerationHandler.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
 			count: 2
 			path: src/Core/Content/ProductStream/Service/ProductStreamBuilder.php
 
@@ -853,12 +805,6 @@ parameters:
 			path: src/Core/Content/Sitemap/Service/SitemapHandleInterface.php
 
 		-
-			message: '#^Unsafe access to private property HeyFrame\\Core\\Content\\Test\\Category\\Service\\CountingEntitySearcher\:\:\$count through static\:\:\.$#'
-			identifier: staticClassAccess.privateProperty
-			count: 3
-			path: src/Core/Content/Test/Category/Service/CountingEntitySearcher.php
-
-		-
 			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
 			identifier: heyframe.domainException
 			count: 2
@@ -964,19 +910,7 @@ parameters:
 			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
 			identifier: heyframe.domainException
 			count: 1
-			path: src/Core/Framework/App/Api/AppUrlChangeController.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
 			path: src/Core/Framework/App/AppLocaleProvider.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/App/AppUrlChangeResolver/Resolver.php
 
 		-
 			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
@@ -1679,12 +1613,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Framework/DataAbstractionLayer/Write/WriteException.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/Demodata/Command/DemodataCommand.php
 
 		-
 			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
@@ -2527,18 +2455,6 @@ parameters:
 			path: src/Core/System/SystemConfig/SystemConfigService.php
 
 		-
-			message: '#^Method HeyFrame\\Core\\System\\Unit\\Aggregate\\UnitTranslation\\UnitTranslationCollection\:\:getLanguageIds\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/System/Unit/Aggregate/UnitTranslation/UnitTranslationCollection.php
-
-		-
-			message: '#^Method HeyFrame\\Core\\System\\Unit\\Aggregate\\UnitTranslation\\UnitTranslationCollection\:\:getUnitIds\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/System/Unit/Aggregate/UnitTranslation/UnitTranslationCollection.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\System\\User\\Aggregate\\UserAccessKey\\UserAccessKeyCollection\:\:getUserIds\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -2555,24 +2471,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/System/User/UserCollection.php
-
-		-
-			message: '#^Method HeyFrame\\Core\\Test\\Integration\\Helper\\MailEventListener\:\:__construct\(\) has parameter \$mapping with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Test/Integration/Helper/MailEventListener.php
-
-		-
-			message: '#^Method HeyFrame\\Core\\Test\\Integration\\Helper\\MailEventListener\:\:get\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Test/Integration/Helper/MailEventListener.php
-
-		-
-			message: '#^Property HeyFrame\\Core\\Test\\Integration\\Helper\\MailEventListener\:\:\$events type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Core/Test/Integration/Helper/MailEventListener.php
 
 		-
 			message: '#^Method HeyFrame\\Elasticsearch\\DependencyInjection\\ElasticsearchExtension\:\:addConfig\(\) has parameter \$options with no value type specified in iterable type array\.$#'
@@ -2621,183 +2519,3 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Elasticsearch/Framework/Indexing/IndexingDto.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\DependencyInjection\\FrontendExtension\:\:addConfig\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/DependencyInjection/FrontendExtension.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\DependencyInjection\\FrontendExtension\:\:registerThemeServiceAliases\(\) has parameter \$theme with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/DependencyInjection/FrontendExtension.php
-
-		-
-			message: '#^Mixed variable in a `\$session\-\>getFlashBag\(\)\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
-			identifier: typePerfect.noMixedMethodCaller
-			count: 1
-			path: src/Frontend/Event/CartMergedSubscriber.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Framework/Media/FrontendMediaValidatorRegistry.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Framework/Routing/RequestTransformer.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Framework/Seo/SeoUrlRoute/LandingPageSeoUrlRoute.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Framework/Seo/SeoUrlRoute/NavigationPageSeoUrlRoute.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Page\\Address\\AddressEditorModalStruct\:\:getMessages\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Page/Address/AddressEditorModalStruct.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Page\\Address\\AddressEditorModalStruct\:\:setMessages\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Page/Address/AddressEditorModalStruct.php
-
-		-
-			message: '#^Property HeyFrame\\Frontend\\Page\\Address\\AddressEditorModalStruct\:\:\$messages type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Page/Address/AddressEditorModalStruct.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Frontend/Page/Maintenance/MaintenancePageLoader.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Page/Navigation/Error/ErrorPageLoader.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Theme/Command/ThemeCreateCommand.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Theme/ConfigLoader/StaticFileAvailableThemeProvider.php
-
-		-
-			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/Frontend/Theme/ConfigLoader/StaticFileConfigLoader.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\ConfigLoader\\StaticFileConfigLoader\:\:prepareCollections\(\) has parameter \$fileObject with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/ConfigLoader/StaticFileConfigLoader.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\ConfigLoader\\StaticFileConfigLoader\:\:prepareCollections\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/ConfigLoader/StaticFileConfigLoader.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Theme/ConfigLoader/StaticFileConfigLoader.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Event\\ThemeConfigChangedEvent\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Event/ThemeConfigChangedEvent.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Event\\ThemeConfigChangedEvent\:\:getConfig\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Event/ThemeConfigChangedEvent.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Event\\ThemeIndexerEvent\:\:__construct\(\) has parameter \$ids with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Event/ThemeIndexerEvent.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Event\\ThemeIndexerEvent\:\:__construct\(\) has parameter \$skip with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Event/ThemeIndexerEvent.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Event\\ThemeIndexerEvent\:\:getIds\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Event/ThemeIndexerEvent.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\Event\\ThemeIndexerEvent\:\:getSkip\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/Event/ThemeIndexerEvent.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 4
-			path: src/Frontend/Theme/FrontendPluginConfiguration/FrontendPluginConfigurationFactory.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Theme/Subscriber/FirstRunWizardSubscriber.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Theme/Subscriber/PluginLifecycleSubscriber.php
-
-		-
-			message: '#^Method HeyFrame\\Frontend\\Theme\\ThemeConfigFieldFactory\:\:create\(\) has parameter \$configFieldArray with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Frontend/Theme/ThemeConfigFieldFactory.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Theme/ThemeConfigFieldFactory.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\. Please use domain exception pattern\. See https\://github\.com/heyframe/platform/blob/v6\.4\.20\.0/adr/2022\-02\-24\-domain\-exceptions\.md$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Frontend/Theme/ThemeFileResolver.php

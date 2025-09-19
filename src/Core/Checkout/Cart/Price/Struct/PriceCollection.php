@@ -2,9 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Cart\Price\Struct;
 
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRule;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Collection;
 use HeyFrame\Core\Framework\Util\FloatComparator;
@@ -26,54 +23,12 @@ class PriceCollection extends Collection
         return null;
     }
 
-    public function getTaxRules(): TaxRuleCollection
-    {
-        $rules = new TaxRuleCollection([]);
-
-        foreach ($this->getIterator() as $price) {
-            // logic from "rules->merge". But "merge" will create a new object each time
-            foreach ($price->getTaxRules() as $taxRule) {
-                if (!$rules->exists($taxRule)) {
-                    $rules->add($taxRule);
-                }
-            }
-        }
-
-        return $rules;
-    }
-
     public function sum(): CalculatedPrice
     {
         return new CalculatedPrice(
             $this->getUnitPriceAmount(),
             $this->getTotalPriceAmount(),
-            $this->getCalculatedTaxes(),
-            $this->getTaxRules()
         );
-    }
-
-    public function getCalculatedTaxes(): CalculatedTaxCollection
-    {
-        $taxes = new CalculatedTaxCollection([]);
-
-        foreach ($this->getIterator() as $price) {
-            $taxes->merge($price->getCalculatedTaxes());
-        }
-
-        return $taxes;
-    }
-
-    public function getHighestTaxRule(): TaxRuleCollection
-    {
-        $rules = new TaxRuleCollection();
-
-        $highestRate = $this->getTaxRules()->highestRate();
-
-        if ($highestRate !== null) {
-            $rules->add(new TaxRule($highestRate->getTaxRate(), 100));
-        }
-
-        return $rules;
     }
 
     public function merge(self $prices): self

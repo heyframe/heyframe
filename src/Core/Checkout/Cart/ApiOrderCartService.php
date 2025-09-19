@@ -3,10 +3,7 @@
 namespace HeyFrame\Core\Checkout\Cart;
 
 use HeyFrame\Core\Checkout\Cart\Channel\CartService;
-use HeyFrame\Core\Checkout\Cart\Delivery\DeliveryProcessor;
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\Context\ChannelContextPersister;
 use HeyFrame\Core\System\Channel\Context\ChannelContextService;
 
@@ -20,15 +17,6 @@ class ApiOrderCartService
         protected CartService $cartService,
         protected ChannelContextPersister $contextPersister
     ) {
-    }
-
-    public function updateShippingCosts(CalculatedPrice $calculatedPrice, ChannelContext $context): Cart
-    {
-        $cart = $this->cartService->getCart($context->getToken(), $context);
-
-        $cart->addExtension(DeliveryProcessor::MANUAL_SHIPPING_COSTS, $calculatedPrice);
-
-        return $this->cartService->recalculate($cart, $context);
     }
 
     public function addPermission(string $token, string $permission, string $channelId): void

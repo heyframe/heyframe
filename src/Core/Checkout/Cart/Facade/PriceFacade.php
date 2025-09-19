@@ -8,8 +8,6 @@ use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceCollection as CalculatedPriceCollection;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\Price;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
@@ -78,26 +76,6 @@ class PriceFacade
     }
 
     /**
-     * `getTaxes()` returns the calculated taxes of the price.
-     *
-     * @return CalculatedTaxCollection Returns the calculated taxes.
-     */
-    public function getTaxes(): CalculatedTaxCollection
-    {
-        return $this->price->getCalculatedTaxes();
-    }
-
-    /**
-     * `getRules()` returns the tax rules that were used to calculate the price.
-     *
-     * @return TaxRuleCollection Returns the tax rules.
-     */
-    public function getRules(): TaxRuleCollection
-    {
-        return $this->price->getTaxRules();
-    }
-
-    /**
      * `change()` allows a price overwrite of the current price scope. The provided price will be recalculated
      * over the quantity price calculator to consider quantity, tax rule and cash rounding configurations.
      *
@@ -111,7 +89,6 @@ class PriceFacade
 
         $definition = new QuantityPriceDefinition(
             $value,
-            $this->price->getTaxRules(),
             $this->getQuantity()
         );
 
@@ -133,7 +110,6 @@ class PriceFacade
 
         $definition = new QuantityPriceDefinition(
             $this->price->getUnitPrice() + abs($value),
-            $this->price->getTaxRules(),
             $this->getQuantity()
         );
 
@@ -155,7 +131,6 @@ class PriceFacade
 
         $definition = new QuantityPriceDefinition(
             $this->price->getUnitPrice() - abs($value),
-            $this->price->getTaxRules(),
             $this->getQuantity()
         );
 
@@ -172,7 +147,7 @@ class PriceFacade
      */
     public function discount(float $value): void
     {
-        $definition = new QuantityPriceDefinition($this->price->getUnitPrice(), $this->price->getTaxRules());
+        $definition = new QuantityPriceDefinition($this->price->getUnitPrice());
         $definition->setIsCalculated(true);
 
         $unit = $this->priceStubs->calculateQuantity($definition, $this->context);
@@ -181,7 +156,6 @@ class PriceFacade
 
         $definition = new QuantityPriceDefinition(
             $this->price->getUnitPrice() - $discount->getUnitPrice(),
-            $this->price->getTaxRules(),
             $this->getQuantity()
         );
 
@@ -198,7 +172,7 @@ class PriceFacade
      */
     public function surcharge(float $value): void
     {
-        $definition = new QuantityPriceDefinition($this->price->getUnitPrice(), $this->price->getTaxRules());
+        $definition = new QuantityPriceDefinition($this->price->getUnitPrice());
         $definition->setIsCalculated(true);
 
         $unit = $this->priceStubs->calculateQuantity($definition, $this->context);
@@ -207,7 +181,6 @@ class PriceFacade
 
         $definition = new QuantityPriceDefinition(
             $this->price->getUnitPrice() + $discount->getUnitPrice(),
-            $this->price->getTaxRules(),
             $this->getQuantity()
         );
 
@@ -238,7 +211,6 @@ class PriceFacade
         $this->price->overwrite(
             $new->getUnitPrice(),
             $new->getTotalPrice(),
-            $new->getCalculatedTaxes(),
         );
     }
 }

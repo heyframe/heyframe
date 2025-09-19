@@ -11,5 +11,12 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <tag name="kernel.event_subscriber"/>
         </service>
+
+         <service id="HeyFrame\Frontend\Framework\Seo\SeoUrlRoute\NavigationPageSeoUrlRoute">
+            <argument type="service" id="HeyFrame\Core\Content\Category\CategoryDefinition"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\Service\CategoryBreadcrumbBuilder"/>
+
+            <tag name="heyframe.seo_url.route"/>
+        </service>
     </services>
 </container>

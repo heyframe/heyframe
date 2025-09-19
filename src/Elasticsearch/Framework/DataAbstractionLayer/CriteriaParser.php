@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Elasticsearch\Framework\DataAbstractionLayer;
 
-use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Adapter\Storage\AbstractKeyValueStorage;
 use HeyFrame\Core\Framework\Context;
@@ -110,15 +109,6 @@ class CriteriaParser
             return implode('.', $parts);
         }
 
-        if (\in_array(end($parts), ['net', 'gross'], true)) {
-            $taxState = end($parts);
-            array_pop($parts);
-        } elseif ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            $taxState = 'gross';
-        } else {
-            $taxState = 'net';
-        }
-
         $currencyId = $context->getCurrencyId();
         if (Uuid::isValid((string) end($parts))) {
             $currencyId = end($parts);
@@ -126,7 +116,7 @@ class CriteriaParser
         }
 
         $parts[] = 'c_' . $currencyId;
-        $parts[] = $taxState;
+        $parts[] = 'gross';
 
         return implode('.', $parts);
     }
@@ -430,22 +420,14 @@ class CriteriaParser
         return [
             'accessors' => $this->getCheapestPriceAccessors($context),
             'decimals' => 10 ** $context->getRounding()->getDecimals(),
-            'round' => $this->useCashRounding($context),
+            'round' => $this->useCashRounding(),
             'multiplier' => 100 / ($context->getRounding()->getInterval() * 100),
         ];
     }
 
-    private function useCashRounding(Context $context): bool
+    private function useCashRounding(): bool
     {
-        if ($context->getRounding()->getDecimals() !== 2) {
-            return false;
-        }
-
-        if ($context->getTaxState() === CartPrice::TAX_STATE_GROSS) {
-            return true;
-        }
-
-        return $context->getRounding()->roundForNet();
+        return true;
     }
 
     /**
@@ -455,8 +437,6 @@ class CriteriaParser
     {
         $accessors = [];
 
-        $tax = $context->getTaxState() === CartPrice::TAX_STATE_GROSS ? 'gross' : 'net';
-
         $ruleIds = array_merge($context->getRuleIds(), ['default']);
 
         foreach ($ruleIds as $ruleId) {
@@ -464,7 +444,7 @@ class CriteriaParser
                 'cheapest_price',
                 'rule' . $ruleId,
                 'currency' . $context->getCurrencyId(),
-                $tax,
+                'gross',
             ]);
 
             if ($percentage) {
@@ -481,7 +461,7 @@ class CriteriaParser
                 'cheapest_price',
                 'rule' . $ruleId,
                 'currency' . Defaults::CURRENCY,
-                $tax,
+                'gross',
             ]);
 
             if ($percentage) {

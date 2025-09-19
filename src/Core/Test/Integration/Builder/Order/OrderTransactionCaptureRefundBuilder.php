@@ -3,8 +3,6 @@
 namespace HeyFrame\Core\Test\Integration\Builder\Order;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefund\OrderTransactionCaptureRefundStates;
 use HeyFrame\Core\Content\Test\Product\ProductBuilder;
 use HeyFrame\Core\Framework\Log\Package;
@@ -55,7 +53,7 @@ class OrderTransactionCaptureRefundBuilder
 
     public function amount(float $amount): self
     {
-        $this->amount = new CalculatedPrice($amount, $amount, new CalculatedTaxCollection(), new TaxRuleCollection());
+        $this->amount = new CalculatedPrice($amount, $amount);
 
         return $this;
     }
@@ -70,8 +68,6 @@ class OrderTransactionCaptureRefundBuilder
                 $customParams['amount'] = new CalculatedPrice(
                     $customParams['amount'],
                     $customParams['amount'],
-                    new CalculatedTaxCollection(),
-                    new TaxRuleCollection()
                 );
             }
         }
@@ -87,8 +83,6 @@ class OrderTransactionCaptureRefundBuilder
             $lineItem['orderLineItem']['price'] = new CalculatedPrice(
                 420.69,
                 420.69,
-                new CalculatedTaxCollection(),
-                new TaxRuleCollection()
             );
         }
 
@@ -113,8 +107,6 @@ class OrderTransactionCaptureRefundBuilder
             'amount' => new CalculatedPrice(
                 420.69,
                 420.69,
-                new CalculatedTaxCollection(),
-                new TaxRuleCollection()
             ),
             'externalReference' => null,
         ], $customParams, $lineItem);

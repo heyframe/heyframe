@@ -3,8 +3,6 @@
 namespace HeyFrame\Core\Test\Integration\Builder\Order;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCapture\OrderTransactionCaptureStates;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefund\OrderTransactionCaptureRefundStates;
 use HeyFrame\Core\Framework\Log\Package;
@@ -51,7 +49,7 @@ class OrderTransactionCaptureBuilder
 
     public function amount(float $amount): self
     {
-        $this->amount = new CalculatedPrice($amount, $amount, new CalculatedTaxCollection(), new TaxRuleCollection());
+        $this->amount = new CalculatedPrice($amount, $amount);
 
         return $this;
     }
@@ -73,8 +71,6 @@ class OrderTransactionCaptureBuilder
             'amount' => new CalculatedPrice(
                 420.69,
                 420.69,
-                new CalculatedTaxCollection(),
-                new TaxRuleCollection()
             ),
         ], $customParams);
 

@@ -4,8 +4,6 @@ namespace HeyFrame\Elasticsearch\Admin\Indexer;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Checkout\Document\DocumentDefinition;
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTag\OrderTagDefinition;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
@@ -61,22 +59,6 @@ final class OrderAdminSearchIndexer extends AbstractAdminIndexer
         $ids = $event->getPrimaryKeysWithPropertyChange(OrderDefinition::ENTITY_NAME, [
             'orderNumber',
             'amountTotal',
-        ]);
-
-        $addresses = $event->getPrimaryKeysWithPropertyChange(OrderAddressDefinition::ENTITY_NAME, [
-            'city',
-            'street',
-            'zipcode',
-            'phoneNumber',
-            'additionalAddressLine1',
-            'additionalAddressLine2',
-            'countryId',
-            'orderId',
-        ]);
-
-        $orderDocuments = $event->getPrimaryKeysWithPropertyChange(DocumentDefinition::ENTITY_NAME, [
-            'config',
-            'orderId',
         ]);
 
         if (!empty($addresses) || !empty($orderDocuments)) {

@@ -107,8 +107,6 @@ class SetPaymentOrderRoute extends AbstractSetPaymentOrderRoute
         $transactionAmount = new CalculatedPrice(
             $order->getPrice()->getTotalPrice(),
             $order->getPrice()->getTotalPrice(),
-            $order->getPrice()->getCalculatedTaxes(),
-            $order->getPrice()->getTaxRules()
         );
 
         $transactionId = Uuid::randomHex();

@@ -10,7 +10,6 @@ use HeyFrame\Core\Framework\Event\ChannelAware;
 use HeyFrame\Core\Framework\Event\CustomerAware;
 use HeyFrame\Core\Framework\Event\EventData\EntityType;
 use HeyFrame\Core\Framework\Event\EventData\EventDataCollection;
-use HeyFrame\Core\Framework\Event\EventData\MailRecipientStruct;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\Log\Package;
@@ -19,8 +18,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 #[Package('checkout')]
 class OrderStateMachineStateChangeEvent extends Event implements ChannelAware, OrderAware, CustomerAware, FlowEventAware
 {
-    private ?MailRecipientStruct $mailRecipientStruct = null;
-
     public function __construct(
         private readonly string $name,
         private readonly OrderEntity $order,

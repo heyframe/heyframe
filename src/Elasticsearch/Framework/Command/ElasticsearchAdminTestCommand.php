@@ -7,11 +7,9 @@ use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
 use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
-use HeyFrame\Core\Checkout\Shipping\ShippingMethodDefinition;
 use HeyFrame\Core\Content\Cms\CmsPageDefinition;
 use HeyFrame\Core\Content\LandingPage\LandingPageDefinition;
 use HeyFrame\Core\Content\Media\MediaDefinition;
-use HeyFrame\Core\Content\Product\Aggregate\ProductManufacturer\ProductManufacturerDefinition;
 use HeyFrame\Core\Content\Product\ProductDefinition;
 use HeyFrame\Core\Content\Property\PropertyGroupDefinition;
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
@@ -64,7 +62,6 @@ final class ElasticsearchAdminTestCommand extends Command
             CustomerDefinition::ENTITY_NAME,
             CustomerGroupDefinition::ENTITY_NAME,
             LandingPageDefinition::ENTITY_NAME,
-            ProductManufacturerDefinition::ENTITY_NAME,
             MediaDefinition::ENTITY_NAME,
             OrderDefinition::ENTITY_NAME,
             PaymentMethodDefinition::ENTITY_NAME,
@@ -72,7 +69,6 @@ final class ElasticsearchAdminTestCommand extends Command
             PromotionDefinition::ENTITY_NAME,
             PropertyGroupDefinition::ENTITY_NAME,
             ChannelDefinition::ENTITY_NAME,
-            ShippingMethodDefinition::ENTITY_NAME,
         ];
 
         $result = $this->searcher->search($term, $entities, Context::createCLIContext());

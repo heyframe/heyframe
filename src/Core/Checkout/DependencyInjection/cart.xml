@@ -202,23 +202,6 @@
             <tag name="heyframe.checkout.gateway.command"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\AddShippingMethodCommandHandler">
-            <argument type="service" id="payment_method.repository"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
-
-            <tag name="heyframe.checkout.gateway.command"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\AddShippingMethodExtensionsCommandHandler">
-            <argument type="service" id="HeyFrame\Core\Framework\Log\ExceptionLogger"/>
-
-            <tag name="heyframe.checkout.gateway.command"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Gateway\Command\Handler\RemoveShippingMethodCommandHandler">
-            <tag name="heyframe.checkout.gateway.command"/>
-        </service>
-
         <!-- ==================================================================================================================== -->
 
         <service id="HeyFrame\Core\Checkout\Cart\PriceActionController" public="true">
@@ -302,7 +285,6 @@
             <argument type="service" id="logger"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\RuleLoader"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartFactory"/>
             <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Translation\Translator"/>

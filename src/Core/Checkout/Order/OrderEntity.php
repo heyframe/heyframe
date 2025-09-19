@@ -486,16 +486,6 @@ class OrderEntity extends Entity
         $this->totalRounding = $totalRounding;
     }
 
-    public function getBillingAddressVersionId(): string
-    {
-        return $this->billingAddressVersionId;
-    }
-
-    public function setBillingAddressVersionId(string $billingAddressVersionId): void
-    {
-        $this->billingAddressVersionId = $billingAddressVersionId;
-    }
-
     public function getPrimaryOrderDeliveryVersionId(): ?string
     {
         return $this->primaryOrderDeliveryVersionId;

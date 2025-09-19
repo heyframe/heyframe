@@ -7,7 +7,7 @@ use HeyFrame\Core\Checkout\Customer\CustomerEntity;
 use HeyFrame\Core\Framework\Log\Package;
 
 /**
- * @phpstan-type TransformedCustomerArray array{customerId: string, email: string, firstName: string, lastName: string, salutationId: string|null, title: string|null, vatIds: array<string>|null, customerNumber: string, remoteAddress: string|null, customFields: array<string, mixed>|null}
+ * @phpstan-type TransformedCustomerArray array{customerId: string, email: string, nickname: string, name: string|null, customerNumber: string, remoteAddress: string|null, customFields: array<string, mixed>|null}
  */
 #[Package('checkout')]
 class CustomerTransformer

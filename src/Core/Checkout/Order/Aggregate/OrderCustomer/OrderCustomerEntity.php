@@ -23,9 +23,6 @@ class OrderCustomerEntity extends Entity
 
     protected string $nickname;
 
-    /**
-     * @var list<string>|null
-     */
     protected ?string $customerNumber = null;
 
     protected ?string $customerId = null;
@@ -108,16 +105,6 @@ class OrderCustomerEntity extends Entity
         $this->order = $order;
     }
 
-    public function getSalutation(): ?SalutationEntity
-    {
-        return $this->salutation;
-    }
-
-    public function setSalutation(SalutationEntity $salutation): void
-    {
-        $this->salutation = $salutation;
-    }
-
     public function getOrderId(): string
     {
         return $this->orderId;
@@ -126,16 +113,6 @@ class OrderCustomerEntity extends Entity
     public function setOrderId(string $orderId): void
     {
         $this->orderId = $orderId;
-    }
-
-    public function getCompany(): ?string
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?string $company): void
-    {
-        $this->company = $company;
     }
 
     public function getRemoteAddress(): ?string

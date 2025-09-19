@@ -14,7 +14,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelEntity;
 use HeyFrame\Core\System\Language\LanguageEntity;
 use HeyFrame\Core\System\User\UserEntity;
-use HeyWallet\Checkout\Wallet\WalletEntity;
 
 #[Package('checkout')]
 class CustomerEntity extends Entity implements \Stringable
@@ -63,6 +62,8 @@ class CustomerEntity extends Entity implements \Stringable
 
     protected float $orderTotalAmount;
 
+    protected int $reviewCount;
+
     /**
      * @internal
      */
@@ -107,8 +108,6 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?string $updatedById = null;
 
     protected ?UserEntity $updatedBy = null;
-
-    protected WalletEntity $wallet;
 
     public function __toString(): string
     {
@@ -271,6 +270,16 @@ class CustomerEntity extends Entity implements \Stringable
     public function setOrderTotalAmount(float $orderTotalAmount): void
     {
         $this->orderTotalAmount = $orderTotalAmount;
+    }
+
+    public function getReviewCount(): int
+    {
+        return $this->reviewCount;
+    }
+
+    public function setReviewCount(int $reviewCount): void
+    {
+        $this->reviewCount = $reviewCount;
     }
 
     /**
@@ -526,15 +535,5 @@ class CustomerEntity extends Entity implements \Stringable
     public function setAvatarMedia(?MediaEntity $avatarMedia): void
     {
         $this->avatarMedia = $avatarMedia;
-    }
-
-    public function getWallet(): WalletEntity
-    {
-        return $this->wallet;
-    }
-
-    public function setWallet(WalletEntity $wallet): void
-    {
-        $this->wallet = $wallet;
     }
 }

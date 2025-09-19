@@ -70,13 +70,11 @@ trait SurchargeTrait
 
         foreach ($value as $price) {
             $price->setGross(\abs($price->getGross()));
-            $price->setNet(\abs($price->getNet()));
 
             if (!$price->getListPrice()) {
                 continue;
             }
             $price->getListPrice()->setGross(\abs($price->getListPrice()->getGross()));
-            $price->getListPrice()->setNet(\abs($price->getListPrice()->getNet()));
         }
 
         return new CurrencyPriceDefinition($value);

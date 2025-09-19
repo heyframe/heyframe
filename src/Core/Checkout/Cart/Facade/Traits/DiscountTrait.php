@@ -73,13 +73,11 @@ trait DiscountTrait
 
         foreach ($value as $price) {
             $price->setGross(\abs($price->getGross()) * -1);
-            $price->setNet(\abs($price->getNet()) * -1);
 
             if (!$price->getListPrice()) {
                 continue;
             }
             $price->getListPrice()->setGross(\abs($price->getListPrice()->getGross()) * -1);
-            $price->getListPrice()->setNet(\abs($price->getListPrice()->getNet()) * -1);
         }
 
         return new CurrencyPriceDefinition($value);

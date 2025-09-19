@@ -70,7 +70,7 @@ class ScriptPriceStubs implements ResetInterface
 
         foreach ($price as $id => $value) {
             $collection->add(
-                new Price($id, $value['net'], $value['gross'], $value['linked'] ?? false)
+                new Price($id, $value['gross'])
             );
         }
 

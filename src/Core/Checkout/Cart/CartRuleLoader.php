@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Cart;
 
-use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Cart\Error\ErrorCollection;
 use HeyFrame\Core\Checkout\Cart\Exception\CartTokenNotFoundException;
 use HeyFrame\Core\Checkout\Cart\Extension\CheckoutCartRuleLoaderExtension;
@@ -15,7 +14,6 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Profiling\Profiler;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Psr\Log\LoggerInterface;
@@ -30,11 +28,6 @@ class CartRuleLoader implements ResetInterface
     private ?RuleCollection $rules = null;
 
     /**
-     * @var array<string, float>
-     */
-    private array $currencyFactor = [];
-
-    /**
      * @internal
      */
     public function __construct(
@@ -43,7 +36,6 @@ class CartRuleLoader implements ResetInterface
         private readonly LoggerInterface $logger,
         private readonly CacheInterface $cache,
         private readonly AbstractRuleLoader $ruleLoader,
-        private readonly Connection $connection,
         private readonly CartFactory $cartFactory,
         private readonly ExtensionDispatcher $extensions,
         private readonly AbstractTranslator $translator,
@@ -227,33 +219,6 @@ class CartRuleLoader implements ResetInterface
         }
 
         return \count($timestamps) !== $cart->getLineItems()->count();
-    }
-
-    private function fetchCurrencyFactor(string $currencyId, ChannelContext $context): float
-    {
-        if ($currencyId === Defaults::CURRENCY) {
-            return 1;
-        }
-
-        $currency = $context->getCurrency();
-        if ($currencyId === $currency->getId()) {
-            return $currency->getFactor();
-        }
-
-        if (\array_key_exists($currencyId, $this->currencyFactor)) {
-            return $this->currencyFactor[$currencyId];
-        }
-
-        $currencyFactor = $this->connection->fetchOne(
-            'SELECT `factor` FROM `currency` WHERE `id` = :currencyId',
-            ['currencyId' => Uuid::fromHexToBytes($currencyId)]
-        );
-
-        if (!$currencyFactor) {
-            throw CartException::currencyCannotBeFound();
-        }
-
-        return $this->currencyFactor[$currencyId] = (float) $currencyFactor;
     }
 
     private function translateCartErrors(ErrorCollection $errorCollection, ChannelContext $context): void

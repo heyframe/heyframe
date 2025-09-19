@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 class CustomerProfileValidationFactory implements DataValidationFactoryInterface
 {
     /**
-     * @param string[] $accountTypes
-     *
      * @internal
      */
     public function __construct(

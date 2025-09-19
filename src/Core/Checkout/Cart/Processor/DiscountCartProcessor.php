@@ -57,7 +57,6 @@ class DiscountCartProcessor implements CartProcessorInterface
             }
 
             $item->setPrice($price);
-            $item->setShippingCostAware(false);
 
             $toCalculate->add($item);
         }

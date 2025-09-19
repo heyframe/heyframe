@@ -78,6 +78,11 @@ class LineItem extends Struct
     protected bool $modifiedByApp = false;
 
     /**
+     * @var array<int, string>
+     */
+    protected array $states = [];
+
+    /**
      * @var array<string, bool>
      */
     private array $payloadProtection = [];
@@ -491,6 +496,29 @@ class LineItem extends Struct
     public function getUniqueIdentifier(): string
     {
         return $this->uniqueIdentifier;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function getStates(): array
+    {
+        return $this->states;
+    }
+
+    /**
+     * @param array<int, string> $states
+     */
+    public function setStates(array $states): LineItem
+    {
+        $this->states = $states;
+
+        return $this;
+    }
+
+    public function hasState(string $state): bool
+    {
+        return \in_array($state, $this->states, true);
     }
 
     public function markUnModifiedByApp(): void

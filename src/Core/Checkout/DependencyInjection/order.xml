@@ -80,7 +80,6 @@
         <!-- controller -->
         <service id="HeyFrame\Core\Checkout\Order\Api\OrderActionController" public="true">
             <argument type="service" id="HeyFrame\Core\Checkout\Order\Channel\OrderService" />
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Payment\Cart\PaymentRefundProcessor"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>

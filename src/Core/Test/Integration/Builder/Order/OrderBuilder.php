@@ -4,8 +4,6 @@ namespace HeyFrame\Core\Test\Integration\Builder\Order;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection;
-use HeyFrame\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
@@ -88,9 +86,6 @@ class OrderBuilder
             $amount,
             $amount,
             $amount,
-            new CalculatedTaxCollection(),
-            new TaxRuleCollection(),
-            CartPrice::TAX_STATE_FREE
         );
 
         return $this;
@@ -101,8 +96,6 @@ class OrderBuilder
         $this->shippingCosts = new CalculatedPrice(
             $amount,
             $amount,
-            new CalculatedTaxCollection(),
-            new TaxRuleCollection()
         );
 
         return $this;
@@ -118,8 +111,6 @@ class OrderBuilder
                 $customParams['amount'] = new CalculatedPrice(
                     $customParams['amount'],
                     $customParams['amount'],
-                    new CalculatedTaxCollection(),
-                    new TaxRuleCollection()
                 );
             }
         }
@@ -131,8 +122,6 @@ class OrderBuilder
             'amount' => new CalculatedPrice(
                 420.69,
                 420.69,
-                new CalculatedTaxCollection(),
-                new TaxRuleCollection()
             ),
             'stateId' => $this->getStateMachineState(
                 OrderTransactionStates::STATE_MACHINE,
@@ -145,29 +134,7 @@ class OrderBuilder
         return $this;
     }
 
-    /**
-     * @param array<mixed> $customParams
-     */
-    public function addAddress(string $key, array $customParams = []): self
-    {
-        $address = \array_replace([
-            'firstName' => 'Max',
-            'lastName' => 'Mustermann',
-            'city' => 'Bielefeld',
-            'street' => 'Buchenweg 5',
-            'zipcode' => '33062',
-            'country' => [
-                'id' => $this->ids->get($key),
-                'name' => 'Germany',
-            ],
-        ], $customParams);
-
-        $this->addresses[$key] = $address;
-
-        return $this;
-    }
-
-    public function orderCustomer(string $firstName, string $customerNumber): self
+    public function orderCustomer(string $nickname, string $customerNumber): self
     {
         $this->orderCustomer = [
             'id' => $this->ids->get('orderCustomer'),
@@ -175,8 +142,7 @@ class OrderBuilder
             'customerId' => $this->ids->get($customerNumber),
             'versionId' => Defaults::LIVE_VERSION,
             'orderVersionId' => Defaults::LIVE_VERSION,
-            'firstName' => $firstName,
-            'lastName' => 'Mustermann',
+            'nickname' => $nickname,
             'email' => 'some@mail.de',
         ];
 

@@ -26,16 +26,6 @@ class CartPriceFacade
     }
 
     /**
-     * `getNet()` returns the net price of the cart.
-     *
-     * @return float Returns the net price of the cart as float.
-     */
-    public function getNet(): float
-    {
-        return $this->price->getNetPrice();
-    }
-
-    /**
      * `getTotal()` returns the total price of the cart that has to be paid by the customer.
      * Depending on the tax settings this may be the gross or net price.
      * Note that this price is already rounded, to get the raw price before rounding use `getRaw()`.

@@ -3,15 +3,12 @@
 namespace HeyFrame\Tests\Integration\Core\Checkout\Customer\Channel;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Checkout\Customer\CustomerCollection;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Test\TestCaseBase\ChannelApiTestBehaviour;
 use HeyFrame\Core\Framework\Test\TestCaseBase\CountryAddToChannelTestBehaviour;
 use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -32,13 +29,6 @@ class RegisterRouteTest extends TestCase
 
     private IdsCollection $ids;
 
-    /**
-     * @var EntityRepository<CustomerCollection>
-     */
-    private EntityRepository $customerRepository;
-
-    private SystemConfigService $systemConfigService;
-
     protected function setUp(): void
     {
         $this->ids = new IdsCollection();
@@ -50,9 +40,6 @@ class RegisterRouteTest extends TestCase
         $this->addCountriesToChannel([], $this->ids->get('channel'));
 
         $this->assignChannelContext($this->browser);
-        $this->customerRepository = static::getContainer()->get('customer.repository');
-
-        $this->systemConfigService = static::getContainer()->get(SystemConfigService::class);
     }
 
     public function testRegistration(): void
