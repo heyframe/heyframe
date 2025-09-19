@@ -45,7 +45,6 @@ class Migration1536233560BasicData extends MigrationStep
         $this->createRootCategory($connection);
         $this->createChannelTypes($connection);
         $this->createChannel($connection);
-        $this->createRules($connection);
         $this->createNumberRanges($connection);
         $this->createOrderStateMachine($connection);
         $this->createOrderTransactionStateMachine($connection);
@@ -226,9 +225,6 @@ class Migration1536233560BasicData extends MigrationStep
     {
         $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
         $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
-        $ruleId = Uuid::randomBytes();
-        $connection->insert('rule', ['id' => $ruleId, 'name' => 'Cart >= 0 (Payment)', 'priority' => 100, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('rule_condition', ['id' => Uuid::randomBytes(), 'rule_id' => $ruleId, 'type' => 'cartCartAmount', 'value' => json_encode(['operator' => '>=', 'amount' => 0]), 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         $debit = Uuid::randomBytes();
         $connection->insert('payment_method', ['id' => $debit, 'handler_identifier' => WeChatPaymentHandler::class, 'technical_name' => 'wallet', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
@@ -431,17 +427,6 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('state_machine_transition', ['id' => Uuid::randomBytes(), 'state_machine_id' => $stateMachineId, 'action_name' => 'reopen', 'from_state_id' => $completedId, 'to_state_id' => $openId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         // set initial state
         $connection->update('state_machine', ['initial_state_id' => $openId], ['id' => $stateMachineId]);
-    }
-
-    private function createRules(Connection $connection): void
-    {
-        $sundaySaleRuleId = Uuid::randomBytes();
-        $connection->insert('rule', ['id' => $sundaySaleRuleId, 'name' => 'Sunday sales', 'priority' => 2, 'invalid' => 0, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('rule_condition', ['id' => Uuid::randomBytes(), 'rule_id' => $sundaySaleRuleId, 'type' => 'dayOfWeek', 'value' => json_encode(['operator' => '=', 'dayOfWeek' => 7]), 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-
-        $allCustomersRuleId = Uuid::randomBytes();
-        $connection->insert('rule', ['id' => $allCustomersRuleId, 'name' => 'All customers', 'priority' => 1, 'invalid' => 0, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('rule_condition', ['id' => Uuid::randomBytes(), 'rule_id' => $allCustomersRuleId, 'type' => 'customerCustomerGroup', 'value' => json_encode(['operator' => '=', 'customerGroupIds' => ['cfbd5018d38d41d8adca10d94fc8bdd6']]), 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createNumberRanges(Connection $connection): void
