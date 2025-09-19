@@ -107,6 +107,7 @@ class ExtensionStruct extends Struct
     protected string $type;
 
     protected bool $isTheme = false;
+
     protected bool $isUni = false;
 
     /**

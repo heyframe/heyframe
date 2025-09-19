@@ -6,7 +6,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 
-
 #[Package('framework')]
 abstract class AbstractCookieRoute
 {

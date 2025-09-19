@@ -107,7 +107,9 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?string $updatedById = null;
 
     protected ?UserEntity $updatedBy = null;
+
     protected WalletEntity $wallet;
+
     public function __toString(): string
     {
         return $this->getNickname();
@@ -535,5 +537,4 @@ class CustomerEntity extends Entity implements \Stringable
     {
         $this->wallet = $wallet;
     }
-
 }

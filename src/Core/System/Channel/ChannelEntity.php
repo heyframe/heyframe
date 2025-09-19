@@ -608,7 +608,6 @@ class ChannelEntity extends Entity
         $this->navigationCategoryDepth = $navigationCategoryDepth;
     }
 
-
     public function getCustomerGroupsRegistrations(): ?CustomerGroupCollection
     {
         return $this->customerGroupsRegistrations;
