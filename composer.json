@@ -88,6 +88,7 @@
     "guzzlehttp/guzzle": "^7.5.0",
     "guzzlehttp/psr7": "^2.4",
     "heyframe/conflicts": "0.6.0",
+    "heyframe/pay-bundle": "dev-main",
     "horstoeko/zugferd": "^1.0.104",
     "lcobucci/clock": "^3.1.0",
     "lcobucci/jwt": "^5.5",

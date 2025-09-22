@@ -6,6 +6,7 @@ $bundles = [
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
+    HeyPay\Bundle\PayBundle\PayBundle::class => ['all' => true],
     HeyFrame\Core\Profiling\Profiling::class => ['all' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true, 'test' => true],
     HeyFrame\Core\Framework\Framework::class => ['all' => true],
