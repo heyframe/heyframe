@@ -45,6 +45,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Fix Git safe.directory (universal solution)
+        run: git config --global --add safe.directory '*'
+
       - name: Split package
         uses: symplify/monorepo-split-github-action@2.1
         with:
