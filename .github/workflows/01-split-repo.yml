@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Split package
-        uses: symplify/monorepo-split-github-action@v12
+        uses: symplify/monorepo-split-github-action@2.1
         with:
           package_directory: 'src/${{ matrix.package.local_path }}'
           repository_organization: 'heyframe'
