@@ -27,8 +27,6 @@ final class CheckoutPermissions
 
     final public const KEEP_INACTIVE_PRODUCT = 'keepInactiveProduct';
 
-    final public const SKIP_DELIVERY_PRICE_RECALCULATION = 'skipDeliveryPriceRecalculation';
-
     /**
      * Existing set of promotions will not be changed.
      * Promotions may **not** be recalculated based on their price definition.

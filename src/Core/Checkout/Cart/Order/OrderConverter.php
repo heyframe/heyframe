@@ -52,7 +52,6 @@ class OrderConverter
     final public const ADMIN_EDIT_ORDER_PERMISSIONS = [
         CheckoutPermissions::ALLOW_PRODUCT_PRICE_OVERWRITES => true,
         CheckoutPermissions::SKIP_PRODUCT_RECALCULATION => true,
-        CheckoutPermissions::SKIP_DELIVERY_PRICE_RECALCULATION => true,
         CheckoutPermissions::SKIP_PRODUCT_STOCK_VALIDATION => true,
         CheckoutPermissions::KEEP_INACTIVE_PRODUCT => true,
         CheckoutPermissions::PIN_MANUAL_PROMOTIONS => true,
