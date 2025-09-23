@@ -13,6 +13,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
 jobs:
   packages_split:
     runs-on: ubuntu-latest
@@ -30,29 +31,33 @@ jobs:
           -
             local_path: 'Frontend'
             split_repository: 'frontend'
-
-          - local_path: 'Elasticsearch'
+          -
+            local_path: 'Elasticsearch'
             split_repository: 'elasticsearch'
-
-          - local_path: 'Uni'
+          -
+            local_path: 'Uni'
             split_repository: 'uni'
-
-          - local_path: 'Uni/Resources/app/uni'
+          -
+            local_path: 'Uni/Resources/app/uni'
             split_repository: 'heyuni'
-    steps:
-      -   uses: actions/checkout@v4
 
-      -
-        if: "!startsWith(github.ref, 'refs/tags/')"
-        uses: "danharrin/monorepo-split-github-action@v2.3.0"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Split package
+        uses: symplify/monorepo-split-github-action@v12
         with:
-          # ↓ split "packages/easy-coding-standard" directory
+          # 子目录路径
           package_directory: 'src/${{ matrix.package.local_path }}'
 
-          # ↓ into https://github.com/symplify/easy-coding-standard repository
+          # 推送目标仓库
           repository_organization: 'heyframe'
           repository_name: '${{ matrix.package.split_repository }}'
+
+          # 当前分支
           branch: '${{ github.ref_name }}'
-          # ↓ the user signed under the split commit
+
+          # 签名用户
           user_name: "gxiaosong"
           user_email: "lyricsong47@gmail.com"
