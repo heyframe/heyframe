@@ -15,18 +15,7 @@
         "welcome": {
             "modalTitle": "欢迎",
             "headlineWelcome": "欢迎使用 HeyFrame 6 管理后台",
-            "messageWelcome": "此向导将引导您完成设置，并对最重要的配置提供帮助。<br>您希望使用其他语言的商店并服务其他国家的客户吗？那么只需在此安装所需的语言包即可。",
-            "headlineChangeLanguage": "安装额外语言",
-            "switchLanguageModalTitle": "选择界面语言",
-            "confirmLanguageSwitch": "更改语言",
-            "switchLanguageMessage": "“{pluginName}” 已成功安装。您希望更改界面语言吗？",
-            "pluginsInstalled": "已安装扩展 | 已安装扩展",
-            "pluginsInstalledMessage": "已安装语言扩展: | 已安装语言扩展: ",
-            "pluginNotFoundMessage": "未找到语言扩展 {languageName}。",
-            "pluginInstallationFailedMessage": "无法安装扩展: ",
-            "pluginActivationFailedMessage": "无法激活扩展: ",
-            "tryAgainLater": "请稍后再试。",
-            "noConnectionMessage": "似乎存在连接问题，语言无法安装。"
+            "messageWelcome": "此向导将引导您完成设置，并对最重要的配置提供帮助。<br>您希望使用其他语言的商店并服务其他国家的客户吗？那么只需在此安装所需的语言包即可。"
         },
         "dataImport": {
             "modalTitle": "开始使用 HeyFrame 6",
