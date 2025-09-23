@@ -38,9 +38,9 @@ class CookieRoute extends AbstractCookieRoute
     }
 
     #[Route(path: '/store-api/cookie-groups', name: 'store-api.cookie.groups', methods: [Request::METHOD_GET])]
-    public function getCookieGroups(Request $request, ChannelContext $salesChannelContext): CookieRouteResponse
+    public function getCookieGroups(Request $request, ChannelContext $channelContext): CookieRouteResponse
     {
-        $cookieGroups = $this->cookieProvider->getCookieGroups($salesChannelContext);
+        $cookieGroups = $this->cookieProvider->getCookieGroups($request, $channelContext);
         $hash = $this->generateCookieConfigurationHash($cookieGroups);
 
         return new CookieRouteResponse($cookieGroups, $hash);

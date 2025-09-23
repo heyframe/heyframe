@@ -9,15 +9,18 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\HeyFrameChannelEvent;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Package('framework')]
 class CookieGroupCollectEvent implements HeyFrameChannelEvent
 {
     public function __construct(
         public CookieGroupCollection $cookieGroupCollection,
-        public ChannelContext $channelContext,
+        public readonly Request $request,
+        protected readonly ChannelContext $channelContext,
     ) {
     }
+
 
     public function getContext(): Context
     {

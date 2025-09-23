@@ -10,6 +10,7 @@ use HeyFrame\Core\Content\Cookie\Struct\CookieGroupCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -37,7 +38,7 @@ class CookieProvider
         $this->sessionName = $sessionOptions['name'] ?? PlatformRequest::FALLBACK_SESSION_NAME;
     }
 
-    public function getCookieGroups(ChannelContext $channelContext): CookieGroupCollection
+    public function getCookieGroups(Request $request, ChannelContext $channelContext): CookieGroupCollection
     {
         $cookieGroups = new CookieGroupCollection();
 
@@ -46,7 +47,7 @@ class CookieProvider
         $cookieGroups->add($this->getCookieGroupComfortFeatures());
         $cookieGroups->add($this->getCookieGroupMarketing());
 
-        $this->eventDispatcher->dispatch(new CookieGroupCollectEvent($cookieGroups, $channelContext));
+        $this->eventDispatcher->dispatch(new CookieGroupCollectEvent($cookieGroups, $request, $channelContext));
 
         foreach ($cookieGroups as $cookieGroup) {
             $this->removeCookieGroupsWithoutCookies($cookieGroups, $cookieGroup);

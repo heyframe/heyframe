@@ -170,7 +170,7 @@ class Migration1536233560BasicData extends MigrationStep
         ]);
 
         $connection->insert('channel_translation', ['channel_id' => $id, 'language_id' => $languageEN, 'name' => 'Mini Program', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('channel_translation', ['channel_id' => $id, 'language_id' => $languageZH, 'name' => '小程序端', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('channel_translation', ['channel_id' => $id, 'language_id' => $languageZH, 'name' => '小程序', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         // country
         $connection->insert('channel_country', ['channel_id' => $id, 'country_id' => $defaultCountry]);
