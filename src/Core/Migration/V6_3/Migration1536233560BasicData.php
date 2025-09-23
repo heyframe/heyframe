@@ -237,7 +237,21 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('system_config', [
             'id' => Uuid::randomBytes(),
             'configuration_key' => 'core.store.apiUri',
+            'configuration_value' => '{"_value": "https://front-api.heyframe.net"}',
+            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+        ]);
+
+        $connection->insert('system_config', [
+            'id' => Uuid::randomBytes(),
+            'configuration_key' => 'core.apiUri',
             'configuration_value' => '{"_value": "https://api.heyframe.net"}',
+            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+        ]);
+
+        $connection->insert('system_config', [
+            'id' => Uuid::randomBytes(),
+            'configuration_key' => 'core.listing.showReview',
+            'configuration_value' => '{"_value": true}',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
 

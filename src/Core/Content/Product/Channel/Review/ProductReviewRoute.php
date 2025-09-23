@@ -45,7 +45,7 @@ class ProductReviewRoute extends AbstractProductReviewRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/front-api/product/{productId}/reviews', name: 'front-api.product-review.list', methods: ['POST'], defaults: ['_entity' => 'product_review'])]
+    #[Route(path: '/front-api/product/{productId}/reviews', name: 'front-api.product-review.list', defaults: ['_entity' => 'product_review'], methods: ['POST'])]
     public function load(string $productId, Request $request, ChannelContext $context, Criteria $criteria): ProductReviewRouteResponse
     {
         $channelId = $context->getChannelId();

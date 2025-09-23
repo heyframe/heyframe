@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Product;
 
 use HeyFrame\Core\Content\Product\Exception\ProductNotFoundException;
-use HeyFrame\Core\Content\Product\Exception\ReviewNotActiveExeption;
 use HeyFrame\Core\Content\Product\Exception\VariantNotFoundException;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
@@ -95,15 +94,8 @@ class ProductException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will only return `self` in the future
-     */
-    public static function reviewNotActive(): self|ReviewNotActiveExeption
+    public static function reviewNotActive(): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new ReviewNotActiveExeption();
-        }
-
         return new self(
             Response::HTTP_FORBIDDEN,
             self::PRODUCT_REVIEW_NOT_ACTIVE,
