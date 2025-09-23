@@ -30,7 +30,7 @@
       "labelFieldLabel": "名称",
       "idFieldLabel": "访问密钥 ID",
       "secretFieldLabel": "安全访问密钥",
-      "secretHelpText": "请立即记录访问密钥。保存集成后，出于安全考虑，密钥将不再可见。",
+      "secretHelpText": "访问密钥 ID 和访问密钥只有在保存集成后才会生效。请现在记录下访问密钥。保存集成后，出于安全考虑，该密钥将不再可见。",
       "permissions": "权限",
       "readAccessFieldLabel": "读取（默认）",
       "writeAccessFieldLabel": "写入（可选）",
