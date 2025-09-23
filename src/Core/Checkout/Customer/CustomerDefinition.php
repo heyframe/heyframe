@@ -18,6 +18,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateTimeField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\EmailField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ExtraFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
@@ -101,6 +102,7 @@ class CustomerDefinition extends EntityDefinition
             (new IntField('order_count', 'orderCount'))->addFlags(new ApiAware(), new WriteProtected(Context::SYSTEM_SCOPE)),
             (new FloatField('order_total_amount', 'orderTotalAmount'))->addFlags(new ApiAware(), new WriteProtected(Context::SYSTEM_SCOPE)),
             (new CustomFields())->addFlags(new ApiAware()),
+            (new ExtraFields())->addFlags(new ApiAware()),
             new RemoteAddressField('remote_address', 'remoteAddress'),
             new DateTimeField('last_updated_password_at', 'lastUpdatedPasswordAt'),
             (new StringField('legacy_password', 'legacyPassword'))->removeFlag(ApiAware::class),

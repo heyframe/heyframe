@@ -1,8 +1,8 @@
 {
-  "name": "HeyFrame default uniapp template",
+  "name": "HeyFrame uniapp template",
   "author": "HeyFrame AG",
   "description": {
-    "en-GB": "Default uniapp template of HeyFrame 6",
-    "zh-CN": "HeyFrame 默认小程序开发模版"
+    "en-GB": "HeyFrame uniapp template",
+    "zh-CN": "HeyFrame 小程序开发模版"
   }
 }

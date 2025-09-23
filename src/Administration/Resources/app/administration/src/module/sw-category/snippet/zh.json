@@ -148,7 +148,8 @@
         "type": {
           "internal": "内部",
           "external": "外部"
-        }
+        },
+        "linkHasProtocol": "使用协议"
       },
       "products": {
         "productAssignmentHeadline": "产品分配",

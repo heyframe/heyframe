@@ -9,6 +9,7 @@ use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelEntity;
@@ -19,6 +20,7 @@ use HeyFrame\Core\System\User\UserEntity;
 class CustomerEntity extends Entity implements \Stringable
 {
     use EntityCustomFieldsTrait;
+    use EntityExtraFieldsTrait;
     use EntityIdTrait;
 
     protected string $groupId;

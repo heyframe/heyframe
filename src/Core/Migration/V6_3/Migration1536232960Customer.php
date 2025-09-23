@@ -51,6 +51,7 @@ class Migration1536232960Customer extends MigrationStep
               `last_updated_password_at` datetime(3) DEFAULT NULL,
               `tag_ids` json DEFAULT NULL,
               `custom_fields` JSON NULL,
+              `extra_fields` JSON NULL,
               `created_by_id` binary(16) DEFAULT NULL,
               `updated_by_id` binary(16) DEFAULT NULL,
               `created_at` DATETIME(3) NOT NULL,
@@ -68,6 +69,7 @@ class Migration1536232960Customer extends MigrationStep
                 CONSTRAINT `fk.customer.updated_by_id` FOREIGN KEY (`updated_by_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
                   CONSTRAINT `fk.customer.created_by_id` FOREIGN KEY (`created_by_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
               CONSTRAINT `json.customer.custom_fields` CHECK (JSON_VALID(`custom_fields`)),
+              CONSTRAINT `json.customer.extra_fields` CHECK (JSON_VALID(`extra_fields`)),
               CONSTRAINT `fk.customer.customer_group_id` FOREIGN KEY (`customer_group_id`)
                 REFERENCES `customer_group` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.customer.last_payment_method_id` FOREIGN KEY (`last_payment_method_id`)
