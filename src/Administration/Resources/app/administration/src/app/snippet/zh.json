@@ -153,8 +153,8 @@
       "linkLogout": "注销",
       "linkMinimizeMenu": "收起菜单",
       "textHeyFrameAdmin": "HeyFrame 管理后台",
-      "textProjectName": "管理后台",
-      "administrator": "管理员",
+      "textProjectName": "HeyFrame 管理后台",
+      "administrator": "系统管理员",
       "navigation": {
         "label": "主导航",
         "mainMenuItemCatalogue": "商品",

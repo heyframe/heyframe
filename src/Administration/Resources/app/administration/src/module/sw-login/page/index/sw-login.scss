@@ -12,6 +12,8 @@ $sw-login-error-animation-duration: 0.15s;
 .sw-login {
     height: 100%;
     display: flex;
+    flex-direction: column;
+    gap: 50px;
     align-items: center;
     justify-content: center;
     padding: 20px;
@@ -19,11 +21,13 @@ $sw-login-error-animation-duration: 0.15s;
     transition: background-color $sw-login-success-animation-duration ease-in-out;
     overflow: auto;
 
+
     .sw-login__container {
         background: $color-white;
         min-height: 590px;
+        width: 1120px;
         display: grid;
-        grid-template-columns: 480px;
+        grid-template-columns: auto 480px;
         transition: all $sw-login-success-animation-duration ease-in-out;
         transform: scale(1);
 
@@ -44,9 +48,8 @@ $sw-login-error-animation-duration: 0.15s;
         position: relative;
         height: 490px;
         opacity: 1;
-        transition:
-            opacity $sw-login-success-animation-duration ease-in-out,
-            padding $sw-login-media-query-animation-duration ease-in-out;
+        transition: opacity $sw-login-success-animation-duration ease-in-out,
+        padding $sw-login-media-query-animation-duration ease-in-out;
 
         @media screen and (max-width: 600px) {
             padding: 30px;
@@ -110,13 +113,22 @@ $sw-login-error-animation-duration: 0.15s;
         }
     }
 
-.sw-login__image {
-    width: 100%;
-    height: 250px;
-    display: block;
-    object-fit: cover;
-    object-position: center center;
-}
+    .sw-login__image {
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        background-color: lighten($sw-login-color-background, 10%);
+        background-position: center center;
+        background-size: cover;
+        opacity: 1;
+        transition:
+            opacity $sw-login-success-animation-duration ease-in-out,
+            padding $sw-login-media-query-animation-duration ease-in-out;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+    }
 
     .sw-login__back-arrow {
         cursor: pointer;
