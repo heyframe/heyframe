@@ -5,7 +5,7 @@
 import template from './sw-login.html.twig';
 import './sw-login.scss';
 
-const { Component } = HeyFrame;
+const {Component} = HeyFrame;
 
 /**
  * @private
@@ -43,6 +43,10 @@ export default Component.wrapComponentConfig({
 
             return `${modulName} | ${adminName}`;
         },
+        assetFilter() {
+            return HeyFrame.Filter.getByName('asset');
+        },
+
     },
 
     beforeMount() {

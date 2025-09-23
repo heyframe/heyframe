@@ -8,12 +8,6 @@ import en from './snippet/en.json';
 const { Component, Module } = HeyFrame;
 
 /** @private */
-Component.register('sw-login-recovery', () => import('./view/sw-login-recovery'));
-/** @private */
-Component.register('sw-login-recovery-recovery', () => import('./view/sw-login-recovery-recovery'));
-/** @private */
-Component.register('sw-login-recovery-info', () => import('./view/sw-login-recovery-info'));
-/** @private */
 Component.register('sw-login-login', () => import('./view/sw-login-login'));
 /** @private */
 Component.register('sw-login', () => import('./page/index'));
@@ -53,19 +47,7 @@ Module.register('sw-login', {
                 login: {
                     component: 'sw-login-login',
                     path: '',
-                },
-                recovery: {
-                    component: 'sw-login-recovery',
-                    path: 'recovery',
-                },
-                recoveryInfo: {
-                    component: 'sw-login-recovery-info',
-                    path: 'info',
-                },
-                userRecovery: {
-                    component: 'sw-login-recovery-recovery',
-                    path: 'user-recovery/:hash',
-                },
+                }
             },
         },
     },
