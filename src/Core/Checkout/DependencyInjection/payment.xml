@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
         <service id="HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition">
@@ -11,6 +11,18 @@
 
         <service id="HeyFrame\Core\Checkout\Payment\Channel\ChannelPaymentMethodDefinition">
             <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\WeChatPaymentHandler">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\AliPaymentHandler">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationDefinition">
