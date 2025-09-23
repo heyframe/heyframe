@@ -10,7 +10,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiCriteriaAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Inherited;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Since;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\JsonField;
@@ -28,7 +27,7 @@ use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInterface;
 #[Package('inventory')]
 class ChannelProductDefinition extends ProductDefinition implements ChannelDefinitionInterface
 {
-    private const PRICE_BASELINE = ['referenceUnit', 'purchaseUnit'];
+    private const PRICE_BASELINE = ['purchaseUnit'];
 
     public function getEntityClass(): string
     {
@@ -97,10 +96,6 @@ class ChannelProductDefinition extends ProductDefinition implements ChannelDefin
         );
         $fields->add(
             (new ObjectField('sortedProperties', 'sortedProperties'))->addFlags(new Runtime(), new ApiAware())
-        );
-
-        $fields->add(
-            (new ObjectField('measurements', 'measurements'))->addFlags(new Runtime(), new ApiAware(), new Since('6.7.1.0'))
         );
 
         return $fields;

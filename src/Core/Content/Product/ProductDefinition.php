@@ -27,6 +27,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ChildCountField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ChildrenAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateTimeField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ExtraFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiCriteriaAware;
@@ -96,6 +97,7 @@ class ProductDefinition extends EntityDefinition
     {
         return [
             'minPurchase' => 1,
+            'isCloseout' => false,
             'purchaseSteps' => 1,
             'restockTime' => null,
             'active' => true,
@@ -156,7 +158,7 @@ class ProductDefinition extends EntityDefinition
             (new IntField('sales', 'sales'))->addFlags(new ApiAware(), new WriteProtected()),
             (new ListField('states', 'states', StringField::class))->addFlags(new ApiAware(), new WriteProtected()),
             (new StringField('product_type', 'productType'))->addFlags(new ApiAware(), new Inherited()),
-
+            (new ExtraFields())->addFlags(new ApiAware()),
             (new TranslatedField('metaDescription'))->addFlags(new ApiAware(), new Inherited()),
             (new TranslatedField('name', true))->addFlags(new ApiAware(), new Inherited(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             (new TranslatedField('keywords'))->addFlags(new ApiAware(), new Inherited()),

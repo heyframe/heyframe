@@ -18,6 +18,7 @@ use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
 use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\Price;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
@@ -29,10 +30,8 @@ use HeyFrame\Core\System\Tag\TagCollection;
 class ProductEntity extends Entity implements \Stringable
 {
     use EntityCustomFieldsTrait;
+    use EntityExtraFieldsTrait;
     use EntityIdTrait;
-
-    final public const PRODUCT_TYPE_MEMBERSHIP_PLAN = 'membership_plan';
-    final public const PRODUCT_TYPE_WALLET_RECHARGE = 'wallet_recharge';
 
     protected ?string $parentId = null;
 

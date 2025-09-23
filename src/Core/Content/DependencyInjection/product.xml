@@ -353,6 +353,20 @@
             <argument type="tagged_iterator" tag="heyframe.listing.processor" />
         </service>
 
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\PriceListingFilterHandler" />
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\RatingListingFilterHandler"/>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\PropertyListingFilterHandler">
+            <argument type="service" id="property_group.repository"/>
+            <argument type="service" id="property_group_option.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <instanceof id="HeyFrame\Core\Content\Product\Channel\Listing\Filter\AbstractListingFilterHandler">
+            <tag name="heyframe.listing.filter.handler" />
+        </instanceof>
+
         <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\AggregationListingProcessor">
             <argument type="tagged_iterator" tag="heyframe.listing.filter.handler" />
             <argument type="service" id="event_dispatcher" />
