@@ -12,7 +12,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Validation\EntityExists;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Validation\EntityNotExists;
-use HeyFrame\Core\Framework\Event\EventData\MailRecipientStruct;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;

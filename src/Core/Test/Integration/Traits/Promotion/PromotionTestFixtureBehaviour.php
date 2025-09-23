@@ -11,7 +11,6 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Test\TestCaseBase\TaxAddToChannelTestBehaviour;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\Context\ChannelContextFactory;
@@ -26,8 +25,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 #[Package('checkout')]
 trait PromotionTestFixtureBehaviour
 {
-    use TaxAddToChannelTestBehaviour;
-
     public function createSetGroupFixture(string $packagerKey, int $value, string $sorterKey, string $promotionId, ContainerInterface $container): string
     {
         $context = $container->get(ChannelContextFactory::class)->create(Uuid::randomHex(), TestDefaults::CHANNEL);
@@ -54,11 +51,9 @@ trait PromotionTestFixtureBehaviour
     /**
      * Creates a new product in the database.
      */
-    private function createTestFixtureProduct(string $productId, float $grossPrice, float $taxRate, ContainerInterface $container, ChannelContext $context): void
+    private function createTestFixtureProduct(string $productId, float $grossPrice, ContainerInterface $container, ChannelContext $context): void
     {
         $productRepository = $container->get('product.repository');
-
-        $tax = ['id' => Uuid::randomHex(), 'taxRate' => $taxRate, 'name' => 'with id'];
 
         $productRepository->create(
             [
@@ -72,11 +67,8 @@ trait PromotionTestFixtureBehaviour
                         [
                             'currencyId' => Defaults::CURRENCY,
                             'gross' => $grossPrice,
-                            'net' => 9, 'linked' => false,
                         ],
                     ],
-                    'manufacturer' => ['name' => 'test'],
-                    'tax' => $tax,
                     'visibilities' => [
                         ['channelId' => $context->getChannelId(), 'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL],
                     ],
@@ -87,8 +79,6 @@ trait PromotionTestFixtureBehaviour
             ],
             $context->getContext()
         );
-
-        $this->addTaxDataToChannel($context, $tax);
     }
 
     /**

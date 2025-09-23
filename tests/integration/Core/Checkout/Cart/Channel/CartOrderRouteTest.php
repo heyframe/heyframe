@@ -1,0 +1,417 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Tests\Integration\Core\Checkout\Cart\Channel;
+
+use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Checkout\Cart\CartLocker;
+use HeyFrame\Core\Checkout\Cart\Channel\CartOrderRoute;
+use HeyFrame\Core\Checkout\Cart\Event\CheckoutOrderPlacedCriteriaEvent;
+use HeyFrame\Core\Checkout\Customer\CustomerCollection;
+use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionCollection;
+use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
+use HeyFrame\Core\Content\Product\ProductCollection;
+use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Routing\RoutingException;
+use HeyFrame\Core\Framework\Test\TestCaseBase\ChannelApiTestBehaviour;
+use HeyFrame\Core\Framework\Test\TestCaseBase\CountryAddToChannelTestBehaviour;
+use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
+use HeyFrame\Core\Framework\Uuid\Uuid;
+use HeyFrame\Core\PlatformRequest;
+use HeyFrame\Core\Test\Integration\PaymentHandler\TestPaymentHandler;
+use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
+use HeyFrame\Core\Test\TestDefaults;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\EventDispatcher\Event;
+
+/**
+ * @internal
+ */
+#[CoversClass(CartOrderRoute::class)]
+#[Group('front-api')]
+#[Package('checkout')]
+class CartOrderRouteTest extends TestCase
+{
+    use ChannelApiTestBehaviour;
+    use CountryAddToChannelTestBehaviour;
+    use IntegrationTestBehaviour;
+
+    private KernelBrowser $browser;
+
+    private IdsCollection $ids;
+
+    /**
+     * @var EntityRepository<ProductCollection>
+     */
+    private EntityRepository $productRepository;
+
+    /**
+     * @var EntityRepository<CustomerCollection>
+     */
+    private EntityRepository $customerRepository;
+
+    private string $validSalutationId;
+
+    private string $validCountryId;
+
+    protected function setUp(): void
+    {
+        $this->ids = new IdsCollection();
+
+        $this->browser = $this->createCustomChannelBrowser([
+            'id' => $this->ids->create('channel'),
+        ]);
+
+        $this->browser->setServerParameter('HTTP_SW_CONTEXT_TOKEN', $this->ids->create('token'));
+        $this->productRepository = static::getContainer()->get('product.repository');
+        $this->customerRepository = static::getContainer()->get('customer.repository');
+        $this->validCountryId = $this->getValidCountryId($this->ids->get('channel'));
+
+        $this->createTestData();
+    }
+
+    public function testOrderNotLoggedIn(): void
+    {
+        $this->browser
+            ->request(
+                'POST',
+                '/front-api/checkout/order'
+            );
+
+        static::assertNotFalse($this->browser->getResponse()->getContent());
+
+        $response = \json_decode($this->browser->getResponse()->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+
+        static::assertArrayHasKey('errors', $response);
+        static::assertSame(RoutingException::CUSTOMER_NOT_LOGGED_IN_CODE, $response['errors'][0]['code']);
+    }
+
+    public function testOrderEmptyCart(): void
+    {
+        $this->createCustomerAndLogin();
+
+        $this->browser
+            ->request(
+                'POST',
+                '/front-api/checkout/order'
+            );
+
+        static::assertNotFalse($this->browser->getResponse()->getContent());
+
+        $response = \json_decode($this->browser->getResponse()->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+
+        static::assertArrayHasKey('errors', $response);
+        static::assertSame('CHECKOUT__CART_EMPTY', $response['errors'][0]['code']);
+    }
+
+    public function testOrderOneProduct(): void
+    {
+        $this->createCustomerAndLogin();
+        $this->addProductToCart();
+
+        $this->browser
+            ->request(
+                'POST',
+                '/front-api/checkout/order'
+            );
+
+        static::assertNotFalse($this->browser->getResponse()->getContent());
+
+        $response = \json_decode($this->browser->getResponse()->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+
+        static::assertSame('order', $response['apiAlias']);
+        static::assertSame(10, $response['transactions'][0]['amount']['totalPrice']);
+        static::assertCount(1, $response['lineItems']);
+    }
+
+    public function testContextTokenExpiring(): void
+    {
+        /**
+         * - login
+         * - add product p1
+         * - simulate context token expiring
+         * - check for new context token
+         * - cart is empty
+         * - add product p2
+         * - login
+         * - check for new context token
+         * - cart should contain both products
+         */
+        $connection = static::getContainer()->get(Connection::class);
+        $this->productRepository->create([
+            [
+                'id' => $this->ids->create('p2'),
+                'productNumber' => $this->ids->get('p2'),
+                'stock' => 10,
+                'name' => 'Test p2',
+                'price' => [['currencyId' => Defaults::CURRENCY, 'gross' => 10, 'net' => 9, 'linked' => false]],
+                'active' => true,
+                'visibilities' => [
+                    ['channelId' => $this->ids->get('channel'), 'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL],
+                ],
+            ],
+        ], Context::createDefaultContext());
+
+        $email = Uuid::randomHex() . '@example.com';
+        $password = 'heyframe';
+        $this->createCustomerAndLogin($email, $password);
+
+        $response = $this->addProductToCart();
+        $originalToken = $response->headers->get(PlatformRequest::HEADER_CONTEXT_TOKEN);
+        static::assertNotNull($originalToken);
+
+        $interval = new \DateInterval(static::getContainer()->getParameter('heyframe.api.store.context_lifetime'));
+        $intervalInSeconds = (new \DateTime())->setTimestamp(0)->add($interval)->getTimestamp();
+        $intervalInDays = $intervalInSeconds / 86400 + 1;
+
+        // expire $originalToken context
+        $connection->executeStatement(
+            '
+            UPDATE channel_api_context
+            SET updated_at = DATE_ADD(updated_at, INTERVAL :intervalInDays DAY)',
+            ['intervalInDays' => -$intervalInDays]
+        );
+
+        $this->browser->request('GET', '/front-api/checkout/cart');
+
+        $response = $this->browser->getResponse();
+        $guestToken = $response->headers->get(PlatformRequest::HEADER_CONTEXT_TOKEN);
+        static::assertNotNull($guestToken);
+        $this->browser->setServerParameter('HTTP_SW_CONTEXT_TOKEN', $guestToken);
+
+        // we should get a new token and it should be different from the expired token context
+        static::assertNotSame($originalToken, $guestToken);
+        static::assertNotFalse($response->getContent());
+
+        $data = \json_decode($response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+        static::assertEmpty($data['lineItems']);
+
+        $response = $this->addProductToCart('p2');
+        $token = $response->headers->get(PlatformRequest::HEADER_CONTEXT_TOKEN);
+        static::assertSame($guestToken, $token);
+
+        // the cart should be merged on login and a new token should be created
+        $this->login($email, $password);
+
+        $this->browser->request('GET', '/front-api/checkout/cart');
+
+        $response = $this->browser->getResponse();
+        $mergedToken = $response->headers->get(PlatformRequest::HEADER_CONTEXT_TOKEN);
+
+        static::assertNotFalse($response->getContent());
+
+        $data = \json_decode($response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+        static::assertCount(2, $data['lineItems']);
+
+        static::assertNotSame($guestToken, $mergedToken);
+        static::assertNotSame($originalToken, $mergedToken);
+    }
+
+    public function testOrderPlacedCriteriaEventFired(): void
+    {
+        $this->createCustomerAndLogin();
+        $this->addProductToCart();
+
+        $event = null;
+        $this->catchEvent(CheckoutOrderPlacedCriteriaEvent::class, $event);
+
+        $this->browser
+            ->request(
+                'POST',
+                '/front-api/checkout/order'
+            );
+
+        static::assertInstanceOf(CheckoutOrderPlacedCriteriaEvent::class, $event);
+    }
+
+    public function testPreparedPaymentStructForwarded(): void
+    {
+        $this->createCustomerAndLogin();
+        $this->addProductToCart();
+
+        $this->browser
+            ->request(
+                'POST',
+                '/front-api/checkout/order'
+            );
+
+        $criteria = new Criteria();
+        $criteria->addSorting(new FieldSorting('createdAt', FieldSorting::DESCENDING));
+        $criteria->setLimit(1);
+
+        /** @var EntityRepository<OrderTransactionCollection> $transactionRepo */
+        $transactionRepo = static::getContainer()->get('order_transaction.repository');
+        $transaction = $transactionRepo->search($criteria, Context::createDefaultContext())->getEntities()->first();
+
+        static::assertNotNull($transaction);
+        static::assertContains('testValue', $transaction->getValidationData());
+    }
+
+    public function testOrderLockedWhenAlreadyInProgress(): void
+    {
+        $this->createCustomerAndLogin();
+        $response = $this->addProductToCart();
+        $token = $response->headers->get(PlatformRequest::HEADER_CONTEXT_TOKEN);
+        static::assertNotNull($token);
+
+        // Manually acquire lock to simulate concurrent request
+        $cartLocker = $this->getContainer()->get(CartLocker::class);
+        $lockKey = $cartLocker->getLockKey($token);
+        $lock = $this->getContainer()->get('lock.factory')->createLock($lockKey, 5);
+        $lock->acquire();
+
+        // Try to create order while lock is held
+        try {
+            $this->browser
+                ->request(
+                    'POST',
+                    '/front-api/checkout/order'
+                );
+
+            static::assertSame(409, $this->browser->getResponse()->getStatusCode());
+            static::assertNotFalse($this->browser->getResponse()->getContent());
+            $response = \json_decode($this->browser->getResponse()->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+
+            static::assertArrayHasKey('errors', $response);
+            static::assertSame('CHECKOUT__CART_LOCKED', $response['errors'][0]['code']);
+        } finally {
+            // Release lock after test
+            $lock->release();
+        }
+    }
+
+    protected function catchEvent(string $eventName, ?Event &$eventResult): void
+    {
+        $this->addEventListener(static::getContainer()->get('event_dispatcher'), $eventName, static function (Event $event) use (&$eventResult): void {
+            $eventResult = $event;
+        });
+    }
+
+    private function createTestData(): void
+    {
+        $this->addCountriesToChannel();
+
+        $this->productRepository->create([
+            [
+                'id' => $this->ids->create('p1'),
+                'productNumber' => $this->ids->get('p1'),
+                'stock' => 10,
+                'name' => 'Test',
+                'price' => [['currencyId' => Defaults::CURRENCY, 'gross' => 10, 'net' => 9, 'linked' => false]],
+                'manufacturer' => ['id' => $this->ids->create('manufacturerId'), 'name' => 'test'],
+                'tax' => ['id' => $this->ids->create('tax'), 'taxRate' => 17, 'name' => 'with id'],
+                'active' => true,
+                'visibilities' => [
+                    ['channelId' => $this->ids->get('channel'), 'visibility' => ProductVisibilityDefinition::VISIBILITY_ALL],
+                ],
+            ],
+        ], Context::createDefaultContext());
+    }
+
+    private function createCustomerAndLogin(
+        ?string $email = null,
+        ?string $password = null,
+        bool $invalidSalutationId = false
+    ): void {
+        $email ??= Uuid::randomHex() . '@example.com';
+        $password ??= 'heyframe';
+        $this->createCustomer(
+            $password,
+            $email,
+        );
+
+        $this->login($email, $password);
+    }
+
+    private function login(?string $email = null, ?string $password = null): void
+    {
+        $this->browser
+            ->request(
+                'POST',
+                '/front-api/account/login',
+                [
+                    'email' => $email,
+                    'password' => $password,
+                ]
+            );
+
+        $response = $this->browser->getResponse();
+
+        // After login successfully, the context token will be set in the header
+        $contextToken = $response->headers->get(PlatformRequest::HEADER_CONTEXT_TOKEN) ?? '';
+        static::assertNotEmpty($contextToken);
+
+        $this->browser->setServerParameter('HTTP_SW_CONTEXT_TOKEN', $contextToken);
+    }
+
+    private function createCustomer(
+        string $password,
+        ?string $email = null,
+    ): string {
+        $customerId = Uuid::randomHex();
+
+        $this->customerRepository->create([
+            [
+                'id' => $customerId,
+                'channelId' => $this->ids->get('channel'),
+                'lastPaymentMethod' => [
+                    'name' => 'Invoice',
+                    'technicalName' => Uuid::randomHex(),
+                    'active' => true,
+                    'description' => 'Default payment method',
+                    'handlerIdentifier' => TestPaymentHandler::class,
+                    'channels' => [
+                        [
+                            'id' => $this->ids->get('channel'),
+                        ],
+                    ],
+                ],
+                'groupId' => TestDefaults::FALLBACK_CUSTOMER_GROUP,
+                'email' => $email,
+                'password' => $password,
+                'nickname' => 'Mustermann',
+                'customerNumber' => '12345',
+            ],
+        ], Context::createDefaultContext());
+
+        return $customerId;
+    }
+
+    private function addProductToCart(string $id = 'p1'): Response
+    {
+        $this->browser
+            ->request(
+                'POST',
+                '/front-api/checkout/cart/line-item',
+                [
+                    'items' => [
+                        [
+                            'id' => $this->ids->get($id),
+                            'type' => 'product',
+                            'referencedId' => $this->ids->get($id),
+                        ],
+                    ],
+                ]
+            );
+
+        $response = $this->browser->getResponse();
+        static::assertSame(200, $this->browser->getResponse()->getStatusCode());
+        $content = $this->browser->getResponse()->getContent();
+        static::assertIsString($content);
+        $content = \json_decode($content, true, 512, \JSON_THROW_ON_ERROR);
+
+        static::assertSame('cart', $content['apiAlias']);
+        static::assertSame(10, $content['price']['totalPrice']);
+        static::assertCount(1, $content['lineItems']);
+
+        return $response;
+    }
+}

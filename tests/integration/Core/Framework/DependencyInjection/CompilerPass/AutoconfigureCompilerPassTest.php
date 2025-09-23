@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Tests\Integration\Core\Framework\DependencyInjection\CompilerPass;
 
-use League\Flysystem\FilesystemOperator;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Content\Product\ProductDefinition;
 use HeyFrame\Core\Framework\DependencyInjection\CompilerPass\AutoconfigureCompilerPass;
 use HeyFrame\Core\Framework\Webhook\Hookable\HookableEntityInterface;
+use League\Flysystem\FilesystemOperator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

@@ -2,15 +2,15 @@
 
 namespace HeyFrame\Tests\Integration\Core\Content\Product\Channel\Review;
 
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
 use HeyFrame\Core\Framework\Test\TestCaseBase\ChannelApiTestBehaviour;
+use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
 use HeyFrame\Core\Framework\Util\FloatComparator;
 use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 /**
@@ -19,8 +19,8 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 #[Group('store-api')]
 class ProductReviewRouteTest extends TestCase
 {
-    use IntegrationTestBehaviour;
     use ChannelApiTestBehaviour;
+    use IntegrationTestBehaviour;
 
     private KernelBrowser $browser;
 

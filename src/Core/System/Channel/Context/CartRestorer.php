@@ -95,7 +95,6 @@ class CartRestorer
 
         $this->eventDispatcher->dispatch(new BeforeCartMergeEvent(
             $customerCart,
-            $guestCart,
             $mergeableLineItems,
             $customerContext
         ));
