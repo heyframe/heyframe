@@ -1,2 +1,3 @@
-Uniapp Component
+uni Component
 ==============
+
