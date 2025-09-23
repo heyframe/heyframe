@@ -52,7 +52,7 @@
         "buttonFileUpload": "上传扩展",
         "messageUploadSuccess": "扩展上传成功。",
         "titleWarningModal": "警告",
-        "descriptionWarningModal": "来自 HeyFrame Store 以外的扩展未经我们审核，可能会对你的商店造成风险。建议尽量使用 HeyFrame Store 的扩展。",
+        "descriptionWarningModal": "来自 HeyFrame Store 以外的扩展未经我们审核，可能会对你的系统造成风险。建议尽量使用 HeyFrame Store 的扩展。",
         "textHideWarning": "不再显示"
       }
     },
