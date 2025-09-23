@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace HeyFrame\Tests\Integration\Core\Framework\App\Cookie;
 
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Content\Cookie\Event\CookieGroupCollectEvent;
 use HeyFrame\Core\Content\Cookie\Service\CookieProvider;
 use HeyFrame\Core\Content\Cookie\Struct\CookieEntry;
@@ -16,6 +15,7 @@ use HeyFrame\Core\Framework\Test\TestCaseBase\DatabaseTransactionBehaviour;
 use HeyFrame\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
 use HeyFrame\Core\Test\AppSystemTestBehaviour;
 use HeyFrame\Core\Test\Generator;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

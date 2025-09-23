@@ -223,14 +223,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Flow\Rule\OrderTrackingCodeRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Rule\OrderDeliveryStatusRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Flow\Rule\OrderCreatedByAdminRule">
             <tag name="heyframe.rule.definition"/>
         </service>
@@ -244,14 +236,6 @@
         </service>
 
         <service id="HeyFrame\Core\Content\Flow\Rule\OrderCustomFieldRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Rule\OrderDocumentTypeRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Flow\Rule\OrderDocumentTypeSentRule">
             <tag name="heyframe.rule.definition"/>
         </service>
 

@@ -17,9 +17,6 @@ use HeyFrame\Core\Checkout\Cart\LineItem\Group\Sorter\LineItemGroupPriceAscSorte
 use HeyFrame\Core\Checkout\Cart\LineItem\Group\Sorter\LineItemGroupPriceDescSorter;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItemCollection;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItemQuantitySplitter;
-use HeyFrame\Core\Checkout\Cart\Price\CashRounding;
-use HeyFrame\Core\Checkout\Cart\Price\GrossPriceCalculator;
-use HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use HeyFrame\Core\Content\Rule\RuleCollection;
 use HeyFrame\Core\Content\Rule\RuleEntity;
@@ -86,8 +83,6 @@ class LineItemGroupBuilderTest extends TestCase
         $this->fakeSorter = new FakeLineItemGroupSorter('FAKE-SORTER', $this->fakeSequenceSupervisor);
         $this->fakeTakeAllRuleMatcher = new FakeTakeAllRuleMatcher($this->fakeSequenceSupervisor);
 
-        $quantityPriceCalculator = $this->createQuantityPriceCalculator();
-
         $this->integrationTestBuilder = new LineItemGroupBuilder(
             new LineItemGroupServiceRegistry(
                 [
@@ -98,7 +93,7 @@ class LineItemGroupBuilderTest extends TestCase
                 ]
             ),
             $this->fakeTakeAllRuleMatcher,
-            new LineItemQuantitySplitter($quantityPriceCalculator),
+            new LineItemQuantitySplitter(),
             new ProductLineItemProvider()
         );
 
@@ -114,7 +109,7 @@ class LineItemGroupBuilderTest extends TestCase
                 ]
             ),
             new AnyRuleMatcher(new AnyRuleLineItemMatcher()),
-            new LineItemQuantitySplitter($quantityPriceCalculator),
+            new LineItemQuantitySplitter(),
             new ProductLineItemProvider()
         );
     }
@@ -453,14 +448,5 @@ class LineItemGroupBuilderTest extends TestCase
         $cart->addLineItems(new LineItemCollection($products));
 
         return $cart;
-    }
-
-    private function createQuantityPriceCalculator(): QuantityPriceCalculator
-    {
-        $priceRounding = new CashRounding();
-
-        return new QuantityPriceCalculator(
-            new GrossPriceCalculator($priceRounding),
-        );
     }
 }

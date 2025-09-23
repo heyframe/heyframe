@@ -26,6 +26,11 @@ use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionSetGroup\PromotionSetGro
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionSetGroupRule\PromotionSetGroupRuleDefinition;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionTranslation\PromotionTranslationDefinition;
 use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
+use HeyFrame\Core\Content\Category\Aggregate\CategoryTag\CategoryTagDefinition;
+use HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTranslationDefinition;
+use HeyFrame\Core\Content\Category\CategoryDefinition;
+use HeyFrame\Core\Content\Cms\Aggregate\CmsPageTranslation\CmsPageTranslationDefinition;
+use HeyFrame\Core\Content\Cms\CmsPageDefinition;
 use HeyFrame\Core\Content\ImportExport\Aggregate\ImportExportFile\ImportExportFileDefinition;
 use HeyFrame\Core\Content\ImportExport\Aggregate\ImportExportLog\ImportExportLogDefinition;
 use HeyFrame\Core\Content\ImportExport\ImportExportProfileDefinition;
@@ -129,6 +134,15 @@ class PermissionCategorization
             AppTranslationDefinition::ENTITY_NAME,
             ActionButtonDefinition::ENTITY_NAME,
             ActionButtonTranslationDefinition::ENTITY_NAME,
+        ],
+        self::CATEGORY_CATEGORY => [
+            CategoryDefinition::ENTITY_NAME,
+            CategoryTranslationDefinition::ENTITY_NAME,
+            CategoryTagDefinition::ENTITY_NAME,
+        ],
+        self::CATEGORY_CMS => [
+            CmsPageDefinition::ENTITY_NAME,
+            CmsPageTranslationDefinition::ENTITY_NAME,
         ],
         self::CATEGORY_CUSTOMER => [
             CustomerDefinition::ENTITY_NAME,

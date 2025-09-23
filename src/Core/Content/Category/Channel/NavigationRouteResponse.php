@@ -4,13 +4,13 @@ namespace HeyFrame\Core\Content\Category\Channel;
 
 use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<CategoryCollection>
+ * @extends FrontApiResponse<CategoryCollection>
  */
 #[Package('discovery')]
-class NavigationRouteResponse extends StoreApiResponse
+class NavigationRouteResponse extends FrontApiResponse
 {
     public function getCategories(): CategoryCollection
     {

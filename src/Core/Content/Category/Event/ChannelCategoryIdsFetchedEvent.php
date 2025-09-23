@@ -12,7 +12,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  * Event that is triggered when category ids are fetched for a sales channel without using the DAL.
  */
 #[Package('discovery')]
-final class SalesChannelCategoryIdsFetchedEvent extends Event implements HeyFrameEvent
+final class ChannelCategoryIdsFetchedEvent extends Event implements HeyFrameEvent
 {
     /**
      * @var array<string, string>

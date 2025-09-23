@@ -272,33 +272,6 @@
             <argument type="service" id="HeyFrame\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Media\Cms\DefaultMediaResolver">
-            <argument type="service" id="heyframe.filesystem.public"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Media\Cms\ImageCmsElementResolver">
-            <tag name="heyframe.cms.data_resolver" />
-            <argument type="service" id="HeyFrame\Core\Content\Media\Cms\DefaultMediaResolver"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Media\Cms\Type\ImageSliderTypeDataResolver">
-            <tag name="heyframe.cms.data_resolver" />
-            <argument type="service" id="HeyFrame\Core\Content\Media\Cms\DefaultMediaResolver"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Media\Cms\Type\ImageGalleryTypeDataResolver">
-            <tag name="heyframe.cms.data_resolver" />
-            <argument type="service" id="HeyFrame\Core\Content\Media\Cms\DefaultMediaResolver"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Media\Cms\YoutubeVideoCmsElementResolver">
-            <tag name="heyframe.cms.data_resolver" />
-        </service>
-
-        <service id="HeyFrame\Core\Content\Media\Cms\VimeoVideoCmsElementResolver">
-            <tag name="heyframe.cms.data_resolver" />
-        </service>
-
         <service id="HeyFrame\Core\Content\Media\DataAbstractionLayer\MediaIndexer">
             <tag name="heyframe.entity_indexer"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>

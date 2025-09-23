@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity;
 
-use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionCollection;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
@@ -44,14 +43,6 @@ class OrderSerializer extends EntitySerializer
             }
 
             $entity['lineItems'] = implode('|', $modifiedLineItems);
-        }
-
-        if (isset($entity['deliveries']) && $entity['deliveries'] instanceof OrderDeliveryCollection && $entity['deliveries']->count() > 0) {
-            $entity['deliveries'] = $entity['deliveries']->first()?->jsonSerialize();
-
-            if (!empty($entity['deliveries']['trackingCodes'])) {
-                $entity['deliveries']['trackingCodes'] = implode('|', $entity['deliveries']['trackingCodes']);
-            }
         }
 
         if (isset($entity['transactions']) && $entity['transactions'] instanceof OrderTransactionCollection && $entity['transactions']->count() > 0) {

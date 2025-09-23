@@ -21,7 +21,6 @@ class CookieGroupCollectEvent implements HeyFrameChannelEvent
     ) {
     }
 
-
     public function getContext(): Context
     {
         return $this->channelContext->getContext();

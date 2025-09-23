@@ -30,6 +30,8 @@ class ProductListingRouteTest extends TestCase
 
     private KernelBrowser $browser;
 
+    private IdsCollection $ids;
+
     private string $productId;
 
     /**

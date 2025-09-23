@@ -30,7 +30,7 @@ class CustomerNicknameUniqueValidator extends ConstraintValidator
 
         $query = $this->connection->createQueryBuilder();
 
-        /** @var array{nickname: string, bound_channel_id: string|null}[] $results */
+        /** @var list{nickname: string, bound_channel_id: string|null}[] $results */
         $results = $query
             ->select('nickname', 'LOWER(HEX(bound_channel_id)) as bound_channel_id')
             ->from('customer')

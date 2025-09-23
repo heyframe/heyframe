@@ -31,7 +31,7 @@ class TreeBuildingNavigationRoute extends AbstractNavigationRoute
         return $this->decorated;
     }
 
-    #[Route(path: '/front-api/navigation/{activeId}/{rootId}', name: 'store-api.navigation', methods: ['GET', 'POST'], defaults: ['_entity' => 'category'])]
+    #[Route(path: '/front-api/navigation/{activeId}/{rootId}', name: 'store-api.navigation', defaults: ['_entity' => 'category'], methods: ['GET', 'POST'])]
     public function load(string $activeId, string $rootId, Request $request, ChannelContext $context, Criteria $criteria): NavigationRouteResponse
     {
         try {

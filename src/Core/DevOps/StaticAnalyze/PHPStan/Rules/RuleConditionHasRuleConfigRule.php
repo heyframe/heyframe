@@ -14,9 +14,7 @@ use HeyFrame\Core\Checkout\Cart\Rule\LineItemPurchasePriceRule;
 use HeyFrame\Core\Checkout\Cart\Rule\LineItemRule;
 use HeyFrame\Core\Checkout\Cart\Rule\LineItemWithQuantityRule;
 use HeyFrame\Core\Checkout\Cart\Rule\LineItemWrapperRule;
-use HeyFrame\Core\Checkout\Customer\Rule\BillingZipCodeRule;
 use HeyFrame\Core\Checkout\Customer\Rule\CustomerCustomFieldRule;
-use HeyFrame\Core\Checkout\Customer\Rule\ShippingZipCodeRule;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Container\AndRule;
 use HeyFrame\Core\Framework\Rule\Container\Container;
@@ -25,7 +23,6 @@ use HeyFrame\Core\Framework\Rule\Container\MatchAllLineItemsRule;
 use HeyFrame\Core\Framework\Rule\Container\NotRule;
 use HeyFrame\Core\Framework\Rule\Container\OrRule;
 use HeyFrame\Core\Framework\Rule\Container\XorRule;
-use HeyFrame\Core\Framework\Rule\Container\ZipCodeRule;
 use HeyFrame\Core\Framework\Rule\DateRangeRule;
 use HeyFrame\Core\Framework\Rule\Rule as HeyFrameRule;
 use HeyFrame\Core\Framework\Rule\ScriptRule;
@@ -52,7 +49,6 @@ class RuleConditionHasRuleConfigRule implements Rule
      * @var list<string>
      */
     private array $rulesAllowedToBeWithoutConfig = [
-        ZipCodeRule::class,
         FilterRule::class,
         Container::class,
         AndRule::class,
@@ -69,8 +65,6 @@ class RuleConditionHasRuleConfigRule implements Rule
         LineItemRule::class,
         LineItemWithQuantityRule::class,
         LineItemWrapperRule::class,
-        BillingZipCodeRule::class,
-        ShippingZipCodeRule::class,
         AlwaysValidRule::class,
         LineItemPropertyRule::class,
         LineItemPurchasePriceRule::class,

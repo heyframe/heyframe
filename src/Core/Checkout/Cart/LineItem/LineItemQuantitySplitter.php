@@ -11,13 +11,6 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 class LineItemQuantitySplitter
 {
     /**
-     * @internal
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Gets a new line item with only the provided quantity amount
      * along a ready-to-use calculated price.
      *

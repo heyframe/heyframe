@@ -5,7 +5,6 @@ namespace HeyFrame\Core\System\Country;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
-use HeyFrame\Core\Framework\DataAbstractionLayer\TaxFreeConfig;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelCollection;
 use HeyFrame\Core\System\Country\Aggregate\CountryState\CountryStateCollection;
@@ -136,111 +135,5 @@ class CountryEntity extends Entity
     public function setCurrencyCountryRoundings(CurrencyCountryRoundingCollection $currencyCountryRoundings): void
     {
         $this->currencyCountryRoundings = $currencyCountryRoundings;
-    }
-
-    public function getVatIdRequired(): bool
-    {
-        return (bool) $this->vatIdRequired;
-    }
-
-    public function setVatIdRequired(bool $vatIdRequired): void
-    {
-        $this->vatIdRequired = $vatIdRequired;
-    }
-
-    public function getCustomerTax(): TaxFreeConfig
-    {
-        return $this->customerTax;
-    }
-
-    public function setCustomerTax(TaxFreeConfig $customerTax): void
-    {
-        $this->customerTax = $customerTax;
-    }
-
-    public function getCompanyTax(): TaxFreeConfig
-    {
-        return $this->companyTax;
-    }
-
-    public function setCompanyTax(TaxFreeConfig $companyTax): void
-    {
-        $this->companyTax = $companyTax;
-    }
-
-    public function getPostalCodeRequired(): bool
-    {
-        return $this->postalCodeRequired;
-    }
-
-    public function setPostalCodeRequired(bool $postalCodeRequired): void
-    {
-        $this->postalCodeRequired = $postalCodeRequired;
-    }
-
-    public function getCheckPostalCodePattern(): bool
-    {
-        return $this->checkPostalCodePattern;
-    }
-
-    public function setCheckPostalCodePattern(bool $checkPostalCodePattern): void
-    {
-        $this->checkPostalCodePattern = $checkPostalCodePattern;
-    }
-
-    public function getCheckAdvancedPostalCodePattern(): bool
-    {
-        return $this->checkAdvancedPostalCodePattern;
-    }
-
-    public function setCheckAdvancedPostalCodePattern(bool $checkAdvancedPostalCodePattern): void
-    {
-        $this->checkAdvancedPostalCodePattern = $checkAdvancedPostalCodePattern;
-    }
-
-    public function getAdvancedPostalCodePattern(): ?string
-    {
-        return $this->advancedPostalCodePattern;
-    }
-
-    public function setAdvancedPostalCodePattern(?string $advancedPostalCodePattern): void
-    {
-        $this->advancedPostalCodePattern = $advancedPostalCodePattern;
-    }
-
-    /**
-     * @return array<array<string, array<string, string>>>
-     */
-    public function getAddressFormat(): array
-    {
-        return $this->addressFormat;
-    }
-
-    /**
-     * @param array<array<string, array<string, string>>> $addressFormat
-     */
-    public function setAddressFormat(array $addressFormat): void
-    {
-        $this->addressFormat = $addressFormat;
-    }
-
-    public function setDefaultPostalCodePattern(?string $pattern): void
-    {
-        $this->defaultPostalCodePattern = $pattern;
-    }
-
-    public function getDefaultPostalCodePattern(): ?string
-    {
-        return $this->defaultPostalCodePattern;
-    }
-
-    public function getIsEu(): bool
-    {
-        return $this->isEu;
-    }
-
-    public function setIsEu(bool $isEu): void
-    {
-        $this->isEu = $isEu;
     }
 }

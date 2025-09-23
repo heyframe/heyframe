@@ -117,7 +117,7 @@ class DomainExceptionRule implements Rule
         }
 
         return [
-            RuleErrorBuilder::message('Throwing new exceptions within classes are not allowed. Please use domain exception pattern. See https://github.com/heyframe/platform/blob/v6.4.20.0/adr/2022-02-24-domain-exceptions.md')
+            RuleErrorBuilder::message('Throwing new exceptions within classes are not allowed. Please use domain exception pattern.')
                 ->identifier('heyframe.domainException')
                 ->build(),
         ];
