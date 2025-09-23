@@ -48,16 +48,9 @@ jobs:
       - name: Split package
         uses: symplify/monorepo-split-github-action@v12
         with:
-          # 子目录路径
           package_directory: 'src/${{ matrix.package.local_path }}'
-
-          # 推送目标仓库
           repository_organization: 'heyframe'
           repository_name: '${{ matrix.package.split_repository }}'
-
-          # 当前分支
           branch: '${{ github.ref_name }}'
-
-          # 签名用户
           user_name: "gxiaosong"
           user_email: "lyricsong47@gmail.com"
