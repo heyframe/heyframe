@@ -30,7 +30,7 @@ class CustomerEmailUniqueValidator extends ConstraintValidator
 
         $query = $this->connection->createQueryBuilder();
 
-        /** @var array{email: string, bound_channel_id: string|null}[] $results */
+        /** @var list<array{email: string, bound_channel_id: string|null}> $results */
         $results = $query
             ->select('email', 'LOWER(HEX(bound_channel_id)) as bound_channel_id')
             ->from('customer')

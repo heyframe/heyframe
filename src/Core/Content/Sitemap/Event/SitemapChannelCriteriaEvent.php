@@ -9,7 +9,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\Event;
 
 #[Package('discovery')]
-class SitemapSalesChannelCriteriaEvent extends Event implements HeyFrameEvent
+class SitemapChannelCriteriaEvent extends Event implements HeyFrameEvent
 {
     public function __construct(
         private readonly Criteria $criteria,

@@ -10,11 +10,7 @@ use HeyFrame\Core\Framework\Framework;
 use HeyFrame\Core\Framework\FrameworkException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Migration\MigrationException;
 use HeyFrame\Core\Kernel;
-use HeyFrame\Core\Migration\Traits\StateMachineMigrationImporter;
-use HeyFrame\Core\Migration\V6_4\Migration1632721037OrderDocumentMailTemplate;
-use HeyFrame\Core\Migration\V6_5\Migration1672931011ReviewFormMailTemplate;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
@@ -61,9 +57,6 @@ class DomainExceptionRule implements Rule
         Framework::class => FrameworkException::class,
         VarnishReverseProxyGateway::class => ReverseProxyException::class,
         FastlyReverseProxyGateway::class => ReverseProxyException::class,
-        Migration1672931011ReviewFormMailTemplate::class => MigrationException::class,
-        Migration1632721037OrderDocumentMailTemplate::class => MigrationException::class,
-        StateMachineMigrationImporter::class => MigrationException::class,
     ];
 
     /**
