@@ -29,8 +29,6 @@ final class CheckoutPermissions
 
     final public const SKIP_DELIVERY_PRICE_RECALCULATION = 'skipDeliveryPriceRecalculation';
 
-    final public const SKIP_DELIVERY_TAX_RECALCULATION = 'skipDeliveryTaxRecalculation';
-
     /**
      * Existing set of promotions will not be changed.
      * Promotions may **not** be recalculated based on their price definition.
