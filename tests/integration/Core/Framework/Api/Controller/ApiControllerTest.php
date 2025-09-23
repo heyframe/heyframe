@@ -46,7 +46,7 @@ class ApiControllerTest extends TestCase
     use KernelTestBehaviour;
 
     private const DELETE_VALIDATION_MESSAGE = 'Cannot delete default language id from language list of the sales channel with id "%s".';
-    private const INSERT_VALIDATION_MESSAGE = 'The sales channel with id "%s" does not have a default sales channel language id in the language list.';
+    private const INSERT_VALIDATION_MESSAGE = 'The channel with id "%s" does not have a default channel language id in the language list.';
 
     private Connection $connection;
 
