@@ -34,6 +34,9 @@ jobs:
           - local_path: 'Elasticsearch'
             split_repository: 'elasticsearch'
 
+          - local_path: 'Uni'
+            split_repository: 'uni'
+
           - local_path: 'Uni/Resources/app/uni'
             split_repository: 'heyuni'
     steps:

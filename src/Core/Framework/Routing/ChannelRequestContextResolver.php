@@ -110,9 +110,5 @@ class ChannelRequestContextResolver implements RequestContextResolverInterface
         if ($context->getCustomer() === null) {
             throw RoutingException::customerNotLoggedIn();
         }
-
-        if ($request->attributes->get(PlatformRequest::ATTRIBUTE_LOGIN_REQUIRED_ALLOW_GUEST, false) === false && $context->getCustomer()->getGuest()) {
-            throw RoutingException::customerNotLoggedIn();
-        }
     }
 }

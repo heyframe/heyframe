@@ -1,0 +1,37 @@
+name: Generate Release Info
+
+on:
+  release:
+    types: [published,edited] # edited does not trigger if it's not published yet
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  release:
+      runs-on: ubuntu-24.04
+      if: github.repository == 'heyframe/heyframe'
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4
+
+        - uses: denoland/setup-deno@e95548e56dfa95d4e1a28d6f422fafe75c4c26fb # 1
+          with:
+            deno-version: 1.29.1
+
+        - name: Generate Release Info
+          run: |
+            mkdir generated
+            cd generated
+            deno run --allow-read --allow-write --allow-net --allow-env ../.github/release_info_generator.ts
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        - uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # 1.0.0
+          if: github.event.action == 'published'
+          id: sts-admin-api-reference
+          with:
+            scope: shopware/admin-api-reference
+            identity: release
