@@ -14,6 +14,7 @@
             <argument type="service" id="HeyFrame\Core\Maintenance\System\Service\SetupDatabaseAdapter"/>
             <argument type="service" id="HeyFrame\Core\Maintenance\System\Service\DatabaseConnectionFactory"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheClearer"/>
+            <argument type="service" id="HeyFrame\Core\Installer\Finish\SystemLocker"/>
             <tag name="console.command"/>
         </service>
 
@@ -128,6 +129,10 @@
         </service>
 
         <service id="HeyFrame\Core\Maintenance\System\Service\SetupDatabaseAdapter"/>
+
+        <service id="HeyFrame\Core\Installer\Finish\SystemLocker">
+            <argument>%kernel.project_dir%</argument>
+        </service>
 
         <service id="HeyFrame\Core\Maintenance\Staging\Command\SystemSetupStagingCommand">
             <argument type="service" id="event_dispatcher"/>
