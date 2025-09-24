@@ -4,7 +4,7 @@ namespace HeyFrame\Core\Maintenance\User\Command;
 
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleEntity;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;

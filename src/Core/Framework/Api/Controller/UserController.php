@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Api\Controller;
 
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleCollection;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Controller\Exception\PermissionDeniedException;

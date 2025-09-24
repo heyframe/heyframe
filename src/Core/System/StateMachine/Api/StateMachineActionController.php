@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\System\StateMachine\Api;
 
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Api\Response\ResponseFactoryInterface;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;

@@ -461,6 +461,7 @@ frame-ancestors 'none';
             <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextService"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\Framework\Routing\RouteScopeRegistry"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Cart\ApiOrderCartService">

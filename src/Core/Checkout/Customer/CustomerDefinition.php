@@ -9,6 +9,8 @@ use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
 use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionPersonaCustomer\PromotionPersonaCustomerDefinition;
 use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
 use HeyFrame\Core\Content\Media\MediaDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleMappingDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AutoIncrementField;
@@ -118,6 +120,7 @@ class CustomerDefinition extends EntityDefinition
             new FkField('bound_channel_id', 'boundChannelId', ChannelDefinition::class),
             new ManyToOneAssociationField('boundChannel', 'bound_channel_id', ChannelDefinition::class, 'id', false),
             new ManyToOneAssociationField('avatarMedia', 'avatar_id', MediaDefinition::class),
+            new ManyToManyAssociationField('roles', CustomerRoleDefinition::class, CustomerRoleMappingDefinition::class, 'customer_id', 'customer_role_id'),
             (new CreatedByField([Context::SYSTEM_SCOPE, Context::CRUD_API_SCOPE]))->addFlags(new ApiAware()),
             (new UpdatedByField([Context::SYSTEM_SCOPE, Context::CRUD_API_SCOPE]))->addFlags(new ApiAware()),
             new ManyToOneAssociationField('createdBy', 'created_by_id', UserDefinition::class, 'id', false),

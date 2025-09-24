@@ -3,7 +3,7 @@
 namespace HeyFrame\Core\Framework\App\ScheduledTask;
 
 use HeyFrame\Core\Defaults;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;

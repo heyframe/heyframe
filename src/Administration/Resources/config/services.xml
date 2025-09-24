@@ -57,7 +57,7 @@
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="HeyFrame\Administration\Service\AdminSearcher"/>
             <argument type="service" id="serializer"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Api\Acl\AclCriteriaValidator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Api\Acl\Admin\AclCriteriaValidator"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="HeyFrame\Core\Framework\Api\Serializer\JsonEntityEncoder"/>
 

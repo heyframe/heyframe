@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Webhook\Hookable;
 
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityDeletedEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\Api\Acl;
+namespace HeyFrame\Core\Framework\Api\Acl\Admin;
 
-use HeyFrame\Core\Framework\Api\Acl\Event\CommandAclValidationEvent;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Event\CommandAclValidationEvent;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Context\AdminChannelApiSource;

@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Elasticsearch\Admin;
 
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;

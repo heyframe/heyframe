@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Plugin\Subscriber;
 
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleEntity;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleEvents;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleEntity;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleEvents;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\KernelPluginCollection;

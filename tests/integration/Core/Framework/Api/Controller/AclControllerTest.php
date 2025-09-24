@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Tests\Integration\Core\Framework\Api\Controller;
 
-use HeyFrame\Core\Framework\Api\Acl\Event\AclGetAdditionalPrivilegesEvent;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Event\AclGetAdditionalPrivilegesEvent;
 use HeyFrame\Core\Framework\Api\Exception\MissingPrivilegeException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Test\TestCaseBase\AdminFunctionalTestBehaviour;

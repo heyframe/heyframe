@@ -6,6 +6,8 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
 use HeyFrame\Core\Checkout\Customer\CustomerEntity;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
 use HeyFrame\Core\Defaults;
+use HeyFrame\Core\Framework\Api\Context\ChannelApiSource;
+use HeyFrame\Core\Framework\Api\Context\ContextSource;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
 use HeyFrame\Core\Framework\Log\Package;
@@ -29,15 +31,17 @@ class ChannelContext extends Struct
 
     protected ?string $imitatingUserId = null;
 
+    protected ContextSource $source;
+
     /**
      * @internal
      */
     protected ?LockInterface $cartLock = null;
 
     /**
-     * @internal
-     *
      * @param array<string, array<string>> $areaRuleIds
+     *
+     * @internal
      */
     public function __construct(
         protected Context $context,
@@ -53,6 +57,7 @@ class ChannelContext extends Struct
         protected LanguageInfo $languageInfo,
         protected array $areaRuleIds = [],
     ) {
+        $this->source = $this->context->getSource();
     }
 
     public function getCurrentCustomerGroup(): CustomerGroupEntity
@@ -102,9 +107,9 @@ class ChannelContext extends Struct
     }
 
     /**
-     * @internal
-     *
      * @return array<string, array<string>>
+     *
+     * @internal
      */
     public function getAreaRuleIds(): array
     {
@@ -112,11 +117,11 @@ class ChannelContext extends Struct
     }
 
     /**
-     * @internal
-     *
      * @param array<string> $areas
      *
      * @return array<string>
+     *
+     * @internal
      */
     public function getRuleIdsByAreas(array $areas): array
     {
@@ -134,9 +139,9 @@ class ChannelContext extends Struct
     }
 
     /**
-     * @internal
-     *
      * @param array<string, array<string>> $areaRuleIds
+     *
+     * @internal
      */
     public function setAreaRuleIds(array $areaRuleIds): void
     {
@@ -347,6 +352,15 @@ class ChannelContext extends Struct
         $this->setPermissions($originalPermissions);
 
         return $result;
+    }
+
+    public function isAllowed(string $privilege): bool
+    {
+        if ($this->source instanceof ChannelApiSource) {
+            return $this->source->isAllowed($privilege);
+        }
+
+        return true;
     }
 
     public function getCustomerGroupId(): string

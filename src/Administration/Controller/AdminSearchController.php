@@ -5,7 +5,7 @@ namespace HeyFrame\Administration\Controller;
 use HeyFrame\Administration\Framework\Routing\AdministrationRouteScope;
 use HeyFrame\Administration\Framework\Search\CriteriaCollection;
 use HeyFrame\Administration\Service\AdminSearcher;
-use HeyFrame\Core\Framework\Api\Acl\AclCriteriaValidator;
+use HeyFrame\Core\Framework\Api\Acl\Admin\AclCriteriaValidator;
 use HeyFrame\Core\Framework\Api\Exception\MissingPrivilegeException;
 use HeyFrame\Core\Framework\Api\Serializer\JsonEntityEncoder;
 use HeyFrame\Core\Framework\Context;

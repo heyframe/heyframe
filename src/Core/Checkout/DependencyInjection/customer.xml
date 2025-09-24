@@ -121,6 +121,12 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerSubscriber">
+            <argument type="service" id="customer.repository"/>
+            <argument type="service" id="customer_role.repository"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerTokenSubscriber">
             <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextPersister"/>
             <argument type="service" id="request_stack"/>
@@ -171,7 +177,12 @@
             <argument type="service" id="customer.repository"/>
         </service>
 
-
+        <service id="HeyFrame\Core\Checkout\Customer\Channel\ChangePasswordRoute" public="true">
+            <argument type="service" id="customer.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Validation\DataValidator"/>
+        </service>
 
     </services>
 </container>

@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\Framework\App;
 
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\ActionButton\ActionButtonDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\AppPaymentMethod\AppPaymentMethodDefinition;
 use HeyFrame\Core\Framework\App\Aggregate\AppScriptCondition\AppScriptConditionDefinition;

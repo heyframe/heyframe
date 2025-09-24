@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\Framework\App\Manifest\Xml\Permission;
 
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\App\Manifest\Xml\XmlElement;
 use HeyFrame\Core\Framework\Log\Package;
 

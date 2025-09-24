@@ -11,7 +11,7 @@ use HeyFrame\Core\Content\ImportExport\Service\AbstractMappingService;
 use HeyFrame\Core\Content\ImportExport\Service\DownloadService;
 use HeyFrame\Core\Content\ImportExport\Service\ImportExportService;
 use HeyFrame\Core\Content\ImportExport\Service\SupportedFeaturesService;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;

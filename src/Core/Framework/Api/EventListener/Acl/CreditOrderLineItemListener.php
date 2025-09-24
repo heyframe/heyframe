@@ -4,8 +4,8 @@ namespace HeyFrame\Core\Framework\Api\EventListener\Acl;
 
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemDefinition;
-use HeyFrame\Core\Framework\Api\Acl\Event\CommandAclValidationEvent;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Event\CommandAclValidationEvent;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

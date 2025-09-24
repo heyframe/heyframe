@@ -7,7 +7,7 @@ use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Content\ImportExport\Aggregate\ImportExportLog\ImportExportLogCollection;
 use HeyFrame\Core\Content\Media\MediaCollection;
 use HeyFrame\Core\Content\Media\MediaEntity;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;

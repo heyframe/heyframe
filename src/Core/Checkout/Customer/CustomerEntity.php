@@ -7,6 +7,7 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
 use HeyFrame\Core\Content\Media\MediaEntity;
+use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
@@ -110,6 +111,8 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?string $updatedById = null;
 
     protected ?UserEntity $updatedBy = null;
+
+    protected ?CustomerRoleCollection $roles = null;
 
     public function __toString(): string
     {
@@ -537,5 +540,15 @@ class CustomerEntity extends Entity implements \Stringable
     public function setAvatarMedia(?MediaEntity $avatarMedia): void
     {
         $this->avatarMedia = $avatarMedia;
+    }
+
+    public function getRoles(): ?CustomerRoleCollection
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(CustomerRoleCollection $roles): void
+    {
+        $this->roles = $roles;
     }
 }

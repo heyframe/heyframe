@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Facade;
 
-use HeyFrame\Core\Framework\Api\Acl\AclCriteriaValidator;
+use HeyFrame\Core\Framework\Api\Acl\Admin\AclCriteriaValidator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder;
 use HeyFrame\Core\Framework\Log\Package;

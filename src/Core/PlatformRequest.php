@@ -60,6 +60,7 @@ final class PlatformRequest
     public const ATTRIBUTE_IMITATING_USER_ID = 'sw-imitating-user-id';
 
     public const ATTRIBUTE_ACL = '_acl';
+    public const ATTRIBUTE_FRONT_ACL = '_acl_';
     public const ATTRIBUTE_CAPTCHA = '_captcha';
     public const ATTRIBUTE_ROUTE_SCOPE = '_routeScope';
     public const ATTRIBUTE_ENTITY = '_entity';

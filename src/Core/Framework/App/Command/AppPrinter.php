@@ -3,7 +3,7 @@
 namespace HeyFrame\Core\Framework\App\Command;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\Exception\UserAbortedCommandException;

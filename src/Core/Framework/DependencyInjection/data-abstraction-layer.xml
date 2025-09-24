@@ -141,7 +141,7 @@
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="HeyFrame\Core\Framework\Script\AppContextCreator"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Api\Acl\AclCriteriaValidator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Api\Acl\Admin\AclCriteriaValidator"/>
         </service>
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Facade\RepositoryWriterFacadeHookFactory" public="true">

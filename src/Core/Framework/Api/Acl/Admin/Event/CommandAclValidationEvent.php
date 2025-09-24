@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\Api\Acl\Event;
+namespace HeyFrame\Core\Framework\Api\Acl\Admin\Event;
 
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;

@@ -145,7 +145,6 @@ class ProductDefinition extends EntityDefinition
             (new IntField('max_purchase', 'maxPurchase'))->addFlags(new ApiAware(), new Inherited()),
             (new IntField('min_purchase', 'minPurchase', 1))->addFlags(new ApiAware(), new Inherited()),
             (new FloatField('purchase_unit', 'purchaseUnit'))->addFlags(new ApiAware(), new Inherited()),
-            (new FloatField('reference_unit', 'referenceUnit'))->addFlags(new ApiAware(), new Inherited()),
             (new PriceField('purchase_prices', 'purchasePrices'))->addFlags(new Inherited()),
             (new DateTimeField('release_date', 'releaseDate'))->addFlags(new ApiAware(), new Inherited()),
             (new FloatField('rating_average', 'ratingAverage'))->addFlags(new ApiAware(), new WriteProtected(), new Inherited()),

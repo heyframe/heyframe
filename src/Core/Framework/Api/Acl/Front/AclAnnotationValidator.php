@@ -1,16 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\Api\Acl;
+namespace HeyFrame\Core\Framework\Api\Acl\Front;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Api\ApiException;
-use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\KernelListenerPriorities;
-use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\PlatformRequest;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -43,50 +41,18 @@ class AclAnnotationValidator implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        $privileges = $request->attributes->get(PlatformRequest::ATTRIBUTE_ACL);
-
+        $privileges = $request->attributes->get(PlatformRequest::ATTRIBUTE_FRONT_ACL);
         if (!$privileges) {
             return;
         }
-
-        $context = $request->attributes->get(PlatformRequest::ATTRIBUTE_CONTEXT_OBJECT);
-        if (!$context instanceof Context) {
+        $context = $request->attributes->get(PlatformRequest::ATTRIBUTE_CHANNEL_CONTEXT_OBJECT);
+        if (!$context instanceof ChannelContext) {
             throw ApiException::missingPrivileges([]);
         }
-
         foreach ($privileges as $privilege) {
-            if ($privilege === 'app') {
-                if ($context->isAllowed('app.all')) {
-                    return;
-                }
-
-                $privilege = $this->getAppPrivilege($request);
-            }
-
             if (!$context->isAllowed($privilege)) {
                 throw ApiException::missingPrivileges([$privilege]);
             }
         }
-    }
-
-    private function getAppPrivilege(Request $request): string
-    {
-        $actionId = $request->get('id');
-
-        if (empty($actionId)) {
-            throw ApiException::appIdParameterIsMissing();
-        }
-
-        $appName = $this->connection->fetchOne(
-            '
-                SELECT `app`.`name` AS `name`
-                FROM `app`
-                INNER JOIN `app_action_button` ON `app`.`id` = `app_action_button`.`app_id`
-                WHERE `app_action_button`.`id` = :id
-            ',
-            ['id' => Uuid::fromHexToBytes($actionId)],
-        );
-
-        return 'app.' . $appName;
     }
 }

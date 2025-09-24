@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\Api\Acl;
+namespace HeyFrame\Core\Framework\Api\Acl\Admin;
 
-use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
