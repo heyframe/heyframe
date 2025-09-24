@@ -3,7 +3,9 @@
 namespace HeyFrame\Core\Content\Media\Core\Application;
 
 use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
+use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
+use HeyFrame\Core\Framework\DataAbstractionLayer\PartialEntity;
 use HeyFrame\Core\Framework\Log\Package;
 
 /**
@@ -31,7 +33,7 @@ class MediaUrlLoader
      * Collects all urls of the provided entities and triggers the AbstractMediaUrlGenerator to generate the urls.
      * The generated urls will be assigned to the entities afterward.
      *
-     * @param iterable<Entity> $entities
+     * @param iterable<MediaEntity|PartialEntity> $entities
      */
     public function loaded(iterable $entities): void
     {

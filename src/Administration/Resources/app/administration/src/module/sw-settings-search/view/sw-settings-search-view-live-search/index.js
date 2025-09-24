@@ -36,8 +36,8 @@ export default {
     },
 
     computed: {
-        storefrontEsEnable() {
-            return HeyFrame.Context.app.storefrontEsEnable ?? false;
+        frontendEsEnable() {
+            return HeyFrame.Context.app.frontendEsEnable ?? false;
         },
     },
 };

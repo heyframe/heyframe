@@ -98,6 +98,11 @@
       "messageSaveSuccess": "规则 \"{name}\" 已保存。",
       "ruleCard": "条件",
       "messageSaveError": "保存规则时发生错误",
+      "productStreamIndexingWarning": {
+        "title": "已禁用动态商品组索引",
+        "message": "条件 “商品在动态商品组中” 将永远不成立。",
+        "action": "在我们的文档中了解更多"
+      },
       "tabGeneral": "基本信息",
       "tabAssignments": "应用对象",
       "buttonAddAssignment": "添加应用对象",

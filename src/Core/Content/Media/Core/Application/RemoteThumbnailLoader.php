@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace HeyFrame\Core\Content\Media\Core\Application;
 
@@ -7,7 +8,9 @@ use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollectio
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
 use HeyFrame\Core\Content\Media\Extension\ResolveRemoteThumbnailUrlExtension;
+use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
+use HeyFrame\Core\Framework\DataAbstractionLayer\PartialEntity;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
@@ -46,7 +49,7 @@ class RemoteThumbnailLoader implements ResetInterface
      * Generates the thumbnails for the media entities according to the provided pattern and media thumbnail sizes.
      * The generated thumbnails will be assigned to the entities afterward.
      *
-     * @param iterable<Entity> $media
+     * @param iterable<MediaEntity|PartialEntity> $media
      */
     public function load(iterable $media): void
     {
@@ -68,7 +71,8 @@ class RemoteThumbnailLoader implements ResetInterface
 
             $mediaEntity->assign(['url' => $urls[$mediaEntity->getUniqueIdentifier()]]);
 
-            $thumbnailSizes = $mediaThumbnailSizes[$mediaEntity->get('mediaFolderId')] ?? [];
+            $mediaFolderId = $mediaEntity->get('mediaFolderId');
+            $thumbnailSizes = $mediaThumbnailSizes[$mediaFolderId] ?? [];
 
             if (empty($thumbnailSizes)) {
                 $mediaEntity->assign(['thumbnails' => new MediaThumbnailCollection()]);
@@ -76,16 +80,17 @@ class RemoteThumbnailLoader implements ResetInterface
                 continue;
             }
 
-            $path = $mediaEntity->get('path');
-            $updatedAt = $mediaEntity->get('updatedAt') ?? $mediaEntity->get('createdAt');
-
-            if (!($updatedAt instanceof \DateTimeInterface)) {
-                $updatedAt = null;
-            }
-
             $thumbnails = new MediaThumbnailCollection();
             foreach ($thumbnailSizes as $size) {
-                $url = $this->getUrl($baseUrl, $path, $size['width'], $size['height'], $updatedAt);
+                $url = $this->getUrl(
+                    $mediaEntity,
+                    $baseUrl,
+                    $size['width'],
+                    $size['height']
+                );
+                if ($url === null) {
+                    continue;
+                }
 
                 $thumbnail = new MediaThumbnailEntity();
                 $thumbnail->assign([
@@ -178,19 +183,29 @@ class RemoteThumbnailLoader implements ResetInterface
         return \rtrim($this->filesystem->publicUrl(''), '/');
     }
 
-    private function getUrl(string $mediaUrl, string $mediaPath, string $width, string $height, ?\DateTimeInterface $mediaUpdatedAt): string
+    private function getUrl(MediaEntity|PartialEntity $mediaEntity, string $mediaUrl, string $width, string $height): ?string
     {
         return $this->extensions->publish(
             name: ResolveRemoteThumbnailUrlExtension::NAME,
             extension: new ResolveRemoteThumbnailUrlExtension(
                 $mediaUrl,
-                $mediaPath,
                 $width,
                 $height,
                 $this->pattern,
-                $mediaUpdatedAt
+                $mediaEntity,
             ),
-            function: function (string $mediaUrl, string $mediaPath, string $width, string $height, string $pattern, ?\DateTimeInterface $mediaUpdatedAt) {
+            function: function (
+                string $mediaUrl,
+                string $width,
+                string $height,
+                string $pattern,
+                Entity $mediaEntity,
+            ): string {
+                $mediaPath = $mediaEntity->get('path');
+                \assert(\is_string($mediaPath));
+                $mediaUpdatedAt = $mediaEntity->get('updatedAt') ?? $mediaEntity->get('createdAt');
+                \assert($mediaUpdatedAt instanceof \DateTimeInterface);
+
                 $replacements = [
                     str_starts_with($mediaPath, 'http') ? '' : $mediaUrl,
                     $mediaPath,

@@ -96,10 +96,10 @@ describe('module/sw-settings-search/component/sw-settings-search-searchable-cont
         expect(resetButton.attributes().disabled).toBeFalsy();
     });
 
-    it('should return storefrontEsEnable value', async () => {
-        HeyFrame.Context.app.storefrontEsEnable = true;
+    it('should return frontendEsEnable value', async () => {
+        HeyFrame.Context.app.frontendEsEnable = true;
         const wrapper = await createWrapper();
 
-        expect(wrapper.vm.storefrontEsEnable).toBeTruthy();
+        expect(wrapper.vm.frontendEsEnable).toBeTruthy();
     });
 });

@@ -63,11 +63,11 @@ async function createWrapper(privileges = []) {
 }
 
 describe('module/sw-settings-search/view/sw-settings-search-view-live-search', () => {
-    it('should return storefrontEsEnable value', async () => {
-        HeyFrame.Context.app.storefrontEsEnable = true;
+    it('should return frontendEsEnable value', async () => {
+        HeyFrame.Context.app.frontendEsEnable = true;
         const wrapper = await createWrapper();
 
-        expect(wrapper.vm.storefrontEsEnable).toBeTruthy();
+        expect(wrapper.vm.frontendEsEnable).toBeTruthy();
     });
 
     it('should return default value of searchResults', async () => {
@@ -76,7 +76,7 @@ describe('module/sw-settings-search/view/sw-settings-search-view-live-search', (
     });
 
     it('should display rebuild search index button when user enable elasticsearch for their shop', async () => {
-        HeyFrame.Context.app.storefrontEsEnable = false;
+        HeyFrame.Context.app.frontendEsEnable = false;
         const wrapper = await createWrapper();
         await flushPromises();
         const rebuildSearchIndexButton = wrapper.find('.sw-settings-search__search-index-rebuild-button');

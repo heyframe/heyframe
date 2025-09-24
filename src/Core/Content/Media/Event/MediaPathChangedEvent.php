@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace HeyFrame\Core\Content\Media\Event;
 
@@ -10,7 +12,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 class MediaPathChangedEvent extends Event
 {
     /**
-     * @var array<array{mediaId: string, thumbnailId: ?string, path: string}>
+     * @var array<array{mediaId: string, thumbnailId: ?string, path: string, mimeType: ?string}>
      */
     public array $changed = [];
 
@@ -18,21 +20,27 @@ class MediaPathChangedEvent extends Event
     {
     }
 
-    public function media(string $mediaId, string $path): void
+    public function mediaWithMimeType(string $mediaId, string $path, ?string $mimeType = null): void
     {
         $this->changed[] = [
             'mediaId' => $mediaId,
             'thumbnailId' => null,
             'path' => $path,
+            'mimeType' => $mimeType,
         ];
     }
 
-    public function thumbnail(string $mediaId, string $thumbnailId, string $path): void
-    {
+    public function thumbnailWithMimeType(
+        string $mediaId,
+        string $thumbnailId,
+        string $path,
+        ?string $mimeType = null
+    ): void {
         $this->changed[] = [
             'mediaId' => $mediaId,
             'thumbnailId' => $thumbnailId,
             'path' => $path,
+            'mimeType' => $mimeType,
         ];
     }
 }
