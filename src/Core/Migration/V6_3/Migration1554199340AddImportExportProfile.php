@@ -3,10 +3,8 @@
 namespace HeyFrame\Core\Migration\V6_3;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationStep;
-use HeyFrame\Core\Framework\Uuid\Uuid;
 
 /**
  * @internal
