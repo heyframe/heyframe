@@ -48,7 +48,9 @@ class AdministrationController extends AbstractController
     private readonly bool $esAdministrationEnabled;
 
     private readonly bool $esFrontendEnabled;
+
     private readonly bool $productStreamIndexingEnabled;
+
     /**
      * @internal
      *
