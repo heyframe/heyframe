@@ -88,7 +88,6 @@
 
         <service id="HeyFrame\Core\Checkout\Order\Channel\OrderRoute" public="true">
             <argument type="service" id="order.repository"/>
-            <argument type="service" id="promotion.repository"/>
             <argument type="service" id="heyframe.rate_limiter"/>
             <argument type="service" id="event_dispatcher"/>
         </service>

@@ -6,7 +6,6 @@ use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceDefinitionInterface;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefundPosition\OrderTransactionCaptureRefundPositionCollection;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
-use HeyFrame\Core\Checkout\Promotion\PromotionEntity;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Content\Product\ProductEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
@@ -27,11 +26,6 @@ class OrderLineItemEntity extends Entity
     protected ?string $referencedId = null;
 
     protected ?string $productId = null;
-
-    /**
-     * @internal
-     */
-    protected ?string $promotionId = null;
 
     protected int $quantity;
 
@@ -85,8 +79,6 @@ class OrderLineItemEntity extends Entity
      * @var array<int, string>
      */
     protected array $states = [];
-
-    protected ?PromotionEntity $promotion = null;
 
     protected string $orderVersionId;
 
@@ -367,26 +359,6 @@ class OrderLineItemEntity extends Entity
     public function setOrderTransactionCaptureRefundPositions(OrderTransactionCaptureRefundPositionCollection $orderTransactionCaptureRefundPositions): void
     {
         $this->orderTransactionCaptureRefundPositions = $orderTransactionCaptureRefundPositions;
-    }
-
-    public function getPromotionId(): ?string
-    {
-        return $this->promotionId;
-    }
-
-    public function setPromotionId(?string $promotionId): void
-    {
-        $this->promotionId = $promotionId;
-    }
-
-    public function getPromotion(): ?PromotionEntity
-    {
-        return $this->promotion;
-    }
-
-    public function setPromotion(?PromotionEntity $promotion): void
-    {
-        $this->promotion = $promotion;
     }
 
     /**

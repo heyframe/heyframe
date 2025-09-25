@@ -18,7 +18,6 @@ use HeyFrame\Core\Checkout\Order\Exception\EmptyCartException;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Checkout\Order\OrderException;
-use HeyFrame\Core\Checkout\Promotion\Cart\PromotionItemBuilder;
 use HeyFrame\Core\Content\Product\Exception\ProductNotFoundException;
 use HeyFrame\Core\Content\Product\ProductCollection;
 use HeyFrame\Core\Defaults;
@@ -50,7 +49,6 @@ class RecalculationService
         protected EntityRepository $orderLineItemRepository,
         protected Processor $processor,
         private readonly CartRuleLoader $cartRuleLoader,
-        private readonly PromotionItemBuilder $promotionItemBuilder,
     ) {
     }
 
@@ -154,9 +152,6 @@ class RecalculationService
         $channelContext = $this->orderConverter->assembleChannelContext($order, $context);
         $cart = $this->orderConverter->convertToCart($order, $context);
 
-        $promotionLineItem = $this->promotionItemBuilder->buildPlaceholderItem($code);
-
-        $cart->add($promotionLineItem);
         $recalculatedCart = $this->recalculateCart($cart, $channelContext);
 
         $conversionContext = $this->getOrderConversionContext();

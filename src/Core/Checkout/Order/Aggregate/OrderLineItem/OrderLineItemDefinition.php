@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem;
 
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefundPosition\OrderTransactionCaptureRefundPositionDefinition;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
-use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
 use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Content\Product\ProductDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -83,7 +82,6 @@ class OrderLineItemDefinition extends EntityDefinition
             (new ReferenceVersionField(OrderDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new FkField('product_id', 'productId', ProductDefinition::class))->addFlags(new ApiAware()),
             (new ReferenceVersionField(ProductDefinition::class))->addFlags(new ApiAware(), new Required()),
-            (new FkField('promotion_id', 'promotionId', PromotionDefinition::class))->addFlags(new ApiAware()),
             (new ParentFkField(self::class))->addFlags(new ApiAware()),
             (new ReferenceVersionField(self::class, 'parent_version_id'))->addFlags(new ApiAware(), new Required()),
             (new FkField('cover_id', 'coverId', MediaDefinition::class))->addFlags(new ApiAware()),
@@ -110,7 +108,6 @@ class OrderLineItemDefinition extends EntityDefinition
             (new CustomFields())->addFlags(new ApiAware()),
             new ManyToOneAssociationField('order', 'order_id', OrderDefinition::class, 'id', false),
             (new ManyToOneAssociationField('product', 'product_id', ProductDefinition::class, 'id', false))->addFlags(new ApiAware()),
-            new ManyToOneAssociationField('promotion', 'promotion_id', PromotionDefinition::class, 'id', false),
             (new OneToManyAssociationField('orderTransactionCaptureRefundPositions', OrderTransactionCaptureRefundPositionDefinition::class, 'order_line_item_id'))->addFlags(new CascadeDelete()),
             (new ParentAssociationField(self::class))->addFlags(new ApiAware()),
             (new ChildrenAssociationField(self::class))->addFlags(new ApiAware(), new Required()),

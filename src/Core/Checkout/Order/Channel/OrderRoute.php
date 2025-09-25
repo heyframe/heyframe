@@ -7,15 +7,12 @@ use HeyFrame\Core\Checkout\Order\Event\OrderCriteriaEvent;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Checkout\Order\OrderException;
-use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
-use HeyFrame\Core\Checkout\Promotion\PromotionEntity;
 use HeyFrame\Core\Content\Rule\RuleEntity;
 use HeyFrame\Core\Framework\Adapter\Database\ReplicaConnection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\RateLimiter\Exception\RateLimitExceededException;
@@ -36,11 +33,9 @@ class OrderRoute extends AbstractOrderRoute
      * @internal
      *
      * @param EntityRepository<OrderCollection> $orderRepository
-     * @param EntityRepository<PromotionCollection> $promotionRepository
      */
     public function __construct(
         private readonly EntityRepository $orderRepository,
-        private readonly EntityRepository $promotionRepository,
         private readonly RateLimiter $rateLimiter,
         private readonly EventDispatcherInterface $eventDispatcher
     ) {
@@ -63,10 +58,6 @@ class OrderRoute extends AbstractOrderRoute
             ->addFilter(new EqualsFilter('sent', true));
 
         $criteria->addAssociations(['billingAddress', 'orderCustomer.customer', 'primaryOrderDelivery']);
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $criteria->addAssociation('deliveries');
-        }
 
         $deepLinkFilter = \current(array_filter($criteria->getFilters(), static fn (Filter $filter) => \in_array('order.deepLinkCode', $filter->getFields(), true)
             || \in_array('deepLinkCode', $filter->getFields(), true))) ?: null;
@@ -102,42 +93,7 @@ class OrderRoute extends AbstractOrderRoute
             $this->rateLimiter->reset(RateLimiter::GUEST_LOGIN, $cacheKey);
         }
 
-        $response = new OrderRouteResponse($orderResult);
-        if ($request->get('checkPromotion') === true) {
-            foreach ($orders as $order) {
-                $promotions = $this->getActivePromotions($order, $context);
-                $changeable = true;
-                foreach ($promotions as $promotion) {
-                    $changeable = $this->checkPromotion($promotion);
-                    if ($changeable === true) {
-                        break;
-                    }
-                }
-                $response->addPaymentChangeable([$order->getId() => $changeable]);
-            }
-        }
-
-        return $response;
-    }
-
-    private function getActivePromotions(OrderEntity $order, ChannelContext $context): PromotionCollection
-    {
-        $promotionIds = [];
-        foreach ($order->getLineItems() ?? [] as $lineItem) {
-            $payload = $lineItem->getPayload();
-            if (isset($payload['promotionId']) && \is_string($payload['promotionId'])) {
-                $promotionIds[] = $payload['promotionId'];
-            }
-        }
-
-        if (!$promotionIds) {
-            return new PromotionCollection();
-        }
-
-        $criteria = (new Criteria($promotionIds))
-            ->addAssociation('cartRules');
-
-        return $this->promotionRepository->search($criteria, $context->getContext())->getEntities();
+        return new OrderRouteResponse($orderResult);
     }
 
     private function checkRuleType(Container $rule): bool
@@ -147,21 +103,6 @@ class OrderRoute extends AbstractOrderRoute
                 return false;
             }
             if ($nestedRule instanceof PaymentMethodRule) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function checkPromotion(PromotionEntity $promotion): bool
-    {
-        if ($promotion->getCartRules() === null) {
-            return true;
-        }
-
-        foreach ($promotion->getCartRules() as $cartRule) {
-            if (!$this->checkCartRule($cartRule)) {
                 return false;
             }
         }

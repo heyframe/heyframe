@@ -147,14 +147,6 @@
             <tag name="kernel.reset" method="reset"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\PromotionIndividualCodeSerializer">
-            <argument type="service" id="promotion_individual_code.repository"/>
-            <argument type="service" id="promotion.repository"/>
-
-            <tag name="heyframe.import_export.entity_serializer" priority="-400"/>
-            <tag name="kernel.reset" method="reset"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\ProductSerializer">
             <argument type="service" id="product_visibility.repository"/>
             <argument type="service" id="channel.repository"/>
