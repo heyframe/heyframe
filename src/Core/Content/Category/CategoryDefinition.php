@@ -66,7 +66,6 @@ class CategoryDefinition extends EntityDefinition
     {
         return [
             'displayNestedProducts' => true,
-            'type' => self::TYPE_PAGE,
         ];
     }
 
@@ -101,7 +100,6 @@ class CategoryDefinition extends EntityDefinition
             (new TreePathField('path', 'path'))->addFlags(new ApiAware()),
             (new ChildCountField())->addFlags(new ApiAware()),
 
-            (new StringField('type', 'type'))->addFlags(new ApiAware(), new Required()),
             (new BoolField('visible', 'visible'))->addFlags(new ApiAware()),
             (new BoolField('active', 'active'))->addFlags(new ApiAware()),
 

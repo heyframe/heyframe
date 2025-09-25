@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\Navigation;
 
+use HeyFrame\Core\Content\Navigation\Aggregate\NavigationTranslation\NavigationTranslationDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ChildCountField;
@@ -16,6 +17,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TreeLevelField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TreePathField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
@@ -50,6 +52,13 @@ class NavigationDefinition extends EntityDefinition
         return NavigationEntity::class;
     }
 
+    public function getDefaults(): array
+    {
+        return [
+            'type' => self::TYPE_PAGE,
+        ];
+    }
+
     public function getEntityName(): string
     {
         return self::ENTITY_NAME;
@@ -81,6 +90,8 @@ class NavigationDefinition extends EntityDefinition
             new OneToManyAssociationField('navigationChannels', ChannelDefinition::class, 'navigation_category_id'),
             new OneToManyAssociationField('footerChannels', ChannelDefinition::class, 'footer_category_id'),
             new OneToManyAssociationField('serviceChannels', ChannelDefinition::class, 'service_category_id'),
+            (new TranslationsAssociationField(NavigationTranslationDefinition::class, 'navigation_id'))->addFlags(new ApiAware(), new Required()),
+
         ]);
     }
 }

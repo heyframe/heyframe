@@ -62,8 +62,6 @@ class CategoryEntity extends Entity
 
     protected bool $visible;
 
-    protected string $type;
-
     protected ?string $description = null;
 
     public function getParentId(): ?string
@@ -284,16 +282,6 @@ class CategoryEntity extends Entity
     public function setVisible(bool $visible): void
     {
         $this->visible = $visible;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): void
-    {
-        $this->type = $type;
     }
 
     public function getDescription(): ?string

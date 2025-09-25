@@ -37,7 +37,6 @@ class Migration1536232880Category extends MigrationStep
               `child_count` INT(11) unsigned NOT NULL DEFAULT 0,
               `display_nested_products` TINYINT(1) unsigned NOT NULL DEFAULT 1,
               `visible` TINYINT(1) unsigned NOT NULL DEFAULT 1,
-              `type` VARCHAR(32) NOT NULL,
               `created_at` DATETIME(3) NOT NULL,
               `updated_at` DATETIME(3) NULL,
               PRIMARY KEY (`id`, `version_id`),
@@ -61,25 +60,15 @@ class Migration1536232880Category extends MigrationStep
               `category_version_id` binary(16) NOT NULL,
               `language_id` binary(16) NOT NULL,
               `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-              `breadcrumb` json DEFAULT NULL,
-              `internal_link` binary(16) DEFAULT NULL,
-              `link_new_tab` tinyint DEFAULT NULL,
-              `link_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-              `external_link` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
               `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-              `meta_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-              `meta_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-              `keywords` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
               `custom_fields` json DEFAULT NULL,
               `created_at` datetime(3) NOT NULL,
               `updated_at` datetime(3) DEFAULT NULL,
-              `slot_config` json DEFAULT NULL,
               PRIMARY KEY (`category_id`,`category_version_id`,`language_id`),
               KEY `fk.category_translation.language_id` (`language_id`),
               CONSTRAINT `fk.category_translation.category_id` FOREIGN KEY (`category_id`, `category_version_id`) REFERENCES `category` (`id`, `version_id`) ON DELETE CASCADE ON UPDATE CASCADE,
               CONSTRAINT `fk.category_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-              CONSTRAINT `json.category_translation.custom_fields` CHECK (json_valid(`custom_fields`)),
-              CONSTRAINT `json.category_translation.slot_config` CHECK (json_valid(`slot_config`))
+              CONSTRAINT `json.category_translation.custom_fields` CHECK (json_valid(`custom_fields`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }
