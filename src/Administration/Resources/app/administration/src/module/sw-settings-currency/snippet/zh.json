@@ -44,9 +44,9 @@
       "notificationCountrySuccessMessage": "国家货币设置已成功保存。",
       "currencyCountry": {
         "countryColumn": "国家",
-        "itemDecimalsColumn": "商品小数位",
-        "itemIntervalColumn": "商品间隔",
-        "itemNetRoundingColumn": "商品净额四舍五入",
+        "itemDecimalsColumn": "产品小数位",
+        "itemIntervalColumn": "产品间隔",
+        "itemNetRoundingColumn": "产品净额四舍五入",
         "totalDecimalsColumn": "总计小数位",
         "totalIntervalColumn": "总计间隔",
         "totalNetRoundingColumn": "总计净额四舍五入"
@@ -63,8 +63,8 @@
       "countryAlreadyAssigned": "该国家已为此货币设置了配置。"
     },
     "price-rounding": {
-      "itemsHeadline": "商品",
-      "itemsSubline": "四舍五入应用于所有商品",
+      "itemsHeadline": "产品",
+      "itemsSubline": "四舍五入应用于所有产品",
       "labelDecimals": "小数位数",
       "labelInterval": "间隔",
       "labelRoundForNet": "对净额客户也应用四舍五入",

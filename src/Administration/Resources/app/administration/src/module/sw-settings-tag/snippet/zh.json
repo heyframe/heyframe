@@ -37,7 +37,7 @@
       "placeholderTagName": "输入标签名称...",
       "assignments": {
         "header": {
-          "products": "商品关联",
+          "products": "产品关联",
           "media": "媒体关联",
           "categories": "分类关联",
           "customers": "客户关联",
@@ -48,7 +48,7 @@
           "rules": "规则关联"
         },
         "content": {
-          "products": "商品 | 商品 | 商品",
+          "products": "产品 | 产品 | 产品",
           "media": "媒体",
           "categories": "分类 | 分类 | 分类",
           "customers": "客户 | 客户 | 客户",
@@ -59,7 +59,7 @@
           "rules": "规则 | 规则 | 规则"
         },
         "filter": {
-          "products": "商品",
+          "products": "产品",
           "media": "媒体",
           "categories": "分类",
           "customers": "客户",
@@ -81,7 +81,7 @@
         "assignments": "已关联",
         "selected": "已选实体",
         "showSelected": "隐藏未关联实体",
-        "products": "商品",
+        "products": "产品",
         "media": "媒体",
         "categories": "分类",
         "customers": "客户",

@@ -79,7 +79,6 @@
             <argument type="service" id="currency.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\Util\HtmlSanitizer"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-            <argument type="service" id="parameter_bag"/>
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="heyframe.filesystem.asset"/>
             <argument type="string">%env(SERVICE_REGISTRY_URL)%</argument>

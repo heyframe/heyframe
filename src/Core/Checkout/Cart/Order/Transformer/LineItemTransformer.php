@@ -9,7 +9,6 @@ use HeyFrame\Core\Checkout\Cart\Order\IdStruct;
 use HeyFrame\Core\Checkout\Cart\Order\OrderConverter;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
-use HeyFrame\Core\Checkout\Promotion\Cart\PromotionProcessor;
 use HeyFrame\Core\Content\Product\ProductEntity;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
@@ -46,18 +45,12 @@ class LineItemTransformer
             $productId = $lineItem->getReferencedId();
         }
 
-        $promotionId = null;
-        if ($lineItem->getType() === PromotionProcessor::LINE_ITEM_TYPE) {
-            $promotionId = $lineItem->getPayloadValue('promotionId');
-        }
-
         $definition = $lineItem->getPriceDefinition();
 
         $data = [
             'id' => $id,
             'identifier' => $lineItem->getId(),
             'productId' => $productId,
-            'promotionId' => $promotionId,
             'referencedId' => $lineItem->getReferencedId(),
             'quantity' => $lineItem->getQuantity(),
             'type' => $lineItem->getType(),

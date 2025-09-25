@@ -25,10 +25,10 @@
           "orderPromotions": "订单促销规则",
           "personaPromotions": "客户促销规则",
           "promotionSetGroups": "促销套组规则",
-          "promotionDiscounts": "促销折扣商品规则",
+          "promotionDiscounts": "促销折扣产品规则",
           "flowSequences": "流程",
           "paymentMethods": "支付方式",
-          "productPrices": "商品价格规则",
+          "productPrices": "产品价格规则",
           "shippingMethodPriceCalculations": "配送方式价格矩阵",
           "shippingMethodPrices": "配送方式价格规则",
           "shippingMethods": "配送方式可用性规则"
@@ -55,10 +55,10 @@
       "columnOrderPromotions": "订单促销规则分配",
       "columnPersonaPromotions": "客户促销规则分配",
       "columnPromotionSetGroups": "促销套组规则分配",
-      "columnPromotionDiscounts": "促销折扣商品规则分配",
+      "columnPromotionDiscounts": "促销折扣产品规则分配",
       "columnFlowSequences": "流程分配",
       "columnPaymentMethods": "支付方式分配",
-      "columnProductPrices": "商品价格分配",
+      "columnProductPrices": "产品价格分配",
       "columnShippingMethodPriceCalculations": "配送方式价格矩阵分配",
       "columnShippingMethodPrices": "配送方式价格分配",
       "columnShippingMethods": "配送方式分配",
@@ -74,10 +74,10 @@
         "orderPromotions": "订单促销规则 | 订单促销规则",
         "personaPromotions": "客户促销规则 | 客户促销规则",
         "promotionSetGroups": "促销套组规则 | 促销套组规则",
-        "promotionDiscounts": "促销折扣商品规则 | 促销折扣商品规则",
+        "promotionDiscounts": "促销折扣产品规则 | 促销折扣产品规则",
         "flowSequences": "流程 | 流程",
         "paymentMethods": "支付方式 | 支付方式",
-        "productPrices": "商品价格 | 商品价格",
+        "productPrices": "产品价格 | 产品价格",
         "shippingMethodPriceCalculations": "配送方式价格矩阵 | 配送方式价格矩阵",
         "shippingMethodPrices": "配送方式价格 | 配送方式价格",
         "shippingMethods": "配送方式 | 配送方式"
@@ -99,8 +99,8 @@
       "ruleCard": "条件",
       "messageSaveError": "保存规则时发生错误",
       "productStreamIndexingWarning": {
-        "title": "已禁用动态商品组索引",
-        "message": "条件 “商品在动态商品组中” 将永远不成立。",
+        "title": "已禁用动态产品组索引",
+        "message": "条件 “产品在动态产品组中” 将永远不成立。",
         "action": "在我们的文档中了解更多"
       },
       "tabGeneral": "基本信息",
@@ -109,13 +109,13 @@
       "associations": {
         "shippingMethods": "配送方式",
         "promotions": "促销",
-        "products": "商品价格规则",
+        "products": "产品价格规则",
         "shippingMethodPrices": "配送方式价格规则",
         "paymentMethods": "支付方式",
         "promotionCustomerRules": "客户促销规则",
         "promotionOrderRules": "订单促销规则",
         "promotionCartRules": "购物车促销规则",
-        "promotionDiscountRules": "折扣商品规则",
+        "promotionDiscountRules": "折扣产品规则",
         "promotionGroupRules": "促销套组规则",
         "shippingMethodAvailabilityRule": "配送方式可用性规则",
         "flows": "流程构建器",
@@ -136,7 +136,7 @@
       "groups": {
         "general": "基本信息",
         "cart": "购物车",
-        "items": "购物车商品",
+        "items": "购物车产品",
         "customers": "客户",
         "promotions": "营销与促销",
         "flow": "流程构建器",
@@ -146,7 +146,7 @@
       "textUnsavedConditions": "此规则有未保存的更改。请先保存以添加应用对象。"
     },
     "conditionFilter": {
-      "infoText": "使用过滤器定义哪些商品行必须满足此条件。"
+      "infoText": "使用过滤器定义哪些产品行必须满足此条件。"
     },
     "conditionModal": {
       "modalTitle": "过滤器",

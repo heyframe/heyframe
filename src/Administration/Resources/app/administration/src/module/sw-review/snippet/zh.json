@@ -4,11 +4,11 @@
       "mainMenuItemList": "评价",
       "mainMenuItemGeneral": "评价",
       "placeholderSearchBar": "搜索所有评价...",
-      "descriptionTextModule": "管理商品评价。"
+      "descriptionTextModule": "管理产品评价。"
     },
     "list": {
       "textReviewOverview": "评价",
-      "columnProduct": "商品",
+      "columnProduct": "产品",
       "columnPoints": "星级",
       "columnUser": "顾客",
       "columnStatus": "已审核",
@@ -29,7 +29,7 @@
       "labelUser": "顾客",
       "labelChannel": "销售渠道",
       "labelCreatedAt": "创建日期",
-      "labelProduct": "商品",
+      "labelProduct": "产品",
       "labelEmail": "邮箱地址",
       "labelLanguage": "语言",
       "labelPositive": "正面评价",

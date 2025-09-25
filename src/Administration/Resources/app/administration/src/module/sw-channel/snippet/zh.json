@@ -27,8 +27,8 @@
         "offline": "离线"
       },
       "contextMenuEdit": "编辑",
-      "productsLabel": "商品",
-      "productsCount": "个商品 | 个商品 | 个商品"
+      "productsLabel": "产品",
+      "productsCount": "个产品 | 个产品 | 个产品"
     },
     "modal": {
       "title": "新增渠道",
@@ -37,19 +37,19 @@
       "buttonShowDetails": "查看详情",
       "buttonBack": "返回",
       "titleDescription": "基本信息",
-      "messageNoProductStreams": "要使用商品对比，请先创建一个动态商品分组。"
+      "messageNoProductStreams": "要使用产品对比，请先创建一个动态产品分组。"
     },
     "detail": {
       "messageSaveSuccess": "渠道 \"{name}\" 已保存。",
       "messageSaveError": "渠道 \"{name}\" 保存失败，请检查填写内容。",
       "messageActivateWithoutThemeError": "渠道 \"{name}\" 无法启用，启用前必须先绑定主题。",
-      "messageMeasurementUnitsSetError": "加载商品计量单位配置失败。",
+      "messageMeasurementUnitsSetError": "加载产品计量单位配置失败。",
       "activateDisable": "启用并保存前，请先分配一个主题。",
       "buttonSave": "保存",
       "buttonCreateNewApiKeys": "生成新的 API Key",
       "tabBase": "基本信息",
       "tabTheme": "主题",
-      "tabProducts": "商品",
+      "tabProducts": "产品",
       "titleProductComparisonTemplate": "模板",
       "titleProductComparisonPreview": "预览",
       "titleProductComparisonPreviewErrors": "生成时出错",
@@ -99,7 +99,7 @@
       "labelInputLanguage": "语言",
       "labelInputSnippet": "文本片段",
       "buttonDeleteDomain": "删除域名",
-      "messageDeleteDomainError": "域名 \"{url}\" 无法删除，因为它与现有商品导出绑定。",
+      "messageDeleteDomainError": "域名 \"{url}\" 无法删除，因为它与现有产品导出绑定。",
       "buttonAddDomain": "新增域名",
       "deleteDomainModalTitle": "删除域名",
       "textConfirmDeleteDomain": "确定要删除这个域名吗？删除后，渠道将无法通过 \"{url}\" 访问。",
@@ -119,8 +119,8 @@
       "titleGeneralInformation": "基本信息",
       "titleAccount": "账号",
       "titleDeleteChannel": "删除渠道",
-      "titleProductSync": "商品同步",
-      "titleSyncedProducts": "已同步商品",
+      "titleProductSync": "产品同步",
+      "titleSyncedProducts": "已同步产品",
       "titleCategoryMapping": "分类映射",
       "titleTemplate": "模板",
       "titleDomainHeadline": "创建域名 URL",
@@ -141,29 +141,29 @@
       "basicinformationLink": "点此修改维护页面布局",
       "columnDomainCurrency": "货币",
       "products": {
-        "titleEmptyState": "没有更多商品",
-        "titleEmptyStateTable": "未找到匹配的商品",
-        "buttonAddProducts": "添加 {productCount} 个商品 | 添加 {productCount} 个商品 | 添加 {productCount} 个商品",
-        "columnProductName": "商品名称",
+        "titleEmptyState": "没有更多产品",
+        "titleEmptyStateTable": "未找到匹配的产品",
+        "buttonAddProducts": "添加 {productCount} 个产品 | 添加 {productCount} 个产品 | 添加 {productCount} 个产品",
+        "columnProductName": "产品名称",
         "columnActive": "启用",
-        "columnProductNumber": "商品编号",
-        "inheritVariantNotRemovableTooltip": "这个变体的渠道分配继承自主商品，无法移除。"
+        "columnProductNumber": "产品编号",
+        "inheritVariantNotRemovableTooltip": "这个变体的渠道分配继承自主产品，无法移除。"
       },
       "titlePayment": "支付",
       "productAssignmentModal": {
-        "title": "添加商品",
-        "singleProducts": "选择商品",
+        "title": "添加产品",
+        "singleProducts": "选择产品",
         "categories": {
           "title": "选择分类",
-          "textInfo": "这里的分配不是动态的，只代表当前分类的商品。之后分类的商品变化不会影响分配结果。",
+          "textInfo": "这里的分配不是动态的，只代表当前分类的产品。之后分类的产品变化不会影响分配结果。",
           "textSearch": "搜索分类...",
           "emptySearchResults": "没有找到分类。"
         },
         "dynamicProductGroups": {
           "title": "选择动态分组",
-          "infoText": "这里的分配不是动态的，只代表当前分组的商品。之后分组的商品变化不会影响分配结果。",
+          "infoText": "这里的分配不是动态的，只代表当前分组的产品。之后分组的产品变化不会影响分配结果。",
           "columnName": "名称",
-          "searchFieldPlaceholder": "搜索动态商品分组...",
+          "searchFieldPlaceholder": "搜索动态产品分组...",
           "titleNoProductStreamsMatching": "没有匹配的分组。",
           "titleNoProductStreamsAvailable": "没有可用的动态分组。"
         }

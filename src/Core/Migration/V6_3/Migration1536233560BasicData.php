@@ -456,7 +456,7 @@ class Migration1536233560BasicData extends MigrationStep
             'product' => [
                 'id' => Uuid::randomHex(),
                 'global' => 1,
-                'nameZh' => '商品',
+                'nameZh' => '产品',
                 'nameEn' => 'Product',
             ],
             'order' => [
@@ -477,7 +477,7 @@ class Migration1536233560BasicData extends MigrationStep
             'product' => [
                 'id' => Uuid::randomHex(),
                 'name' => 'Products',
-                'nameZh' => '商品',
+                'nameZh' => '产品',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['product']['id'],
                 'pattern' => 'SW{n}',

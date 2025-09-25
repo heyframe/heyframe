@@ -11,11 +11,13 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @internal
  */
+#[Package('checkout')]
 class CustomerSubscriber implements EventSubscriberInterface
 {
     /**

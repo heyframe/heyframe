@@ -1,9 +1,9 @@
 {
   "checkout": {
-    "product-stock-reached": "商品“%name%”仅剩 %quantity% 件可用",
-    "product-out-of-stock": "商品“%name%”已无库存",
-    "purchase-steps-quantity": "商品“%name%”无法以该数量购买，数量已自动调整为 %quantity%",
-    "min-order-quantity": "商品“%name%”未达到最低起订量，数量已自动调整为 %quantity%",
+    "product-stock-reached": "产品“%name%”仅剩 %quantity% 件可用",
+    "product-out-of-stock": "产品“%name%”已无库存",
+    "purchase-steps-quantity": "产品“%name%”无法以该数量购买，数量已自动调整为 %quantity%",
+    "min-order-quantity": "产品“%name%”未达到最低起订量，数量已自动调整为 %quantity%",
     "payment-method-blocked": "支付方式“%name%”已被禁止用于您当前的购物车",
     "payment-method-changed": "支付方式“%oldPaymentMethodName%”不可用于您当前的购物车，已自动更换为“%newPaymentMethodName%”",
     "promotion-discount-deleted": "折扣“%name%”已被移除",
@@ -13,7 +13,7 @@
     "promotion-not-eligible": "优惠码有效，但未满足所有条件，折扣未被应用。一旦条件满足，折扣将自动应用。",
     "promotion-excluded": "一个或多个折扣因与其他折扣冲突已从购物车中移除。一旦条件再次满足，折扣将自动应用。",
     "promotions-on-cart-price-zero-error": "因购物车总价为零，优惠“%promotions%”已被排除",
-    "product-not-found": "未找到该商品",
+    "product-not-found": "未找到该产品",
     "checkout-gateway-error": "%reason%"
   }
 }

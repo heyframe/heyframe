@@ -89,9 +89,9 @@
           "messageSuccess": "数据索引完成。"
         },
         "productStream": {
-          "title": "正在索引动态商品组",
-          "message": "动态商品组已索引。 | 还剩 1 个动态商品组... | 还剩 {n} 个动态商品组...",
-          "messageSuccess": "动态商品组索引完成。"
+          "title": "正在索引动态产品组",
+          "message": "动态产品组已索引。 | 还剩 1 个动态产品组... | 还剩 {n} 个动态产品组...",
+          "messageSuccess": "动态产品组索引完成。"
         },
         "category": {
           "title": "正在索引分类",
@@ -114,9 +114,9 @@
           "messageSuccess": "规则索引完成。"
         },
         "product": {
-          "title": "正在索引商品",
-          "message": "商品已索引。 | 还剩 1 个商品... | 还剩 {n} 个商品...",
-          "messageSuccess": "商品索引完成。"
+          "title": "正在索引产品",
+          "message": "产品已索引。 | 还剩 1 个产品... | 还剩 {n} 个产品...",
+          "messageSuccess": "产品索引完成。"
         },
         "promotion": {
           "title": "正在索引促销",
@@ -157,7 +157,7 @@
       "administrator": "系统管理员",
       "navigation": {
         "label": "主导航",
-        "mainMenuItemCatalogue": "商品",
+        "mainMenuItemCatalogue": "产品",
         "mainMenuItemContent": "内容",
         "mainMenuItemMarketing": "营销"
       }
@@ -168,9 +168,9 @@
       "placeholderToManyAssociationCard": "搜索关联...",
       "labelRemoveAssociation": "移除关联",
       "productStreamPreview": {
-        "emptyMessageNoStream": "未选择动态商品组",
-        "emptyMessageNoProducts": "未找到商品",
-        "emptyMessageNoSearchResults": "没有找到与“{term}”相关的商品"
+        "emptyMessageNoStream": "未选择动态产品组",
+        "emptyMessageNoProducts": "未找到产品",
+        "emptyMessageNoSearchResults": "没有找到与“{term}”相关的产品"
       }
     },
     "accessibility": {
@@ -216,10 +216,10 @@
     },
     "sw-list-price-field": {
       "labelListPriceGross": "划线价（含税）",
-      "helpTextListPriceGross": "划线价用于显示商品折扣。它表示“原价”，通常会被划掉并标红。实际销售价（折后价）会以默认颜色显示在旁边。",
+      "helpTextListPriceGross": "划线价用于显示产品折扣。它表示“原价”，通常会被划掉并标红。实际销售价（折后价）会以默认颜色显示在旁边。",
       "labelListPriceNet": "划线价（不含税）",
       "labelRegulationPriceGross": "最低价（最近30天，含税）",
-      "helpTextRegulationPriceGross": "如果你在欧盟地区宣传商品降价，必须填写此字段。根据欧盟第98/6/EC号指令第6a条规定，在展示降价时，除了显示当前降价后的价格，还必须同时显示过去30天内该商品的最低价格，便于消费者验证。",
+      "helpTextRegulationPriceGross": "如果你在欧盟地区宣传产品降价，必须填写此字段。根据欧盟第98/6/EC号指令第6a条规定，在展示降价时，除了显示当前降价后的价格，还必须同时显示过去30天内该产品的最低价格，便于消费者验证。",
       "labelRegulationPriceNet": "最低价（最近30天，不含税）"
     },
     "sw-text-editor": {
@@ -585,7 +585,7 @@
       "resetFilters": "重置筛选",
       "applySelection": "应用筛选",
       "entity": {
-        "product": "商品",
+        "product": "产品",
         "rule": "规则"
       }
     },
@@ -598,7 +598,7 @@
     "sw-search-bar": {
       "messageNoResults": "未找到“{term}”相关结果。",
       "messageNoTypeResults": "未找到相关类型。",
-      "placeholderSearchField": "查找商品、客户、订单...",
+      "placeholderSearchField": "查找产品、客户、订单...",
       "placeholderTypeSearchField": "搜索“{entity}”...",
       "placeholderShortcutInfo": "提示：按“f”可快速定位到搜索栏。",
       "placeholderSearchShortcutInfo": "<strong>提示：</strong>按 <span>f</span> 可从任意页面打开搜索。",
@@ -613,7 +613,7 @@
     },
     "sw-search-bar-item": {
       "typeLabelCustomer": "客户",
-      "typeLabelProduct": "商品",
+      "typeLabelProduct": "产品",
       "typeLabelOrder": "订单",
       "typeLabelMedia": "媒体",
       "typeLabelCategory": "分类",
@@ -715,17 +715,17 @@
         "orderAffiliateCodeRule": "订单推广码",
         "orderCampaignCodeRule": "订单活动码",
         "cartAmountRule": "购物车总额",
-        "cartPositionPrice": "商品总价",
-        "goodsCountRule": "不同商品数量",
-        "goodsPriceRule": "商品小计",
+        "cartPositionPrice": "产品总价",
+        "goodsCountRule": "不同产品数量",
+        "goodsPriceRule": "产品小计",
         "cartTotalPurchasePrice": "总采购价",
         "lineItemOfTypeRule": {
-          "label": "商品类型",
-          "product": "商品",
+          "label": "产品类型",
+          "product": "产品",
           "discount_surcharge": "折扣/附加费"
         },
-        "lineItemRule": "购物车商品",
-        "lineItemsInCartCountRule": "不同商品数量",
+        "lineItemRule": "购物车产品",
+        "lineItemsInCartCountRule": "不同产品数量",
         "promotionsInCartCountRule": "折扣数量",
         "lineItemUnitPriceRule": "单价",
         "lineItemTotalPriceRule": "小计",
@@ -763,42 +763,42 @@
         "deleteAllConditions": "删除所有条件",
         "createBefore": "创建于之前",
         "createAfter": "创建于之后",
-        "hasDeliveryFreeItemRule": "包邮商品",
+        "hasDeliveryFreeItemRule": "包邮产品",
         "timeRangeRule": "时间范围",
-        "weightOfCartRule": "商品总重量",
-        "volumeOfCartRule": "商品总体积",
+        "weightOfCartRule": "产品总重量",
+        "volumeOfCartRule": "产品总体积",
         "cartShippingCost": "运费",
         "dayOfWeekRule": "星期几",
-        "lineItemTagRule": "带标签商品",
+        "lineItemTagRule": "带标签产品",
         "alwaysValidRule": "始终有效",
-        "lineItemPropertyRule": "带属性或变体的商品",
+        "lineItemPropertyRule": "带属性或变体的产品",
         "lineItemNoveltyRule": "新品",
-        "lineItemCustomFieldRule": "带自定义字段商品",
-        "lineItemIsNewRule": "标记为“新”的商品",
-        "lineItemOfManufacturerRule": "指定厂商商品",
-        "lineItemPurchasePriceRule": "采购价商品",
-        "lineItemCreationDateRule": "创建日期商品",
-        "lineItemReleaseDateRule": "发布日期商品",
-        "lineItemClearanceSale": "清仓商品",
-        "lineItemPromotedRule": "促销商品",
-        "lineItemInCategoryRule": "所属分类商品",
-        "categoryWithProductStreamTooltip": "该分类商品由动态商品组分配，请使用“动态商品组内商品”条件访问。",
-        "lineItemInProductStreamRule": "动态商品组内商品",
-        "lineItemTaxationRule": "含税商品",
+        "lineItemCustomFieldRule": "带自定义字段产品",
+        "lineItemIsNewRule": "标记为“新”的产品",
+        "lineItemOfManufacturerRule": "指定厂商产品",
+        "lineItemPurchasePriceRule": "采购价产品",
+        "lineItemCreationDateRule": "创建日期产品",
+        "lineItemReleaseDateRule": "发布日期产品",
+        "lineItemClearanceSale": "清仓产品",
+        "lineItemPromotedRule": "促销产品",
+        "lineItemInCategoryRule": "所属分类产品",
+        "categoryWithProductStreamTooltip": "该分类产品由动态产品组分配，请使用“动态产品组内产品”条件访问。",
+        "lineItemInProductStreamRule": "动态产品组内产品",
+        "lineItemTaxationRule": "含税产品",
         "lineItemDimensionWidthRule": "宽度",
         "lineItemDimensionHeightRule": "高度",
         "lineItemDimensionLengthRule": "长度",
         "lineItemDimensionWeightRule": "重量",
         "lineItemDimensionVolumeRule": "体积",
-        "lineItemListPriceRule": "标价商品",
+        "lineItemListPriceRule": "标价产品",
         "lineItemListPriceRatioRule": "标价比",
-        "lineItemStockRule": "可售商品",
-        "lineItemActualStockRule": "库存商品",
-        "lineItemProductStates": "商品状态",
+        "lineItemStockRule": "可售产品",
+        "lineItemActualStockRule": "库存产品",
+        "lineItemProductStates": "产品状态",
         "numberOfReviews": "审核通过评论数",
         "paymentMethodRule": "支付方式",
         "shippingMethodRule": "配送方式",
-        "lineItemGoodsTotalRule": "总商品数量",
+        "lineItemGoodsTotalRule": "总产品数量",
         "orderTotalAmountRule": "已完成订单总额",
         "promotionValueRule": "折扣小计",
         "promotionCodeOfType": "带码优惠",
@@ -824,8 +824,8 @@
         "customerBirthdayRule": "客户生日",
         "customerCreatedByAdminRule": "管理员创建客户",
         "customerSalutationRule": "客户称呼",
-        "lineItemPropertyValueRule": "带属性值商品",
-        "lineItemVariantValueRule": "带变体值商品"
+        "lineItemPropertyValueRule": "带属性值产品",
+        "lineItemVariantValueRule": "带变体值产品"
       }
     },
     "sw-condition-generic": {
@@ -845,7 +845,7 @@
       "cartLineItemOfType": {
         "lineItemType": {
           "options": {
-            "product": "商品",
+            "product": "产品",
             "promotion": "折扣/附加费"
           }
         }
@@ -878,8 +878,8 @@
       "cartLineItemProductStates": {
         "productState": {
           "options": {
-            "is-download": "数字商品",
-            "is-physical": "实体商品"
+            "is-download": "数字产品",
+            "is-physical": "实体产品"
           }
         }
       },
@@ -987,11 +987,11 @@
       "payment_method": "支付方式 | 支付方式",
       "plugin_manager": "插件",
       "privacy": "隐私",
-      "product": "商品 | 商品",
+      "product": "产品 | 产品",
       "product_manufacturer": "制造商 | 制造商",
-      "product_media": "商品媒体",
-      "product_price": "商品价格 | 商品价格",
-      "product_stream": "动态商品组 | 动态商品组",
+      "product_media": "产品媒体",
+      "product_price": "产品价格 | 产品价格",
+      "product_stream": "动态产品组 | 动态产品组",
       "product_variation": "变体 | 变体",
       "product_review": "评价 | 评价",
       "promotion": "促销 | 促销",
@@ -1021,7 +1021,7 @@
       "document_base_config": "文档基础配置 | 文档基础配置",
       "product_feature_set": "新模板 | 新模板",
       "custom-field-set": "自定义字段集合",
-      "store_settings": "商品排序",
+      "store_settings": "产品排序",
       "flow": "流程构建器",
       "module": "模块",
       "frequently_used": "常用",
@@ -1061,7 +1061,7 @@
       "newsletter_register": "新闻订阅注册",
       "newsletter_unsubscribe": "取消新闻订阅",
       "newsletter_update": "新闻订阅已更新",
-      "product_export_log": "商品导出已执行",
+      "product_export_log": "产品导出已执行",
       "state_enter_order_state_cancelled": "订单状态变为已取消",
       "state_enter_order_state_completed": "订单状态变为已完成",
       "state_enter_order_state_in_progress": "订单状态变为处理中",
@@ -1156,14 +1156,14 @@
       "labelUrl": "URL",
       "labelType": "链接类型",
       "labelLink": "链接",
-      "labelProduct": "商品",
+      "labelProduct": "产品",
       "labelCategory": "分类",
       "labelMedia": "文件",
       "labelEmail": "电子邮箱地址",
       "labelPhoneNumber": "电话号码",
       "placeholderPhoneNumber": "输入电话号码...",
       "placeholderEmail": "输入电子邮箱地址...",
-      "placeholderProduct": "选择一个商品...",
+      "placeholderProduct": "选择一个产品...",
       "placeholderCategory": "选择一个分类..."
     },
     "table": {
@@ -1213,10 +1213,10 @@
     "linkUrl": "网址",
     "linkPhone": "电话号码",
     "linkPhonePrefix": "tel:",
-    "linkDetail": "商品",
+    "linkDetail": "产品",
     "linkEmail": "邮箱",
     "linkEmailPlaceholder": "请输入邮箱地址...",
-    "detailPlaceholder": "请选择一个商品...",
+    "detailPlaceholder": "请选择一个产品...",
     "categoryPlaceholder": "请选择一个分类...",
     "displayAsButton": "显示为按钮",
     "openInNewTab": "在新标签页中打开",
@@ -1225,7 +1225,7 @@
     "removeLink": "移除链接",
     "linkOptions": {
       "link": "网址",
-      "product": "商品",
+      "product": "产品",
       "category": "分类",
       "media": "文件",
       "email": "邮箱",
@@ -1391,7 +1391,7 @@
     "sectionSpecialShortcuts": "特殊快捷键",
     "function": "功能",
     "keyboardShortcut": "快捷键",
-    "functionAddProduct": "添加商品",
+    "functionAddProduct": "添加产品",
     "keyboardShortcutAddProduct": "A P",
     "functionAddCategory": "添加分类",
     "keyboardShortcutAddCategory": "A C",
@@ -1409,11 +1409,11 @@
     "keyboardShortcutAddSaleschannel": "A S",
     "functionGoToDashboard": "进入仪表盘",
     "keyboardShortcutGoToDashboard": "G H",
-    "functionGoToProducts": "进入商品",
+    "functionGoToProducts": "进入产品",
     "keyboardShortcutGoToProducts": "G P",
     "functionGoToCategories": "进入分类",
     "keyboardShortcutGoToCategories": "G C",
-    "functionGoToDynamicProductGroups": "进入动态商品组",
+    "functionGoToDynamicProductGroups": "进入动态产品组",
     "keyboardShortcutGoToDynamicProductGroups": "G D",
     "functionGoToProperties": "进入属性",
     "keyboardShortcutGoToProperties": "G P R",
@@ -1612,8 +1612,8 @@
       "personaPromotions": "客户规则",
       "orderPromotions": "订单规则",
       "cartPromotions": "购物车规则",
-      "promotionDiscounts": "商品规则",
-      "promotionSetGroups": "商品规则",
+      "promotionDiscounts": "产品规则",
+      "promotionSetGroups": "产品规则",
       "notEqualsViolationTooltip": "此规则使用的条件阻止分配给 {entityLabel}。这些条件为：{conditions}。",
       "equalsAnyViolationTooltip": "此规则必须使用以下至少一个条件，才能分配给 {entityLabel}：{conditions}。"
     },
@@ -1622,7 +1622,7 @@
       "relation": {
         "flowTrigger": "触发器的流程：{assignments}",
         "promotion": "促销活动：{assignments}",
-        "productPrices": "商品：{assignments}",
+        "productPrices": "产品：{assignments}",
         "shippingMethods": "配送方式：{assignments}",
         "shippingMethodPrices": "配送方式：{assignments}",
         "paymentMethods": "支付方式：{assignments}"

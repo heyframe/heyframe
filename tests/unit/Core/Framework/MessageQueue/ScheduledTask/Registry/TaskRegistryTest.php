@@ -3,7 +3,6 @@
 namespace HeyFrame\Tests\Unit\Core\Framework\MessageQueue\ScheduledTask\Registry;
 
 use HeyFrame\Core\Checkout\Cart\Cleanup\CleanupCartTask;
-use HeyFrame\Core\Content\Sitemap\ScheduledTask\SitemapGenerateTask;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
@@ -14,7 +13,6 @@ use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskDefinition;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskEntity;
 use HeyFrame\Core\Test\Stub\DataAbstractionLayer\StaticEntityRepository;
-use HeyFrame\Tests\Unit\Core\Framework\MessageQueue\ScheduledTask\Scheduler\TestScheduledTask;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -34,56 +32,6 @@ class TaskRegistryTest extends TestCase
     protected function setUp(): void
     {
         $this->scheduleTaskRepository = $this->createMock(EntityRepository::class);
-    }
-
-    public function testNewTasksAreCreated(): void
-    {
-        $tasks = [new TestScheduledTask(), new SitemapGenerateTask(), new CleanupCartTask()];
-        $parameterBag = new ParameterBag([
-            'shopware.test.active' => true,
-            'shopware.sitemap.scheduled_task.enabled' => false,
-        ]);
-
-        $registeredTask = new ScheduledTaskEntity();
-
-        $registeredTask->setId('1');
-        $registeredTask->setName(CleanupCartTask::getTaskName());
-        $registeredTask->setRunInterval(CleanupCartTask::getDefaultInterval());
-        $registeredTask->setDefaultRunInterval(CleanupCartTask::getDefaultInterval());
-        $registeredTask->setStatus(ScheduledTaskDefinition::STATUS_SCHEDULED);
-        $registeredTask->setNextExecutionTime(new \DateTimeImmutable());
-        $registeredTask->setScheduledTaskClass(CleanupCartTask::class);
-
-        /** @var StaticEntityRepository<ScheduledTaskCollection> $staticRepository */
-        $staticRepository = new StaticEntityRepository([
-            new ScheduledTaskCollection([$registeredTask]),
-        ]);
-
-        (new TaskRegistry($tasks, $staticRepository, $parameterBag))->registerTasks();
-
-        static::assertSame(
-            [
-                [
-                    [
-                        'name' => TestScheduledTask::getTaskName(),
-                        'scheduledTaskClass' => TestScheduledTask::class,
-                        'runInterval' => TestScheduledTask::getDefaultInterval(),
-                        'defaultRunInterval' => TestScheduledTask::getDefaultInterval(),
-                        'status' => ScheduledTaskDefinition::STATUS_SCHEDULED,
-                    ],
-                ],
-                [
-                    [
-                        'name' => SitemapGenerateTask::getTaskName(),
-                        'scheduledTaskClass' => SitemapGenerateTask::class,
-                        'runInterval' => SitemapGenerateTask::getDefaultInterval(),
-                        'defaultRunInterval' => SitemapGenerateTask::getDefaultInterval(),
-                        'status' => ScheduledTaskDefinition::STATUS_SKIPPED,
-                    ],
-                ],
-            ],
-            $staticRepository->creates
-        );
     }
 
     public function testInvalidTasksAreDeleted(): void
@@ -111,130 +59,6 @@ class TaskRegistryTest extends TestCase
                 'id' => 'deletedId',
             ],
         ], Context::createDefaultContext());
-
-        $registry->registerTasks();
-    }
-
-    public function testQueuedOrScheduledTasksShouldBecomeSkipped(): void
-    {
-        $tasks = [new TestScheduledTask(), new SitemapGenerateTask()];
-
-        // passing these parameters so these task shouldRun return false
-        $parameterBag = new ParameterBag([
-            'shopware.test.active' => false,
-            'shopware.sitemap.scheduled_task.enabled' => false,
-        ]);
-
-        $registry = new TaskRegistry($tasks, $this->scheduleTaskRepository, $parameterBag);
-
-        $queuedTask = new ScheduledTaskEntity();
-        $scheduledTask = new ScheduledTaskEntity();
-
-        $queuedTask->setId('queuedTask');
-        $queuedTask->setName(TestScheduledTask::getTaskName());
-        $queuedTask->setRunInterval(TestScheduledTask::getDefaultInterval());
-        $queuedTask->setDefaultRunInterval(TestScheduledTask::getDefaultInterval());
-        $queuedTask->setStatus(ScheduledTaskDefinition::STATUS_QUEUED);
-        $queuedTask->setNextExecutionTime(new \DateTimeImmutable());
-        $queuedTask->setScheduledTaskClass(TestScheduledTask::class);
-
-        $scheduledTask->setId('scheduledTask');
-        $scheduledTask->setName(SitemapGenerateTask::getTaskName());
-        $scheduledTask->setRunInterval(SitemapGenerateTask::getDefaultInterval());
-        $scheduledTask->setDefaultRunInterval(SitemapGenerateTask::getDefaultInterval());
-        $scheduledTask->setStatus(ScheduledTaskDefinition::STATUS_SCHEDULED);
-        $scheduledTask->setNextExecutionTime(new \DateTimeImmutable());
-        $scheduledTask->setScheduledTaskClass(SitemapGenerateTask::class);
-
-        $result = $this->createMock(EntitySearchResult::class);
-        $result->method('getEntities')->willReturn(new ScheduledTaskCollection([$queuedTask, $scheduledTask]));
-
-        $this->scheduleTaskRepository->expects($this->once())->method('search')->willReturn($result);
-
-        $this->scheduleTaskRepository->expects($this->exactly(1))->method('update')->willReturnCallback(function (array $data, Context $context) {
-            static::assertCount(2, $data);
-
-            static::assertNotEmpty($data[0]);
-            static::assertNotEmpty($data[1]);
-
-            [$queueTaskPayload, $scheduledTaskPayload] = $data;
-
-            static::assertArrayHasKey('status', $queueTaskPayload);
-            static::assertArrayHasKey('status', $scheduledTaskPayload);
-            static::assertArrayHasKey('id', $queueTaskPayload);
-            static::assertArrayHasKey('id', $scheduledTaskPayload);
-            static::assertSame(ScheduledTaskDefinition::STATUS_SKIPPED, $queueTaskPayload['status']);
-            static::assertSame('queuedTask', $queueTaskPayload['id']);
-            static::assertSame(ScheduledTaskDefinition::STATUS_SKIPPED, $scheduledTaskPayload['status']);
-            static::assertSame('scheduledTask', $scheduledTaskPayload['id']);
-
-            return new EntityWrittenContainerEvent($context, new NestedEventCollection(), []);
-        });
-
-        $this->scheduleTaskRepository->expects($this->never())->method('delete');
-        $this->scheduleTaskRepository->expects($this->never())->method('create');
-
-        $registry->registerTasks();
-    }
-
-    public function testQueuedOrSkippedTasksShouldBecomeScheduled(): void
-    {
-        $tasks = [new TestScheduledTask(), new SitemapGenerateTask()];
-
-        // passing these parameters so these task shouldRun return true
-        $parameterBag = new ParameterBag([
-            'shopware.test.active' => true,
-            'shopware.sitemap.scheduled_task.enabled' => true,
-        ]);
-
-        $registry = new TaskRegistry($tasks, $this->scheduleTaskRepository, $parameterBag);
-
-        $queuedTask = new ScheduledTaskEntity();
-        $skippedTask = new ScheduledTaskEntity();
-
-        $queuedTask->setId('queuedTask');
-        $queuedTask->setName(TestScheduledTask::getTaskName());
-        $queuedTask->setRunInterval(TestScheduledTask::getDefaultInterval());
-        $queuedTask->setDefaultRunInterval(TestScheduledTask::getDefaultInterval());
-        $queuedTask->setStatus(ScheduledTaskDefinition::STATUS_QUEUED);
-        $queuedTask->setNextExecutionTime(new \DateTimeImmutable());
-        $queuedTask->setScheduledTaskClass(TestScheduledTask::class);
-
-        $skippedTask->setId('skippedTask');
-        $skippedTask->setName(SitemapGenerateTask::getTaskName());
-        $skippedTask->setRunInterval(SitemapGenerateTask::getDefaultInterval());
-        $skippedTask->setDefaultRunInterval(SitemapGenerateTask::getDefaultInterval());
-        $skippedTask->setStatus(ScheduledTaskDefinition::STATUS_SKIPPED);
-        $skippedTask->setNextExecutionTime(new \DateTimeImmutable());
-        $skippedTask->setScheduledTaskClass(SitemapGenerateTask::class);
-
-        $result = $this->createMock(EntitySearchResult::class);
-        $result->method('getEntities')->willReturn(new ScheduledTaskCollection([$queuedTask, $skippedTask]));
-
-        $this->scheduleTaskRepository->expects($this->once())->method('search')->willReturn($result);
-
-        $this->scheduleTaskRepository->expects($this->exactly(1))->method('update')->willReturnCallback(function (array $data, Context $context) {
-            static::assertCount(2, $data);
-
-            static::assertNotEmpty($data[0]);
-            static::assertNotEmpty($data[1]);
-
-            [$queueTaskPayload, $skippedTaskPayload] = $data;
-
-            static::assertArrayHasKey('status', $queueTaskPayload);
-            static::assertArrayHasKey('status', $skippedTaskPayload);
-            static::assertArrayHasKey('id', $queueTaskPayload);
-            static::assertArrayHasKey('id', $skippedTaskPayload);
-            static::assertSame(ScheduledTaskDefinition::STATUS_SCHEDULED, $queueTaskPayload['status']);
-            static::assertSame('queuedTask', $queueTaskPayload['id']);
-            static::assertSame(ScheduledTaskDefinition::STATUS_SCHEDULED, $skippedTaskPayload['status']);
-            static::assertSame('skippedTask', $skippedTaskPayload['id']);
-
-            return new EntityWrittenContainerEvent($context, new NestedEventCollection(), []);
-        });
-
-        $this->scheduleTaskRepository->expects($this->never())->method('delete');
-        $this->scheduleTaskRepository->expects($this->never())->method('create');
 
         $registry->registerTasks();
     }

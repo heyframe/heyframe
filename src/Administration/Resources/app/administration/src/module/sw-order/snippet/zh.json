@@ -44,7 +44,7 @@
       "messageShippingNotAvailable": "所选国家暂不支持配送。",
       "labelManualOrder": "管理员创建",
       "textUnsavedOrderWarning": "有未保存的修改，请先保存订单再离开页面。",
-      "messageEmptyLineItems": "无法保存订单，未添加任何商品。"
+      "messageEmptyLineItems": "无法保存订单，未添加任何产品。"
     },
     "create": {
       "textNewOrder": "新订单",
@@ -60,7 +60,7 @@
       "saveError": {
         "noCustomer": "未选择客户。",
         "noCart": "没有可用购物车。",
-        "noLineItems": "未添加商品。",
+        "noLineItems": "未添加产品。",
         "invalidPromotionCodes": "存在无效的优惠码。",
         "noTransactionReturned": "未生成支付方式。"
       }
@@ -88,7 +88,7 @@
       "labelToggleAutomaticPromotions": "禁用自动应用优惠",
       "labelPromotions": "优惠活动",
       "generalTab": {
-        "labelLineItemsCard": "商品明细",
+        "labelLineItemsCard": "产品明细",
         "labelGeneralInfoCard": "基本信息"
       },
       "detailsTab": {
@@ -128,9 +128,9 @@
         "placeholderCurrency": "请选择货币...",
         "helpTextPaymentMethod": "仅显示支持售后支付流程的支付方式。"
       },
-      "cardTitleLineItems": "商品明细",
-      "placeholderSearchBarItem": "搜索商品...",
-      "columnProductName": "商品",
+      "cardTitleLineItems": "产品明细",
+      "placeholderSearchBarItem": "搜索产品...",
+      "columnProductName": "产品",
       "columnQuantity": "数量",
       "columnPriceNet": "单价（不含税）",
       "columnPriceGross": "单价（含税）",
@@ -142,11 +142,11 @@
       "columnTax": "税额",
       "textCreditTax": "自动",
       "taxDetail": "{taxRate}%：{tax}",
-      "contextMenuShowProduct": "查看商品",
-      "messageEmptyItem": "尚未添加商品",
-      "buttonAddItems": "添加商品",
-      "buttonAddProduct": "添加商品",
-      "buttonAddBlankProduct": "添加自定义商品",
+      "contextMenuShowProduct": "查看产品",
+      "messageEmptyItem": "尚未添加产品",
+      "buttonAddItems": "添加产品",
+      "buttonAddProduct": "添加产品",
+      "buttonAddBlankProduct": "添加自定义产品",
       "buttonAddCredit": "添加抵扣",
       "summaryLabelAmount": "小计",
       "summaryLabelAmountGrandTotal": "订单总额",
@@ -167,7 +167,7 @@
           "percentage": "购物车 {value}% 折扣",
           "absolute": "购物车立减 {value}",
           "absoluteUpto": "最高减免 {value}（本次减免 {totalPrice}）",
-          "fixed_unit": "购物车指定商品每件固定 {value}"
+          "fixed_unit": "购物车指定产品每件固定 {value}"
         },
         "delivery": {
           "percentage": "运费 {value}% 折扣",
@@ -176,22 +176,22 @@
           "fixed": "运费固定 {value}"
         },
         "set": {
-          "percentage": "商品组合 {value}% 折扣",
-          "absolute": "商品组合立减 {value}",
-          "fixed_unit": "组合内指定商品每件固定 {value}",
+          "percentage": "产品组合 {value}% 折扣",
+          "absolute": "产品组合立减 {value}",
+          "fixed_unit": "组合内指定产品每件固定 {value}",
           "fixed": "每个组合固定 {value}"
         },
         "setgroup": {
-          "percentage": "商品分组 {groupId} {value}% 折扣",
-          "absolute": "商品分组 {groupId} 立减 {value}",
-          "fixed_unit": "分组 {groupId} 内指定商品每件固定 {value}",
+          "percentage": "产品分组 {groupId} {value}% 折扣",
+          "absolute": "产品分组 {groupId} 立减 {value}",
+          "fixed_unit": "分组 {groupId} 内指定产品每件固定 {value}",
           "fixed": "分组 {groupId} 每组固定 {value}"
         }
       }
     },
     "detailBase": {
       "cardTitleDetails": "详情",
-      "cardTitleLineItems": "商品项目",
+      "cardTitleLineItems": "产品项目",
       "cardTitleGeneralInfo": "基本信息",
       "cardTitlePromotions": "促销",
       "columnProductName": "名称",
@@ -204,9 +204,9 @@
       "columnTotalPrice": "总计",
       "columnTotalPriceGross": "小计",
       "columnTax": "增值税",
-      "columnProductNumber": "商品编号",
+      "columnProductNumber": "产品编号",
       "columnType": "类型",
-      "contextMenuShowProduct": "查看商品",
+      "contextMenuShowProduct": "查看产品",
       "contextMenuDelete": "从订单移除",
       "summaryLabelAmount": "小计",
       "summaryLabelAmountGrandTotal": "订单总额",
@@ -226,11 +226,11 @@
       "buttonCancel": "取消订单",
       "buttonArchive": "归档订单",
       "buttonDelete": "删除订单",
-      "buttonAddProduct": "添加商品",
-      "buttonAddBlankProduct": "添加自定义商品",
+      "buttonAddProduct": "添加产品",
+      "buttonAddBlankProduct": "添加自定义产品",
       "buttonAddCredit": "添加退款/贷项",
       "buttonEditAddress": "编辑",
-      "tooltipNestedLineItemsButton": "此商品包含子项。",
+      "tooltipNestedLineItemsButton": "此产品包含子项。",
       "labelNoPhoneNumber": "暂无电话号码",
       "labelNoEmail": "暂无电子邮件",
       "labelCustomerPhoneNumber": "电话号码",
@@ -261,24 +261,24 @@
       "taxDetail": "{taxRate}%：{tax}",
       "textPromotionRemoved": "折扣 {promotion} 已被移除",
       "textUnsavedChanges": "有未保存的更改，请在编辑此字段前先保存。",
-      "textMissingProductLineItems": "以下项目关联的商品已被删除：",
-      "textMissingProductLineItemsDescription": "这些商品的价格无法重新计算。因此，在保存订单时会被转换为自定义商品。",
-      "textConvertedProductLineItems": "以下项目原本关联的商品已被删除：",
-      "textConvertedProductLineItemsDescription": "这些商品的价格无法重新计算，请在修改订单时特别注意。",
-      "textDeleteLineItemConfirm": "确定要删除商品 ({label}) 吗？",
+      "textMissingProductLineItems": "以下项目关联的产品已被删除：",
+      "textMissingProductLineItemsDescription": "这些产品的价格无法重新计算。因此，在保存订单时会被转换为自定义产品。",
+      "textConvertedProductLineItems": "以下项目原本关联的产品已被删除：",
+      "textConvertedProductLineItemsDescription": "这些产品的价格无法重新计算，请在修改订单时特别注意。",
+      "textDeleteLineItemConfirm": "确定要删除产品 ({label}) 吗？",
       "helpTextCustomerComment": "客户可以提交此留言，修改后客户可见。",
       "helpTextInternalComment": "仅供内部使用，客户不可见。"
     },
     "lineItemType": {
       "credit": "退款/贷项",
-      "product": "商品",
+      "product": "产品",
       "custom": "自定义",
       "promotion": "促销",
       "discount": "折扣",
       "container": "组合"
     },
     "nestedLineItemsModal": {
-      "titlePrefix": "商品：{lineItemLabel} - {price}",
+      "titlePrefix": "产品：{lineItemLabel} - {price}",
       "headerLabel": "名称",
       "headerUnitPrice": "单价（含税）",
       "headerQuantity": "数量",
@@ -486,8 +486,8 @@
     "initialModal": {
       "titleNewOrder": "新建订单",
       "tabCustomer": "客户",
-      "tabProducts": "商品",
-      "tabCustomItem": "自定义商品",
+      "tabProducts": "产品",
+      "tabCustomItem": "自定义产品",
       "tabOptions": "选项",
       "tabCredit": "余额",
       "buttonPreviewOrder": "预览订单",
@@ -502,13 +502,13 @@
         "columnEmailAddress": "邮箱",
         "titleSelectChannel": "选择销售渠道",
         "descriptionSelectChannel": "该客户有多个可用销售渠道，请选择用于此订单的销售渠道。",
-        "alertSelectChannel": "更换销售渠道会影响可选商品和配置，切换后商品将被清空，选项也会被重置。",
+        "alertSelectChannel": "更换销售渠道会影响可选产品和配置，切换后产品将被清空，选项也会被重置。",
         "labelChannel": "使用销售渠道",
         "placeholderChannel": "请选择销售渠道...",
         "buttonSelectChannel": "选择",
         "labelAllChannel": "全部渠道",
         "titleCustomerChanges": "更换客户",
-        "descriptionCustomerChanges": "确定要更换订单客户吗？新客户所属的销售渠道不同，当前商品将被清空，选项也会被重置。",
+        "descriptionCustomerChanges": "确定要更换订单客户吗？新客户所属的销售渠道不同，当前产品将被清空，选项也会被重置。",
         "buttonChangeCustomer": "更换客户"
       },
       "options": {
@@ -568,8 +568,8 @@
         "placeholder": "选择标签..."
       },
       "productFilter": {
-        "label": "商品",
-        "placeholder": "选择商品..."
+        "label": "产品",
+        "placeholder": "选择产品..."
       },
       "promotionCodeFilter": {
         "label": "优惠码",
@@ -584,7 +584,7 @@
         "primaryAction": "创建单据",
         "helpText": {
           "storno": "没有发票，无法创建冲销发票。",
-          "credit_note": "要创建贷项单，请先添加一条信用/余额商品。"
+          "credit_note": "要创建贷项单，请先添加一条信用/余额产品。"
         }
       }
     }
@@ -600,7 +600,7 @@
     },
     "additional_permissions": {
       "orders": {
-        "create_discounts": "创建余额/信用商品"
+        "create_discounts": "创建余额/信用产品"
       }
     }
   }

@@ -28,9 +28,6 @@ parameters:
         - src/**/node_modules/*
         - tests/**/node_modules/*
 
-        # @todo NEXT-22697 - Remove when re-enabling cms-aware
-        - src/Core/System/CustomEntity/Xml/Config/CustomEntityEnrichmentService.php
-
         # PHPStan rule test files
         - tests/devops/Core/DevOps/StaticAnalyse/PHPStan/Rules/data/*
 
@@ -155,7 +152,6 @@ parameters:
             message: '#Method HeyFrame\\.*::hydrateEntityAggregation\(\) return type with generic class HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Search\\AggregationResult\\Metric\\EntityResult does not specify its types: TEntityCollection#'
             paths:
                 - src/Core/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php
-                - src/Elasticsearch/Framework/DataAbstractionLayer/ElasticsearchEntityAggregatorHydrator.php
 
         - # those private methods are called from the trait "RedisCompatibility"
             identifier: method.unused
