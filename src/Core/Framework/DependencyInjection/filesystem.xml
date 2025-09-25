@@ -56,7 +56,6 @@
         <service id="console.command.assets_install" class="HeyFrame\Core\Framework\Adapter\Asset\AssetInstallCommand">
             <argument type="service" id="kernel"/>
             <argument type="service" id="HeyFrame\Core\Framework\Plugin\Util\AssetService"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\ActiveAppsLoader"/>
             <tag name="console.command"/>
         </service>
 

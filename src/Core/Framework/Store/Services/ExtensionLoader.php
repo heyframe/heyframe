@@ -2,12 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Store\Services;
 
-use HeyFrame\Core\Framework\App\Aggregate\AppTranslation\AppTranslationCollection;
-use HeyFrame\Core\Framework\App\AppCollection;
-use HeyFrame\Core\Framework\App\AppEntity;
-use HeyFrame\Core\Framework\App\Lifecycle\AppLoader;
-use HeyFrame\Core\Framework\App\Privileges\Utils;
-use HeyFrame\Core\Framework\App\Source\SourceResolver;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\TermsAggregation;
@@ -17,7 +11,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginCollection;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
 use HeyFrame\Core\Framework\Store\Authentication\LocaleProvider;
-use HeyFrame\Core\Framework\Store\InAppPurchase;
 use HeyFrame\Core\Framework\Store\Struct\BinaryCollection;
 use HeyFrame\Core\Framework\Store\Struct\ExtensionCollection;
 use HeyFrame\Core\Framework\Store\Struct\ExtensionStruct;
@@ -53,12 +46,9 @@ class ExtensionLoader
      */
     public function __construct(
         private readonly ?EntityRepository $themeRepository,
-        private readonly AppLoader $appLoader,
-        private readonly SourceResolver $sourceResolver,
         private readonly ConfigurationService $configurationService,
         private readonly LocaleProvider $localeProvider,
         private readonly LanguageLocaleCodeProvider $languageLocaleProvider,
-        private readonly InAppPurchase $inAppPurchase
     ) {
     }
 
@@ -92,39 +82,6 @@ class ExtensionLoader
         }
 
         return $extensions;
-    }
-
-    public function loadFromAppCollection(Context $context, AppCollection $collection): ExtensionCollection
-    {
-        $data = [];
-        foreach ($collection as $app) {
-            $data[] = $this->prepareAppData($context, $app);
-        }
-
-        $registeredApps = $this->loadFromListingArray($context, $data);
-
-        // Enrich apps from filesystem
-        $localApps = $this->loadLocalAppsCollection($context);
-
-        foreach ($localApps as $name => $app) {
-            if ($registeredApps->has($name)) {
-                /** @var ExtensionStruct $registeredApp */
-                $registeredApp = $registeredApps->get($name);
-
-                $registeredApp->setIsTheme($app->isTheme());
-
-                // Set version of local app to registered app if newer
-                if (version_compare((string) $app->getVersion(), (string) $registeredApp->getVersion(), '>')) {
-                    $registeredApp->setLatestVersion($app->getVersion());
-                }
-
-                continue;
-            }
-
-            $registeredApps->set($name, $app);
-        }
-
-        return $registeredApps;
     }
 
     public function loadFromPluginCollection(Context $context, PluginCollection $collection): ExtensionCollection
@@ -208,7 +165,6 @@ class ExtensionLoader
             'allowDisable' => true,
             'allowUpdate' => !$plugin->getManagedByComposer() || $plugin->isLocatedInCustomPluginDirectory(),
             'managedByComposer' => $plugin->getManagedByComposer(),
-            'inAppPurchases' => $this->inAppPurchase->getByExtension($plugin->getName()),
         ];
 
         return ExtensionStruct::fromArray($this->replaceCollections($data));
@@ -233,51 +189,6 @@ class ExtensionLoader
         return $this->installedThemeNames ?? [];
     }
 
-    private function loadLocalAppsCollection(Context $context): ExtensionCollection
-    {
-        $apps = $this->appLoader->load();
-        $collection = new ExtensionCollection();
-        $language = $this->localeProvider->getLocaleFromContext($context);
-
-        foreach ($apps as $name => $app) {
-            if ($icon = $app->getMetadata()->getIcon()) {
-                $fs = $this->sourceResolver->filesystemForManifest($app);
-
-                if ($fs->has($icon)) {
-                    $icon = $fs->read($icon);
-                }
-            }
-
-            $appArray = $app->getMetadata()->toArray($language);
-
-            $row = [
-                'description' => isset($appArray['description']) ? $this->getTranslationFromArray($appArray['description'], $language) : '',
-                'name' => $name,
-                'label' => isset($appArray['label']) ? $this->getTranslationFromArray($appArray['label'], $language) : '',
-                'producerName' => $app->getMetadata()->getAuthor(),
-                'license' => $app->getMetadata()->getLicense(),
-                'version' => $app->getMetadata()->getVersion(),
-                'latestVersion' => $app->getMetadata()->getVersion(),
-                'iconRaw' => $icon ? base64_encode($icon) : null,
-                'installedAt' => null,
-                'active' => false,
-                'type' => ExtensionStruct::EXTENSION_TYPE_APP,
-                'allowUpdate' => !$app->isManagedByComposer(),
-                'managedByComposer' => $app->isManagedByComposer(),
-                'isTheme' => is_file($app->getPath() . '/Resources/theme.json'),
-                'privacyPolicyExtension' => isset($appArray['privacyPolicyExtensions']) ? $this->getTranslationFromArray($appArray['privacyPolicyExtensions'], $language, 'en-GB') : '',
-                'privacyPolicyLink' => $app->getMetadata()->getPrivacy(),
-                'inAppPurchases' => $this->inAppPurchase->getByExtension($app->getMetadata()->getName()),
-                'permissions' => Utils::makePermissions($app->getPermissions()?->asParsedPrivileges() ?? []),
-                'requestedPermissions' => [],
-            ];
-
-            $collection->set($name, $this->loadFromArray($context, $row, $language));
-        }
-
-        return $collection;
-    }
-
     /**
      * @param array<string, mixed> $data
      *
@@ -286,46 +197,6 @@ class ExtensionLoader
     private function prepareArrayData(array $data, ?string $locale): array
     {
         return $this->translateExtensionLanguages($this->replaceCollections($data), $locale);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    private function prepareAppData(Context $context, AppEntity $app): array
-    {
-        $installedThemeNames = $this->getInstalledThemeNames($context);
-
-        $data = [
-            'localId' => $app->getId(),
-            'description' => $app->getTranslation('description'),
-            'name' => $app->getName(),
-            'label' => $app->getTranslation('label'),
-            'producerName' => $app->getAuthor(),
-            'license' => $app->getLicense(),
-            'version' => $app->getVersion(),
-            'privacyPolicyLink' => $app->getPrivacy(),
-            'iconRaw' => $app->getIcon(),
-            'installedAt' => $app->getCreatedAt(),
-            'permissions' => $app->getAclRole() !== null ? Utils::makePermissions($app->getAclRole()->getPrivileges()) : [],
-            'requestedPermissions' => Utils::makePermissions($app->getRequestedPrivileges()),
-            'active' => $app->isActive(),
-            'languages' => [],
-            'type' => ExtensionStruct::EXTENSION_TYPE_APP,
-            'isTheme' => \in_array($app->getName(), $installedThemeNames, true),
-            'configurable' => $app->isConfigurable(),
-            'privacyPolicyExtension' => $app->getPrivacyPolicyExtensions(),
-            'updatedAt' => $app->getUpdatedAt(),
-            'allowDisable' => $app->getAllowDisable(),
-            'domains' => $app->getAllowedHosts(),
-        ];
-
-        $appTranslations = $app->getTranslations();
-
-        if ($appTranslations) {
-            $data['languages'] = $this->makeLanguagesArray($appTranslations);
-        }
-
-        return $data;
     }
 
     /**
@@ -370,24 +241,6 @@ class ExtensionLoader
         }
 
         return $data;
-    }
-
-    /**
-     * @return array<array{name: string}>
-     */
-    private function makeLanguagesArray(AppTranslationCollection $translations): array
-    {
-        $languageIds = array_map(
-            static fn ($translation) => $translation->getLanguageId(),
-            $translations->getElements()
-        );
-
-        $translationLocales = $this->getLocalesCodesFromLanguageIds($languageIds);
-
-        return array_map(
-            static fn ($translationLocale) => ['name' => $translationLocale],
-            $translationLocales
-        );
     }
 
     /**

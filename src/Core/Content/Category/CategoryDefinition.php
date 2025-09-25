@@ -9,8 +9,6 @@ use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductCategory\ProductCategoryDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductCategoryTree\ProductCategoryTreeDefinition;
 use HeyFrame\Core\Content\Product\ProductDefinition;
-use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryDefinition;
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AutoIncrementField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
@@ -42,7 +40,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelDefinition;
-use HeyFrame\Core\System\CustomEntity\CustomEntityDefinition;
 use HeyFrame\Core\System\Tag\TagDefinition;
 
 #[Package('discovery')]
@@ -155,15 +152,10 @@ class CategoryDefinition extends EntityDefinition
             (new ReferenceVersionField(CmsPageDefinition::class))->addFlags(new Required(), new ApiAware()),
             (new ManyToOneAssociationField('cmsPage', 'cms_page_id', CmsPageDefinition::class, 'id', false))->addFlags(new ApiAware()),
 
-            // custom entity specific fields
-            (new FkField('custom_entity_type_id', 'customEntityTypeId', CustomEntityDefinition::class, 'id'))->addFlags(new ApiAware()),
-
             // Reverse Associations not available in store-api
             new OneToManyAssociationField('navigationChannels', ChannelDefinition::class, 'navigation_category_id'),
             new OneToManyAssociationField('footerChannels', ChannelDefinition::class, 'footer_category_id'),
             new OneToManyAssociationField('serviceChannels', ChannelDefinition::class, 'service_category_id'),
-            (new OneToManyAssociationField('mainCategories', MainCategoryDefinition::class, 'category_id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('seoUrls', SeoUrlDefinition::class, 'foreign_key'))->addFlags(new ApiAware()),
         ]);
     }
 }

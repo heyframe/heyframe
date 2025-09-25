@@ -11,8 +11,6 @@ use HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi3Generator;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Api\Route\ApiRouteInfoResolver;
 use HeyFrame\Core\Framework\Api\Route\RouteInfo;
-use HeyFrame\Core\Framework\App\Exception\InstanceIdChangeSuggestedException;
-use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\BusinessEventCollector;
@@ -22,7 +20,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\Stats\StatsService;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
-use HeyFrame\Core\Framework\Store\InAppPurchase;
 use HeyFrame\Core\Kernel;
 use HeyFrame\Core\Maintenance\Staging\Event\SetupStagingEvent;
 use HeyFrame\Core\Maintenance\System\Service\AppUrlVerifier;
@@ -57,10 +54,8 @@ class InfoController extends AbstractController
         private readonly FlowActionCollector $flowActionCollector,
         private readonly SystemConfigService $systemConfigService,
         private readonly ApiRouteInfoResolver $apiRouteInfoResolver,
-        private readonly InAppPurchase $inAppPurchase,
         private readonly ?ViteFileAccessorDecorator $viteFileAccessorDecorator,
         private readonly Filesystem $filesystem,
-        private readonly InstanceIdProvider $instanceIdProvider,
         private readonly StatsService $messageStatsService,
     ) {
     }
@@ -176,7 +171,6 @@ class InfoController extends AbstractController
     {
         return new JsonResponse([
             'version' => $this->getHeyFrameVersion(),
-            'instanceId' => $this->getInstanceId(),
             'versionRevision' => $this->params->get('kernel.heyframe_version_revision'),
             'adminWorker' => [
                 'enableAdminWorker' => $this->params->get('heyframe.admin_worker.enable_admin_worker'),
@@ -194,7 +188,6 @@ class InfoController extends AbstractController
                 'enableStagingMode' => $this->params->get('heyframe.staging.administration.show_banner') && $this->systemConfigService->getBool(SetupStagingEvent::CONFIG_FLAG),
                 'disableExtensionManagement' => !$this->params->get('heyframe.deployment.runtime_extension_management'),
             ],
-            'inAppPurchases' => $this->inAppPurchase->all(),
         ]);
     }
 
@@ -373,14 +366,5 @@ WHERE app.active = 1 AND app.base_app_url is not null');
     private function getTechnicalBundleName(Bundle $bundle): string
     {
         return str_replace('_', '-', $bundle->getContainerPrefix());
-    }
-
-    private function getInstanceId(): string
-    {
-        try {
-            return $this->instanceIdProvider->getInstanceId();
-        } catch (InstanceIdChangeSuggestedException $e) {
-            return $e->instanceId->id;
-        }
     }
 }

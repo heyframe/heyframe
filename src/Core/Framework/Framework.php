@@ -67,7 +67,6 @@ class Framework extends Bundle
         $loader->load('acl.xml');
         $loader->load('cache.xml');
         $loader->load('api.xml');
-        $loader->load('app.xml');
         $loader->load('custom-field.xml');
         $loader->load('data-abstraction-layer.xml');
         $loader->load('event.xml');
@@ -81,7 +80,6 @@ class Framework extends Bundle
         $loader->load('script.xml');
         $loader->load('language.xml');
         $loader->load('update.xml');
-        $loader->load('webhook.xml');
         $loader->load('rate-limiter.xml');
         $loader->load('increment.xml');
         $loader->load('flag.xml');
@@ -92,7 +90,6 @@ class Framework extends Bundle
         if ($container->getParameter('kernel.environment') === 'test') {
             $loader->load('services_test.xml');
             $loader->load('store_test.xml');
-            $loader->load('app_test.xml');
         }
 
         /** Needs to run after @see RegisterAutoconfigureAttributesPass (priority 100) to include all services that are autoconfigured */

@@ -5,18 +5,8 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="HeyFrame\Core\Framework\Script\Execution\ScriptLoader">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Lifecycle\Persister\ScriptPersister"/>
-            <argument type="service" id="cache.object"/>
-            <argument>%twig.cache%</argument>
-            <argument>%kernel.debug%</argument>
-
-            <tag name="kernel.event_subscriber"/>
-        </service>
 
         <service id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor" public="true">
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptLoader"/>
             <argument type="service" id="HeyFrame\Core\Framework\Script\Debugging\ScriptTraces"/>
             <argument type="service" id="service_container"/>
             <argument type="service" id="twig.extension.trans"/>
@@ -30,32 +20,6 @@
         <service id="HeyFrame\Core\Framework\Script\Debugging\ScriptTraces">
             <tag name="data_collector"/>
             <tag name="kernel.reset" method="reset"/>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\Script\Api\ScriptFrontApiRoute" public="true">
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Api\ScriptResponseEncoder"/>
-            <argument type="service" id="cache.object"/>
-            <argument type="service" id="logger"/>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\Script\Api\ScriptApiRoute" public="true">
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptLoader"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Api\ScriptResponseEncoder"/>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\Script\Api\ScriptResponseFactoryFacadeHookFactory" public="true">
-            <argument type="service" id="router"/>
-            <argument type="service" id="HeyFrame\Frontend\Controller\ScriptController" on-invalid="null"/>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\Script\Api\ScriptResponseEncoder">
-            <argument type="service" id="HeyFrame\Core\System\Channel\Api\StructEncoder"/>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\Script\Api\AclFacadeHookFactory" public="true">
-            <argument type="service" id="HeyFrame\Core\Framework\Script\AppContextCreator"/>
         </service>
 
         <service id="HeyFrame\Core\Framework\Script\AppContextCreator">

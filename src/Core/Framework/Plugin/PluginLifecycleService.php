@@ -44,8 +44,6 @@ use HeyFrame\Core\Framework\Plugin\Requirement\Exception\RequirementStackExcepti
 use HeyFrame\Core\Framework\Plugin\Requirement\RequirementsValidator;
 use HeyFrame\Core\Framework\Plugin\Util\AssetService;
 use HeyFrame\Core\Framework\Plugin\Util\VersionSanitizer;
-use HeyFrame\Core\System\CustomEntity\Schema\CustomEntityPersister;
-use HeyFrame\Core\System\CustomEntity\Schema\CustomEntitySchemaUpdater;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -83,8 +81,6 @@ class PluginLifecycleService
         private readonly CacheItemPoolInterface $restartSignalCachePool,
         private readonly string $heyframeVersion,
         private readonly SystemConfigService $systemConfigService,
-        private readonly CustomEntityPersister $customEntityPersister,
-        private readonly CustomEntitySchemaUpdater $customEntitySchemaUpdater,
         private readonly PluginService $pluginService,
         private readonly VersionSanitizer $versionSanitizer,
         private readonly DefinitionInstanceRegistry $definitionRegistry,
@@ -221,10 +217,6 @@ class PluginLifecycleService
         );
         $plugin->setActive(false);
         $plugin->setInstalledAt(null);
-
-        if (!$uninstallContext->keepUserData()) {
-            $this->removeCustomEntities($plugin->getId());
-        }
 
         if ($pluginBaseClass->executeComposerCommands()) {
             $this->executeComposerRemoveCommand($plugin, $heyframeContext);
@@ -512,12 +504,6 @@ class PluginLifecycleService
 
         // running composer require may have consequences for other plugins, when they are required by the plugin being uninstalled
         $this->pluginService->refreshPlugins($context, new NullIO());
-    }
-
-    private function removeCustomEntities(string $pluginId): void
-    {
-        $this->customEntityPersister->update([], PluginEntity::class, $pluginId);
-        $this->customEntitySchemaUpdater->update();
     }
 
     private function getPluginBaseClass(string $pluginBaseClassString): Plugin

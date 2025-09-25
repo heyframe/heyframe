@@ -7,7 +7,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigTest;
 
 /**
- * @deprecated tag:v6.8.0 - class will be marked internal - reason:becomes-internal
+ * @internal
  */
 #[Package('framework')]
 class InstanceOfExtension extends AbstractExtension

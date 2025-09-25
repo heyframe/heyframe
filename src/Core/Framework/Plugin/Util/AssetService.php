@@ -6,7 +6,6 @@ use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatch;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatchInput;
-use HeyFrame\Core\Framework\App\Source\SourceResolver;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Parameter\AdditionalBundleParameters;
 use HeyFrame\Core\Framework\Plugin;
@@ -43,7 +42,6 @@ class AssetService
         private readonly KernelInterface $kernel,
         private readonly KernelPluginLoader $pluginLoader,
         private readonly CacheInvalidator $cacheInvalidator,
-        private readonly SourceResolver $sourceResolver,
         private readonly ParameterBagInterface $parameterBag
     ) {
     }
@@ -79,30 +77,6 @@ class AssetService
         $this->copyAssetsFromBundleOrApp(
             Path::join($bundle->getPath(), self::EXTENSION_RESOURCES_DIRECTORY),
             $bundle->getName(),
-            $force,
-        );
-    }
-
-    /**
-     * @throws \JsonException
-     * @throws FilesystemException
-     * @throws UnableToCheckExistence
-     * @throws UnableToCreateDirectory
-     * @throws UnableToDeleteDirectory
-     */
-    public function copyAssetsFromApp(string $appName, string $appPath, bool $force = false): void
-    {
-        $fs = $this->sourceResolver->filesystemForAppName($appName);
-
-        if (!$fs->has(self::EXTENSION_RESOURCES_DIRECTORY)) {
-            return;
-        }
-
-        $publicDirectory = $fs->path(self::EXTENSION_RESOURCES_DIRECTORY);
-
-        $this->copyAssetsFromBundleOrApp(
-            $publicDirectory,
-            $appName,
             $force,
         );
     }

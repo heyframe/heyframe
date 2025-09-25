@@ -4,7 +4,6 @@ namespace HeyFrame\Core\System\Snippet\Files;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
-use HeyFrame\Core\Framework\App\ActiveAppsLoader;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
@@ -33,8 +32,6 @@ class SnippetFileLoader implements SnippetFileLoaderInterface
     public function __construct(
         private readonly Kernel $kernel,
         private readonly Connection $connection,
-        private readonly AppSnippetFileLoader $appSnippetFileLoader,
-        private readonly ActiveAppsLoader $activeAppsLoader,
         private readonly TranslationConfig $config,
         private readonly TranslationLoader $translationLoader,
         private readonly Filesystem $translationReader,
@@ -47,8 +44,6 @@ class SnippetFileLoader implements SnippetFileLoaderInterface
         $this->loadTranslationSnippets($snippetFileCollection);
         // Load snippets from HeyFrame bundles and plugins
         $this->loadShippedSnippets($snippetFileCollection);
-        // Load snippets from active apps
-        $this->loadAppSnippets($snippetFileCollection);
     }
 
     private function loadTranslationSnippets(SnippetFileCollection $snippetFileCollection): void
@@ -164,17 +159,6 @@ class SnippetFileLoader implements SnippetFileLoaderInterface
                     continue;
                 }
 
-                $snippetFileCollection->add($snippetFile);
-            }
-        }
-    }
-
-    private function loadAppSnippets(SnippetFileCollection $snippetFileCollection): void
-    {
-        foreach ($this->activeAppsLoader->getActiveApps() as $app) {
-            $snippetFiles = $this->appSnippetFileLoader->loadSnippetFilesFromApp($app['author'] ?? '', $app['path']);
-            foreach ($snippetFiles as $snippetFile) {
-                $snippetFile->setTechnicalName($app['name']);
                 $snippetFileCollection->add($snippetFile);
             }
         }

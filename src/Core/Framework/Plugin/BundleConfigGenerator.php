@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Plugin;
 
-use HeyFrame\Core\Framework\App\ActiveAppsLoader;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
@@ -24,7 +23,6 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
      */
     public function __construct(
         private readonly Kernel $kernel,
-        private readonly ActiveAppsLoader $activeAppsLoader
     ) {
         $projectDir = $this->kernel->getContainer()->getParameter('kernel.project_dir');
         if (!\is_string($projectDir)) {
@@ -38,7 +36,7 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
      */
     public function getConfig(): array
     {
-        return array_merge($this->generatePluginConfigs(), $this->generateAppConfigs());
+        return $this->generatePluginConfigs();
     }
 
     /**
@@ -88,32 +86,6 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
         }
 
         return $bundles;
-    }
-
-    /**
-     * @return array<string, BundleConfig>
-     */
-    private function generateAppConfigs(): array
-    {
-        $configs = [];
-        foreach ($this->activeAppsLoader->getActiveApps() as $app) {
-            $absolutePath = $this->projectDir . '/' . $app['path'];
-
-            $configs[$app['name']] = [
-                'basePath' => $app['path'] . '/',
-                'views' => ['Resources/views'],
-                'technicalName' => str_replace('_', '-', $this->asSnakeCase($app['name'])),
-                'isTheme' => $this->isTheme($absolutePath),
-                'frontend' => [
-                    'path' => 'Resources/app/frontend/src',
-                    'entryFilePath' => $this->getEntryFile($absolutePath, 'Resources/app/frontend/src'),
-                    'webpack' => $this->getWebpackConfig($absolutePath, 'Resources/app/frontend'),
-                    'styleFiles' => $this->getStyleFiles($app['name'], $app['path']),
-                ],
-            ];
-        }
-
-        return $configs;
     }
 
     private function isTheme(string $path): bool

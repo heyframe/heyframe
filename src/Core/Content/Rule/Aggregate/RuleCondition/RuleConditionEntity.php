@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Rule\Aggregate\RuleCondition;
 
 use HeyFrame\Core\Content\Rule\RuleEntity;
-use HeyFrame\Core\Framework\App\Aggregate\AppScriptCondition\AppScriptConditionEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\IdAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
@@ -30,8 +29,6 @@ class RuleConditionEntity extends Entity implements IdAware
     protected ?array $value = null;
 
     protected ?RuleEntity $rule = null;
-
-    protected ?AppScriptConditionEntity $appScriptCondition = null;
 
     protected ?RuleConditionCollection $children = null;
 
@@ -103,16 +100,6 @@ class RuleConditionEntity extends Entity implements IdAware
     public function setRule(?RuleEntity $rule): void
     {
         $this->rule = $rule;
-    }
-
-    public function getAppScriptCondition(): ?AppScriptConditionEntity
-    {
-        return $this->appScriptCondition;
-    }
-
-    public function setAppScriptCondition(?AppScriptConditionEntity $appScriptCondition): void
-    {
-        $this->appScriptCondition = $appScriptCondition;
     }
 
     public function getChildren(): ?RuleConditionCollection

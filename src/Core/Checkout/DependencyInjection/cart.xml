@@ -169,7 +169,6 @@
 
         <service id="HeyFrame\Core\Checkout\Gateway\Channel\CheckoutGatewayRoute" public="true">
             <argument type="service" id="HeyFrame\Core\Checkout\Payment\Channel\PaymentMethodRoute"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Checkout\Gateway\AppCheckoutGateway"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Gateway\Command\Registry\CheckoutGatewayCommandRegistry">

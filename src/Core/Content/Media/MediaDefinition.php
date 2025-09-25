@@ -12,7 +12,6 @@ use HeyFrame\Core\Content\Media\Aggregate\MediaTranslation\MediaTranslationDefin
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\AppPaymentMethod\AppPaymentMethodDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BlobField;
@@ -110,7 +109,6 @@ class MediaDefinition extends EntityDefinition
             (new OneToManyAssociationField('paymentMethods', PaymentMethodDefinition::class, 'media_id', 'id'))->addFlags(new SetNullOnDelete()),
             (new OneToManyAssociationField('productConfiguratorSettings', ProductConfiguratorSettingDefinition::class, 'media_id'))->addFlags(new SetNullOnDelete()),
             (new OneToManyAssociationField('orderLineItems', OrderLineItemDefinition::class, 'cover_id'))->addFlags(new SetNullOnDelete()),
-            (new OneToManyAssociationField('appPaymentMethods', AppPaymentMethodDefinition::class, 'original_media_id', 'id'))->addFlags(new SetNullOnDelete()),
             (new StringField('file_hash', 'fileHash'))->addFlags(new Computed()),
         ]);
 

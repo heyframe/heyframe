@@ -251,7 +251,6 @@ class ProductListingRouteTest extends TestCase
             'products' => $products,
         ];
 
-
         $this->categoryRepository->upsert([$data], Context::createDefaultContext());
 
         if ($mainVariant) {

@@ -32,7 +32,6 @@ class RuleIndexer extends EntityIndexer
     public function __construct(
         private readonly IteratorFactory $iteratorFactory,
         private readonly EntityRepository $repository,
-        private readonly RulePayloadUpdater $payloadUpdater,
         private readonly RuleAreaUpdater $areaUpdater,
         private readonly EventDispatcherInterface $eventDispatcher
     ) {

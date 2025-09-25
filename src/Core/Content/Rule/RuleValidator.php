@@ -5,8 +5,6 @@ namespace HeyFrame\Core\Content\Rule;
 use HeyFrame\Core\Content\Rule\Aggregate\RuleCondition\RuleConditionCollection;
 use HeyFrame\Core\Content\Rule\Aggregate\RuleCondition\RuleConditionDefinition;
 use HeyFrame\Core\Content\Rule\Aggregate\RuleCondition\RuleConditionEntity;
-use HeyFrame\Core\Framework\App\Aggregate\AppScriptCondition\AppScriptConditionCollection;
-use HeyFrame\Core\Framework\App\Aggregate\AppScriptCondition\AppScriptConditionEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\UnsupportedCommandTypeException;
@@ -40,13 +38,11 @@ class RuleValidator implements EventSubscriberInterface
      * @internal
      *
      * @param EntityRepository<RuleConditionCollection> $ruleConditionRepository
-     * @param EntityRepository<AppScriptConditionCollection> $appScriptConditionRepository
      */
     public function __construct(
         private readonly ValidatorInterface $validator,
         private readonly RuleConditionRegistry $ruleConditionRegistry,
         private readonly EntityRepository $ruleConditionRepository,
-        private readonly EntityRepository $appScriptConditionRepository
     ) {
     }
 
@@ -291,15 +287,9 @@ class RuleValidator implements EventSubscriberInterface
         array $payload,
         Context $context
     ): void {
-        $script = null;
-        if (isset($payload['script_id'])) {
-            $scriptId = Uuid::fromBytesToHex($payload['script_id']);
-            $script = $this->appScriptConditionRepository->search(new Criteria([$scriptId]), $context)->get($scriptId);
-        } elseif ($condition && $condition->getAppScriptCondition()) {
-            $script = $condition->getAppScriptCondition();
-        }
+        $script = $condition->getAppScriptCondition();
 
-        if (!$script instanceof AppScriptConditionEntity || !\is_array($script->getConstraints())) {
+        if (!\is_array($script->getConstraints())) {
             return;
         }
 

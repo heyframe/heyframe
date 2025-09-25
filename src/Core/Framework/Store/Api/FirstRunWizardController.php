@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\Store\Api;
 
 use GuzzleHttp\Exception\ClientException;
-use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -30,12 +29,10 @@ class FirstRunWizardController extends AbstractController
 {
     /**
      * @param EntityRepository<PluginCollection> $pluginRepo
-     * @param EntityRepository<AppCollection> $appRepo
      */
     public function __construct(
         private readonly FirstRunWizardService $frwService,
         private readonly EntityRepository $pluginRepo,
-        private readonly EntityRepository $appRepo,
     ) {
     }
 
@@ -55,10 +52,9 @@ class FirstRunWizardController extends AbstractController
     public function getLanguagePluginList(Context $context): JsonResponse
     {
         $plugins = $this->pluginRepo->search(new Criteria(), $context)->getEntities();
-        $apps = $this->appRepo->search(new Criteria(), $context)->getEntities();
 
         try {
-            $languagePlugins = $this->frwService->getLanguagePlugins($plugins, $apps, $context);
+            $languagePlugins = $this->frwService->getLanguagePlugins($plugins, $context);
         } catch (ClientException $exception) {
             throw new StoreApiException($exception);
         }
@@ -73,10 +69,9 @@ class FirstRunWizardController extends AbstractController
     public function getDemoDataPluginList(Context $context): JsonResponse
     {
         $plugins = $this->pluginRepo->search(new Criteria(), $context)->getEntities();
-        $apps = $this->appRepo->search(new Criteria(), $context)->getEntities();
 
         try {
-            $languagePlugins = $this->frwService->getDemoDataPlugins($plugins, $apps, $context);
+            $languagePlugins = $this->frwService->getDemoDataPlugins($plugins, $context);
         } catch (ClientException $exception) {
             throw new StoreApiException($exception);
         }
@@ -109,10 +104,9 @@ class FirstRunWizardController extends AbstractController
         $category = $request->query->has('category') ? (string) $request->query->get('category') : null;
 
         $plugins = $this->pluginRepo->search(new Criteria(), $context)->getEntities();
-        $apps = $this->appRepo->search(new Criteria(), $context)->getEntities();
 
         try {
-            $recommendations = $this->frwService->getRecommendations($plugins, $apps, $region, $category, $context);
+            $recommendations = $this->frwService->getRecommendations($plugins, $region, $category, $context);
         } catch (ClientException $exception) {
             throw new StoreApiException($exception);
         }

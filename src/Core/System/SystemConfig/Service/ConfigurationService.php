@@ -2,13 +2,8 @@
 
 namespace HeyFrame\Core\System\SystemConfig\Service;
 
-use HeyFrame\Core\Framework\App\AppCollection;
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SystemConfig\Exception\BundleConfigNotFoundException;
@@ -24,13 +19,10 @@ class ConfigurationService
      * @internal
      *
      * @param BundleInterface[] $bundles
-     * @param EntityRepository<AppCollection> $appRepository
      */
     public function __construct(
         private readonly iterable $bundles,
         private readonly ConfigReader $configReader,
-        private readonly AppConfigReader $appConfigReader,
-        private readonly EntityRepository $appRepository,
         private readonly SystemConfigService $systemConfigService
     ) {
     }
@@ -138,20 +130,7 @@ class ConfigurationService
             }
         }
 
-        $app = $this->getAppByName($technicalName, $context);
-
-        return $app ? $this->appConfigReader->read($app) : null;
-    }
-
-    private function getAppByName(string $name, Context $context): ?AppEntity
-    {
-        $criteria = new Criteria();
-        $criteria->addFilter(new EqualsFilter('name', $name));
-
-        /** @var AppEntity|null $result */
-        $result = $this->appRepository->search($criteria, $context)->first();
-
-        return $result;
+        return null;
     }
 
     /**

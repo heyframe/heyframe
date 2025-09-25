@@ -4,8 +4,6 @@ namespace HeyFrame\Core\Framework\Store\Services;
 
 use GuzzleHttp\Exception\ClientException;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
-use HeyFrame\Core\Framework\App\AppCollection;
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -134,12 +132,11 @@ class FirstRunWizardService
      */
     public function getLanguagePlugins(
         PluginCollection $pluginCollection,
-        AppCollection $appCollection,
         Context $context,
     ): array {
         $languagePlugins = $this->frwClient->getLanguagePlugins($context);
 
-        return $this->mapExtensionData($languagePlugins, $pluginCollection, $appCollection);
+        return $this->mapExtensionData($languagePlugins, $pluginCollection);
     }
 
     /**
@@ -150,12 +147,11 @@ class FirstRunWizardService
      */
     public function getDemoDataPlugins(
         PluginCollection $pluginCollection,
-        AppCollection $appCollection,
         Context $context,
     ): array {
         $demodataPlugins = $this->frwClient->getDemoDataPlugins($context);
 
-        return $this->mapExtensionData($demodataPlugins, $pluginCollection, $appCollection);
+        return $this->mapExtensionData($demodataPlugins, $pluginCollection);
     }
 
     /**
@@ -185,7 +181,6 @@ class FirstRunWizardService
 
     public function getRecommendations(
         PluginCollection $pluginCollection,
-        AppCollection $appCollection,
         ?string $region,
         ?string $category,
         Context $context
@@ -193,7 +188,7 @@ class FirstRunWizardService
         $recommendations = $this->frwClient->getRecommendations($region, $category, $context);
 
         return new PluginRecommendationCollection(
-            $this->mapExtensionData($recommendations, $pluginCollection, $appCollection)
+            $this->mapExtensionData($recommendations, $pluginCollection)
         );
     }
 
@@ -271,7 +266,6 @@ class FirstRunWizardService
     private function mapExtensionData(
         array $extensions,
         PluginCollection $pluginCollection,
-        AppCollection $appCollection,
     ): array {
         $mappedExtensions = [];
         foreach ($extensions as $extension) {
@@ -304,20 +298,6 @@ class FirstRunWizardService
             $storeExtension->assign([
                 'active' => $plugin ? $plugin->getActive() : false,
                 'installed' => $plugin ? ((bool) $plugin->getInstalledAt()) : false,
-            ]);
-        }
-
-        foreach ($mappedExtensions as $storeExtension) {
-            if ($storeExtension->getType() !== ExtensionStruct::EXTENSION_TYPE_APP) {
-                continue;
-            }
-
-            /** @var AppEntity|null $app */
-            $app = $appCollection->filterByProperty('name', $storeExtension->getName())->first();
-
-            $storeExtension->assign([
-                'active' => (bool) $app,
-                'installed' => (bool) $app,
             ]);
         }
 

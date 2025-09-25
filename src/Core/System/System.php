@@ -4,13 +4,11 @@ namespace HeyFrame\Core\System;
 
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\CustomEntity\CustomEntityRegistrar;
 use HeyFrame\Core\System\DependencyInjection\CompilerPass\ChannelEntityCompilerPass;
 use HeyFrame\Core\System\DependencyInjection\CompilerPass\NumberRangeIncrementerCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
@@ -35,7 +33,6 @@ class System extends Bundle
         $loader->load('channel.xml');
         $loader->load('country.xml');
         $loader->load('currency.xml');
-        $loader->load('custom_entity.xml');
         $loader->load('locale.xml');
         $loader->load('snippet.xml');
         $loader->load('user.xml');
@@ -48,14 +45,5 @@ class System extends Bundle
 
         $container->addCompilerPass(new ChannelEntityCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
         $container->addCompilerPass(new NumberRangeIncrementerCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
-    }
-
-    public function boot(): void
-    {
-        parent::boot();
-
-        \assert($this->container instanceof ContainerInterface, 'Container is not set yet, please call setContainer() before calling boot(), see `src/Core/Kernel.php:186`.');
-
-        $this->container->get(CustomEntityRegistrar::class)->register();
     }
 }

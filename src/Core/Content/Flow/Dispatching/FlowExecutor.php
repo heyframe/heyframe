@@ -15,14 +15,11 @@ use HeyFrame\Core\Content\Flow\Exception\ExecuteSequenceException;
 use HeyFrame\Core\Content\Flow\Extension\FlowExecutorExtension;
 use HeyFrame\Core\Content\Flow\FlowException;
 use HeyFrame\Core\Content\Flow\Rule\FlowRuleScopeBuilder;
-use HeyFrame\Core\Framework\App\Event\AppFlowActionEvent;
-use HeyFrame\Core\Framework\App\Flow\Action\AppFlowActionProvider;
 use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @internal not intended for decoration or replacement
@@ -41,8 +38,6 @@ class FlowExecutor
      * @param FlowAction[] $actions
      */
     public function __construct(
-        private readonly EventDispatcherInterface $dispatcher,
-        private readonly AppFlowActionProvider $appFlowActionProvider,
         private readonly AbstractRuleLoader $ruleLoader,
         private readonly FlowRuleScopeBuilder $scopeBuilder,
         private readonly Connection $connection,
@@ -188,12 +183,6 @@ class FlowExecutor
 
     private function callHandle(ActionSequence $sequence, StorableFlow $event): void
     {
-        if ($sequence->appFlowActionId) {
-            $this->callApp($sequence, $event);
-
-            return;
-        }
-
         $action = $this->actions[$sequence->action] ?? null;
 
         if (!$action instanceof FlowAction) {
@@ -223,23 +212,6 @@ class FlowExecutor
 
             throw FlowException::transactionFailed($e);
         }
-    }
-
-    private function callApp(ActionSequence $sequence, StorableFlow $event): void
-    {
-        if (!$sequence->appFlowActionId) {
-            return;
-        }
-
-        $eventData = $this->appFlowActionProvider->getWebhookPayloadAndHeaders($event, $sequence->appFlowActionId);
-
-        $globalEvent = new AppFlowActionEvent(
-            $sequence->action,
-            $eventData['headers'],
-            $eventData['payload'],
-        );
-
-        $this->dispatcher->dispatch($globalEvent, $sequence->action);
     }
 
     private function sequenceRuleMatches(StorableFlow $event, string $ruleId): bool

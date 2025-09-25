@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\Adapter\Asset;
 
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
-use HeyFrame\Core\Framework\App\ActiveAppsLoader;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Util\AssetService;
 use HeyFrame\Core\Installer\Installer;
@@ -31,7 +30,6 @@ class AssetInstallCommand extends Command
     public function __construct(
         private readonly KernelInterface $kernel,
         private readonly AssetService $assetService,
-        private readonly ActiveAppsLoader $activeAppsLoader,
     ) {
         parent::__construct();
     }
@@ -56,11 +54,6 @@ class AssetInstallCommand extends Command
         foreach ($this->kernel->getBundles() as $bundle) {
             $io->writeln(\sprintf('Copying files for bundle: %s', $bundle->getName()));
             $this->assetService->copyAssets($bundle, $input->getOption('force'));
-        }
-
-        foreach ($this->activeAppsLoader->getActiveApps() as $app) {
-            $io->writeln(\sprintf('Copying files for app: %s', $app['name']));
-            $this->assetService->copyAssetsFromApp($app['name'], $app['path'], $input->getOption('force'));
         }
 
         $io->writeln('Copying files for bundle: Installer');

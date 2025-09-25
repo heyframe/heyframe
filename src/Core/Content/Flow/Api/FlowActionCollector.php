@@ -5,10 +5,7 @@ namespace HeyFrame\Core\Content\Flow\Api;
 use HeyFrame\Core\Content\Flow\Dispatching\Action\FlowAction;
 use HeyFrame\Core\Content\Flow\Dispatching\DelayableAction;
 use HeyFrame\Core\Content\Flow\Events\FlowActionCollectorEvent;
-use HeyFrame\Core\Framework\App\Aggregate\FlowAction\AppFlowActionCollection;
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -19,20 +16,16 @@ class FlowActionCollector
      * @internal
      *
      * @param iterable<FlowAction> $actions
-     * @param EntityRepository<AppFlowActionCollection> $appFlowActionRepo
      */
     public function __construct(
         protected iterable $actions,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly EntityRepository $appFlowActionRepo
     ) {
     }
 
     public function collect(Context $context): FlowActionCollectorResponse
     {
         $result = new FlowActionCollectorResponse();
-
-        $result = $this->fetchAppActions($result, $context);
 
         foreach ($this->actions as $service) {
             if (!$service instanceof FlowAction) {
@@ -47,26 +40,6 @@ class FlowActionCollector
         }
 
         $this->eventDispatcher->dispatch(new FlowActionCollectorEvent($result, $context));
-
-        return $result;
-    }
-
-    private function fetchAppActions(FlowActionCollectorResponse $result, Context $context): FlowActionCollectorResponse
-    {
-        $criteria = new Criteria();
-        $appActions = $this->appFlowActionRepo->search($criteria, $context)->getEntities();
-
-        foreach ($appActions as $action) {
-            $definition = new FlowActionDefinition(
-                $action->getName(),
-                $action->getRequirements(),
-                $action->getDelayable()
-            );
-
-            if (!$result->has($definition->getName())) {
-                $result->set($definition->getName(), $definition);
-            }
-        }
 
         return $result;
     }

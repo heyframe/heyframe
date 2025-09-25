@@ -99,12 +99,6 @@
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\Adapter\Cache\Script\ScriptCacheInvalidationSubscriber">
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
-
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
         <service id="HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidationSubscriber">
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>

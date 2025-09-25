@@ -171,10 +171,8 @@
             <argument type="service" id="HeyFrame\Core\Content\Flow\Api\FlowActionCollector"/>
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="HeyFrame\Core\Framework\Api\Route\ApiRouteInfoResolver"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Store\InAppPurchase"/>
             <argument type="service" id="HeyFrame\Administration\Framework\Twig\ViteFileAccessorDecorator" on-invalid="null"/>
             <argument type="service" id="filesystem"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider"/>
             <argument type="service" id="HeyFrame\Core\Framework\MessageQueue\Stats\StatsService"/>
 
             <call method="setContainer">

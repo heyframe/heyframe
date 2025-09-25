@@ -66,17 +66,6 @@
             </call>
         </service>
 
-        <service id="HeyFrame\Administration\Controller\AdminExtensionApiController" public="true">
-            <argument type="service" id="HeyFrame\Core\Framework\App\ActionButton\Executor"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Payload\AppPayloadServiceHelper"/>
-            <argument type="service" id="app.repository"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Hmac\QuerySigner"/>
-
-            <call method="setContainer">
-                <argument type="service" id="service_container"/>
-            </call>
-        </service>
-
         <service id="HeyFrame\Administration\Snippet\SnippetFinder">
             <argument type="service" id="kernel" />
             <argument type="service" id="Doctrine\DBAL\Connection"/>

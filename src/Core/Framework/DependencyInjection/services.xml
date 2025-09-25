@@ -225,18 +225,6 @@ frame-ancestors 'none';
             <argument type="service" id="event_dispatcher"/>
         </service>
 
-        <!-- Custom Entity -->
-        <service id="HeyFrame\Core\System\CustomEntity\Xml\Config\CustomEntityEnrichmentService">
-            <argument type="service" id="HeyFrame\Core\System\CustomEntity\Xml\Config\AdminUi\AdminUiXmlSchemaValidator"/>
-        </service>
-
-        <service id="HeyFrame\Core\System\CustomEntity\CustomEntityLifecycleService">
-            <argument type="service" id="HeyFrame\Core\System\CustomEntity\Schema\CustomEntityPersister"/>
-            <argument type="service" id="HeyFrame\Core\System\CustomEntity\Schema\CustomEntitySchemaUpdater"/>
-            <argument type="service" id="HeyFrame\Core\System\CustomEntity\Xml\Config\CustomEntityEnrichmentService"/>
-            <argument type="service" id="HeyFrame\Core\System\CustomEntity\Xml\CustomEntityXmlSchemaValidator"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\Source\SourceResolver"/>
-        </service>
 
         <!-- Translation -->
         <service id="HeyFrame\Core\Framework\Adapter\Translation\Translator" decorates="translator">
@@ -277,15 +265,9 @@ frame-ancestors 'none';
         <service id="HeyFrame\Core\System\Snippet\Files\SnippetFileLoader">
             <argument type="service" id="Symfony\Component\HttpKernel\KernelInterface"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\System\Snippet\Files\AppSnippetFileLoader"/>
-            <argument type="service" id="HeyFrame\Core\Framework\App\ActiveAppsLoader"/>
             <argument type="service" id="HeyFrame\Core\System\Snippet\Struct\TranslationConfig"/>
             <argument type="service" id="HeyFrame\Core\System\Snippet\Service\TranslationLoader"/>
             <argument type="service" id="heyframe.filesystem.private"/>
-        </service>
-
-        <service id="HeyFrame\Core\System\Snippet\Files\AppSnippetFileLoader">
-            <argument>%kernel.project_dir%</argument>
         </service>
 
         <service id="HeyFrame\Core\System\Snippet\Files\SnippetFileCollection" public="true" lazy="true">
@@ -415,11 +397,6 @@ frame-ancestors 'none';
             <tag name="twig.extension"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\Adapter\Twig\Extension\InAppPurchaseExtension">
-            <argument type="service" id="HeyFrame\Core\Framework\Store\InAppPurchase"/>
-            <tag name="twig.extension"/>
-        </service>
-
         <service id="HeyFrame\Core\Framework\Adapter\Twig\StringTemplateRenderer">
             <argument type="service" id="twig"/>
             <argument>%heyframe.cache.twig.string_template_renderer_cache_dir%</argument>
@@ -439,13 +416,6 @@ frame-ancestors 'none';
             <tag name="twig.loader"/>
             <tag name="kernel.event_subscriber"/>
             <tag name="kernel.reset" method="reset"/>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\Adapter\Twig\AppTemplateIterator"
-                 decorates="twig.template_iterator"
-                 public="true">
-            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Twig\AppTemplateIterator.inner"/>
-            <argument type="service" id="app_template.repository"/>
         </service>
 
         <service id="HeyFrame\Core\Framework\Adapter\Twig\TwigVariableParserFactory"/>

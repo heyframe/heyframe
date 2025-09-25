@@ -7,9 +7,7 @@ use HeyFrame\Core\Framework\Adapter\Twig\Extension\PhpSyntaxExtension;
 use HeyFrame\Core\Framework\Adapter\Twig\Filter\ReplaceRecursiveFilter;
 use HeyFrame\Core\Framework\Adapter\Twig\SecurityExtension;
 use HeyFrame\Core\Framework\Adapter\Twig\TwigEnvironment;
-use HeyFrame\Core\Framework\App\Event\Hooks\AppLifecycleHook;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Script\Api\AclFacadeHookFactory;
 use HeyFrame\Core\Framework\Script\Debugging\Debug;
 use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
 use HeyFrame\Core\Framework\Script\Execution\Awareness\AppSpecificHook;
@@ -33,17 +31,9 @@ class ScriptExecutor
     public static bool $isInScriptExecutionContext = false;
 
     /**
-     * @var list<class-string>
-     */
-    private static array $defaultServices = [
-        AclFacadeHookFactory::class,
-    ];
-
-    /**
      * @internal
      */
     public function __construct(
-        private readonly ScriptLoader $loader,
         private readonly ScriptTraces $traces,
         private readonly ContainerInterface $container,
         private readonly TranslationExtension $translationExtension,
@@ -67,7 +57,7 @@ class ScriptExecutor
                 continue;
             }
 
-            if (!$hook instanceof AppLifecycleHook && !$script->isActive()) {
+            if (!$script->isActive()) {
                 continue;
             }
 

@@ -14,7 +14,6 @@ use HeyFrame\Core\Framework\Struct\Struct;
 #[Package('checkout')]
 class ExtensionStruct extends Struct
 {
-    final public const EXTENSION_TYPE_APP = 'app';
     final public const EXTENSION_TYPE_PLUGIN = 'plugin';
     final public const SOURCE_LOCAL = 'local';
     final public const SOURCE_STORE = 'store';

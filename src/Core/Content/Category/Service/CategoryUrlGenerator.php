@@ -42,6 +42,7 @@ class CategoryUrlGenerator extends AbstractCategoryUrlGenerator
                 if ($channel !== null && $internalLink === $channel->getNavigationCategoryId()) {
                     return '/'; // 首页
                 }
+
                 return '/navigation/' . $internalLink;
 
             case CategoryDefinition::LINK_TYPE_LANDING_PAGE:

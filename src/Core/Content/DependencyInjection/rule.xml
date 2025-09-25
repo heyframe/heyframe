@@ -18,14 +18,12 @@
             <argument type="service" id="validator"/>
             <argument type="service" id="HeyFrame\Core\Framework\Rule\Collector\RuleConditionRegistry"/>
             <argument type="service" id="rule_condition.repository" />
-            <argument type="service" id="app_script_condition.repository" />
 
             <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RulePayloadSubscriber">
             <tag name="kernel.event_subscriber"/>
-            <argument type="service" id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RulePayloadUpdater"/>
             <argument type="service" id="HeyFrame\Core\Framework\Script\Debugging\ScriptTraces"/>
             <argument>%twig.cache%</argument>
             <argument>%kernel.debug%</argument>
@@ -34,7 +32,6 @@
         <service id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RuleIndexer">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
             <argument type="service" id="rule.repository"/>
-            <argument type="service" id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RulePayloadUpdater"/>
             <argument type="service" id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RuleAreaUpdater"/>
             <argument type="service" id="event_dispatcher"/>
             <tag name="heyframe.entity_indexer"/>
@@ -46,12 +43,6 @@
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartRuleLoader"/>
         </service>
 
-
-        <service id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RulePayloadUpdater">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Rule\Collector\RuleConditionRegistry"/>
-            <tag name="kernel.event_subscriber"/>
-        </service>
 
         <service id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RuleAreaUpdater">
             <argument type="service" id="Doctrine\DBAL\Connection"/>

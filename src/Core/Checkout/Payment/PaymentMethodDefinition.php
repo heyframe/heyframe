@@ -7,13 +7,11 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefi
 use HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationDefinition;
 use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Content\Rule\RuleDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\AppPaymentMethod\AppPaymentMethodDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
@@ -25,7 +23,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
@@ -87,7 +84,6 @@ class PaymentMethodDefinition extends EntityDefinition
             (new OneToManyAssociationField('customers', CustomerDefinition::class, 'last_payment_method_id', 'id'))->addFlags(new RestrictDelete()),
             (new OneToManyAssociationField('orderTransactions', OrderTransactionDefinition::class, 'payment_method_id', 'id'))->addFlags(new RestrictDelete()),
             new ManyToManyAssociationField('channels', ChannelDefinition::class, ChannelPaymentMethodDefinition::class, 'payment_method_id', 'channel_id'),
-            (new OneToOneAssociationField('appPaymentMethod', 'id', 'payment_method_id', AppPaymentMethodDefinition::class, false))->addFlags(new CascadeDelete()),
 
             // runtime fields
             (new StringField('short_name', 'shortName'))->addFlags(new ApiAware(), new Runtime()),
