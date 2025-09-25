@@ -3,10 +3,10 @@
 namespace HeyFrame\Tests\Migration\Core\V6_7;
 
 use Doctrine\DBAL\Connection;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
 use HeyFrame\Core\Migration\V6_7\Migration1756305375AddCategoriesIndexToProduct;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
