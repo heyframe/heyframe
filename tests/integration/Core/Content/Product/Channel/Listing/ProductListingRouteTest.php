@@ -251,21 +251,8 @@ class ProductListingRouteTest extends TestCase
             'products' => $products,
         ];
 
-        static::getContainer()->get('product_stream.repository')->create([[
-            'id' => $this->ids->create('productStream'),
-            'name' => 'test',
-            'filters' => [[
-                'type' => 'equals',
-                'field' => 'options.id',
-                'value' => $this->optionIds['red'],
-            ]],
-        ]], Context::createDefaultContext());
 
         $this->categoryRepository->upsert([$data], Context::createDefaultContext());
-        $this->categoryRepository->upsert([[
-            'id' => $this->ids->get('category'),
-            'productStreamId' => $productStreamId,
-        ]], Context::createDefaultContext());
 
         if ($mainVariant) {
             $upsertData = [

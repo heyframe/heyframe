@@ -38,10 +38,6 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductStreamMapping\ProductStreamMappingDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\SearchKeywordUpdater">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="language.repository"/>
@@ -51,18 +47,6 @@
         </service>
 
         <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCategoryTree\ProductCategoryTreeDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCrossSellingTranslation\ProductCrossSellingTranslationDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCrossSellingAssignedProducts\ProductCrossSellingAssignedProductsDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>
 
@@ -199,16 +183,6 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductStreamUpdater">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\ProductDefinition"/>
-            <argument type="service" id="product.repository"/>
-            <argument type="service" id="messenger.default_bus"/>
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ManyToManyIdFieldUpdater"/>
-            <argument>%heyframe.product_stream.indexing%</argument>
-            <tag name="heyframe.entity_indexer"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StatesUpdater">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="event_dispatcher"/>
@@ -228,7 +202,6 @@
             <argument type="service" id="HeyFrame\Core\Content\Product\Stock\StockStorage"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPriceUpdater"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\ProductStreamUpdater"/>
             <argument type="service" id="HeyFrame\Core\Content\Product\DataAbstractionLayer\StatesUpdater"/>
             <argument type="service" id="messenger.default_bus"/>
             <tag name="heyframe.entity_indexer" priority="100"/>
@@ -403,7 +376,6 @@
         <service id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingRoute" public="true">
             <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader" />
             <argument type="service" id="category.repository"/>
-            <argument type="service" id="HeyFrame\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
             <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
         </service>

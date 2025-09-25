@@ -3,12 +3,10 @@
 namespace HeyFrame\Core\Content\Product\Channel\Listing;
 
 use HeyFrame\Core\Content\Category\CategoryCollection;
-use HeyFrame\Core\Content\Category\CategoryDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Content\Product\Channel\ProductAvailableFilter;
 use HeyFrame\Core\Content\Product\Extension\ProductListingCriteriaExtension;
 use HeyFrame\Core\Content\Product\ProductException;
-use HeyFrame\Core\Content\ProductStream\Service\ProductStreamBuilderInterface;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\PartialEntity;
@@ -35,7 +33,6 @@ class ProductListingRoute extends AbstractProductListingRoute
     public function __construct(
         private readonly ProductListingLoader $listingLoader,
         private readonly EntityRepository $categoryRepository,
-        private readonly ProductStreamBuilderInterface $productStreamBuilder,
         private readonly CacheTagCollector $cacheTagCollector,
         private readonly ExtensionDispatcher $extensions,
     ) {
@@ -76,7 +73,7 @@ class ProductListingRoute extends AbstractProductListingRoute
             name: ProductListingCriteriaExtension::NAME,
             extension: new ProductListingCriteriaExtension($criteria, $context, $categoryId),
             function: function ($criteria, $context, $categoryId) use ($category): Criteria {
-                $this->extendCriteria($context, $criteria, $category);
+                $this->extendCriteria($criteria, $category);
 
                 return $criteria;
             }
@@ -92,21 +89,8 @@ class ProductListingRoute extends AbstractProductListingRoute
         return new ProductListingRouteResponse($result);
     }
 
-    private function extendCriteria(ChannelContext $channelContext, Criteria $criteria, PartialEntity $category): void
+    private function extendCriteria(Criteria $criteria, PartialEntity $category): void
     {
-        $hasProductStream = $category->get('productAssignmentType') === CategoryDefinition::PRODUCT_ASSIGNMENT_TYPE_PRODUCT_STREAM
-            && $category->get('productStreamId') !== null;
-
-        if ($hasProductStream) {
-            $filters = $this->productStreamBuilder->buildFilters(
-                $category->get('productStreamId'),
-                $channelContext->getContext()
-            );
-            $criteria->addFilter(...$filters);
-
-            return;
-        }
-
         $criteria->addFilter(
             new EqualsFilter('product.categoriesRo.id', $category->getId())
         );

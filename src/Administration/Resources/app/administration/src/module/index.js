@@ -18,21 +18,5 @@ export const login = () => {
     let context = import.meta.glob('./sw-login/index!(*.spec).{j,t}s', {
         eager: true,
     });
-
-    // import login dependencies
-    const dependencies = Object.values(context);
-
-    context = import.meta.glob('./sw-inactivity-login/index!(*.spec).{j,t}s', { eager: true });
-    dependencies.push(...Object.values(context));
-
-    return dependencies;
-};
-
-// eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
-export const ssoError = () => {
-    const context = import.meta.glob('./sw-sso-error/index!(*.spec).{j,t}s', {
-        eager: true,
-    });
-
     return Object.values(context);
 };

@@ -32,7 +32,6 @@ class Content extends Bundle
         $loader->load('import_export.xml');
         $loader->load('cms.xml');
         $loader->load('category.xml');
-        $loader->load('product_stream.xml');
         $loader->load('landing_page.xml');
         $loader->load('breadcrumb.xml');
     }

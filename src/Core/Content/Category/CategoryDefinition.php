@@ -9,7 +9,6 @@ use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductCategory\ProductCategoryDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductCategoryTree\ProductCategoryTreeDefinition;
 use HeyFrame\Core\Content\Product\ProductDefinition;
-use HeyFrame\Core\Content\ProductStream\ProductStreamDefinition;
 use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryDefinition;
 use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -67,8 +66,6 @@ class CategoryDefinition extends EntityDefinition
 
     final public const PRODUCT_ASSIGNMENT_TYPE_PRODUCT = 'product';
 
-    final public const PRODUCT_ASSIGNMENT_TYPE_PRODUCT_STREAM = 'product_stream';
-
     final public const CONFIG_KEY_DEFAULT_CMS_PAGE_CATEGORY = 'core.cms.default_category_cms_page';
 
     public function getEntityName(): string
@@ -91,7 +88,6 @@ class CategoryDefinition extends EntityDefinition
         return [
             'displayNestedProducts' => true,
             'type' => self::TYPE_PAGE,
-            'productAssignmentType' => self::PRODUCT_ASSIGNMENT_TYPE_PRODUCT,
         ];
     }
 
@@ -128,7 +124,6 @@ class CategoryDefinition extends EntityDefinition
             (new ChildCountField())->addFlags(new ApiAware()),
 
             (new StringField('type', 'type'))->addFlags(new ApiAware(), new Required()),
-            (new StringField('product_assignment_type', 'productAssignmentType'))->addFlags(new ApiAware(), new Required()),
             (new BoolField('visible', 'visible'))->addFlags(new ApiAware()),
             (new BoolField('active', 'active'))->addFlags(new ApiAware()),
 
@@ -159,8 +154,6 @@ class CategoryDefinition extends EntityDefinition
             (new FkField('cms_page_id', 'cmsPageId', CmsPageDefinition::class))->addFlags(new ApiAware()),
             (new ReferenceVersionField(CmsPageDefinition::class))->addFlags(new Required(), new ApiAware()),
             (new ManyToOneAssociationField('cmsPage', 'cms_page_id', CmsPageDefinition::class, 'id', false))->addFlags(new ApiAware()),
-            new FkField('product_stream_id', 'productStreamId', ProductStreamDefinition::class),
-            new ManyToOneAssociationField('productStream', 'product_stream_id', ProductStreamDefinition::class, 'id', false),
 
             // custom entity specific fields
             (new FkField('custom_entity_type_id', 'customEntityTypeId', CustomEntityDefinition::class, 'id'))->addFlags(new ApiAware()),

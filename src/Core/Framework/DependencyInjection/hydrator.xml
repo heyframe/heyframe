@@ -34,25 +34,11 @@
             <argument type="service" id="service_container"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductManufacturer\ProductManufacturerHydrator" public="true">
-            <argument type="service" id="service_container"/>
-        </service>
 
         <service id="HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaHydrator" public="true">
             <argument type="service" id="service_container"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCrossSelling\ProductCrossSellingHydrator" public="true">
-            <argument type="service" id="service_container"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCrossSellingAssignedProducts\ProductCrossSellingAssignedProductsHydrator" public="true">
-            <argument type="service" id="service_container"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductFeatureSet\ProductFeatureSetHydrator" public="true">
-            <argument type="service" id="service_container"/>
-        </service>
 
         <service id="HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingHydrator" public="true">
             <argument type="service" id="service_container"/>
@@ -67,18 +53,6 @@
         </service>
 
         <service id="HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityHydrator" public="true">
-            <argument type="service" id="service_container"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\ProductStream\ProductStreamHydrator" public="true">
-            <argument type="service" id="service_container"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\ProductStream\Aggregate\ProductStreamFilter\ProductStreamFilterHydrator" public="true">
-            <argument type="service" id="service_container"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\ProductExport\ProductExportHydrator" public="true">
             <argument type="service" id="service_container"/>
         </service>
 

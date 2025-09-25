@@ -98,7 +98,6 @@ class CheapestPriceContainer extends Struct
         $object->setParentId($cheapest['parent_id']);
         $object->setHasRange($hasRange);
         $object->setPurchase($cheapest['purchase_unit'] ? (float) $cheapest['purchase_unit'] : null);
-        $object->setReference($cheapest['reference_unit'] ? (float) $cheapest['reference_unit'] : null);
         $object->setUnitId($cheapest['unit_id'] ?? null);
 
         $prices = [];

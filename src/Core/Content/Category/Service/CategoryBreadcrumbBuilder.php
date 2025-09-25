@@ -8,7 +8,6 @@ use HeyFrame\Core\Content\Breadcrumb\BreadcrumbException;
 use HeyFrame\Core\Content\Breadcrumb\Struct\Breadcrumb;
 use HeyFrame\Core\Content\Breadcrumb\Struct\BreadcrumbCollection;
 use HeyFrame\Core\Content\Category\CategoryCollection;
-use HeyFrame\Core\Content\Category\CategoryDefinition;
 use HeyFrame\Core\Content\Category\CategoryEntity;
 use HeyFrame\Core\Content\Product\Channel\ChannelProductCollection;
 use HeyFrame\Core\Content\Product\Channel\ChannelProductEntity;
@@ -19,7 +18,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\AndFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
@@ -85,9 +83,8 @@ class CategoryBreadcrumbBuilder
         }
 
         $categoryIds = $product->getCategoryIds() ?? [];
-        $productStreamIds = $product->getStreamIds() ?? [];
 
-        if (empty($productStreamIds) && empty($categoryIds)) {
+        if (empty($categoryIds)) {
             return null;
         }
 
@@ -96,12 +93,7 @@ class CategoryBreadcrumbBuilder
         $criteria->setLimit(1);
         $criteria->addFilter(new EqualsFilter('active', true));
 
-        if (!empty($categoryIds)) {
-            $criteria->setIds($categoryIds);
-        } else {
-            $criteria->addFilter(new EqualsAnyFilter('productStream.id', $productStreamIds));
-            $criteria->addFilter(new EqualsFilter('productAssignmentType', CategoryDefinition::PRODUCT_ASSIGNMENT_TYPE_PRODUCT_STREAM));
-        }
+        $criteria->setIds($categoryIds);
 
         $criteria->addFilter($this->getChannelFilter($context->getChannel()));
 

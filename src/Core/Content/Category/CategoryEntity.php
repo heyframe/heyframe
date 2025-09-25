@@ -6,7 +6,6 @@ use HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTransla
 use HeyFrame\Core\Content\Cms\CmsPageEntity;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Content\Product\ProductCollection;
-use HeyFrame\Core\Content\ProductStream\ProductStreamEntity;
 use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
 use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
@@ -69,10 +68,6 @@ class CategoryEntity extends Entity
 
     protected ?CmsPageEntity $cmsPage = null;
 
-    protected ?string $productStreamId = null;
-
-    protected ?ProductStreamEntity $productStream = null;
-
     /**
      * @var array<mixed>|null
      */
@@ -95,8 +90,6 @@ class CategoryEntity extends Entity
     protected bool $visible;
 
     protected string $type;
-
-    protected string $productAssignmentType;
 
     protected ?string $description = null;
 
@@ -320,26 +313,6 @@ class CategoryEntity extends Entity
     public function setCmsPageIdSwitched(bool $switched): void
     {
         $this->cmsPageIdSwitched = $switched;
-    }
-
-    public function getProductStream(): ?ProductStreamEntity
-    {
-        return $this->productStream;
-    }
-
-    public function setProductStream(ProductStreamEntity $productStream): void
-    {
-        $this->productStream = $productStream;
-    }
-
-    public function getProductStreamId(): ?string
-    {
-        return $this->productStreamId;
-    }
-
-    public function setProductStreamId(string $productStreamId): void
-    {
-        $this->productStreamId = $productStreamId;
     }
 
     /**
@@ -566,16 +539,6 @@ class CategoryEntity extends Entity
     public function setSeoUrls(SeoUrlCollection $seoUrls): void
     {
         $this->seoUrls = $seoUrls;
-    }
-
-    public function getProductAssignmentType(): string
-    {
-        return $this->productAssignmentType;
-    }
-
-    public function setProductAssignmentType(string $productAssignmentType): void
-    {
-        $this->productAssignmentType = $productAssignmentType;
     }
 
     public function getCustomEntityTypeId(): ?string

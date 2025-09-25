@@ -20,8 +20,6 @@ class CheapestPrice extends Struct
 
     protected ?float $purchase = null;
 
-    protected ?float $reference = null;
-
     protected ?string $unitId = null;
 
     protected PriceCollection $price;
@@ -89,16 +87,6 @@ class CheapestPrice extends Struct
     public function setPurchase(?float $purchase): void
     {
         $this->purchase = $purchase;
-    }
-
-    public function getReference(): ?float
-    {
-        return $this->reference;
-    }
-
-    public function setReference(?float $reference): void
-    {
-        $this->reference = $reference;
     }
 
     public function getUnitId(): ?string

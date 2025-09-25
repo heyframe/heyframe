@@ -40,12 +40,6 @@ class ProductHydrator extends EntityHydrator
         if (isset($row[$root . '.coverId'])) {
             $entity->coverId = Uuid::fromBytesToHex($row[$root . '.coverId']);
         }
-        if (isset($row[$root . '.deliveryTimeId'])) {
-            $entity->deliveryTimeId = Uuid::fromBytesToHex($row[$root . '.deliveryTimeId']);
-        }
-        if (isset($row[$root . '.featureSetId'])) {
-            $entity->featureSetId = Uuid::fromBytesToHex($row[$root . '.featureSetId']);
-        }
         if (isset($row[$root . '.canonicalProductId'])) {
             $entity->canonicalProductId = Uuid::fromBytesToHex($row[$root . '.canonicalProductId']);
         }
@@ -93,12 +87,6 @@ class ProductHydrator extends EntityHydrator
         }
         if (\array_key_exists($root . '.variantRestrictions', $row)) {
             $entity->variantRestrictions = $definition->decode('variantRestrictions', self::value($row, $root, 'variantRestrictions'));
-        }
-        if (isset($row[$root . '.manufacturerNumber'])) {
-            $entity->manufacturerNumber = $row[$root . '.manufacturerNumber'];
-        }
-        if (isset($row[$root . '.ean'])) {
-            $entity->ean = $row[$root . '.ean'];
         }
         if (isset($row[$root . '.purchaseSteps'])) {
             $entity->purchaseSteps = (int) $row[$root . '.purchaseSteps'];
@@ -158,7 +146,6 @@ class ProductHydrator extends EntityHydrator
         $this->manyToMany($row, $root, $entity, $definition->getField('properties'));
         $this->manyToMany($row, $root, $entity, $definition->getField('categories'));
         $this->manyToMany($row, $root, $entity, $definition->getField('categoriesRo'));
-        $this->manyToMany($row, $root, $entity, $definition->getField('streams'));
         $this->manyToMany($row, $root, $entity, $definition->getField('tags'));
 
         return $entity;

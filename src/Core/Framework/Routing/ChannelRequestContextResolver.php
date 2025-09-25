@@ -111,10 +111,6 @@ class ChannelRequestContextResolver implements RequestContextResolverInterface
             return;
         }
 
-        if (!$request->attributes->get(PlatformRequest::ATTRIBUTE_FRONT_ACL)) {
-            return;
-        }
-
         if ($context->getCustomer() === null) {
             throw RoutingException::customerNotLoggedIn();
         }

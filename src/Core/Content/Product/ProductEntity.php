@@ -12,7 +12,6 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollectio
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingConfig;
-use HeyFrame\Core\Content\ProductStream\ProductStreamCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
 use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
 use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
@@ -165,8 +164,6 @@ class ProductEntity extends Entity implements \Stringable
     protected ?string $canonicalProductId = null;
 
     protected ?ProductEntity $canonicalProduct = null;
-
-    protected ?ProductStreamCollection $streams = null;
 
     /**
      * @var array<int, string>
@@ -741,16 +738,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setCanonicalProduct(ProductEntity $product): void
     {
         $this->canonicalProduct = $product;
-    }
-
-    public function getStreams(): ?ProductStreamCollection
-    {
-        return $this->streams;
-    }
-
-    public function setStreams(ProductStreamCollection $streams): void
-    {
-        $this->streams = $streams;
     }
 
     /**

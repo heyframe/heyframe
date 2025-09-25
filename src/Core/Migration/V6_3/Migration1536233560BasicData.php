@@ -275,6 +275,13 @@ class Migration1536233560BasicData extends MigrationStep
             'configuration_value' => '{"_value": "8"}',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
+
+        $connection->insert('system_config', [
+            'id' => Uuid::randomBytes(),
+            'configuration_key' => 'core.loginRegistration.invalidateSessionOnLogOut',
+            'configuration_value' => json_encode(['_value' => false]),
+            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+        ]);
     }
 
     private function createOrderTransactionStateMachine(Connection $connection): void

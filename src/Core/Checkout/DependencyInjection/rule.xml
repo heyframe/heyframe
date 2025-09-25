@@ -144,10 +144,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemInProductStreamRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Cart\Rule\LineItemPurchasePriceRule">
             <tag name="heyframe.rule.definition"/>
         </service>
@@ -209,10 +205,6 @@
         </service>
 
         <service id="HeyFrame\Core\Checkout\Customer\Rule\DaysSinceFirstLoginRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Cart\Rule\AffiliateCodeOfOrderRule">
             <tag name="heyframe.rule.definition"/>
         </service>
 

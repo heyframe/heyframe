@@ -518,25 +518,11 @@
             <tag name="heyframe.elastic.admin-searcher-index" key="category"/>
         </service>
 
-        <service id="HeyFrame\Elasticsearch\Admin\Indexer\ProductStreamAdminSearchIndexer">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory" />
-            <argument type="service" id="product_stream.repository"/>
-            <argument>%elasticsearch.indexing_batch_size%</argument>
-
-            <tag name="heyframe.elastic.admin-searcher-index" key="product_stream"/>
-        </service>
-
         <service id="HeyFrame\Elasticsearch\Product\ProductCriteriaParser" decorates="HeyFrame\Elasticsearch\Framework\DataAbstractionLayer\CriteriaParser">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper"/>
             <argument type="service" id="HeyFrame\Core\System\CustomField\CustomFieldService"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Storage\AbstractKeyValueStorage" />
             <argument type="service" id=".inner"/>
-        </service>
-
-        <service id="HeyFrame\Elasticsearch\Product\ElasticsearchOptimizeSwitch">
-            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Storage\AbstractKeyValueStorage" />
-            <tag name="kernel.event_subscriber"/>
         </service>
 
     </services>

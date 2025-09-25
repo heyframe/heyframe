@@ -183,7 +183,6 @@ class CheapestPriceUpdater
             'LOWER(HEX(product.id)) as variant_id',
             'LOWER(HEX(price.rule_id)) as rule_id',
             'IFNULL(product.purchase_unit, parent.purchase_unit) as purchase_unit',
-            'IFNULL(product.reference_unit, parent.reference_unit) as reference_unit',
             'IFNULL(product.min_purchase, parent.min_purchase) as min_purchase',
             'price.price',
         );
@@ -221,7 +220,6 @@ class CheapestPriceUpdater
             'product.price as price',
             'IFNULL(product.min_purchase, parent.min_purchase) as min_purchase',
             'IFNULL(product.purchase_unit, parent.purchase_unit) as purchase_unit',
-            'IFNULL(product.reference_unit, parent.reference_unit) as reference_unit',
             'product.child_count as child_count',
         );
 
