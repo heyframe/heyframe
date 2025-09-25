@@ -5,7 +5,6 @@ namespace HeyFrame\Core\Framework;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Feature\FeatureException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -227,10 +226,6 @@ class Feature
         if (self::isActive($flag) === $state || (self::$registeredFeatures !== [] && !self::has($flag))) {
             throw FeatureException::error($message);
         }
-
-        if (\PHP_SAPI !== 'cli') {
-            ScriptTraces::addDeprecationNotice($message);
-        }
     }
 
     public static function triggerDeprecationOrThrow(string $majorFlag, string $message): void
@@ -241,10 +236,6 @@ class Feature
 
         if (self::isActive($majorFlag) || (self::$registeredFeatures !== [] && !self::has($majorFlag))) {
             throw FeatureException::error('Tried to access deprecated functionality: ' . $message);
-        }
-
-        if (\PHP_SAPI !== 'cli') {
-            ScriptTraces::addDeprecationNotice($message);
         }
 
         if (EnvironmentHelper::getVariable('TESTS_RUNNING')) {
