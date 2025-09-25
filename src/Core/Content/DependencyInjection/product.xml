@@ -19,7 +19,6 @@
 
         <service id="HeyFrame\Core\Content\Product\ProductDefinition">
             <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Product\Channel\ChannelProductDefinition">
@@ -60,7 +59,6 @@
 
         <service id="HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceDefinition">
             <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Product\Aggregate\ProductProperty\ProductPropertyDefinition">

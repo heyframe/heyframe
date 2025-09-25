@@ -14,7 +14,6 @@
         <!-- Entity definitions -->
         <service id="HeyFrame\Core\Content\Media\MediaDefinition">
             <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Media\Aggregate\MediaDefaultFolder\MediaDefaultFolderDefinition">

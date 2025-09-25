@@ -8,7 +8,6 @@
     <services>
         <service id="HeyFrame\Core\Checkout\Customer\CustomerDefinition">
             <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupTranslation\CustomerGroupTranslationDefinition">

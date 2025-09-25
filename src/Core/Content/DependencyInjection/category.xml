@@ -7,7 +7,6 @@
     <services>
         <service id="HeyFrame\Core\Content\Category\CategoryDefinition">
             <tag name="heyframe.entity.definition"/>
-            <tag name="heyframe.entity.hookable"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTranslationDefinition">

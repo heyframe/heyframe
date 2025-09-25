@@ -46,10 +46,6 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
             ->addTag('heyframe.entity.definition');
 
         $container
-            ->registerForAutoconfiguration(HookableEntityInterface::class)
-            ->addTag('heyframe.entity.hookable');
-
-        $container
             ->registerForAutoconfiguration(ChannelDefinition::class)
             ->addTag('heyframe.channel.entity.definition');
 

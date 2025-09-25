@@ -6,8 +6,6 @@ use HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTransla
 use HeyFrame\Core\Content\Cms\CmsPageEntity;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Content\Product\ProductCollection;
-use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -98,10 +96,6 @@ class CategoryEntity extends Entity
     protected ?string $metaDescription = null;
 
     protected ?string $keywords = null;
-
-    protected ?MainCategoryCollection $mainCategories = null;
-
-    protected ?SeoUrlCollection $seoUrls = null;
 
     protected ?string $customEntityTypeId = null;
 
@@ -491,15 +485,6 @@ class CategoryEntity extends Entity
         return $data;
     }
 
-    public function getMainCategories(): ?MainCategoryCollection
-    {
-        return $this->mainCategories;
-    }
-
-    public function setMainCategories(MainCategoryCollection $mainCategories): void
-    {
-        $this->mainCategories = $mainCategories;
-    }
 
     public function getMetaTitle(): ?string
     {
@@ -529,16 +514,6 @@ class CategoryEntity extends Entity
     public function setKeywords(?string $keywords): void
     {
         $this->keywords = $keywords;
-    }
-
-    public function getSeoUrls(): ?SeoUrlCollection
-    {
-        return $this->seoUrls;
-    }
-
-    public function setSeoUrls(SeoUrlCollection $seoUrls): void
-    {
-        $this->seoUrls = $seoUrls;
     }
 
     public function getCustomEntityTypeId(): ?string
