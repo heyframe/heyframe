@@ -101,10 +101,7 @@ export default {
         },
 
         criteria() {
-            return new Criteria(1, 500)
-                .addAssociation('navigationChannels')
-                .addAssociation('footerChannels')
-                .addAssociation('serviceChannels');
+            return new Criteria(1, 500);
         },
 
         criteriaWithChildren() {

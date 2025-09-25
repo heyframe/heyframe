@@ -85,14 +85,10 @@ export default class HeyFrameExtensionService {
 
     public async activateExtension(extensionId: string, type: ExtensionType): Promise<void> {
         await this.extensionStoreActionService.activateExtension(extensionId, type);
-
-        await this.updateModules();
     }
 
     public async deactivateExtension(extensionId: string, type: ExtensionType): Promise<void> {
         await this.extensionStoreActionService.deactivateExtension(extensionId, type);
-
-        await this.updateModules();
     }
 
     public async updateExtensionData(refreshExtensions: boolean = true): Promise<void> {
@@ -107,8 +103,6 @@ export default class HeyFrameExtensionService {
             const myExtensions = await this.extensionStoreActionService.getMyExtensions();
 
             HeyFrame.Store.get('heyframeExtensions').setMyExtensions(myExtensions);
-
-            await this.updateModules();
         } finally {
             HeyFrame.Store.get('heyframeExtensions').setLoading(false);
         }
@@ -195,12 +189,6 @@ export default class HeyFrameExtensionService {
         /* eslint-enable */
 
         return null;
-    }
-
-    private async updateModules() {
-        const modules = await this.appModulesService.fetchAppModules();
-
-        HeyFrame.Store.get('heyframeApps').apps = modules;
     }
 
     private async getLinkToTheme(extension: Extension) {

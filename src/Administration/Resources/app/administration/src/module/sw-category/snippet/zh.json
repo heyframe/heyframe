@@ -184,79 +184,10 @@
       "textAfter": "是否覆盖此分配？ | 是否覆盖这些分配？"
     }
   },
-  "sw-landing-page": {
-    "view": {
-      "general": "常规",
-      "cms": "布局"
-    },
-    "general": {
-      "placeholderSearchBar": "搜索落地页...",
-      "treeHeadSelected": "已选择 {count} 个",
-      "buttonCreate": "添加落地页",
-      "treeHeadline": "落地页",
-      "actions": {
-        "actionsDisabledInLanguage": "落地页只能在系统默认语言中创建。"
-      }
-    },
-    "base": {
-      "general": {
-        "labelName": "名称",
-        "headlineInformationCard": "常规信息",
-        "isActiveLabel": "激活",
-        "labelTags": "标签",
-        "labelTagsPlaceholder": "单独输入标签..."
-      },
-      "seo": {
-        "title": "SEO",
-        "titleGeneralInformation": "基本信息",
-        "titleSocialMedia": "社交媒体",
-        "labelChannel": "销售渠道",
-        "labelMetaTitle": "Meta标题",
-        "labelSocialMediaTitle": "标题",
-        "labelMetaDescription": "Meta描述",
-        "labelSocialMediaDescription": "描述",
-        "labelKeywords": "SEO关键词",
-        "labelUrl": "SEO URL",
-        "labelPreviewImage": "预览图片",
-        "placeholderChannel": "选择销售渠道...",
-        "placeholderMetaTitle": "输入Meta标题...",
-        "placeholderSocialMediaTitle": "输入社交媒体标题...",
-        "placeholderMetaDescription": "输入Meta描述...",
-        "placeholderSocialMediaDescription": "输入描述...",
-        "placeholderKeywords": "输入一个或多个关键词...",
-        "placeholderUrl": "输入URL...",
-        "socialMediaPreview": "社交媒体预览",
-        "searchResultPreview": "搜索结果预览",
-        "helpTextMetaTitle": "Meta标题不要超过70个字符，超出部分会被Google截断，搜索结果中无法完整显示。",
-        "helpTextMetaDescription": "Meta描述在Google中约175字符内，根据像素宽度截断。建议长度约150字符，以避免在搜索结果中被截断。HeyFrame最多支持255字符。",
-        "notification": {
-          "noLayoutAssigned": "此落地页未分配布局。未分配布局将无法通过SEO访问。"
-        }
-      },
-      "cms": {
-        "title": "布局分配",
-        "changeLayout": "更改布局",
-        "changeLayoutEmpty": "分配布局",
-        "editInPagebuilder": "在设计器中编辑",
-        "editInPagebuilderEmpty": "创建新布局",
-        "editContent": "编辑内容",
-        "defaultTitle": "默认布局",
-        "defaultDesc": "分类页面",
-        "cmsLayoutModalHeadline": "落地页"
-      }
-    },
-    "modal": {
-      "textDeleteConfirm": "确定要删除落地页 \"{name}\" 吗？",
-      "textDeleteMultipleConfirm": "确定要删除选中的 {count} 个落地页吗？"
-    }
-  },
   "sw-privileges": {
     "permissions": {
       "category": {
         "label": "分类"
-      },
-      "landing_page": {
-        "label": "落地页"
       }
     }
   }

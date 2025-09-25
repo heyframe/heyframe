@@ -184,79 +184,10 @@
       "textAfter": "Should this assignment be overwritten? | Should these assignments be overwritten?"
     }
   },
-  "sw-landing-page": {
-    "view": {
-      "general": "General",
-      "cms": "Layout"
-    },
-    "general": {
-      "placeholderSearchBar": "Search landing pages...",
-      "treeHeadSelected": "{count} selected",
-      "buttonCreate": "Add landing page",
-      "treeHeadline": "Landing pages",
-      "actions": {
-        "actionsDisabledInLanguage": "Landing pages can only be created in the system default language."
-      }
-    },
-    "base": {
-      "general": {
-        "labelName": "Name",
-        "headlineInformationCard": "General",
-        "isActiveLabel": "Active",
-        "labelTags": "Tags",
-        "labelTagsPlaceholder": "Enter tags individually..."
-      },
-      "seo": {
-        "title": "SEO",
-        "titleGeneralInformation": "General information",
-        "titleSocialMedia": "Social Media",
-        "labelChannel": "Channels",
-        "labelMetaTitle": "Meta title",
-        "labelSocialMediaTitle": "Title",
-        "labelMetaDescription": "Meta description",
-        "labelSocialMediaDescription": "Description",
-        "labelKeywords": "SEO keywords",
-        "labelUrl": "SEO URL",
-        "labelPreviewImage": "Preview image",
-        "placeholderChannel": "Choose a Channel...",
-        "placeholderMetaTitle": "Enter meta title...",
-        "placeholderSocialMediaTitle": "Enter social media title...",
-        "placeholderMetaDescription": "Enter a meta description...",
-        "placeholderSocialMediaDescription": "Enter description...",
-        "placeholderKeywords": "Enter one or more keywords...",
-        "placeholderUrl": "Enter URL...",
-        "socialMediaPreview": "Social media preview",
-        "searchResultPreview": "Search result preview",
-        "helpTextMetaTitle": "Meta titles should not be longer than 70 characters. Excess text will be truncated by Google and the title will not be fully displayed in the SERP snippet.",
-        "helpTextMetaDescription": "The possible length for meta descriptions on Google is about 175 characters and is trimmed according to pixel width. However, it is recommended to aim for a length of about 150 characters so that the description is not cut off in the SERP snippet. HeyFrame allows a maximum length of 255 characters.",
-        "notification": {
-          "noLayoutAssigned": "For this landing page, no layout has been assigned. Without a layout, the landing page is not accessible via SEO."
-        }
-      },
-      "cms": {
-        "title": "Layout assignment",
-        "changeLayout": "Change layout",
-        "changeLayoutEmpty": "Assign layout",
-        "editInPagebuilder": "Edit in designer",
-        "editInPagebuilderEmpty": "Create new layout",
-        "editContent": "Edit content",
-        "defaultTitle": "Default layout",
-        "defaultDesc": "Category page",
-        "cmsLayoutModalHeadline": "Landing page"
-      }
-    },
-    "modal": {
-      "textDeleteConfirm": "Are you sure you really want to delete the landing page \"{name}\"?",
-      "textDeleteMultipleConfirm": "Are you sure you want to delete the {count} selected landing pages?"
-    }
-  },
   "sw-privileges": {
     "permissions": {
       "category": {
         "label": "Categories"
-      },
-      "landing_page": {
-        "label": "Landing pages"
       }
     }
   }

@@ -16,7 +16,6 @@ export default {
         'menuService',
         'loginService',
         'userService',
-        'appModulesService',
         'feature',
         'customEntityDefinitionService',
     ],
@@ -256,14 +255,6 @@ The admin menu only supports up to three levels of nesting.`,
         },
         initNavigation() {
             this.adminMenuStore.adminModuleNavigation = this.menuService.getNavigationFromAdminModules();
-
-            this.refreshApps();
-        },
-
-        refreshApps() {
-            return this.appModulesService.fetchAppModules().then((modules) => {
-                HeyFrame.Store.get('heyframeApps').apps = modules;
-            });
         },
 
         collapseAdminMenu() {

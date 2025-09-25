@@ -215,9 +215,6 @@ export default {
             criteria
                 .addAssociation('tags')
                 .addAssociation('media')
-                .addAssociation('navigationChannels.homeCmsPage.previewMedia')
-                .addAssociation('serviceChannels')
-                .addAssociation('footerChannels')
                 .addAssociation('translations');
 
             return criteria;
