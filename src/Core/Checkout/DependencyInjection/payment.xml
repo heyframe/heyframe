@@ -120,7 +120,6 @@
         <service id="HeyFrame\Core\Checkout\Payment\Channel\PaymentMethodRoute" public="true">
             <argument type="service" id="channel.payment_method.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
             <argument type="service" id="HeyFrame\Core\Framework\Rule\RuleIdMatcher"/>
         </service>
 

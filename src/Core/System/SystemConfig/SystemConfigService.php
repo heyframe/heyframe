@@ -17,7 +17,6 @@ use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\SystemConfig\Event\BeforeSystemConfigChangedEvent;
 use HeyFrame\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent;
 use HeyFrame\Core\System\SystemConfig\Event\SystemConfigChangedEvent;
-use HeyFrame\Core\System\SystemConfig\Event\SystemConfigChangedHook;
 use HeyFrame\Core\System\SystemConfig\Event\SystemConfigDomainLoadedEvent;
 use HeyFrame\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent;
 use HeyFrame\Core\System\SystemConfig\Exception\BundleConfigNotFoundException;
@@ -336,9 +335,6 @@ class SystemConfigService implements ResetInterface
         }
 
         $insertQueue->execute();
-
-        // Dispatch the hook before the events to invalid the cache
-        $this->dispatcher->dispatch(new SystemConfigChangedHook($values, $this->getAppMapping(), $channelId));
 
         // Dispatch events that the given values have been changed
         foreach ($events as $event) {

@@ -32,7 +32,6 @@ use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,7 +69,6 @@ class AdministrationController extends AbstractController
         private readonly string $serviceRegistryUrl,
         private readonly string $refreshTokenTtl = 'P1W',
     ) {
-
     }
 
     #[Route(path: '/%heyframe_administration.path_name%', name: 'administration.index', defaults: ['auth_required' => false], methods: ['GET'])]

@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Framework\App\Payment\Handler\AppPaymentHandler;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use Symfony\Contracts\Service\ServiceProviderInterface;
@@ -39,12 +38,6 @@ class PaymentHandlerRegistry
                 app_payment_method.id as app_payment_method_id
             ')
             ->from('payment_method')
-            ->leftJoin(
-                'payment_method',
-                'app_payment_method',
-                'app_payment_method',
-                'payment_method.id = app_payment_method.payment_method_id'
-            )
             ->andWhere('payment_method.id = :paymentMethodId')
             ->setParameter('paymentMethodId', Uuid::fromHexToBytes($paymentMethodId))
             ->executeQuery()
@@ -52,11 +45,6 @@ class PaymentHandlerRegistry
 
         if (!$result || !\array_key_exists('handler_identifier', $result)) {
             return null;
-        }
-
-        // app payment method is set: we need to resolve an app handler
-        if (isset($result['app_payment_method_id'])) {
-            return $this->handlers[AppPaymentHandler::class] ?? null;
         }
 
         $handlerIdentifier = $result['handler_identifier'];

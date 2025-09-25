@@ -235,7 +235,6 @@
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Transaction\TransactionProcessor"/>
             <argument type="tagged_iterator" tag="heyframe.cart.processor"/>
             <argument type="tagged_iterator" tag="heyframe.cart.collector"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Product\Cart\ProductCartProcessor">

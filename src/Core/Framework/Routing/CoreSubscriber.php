@@ -2,10 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Routing;
 
-use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Script\Api\ResponseHook;
-use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -23,7 +20,7 @@ readonly class CoreSubscriber implements EventSubscriberInterface
      *
      * @internal
      */
-    public function __construct(private array $cspTemplates, private readonly ScriptExecutor $scriptExecutor)
+    public function __construct(private array $cspTemplates)
     {
     }
 
@@ -77,15 +74,5 @@ readonly class CoreSubscriber implements EventSubscriberInterface
                 $response->headers->set('Content-Security-Policy', $csp);
             }
         }
-
-        $context = $event->getRequest()->attributes->get(PlatformRequest::ATTRIBUTE_CONTEXT_OBJECT) ?? Context::createDefaultContext();
-        \assert($context instanceof Context);
-
-        $this->scriptExecutor->execute(new ResponseHook(
-            $response,
-            $event->getRequest()->attributes->get('_route', ''),
-            $scopes,
-            $context
-        ));
     }
 }

@@ -2,11 +2,9 @@
 
 namespace HeyFrame\Core\Checkout\Cart;
 
-use HeyFrame\Core\Checkout\Cart\Hook\CartHook;
 use HeyFrame\Core\Checkout\Cart\Price\AmountCalculator;
 use HeyFrame\Core\Checkout\Cart\Transaction\TransactionProcessor;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\Profiling\Profiler;
 use HeyFrame\Core\System\Channel\ChannelContext;
 
@@ -25,7 +23,6 @@ class Processor
         private readonly TransactionProcessor $transactionProcessor,
         private readonly iterable $processors,
         private readonly iterable $collectors,
-        private readonly ScriptExecutor $executor
     ) {
     }
 
@@ -38,21 +35,10 @@ class Processor
             $cart->setBehavior($behavior);
             $cart->addState(...$original->getStates());
 
-            if ($behavior->hookAware()) {
-                // reset modified state that apps always have the same entry state
-                foreach ($original->getLineItems()->getFlat() as $item) {
-                    $item->markUnModifiedByApp();
-                }
-            }
-
             // move data from previous calculation into new cart
             $cart->setData($original->getData());
 
             $this->runProcessors($original, $cart, $context, $behavior);
-
-            if ($behavior->hookAware()) {
-                $this->executor->execute(new CartHook($cart, $context));
-            }
 
             $this->calculateAmount($context, $cart);
 

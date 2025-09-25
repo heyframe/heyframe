@@ -75,8 +75,6 @@ class LineItem extends Struct
      */
     protected string $uniqueIdentifier;
 
-    protected bool $modifiedByApp = false;
-
     /**
      * @var array<int, string>
      */
@@ -519,21 +517,6 @@ class LineItem extends Struct
     public function hasState(string $state): bool
     {
         return \in_array($state, $this->states, true);
-    }
-
-    public function markUnModifiedByApp(): void
-    {
-        $this->modifiedByApp = false;
-    }
-
-    public function markModifiedByApp(): void
-    {
-        $this->modifiedByApp = true;
-    }
-
-    public function isModifiedByApp(): bool
-    {
-        return $this->modifiedByApp;
     }
 
     /**

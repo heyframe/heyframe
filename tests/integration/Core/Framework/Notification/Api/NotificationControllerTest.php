@@ -7,9 +7,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Notification\NotificationCollection;
 use HeyFrame\Core\Framework\Test\TestCaseBase\AdminApiTestBehaviour;
-use HeyFrame\Core\Test\AppSystemTestBehaviour;
+use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
 use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
-use HeyFrame\Tests\Integration\Core\Framework\App\GuzzleTestClientBehaviour;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,8 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 class NotificationControllerTest extends TestCase
 {
     use AdminApiTestBehaviour;
-    use AppSystemTestBehaviour;
-    use GuzzleTestClientBehaviour;
+    use IntegrationTestBehaviour;
 
     /**
      * @var EntityRepository<NotificationCollection>

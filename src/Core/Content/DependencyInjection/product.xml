@@ -152,13 +152,6 @@
             <tag name="kernel.reset" method="reset"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Product\Channel\Price\AppScriptProductPriceCalculator" decorates="HeyFrame\Core\Content\Product\Channel\Price\ProductPriceCalculator">
-            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Price\AppScriptProductPriceCalculator.inner"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Facade\ScriptPriceStubs"/>
-            <tag name="kernel.reset" method="reset"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface"
                  class="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilder">
             <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchTermInterpreter"/>

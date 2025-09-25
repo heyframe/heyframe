@@ -191,7 +191,6 @@ frame-ancestors 'none';
 
         <service id="HeyFrame\Core\Framework\Routing\CoreSubscriber">
             <argument>%heyframe.security.csp_templates%</argument>
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Execution\ScriptExecutor"/>
             <tag name="kernel.event_subscriber"/>
         </service>
 

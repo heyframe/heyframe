@@ -26,8 +26,6 @@ use HeyFrame\Core\Framework\Rule\Container\AndRule;
 use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\Test\Integration\Traits\Promotion\PromotionSetGroupTestFixtureBehaviour;
-use HeyFrame\Core\Test\Integration\Traits\Promotion\PromotionTestFixtureBehaviour;
 use HeyFrame\Tests\Unit\Core\Checkout\Cart\LineItem\Group\Helpers\Fakes\FakeLineItemGroupSorter;
 use HeyFrame\Tests\Unit\Core\Checkout\Cart\LineItem\Group\Helpers\Fakes\FakeLineItemGroupTakeAllPackager;
 use HeyFrame\Tests\Unit\Core\Checkout\Cart\LineItem\Group\Helpers\Fakes\FakeSequenceSupervisor;
@@ -47,8 +45,6 @@ class LineItemGroupBuilderTest extends TestCase
     use IntegrationTestBehaviour;
     use LineItemGroupTestFixtureBehaviour;
     use LineItemTestFixtureBehaviour;
-    use PromotionSetGroupTestFixtureBehaviour;
-    use PromotionTestFixtureBehaviour;
     use RulesTestFixtureBehaviour;
 
     private const KEY_PACKAGER_COUNT = 'COUNT';

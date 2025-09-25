@@ -2,14 +2,10 @@
 
 namespace HeyFrame\Tests\Integration\Core\System\SystemConfig\Facade;
 
-use HeyFrame\Core\Framework\Api\Exception\MissingPrivilegeException;
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
 use HeyFrame\Core\Framework\Script\Execution\Script;
-use HeyFrame\Core\Framework\Script\Execution\ScriptAppInformation;
 use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
 use HeyFrame\Core\Framework\Test\Script\Execution\ChannelTestHook;
@@ -18,7 +14,6 @@ use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\SystemConfig\Facade\SystemConfigFacadeHookFactory;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
-use HeyFrame\Core\Test\AppSystemTestBehaviour;
 use HeyFrame\Core\Test\Generator;
 use HeyFrame\Core\Test\TestDefaults;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -30,7 +25,6 @@ use PHPUnit\Framework\TestCase;
 #[Package('framework')]
 class SystemConfigFacadeTest extends TestCase
 {
-    use AppSystemTestBehaviour;
     use IntegrationTestBehaviour;
 
     private SystemConfigService $systemConfigService;
@@ -89,63 +83,6 @@ class SystemConfigFacadeTest extends TestCase
         ];
     }
 
-    public function testGetThrowsExceptionForAppWithoutPermission(): void
-    {
-        $this->systemConfigService->set('test.value', 'generic');
-
-        $appInfo = $this->installApp(__DIR__ . '/_fixtures/apps/withoutSystemConfigPermission');
-
-        $facade = $this->factory->factory(
-            new TestHook('test', Context::createDefaultContext()),
-            new Script('test', '', new \DateTimeImmutable(), $appInfo)
-        );
-
-        static::expectException(MissingPrivilegeException::class);
-        $facade->get('test.value');
-    }
-
-    public function testGetForAppWithout(): void
-    {
-        $this->systemConfigService->set('test.value', 'generic');
-
-        $appInfo = $this->installApp(__DIR__ . '/_fixtures/apps/withSystemConfigPermission');
-
-        $facade = $this->factory->factory(
-            new TestHook('test', Context::createDefaultContext()),
-            new Script('test', '', new \DateTimeImmutable(), $appInfo)
-        );
-
-        static::assertSame('generic', $facade->get('test.value'));
-    }
-
-    public function testGetAppConfigForAppWithoutPermission(): void
-    {
-        $this->systemConfigService->set('withoutSystemConfigPermission.config.testValue', 'test');
-
-        $appInfo = $this->installApp(__DIR__ . '/_fixtures/apps/withoutSystemConfigPermission');
-
-        $facade = $this->factory->factory(
-            new TestHook('test', Context::createDefaultContext()),
-            new Script('test', '', new \DateTimeImmutable(), $appInfo)
-        );
-
-        static::assertSame('test', $facade->app('testValue'));
-    }
-
-    public function testGetAppConfigForApp(): void
-    {
-        $this->systemConfigService->set('withSystemConfigPermission.config.testValue', 'test');
-
-        $appInfo = $this->installApp(__DIR__ . '/_fixtures/apps/withSystemConfigPermission');
-
-        $facade = $this->factory->factory(
-            new TestHook('test', Context::createDefaultContext()),
-            new Script('test', '', new \DateTimeImmutable(), $appInfo)
-        );
-
-        static::assertSame('test', $facade->app('testValue'));
-    }
-
     public function testGetAppConfigThrowsWithoutApp(): void
     {
         $this->systemConfigService->set('withSystemConfigPermission.config.testValue', 'test');
@@ -163,8 +100,6 @@ class SystemConfigFacadeTest extends TestCase
     {
         $this->systemConfigService->set('core.listing.productsPerPage', 'system_config');
         $this->systemConfigService->set('systemConfigExample.config.app_config', 'app_config');
-
-        $this->installApp(__DIR__ . '/_fixtures/apps/systemConfigExample');
 
         $page = new ArrayStruct();
         $hook = new TestHook(
@@ -186,20 +121,5 @@ class SystemConfigFacadeTest extends TestCase
 
         static::assertSame('system_config', $extension->get('systemConfig'));
         static::assertSame('app_config', $extension->get('appConfig'));
-    }
-
-    private function installApp(string $appDir): ScriptAppInformation
-    {
-        $this->loadAppsFromDir($appDir);
-
-        /** @var AppEntity $app */
-        $app = static::getContainer()->get('app.repository')->search(new Criteria(), Context::createDefaultContext())->first();
-
-        return new ScriptAppInformation(
-            $app->getId(),
-            $app->getName(),
-            $app->getVersion(),
-            $app->getIntegrationId()
-        );
     }
 }

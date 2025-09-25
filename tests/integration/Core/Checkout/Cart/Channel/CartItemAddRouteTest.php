@@ -5,7 +5,6 @@ namespace HeyFrame\Tests\Integration\Core\Checkout\Cart\Channel;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\Rule\AlwaysValidRule;
 use HeyFrame\Core\Checkout\CheckoutPermissions;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscount\PromotionDiscountEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Content\Product\ProductCollection;
 use HeyFrame\Core\Defaults;
@@ -14,12 +13,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Test\TestCaseBase\ChannelApiTestBehaviour;
 use HeyFrame\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
-use HeyFrame\Core\Framework\Util\Random;
 use HeyFrame\Core\Framework\Uuid\Uuid;
-use HeyFrame\Core\System\Channel\Context\ChannelContextFactory;
 use HeyFrame\Core\System\Channel\Context\ChannelContextPersister;
 use HeyFrame\Core\System\Channel\Context\ChannelContextService;
-use HeyFrame\Core\Test\Integration\Traits\Promotion\PromotionTestFixtureBehaviour;
 use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +31,6 @@ class CartItemAddRouteTest extends TestCase
 {
     use ChannelApiTestBehaviour;
     use IntegrationTestBehaviour;
-    use PromotionTestFixtureBehaviour;
 
     private KernelBrowser $browser;
 
@@ -290,68 +285,6 @@ class CartItemAddRouteTest extends TestCase
             );
 
         static::assertSame(200, $this->browser->getResponse()->getStatusCode());
-    }
-
-    public function testAddPromotion(): void
-    {
-        $promotionId = Uuid::randomHex();
-        $productId = Uuid::randomHex();
-        $code = 'BF' . Random::getAlphanumericString(5);
-
-        $context = static::getContainer()->get(ChannelContextFactory::class)->create(Uuid::randomHex(), $this->ids->get('channel'));
-
-        $this->createTestFixtureProduct($productId, 800, static::getContainer(), $context);
-
-        $this->createPromotion(
-            $promotionId,
-            $code,
-            static::getContainer()->get('promotion.repository'),
-            $context
-        );
-
-        $this->createTestFixtureDiscount($promotionId, PromotionDiscountEntity::TYPE_ABSOLUTE, PromotionDiscountEntity::SCOPE_CART, 10, null, static::getContainer(), $context);
-
-        // Add product
-        $this->browser
-            ->request(
-                'POST',
-                '/front-api/checkout/cart/line-item',
-                [
-                    'items' => [
-                        [
-                            'id' => $productId,
-                            'type' => 'product',
-                            'referencedId' => $productId,
-                        ],
-                    ],
-                ]
-            );
-
-        static::assertSame(200, $this->browser->getResponse()->getStatusCode());
-
-        // Add code
-        $this->browser
-            ->request(
-                'POST',
-                '/front-api/checkout/cart/line-item',
-                [
-                    'items' => [
-                        [
-                            'type' => 'promotion',
-                            'referencedId' => $code,
-                        ],
-                    ],
-                ]
-            );
-
-        static::assertSame(200, $this->browser->getResponse()->getStatusCode());
-
-        $response = json_decode($this->browser->getResponse()->getContent() ?: '', true, 512, \JSON_THROW_ON_ERROR);
-
-        static::assertSame('cart', $response['apiAlias']);
-        static::assertSame(790, $response['price']['totalPrice']);
-        static::assertCount(2, $response['lineItems']);
-        static::assertSame('Test', $response['lineItems'][0]['label']);
     }
 
     private function createTestData(): void

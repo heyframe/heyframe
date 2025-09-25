@@ -22,12 +22,6 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RulePayloadSubscriber">
-            <tag name="kernel.event_subscriber"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Script\Debugging\ScriptTraces"/>
-            <argument>%twig.cache%</argument>
-            <argument>%kernel.debug%</argument>
-        </service>
 
         <service id="HeyFrame\Core\Content\Rule\DataAbstractionLayer\RuleIndexer">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>

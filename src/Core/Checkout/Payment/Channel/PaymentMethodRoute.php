@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Payment\Channel;
 
-use HeyFrame\Core\Checkout\Payment\Hook\PaymentMethodRouteHook;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -12,7 +11,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Rule\RuleIdMatcher;
-use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
@@ -33,7 +31,6 @@ class PaymentMethodRoute extends AbstractPaymentMethodRoute
     public function __construct(
         private readonly ChannelRepository $paymentMethodRepository,
         private readonly CacheTagCollector $cacheTagCollector,
-        private readonly ScriptExecutor $scriptExecutor,
         private readonly RuleIdMatcher $ruleIdMatcher,
     ) {
     }
@@ -73,12 +70,6 @@ class PaymentMethodRoute extends AbstractPaymentMethodRoute
         }
 
         $result->assign(['entities' => $paymentMethods, 'elements' => $paymentMethods->getElements(), 'total' => $paymentMethods->count()]);
-
-        $this->scriptExecutor->execute(new PaymentMethodRouteHook(
-            $paymentMethods,
-            $request->query->getBoolean('onlyAvailable') || $request->request->getBoolean('onlyAvailable'),
-            $context,
-        ));
 
         return new PaymentMethodRouteResponse($result);
     }

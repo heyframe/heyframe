@@ -12,8 +12,7 @@ class CartBehavior extends Struct
      * @param array<string, bool> $permissions
      */
     public function __construct(
-        private readonly array $permissions = [],
-        private bool $hookAware = true,
+        private readonly array $permissions = []
     ) {
     }
 
@@ -25,32 +24,5 @@ class CartBehavior extends Struct
     public function getApiAlias(): string
     {
         return 'cart_behavior';
-    }
-
-    public function hookAware(): bool
-    {
-        return $this->hookAware;
-    }
-
-    /**
-     * @internal
-     *
-     * @template TReturn of mixed
-     *
-     * @param \Closure(): TReturn $closure
-     *
-     * @return TReturn
-     */
-    public function disableHooks(\Closure $closure)
-    {
-        $before = $this->hookAware;
-
-        $this->hookAware = false;
-
-        $result = $closure();
-
-        $this->hookAware = $before;
-
-        return $result;
     }
 }

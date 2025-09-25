@@ -16,7 +16,6 @@ use HeyFrame\Core\Framework\Adapter\Messenger\Stamp\SentAtStamp;
 use HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService;
 use HeyFrame\Core\Framework\Api\Controller\InfoController;
 use HeyFrame\Core\Framework\Api\Route\ApiRouteInfoResolver;
-use HeyFrame\Core\Framework\App\InstanceId\InstanceIdProvider;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\BusinessEventCollector;
@@ -26,13 +25,11 @@ use HeyFrame\Core\Framework\Event\CustomerGroupAware;
 use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\MessageQueue\Stats\StatsService;
 use HeyFrame\Core\Framework\Plugin;
-use HeyFrame\Core\Framework\Store\InAppPurchase;
 use HeyFrame\Core\Framework\Test\TestCaseBase\AdminFunctionalTestBehaviour;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Kernel;
 use HeyFrame\Core\Maintenance\System\Service\AppUrlVerifier;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
-use HeyFrame\Core\Test\AppSystemTestBehaviour;
 use HeyFrame\Core\Test\Stub\Framework\BundleFixture;
 use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
 use HeyFrame\Core\Test\Stub\Symfony\StubKernel;
@@ -51,8 +48,6 @@ class InfoControllerTest extends TestCase
 {
     use AdminFunctionalTestBehaviour;
 
-    use AppSystemTestBehaviour;
-
     private Connection $connection;
 
     protected function setUp(): void
@@ -62,11 +57,8 @@ class InfoControllerTest extends TestCase
 
     public function testGetConfig(): void
     {
-        $instanceId = static::getContainer()->get(InstanceIdProvider::class)->getInstanceId();
-
         $expected = [
             'version' => '6.7.9999999.9999999-dev',
-            'instanceId' => $instanceId,
             'versionRevision' => str_repeat('0', 32),
             'adminWorker' => [
                 'enableAdminWorker' => true,
@@ -149,34 +141,6 @@ class InfoControllerTest extends TestCase
     public function testGetConfigWithPermissions(): void
     {
         $ids = new IdsCollection();
-        $appRepository = static::getContainer()->get('app.repository');
-        $appRepository->create([
-            [
-                'name' => 'PHPUnit',
-                'path' => '/foo/bar',
-                'active' => true,
-                'configurable' => false,
-                'version' => '1.0.0',
-                'label' => 'PHPUnit',
-                'integration' => [
-                    'id' => $ids->create('integration'),
-                    'label' => 'foo',
-                    'accessKey' => '123',
-                    'secretAccessKey' => '456',
-                ],
-                'aclRole' => [
-                    'name' => 'PHPUnitRole',
-                    'privileges' => [
-                        'user:create',
-                        'user:read',
-                        'user:update',
-                        'user:delete',
-                        'user_change_me',
-                    ],
-                ],
-                'baseAppUrl' => 'https://example.com',
-            ],
-        ], Context::createDefaultContext());
 
         $appUrl = EnvironmentHelper::getVariable('APP_URL');
         static::assertIsString($appUrl);
@@ -375,7 +339,6 @@ class InfoControllerTest extends TestCase
             $eventCollector,
             static::getContainer()->get(SystemConfigService::class),
             static::getContainer()->get(ApiRouteInfoResolver::class),
-            static::getContainer()->get(InAppPurchase::class),
             new ViteFileAccessorDecorator(
                 [],
                 static::getContainer()->get('heyframe.asset.asset'),
@@ -383,7 +346,6 @@ class InfoControllerTest extends TestCase
                 new Filesystem(),
             ),
             new Filesystem(),
-            static::getContainer()->get(InstanceIdProvider::class),
             $this->createMock(StatsService::class),
         );
 
@@ -410,8 +372,6 @@ class InfoControllerTest extends TestCase
         }
 
         $this->clearRequestStack();
-
-        $this->loadAppsFromDir(__DIR__ . '/Fixtures/AdminExtensionApiApp');
 
         $kernel = new StubKernel([
             new AdminExtensionApiBundle(),
@@ -449,7 +409,6 @@ class InfoControllerTest extends TestCase
             $eventCollector,
             static::getContainer()->get(SystemConfigService::class),
             static::getContainer()->get(ApiRouteInfoResolver::class),
-            static::getContainer()->get(InAppPurchase::class),
             new ViteFileAccessorDecorator(
                 [],
                 static::getContainer()->get('heyframe.asset.asset'),
@@ -457,7 +416,6 @@ class InfoControllerTest extends TestCase
                 new Filesystem(),
             ),
             new Filesystem(),
-            static::getContainer()->get(InstanceIdProvider::class),
             $this->createMock(StatsService::class),
         );
 
