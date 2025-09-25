@@ -184,7 +184,7 @@ class NavigationRoute extends AbstractNavigationRoute
         $ids = array_filter([
             $context->getChannel()->getFooterCategoryId(),
             $context->getChannel()->getServiceCategoryId(),
-            $context->getChannel()->getNavigationCategoryId(),
+            $context->getChannel()->getNavigationId(),
         ]);
 
         foreach ($ids as $id) {

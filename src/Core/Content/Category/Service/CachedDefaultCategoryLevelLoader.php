@@ -48,7 +48,7 @@ class CachedDefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInte
         Criteria $criteria,
         int $depth,
     ): CategoryCollection {
-        if ($context->getChannel()->getNavigationCategoryId() === $rootId) {
+        if ($context->getChannel()->getNavigationId() === $rootId) {
             return $this->cached(
                 $rootId,
                 $rootLevel,

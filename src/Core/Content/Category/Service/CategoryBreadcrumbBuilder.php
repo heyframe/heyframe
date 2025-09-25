@@ -138,7 +138,7 @@ class CategoryBreadcrumbBuilder
         ];
 
         if ($channel !== null) {
-            $entryPoints[] = $channel->getNavigationCategoryId();
+            $entryPoints[] = $channel->getNavigationId();
             $entryPoints[] = $channel->getServiceCategoryId();
             $entryPoints[] = $channel->getFooterCategoryId();
         }
@@ -226,7 +226,7 @@ class CategoryBreadcrumbBuilder
     private function getChannelFilter(ChannelEntity $channel): MultiFilter
     {
         $ids = array_filter([
-            $channel->getNavigationCategoryId(),
+            $channel->getNavigationId(),
             $channel->getServiceCategoryId(),
             $channel->getFooterCategoryId(),
         ]);

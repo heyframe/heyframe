@@ -23,7 +23,6 @@ class CategoryUrlGenerator extends AbstractCategoryUrlGenerator
         }
 
         if ($category->getType() !== CategoryDefinition::TYPE_LINK) {
-            // 没有 SEO，就用基础路由，例如 /navigation/{id}
             return '/navigation/' . $category->getId();
         }
 
@@ -39,8 +38,8 @@ class CategoryUrlGenerator extends AbstractCategoryUrlGenerator
                 return '/detail/' . $internalLink;
 
             case CategoryDefinition::LINK_TYPE_CATEGORY:
-                if ($channel !== null && $internalLink === $channel->getNavigationCategoryId()) {
-                    return '/'; // 首页
+                if ($channel !== null && $internalLink === $channel->getNavigationId()) {
+                    return '/';
                 }
 
                 return '/navigation/' . $internalLink;

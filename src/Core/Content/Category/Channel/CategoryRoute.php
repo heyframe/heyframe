@@ -56,7 +56,7 @@ class CategoryRoute extends AbstractCategoryRoute
         $this->cacheTagCollector->addTag(self::buildName($navigationId));
 
         if ($navigationId === self::HOME) {
-            $navigationId = $context->getChannel()->getNavigationCategoryId();
+            $navigationId = $context->getChannel()->getNavigationId();
             $request->attributes->set('navigationId', $navigationId);
 
             $routeParams = $request->attributes->get('_route_params', []);
@@ -67,7 +67,7 @@ class CategoryRoute extends AbstractCategoryRoute
         $category = $this->loadCategory($navigationId, $context);
 
         $categoryHasContentlessPageType = \in_array($category->getType(), [CategoryDefinition::TYPE_FOLDER, CategoryDefinition::TYPE_LINK], true);
-        if ($categoryHasContentlessPageType && $context->getChannel()->getNavigationCategoryId() !== $navigationId) {
+        if ($categoryHasContentlessPageType && $context->getChannel()->getNavigationId() !== $navigationId) {
             if ($category->getType() === CategoryDefinition::TYPE_LINK) {
                 return new CategoryRouteResponse($category);
             }
@@ -78,7 +78,7 @@ class CategoryRoute extends AbstractCategoryRoute
         $pageId = $category->getCmsPageId();
         $channel = $context->getChannel();
 
-        if ($category->getId() === $channel->getNavigationCategoryId() && $channel->getHomeCmsPageId()) {
+        if ($category->getId() === $channel->getNavigationId() && $channel->getHomeCmsPageId()) {
             $pageId = $channel->getHomeCmsPageId();
             $slotConfig = $channel->getTranslation('homeSlotConfig');
         } else {

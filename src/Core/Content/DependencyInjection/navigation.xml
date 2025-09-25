@@ -8,5 +8,21 @@
         <service id="HeyFrame\Core\Content\Navigation\NavigationDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>
+
+        <service id="HeyFrame\Core\Content\Navigation\Aggregate\NavigationTranslation\NavigationTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Navigation\DataAbstractionLayer\NavigationIndexer">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="navigation.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="messenger.default_bus"/>
+            <tag name="heyframe.entity_indexer"/>
+        </service>
+
     </services>
 </container>

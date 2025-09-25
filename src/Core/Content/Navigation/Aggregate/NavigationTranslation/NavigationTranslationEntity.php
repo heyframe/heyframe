@@ -1,25 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Navigation;
+namespace HeyFrame\Core\Content\Navigation\Aggregate\NavigationTranslation;
 
-use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
+use HeyFrame\Core\Content\Navigation\NavigationEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\DataAbstractionLayer\TranslationEntity;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\System\Language\LanguageEntity;
 
 #[Package('discovery')]
-class NavigationEntity extends Entity
+class NavigationTranslationEntity extends TranslationEntity
 {
     use EntityCustomFieldsTrait;
-    use EntityIdTrait;
 
-    protected ?string $path = null;
+    protected string $navigationId;
 
-    protected int $level;
+    protected ?string $name = null;
 
-    protected bool $active;
+    protected ?NavigationEntity $navigation = null;
 
-    protected int $childCount;
+    protected ?LanguageEntity $language = null;
 
     protected ?string $linkType = null;
 
@@ -29,10 +29,6 @@ class NavigationEntity extends Entity
 
     protected ?string $externalLink = null;
 
-    protected bool $visible;
-
-    protected string $type;
-
     protected ?string $description = null;
 
     protected ?string $metaTitle = null;
@@ -40,6 +36,16 @@ class NavigationEntity extends Entity
     protected ?string $metaDescription = null;
 
     protected ?string $keywords = null;
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
 
     public function getLinkType(): ?string
     {
@@ -76,29 +82,9 @@ class NavigationEntity extends Entity
         return $this->externalLink;
     }
 
-    public function setExternalLink(?string $externalLink): void
+    public function setExternalLink(string $externalLink): void
     {
         $this->externalLink = $externalLink;
-    }
-
-    public function isVisible(): bool
-    {
-        return $this->visible;
-    }
-
-    public function setVisible(bool $visible): void
-    {
-        $this->visible = $visible;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): void
-    {
-        $this->type = $type;
     }
 
     public function getDescription(): ?string
@@ -106,7 +92,7 @@ class NavigationEntity extends Entity
         return $this->description;
     }
 
-    public function setDescription(?string $description): void
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -141,44 +127,33 @@ class NavigationEntity extends Entity
         $this->keywords = $keywords;
     }
 
-    public function getPath(): ?string
+    public function getNavigationId(): string
     {
-        return $this->path;
+        return $this->navigationId;
     }
 
-    public function setPath(?string $path): void
+    public function setNavigationId(string $navigationId): void
     {
-        $this->path = $path;
+        $this->navigationId = $navigationId;
     }
 
-    public function getLevel(): int
+    public function getNavigation(): ?NavigationEntity
     {
-        return $this->level;
+        return $this->navigation;
     }
 
-    public function setLevel(int $level): void
+    public function setNavigation(?NavigationEntity $navigation): void
     {
-        $this->level = $level;
+        $this->navigation = $navigation;
     }
 
-    public function isActive(): bool
+    public function getLanguage(): ?LanguageEntity
     {
-        return $this->active;
+        return $this->language;
     }
 
-    public function setActive(bool $active): void
+    public function setLanguage(?LanguageEntity $language): void
     {
-        $this->active = $active;
+        $this->language = $language;
     }
-
-    public function getChildCount(): int
-    {
-        return $this->childCount;
-    }
-
-    public function setChildCount(int $childCount): void
-    {
-        $this->childCount = $childCount;
-    }
-
 }

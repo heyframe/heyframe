@@ -86,7 +86,7 @@ class NavigationPageSeoUrlRoute implements SeoUrlRouteInterface
         }
         $path = array_filter(explode('|', (string) $category->getPath()));
 
-        $navigationId = $channel->getNavigationCategoryId();
+        $navigationId = $channel->getNavigationId();
         if ($navigationId === $category->getId() || \in_array($navigationId, $path, true)) {
             return $navigationId;
         }

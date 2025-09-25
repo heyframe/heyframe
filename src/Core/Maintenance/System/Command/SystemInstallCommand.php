@@ -174,7 +174,7 @@ class SystemInstallCommand extends Command
         }
 
         if ($this->shouldSkipFileOperations()) {
-            $output->comment('Skipping install.lock and .htaccess creation (SHOPWARE_SKIP_WEBINSTALLER is set)');
+            $output->comment('Skipping install.lock and .htaccess creation (HEYFRAME_SKIP_WEBINSTALLER is set)');
 
             return $result;
         }

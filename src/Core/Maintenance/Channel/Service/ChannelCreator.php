@@ -28,7 +28,7 @@ class ChannelCreator
      * @param EntityRepository<ChannelCollection> $channelRepository
      * @param EntityRepository<PaymentMethodCollection> $paymentMethodRepository
      * @param EntityRepository<CountryCollection> $countryRepository
-     * @param EntityRepository<CategoryCollection> $categoryRepository
+     * @param EntityRepository<CategoryCollection> $navigationRepository
      *
      * @internal
      */
@@ -37,7 +37,7 @@ class ChannelCreator
         private readonly EntityRepository $channelRepository,
         private readonly EntityRepository $paymentMethodRepository,
         private readonly EntityRepository $countryRepository,
-        private readonly EntityRepository $categoryRepository
+        private readonly EntityRepository $navigationRepository
     ) {
     }
 
@@ -88,7 +88,7 @@ class ChannelCreator
             'paymentMethodId' => $paymentMethodId,
             'countryId' => $countryId,
             'customerGroupId' => $customerGroupId ?? $this->getCustomerGroupId($context),
-            'navigationCategoryId' => $navigationCategoryId ?? $this->getRootCategoryId($context),
+            'navigationId' => $navigationCategoryId ?? $this->getRootNavigationId($context),
 
             // available mappings
             'currencies' => $currencies,
@@ -134,19 +134,19 @@ class ChannelCreator
         return $countryId;
     }
 
-    private function getRootCategoryId(Context $context): string
+    private function getRootNavigationId(Context $context): string
     {
         $criteria = new Criteria();
         $criteria->setLimit(1);
-        $criteria->addFilter(new EqualsFilter('category.parentId', null));
-        $criteria->addSorting(new FieldSorting('category.createdAt', FieldSorting::ASCENDING));
+        $criteria->addFilter(new EqualsFilter('navigation.parentId', null));
+        $criteria->addSorting(new FieldSorting('navigation.createdAt', FieldSorting::ASCENDING));
 
-        $categoryId = $this->categoryRepository->searchIds($criteria, $context)->firstId();
-        if (!\is_string($categoryId)) {
-            throw MaintenanceException::couldNotGetId('root category');
+        $navigationId = $this->navigationRepository->searchIds($criteria, $context)->firstId();
+        if (!\is_string($navigationId)) {
+            throw MaintenanceException::couldNotGetId('root navigation');
         }
 
-        return $categoryId;
+        return $navigationId;
     }
 
     /**

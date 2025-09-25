@@ -37,7 +37,7 @@ class CategoryListRoute extends AbstractCategoryListRoute
     public function load(Criteria $criteria, ChannelContext $context): CategoryListRouteResponse
     {
         $rootIds = array_filter([
-            $context->getChannel()->getNavigationCategoryId(),
+            $context->getChannel()->getNavigationId(),
             $context->getChannel()->getFooterCategoryId(),
             $context->getChannel()->getServiceCategoryId(),
         ]);

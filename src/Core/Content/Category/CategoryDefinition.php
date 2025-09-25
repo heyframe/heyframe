@@ -61,8 +61,6 @@ class CategoryDefinition extends EntityDefinition
 
     final public const LINK_TYPE_LANDING_PAGE = 'landing_page';
 
-    final public const PRODUCT_ASSIGNMENT_TYPE_PRODUCT = 'product';
-
     final public const CONFIG_KEY_DEFAULT_CMS_PAGE_CATEGORY = 'core.cms.default_category_cms_page';
 
     public function getEntityName(): string

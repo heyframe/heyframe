@@ -6,7 +6,7 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinit
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
-use HeyFrame\Core\Content\Category\CategoryDefinition;
+use HeyFrame\Core\Content\Navigation\NavigationDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
@@ -85,13 +85,13 @@ class ChannelDefinition extends EntityDefinition
             (new FkField('payment_method_id', 'paymentMethodId', PaymentMethodDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new FkField('country_id', 'countryId', CountryDefinition::class))->addFlags(new ApiAware(), new Required()),
 
-            (new FkField('navigation_category_id', 'navigationCategoryId', CategoryDefinition::class))->addFlags(new ApiAware(), new Required()),
-            (new ReferenceVersionField(CategoryDefinition::class, 'navigation_category_version_id'))->addFlags(new ApiAware(), new Required()),
-            (new IntField('navigation_category_depth', 'navigationCategoryDepth', 1))->addFlags(new ApiAware()),
-            (new FkField('footer_category_id', 'footerCategoryId', CategoryDefinition::class))->addFlags(new ApiAware()),
-            (new ReferenceVersionField(CategoryDefinition::class, 'footer_category_version_id'))->addFlags(new ApiAware(), new Required()),
-            (new FkField('service_category_id', 'serviceCategoryId', CategoryDefinition::class))->addFlags(new ApiAware()),
-            (new ReferenceVersionField(CategoryDefinition::class, 'service_category_version_id'))->addFlags(new ApiAware(), new Required()),
+            (new FkField('navigation_id', 'navigationId', NavigationDefinition::class))->addFlags(new ApiAware(), new Required()),
+            (new ReferenceVersionField(NavigationDefinition::class, 'navigation_version_id'))->addFlags(new ApiAware(), new Required()),
+            (new IntField('navigation_depth', 'navigationDepth', 1))->addFlags(new ApiAware()),
+            (new FkField('footer_navigation_id', 'footerNavigationId', NavigationDefinition::class))->addFlags(new ApiAware()),
+            (new ReferenceVersionField(NavigationDefinition::class, 'footer_navigation_version_id'))->addFlags(new ApiAware(), new Required()),
+            (new FkField('service_navigation_id', 'serviceNavigationId', NavigationDefinition::class))->addFlags(new ApiAware()),
+            (new ReferenceVersionField(NavigationDefinition::class, 'service_navigation_version_id'))->addFlags(new ApiAware(), new Required()),
 
             (new TranslatedField('name'))->addFlags(new ApiAware()),
             (new StringField('short_name', 'shortName'))->addFlags(new ApiAware()),

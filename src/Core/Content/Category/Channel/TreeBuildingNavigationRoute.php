@@ -101,7 +101,7 @@ class TreeBuildingNavigationRoute extends AbstractNavigationRoute
 
         switch ($id) {
             case 'main-navigation':
-                return $channelEntity->getNavigationCategoryId();
+                return $channelEntity->getNavigationId();
             case 'service-navigation':
                 if ($channelEntity->getServiceCategoryId() === null) {
                     throw CategoryException::serviceCategoryNotFoundForChannel($name);

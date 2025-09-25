@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Checkout\Order\OrderStates;
 use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\WeChatPaymentHandler;
-use HeyFrame\Core\Content\Category\CategoryDefinition;
+use HeyFrame\Core\Content\Navigation\NavigationDefinition;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\MultiInsertQueryQueue;
@@ -42,7 +42,7 @@ class Migration1536233560BasicData extends MigrationStep
         $this->createCurrency($connection);
         $this->createCustomerGroup($connection);
         $this->createPaymentMethod($connection);
-        $this->createRootCategory($connection);
+        $this->createRootNavigation($connection);
         $this->createChannelTypes($connection);
         $this->createChannel($connection);
         $this->createNumberRanges($connection);
@@ -148,7 +148,7 @@ class Migration1536233560BasicData extends MigrationStep
         $defaultPaymentMethod = $connection->executeQuery('SELECT id FROM payment_method WHERE active = 1 ORDER BY `position`')->fetchOne();
         $countryStatement = $connection->executeQuery('SELECT id FROM country WHERE active = 1 ORDER BY `position`');
         $defaultCountry = $countryStatement->fetchOne();
-        $rootCategoryId = $connection->executeQuery('SELECT id FROM category')->fetchOne();
+        $rootNavigationId = $connection->executeQuery('SELECT id FROM navigation')->fetchOne();
 
         $id = Uuid::fromHexToBytes('98432def39fc4624b33213a56b8c944d');
         $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
@@ -163,8 +163,8 @@ class Migration1536233560BasicData extends MigrationStep
             'currency_id' => Uuid::fromHexToBytes(Defaults::CURRENCY),
             'payment_method_id' => $defaultPaymentMethod,
             'country_id' => $defaultCountry,
-            'navigation_category_id' => $rootCategoryId,
-            'navigation_category_version_id' => Uuid::fromHexToBytes(Defaults::LIVE_VERSION),
+            'navigation_id' => $rootNavigationId,
+            'navigation_version_id' => Uuid::fromHexToBytes(Defaults::LIVE_VERSION),
             'customer_group_id' => Uuid::fromHexToBytes('cfbd5018d38d41d8adca10d94fc8bdd6'),
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
@@ -209,16 +209,16 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('channel_type_translation', ['channel_type_id' => $storefrontApi, 'language_id' => $languageZH, 'name' => 'Headless', 'manufacturer' => 'HeyFrame AG', 'description' => '仅提供 API 的渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
-    private function createRootCategory(Connection $connection): void
+    private function createRootNavigation(Connection $connection): void
     {
         $id = Uuid::randomBytes();
         $languageZH = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
         $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
         $versionId = Uuid::fromHexToBytes(Defaults::LIVE_VERSION);
 
-        $connection->insert('category', ['id' => $id, 'version_id' => $versionId, 'type' => CategoryDefinition::TYPE_PAGE, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('category_translation', ['category_id' => $id, 'category_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame - A Full-Stack PHP Development Framework', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('category_translation', ['category_id' => $id, 'category_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame - PHP 全栈开发框架', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation', ['id' => $id, 'version_id' => $versionId, 'type' => NavigationDefinition::TYPE_PAGE, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame - A Full-Stack PHP Development Framework', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame - PHP 全栈开发框架', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createPaymentMethod(Connection $connection): void

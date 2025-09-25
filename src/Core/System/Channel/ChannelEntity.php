@@ -41,11 +41,11 @@ class ChannelEntity extends Entity
 
     protected string $countryId;
 
-    protected string $navigationCategoryId;
+    protected string $navigationId;
 
-    protected string $navigationCategoryVersionId;
+    protected string $navigationVersionId;
 
-    protected int $navigationCategoryDepth;
+    protected int $navigationDepth;
 
     /**
      * @var array<string, mixed>|null
@@ -423,14 +423,14 @@ class ChannelEntity extends Entity
         $this->systemConfigs = $systemConfigs;
     }
 
-    public function getNavigationCategoryId(): string
+    public function getNavigationId(): string
     {
-        return $this->navigationCategoryId;
+        return $this->navigationId;
     }
 
-    public function setNavigationCategoryId(string $navigationCategoryId): void
+    public function setNavigationId(string $navigationId): void
     {
-        $this->navigationCategoryId = $navigationCategoryId;
+        $this->navigationId = $navigationId;
     }
 
     /**
@@ -585,14 +585,14 @@ class ChannelEntity extends Entity
         $this->paymentMethodIds = $paymentMethodIds;
     }
 
-    public function getNavigationCategoryDepth(): int
+    public function getNavigationDepth(): int
     {
-        return $this->navigationCategoryDepth;
+        return $this->navigationDepth;
     }
 
-    public function setNavigationCategoryDepth(int $navigationCategoryDepth): void
+    public function setNavigationDepth(int $navigationDepth): void
     {
-        $this->navigationCategoryDepth = $navigationCategoryDepth;
+        $this->navigationDepth = $navigationDepth;
     }
 
     public function getCustomerGroupsRegistrations(): ?CustomerGroupCollection
@@ -615,14 +615,14 @@ class ChannelEntity extends Entity
         $this->boundCustomers = $boundCustomers;
     }
 
-    public function getNavigationCategoryVersionId(): string
+    public function getNavigationVersionId(): string
     {
-        return $this->navigationCategoryVersionId;
+        return $this->navigationVersionId;
     }
 
-    public function setNavigationCategoryVersionId(string $navigationCategoryVersionId): void
+    public function setNavigationVersionId(string $navigationVersionId): void
     {
-        $this->navigationCategoryVersionId = $navigationCategoryVersionId;
+        $this->navigationVersionId = $navigationVersionId;
     }
 
     public function getHomeCmsPageVersionId(): ?string
