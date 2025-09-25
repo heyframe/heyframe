@@ -94,11 +94,6 @@
 
         <service id="HeyFrame\Core\Content\Category\Service\CategoryUrlGenerator"/>
 
-        <service id="HeyFrame\Core\Content\Category\Validation\EntryPointValidator">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Category\Subscriber\CategorySubscriber">
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="HeyFrame\Core\Content\Category\Service\CategoryUrlGenerator"/>

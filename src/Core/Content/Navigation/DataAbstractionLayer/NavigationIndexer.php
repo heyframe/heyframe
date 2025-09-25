@@ -6,7 +6,6 @@ use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Content\Navigation\Event\NavigationIndexerEvent;
 use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Content\Navigation\NavigationDefinition;
-use HeyFrame\Core\Content\Navigation\DataAbstractionLayer\NavigationIndexingMessage;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableTransaction;

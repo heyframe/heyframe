@@ -13,6 +13,11 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
+        <service id="HeyFrame\Core\Content\Navigation\Validation\EntryPointValidator">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <service id="HeyFrame\Core\Content\Navigation\DataAbstractionLayer\NavigationIndexer">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>

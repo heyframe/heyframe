@@ -10,7 +10,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\ChannelCollection;
 use HeyFrame\Core\System\Tag\TagCollection;
 
 #[Package('discovery')]
@@ -28,11 +27,6 @@ class CategoryEntity extends Entity
     protected ?string $mediaId = null;
 
     protected ?string $name = null;
-
-    /**
-     * @var array<mixed>|null
-     */
-    protected ?array $breadcrumb = null;
 
     protected ?string $path = null;
 
@@ -66,38 +60,11 @@ class CategoryEntity extends Entity
 
     protected ?CmsPageEntity $cmsPage = null;
 
-    /**
-     * @var array<mixed>|null
-     */
-    protected ?array $slotConfig = null;
-
-    protected ?ChannelCollection $navigationChannels = null;
-
-    protected ?ChannelCollection $footerChannels = null;
-
-    protected ?ChannelCollection $serviceChannels = null;
-
-    protected ?string $linkType = null;
-
-    protected ?bool $linkNewTab = null;
-
-    protected ?string $internalLink = null;
-
-    protected ?string $externalLink = null;
-
     protected bool $visible;
 
     protected string $type;
 
     protected ?string $description = null;
-
-    protected ?string $metaTitle = null;
-
-    protected ?string $metaDescription = null;
-
-    protected ?string $keywords = null;
-
-    protected ?string $customEntityTypeId = null;
 
     public function getParentId(): ?string
     {
@@ -309,97 +276,6 @@ class CategoryEntity extends Entity
         $this->cmsPageIdSwitched = $switched;
     }
 
-    /**
-     * @return array<mixed>|null
-     */
-    public function getSlotConfig(): ?array
-    {
-        return $this->slotConfig;
-    }
-
-    /**
-     * @param array<mixed> $slotConfig
-     */
-    public function setSlotConfig(array $slotConfig): void
-    {
-        $this->slotConfig = $slotConfig;
-    }
-
-    public function getNavigationChannels(): ?ChannelCollection
-    {
-        return $this->navigationChannels;
-    }
-
-    public function setNavigationChannels(ChannelCollection $navigationChannels): void
-    {
-        $this->navigationChannels = $navigationChannels;
-    }
-
-    public function getFooterChannels(): ?ChannelCollection
-    {
-        return $this->footerChannels;
-    }
-
-    public function setFooterChannels(ChannelCollection $footerChannels): void
-    {
-        $this->footerChannels = $footerChannels;
-    }
-
-    public function getServiceChannels(): ?ChannelCollection
-    {
-        return $this->serviceChannels;
-    }
-
-    public function setServiceChannels(ChannelCollection $serviceChannels): void
-    {
-        $this->serviceChannels = $serviceChannels;
-    }
-
-    public function getLinkType(): ?string
-    {
-        return $this->linkType;
-    }
-
-    public function setLinkType(?string $linkType): void
-    {
-        $this->linkType = $linkType;
-    }
-
-    public function getLinkNewTab(): ?bool
-    {
-        return $this->linkNewTab;
-    }
-
-    public function setLinkNewTab(?bool $linkNewTab): void
-    {
-        $this->linkNewTab = $linkNewTab;
-    }
-
-    public function shouldOpenInNewTab(): bool
-    {
-        return $this->type === CategoryDefinition::TYPE_LINK && $this->getTranslation('linkNewTab');
-    }
-
-    public function getInternalLink(): ?string
-    {
-        return $this->internalLink;
-    }
-
-    public function setInternalLink(?string $internalLink): void
-    {
-        $this->internalLink = $internalLink;
-    }
-
-    public function getExternalLink(): ?string
-    {
-        return $this->externalLink;
-    }
-
-    public function setExternalLink(string $externalLink): void
-    {
-        $this->externalLink = $externalLink;
-    }
-
     public function getVisible(): bool
     {
         return $this->visible;
@@ -429,62 +305,6 @@ class CategoryEntity extends Entity
     {
         $this->description = $description;
     }
-
-    /**
-     * @return array<mixed>
-     */
-    public function getBreadcrumb(): array
-    {
-        return array_values($this->getPlainBreadcrumb());
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function getPlainBreadcrumb(): array
-    {
-        $breadcrumb = $this->getTranslation('breadcrumb');
-        if ($breadcrumb === null) {
-            return [];
-        }
-        if ($this->path === null) {
-            return $breadcrumb;
-        }
-
-        $parts = \array_slice(explode('|', $this->path), 1, -1);
-
-        $filtered = [];
-        foreach ($parts as $id) {
-            if (isset($breadcrumb[$id])) {
-                $filtered[$id] = $breadcrumb[$id];
-            }
-        }
-
-        $filtered[$this->getId()] = $breadcrumb[$this->getId()];
-
-        return $filtered;
-    }
-
-    /**
-     * @param array<mixed>|null $breadcrumb
-     */
-    public function setBreadcrumb(?array $breadcrumb): void
-    {
-        $this->breadcrumb = $breadcrumb;
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function jsonSerialize(): array
-    {
-        // Make sure that the sorted breadcrumb gets serialized
-        $data = parent::jsonSerialize();
-        $data['translated']['breadcrumb'] = $data['breadcrumb'] = $this->getBreadcrumb();
-
-        return $data;
-    }
-
 
     public function getMetaTitle(): ?string
     {

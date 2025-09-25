@@ -6,6 +6,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\System\Channel\ChannelCollection;
 
 #[Package('discovery')]
 class NavigationEntity extends Entity
@@ -40,6 +41,12 @@ class NavigationEntity extends Entity
     protected ?string $metaDescription = null;
 
     protected ?string $keywords = null;
+
+    protected ?ChannelCollection $navigationChannels = null;
+
+    protected ?ChannelCollection $footerChannels = null;
+
+    protected ?ChannelCollection $serviceChannels = null;
 
     public function getLinkType(): ?string
     {
@@ -181,4 +188,33 @@ class NavigationEntity extends Entity
         $this->childCount = $childCount;
     }
 
+    public function getNavigationChannels(): ?ChannelCollection
+    {
+        return $this->navigationChannels;
+    }
+
+    public function setNavigationChannels(ChannelCollection $navigationChannels): void
+    {
+        $this->navigationChannels = $navigationChannels;
+    }
+
+    public function getFooterChannels(): ?ChannelCollection
+    {
+        return $this->footerChannels;
+    }
+
+    public function setFooterChannels(ChannelCollection $footerChannels): void
+    {
+        $this->footerChannels = $footerChannels;
+    }
+
+    public function getServiceChannels(): ?ChannelCollection
+    {
+        return $this->serviceChannels;
+    }
+
+    public function setServiceChannels(ChannelCollection $serviceChannels): void
+    {
+        $this->serviceChannels = $serviceChannels;
+    }
 }

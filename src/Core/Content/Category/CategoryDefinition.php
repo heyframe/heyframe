@@ -27,7 +27,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
@@ -39,27 +38,12 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TreePathField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\ChannelDefinition;
 use HeyFrame\Core\System\Tag\TagDefinition;
 
 #[Package('discovery')]
 class CategoryDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'category';
-
-    final public const TYPE_PAGE = 'page';
-
-    final public const TYPE_LINK = 'link';
-
-    final public const TYPE_FOLDER = 'folder';
-
-    final public const LINK_TYPE_EXTERNAL = 'external';
-
-    final public const LINK_TYPE_CATEGORY = 'category';
-
-    final public const LINK_TYPE_PRODUCT = 'product';
-
-    final public const LINK_TYPE_LANDING_PAGE = 'landing_page';
 
     final public const CONFIG_KEY_DEFAULT_CMS_PAGE_CATEGORY = 'core.cms.default_category_cms_page';
 
@@ -113,7 +97,6 @@ class CategoryDefinition extends EntityDefinition
             (new BoolField('display_nested_products', 'displayNestedProducts'))->addFlags(new ApiAware(), new Required()),
             new AutoIncrementField(),
 
-            (new TranslatedField('breadcrumb'))->addFlags(new ApiAware(), new WriteProtected()),
             (new TreeLevelField('level', 'level'))->addFlags(new ApiAware()),
             (new TreePathField('path', 'path'))->addFlags(new ApiAware()),
             (new ChildCountField())->addFlags(new ApiAware()),
@@ -127,15 +110,7 @@ class CategoryDefinition extends EntityDefinition
 
             (new TranslatedField('name'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),
-            new TranslatedField('slotConfig'),
-            (new TranslatedField('linkType'))->addFlags(new ApiAware()),
-            (new TranslatedField('internalLink'))->addFlags(new ApiAware()),
-            (new TranslatedField('externalLink'))->addFlags(new ApiAware()),
-            (new TranslatedField('linkNewTab'))->addFlags(new ApiAware()),
             (new TranslatedField('description'))->addFlags(new ApiAware()),
-            (new TranslatedField('metaTitle'))->addFlags(new ApiAware()),
-            (new TranslatedField('metaDescription'))->addFlags(new ApiAware()),
-            (new TranslatedField('keywords'))->addFlags(new ApiAware()),
 
             (new ParentAssociationField(self::class, 'id'))->addFlags(new ApiAware()),
             (new ChildrenAssociationField(self::class))->addFlags(new ApiAware()),
@@ -149,11 +124,6 @@ class CategoryDefinition extends EntityDefinition
             (new FkField('cms_page_id', 'cmsPageId', CmsPageDefinition::class))->addFlags(new ApiAware()),
             (new ReferenceVersionField(CmsPageDefinition::class))->addFlags(new Required(), new ApiAware()),
             (new ManyToOneAssociationField('cmsPage', 'cms_page_id', CmsPageDefinition::class, 'id', false))->addFlags(new ApiAware()),
-
-            // Reverse Associations not available in store-api
-            new OneToManyAssociationField('navigationChannels', ChannelDefinition::class, 'navigation_category_id'),
-            new OneToManyAssociationField('footerChannels', ChannelDefinition::class, 'footer_category_id'),
-            new OneToManyAssociationField('serviceChannels', ChannelDefinition::class, 'service_category_id'),
         ]);
     }
 }

@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Validation;
+namespace HeyFrame\Core\Content\Navigation\Validation;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Content\Category\CategoryDefinition;
+use HeyFrame\Core\Content\Navigation\NavigationDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\InsertCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\UpdateCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
@@ -22,11 +23,11 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 #[Package('discovery')]
 class EntryPointValidator implements EventSubscriberInterface
 {
-    private const ERROR_CODE = 'CONTENT__INVALID_CATEGORY_TYPE_AS_ENTRY_POINT';
+    private const ERROR_CODE = 'CONTENT__INVALID_NAVIGATION_TYPE_AS_ENTRY_POINT';
 
     private const ALLOWED_TYPE_CHANGE = [
-        CategoryDefinition::TYPE_PAGE,
-        CategoryDefinition::TYPE_FOLDER,
+        NavigationDefinition::TYPE_PAGE,
+        NavigationDefinition::TYPE_FOLDER,
     ];
 
     /**

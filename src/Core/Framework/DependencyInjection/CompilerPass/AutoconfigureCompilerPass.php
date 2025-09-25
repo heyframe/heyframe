@@ -29,7 +29,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 use HeyFrame\Core\Framework\Routing\AbstractRouteScope;
 use HeyFrame\Core\Framework\Rule\Rule;
-use HeyFrame\Core\Framework\Webhook\Hookable\HookableEntityInterface;
 use HeyFrame\Core\System\Channel\ChannelDefinition;
 use HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\AbstractValueGenerator;
 use League\Flysystem\FilesystemOperator;
