@@ -109,11 +109,5 @@
         <service id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryNonExistentExceptionHandler">
             <tag name="heyframe.dal.exception_handler"/>
         </service>
-
-        <service id="HeyFrame\Core\Content\Category\Cms\CategoryNavigationCmsElementResolver">
-            <argument type="service" id="HeyFrame\Core\Content\Category\Service\NavigationLoader"/>
-
-            <tag name="heyframe.cms.data_resolver"/>
-        </service>
     </services>
 </container>
