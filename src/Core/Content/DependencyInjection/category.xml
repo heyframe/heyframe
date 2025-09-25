@@ -93,9 +93,7 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Category\Service\CategoryUrlGenerator">
-            <argument type="service" id="HeyFrame\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface" />
-        </service>
+        <service id="HeyFrame\Core\Content\Category\Service\CategoryUrlGenerator"/>
 
         <service id="HeyFrame\Core\Content\Category\Validation\EntryPointValidator">
             <argument type="service" id="Doctrine\DBAL\Connection"/>

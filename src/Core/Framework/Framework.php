@@ -88,13 +88,11 @@ class Framework extends Bundle
         $loader->load('health.xml');
         $loader->load('telemetry.xml');
         $loader->load('notification.xml');
-        $loader->load('seo.xml');
 
         if ($container->getParameter('kernel.environment') === 'test') {
             $loader->load('services_test.xml');
             $loader->load('store_test.xml');
             $loader->load('app_test.xml');
-            $loader->load('seo_test.xml');
         }
 
         /** Needs to run after @see RegisterAutoconfigureAttributesPass (priority 100) to include all services that are autoconfigured */

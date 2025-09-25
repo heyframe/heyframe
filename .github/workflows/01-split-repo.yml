@@ -31,9 +31,7 @@ jobs:
           -
             local_path: 'Frontend'
             split_repository: 'frontend'
-          -
-            local_path: 'Elasticsearch'
-            split_repository: 'elasticsearch'
+
           -
             local_path: 'Uni'
             split_repository: 'uni'

@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Category\Service;
 
 use HeyFrame\Core\Content\Category\CategoryDefinition;
 use HeyFrame\Core\Content\Category\CategoryEntity;
-use HeyFrame\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\System\Channel\ChannelEntity;
@@ -12,13 +11,6 @@ use HeyFrame\Core\System\Channel\ChannelEntity;
 #[Package('discovery')]
 class CategoryUrlGenerator extends AbstractCategoryUrlGenerator
 {
-    /**
-     * @internal
-     */
-    public function __construct(private readonly SeoUrlPlaceholderHandlerInterface $seoUrlReplacer)
-    {
-    }
-
     public function getDecorated(): AbstractCategoryUrlGenerator
     {
         throw new DecorationPatternException(self::class);
@@ -31,7 +23,8 @@ class CategoryUrlGenerator extends AbstractCategoryUrlGenerator
         }
 
         if ($category->getType() !== CategoryDefinition::TYPE_LINK) {
-            return $this->seoUrlReplacer->generate('frontend.navigation.page', ['navigationId' => $category->getId()]);
+            // 没有 SEO，就用基础路由，例如 /navigation/{id}
+            return '/navigation/' . $category->getId();
         }
 
         $linkType = $category->getTranslation('linkType');
@@ -43,17 +36,16 @@ class CategoryUrlGenerator extends AbstractCategoryUrlGenerator
 
         switch ($linkType) {
             case CategoryDefinition::LINK_TYPE_PRODUCT:
-                return $this->seoUrlReplacer->generate('frontend.detail.page', ['productId' => $internalLink]);
+                return '/detail/' . $internalLink;
 
             case CategoryDefinition::LINK_TYPE_CATEGORY:
                 if ($channel !== null && $internalLink === $channel->getNavigationCategoryId()) {
-                    return $this->seoUrlReplacer->generate('frontend.home.page');
+                    return '/'; // 首页
                 }
-
-                return $this->seoUrlReplacer->generate('frontend.navigation.page', ['navigationId' => $internalLink]);
+                return '/navigation/' . $internalLink;
 
             case CategoryDefinition::LINK_TYPE_LANDING_PAGE:
-                return $this->seoUrlReplacer->generate('frontend.landing.page', ['landingPageId' => $internalLink]);
+                return '/landing/' . $internalLink;
 
             case CategoryDefinition::LINK_TYPE_EXTERNAL:
             default:
