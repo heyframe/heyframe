@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Flow;
 
 use HeyFrame\Core\Content\Flow\Aggregate\FlowSequence\FlowSequenceCollection;
 use HeyFrame\Core\Content\Flow\Dispatching\Struct\Flow;
-use HeyFrame\Core\Framework\App\Aggregate\FlowEvent\AppFlowEventEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -27,8 +26,6 @@ class FlowEntity extends Entity
     protected int $priority;
 
     protected ?string $appFlowEventId = null;
-
-    protected ?AppFlowEventEntity $appFlowEvent = null;
 
     /**
      * @internal
@@ -129,16 +126,6 @@ class FlowEntity extends Entity
     public function setSequences(FlowSequenceCollection $sequences): void
     {
         $this->sequences = $sequences;
-    }
-
-    public function getAppFlowEvent(): ?AppFlowEventEntity
-    {
-        return $this->appFlowEvent;
-    }
-
-    public function setAppFlowEvent(?AppFlowEventEntity $appFlowEvent): void
-    {
-        $this->appFlowEvent = $appFlowEvent;
     }
 
     public function getAppFlowEventId(): ?string

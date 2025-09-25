@@ -17,8 +17,6 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductTag\ProductTagDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
-use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryDefinition;
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AutoIncrementField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
@@ -180,11 +178,6 @@ class ProductDefinition extends EntityDefinition
             (new OneToManyAssociationField('searchKeywords', ProductSearchKeywordDefinition::class, 'product_id'))->addFlags(new CascadeDelete(false)),
 
             (new OneToManyAssociationField('productReviews', ProductReviewDefinition::class, 'product_id'))->addFlags(new ApiAware(), new CascadeDelete(false)),
-
-            (new OneToManyAssociationField('mainCategories', MainCategoryDefinition::class, 'product_id'))->addFlags(new ApiAware(), new CascadeDelete()),
-
-            (new OneToManyAssociationField('seoUrls', SeoUrlDefinition::class, 'foreign_key'))->addFlags(new ApiAware()),
-
             (new OneToManyAssociationField('orderLineItems', OrderLineItemDefinition::class, 'product_id'))->addFlags(new SetNullOnDelete()),
 
             (new ManyToManyAssociationField('options', PropertyGroupOptionDefinition::class, ProductOptionDefinition::class, 'product_id', 'property_group_option_id'))->addFlags(new ApiAware(), new CascadeDelete()),

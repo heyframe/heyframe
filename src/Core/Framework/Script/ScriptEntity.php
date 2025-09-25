@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Script;
 
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
@@ -24,8 +23,6 @@ class ScriptEntity extends Entity
     protected bool $active;
 
     protected ?string $appId = null;
-
-    protected ?AppEntity $app = null;
 
     public function getScript(): string
     {
@@ -75,15 +72,5 @@ class ScriptEntity extends Entity
     public function setAppId(?string $appId): void
     {
         $this->appId = $appId;
-    }
-
-    public function getApp(): ?AppEntity
-    {
-        return $this->app;
-    }
-
-    public function setApp(?AppEntity $app): void
-    {
-        $this->app = $app;
     }
 }

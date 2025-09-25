@@ -5,7 +5,6 @@ namespace HeyFrame\Core\Checkout\Customer;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
-use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
@@ -95,8 +94,6 @@ class CustomerEntity extends Entity implements \Stringable
      * @var list<string>|null
      */
     protected ?array $tagIds = null;
-
-    protected ?PromotionCollection $promotions = null;
 
     protected ?string $remoteAddress = null;
 
@@ -402,24 +399,6 @@ class CustomerEntity extends Entity implements \Stringable
     public function setTagIds(array $tagIds): void
     {
         $this->tagIds = $tagIds;
-    }
-
-    /**
-     * Gets a list of all promotions where the customer
-     * is assigned to within the "persona" conditions.
-     */
-    public function getPromotions(): ?PromotionCollection
-    {
-        return $this->promotions;
-    }
-
-    /**
-     * Sets a list of all promotions where the customer
-     * should be assigned to within the "persona" conditions.
-     */
-    public function setPromotions(PromotionCollection $promotions): void
-    {
-        $this->promotions = $promotions;
     }
 
     public function getRemoteAddress(): ?string

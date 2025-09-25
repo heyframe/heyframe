@@ -31,25 +31,9 @@
             </call>
         </service>
 
-        <service id="HeyFrame\Administration\Snippet\AppAdministrationSnippetDefinition">
-            <tag name="heyframe.entity.definition"/>
-        </service>
-
-        <service id="HeyFrame\Administration\Snippet\AppAdministrationSnippetPersister">
-            <argument type="service" id="app_administration_snippet.repository"/>
-            <argument type="service" id="locale.repository"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator"/>
-        </service>
 
         <service id="HeyFrame\Administration\Service\AdminSearcher">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-        </service>
-
-        <service id="HeyFrame\Administration\Framework\App\Subscriber\SystemLanguageChangedSubscriber">
-            <argument type="service" id="locale.repository"/>
-            <argument type="service" id="app_administration_snippet.repository"/>
-
-            <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="HeyFrame\Administration\Controller\AdminSearchController" public="true">

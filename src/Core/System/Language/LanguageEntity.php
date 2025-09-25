@@ -6,17 +6,12 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupTranslation\CustomerG
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationCollection;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionTranslation\PromotionTranslationCollection;
 use HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTranslationCollection;
 use HeyFrame\Core\Content\Cms\Aggregate\CmsPageTranslation\CmsPageTranslationEntity;
 use HeyFrame\Core\Content\Media\Aggregate\MediaTranslation\MediaTranslationCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOptionTranslation\PropertyGroupOptionTranslationCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupTranslation\PropertyGroupTranslationCollection;
-use HeyFrame\Core\Framework\App\Aggregate\ActionButtonTranslation\ActionButtonTranslationCollection;
-use HeyFrame\Core\Framework\App\Aggregate\AppScriptConditionTranslation\AppScriptConditionTranslationCollection;
-use HeyFrame\Core\Framework\App\Aggregate\AppTranslation\AppTranslationCollection;
-use HeyFrame\Core\Framework\App\Aggregate\FlowActionTranslation\AppFlowActionTranslationCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
@@ -111,17 +106,7 @@ class LanguageEntity extends Entity
 
     protected ?NumberRangeTypeTranslationCollection $numberRangeTypeTranslations = null;
 
-    protected ?PromotionTranslationCollection $promotionTranslations = null;
-
     protected ?NumberRangeTranslationCollection $numberRangeTranslations = null;
-
-    protected ?AppTranslationCollection $appTranslations = null;
-
-    protected ?ActionButtonTranslationCollection $actionButtonTranslations = null;
-
-    protected ?AppScriptConditionTranslationCollection $appScriptConditionTranslations = null;
-
-    protected ?AppFlowActionTranslationCollection $appFlowActionTranslations = null;
 
     public function getParentId(): ?string
     {
@@ -461,16 +446,6 @@ class LanguageEntity extends Entity
         $this->numberRangeTypeTranslations = $numberRangeTypeTranslations;
     }
 
-    public function getPromotionTranslations(): ?PromotionTranslationCollection
-    {
-        return $this->promotionTranslations;
-    }
-
-    public function setPromotionTranslations(PromotionTranslationCollection $promotionTranslations): void
-    {
-        $this->promotionTranslations = $promotionTranslations;
-    }
-
     public function getNumberRangeTranslations(): ?NumberRangeTranslationCollection
     {
         return $this->numberRangeTranslations;
@@ -479,46 +454,6 @@ class LanguageEntity extends Entity
     public function setNumberRangeTranslations(NumberRangeTranslationCollection $numberRangeTranslations): void
     {
         $this->numberRangeTranslations = $numberRangeTranslations;
-    }
-
-    public function getAppTranslations(): ?AppTranslationCollection
-    {
-        return $this->appTranslations;
-    }
-
-    public function setAppTranslations(AppTranslationCollection $appTranslations): void
-    {
-        $this->appTranslations = $appTranslations;
-    }
-
-    public function getActionButtonTranslations(): ?ActionButtonTranslationCollection
-    {
-        return $this->actionButtonTranslations;
-    }
-
-    public function setActionButtonTranslations(ActionButtonTranslationCollection $actionButtonTranslations): void
-    {
-        $this->actionButtonTranslations = $actionButtonTranslations;
-    }
-
-    public function getAppScriptConditionTranslations(): ?AppScriptConditionTranslationCollection
-    {
-        return $this->appScriptConditionTranslations;
-    }
-
-    public function setAppScriptConditionTranslations(AppScriptConditionTranslationCollection $appScriptConditionTranslations): void
-    {
-        $this->appScriptConditionTranslations = $appScriptConditionTranslations;
-    }
-
-    public function getAppFlowActionTranslations(): ?AppFlowActionTranslationCollection
-    {
-        return $this->appFlowActionTranslations;
-    }
-
-    public function setAppFlowActionTranslations(AppFlowActionTranslationCollection $appFlowActionTranslations): void
-    {
-        $this->appFlowActionTranslations = $appFlowActionTranslations;
     }
 
     public function getApiAlias(): string

@@ -6,7 +6,6 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinit
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionChannel\PromotionChannelDefinition;
 use HeyFrame\Core\Content\Category\CategoryDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -129,7 +128,6 @@ class ChannelDefinition extends EntityDefinition
             (new OneToManyAssociationField('systemConfigs', SystemConfigDefinition::class, 'channel_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('productVisibilities', ProductVisibilityDefinition::class, 'channel_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('numberRangeChannels', NumberRangeChannelDefinition::class, 'channel_id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('promotionChannels', PromotionChannelDefinition::class, 'channel_id', 'id'))->addFlags(new CascadeDelete()),
             new OneToManyAssociationField('boundCustomers', CustomerDefinition::class, 'bound_channel_id', 'id'),
         ]);
     }

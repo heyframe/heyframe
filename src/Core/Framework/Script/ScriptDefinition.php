@@ -2,16 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Script;
 
-use HeyFrame\Core\Framework\App\AppDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
@@ -52,8 +49,6 @@ class ScriptDefinition extends EntityDefinition
             (new StringField('hook', 'hook'))->addFlags(new Required()),
             (new StringField('name', 'name', 1024))->addFlags(new Required()),
             (new BoolField('active', 'active'))->addFlags(new Required()),
-            new FkField('app_id', 'appId', AppDefinition::class),
-            new ManyToOneAssociationField('app', 'app_id', AppDefinition::class),
         ]);
     }
 }

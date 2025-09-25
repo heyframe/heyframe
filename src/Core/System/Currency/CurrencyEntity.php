@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\System\Currency;
 
 use HeyFrame\Core\Checkout\Order\OrderCollection;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscountPrice\PromotionDiscountPriceCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -41,8 +40,6 @@ class CurrencyEntity extends Entity
     protected ?ChannelCollection $channelDefaultAssignments = null;
 
     protected ?ChannelDomainCollection $channelDomains = null;
-
-    protected ?PromotionDiscountPriceCollection $promotionDiscountPrices = null;
 
     protected ?bool $isSystemDefault = null;
 
@@ -170,16 +167,6 @@ class CurrencyEntity extends Entity
     public function setIsSystemDefault(bool $isSystemDefault): void
     {
         $this->isSystemDefault = $isSystemDefault;
-    }
-
-    public function getPromotionDiscountPrices(): ?PromotionDiscountPriceCollection
-    {
-        return $this->promotionDiscountPrices;
-    }
-
-    public function setPromotionDiscountPrices(PromotionDiscountPriceCollection $promotionDiscountPrices): void
-    {
-        $this->promotionDiscountPrices = $promotionDiscountPrices;
     }
 
     public function getCountryRoundings(): ?CurrencyCountryRoundingCollection

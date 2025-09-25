@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Api\Acl\Admin\Role;
 
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
@@ -24,8 +23,6 @@ class AclRoleEntity extends Entity
     protected array $privileges = [];
 
     protected ?UserCollection $users = null;
-
-    protected ?AppEntity $app = null;
 
     protected ?IntegrationCollection $integrations = null;
 
@@ -75,16 +72,6 @@ class AclRoleEntity extends Entity
     public function setDescription(?string $description): void
     {
         $this->description = $description;
-    }
-
-    public function getApp(): ?AppEntity
-    {
-        return $this->app;
-    }
-
-    public function setApp(?AppEntity $app): void
-    {
-        $this->app = $app;
     }
 
     public function getIntegrations(): ?IntegrationCollection

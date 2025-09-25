@@ -8,7 +8,6 @@ use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionChannel\PromotionChannelCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
@@ -132,8 +131,6 @@ class ChannelEntity extends Entity
     protected string $customerGroupId;
 
     protected ?CustomerGroupEntity $customerGroup = null;
-
-    protected ?PromotionChannelCollection $promotionChannels = null;
 
     /**
      * @var list<string>|null
@@ -540,16 +537,6 @@ class ChannelEntity extends Entity
     public function setCustomerGroup(CustomerGroupEntity $customerGroup): void
     {
         $this->customerGroup = $customerGroup;
-    }
-
-    public function getPromotionChannels(): ?PromotionChannelCollection
-    {
-        return $this->promotionChannels;
-    }
-
-    public function setPromotionChannels(PromotionChannelCollection $promotionChannels): void
-    {
-        $this->promotionChannels = $promotionChannels;
     }
 
     public function getNumberRangeChannels(): ?NumberRangeChannelCollection

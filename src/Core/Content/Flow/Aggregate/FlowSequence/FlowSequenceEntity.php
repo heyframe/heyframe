@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Flow\Aggregate\FlowSequence;
 
 use HeyFrame\Core\Content\Flow\FlowEntity;
 use HeyFrame\Core\Content\Rule\RuleEntity;
-use HeyFrame\Core\Framework\App\Aggregate\FlowAction\AppFlowActionEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\IdAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
@@ -43,10 +42,6 @@ class FlowSequenceEntity extends Entity implements IdAware
     protected int $displayGroup;
 
     protected bool $trueCase;
-
-    protected ?string $appFlowActionId = null;
-
-    protected ?AppFlowActionEntity $appFlowAction = null;
 
     public function getFlowId(): string
     {
@@ -172,25 +167,5 @@ class FlowSequenceEntity extends Entity implements IdAware
     public function setTrueCase(bool $trueCase): void
     {
         $this->trueCase = $trueCase;
-    }
-
-    public function getAppFlowActionId(): ?string
-    {
-        return $this->appFlowActionId;
-    }
-
-    public function setAppFlowActionId(?string $appFlowActionId): void
-    {
-        $this->appFlowActionId = $appFlowActionId;
-    }
-
-    public function getAppFlowAction(): ?AppFlowActionEntity
-    {
-        return $this->appFlowAction;
-    }
-
-    public function setAppFlowAction(?AppFlowActionEntity $appFlowAction): void
-    {
-        $this->appFlowAction = $appFlowAction;
     }
 }

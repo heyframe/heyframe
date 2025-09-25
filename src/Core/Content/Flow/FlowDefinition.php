@@ -3,13 +3,11 @@
 namespace HeyFrame\Core\Content\Flow;
 
 use HeyFrame\Core\Content\Flow\Aggregate\FlowSequence\FlowSequenceDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\FlowEvent\AppFlowEventDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BlobField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
@@ -17,7 +15,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
@@ -69,8 +66,6 @@ class FlowDefinition extends EntityDefinition
             new StringField('description', 'description', 500),
             (new OneToManyAssociationField('sequences', FlowSequenceDefinition::class, 'flow_id', 'id'))->addFlags(new CascadeDelete()),
             new CustomFields(),
-            new FkField('app_flow_event_id', 'appFlowEventId', AppFlowEventDefinition::class),
-            new ManyToOneAssociationField('appFlowEvent', 'app_flow_event_id', AppFlowEventDefinition::class, 'id', false),
         ]);
     }
 }

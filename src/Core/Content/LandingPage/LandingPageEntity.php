@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\LandingPage;
 
 use HeyFrame\Core\Content\Cms\CmsPageEntity;
 use HeyFrame\Core\Content\LandingPage\Aggregate\LandingPageTranslation\LandingPageTranslationCollection;
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -43,8 +42,6 @@ class LandingPageEntity extends Entity
     protected ?string $url = null;
 
     protected ?array $slotConfig = null;
-
-    protected ?SeoUrlCollection $seoUrls = null;
 
     public function isActive(): bool
     {
@@ -164,16 +161,6 @@ class LandingPageEntity extends Entity
     public function setSlotConfig(?array $slotConfig): void
     {
         $this->slotConfig = $slotConfig;
-    }
-
-    public function getSeoUrls(): ?SeoUrlCollection
-    {
-        return $this->seoUrls;
-    }
-
-    public function setSeoUrls(SeoUrlCollection $seoUrls): void
-    {
-        $this->seoUrls = $seoUrls;
     }
 
     public function getCmsPageVersionId(): ?string

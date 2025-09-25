@@ -6,7 +6,6 @@ use HeyFrame\Core\Content\Cms\CmsPageDefinition;
 use HeyFrame\Core\Content\LandingPage\Aggregate\LandingPageChannel\LandingPageChannelDefinition;
 use HeyFrame\Core\Content\LandingPage\Aggregate\LandingPageTag\LandingPageTagDefinition;
 use HeyFrame\Core\Content\LandingPage\Aggregate\LandingPageTranslation\LandingPageTranslationDefinition;
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
@@ -18,7 +17,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
@@ -71,7 +69,6 @@ class LandingPageDefinition extends EntityDefinition
             (new FkField('cms_page_id', 'cmsPageId', CmsPageDefinition::class))->addFlags(new ApiAware()),
             (new ManyToOneAssociationField('cmsPage', 'cms_page_id', CmsPageDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new ManyToManyAssociationField('channels', ChannelDefinition::class, LandingPageChannelDefinition::class, 'landing_page_id', 'channel_id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('seoUrls', SeoUrlDefinition::class, 'foreign_key'))->addFlags(new ApiAware()),
         ]);
 
         $collection->add((new ReferenceVersionField(CmsPageDefinition::class))->addFlags(new Required(), new ApiAware()));

@@ -6,8 +6,6 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinit
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerTag\CustomerTagDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionPersonaCustomer\PromotionPersonaCustomerDefinition;
-use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
 use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleDefinition;
 use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleMappingDefinition;
@@ -115,7 +113,6 @@ class CustomerDefinition extends EntityDefinition
             (new ManyToOneAssociationField('lastPaymentMethod', 'last_payment_method_id', PaymentMethodDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new OneToManyAssociationField('orderCustomers', OrderCustomerDefinition::class, 'customer_id', 'id'))->addFlags(new SetNullOnDelete()),
             (new ManyToManyAssociationField('tags', TagDefinition::class, CustomerTagDefinition::class, 'customer_id', 'tag_id'))->addFlags(new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING), new ApiAware()),
-            new ManyToManyAssociationField('promotions', PromotionDefinition::class, PromotionPersonaCustomerDefinition::class, 'customer_id', 'promotion_id'),
             (new ManyToManyIdField('tag_ids', 'tagIds', 'tags'))->addFlags(new ApiAware()),
             new FkField('bound_channel_id', 'boundChannelId', ChannelDefinition::class),
             new ManyToOneAssociationField('boundChannel', 'bound_channel_id', ChannelDefinition::class, 'id', false),

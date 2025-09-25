@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Flow\Aggregate\FlowSequence;
 
 use HeyFrame\Core\Content\Flow\FlowDefinition;
 use HeyFrame\Core\Content\Rule\RuleDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\FlowAction\AppFlowActionDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ChildrenAssociationField;
@@ -75,8 +74,6 @@ class FlowSequenceDefinition extends EntityDefinition
             new ChildrenAssociationField(self::class),
             new ParentFkField(self::class),
             new CustomFields(),
-            new FkField('app_flow_action_id', 'appFlowActionId', AppFlowActionDefinition::class),
-            new ManyToOneAssociationField('appFlowAction', 'app_flow_action_id', AppFlowActionDefinition::class, 'id', false),
         ]);
     }
 }

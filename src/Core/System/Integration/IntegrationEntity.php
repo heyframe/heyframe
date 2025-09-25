@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\System\Integration;
 
 use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleCollection;
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -25,8 +24,6 @@ class IntegrationEntity extends Entity
     protected bool $admin;
 
     protected ?\DateTimeInterface $lastUsageAt = null;
-
-    protected ?AppEntity $app = null;
 
     protected ?AclRoleCollection $aclRoles = null;
 
@@ -72,16 +69,6 @@ class IntegrationEntity extends Entity
     public function setLastUsageAt(\DateTimeInterface $lastUsageAt): void
     {
         $this->lastUsageAt = $lastUsageAt;
-    }
-
-    public function getApp(): ?AppEntity
-    {
-        return $this->app;
-    }
-
-    public function setApp(?AppEntity $app): void
-    {
-        $this->app = $app;
     }
 
     public function getAclRoles(): ?AclRoleCollection

@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\System\CustomField\Aggregate\CustomFieldSet;
 
 use HeyFrame\Core\Content\Product\ProductCollection;
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
@@ -33,10 +32,6 @@ class CustomFieldSetEntity extends Entity
     protected ?CustomFieldSetRelationCollection $relations = null;
 
     protected ?ProductCollection $products = null;
-
-    protected ?string $appId = null;
-
-    protected ?AppEntity $app = null;
 
     public function getName(): string
     {
@@ -132,15 +127,5 @@ class CustomFieldSetEntity extends Entity
     public function setAppId(?string $appId): void
     {
         $this->appId = $appId;
-    }
-
-    public function getApp(): ?AppEntity
-    {
-        return $this->app;
-    }
-
-    public function setApp(?AppEntity $app): void
-    {
-        $this->app = $app;
     }
 }

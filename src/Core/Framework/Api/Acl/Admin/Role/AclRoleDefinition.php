@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Api\Acl\Admin\Role;
 
-use HeyFrame\Core\Framework\App\AppDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection\EntityProtectionCollection;
@@ -10,12 +9,10 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection\WriteProtectio
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateTimeField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ListField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
@@ -82,7 +79,6 @@ class AclRoleDefinition extends EntityDefinition
             (new ListField('privileges', 'privileges', StringField::class))->addFlags(new Required()),
             new DateTimeField('deleted_at', 'deletedAt'),
             new ManyToManyAssociationField('users', UserDefinition::class, AclUserRoleDefinition::class, 'acl_role_id', 'user_id'),
-            (new OneToOneAssociationField('app', 'id', 'acl_role_id', AppDefinition::class, false))->addFlags(new RestrictDelete()),
             new ManyToManyAssociationField('integrations', IntegrationDefinition::class, IntegrationRoleDefinition::class, 'acl_role_id', 'integration_id'),
         ]);
     }

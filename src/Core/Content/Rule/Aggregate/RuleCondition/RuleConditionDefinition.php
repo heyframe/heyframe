@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Rule\Aggregate\RuleCondition;
 
 use HeyFrame\Core\Content\Rule\RuleDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\AppScriptCondition\AppScriptConditionDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ChildrenAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
@@ -56,12 +55,10 @@ class RuleConditionDefinition extends EntityDefinition
             (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required()),
             (new StringField('type', 'type'))->addFlags(new Required()),
             (new FkField('rule_id', 'ruleId', RuleDefinition::class))->addFlags(new Required()),
-            new FkField('script_id', 'scriptId', AppScriptConditionDefinition::class),
             new ParentFkField(self::class),
             new JsonField('value', 'value'),
             new IntField('position', 'position'),
             new ManyToOneAssociationField('rule', 'rule_id', RuleDefinition::class, 'id'),
-            new ManyToOneAssociationField('appScriptCondition', 'script_id', AppScriptConditionDefinition::class, 'id'),
             new ParentAssociationField(self::class, 'id'),
             new ChildrenAssociationField(self::class),
             new CustomFields(),

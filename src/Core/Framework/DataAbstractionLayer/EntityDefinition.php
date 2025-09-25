@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer;
 
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityHydrator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection\EntityProtectionCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AssociationField;
@@ -18,7 +17,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LockedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
@@ -362,13 +360,6 @@ abstract class EntityDefinition
         $field = $this->getFields()->get('locked');
 
         return $field && $field instanceof LockedField;
-    }
-
-    public function isSeoAware(): bool
-    {
-        $field = $this->getFields()->get('seoUrls');
-
-        return $field instanceof OneToManyAssociationField && $field->getReferenceDefinition() instanceof SeoUrlDefinition;
     }
 
     public function since(): ?string

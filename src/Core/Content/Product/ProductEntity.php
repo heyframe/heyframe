@@ -13,8 +13,6 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslatio
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingConfig;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
-use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
-use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
@@ -150,10 +148,6 @@ class ProductEntity extends Entity implements \Stringable
     protected ?array $categoryIds = null;
 
     protected ?ProductReviewCollection $productReviews = null;
-
-    protected ?MainCategoryCollection $mainCategories = null;
-
-    protected ?SeoUrlCollection $seoUrls = null;
 
     protected ?float $ratingAverage = null;
 
@@ -780,26 +774,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setProductReviews(ProductReviewCollection $productReviews): void
     {
         $this->productReviews = $productReviews;
-    }
-
-    public function getMainCategories(): ?MainCategoryCollection
-    {
-        return $this->mainCategories;
-    }
-
-    public function setMainCategories(MainCategoryCollection $mainCategories): void
-    {
-        $this->mainCategories = $mainCategories;
-    }
-
-    public function getSeoUrls(): ?SeoUrlCollection
-    {
-        return $this->seoUrls;
-    }
-
-    public function setSeoUrls(SeoUrlCollection $seoUrls): void
-    {
-        $this->seoUrls = $seoUrls;
     }
 
     public function getRatingAverage(): ?float

@@ -13,19 +13,6 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefi
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionCartRule\PromotionCartRuleDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionChannel\PromotionChannelDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscount\PromotionDiscountDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscountPrice\PromotionDiscountPriceDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscountRule\PromotionDiscountRuleDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionIndividualCode\PromotionIndividualCodeDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionOrderRule\PromotionOrderRuleDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionPersonaCustomer\PromotionPersonaCustomerDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionPersonaRule\PromotionPersonaRuleDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionSetGroup\PromotionSetGroupDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionSetGroupRule\PromotionSetGroupRuleDefinition;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionTranslation\PromotionTranslationDefinition;
-use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
 use HeyFrame\Core\Content\Category\Aggregate\CategoryTag\CategoryTagDefinition;
 use HeyFrame\Core\Content\Category\Aggregate\CategoryTranslation\CategoryTranslationDefinition;
 use HeyFrame\Core\Content\Category\CategoryDefinition;
@@ -53,11 +40,6 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityD
 use HeyFrame\Core\Content\Product\ProductDefinition;
 use HeyFrame\Core\Content\Rule\Aggregate\RuleCondition\RuleConditionDefinition;
 use HeyFrame\Core\Content\Rule\RuleDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\ActionButton\ActionButtonDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\ActionButtonTranslation\ActionButtonTranslationDefinition;
-use HeyFrame\Core\Framework\App\Aggregate\AppTranslation\AppTranslationDefinition;
-use HeyFrame\Core\Framework\App\AppDefinition;
-use HeyFrame\Core\Framework\App\Template\TemplateDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Version\VersionDefinition;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelCountry\ChannelCountryDefinition;
@@ -128,13 +110,6 @@ class PermissionCategorization
             UserAccessKeyDefinition::ENTITY_NAME,
             UserRecoveryDefinition::ENTITY_NAME,
         ],
-        self::CATEGORY_APP => [
-            TemplateDefinition::ENTITY_NAME,
-            AppDefinition::ENTITY_NAME,
-            AppTranslationDefinition::ENTITY_NAME,
-            ActionButtonDefinition::ENTITY_NAME,
-            ActionButtonTranslationDefinition::ENTITY_NAME,
-        ],
         self::CATEGORY_CATEGORY => [
             CategoryDefinition::ENTITY_NAME,
             CategoryTranslationDefinition::ENTITY_NAME,
@@ -194,21 +169,6 @@ class PermissionCategorization
             ProductPropertyDefinition::ENTITY_NAME,
             ProductVisibilityDefinition::ENTITY_NAME,
             ProductTranslationDefinition::ENTITY_NAME,
-        ],
-        self::CATEGORY_PROMOTION => [
-            PromotionDefinition::ENTITY_NAME,
-            PromotionTranslationDefinition::ENTITY_NAME,
-            PromotionCartRuleDefinition::ENTITY_NAME,
-            PromotionDiscountDefinition::ENTITY_NAME,
-            PromotionDiscountPriceDefinition::ENTITY_NAME,
-            PromotionDiscountRuleDefinition::ENTITY_NAME,
-            PromotionIndividualCodeDefinition::ENTITY_NAME,
-            PromotionOrderRuleDefinition::ENTITY_NAME,
-            PromotionPersonaCustomerDefinition::ENTITY_NAME,
-            PromotionPersonaRuleDefinition::ENTITY_NAME,
-            PromotionChannelDefinition::ENTITY_NAME,
-            PromotionSetGroupDefinition::ENTITY_NAME,
-            PromotionSetGroupRuleDefinition::ENTITY_NAME,
         ],
         self::CATEGORY_RULES => [
             RuleDefinition::ENTITY_NAME,
