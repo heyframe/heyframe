@@ -2,8 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Event;
 
-use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Framework\App\Event\CustomAppEvent;
+
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -17,7 +16,6 @@ class BusinessEventCollector
     public function __construct(
         private readonly BusinessEventRegistry $registry,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly Connection $connection
     ) {
     }
 
@@ -26,7 +24,6 @@ class BusinessEventCollector
         $events = $this->registry->getClasses();
 
         $result = new BusinessEventCollectorResponse();
-        $result = $this->fetchAppEvents($result);
 
         foreach ($events as $class) {
             $definition = $this->define($class);
@@ -82,25 +79,5 @@ class BusinessEventCollector
             $instance->getAvailableData()->toArray(),
             $aware
         );
-    }
-
-    private function fetchAppEvents(BusinessEventCollectorResponse $result): BusinessEventCollectorResponse
-    {
-        $appEvents = $this->connection->fetchAllAssociative('SELECT `app_flow_event`.`name`, `app_flow_event`.`aware` FROM `app_flow_event` JOIN `app` ON `app_flow_event`.`app_id` = `app`.`id` WHERE `app`.`active` = 1');
-
-        array_map(function ($event) use ($result): void {
-            $definition = new BusinessEventDefinition(
-                $event['name'],
-                CustomAppEvent::class,
-                [],
-                json_decode($event['aware'], true) ?? []
-            );
-
-            if (!$result->get($definition->getName())) {
-                $result->set($definition->getName(), $definition);
-            }
-        }, $appEvents);
-
-        return $result;
     }
 }

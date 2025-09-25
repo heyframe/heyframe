@@ -66,7 +66,6 @@ class AdministrationController extends AbstractController
         private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
         private readonly SystemConfigService $systemConfigService,
         private readonly FilesystemOperator $fileSystem,
-        private readonly string $serviceRegistryUrl,
         private readonly string $refreshTokenTtl = 'P1W',
     ) {
     }
@@ -92,7 +91,6 @@ class AdministrationController extends AbstractController
             'apiVersion' => $this->getLatestApiVersion(),
             'cspNonce' => $request->attributes->get(PlatformRequest::ATTRIBUTE_CSP_NONCE),
             'refreshTokenTtl' => $refreshTokenTtl * 1000,
-            'serviceRegistryUrl' => $this->serviceRegistryUrl,
         ]);
     }
 

@@ -438,18 +438,6 @@ export default () => {
     HeyFrame.Component.register('sw-alert-deprecated', () => import('src/app/component/base/sw-alert-deprecated/index'));
     HeyFrame.Component.register('sw-alert', () => import('src/app/component/base/sw-alert/index'));
     HeyFrame.Component.register('sw-address', () => import('src/app/component/base/sw-address/index'));
-    HeyFrame.Component.register(
-        'sw-app-wrong-app-url-modal',
-        () => import('src/app/component/app/sw-app-wrong-app-url-modal/index'),
-    );
-    HeyFrame.Component.register('sw-app-topbar-button', () => import('src/app/component/app/sw-app-topbar-button/index'));
-    HeyFrame.Component.register('sw-app-topbar-sidebar', () => import('src/app/component/app/sw-app-topbar-sidebar/index'));
-    HeyFrame.Component.register(
-        'sw-app-shop-id-change-modal',
-        () => import('src/app/component/app/sw-app-shop-id-change-modal/index'),
-    );
-    HeyFrame.Component.register('sw-app-actions', () => import('src/app/component/app/sw-app-actions/index'));
-    HeyFrame.Component.register('sw-app-action-button', () => import('src/app/component/app/sw-app-action-button/index'));
     HeyFrame.Component.register('sw-code-editor', () => import('src/app/component/form/sw-code-editor'));
     HeyFrame.Component.register('sw-datepicker', () => import('src/app/component/form/sw-datepicker'));
     HeyFrame.Component.register('sw-datepicker-deprecated', () => import('src/app/component/form/sw-datepicker-deprecated'));

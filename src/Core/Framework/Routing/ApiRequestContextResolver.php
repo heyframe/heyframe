@@ -254,23 +254,6 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
     {
         $source = new AdminApiSource($userId, $integrationId);
 
-        // Use the permissions associated to that app, if the request is made by an integration associated to an app
-        $appPermissions = $this->fetchPermissionsIntegrationByApp($integrationId);
-        if ($appPermissions !== null) {
-            // If both userId and integrationId are provided (HEADER_APP_USER_ID case), intersect user permissions with app permissions
-            if ($userId !== null && !$this->isAdmin($userId)) {
-                $appPermissions = array_intersect(
-                    $appPermissions,
-                    $this->fetchPermissions($userId)
-                );
-            }
-
-            $source->setIsAdmin(false);
-            $source->setPermissions($appPermissions);
-
-            return $source;
-        }
-
         if ($userId !== null) {
             $source->setPermissions($this->fetchPermissions($userId));
             $source->setIsAdmin($this->isAdmin($userId));
@@ -334,10 +317,6 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
             ['id' => Uuid::fromHexToBytes($currencyId)]
         );
         if ($rounding === false) {
-            if (!Feature::isActive('v6.8.0.0')) {
-                // @phpstan-ignore-next-line
-                throw new \RuntimeException(\sprintf('No cash rounding for currency "%s" found', $currencyId));
-            }
             throw RoutingException::currencyNotFound($currencyId);
         }
 
@@ -348,29 +327,6 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
             (float) $rounding['interval'],
             (bool) $rounding['roundForNet']
         );
-    }
-
-    /**
-     * @return string[]|null
-     */
-    private function fetchPermissionsIntegrationByApp(?string $integrationId): ?array
-    {
-        if (!$integrationId) {
-            return null;
-        }
-
-        $privileges = $this->connection->fetchOne('
-            SELECT `acl_role`.`privileges`
-            FROM `acl_role`
-            INNER JOIN `app` ON `app`.`acl_role_id` = `acl_role`.`id`
-            WHERE `app`.`integration_id` = :integrationId
-        ', ['integrationId' => Uuid::fromHexToBytes($integrationId)]);
-
-        if ($privileges === false) {
-            return null;
-        }
-
-        return json_decode((string) $privileges, true, 512, \JSON_THROW_ON_ERROR);
     }
 
     /**

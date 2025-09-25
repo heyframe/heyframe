@@ -25,16 +25,9 @@ use Symfony\Component\Finder\Finder;
 #[Package('discovery')]
 class SnippetFinder implements SnippetFinderInterface
 {
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed without replacement
-     */
-    public const ALLOWED_INTERSECTING_FIRST_LEVEL_SNIPPET_KEYS = [
-        'sw-flow-custom-event',
-    ];
 
     public function __construct(
         private readonly Kernel $kernel,
-        private readonly Connection $connection,
         private readonly Filesystem $translationReader,
         private readonly TranslationConfig $translationConfig,
         private readonly TranslationLoader $translationLoader,
@@ -55,7 +48,6 @@ class SnippetFinder implements SnippetFinderInterface
         return array_replace_recursive(
             $countryAgnosticSnippets,
             $countrySpecificSnippets,
-            $this->getAppAdministrationSnippets($locale),
         );
     }
 
@@ -252,29 +244,6 @@ class SnippetFinder implements SnippetFinderInterface
         return $snippets;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    private function getAppAdministrationSnippets(string $locale): array
-    {
-        $result = $this->connection->fetchAllAssociative(
-            'SELECT app_administration_snippet.value
-             FROM locale
-             INNER JOIN app_administration_snippet ON locale.id = app_administration_snippet.locale_id
-             INNER JOIN app ON app_administration_snippet.app_id = app.id
-             WHERE locale.code = :code AND app.active = 1;',
-            ['code' => $locale]
-        );
-
-        $decodedSnippets = \array_map(
-            fn ($data) => \json_decode((string) $data['value'], true, 512, \JSON_THROW_ON_ERROR),
-            $result
-        );
-
-        $appSnippets = \array_replace_recursive([], ...$decodedSnippets);
-
-        return $this->sanitizeAppSnippets($appSnippets);
-    }
 
     /**
      * @param array<string, mixed> $snippets

@@ -48,7 +48,6 @@ class InfoController extends AbstractController
         private readonly Kernel $kernel,
         private readonly BusinessEventCollector $eventCollector,
         private readonly IncrementGatewayRegistry $incrementGatewayRegistry,
-        private readonly Connection $connection,
         private readonly AppUrlVerifier $appUrlVerifier,
         private readonly RouterInterface $router,
         private readonly FlowActionCollector $flowActionCollector,
@@ -182,7 +181,6 @@ class InfoController extends AbstractController
             'settings' => [
                 'enableUrlFeature' => $this->params->get('heyframe.media.enable_url_upload_feature'),
                 'appUrlReachable' => $this->appUrlVerifier->isAppUrlReachable($request),
-                'appsRequireAppUrl' => $this->appUrlVerifier->hasAppsThatNeedAppUrl(),
                 'private_allowed_extensions' => $this->params->get('heyframe.filesystem.private_allowed_extensions'),
                 'enableHtmlSanitizer' => $this->params->get('heyframe.html_sanitizer.enabled'),
                 'enableStagingMode' => $this->params->get('heyframe.staging.administration.show_banner') && $this->systemConfigService->getBool(SetupStagingEvent::CONFIG_FLAG),
@@ -271,18 +269,6 @@ class InfoController extends AbstractController
             ];
         }
 
-        foreach ($this->getActiveApps() as $app) {
-            $assets[$app['name']] = [
-                'active' => (bool) $app['active'],
-                'integrationId' => $app['integrationId'],
-                'type' => 'app',
-                'baseUrl' => $app['baseUrl'],
-                'permissions' => $app['privileges'],
-                'version' => $app['version'],
-                'name' => $app['name'],
-            ];
-        }
-
         return $assets;
     }
 
@@ -314,43 +300,6 @@ class InfoController extends AbstractController
         } catch (\Throwable) {
             return null;
         }
-    }
-
-    /**
-     * @return list<array{name: string, active: int, integrationId: string, baseUrl: string, version: string, privileges: array<string, list<string>>}>
-     */
-    private function getActiveApps(): array
-    {
-        /** @var list<array{name: string, active: int, integrationId: string, baseUrl: string, version: string, privileges: ?string}> $apps */
-        $apps = $this->connection->fetchAllAssociative('SELECT
-    app.name,
-    app.active,
-    LOWER(HEX(app.integration_id)) as integrationId,
-    app.base_app_url as baseUrl,
-    app.version,
-    ar.privileges as privileges
-FROM app
-LEFT JOIN acl_role ar on app.acl_role_id = ar.id
-WHERE app.active = 1 AND app.base_app_url is not null');
-
-        return array_map(static function (array $item) {
-            $privileges = $item['privileges'] ? json_decode($item['privileges'], true, 512, \JSON_THROW_ON_ERROR) : [];
-
-            $item['privileges'] = [];
-
-            foreach ($privileges as $privilege) {
-                if (substr_count($privilege, ':') !== 1) {
-                    $item['privileges']['additional'][] = $privilege;
-
-                    continue;
-                }
-
-                [$entity, $key] = \explode(':', $privilege);
-                $item['privileges'][$key][] = $entity;
-            }
-
-            return $item;
-        }, $apps);
     }
 
     private function getHeyFrameVersion(): string

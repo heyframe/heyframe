@@ -15,7 +15,6 @@ class BundleHierarchyBuilder implements TemplateNamespaceHierarchyBuilderInterfa
      */
     public function __construct(
         private readonly KernelInterface $kernel,
-        private readonly Connection $connection
     ) {
     }
 
@@ -47,39 +46,14 @@ class BundleHierarchyBuilder implements TemplateNamespaceHierarchyBuilderInterfa
         // HeyFrame registers bundles in reverse order
         $bundles = array_reverse($bundles);
 
-        $apps = $this->getAppTemplateNamespaces();
 
-        // Extract template_load_priority from app data structure
-        /** @var array<int, array<string, mixed>> $combinedApps */
-        $combinedApps = array_combine(array_keys($apps), array_column($apps, 'template_load_priority'));
-
-        $extensions = array_merge($combinedApps, $bundles);
+        $extensions = $bundles;
         asort($extensions);
-
-        // Replace app priorities with version strings after sorting
-        // The sorted order is preserved but values change from int to string
-        // This allows version-aware cache invalidation downstream
-        foreach ($apps as $appName => ['version' => $version]) {
-            $extensions[$appName] = $version;
-        }
 
         // Chain with existing hierarchy
         return array_merge(
             $extensions,
             $namespaceHierarchy
-        );
-    }
-
-    /**
-     * @return array<mixed, array<string, mixed>>
-     */
-    private function getAppTemplateNamespaces(): array
-    {
-        return $this->connection->fetchAllAssociativeIndexed(
-            'SELECT `app`.`name`, `app`.`version`, `app`.`template_load_priority`
-             FROM `app`
-             INNER JOIN `app_template` ON `app_template`.`app_id` = `app`.`id`
-             WHERE `app`.`active` = 1 AND `app_template`.`active` = 1'
         );
     }
 }

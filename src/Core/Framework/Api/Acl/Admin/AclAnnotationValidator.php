@@ -20,12 +20,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 #[Package('framework')]
 class AclAnnotationValidator implements EventSubscriberInterface
 {
-    /**
-     * @internal
-     */
-    public function __construct(private readonly Connection $connection)
-    {
-    }
 
     /**
      * @return array<string, string|array{0: string, 1: int}|list<array{0: string, 1?: int}>>
@@ -55,38 +49,9 @@ class AclAnnotationValidator implements EventSubscriberInterface
         }
 
         foreach ($privileges as $privilege) {
-            if ($privilege === 'app') {
-                if ($context->isAllowed('app.all')) {
-                    return;
-                }
-
-                $privilege = $this->getAppPrivilege($request);
-            }
-
             if (!$context->isAllowed($privilege)) {
                 throw ApiException::missingPrivileges([$privilege]);
             }
         }
-    }
-
-    private function getAppPrivilege(Request $request): string
-    {
-        $actionId = $request->get('id');
-
-        if (empty($actionId)) {
-            throw ApiException::appIdParameterIsMissing();
-        }
-
-        $appName = $this->connection->fetchOne(
-            '
-                SELECT `app`.`name` AS `name`
-                FROM `app`
-                INNER JOIN `app_action_button` ON `app`.`id` = `app_action_button`.`app_id`
-                WHERE `app_action_button`.`id` = :id
-            ',
-            ['id' => Uuid::fromHexToBytes($actionId)],
-        );
-
-        return 'app.' . $appName;
     }
 }

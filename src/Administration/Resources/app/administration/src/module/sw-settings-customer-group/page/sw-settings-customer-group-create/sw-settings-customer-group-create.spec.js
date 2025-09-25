@@ -101,7 +101,6 @@ async function createWrapper() {
                     'sw-help-sidebar': true,
                     'sw-shortcut-overview': true,
                     'sw-product-variant-info': true,
-                    'sw-app-action-button': true,
                     'sw-checkbox-field': true,
 
                     'sw-field-copyable': true,

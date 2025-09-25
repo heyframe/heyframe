@@ -330,8 +330,6 @@ frame-ancestors 'none';
 
         <service id="HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\BundleHierarchyBuilder">
             <argument type="service" id="kernel"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-
             <tag name="heyframe.twig.hierarchy_builder" priority="1000"/>
         </service>
 
@@ -406,15 +404,6 @@ frame-ancestors 'none';
                  public="true">
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Twig\TemplateIterator.inner"/>
             <argument>%kernel.bundles%</argument>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\Adapter\Twig\EntityTemplateLoader">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument>%kernel.environment%</argument>
-
-            <tag name="twig.loader"/>
-            <tag name="kernel.event_subscriber"/>
-            <tag name="kernel.reset" method="reset"/>
         </service>
 
         <service id="HeyFrame\Core\Framework\Adapter\Twig\TwigVariableParserFactory"/>

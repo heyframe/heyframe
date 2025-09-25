@@ -20,7 +20,6 @@
         </service>
 
         <service id="HeyFrame\Core\Framework\Api\Acl\Admin\AclAnnotationValidator">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
             <tag name="kernel.event_subscriber"/>
         </service>
 

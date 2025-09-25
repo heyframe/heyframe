@@ -165,7 +165,6 @@
             <argument type="service" id="kernel" />
             <argument type="service" id="HeyFrame\Core\Framework\Event\BusinessEventCollector" />
             <argument type="service" id="heyframe.increment.gateway.registry"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Maintenance\System\Service\AppUrlVerifier"/>
             <argument type="service" id="router"/>
             <argument type="service" id="HeyFrame\Core\Content\Flow\Api\FlowActionCollector"/>
