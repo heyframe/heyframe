@@ -54,14 +54,6 @@ class SystemSetupCommand extends Command
             ->addOption('app-env', null, InputOption::VALUE_OPTIONAL, 'Application environment', $this->getDefault('APP_ENV', 'prod'))
             ->addOption('app-url', null, InputOption::VALUE_OPTIONAL, 'Application URL', $this->getDefault('APP_URL', 'http://localhost'))
             ->addOption('blue-green', null, InputOption::VALUE_OPTIONAL, 'Blue green deployment', $this->getDefault('BLUE_GREEN_DEPLOYMENT', '1'))
-            ->addOption('es-enabled', null, InputOption::VALUE_OPTIONAL, 'Elasticsearch enabled', $this->getDefault('HEYFRAME_ES_ENABLED', '0'))
-            ->addOption('es-hosts', null, InputOption::VALUE_OPTIONAL, 'Elasticsearch Hosts', $this->getDefault('OPENSEARCH_URL', 'elasticsearch:9200'))
-            ->addOption('es-indexing-enabled', null, InputOption::VALUE_OPTIONAL, 'Elasticsearch Indexing enabled', $this->getDefault('HEYFRAME_ES_INDEXING_ENABLED', '0'))
-            ->addOption('es-index-prefix', null, InputOption::VALUE_OPTIONAL, 'Elasticsearch Index prefix', $this->getDefault('HEYFRAME_ES_INDEX_PREFIX', 'sw'))
-            ->addOption('admin-es-hosts', null, InputOption::VALUE_OPTIONAL, 'Admin Elasticsearch Hosts', $this->getDefault('ADMIN_OPENSEARCH_URL', 'elasticsearch:9200'))
-            ->addOption('admin-es-index-prefix', null, InputOption::VALUE_OPTIONAL, 'Admin Elasticsearch Index prefix', $this->getDefault('HEYFRAME_ADMIN_ES_INDEX_PREFIX', 'sw-admin'))
-            ->addOption('admin-es-enabled', null, InputOption::VALUE_OPTIONAL, 'Admin Elasticsearch Enabled', $this->getDefault('HEYFRAME_ADMIN_ES_ENABLED', '0'))
-            ->addOption('admin-es-refresh-indices', null, InputOption::VALUE_OPTIONAL, 'Admin Elasticsearch Refresh Indices', $this->getDefault('HEYFRAME_ADMIN_ES_REFRESH_INDICES', '0'))
             ->addOption('http-cache-enabled', null, InputOption::VALUE_OPTIONAL, 'Http-Cache enabled', $this->getDefault('HEYFRAME_HTTP_CACHE_ENABLED', '1'))
             ->addOption('http-cache-ttl', null, InputOption::VALUE_OPTIONAL, 'Http-Cache TTL', $this->getDefault('HEYFRAME_HTTP_DEFAULT_TTL', '7200'))
             ->addOption('cdn-strategy', null, InputOption::VALUE_OPTIONAL, 'CDN Strategy', $this->getDefault('HEYFRAME_CDN_STRATEGY_DEFAULT', 'id'))
@@ -75,14 +67,6 @@ class SystemSetupCommand extends Command
             'APP_ENV' => $input->getOption('app-env'),
             'APP_URL' => trim((string) $input->getOption('app-url')),
             'DATABASE_URL' => $input->getOption('database-url'),
-            'OPENSEARCH_URL' => $input->getOption('es-hosts'),
-            'HEYFRAME_ES_ENABLED' => $input->getOption('es-enabled'),
-            'HEYFRAME_ES_INDEXING_ENABLED' => $input->getOption('es-indexing-enabled'),
-            'HEYFRAME_ES_INDEX_PREFIX' => $input->getOption('es-index-prefix'),
-            'ADMIN_OPENSEARCH_URL' => $input->getOption('admin-es-hosts'),
-            'HEYFRAME_ADMIN_ES_INDEX_PREFIX' => $input->getOption('admin-es-index-prefix'),
-            'HEYFRAME_ADMIN_ES_ENABLED' => $input->getOption('admin-es-enabled'),
-            'HEYFRAME_ADMIN_ES_REFRESH_INDICES' => $input->getOption('admin-es-refresh-indices'),
             'HEYFRAME_HTTP_CACHE_ENABLED' => $input->getOption('http-cache-enabled'),
             'HEYFRAME_HTTP_DEFAULT_TTL' => $input->getOption('http-cache-ttl'),
             'HEYFRAME_CDN_STRATEGY_DEFAULT' => $input->getOption('cdn-strategy'),

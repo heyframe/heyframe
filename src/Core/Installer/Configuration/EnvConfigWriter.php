@@ -43,18 +43,6 @@ BLUE_GREEN_DEPLOYMENT=0
 DATABASE_URL=mysql://root:root@localhost/heyframe
 ###< heyframe/core ###
 
-###> heyframe/elasticsearch ###
-OPENSEARCH_URL=http://localhost:9200
-HEYFRAME_ES_ENABLED=0
-HEYFRAME_ES_INDEXING_ENABLED=0
-HEYFRAME_ES_INDEX_PREFIX=sw
-HEYFRAME_ES_THROW_EXCEPTION=1
-ADMIN_OPENSEARCH_URL=http://localhost:9200
-HEYFRAME_ADMIN_ES_INDEX_PREFIX=sw-admin
-HEYFRAME_ADMIN_ES_ENABLED=0
-HEYFRAME_ADMIN_ES_REFRESH_INDICES=0
-###< heyframe/elasticsearch ###
-
 ###> heyframe/frontend ###
 STOREFRONT_PROXY_URL=http://localhost
 HEYFRAME_HTTP_CACHE_ENABLED=1
@@ -117,8 +105,6 @@ EOT;
         $newEnv[] = 'COMPOSER_HOME=' . $this->projectDir . '/var/cache/composer';
         $newEnv[] = 'INSTANCE_ID=' . $uniqueId;
         $newEnv[] = 'BLUE_GREEN_DEPLOYMENT=' . (int) $shop['blueGreenDeployment'];
-        $newEnv[] = 'OPENSEARCH_URL=http://localhost:9200';
-        $newEnv[] = 'ADMIN_OPENSEARCH_URL=http://localhost:9200';
 
         file_put_contents($this->projectDir . '/.env.local', implode("\n", $newEnv));
 
