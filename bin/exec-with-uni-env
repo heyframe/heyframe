@@ -9,9 +9,7 @@ $classLoader = require __DIR__ . '/../vendor/autoload.php';
 
 $pluginName = getenv('UNI_PLUGIN_NAME');
 if (!$pluginName) {
-    fwrite(\STDERR, "\033[31mError: UNI_PLUGIN_NAME environment variable is not set.\033[0m\n");
-    fwrite(\STDERR, "Example: export UNI_PLUGIN_NAME=uni\n");
-    exit(1);
+    $pluginName = 'uni';
 }
 
 $pluginsJsonFile = __DIR__ . '/../var/plugins.json';

@@ -29,6 +29,5 @@ class Frontend extends Bundle
 
         $container->setParameter('frontendRoot', $this->getPath());
         $container->addCompilerPass(new FrontendMigrationReplacementCompilerPass());
-
     }
 }

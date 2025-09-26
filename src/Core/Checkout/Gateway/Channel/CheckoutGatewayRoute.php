@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Checkout\Gateway\Channel;
 
 use HeyFrame\Core\Checkout\Cart\Cart;
-use HeyFrame\Core\Checkout\Gateway\CheckoutGatewayResponse;
 use HeyFrame\Core\Checkout\Payment\Cart\Error\PaymentMethodBlockedError;
 use HeyFrame\Core\Checkout\Payment\Channel\AbstractPaymentMethodRoute;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
