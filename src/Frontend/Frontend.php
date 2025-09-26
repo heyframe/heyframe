@@ -4,6 +4,7 @@ namespace HeyFrame\Frontend;
 
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Frontend\DependencyInjection\FrontendMigrationReplacementCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -27,5 +28,7 @@ class Frontend extends Bundle
         $loader->load('seo.xml');
 
         $container->setParameter('frontendRoot', $this->getPath());
+        $container->addCompilerPass(new FrontendMigrationReplacementCompilerPass());
+
     }
 }
