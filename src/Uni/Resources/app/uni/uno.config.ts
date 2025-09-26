@@ -1,4 +1,3 @@
-import { presetUni } from '@uni-helper/unocss-preset-uni'
 import {
   defineConfig,
   presetIcons,
@@ -8,7 +7,6 @@ import {
 
 export default defineConfig({
   presets: [
-    presetUni(),
     presetIcons({
       scale: 1.2,
       warn: true,
