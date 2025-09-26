@@ -30,7 +30,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TreeLevelField;

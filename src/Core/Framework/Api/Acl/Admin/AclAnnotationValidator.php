@@ -2,15 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Api\Acl\Admin;
 
-use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\KernelListenerPriorities;
-use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -20,7 +17,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 #[Package('framework')]
 class AclAnnotationValidator implements EventSubscriberInterface
 {
-
     /**
      * @return array<string, string|array{0: string, 1: int}|list<array{0: string, 1?: int}>>
      */

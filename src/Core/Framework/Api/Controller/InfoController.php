@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Api\Controller;
 
-use Doctrine\DBAL\Connection;
 use HeyFrame\Administration\Framework\Twig\ViteFileAccessorDecorator;
 use HeyFrame\Core\Content\Flow\Api\FlowActionCollector;
 use HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService;

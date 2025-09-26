@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy;
 
-use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -45,7 +44,6 @@ class BundleHierarchyBuilder implements TemplateNamespaceHierarchyBuilderInterfa
 
         // HeyFrame registers bundles in reverse order
         $bundles = array_reverse($bundles);
-
 
         $extensions = $bundles;
         asort($extensions);

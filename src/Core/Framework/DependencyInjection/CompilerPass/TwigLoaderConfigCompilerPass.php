@@ -2,13 +2,10 @@
 
 namespace HeyFrame\Core\Framework\DependencyInjection\CompilerPass;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Exception;
 use HeyFrame\Core\Framework\DependencyInjection\DependencyInjectionException;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 
 /**
  * @internal
@@ -44,5 +41,4 @@ class TwigLoaderConfigCompilerPass implements CompilerPassInterface
             }
         }
     }
-
 }

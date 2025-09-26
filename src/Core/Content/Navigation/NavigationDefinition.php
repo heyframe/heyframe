@@ -91,7 +91,6 @@ class NavigationDefinition extends EntityDefinition
             new OneToManyAssociationField('footerChannels', ChannelDefinition::class, 'footer_category_id'),
             new OneToManyAssociationField('serviceChannels', ChannelDefinition::class, 'service_category_id'),
             (new TranslationsAssociationField(NavigationTranslationDefinition::class, 'navigation_id'))->addFlags(new ApiAware(), new Required()),
-
         ]);
     }
 }

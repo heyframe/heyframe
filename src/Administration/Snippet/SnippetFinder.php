@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Administration\Snippet;
 
-use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Core\Framework\Util\HtmlSanitizer;
@@ -25,7 +24,6 @@ use Symfony\Component\Finder\Finder;
 #[Package('discovery')]
 class SnippetFinder implements SnippetFinderInterface
 {
-
     public function __construct(
         private readonly Kernel $kernel,
         private readonly Filesystem $translationReader,
@@ -243,7 +241,6 @@ class SnippetFinder implements SnippetFinderInterface
 
         return $snippets;
     }
-
 
     /**
      * @param array<string, mixed> $snippets

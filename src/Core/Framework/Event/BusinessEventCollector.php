@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Event;
 
-
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
