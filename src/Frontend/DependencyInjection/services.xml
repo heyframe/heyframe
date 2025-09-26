@@ -11,5 +11,9 @@
 
             <tag name="console.command"/>
         </service>
+
+        <service id="HeyFrame\Frontend\Framework\Routing\FrontendRouteScope">
+            <tag name="heyframe.route_scope"/>
+        </service>
     </services>
 </container>
