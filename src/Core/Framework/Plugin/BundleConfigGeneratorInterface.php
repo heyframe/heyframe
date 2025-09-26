@@ -19,7 +19,11 @@ use HeyFrame\Core\Framework\Log\Package;
  *            entryFilePath: string|null,
  *            webpack: string|null,
  *            styleFiles: string[],
- *         }
+ *         },
+ *          uni: array{
+ *             path: string ,
+ *             entryFilePath: string|null
+ *          }
  *     }
  */
 #[Package('framework')]

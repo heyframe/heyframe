@@ -17,6 +17,7 @@ if (!class_exists(Application::class) || !class_exists(Dotenv::class)) {
 $input = new ArgvInput();
 if ($env = $input->getParameterOption(['--env', '-e'], null, true) !== null) {
     $_ENV['APP_ENV'] = $env;
+    $_ENV['VITE_API_BASE_URL'] = 'localhost';
     $_SERVER['APP_ENV'] = $env;
     putenv('APP_ENV=' . $env);
 }
@@ -67,5 +68,3 @@ $process->run(function ($type, $buffer): void {
         echo $buffer;
     }
 });
-
-exit($process->getExitCode());

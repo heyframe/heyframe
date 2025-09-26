@@ -3,9 +3,7 @@
 namespace HeyFrame\Core\Checkout\Gateway\Channel;
 
 use HeyFrame\Core\Checkout\Cart\Cart;
-use HeyFrame\Core\Checkout\Gateway\CheckoutGatewayInterface;
 use HeyFrame\Core\Checkout\Gateway\CheckoutGatewayResponse;
-use HeyFrame\Core\Checkout\Gateway\Command\Struct\CheckoutGatewayPayloadStruct;
 use HeyFrame\Core\Checkout\Payment\Cart\Error\PaymentMethodBlockedError;
 use HeyFrame\Core\Checkout\Payment\Channel\AbstractPaymentMethodRoute;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -26,7 +24,6 @@ class CheckoutGatewayRoute extends AbstractCheckoutGatewayRoute
      */
     public function __construct(
         private readonly AbstractPaymentMethodRoute $paymentMethodRoute,
-        private readonly CheckoutGatewayInterface $checkoutGateway,
     ) {
     }
 
@@ -39,32 +36,20 @@ class CheckoutGatewayRoute extends AbstractCheckoutGatewayRoute
     public function load(Request $request, Cart $cart, ChannelContext $context): CheckoutGatewayRouteResponse
     {
         $paymentCriteria = new Criteria();
-        $shippingCriteria = new Criteria();
-
-        $paymentCriteria->addAssociation('appPaymentMethod.app');
-        $shippingCriteria->addAssociation('appShippingMethod.app');
-
-        // Only load available payment and shipping methods from the routes
         $request->query->set('onlyAvailable', '1');
 
         $paymentMethods = $this->paymentMethodRoute->load($request, $context, $paymentCriteria)->getPaymentMethods();
 
-        $payload = new CheckoutGatewayPayloadStruct($cart, $context, $paymentMethods);
-        $response = $this->checkoutGateway->process($payload);
-
-        $this->addBlockedMethodsCartErrors($response, $cart, $context);
-
-        return new CheckoutGatewayRouteResponse($response->getAvailablePaymentMethods(), $response->getCartErrors());
-    }
-
-    private function addBlockedMethodsCartErrors(CheckoutGatewayResponse $response, Cart $cart, ChannelContext $context): void
-    {
+        $availablePaymentMethods = $paymentMethods;
+        $cartErrors = $cart->getErrors();
         $paymentMethod = $context->getPaymentMethod();
 
-        if (!\in_array($paymentMethod->getId(), $response->getAvailablePaymentMethods()->getIds(), true)) {
-            $response->getCartErrors()->add(
+        if (!\in_array($paymentMethod->getId(), $availablePaymentMethods->getIds(), true)) {
+            $cartErrors->add(
                 new PaymentMethodBlockedError((string) $paymentMethod->getTranslation('name'), 'not allowed')
             );
         }
+
+        return new CheckoutGatewayRouteResponse($availablePaymentMethods, $cartErrors);
     }
 }

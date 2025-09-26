@@ -18,7 +18,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
@@ -165,10 +164,6 @@ class SetPaymentOrderRoute extends AbstractSetPaymentOrderRoute
         }
 
         $lastTransaction = $order->getPrimaryOrderTransaction();
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $lastTransaction = $transactions->last();
-        }
 
         if ($lastTransaction === null) {
             return false;

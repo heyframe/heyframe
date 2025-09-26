@@ -9,10 +9,6 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainCollection;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainEntity;
 use HeyFrame\Core\System\Channel\ChannelCollection;
-use HeyFrame\Core\System\Currency\CurrencyCollection;
-use HeyFrame\Core\System\Currency\CurrencyEntity;
-use HeyFrame\Core\System\Language\LanguageCollection;
-use HeyFrame\Core\System\Language\LanguageEntity;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -25,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 #[AsCommand(
     name: 'channel:list',
-    description: 'Lists all sales channels',
+    description: 'Lists all channels',
 )]
 #[Package('discovery')]
 class ChannelListCommand extends Command
@@ -36,12 +32,12 @@ class ChannelListCommand extends Command
     private static array $headers = [
         'id',
         'Name',
+        'Access_key',
+        'Type',
         'Active',
         'Maintenance',
         'Default Language',
-        'Languages',
         'Default Currency',
-        'Currencies',
         'Domains',
     ];
 
@@ -67,26 +63,24 @@ class ChannelListCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $criteria = new Criteria();
-        $criteria->addAssociations(['language', 'languages', 'currency', 'currencies', 'domains']);
+        $criteria->addAssociations(['language', 'languages', 'currency', 'type', 'domains']);
         $channels = $this->channelRepository->search($criteria, Context::createCLIContext())->getEntities();
 
         $data = [];
         foreach ($channels as $channel) {
             $language = $channel->getLanguage();
-            $languages = $channel->getLanguages() ?? new LanguageCollection();
             $currency = $channel->getCurrency();
-            $currencies = $channel->getCurrencies() ?? new CurrencyCollection();
             $domains = $channel->getDomains() ?? new ChannelDomainCollection();
 
             $data[] = [
                 $channel->getId(),
                 $channel->getName() ?? 'n/a',
+                $channel->getAccessKey() ?? 'n/a',
+                $channel->getType()->getName() ?? 'n/a',
                 $channel->getActive() ? 'active' : 'inactive',
                 $channel->isMaintenance() ? 'on' : 'off',
                 $language?->getName() ?? 'n/a',
-                $languages->map(fn (LanguageEntity $language) => $language->getName()),
                 $currency?->getName() ?? 'n/a',
-                $currencies->map(fn (CurrencyEntity $currency) => $currency->getName()),
                 $domains->map(fn (ChannelDomainEntity $domain) => $domain->getUrl()),
             ];
         }

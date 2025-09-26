@@ -23,7 +23,8 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
      */
     public function __construct(
         private readonly Kernel $kernel,
-    ) {
+    )
+    {
         $projectDir = $this->kernel->getContainer()->getParameter('kernel.project_dir');
         if (!\is_string($projectDir)) {
             throw PluginException::invalidContainerParameter('kernel.project_dir', 'string');
@@ -81,6 +82,9 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
                     'entryFilePath' => $this->getEntryFile($bundle->getPath(), 'Resources/app/frontend/src'),
                     'webpack' => $this->getWebpackConfig($bundle->getPath(), 'Resources/app/frontend'),
                     'styleFiles' => $this->getStyleFiles($bundle->getName(), $this->stripProjectDir($bundle->getPath())),
+                ],
+                'uni' => [
+                    'path' => 'Resources/app/uni',
                 ],
             ];
         }
@@ -149,7 +153,7 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
         }
 
         return array_map(
-            fn (string $path) => Path::join($basePath, 'Resources', $path),
+            fn(string $path) => Path::join($basePath, 'Resources', $path),
             $config->getStyleFiles()->getFilepaths()
         );
     }
@@ -166,7 +170,7 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
     {
         $activePlugins = $this->kernel->getPluginLoader()->getPluginInstances()->getActives();
 
-        return array_map(static fn (Plugin $plugin) => $plugin->getName(), $activePlugins);
+        return array_map(static fn(Plugin $plugin) => $plugin->getName(), $activePlugins);
     }
 
     private function stripProjectDir(string $path): string

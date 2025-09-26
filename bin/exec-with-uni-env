@@ -1,0 +1,114 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Process\Process;
+
+set_time_limit(0);
+$classLoader = require __DIR__ . '/../vendor/autoload.php';
+
+$pluginName = getenv('UNI_PLUGIN_NAME');
+if (!$pluginName) {
+    fwrite(\STDERR, "\033[31mError: UNI_PLUGIN_NAME environment variable is not set.\033[0m\n");
+    fwrite(\STDERR, "Example: export UNI_PLUGIN_NAME=uni\n");
+    exit(1);
+}
+
+$pluginsJsonFile = __DIR__ . '/../var/plugins.json';
+if (!file_exists($pluginsJsonFile)) {
+    fwrite(\STDERR, "plugins.json not found at $pluginsJsonFile\n");
+    exit(1);
+}
+$plugins = json_decode(file_get_contents($pluginsJsonFile), true, 512, \JSON_THROW_ON_ERROR);
+
+$uniPath = null;
+
+foreach ($plugins as $config) {
+    if (($config['technicalName'] ?? '') === $pluginName) {
+        $basePath = $config['basePath'] ?? '';
+        $uniPath = $basePath . ($config['uni']['path'] ?? '');
+        break;
+    }
+}
+
+if ($uniPath === null) {
+    fwrite(\STDERR, "\033[31mError: Plugin '{$pluginName}' not found in plugins.json.\033[0m\n");
+    exit(1);
+}
+
+$cwd = __DIR__;
+$projectRoot = getenv('PROJECT_ROOT') ?: dirname($cwd);
+
+if (class_exists(Dotenv::class)) {
+    $envFiles = [
+        $projectRoot . '/.env.local.php',
+        $projectRoot . '/.env',
+        $projectRoot . '/.env.dist',
+    ];
+    foreach ($envFiles as $file) {
+        if (file_exists($file)) {
+            (new Dotenv())->usePutenv()->bootEnv($file);
+            break;
+        }
+    }
+}
+
+$process = Process::fromShellCommandline("$projectRoot/bin/console channel:list --output=json");
+$process->setTimeout(null);
+$process->run();
+
+if (!$process->isSuccessful()) {
+    fwrite(\STDERR, "\033[31mFailed to get channel list\033[0m\n");
+    exit(1);
+}
+
+$channelJson = $process->getOutput();
+$channels = json_decode($channelJson, true, 512, \JSON_THROW_ON_ERROR);
+
+$accessKey = null;
+foreach ($channels as $channel) {
+    if (($channel['type'] ?? '') === 'Headless') {
+        $accessKey = $channel['access_key'] ?? null;
+        break;
+    }
+}
+
+if (!$accessKey) {
+    fwrite(\STDERR, "\033[31mNo Headless channel found!\033[0m\n");
+    exit(1);
+}
+
+putenv("VITE_API_ACCESS_TOKEN=$accessKey");
+$_ENV['VITE_API_ACCESS_TOKEN'] = $accessKey;
+$_SERVER['VITE_API_ACCESS_TOKEN'] = $accessKey;
+
+echo "\033[33mInjected VITE_API_ACCESS_TOKEN=$accessKey\033[0m\n";
+
+chdir($uniPath);
+
+
+$args = $_SERVER['argv'];
+array_shift($args);
+
+if (count($args) === 0) {
+    fwrite(\STDERR, "\033[31mError: No command provided to execute.\033[0m\n");
+    exit(1);
+}
+
+$cmd = implode(' ', array_map('escapeshellarg', $args));
+echo "\033[33mExecuting command: $cmd\033[0m\n";
+
+$process = proc_open($cmd, [
+    1 => \STDOUT,
+    2 => \STDERR,
+], $pipes);
+
+if (is_resource($process)) {
+    $returnCode = proc_close($process);
+    if ($returnCode !== 0) {
+        fwrite(\STDERR, "\033[31mCommand failed with exit code $returnCode\033[0m\n");
+        exit($returnCode);
+    }
+}
+
+exit(0);
