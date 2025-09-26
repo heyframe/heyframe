@@ -124,6 +124,7 @@ export default defineManifestConfig({
     optimization: {
       subPackages: true,
     },
+    themeLocation: 'theme.json',
     usingComponents: true,
     lazyCodeLoading: "requiredComponents",
   },
