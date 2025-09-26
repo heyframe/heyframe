@@ -16,24 +16,6 @@ export default {
         'userConfigService',
     ],
 
-    data() {
-        return {
-            /**
-             * @deprecated tag:v6.8.0 - Will be removed without replacement
-             */
-            hideSettingRenameBanner: true,
-        };
-    },
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed without replacement
-     */
-    created() {
-        if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-            this.getUserConfig();
-        }
-    },
-
     metaInfo() {
         return {
             title: this.$createTitle(),
@@ -78,27 +60,6 @@ export default {
     },
 
     methods: {
-        /**
-         * @deprecated tag:v6.8.0 - Will be removed without replacement
-         */
-        async getUserConfig() {
-            const response = await this.userConfigService.search(['settings.hideRenameBanner']);
-            this.hideSettingRenameBanner = !!response.data['settings.hideRenameBanner']?.value;
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - Will be removed without replacement
-         */
-        async onCloseSettingRenameBanner() {
-            this.hideSettingRenameBanner = true;
-
-            await this.userConfigService.upsert({
-                'settings.hideRenameBanner': {
-                    value: true,
-                },
-            });
-        },
-
         hasPluginConfig() {
             return hasOwnProperty(this.settingsGroups, 'plugins') && this.settingsGroups.plugins.length > 0;
         },

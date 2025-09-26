@@ -1,7 +1,7 @@
 {
   "sw-settings-number-range": {
     "general": {
-      "mainMenuItemGeneral": "ID 生成器",
+      "mainMenuItemGeneral": "编号范围",
       "placeholderSearchBar": "搜索编号范围...",
       "infoGlobalType": "“{typeName}” 类型的编号范围全局唯一。此类型编号范围的修改需在这里进行，会影响所有销售渠道。",
       "infoGlobalTypeTitle": "全局编号范围类型 \"{typeName}\"",

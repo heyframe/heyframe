@@ -27,16 +27,9 @@ Module.register('sw-settings', {
             path: 'index',
             icon: 'regular-cog',
             redirect: {
-                name: 'sw.settings.index.shop',
+                name: 'sw.settings.index.system',
             },
             children: {
-                shop: {
-                    path: 'shop',
-                    meta: {
-                        component: 'sw-settings-index',
-                        parentPath: 'sw.settings.index',
-                    },
-                },
                 system: {
                     path: 'system',
                     meta: {
