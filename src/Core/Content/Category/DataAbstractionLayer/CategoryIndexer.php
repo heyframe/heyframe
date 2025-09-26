@@ -27,7 +27,6 @@ class CategoryIndexer extends EntityIndexer
 {
     final public const CHILD_COUNT_UPDATER = 'category.child-count';
     final public const TREE_UPDATER = 'category.tree';
-    final public const BREADCRUMB_UPDATER = 'category.breadcrumb';
     private const UPDATE_IDS_CHUNK_SIZE = 50;
 
     /**
@@ -41,7 +40,6 @@ class CategoryIndexer extends EntityIndexer
         private readonly EntityRepository $repository,
         private readonly ChildCountUpdater $childCountUpdater,
         private readonly TreeUpdater $treeUpdater,
-        private readonly CategoryBreadcrumbUpdater $breadcrumbUpdater,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly MessageBusInterface $messageBus,
     ) {
@@ -160,11 +158,6 @@ class CategoryIndexer extends EntityIndexer
                     !$message->isFullIndexing
                 );
             }
-
-            if ($message->allow(self::BREADCRUMB_UPDATER)) {
-                // listen to name changes
-                $this->breadcrumbUpdater->update($ids, $context);
-            }
         });
 
         $this->eventDispatcher->dispatch(new CategoryIndexerEvent($ids, $context, $message->getSkip(), $message->isFullIndexing));
@@ -175,7 +168,6 @@ class CategoryIndexer extends EntityIndexer
         return [
             self::CHILD_COUNT_UPDATER,
             self::TREE_UPDATER,
-            self::BREADCRUMB_UPDATER,
         ];
     }
 

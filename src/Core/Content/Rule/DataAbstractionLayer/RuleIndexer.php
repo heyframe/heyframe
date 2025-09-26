@@ -20,8 +20,6 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 #[Package('fundamentals@after-sales')]
 class RuleIndexer extends EntityIndexer
 {
-    final public const PAYLOAD_UPDATER = 'rule.payload';
-
     final public const AREA_UPDATER = 'rule.area';
 
     /**
@@ -78,10 +76,6 @@ class RuleIndexer extends EntityIndexer
         $ids = array_unique(array_filter($ids));
         if (empty($ids)) {
             return;
-        }
-
-        if ($message->allow(self::PAYLOAD_UPDATER)) {
-            $this->payloadUpdater->update($ids);
         }
 
         if ($message->allow(self::AREA_UPDATER)) {

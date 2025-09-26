@@ -69,17 +69,11 @@
             <argument type="service" id="category.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater"/>
-            <argument type="service" id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryBreadcrumbUpdater"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="messenger.default_bus"/>
             <tag name="heyframe.entity_indexer"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryBreadcrumbUpdater">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="category.repository"/>
-            <argument type="service" id="language.repository"/>
-        </service>
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
