@@ -65,10 +65,6 @@ export default {
             return this.repositoryFactory.create('flow_sequence');
         },
 
-        appFlowActionRepository() {
-            return this.repositoryFactory.create('app_flow_action');
-        },
-
         isNewFlow() {
             return !this.flowId;
         },
@@ -251,8 +247,6 @@ export default {
                 scope: this,
             });
 
-            this.getAppFlowAction();
-
             if (this.isTemplate) {
                 this.getDetailFlowTemplate();
                 return;
@@ -330,12 +324,6 @@ export default {
             } finally {
                 this.isLoading = false;
             }
-        },
-
-        getAppFlowAction() {
-            return this.appFlowActionRepository.search(this.appFlowActionCriteria, HeyFrame.Context.api).then((response) => {
-                Store.get('swFlow').setAppActions(response);
-            });
         },
 
         getDetailFlowTemplate() {

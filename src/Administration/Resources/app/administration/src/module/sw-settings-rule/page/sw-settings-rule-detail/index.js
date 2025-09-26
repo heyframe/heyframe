@@ -96,9 +96,6 @@ export default {
             return criteria;
         },
 
-        appScriptConditionRepository() {
-            return this.repositoryFactory.create('app_script_condition');
-        },
 
         conditionRepository() {
             return this.repositoryFactory.create(this.rule.conditions.entity, this.rule.conditions.source);
@@ -178,7 +175,7 @@ export default {
                 this.isLoading = true;
 
                 this.loadConditionData().then((scripts) => {
-                    this.ruleConditionDataProviderService.addScriptConditions(scripts);
+                    this.ruleConditionDataProviderService.addScriptConditions(scripts??[]);
 
                     if (!this.ruleId) {
                         this.isLoading = false;
@@ -236,7 +233,6 @@ export default {
             const criteria = new Criteria();
 
             return Promise.all([
-                this.appScriptConditionRepository.search(criteria, context),
                 this.ruleConditionsConfigApiService.load(),
             ]).then((results) => {
                 return results[0];
