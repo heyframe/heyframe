@@ -1,5 +1,5 @@
 #!/usr/bin/env php
-<?php
+<?php declare(strict_types=1);
 
 use HeyFrame\Core\Framework\Adapter\Kernel\KernelFactory;
 use HeyFrame\Core\Framework\Plugin\KernelPluginLoader\DbalKernelPluginLoader;
@@ -45,7 +45,7 @@ return static function (array &$context) {
 
     $kernel = KernelFactory::create(
         $env,
-         $debug,
+        $debug,
         $classLoader,
         $pluginLoader
     );

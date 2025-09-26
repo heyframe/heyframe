@@ -77,13 +77,15 @@ if (!$accessKey) {
 }
 
 putenv("VITE_API_ACCESS_TOKEN=$accessKey");
+putenv("UNI_PLUGIN_NAME=$pluginName");
+putenv('UNI_OUTPUT_DIR=\'../../../../public/uni');
+
 $_ENV['VITE_API_ACCESS_TOKEN'] = $accessKey;
 $_SERVER['VITE_API_ACCESS_TOKEN'] = $accessKey;
 
 echo "\033[33mInjected VITE_API_ACCESS_TOKEN=$accessKey\033[0m\n";
 
 chdir($uniPath);
-
 
 $args = $_SERVER['argv'];
 array_shift($args);
