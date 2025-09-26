@@ -9,7 +9,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import UnoCSS from 'unocss/vite'
 import ViteRestart from 'vite-plugin-restart'
 import UniPages from '@uni-helper/vite-plugin-uni-pages'
-
+import UniLayouts from '@uni-helper/vite-plugin-uni-layouts'
+import UniPlatform from '@uni-helper/vite-plugin-uni-platform'
 export default defineConfig(({command, mode}) => {
   const isProd = command === 'build';
   const isDev = !isProd;
@@ -33,6 +34,8 @@ export default defineConfig(({command, mode}) => {
         dts: 'src/types/uni-pages.d.ts',
         minify: true,
       }),
+      UniLayouts(),
+      UniPlatform(),
       UniManifest(),
       UniComponents({
         deep: true,
