@@ -2,8 +2,6 @@ import {useHeyFrameContext} from "@/app/composables/useHeyFrameContext/useHeyFra
 import {useCategory} from "@/app/composables/useCategory/useCategory";
 import type {Ref} from "vue";
 import {inject, provide, ref, computed} from "vue";
-import {createInjectionState} from "@/app/share/createInjectionState";
-import {createSharedComposable} from "@/app/share/createSharedComposable";
 import type {operations, Schemas} from "@/api-client/api-types/frontApiTypes";
 
 function isObject<T>(item: T): boolean {

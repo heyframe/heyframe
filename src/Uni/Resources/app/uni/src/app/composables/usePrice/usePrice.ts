@@ -1,7 +1,6 @@
 import {computed, ComputedRef, ref, watch} from "vue";
 import {useSessionContext} from "@/app/composables/useSessionContext/useSessionContext";
 import {useHeyFrameContext} from "@/app/composables/useHeyFrameContext/useHeyFrameContext";
-import {createSharedComposable} from "@/app/share/createSharedComposable";
 
 export type UsePriceReturn = {
   /**
