@@ -90,6 +90,7 @@
       "minified": true
     },
     "usingComponents": true,
+    "libVersion": "3.0.0",
     "optimization": {
       "subPackages": true
     },
@@ -111,6 +112,7 @@
   },
   "vueVersion": "3",
   "h5": {
+    "themeLocation": "theme.json",
     "router": {}
   }
 }

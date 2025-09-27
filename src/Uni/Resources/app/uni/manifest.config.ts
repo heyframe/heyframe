@@ -26,6 +26,7 @@ export default defineManifestConfig({
   'versionCode': '100',
   'locale': VITE_FALLBACK_LOCALE, // 'zh-Hans'
   'h5': {
+    themeLocation: 'theme.json',
     router: {
       base: VITE_APP_PUBLIC_BASE,
     },
@@ -117,10 +118,10 @@ export default defineManifestConfig({
     appid: VITE_WX_APPID,
     setting: {
       urlCheck: false,
-      // 是否启用 ES6 转 ES5
       es6: true,
       minified: true,
     },
+    libVersion: '3.0.0',
     optimization: {
       subPackages: true,
     },

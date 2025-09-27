@@ -77,6 +77,9 @@ importers:
       pinia:
         specifier: ^2.3.0
         version: 2.3.1(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5))
+      pinia-plugin-persistedstate:
+        specifier: ^4.5.0
+        version: 4.5.0(pinia@2.3.1(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5)))
       std-env:
         specifier: ^3.9.0
         version: 3.9.0
@@ -120,6 +123,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.44.0
         version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@4.9.5)
+      '@uni-helper/eslint-config':
+        specifier: ^0.5.0
+        version: 0.5.0(@antfu/eslint-config@5.4.1(@unocss/eslint-plugin@66.5.2(eslint@9.36.0(jiti@2.6.0))(typescript@4.9.5))(@vue/compiler-sfc@3.5.22)(eslint@9.36.0(jiti@2.6.0))(typescript@4.9.5))(eslint@9.36.0(jiti@2.6.0))
       '@uni-helper/plugin-uni':
         specifier: ^0.1.0
         version: 0.1.0(@dcloudio/vite-plugin-uni@3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.52.2)(vite@5.2.8(@types/node@24.5.2)(sass@1.78.0)(terser@5.44.0))(vue@3.5.22(typescript@4.9.5)))
@@ -1817,6 +1823,12 @@ packages:
     resolution: {integrity: sha512-576+u0QD+Jp3tZzvfRfxon0EA2lzcDt3lhUbsC6Lgzy9x2VR4E+JUiNyGHi5T8vk0TV+fpJ5GLG1JsJuWCaKhw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@uni-helper/eslint-config@0.5.0':
+    resolution: {integrity: sha512-jU/VT078aZQcwjC4ceuWWR5yh4mJ0PzW5MSrOgLi1MSbBKQe5YTAlvphXAUMYpSHqg7iwCmaWNamy3tv4ZZicw==}
+    peerDependencies:
+      '@antfu/eslint-config': ^5.0.0
+      eslint: ^9.10.0
+
   '@uni-helper/plugin-uni@0.1.0':
     resolution: {integrity: sha512-hBPUjoQc/SgqKsyGUl0fJiL+dDwLPhf2es1PJdsXcxHyOujoBP2+D4z5ie+Q72wVwKtTsQSP3tSjww/63JRmbA==}
     peerDependencies:
@@ -2629,6 +2641,9 @@ packages:
 
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
+
+  deep-pick-omit@1.2.1:
+    resolution: {integrity: sha512-2J6Kc/m3irCeqVG42T+SaUMesaK7oGWaedGnQQK/+O0gYc+2SP5bKh/KKTE7d7SJ+GCA9UUE1GRzh6oDe0EnGw==}
 
   deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
@@ -4210,6 +4225,20 @@ packages:
   pify@2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
+
+  pinia-plugin-persistedstate@4.5.0:
+    resolution: {integrity: sha512-QTkP1xJVyCdr2I2p3AKUZM84/e+IS+HktRxKGAIuDzkyaKKV48mQcYkJFVVDuvTxlI5j6X3oZObpqoVB8JnWpw==}
+    peerDependencies:
+      '@nuxt/kit': '>=3.0.0'
+      '@pinia/nuxt': '>=0.10.0'
+      pinia: '>=3.0.0'
+    peerDependenciesMeta:
+      '@nuxt/kit':
+        optional: true
+      '@pinia/nuxt':
+        optional: true
+      pinia:
+        optional: true
 
   pinia@2.3.1:
     resolution: {integrity: sha512-khUlZSwt9xXCaTbbxFYBKDc/bWAGWJjOgvxETwkTN7KRm66EeT1ZdZj6i2ceh9sP2Pzqsbc704r2yngBrxBVug==}
@@ -7615,6 +7644,16 @@ snapshots:
       '@typescript-eslint/types': 8.44.1
       eslint-visitor-keys: 4.2.1
 
+  '@uni-helper/eslint-config@0.5.0(@antfu/eslint-config@5.4.1(@unocss/eslint-plugin@66.5.2(eslint@9.36.0(jiti@2.6.0))(typescript@4.9.5))(@vue/compiler-sfc@3.5.22)(eslint@9.36.0(jiti@2.6.0))(typescript@4.9.5))(eslint@9.36.0(jiti@2.6.0))':
+    dependencies:
+      '@antfu/eslint-config': 5.4.1(@unocss/eslint-plugin@66.5.2(eslint@9.36.0(jiti@2.6.0))(typescript@4.9.5))(@vue/compiler-sfc@3.5.22)(eslint@9.36.0(jiti@2.6.0))(typescript@4.9.5)
+      '@eslint/eslintrc': 3.3.1
+      eslint: 9.36.0(jiti@2.6.0)
+      eslint-flat-config-utils: 2.1.4
+      local-pkg: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
+
   '@uni-helper/plugin-uni@0.1.0(@dcloudio/vite-plugin-uni@3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.52.2)(vite@5.2.8(@types/node@24.5.2)(sass@1.78.0)(terser@5.44.0))(vue@3.5.22(typescript@4.9.5)))':
     dependencies:
       '@dcloudio/vite-plugin-uni': 3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.52.2)(vite@5.2.8(@types/node@24.5.2)(sass@1.78.0)(terser@5.44.0))(vue@3.5.22(typescript@4.9.5))
@@ -8632,6 +8671,8 @@ snapshots:
   dedent@0.7.0: {}
 
   deep-is@0.1.4: {}
+
+  deep-pick-omit@1.2.1: {}
 
   deepmerge@4.3.1: {}
 
@@ -10635,6 +10676,14 @@ snapshots:
   picomatch@4.0.3: {}
 
   pify@2.3.0: {}
+
+  pinia-plugin-persistedstate@4.5.0(pinia@2.3.1(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5))):
+    dependencies:
+      deep-pick-omit: 1.2.1
+      defu: 6.1.4
+      destr: 2.0.5
+    optionalDependencies:
+      pinia: 2.3.1(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5))
 
   pinia@2.3.1(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5)):
     dependencies:

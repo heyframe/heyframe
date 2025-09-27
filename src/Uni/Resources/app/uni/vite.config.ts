@@ -42,6 +42,7 @@ export default defineConfig(({command, mode}) => {
         dts: 'src/components.d.ts',
         resolvers: [NutResolver()],
       }),
+      UnoCSS(),
       AutoImport({
         imports: [
           'vue',
@@ -55,14 +56,13 @@ export default defineConfig(({command, mode}) => {
           },
         ],
         dts: 'src/auto-imports.d.ts',
-        dirs: ['src/composables', 'src/stores'],
+        dirs: ['src/app/composables', 'src/app/stores'],
         vueTemplate: true,
       }),
       ViteRestart({
-        restart: ['vite.config.js'],
+        restart: ['vite.config.ts'],
       }),
       Uni(),
-      UnoCSS(),
     ],
     resolve: {
       alias: {
