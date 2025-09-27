@@ -14,13 +14,14 @@ export default defineConfig(({command, mode}) => {
   const isProd = command === 'build';
   const isDev = !isProd;
 
-  const {UNI_PLATFORM, UNI_PLUGIN_NAME} = process.env
+  const {UNI_PLUGIN_NAME} = process.env;
 
   const base = isProd ? `/bundles/${UNI_PLUGIN_NAME}/uni` : undefined;
 
-  const env = loadEnv(mode, path.resolve(process.cwd()))
-  const {VITE_APP_PORT} = env
+  const env = loadEnv(mode, path.resolve(process.cwd()));
+  const {VITE_APP_PORT} = env;
   return {
+    base,
     plugins: [
       UniHelperManifest(),
       UniHelperPages({
