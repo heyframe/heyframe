@@ -2,7 +2,6 @@ import HeyUni from "@/heyuni-instance";
 import '@/app/main';
 import 'uno.css'
 
-
 let apiConfig = {
   baseURL: import.meta.env.VITE_API_BASE_URL,
   accessToken: import.meta.env.VITE_API_ACCESS_TOKEN || ''

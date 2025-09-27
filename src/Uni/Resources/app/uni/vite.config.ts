@@ -22,9 +22,16 @@ export default defineConfig(({command, mode}) => {
   const {VITE_APP_PORT} = env;
   return {
     base,
+    resolve: {
+      alias: {
+        '@': path.resolve('./src'),
+        '@img': path.resolve('./src/static/images')
+      }
+    },
     plugins: [
       UniHelperManifest(),
       UniHelperPages({
+        exclude: ['**/components/**/**.*'],
         dts: 'src/uni-pages.d.ts',
       }),
       UniHelperLayouts(),
