@@ -121,7 +121,7 @@ export default defineManifestConfig({
       es6: true,
       minified: true,
     },
-    libVersion: '3.0.0',
+    libVersion: '3.10.0',
     optimization: {
       subPackages: true,
     },

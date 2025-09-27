@@ -1,5 +1,5 @@
-import { isH5 } from '@uni-helper/uni-env'
-import { defineUniPages } from '@uni-helper/vite-plugin-uni-pages'
+import {isH5} from '@uni-helper/uni-env'
+import {defineUniPages} from '@uni-helper/vite-plugin-uni-pages'
 
 export default defineUniPages({
   globalStyle: {
