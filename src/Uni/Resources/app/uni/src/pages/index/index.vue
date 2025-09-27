@@ -1,5 +1,6 @@
 <template>
   <view class="content">
+    <wd-button type="success">成功按钮</wd-button>
     <view class="product-list">
       <view
         class="product-item"

@@ -31,7 +31,6 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4070520250711001",
     "@dcloudio/uni-mp-xhs": "3.0.0-4070520250711001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4070520250711001",
-    "@heyframe/nutui-uniapp": "^1.9.7",
     "@uni-helper/uni-network": "^0.22.0",
     "@vueuse/core": "^13.5.0",
     "bottlejs": "^2.0.1",
@@ -43,7 +42,8 @@
     "std-env": "^3.9.0",
     "uuidv7": "^1.0.2",
     "vue": "3.4.21",
-    "vue-i18n": "^9.14.5"
+    "vue-i18n": "^9.14.5",
+    "wot-design-uni": "^1.12.4"
   },
   "devDependencies": {
     "@dcloudio/types": "^3.4.16",
@@ -74,6 +74,7 @@
     "eslint": "^9.32.0",
     "lint-staged": "^16.1.2",
     "miniprogram-api-typings": "^4.1.0",
+    "sass": "1.77.8",
     "simple-git-hooks": "^2.13.0",
     "typescript": "~5.8.3",
     "unocss": "66.0.0",

@@ -7,6 +7,7 @@ import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 import UniPolyfill from 'vite-plugin-uni-polyfill'
+import {WotResolver} from "@uni-helper/vite-plugin-uni-components/resolvers";
 
 export default defineConfig({
   plugins: [
@@ -16,6 +17,7 @@ export default defineConfig({
     }),
     UniHelperLayouts(),
     UniHelperComponents({
+      resolvers: [WotResolver()],
       dts: 'src/components.d.ts',
       directoryAsNamespace: true,
     }),
