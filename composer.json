@@ -279,7 +279,7 @@
       "@php bin/console assets:install"
     ],
     "build:uni:h5": [
-      "@pnpm:uni run build:h5",
+      "@pnpm:uni run build h5",
       "@php bin/console assets:install"
     ],
     "build:js:component-library": [
@@ -322,7 +322,7 @@
     ],
     "watch:uni:h5": [
       "@php bin/console bundle:dump",
-      "@pnpm:uni run dev:h5"
+      "@pnpm:uni run dev h5"
     ],
     "phpstan": [
       "Composer\\Config::disableProcessTimeout",
