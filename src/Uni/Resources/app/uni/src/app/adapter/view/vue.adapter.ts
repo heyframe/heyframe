@@ -1,6 +1,5 @@
 import ViewAdapter from "@/core/adapter/view.adapter";
-import type {App} from 'vue';
-import {createApp} from 'vue';
+import {App, createSSRApp} from 'vue';
 import type ApplicationBootstrapper from "@/core/application";
 import RootApp from "@/App.vue";
 import type {I18n} from "vue-i18n";
@@ -15,9 +14,9 @@ export default class VueAdapter extends ViewAdapter {
 
   private i18n?: I18n;
 
-  constructor(Application: ApplicationBootstrapper) {
+  constructor(Application: ApplicationBootstrapper,app: App<Element>) {
     super(Application);
-    this.app = createApp(RootApp);
+    this.app = app;
   }
 
   init(renderElement: string, providers: { [p: string]: unknown }): App<Element> {
@@ -25,9 +24,6 @@ export default class VueAdapter extends ViewAdapter {
   }
 
   initVue(renderElement: string, providers: { [key: string]: unknown }): App<Element> {
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-    const i18n = this.initLocales();
 
     if (!this.app) {
       throw new Error('Vue app is not initialized yet');
@@ -52,8 +48,6 @@ export default class VueAdapter extends ViewAdapter {
     });
 
     this.root = this.app;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    this.app.mount(renderElement);
     return this.root;
   }
   /**

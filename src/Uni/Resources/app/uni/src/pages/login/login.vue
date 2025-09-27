@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<view></view>
+<view>Login page</view>
 </template>
 
 <style scoped>

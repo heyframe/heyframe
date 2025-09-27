@@ -10,28 +10,24 @@
     "module": "ESNext",
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "allowJs": true,
+    "checkJs": false,
     "paths": {
       "@/*": [
         "./src/*"
       ],
       "@static/*": [
         "./src/static/*"
-      ]
+      ],
+
     },
     "resolveJsonModule": true,
     "types": [
       "@dcloudio/types",
       "@uni-helper/uni-app-types",
-      "nutui-uniapp/global.d.ts"
+      "nutui-uniapp/global.d.ts",
+      "@uni-helper/vite-plugin-uni-pages"
     ],
-    "compilerOptions": {
-      "allowJs": true,
-      "checkJs": false,
-      "types": [
-        "@uni-helper/vite-plugin-uni-pages"
-      ]
-    },
-    "allowJs": true,
     "noImplicitThis": true,
     "outDir": "dist",
     "sourceMap": true,
@@ -51,6 +47,6 @@
     "src/**/*.vue"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules","dist"
   ]
 }

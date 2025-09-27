@@ -29,9 +29,6 @@ import {definePage} from "@uni-helper/vite-plugin-uni-pages";
 
 definePage({
   type: 'home',
-  style: {
-    navigationBarTitleText: '首页',
-  },
 })
 
 const userComposable = useUser();

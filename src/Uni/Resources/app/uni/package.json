@@ -3,8 +3,9 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@9.15.4",
-  "license": "MIT",
+  "packageManager": "pnpm@10.17.1",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/heyframe/heyuni.git",
   "scripts": {
     "dev": "unh dev",
     "build": "unh build",
@@ -13,6 +14,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "npx simple-git-hooks"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-4070520250711001",
@@ -66,7 +71,7 @@
     "@uni-helper/vite-plugin-uni-components": "^0.2.0",
     "@uni-helper/vite-plugin-uni-layouts": "^0.1.11",
     "@uni-helper/vite-plugin-uni-manifest": "^0.2.8",
-    "@uni-helper/vite-plugin-uni-pages": "^0.3.8",
+    "@uni-helper/vite-plugin-uni-pages": "^0.3.17",
     "@uni-helper/volar-service-uni-pages": "^0.3.8",
     "@unocss/eslint-config": "^66.3.3",
     "@vue/runtime-core": "3.4.21",

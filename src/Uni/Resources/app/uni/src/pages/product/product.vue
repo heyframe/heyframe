@@ -9,7 +9,7 @@ definePage({
 </script>
 
 <template>
-<view></view>
+<view>Product page</view>
 </template>
 
 <style scoped>

@@ -14,23 +14,23 @@ export default defineConfig(({command, mode}) => {
   const isProd = command === 'build';
   const isDev = !isProd;
 
-  const {UNI_PLUGIN_NAME} = process.env;
+  const env = loadEnv(mode, path.resolve(process.cwd()));
+  const {VITE_APP_PORT,UNI_PLUGIN_NAME} = env;
 
   const base = isProd ? `/bundles/${UNI_PLUGIN_NAME}/uni` : undefined;
 
-  const env = loadEnv(mode, path.resolve(process.cwd()));
-  const {VITE_APP_PORT} = env;
   return {
     base,
     resolve: {
       alias: {
         '@': path.resolve('./src'),
-        '@img': path.resolve('./src/static/images')
+        '@static': path.resolve('./src/static')
       }
     },
     plugins: [
       UniHelperManifest(),
       UniHelperPages({
+        minify:true,
         exclude: ['**/components/**/**.*'],
         dts: 'src/uni-pages.d.ts',
       }),

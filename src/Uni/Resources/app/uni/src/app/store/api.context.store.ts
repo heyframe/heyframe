@@ -1,6 +1,4 @@
-/**
- * @sw-package framework
- */
+
 import useApiContext from '@/app/composables/useApiContext/use-api-context';
 import HeyUni from "@/heyuni-instance";
 

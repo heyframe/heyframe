@@ -1,9 +1,13 @@
 import { defineManifestConfig } from '@uni-helper/vite-plugin-uni-manifest'
+import * as path from "node:path";
+import {loadEnv} from "vite";
+const env = loadEnv(process.env.NODE_ENV, path.resolve(process.cwd()))
+const { VITE_APP_TITLE, VITE_UNI_APPID, VITE_WX_APPID, VITE_APP_PUBLIC_BASE } = env
 
 export default defineManifestConfig({
-  'name': 'vitesse-uni-app',
-  'appid': '',
-  'description': '',
+  name: VITE_APP_TITLE,
+  appid: VITE_UNI_APPID,
+  'description': 'HeyFrame uniapp template',
   'versionName': '1.0.0',
   'versionCode': '100',
   'transformPx': false,
@@ -52,7 +56,7 @@ export default defineManifestConfig({
   'quickapp': {},
   /* 小程序特有相关 */
   'mp-weixin': {
-    appid: '',
+    appid: VITE_WX_APPID,
     setting: {
       urlCheck: false,
     },
@@ -70,7 +74,9 @@ export default defineManifestConfig({
     usingComponents: true,
   },
   'h5': {
-    darkmode: true,
+    router: {
+      base: VITE_APP_PUBLIC_BASE,
+    },
     themeLocation: 'theme.json',
   },
   'uniStatistics': {
