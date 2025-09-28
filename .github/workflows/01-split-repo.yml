@@ -32,13 +32,6 @@ jobs:
             local_path: 'Frontend'
             split_repository: 'frontend'
 
-          -
-            local_path: 'Uni'
-            split_repository: 'uni'
-          -
-            local_path: 'Uni/Resources/app/uni'
-            split_repository: 'heyuni'
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

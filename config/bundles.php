@@ -17,7 +17,6 @@ $bundles = [
     HeyFrame\Core\Maintenance\Maintenance::class => ['all' => true],
     HeyFrame\Administration\Administration::class => ['all' => true],
     HeyFrame\Frontend\Frontend::class => ['all' => true],
-    HeyFrame\Uni\Uni::class => ['all' => true],
 ];
 
 if (InstalledVersions::isInstalled('symfony/web-profiler-bundle')) {

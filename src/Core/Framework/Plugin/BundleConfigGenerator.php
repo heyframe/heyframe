@@ -82,9 +82,6 @@ class BundleConfigGenerator implements BundleConfigGeneratorInterface
                     'webpack' => $this->getWebpackConfig($bundle->getPath(), 'Resources/app/frontend'),
                     'styleFiles' => $this->getStyleFiles($bundle->getName(), $this->stripProjectDir($bundle->getPath())),
                 ],
-                'uni' => [
-                    'path' => 'Resources/app/uni',
-                ],
             ];
         }
 

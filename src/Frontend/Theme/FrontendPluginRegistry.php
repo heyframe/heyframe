@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Uni\Framework;
-
+namespace HeyFrame\Frontend\Theme;
 use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]
-interface UniInterface
+class FrontendPluginRegistry
 {
+
 }

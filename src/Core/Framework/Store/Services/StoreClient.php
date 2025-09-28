@@ -120,7 +120,6 @@ class StoreClient
             $extensionList[] = [
                 'name' => $extension->getName(),
                 'version' => $extension->getVersion(),
-                'inAppFeatures' => \implode(',', $extension->getInAppPurchases()),
             ];
         }
 

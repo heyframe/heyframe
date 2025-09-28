@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Store\Struct;
 
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\FrameworkException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
@@ -23,19 +22,16 @@ class ExtensionStruct extends Struct
     protected ?string $localId = null;
 
     /**
-     * @see AppEntity::$name
      * @see PluginEntity::$name
      */
     protected string $name;
 
     /**
-     * @see AppEntity::$label
      * @see PluginEntity::$label
      */
     protected string $label;
 
     /**
-     * @see AppEntity::$description
      * @see PluginEntity::$description
      */
     protected ?string $description = null;
@@ -43,31 +39,21 @@ class ExtensionStruct extends Struct
     protected ?string $shortDescription = null;
 
     /**
-     * @see AppEntity::$author
      * @see PluginEntity::$author
      */
     protected ?string $producerName = null;
 
     /**
-     * @see AppEntity::$license
      * @see PluginEntity::$license
      */
     protected ?string $license = null;
 
     /**
-     * @see AppEntity::$version
      * @see PluginEntity::$version
      */
     protected ?string $version = null;
 
     protected ?string $latestVersion = null;
-
-    /**
-     * privacyPolicyLink from store
-     *
-     * @see AppEntity::$privacy
-     */
-    protected ?string $privacyPolicyLink = null;
 
     /**
      * languages property from store
@@ -101,23 +87,11 @@ class ExtensionStruct extends Struct
     protected bool $active = false;
 
     /**
-     * @var string 'app' | 'plugin'
+     * @var string 'plugin'
      */
     protected string $type;
 
     protected bool $isTheme = false;
-
-    protected bool $isUni = false;
-
-    /**
-     * @see AppEntity::$configurable
-     */
-    protected bool $configurable = false;
-
-    /**
-     * @see AppEntity::$privacyPolicyExtensions
-     */
-    protected ?string $privacyPolicyExtension = null;
 
     protected ?LicenseStruct $storeLicense = null;
 
@@ -160,11 +134,6 @@ class ExtensionStruct extends Struct
     protected bool $managedByComposer = false;
 
     protected bool $inAppFeaturesAvailable = false;
-
-    /**
-     * @var list<string>
-     */
-    protected array $inAppPurchases = [];
 
     /**
      * @param array<string, mixed> $data
@@ -286,16 +255,6 @@ class ExtensionStruct extends Struct
     public function setLatestVersion(?string $latestVersion): void
     {
         $this->latestVersion = $latestVersion;
-    }
-
-    public function getPrivacyPolicyLink(): ?string
-    {
-        return $this->privacyPolicyLink;
-    }
-
-    public function setPrivacyPolicyLink(?string $privacyPolicyLink): void
-    {
-        $this->privacyPolicyLink = $privacyPolicyLink;
     }
 
     public function getVariants(): ?VariantCollection
@@ -464,26 +423,6 @@ class ExtensionStruct extends Struct
         $this->isTheme = $isTheme;
     }
 
-    public function isConfigurable(): bool
-    {
-        return $this->configurable;
-    }
-
-    public function setConfigurable(bool $configurable): void
-    {
-        $this->configurable = $configurable;
-    }
-
-    public function getPrivacyPolicyExtension(): ?string
-    {
-        return $this->privacyPolicyExtension;
-    }
-
-    public function setPrivacyPolicyExtension(?string $privacyPolicyExtension): void
-    {
-        $this->privacyPolicyExtension = $privacyPolicyExtension;
-    }
-
     public function getStoreLicense(): ?LicenseStruct
     {
         return $this->storeLicense;
@@ -626,39 +565,4 @@ class ExtensionStruct extends Struct
         $this->storeUrl = $storeUrl;
     }
 
-    public function isInAppFeaturesAvailable(): bool
-    {
-        return $this->inAppFeaturesAvailable;
-    }
-
-    public function setInAppFeaturesAvailable(bool $inAppFeaturesAvailable): void
-    {
-        $this->inAppFeaturesAvailable = $inAppFeaturesAvailable;
-    }
-
-    /**
-     * @return list<string>
-     */
-    public function getInAppPurchases(): array
-    {
-        return $this->inAppPurchases;
-    }
-
-    /**
-     * @param list<string> $inAppPurchases
-     */
-    public function setInAppPurchases(array $inAppPurchases): void
-    {
-        $this->inAppPurchases = $inAppPurchases;
-    }
-
-    public function isUni(): bool
-    {
-        return $this->isUni;
-    }
-
-    public function setIsUni(bool $isUni): void
-    {
-        $this->isUni = $isUni;
-    }
 }

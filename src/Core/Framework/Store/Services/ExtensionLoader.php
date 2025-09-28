@@ -24,7 +24,6 @@ use HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider;
 use HeyFrame\Core\System\SystemConfig\Service\ConfigurationService;
 use HeyFrame\Frontend\Framework\ThemeInterface;
 use HeyFrame\Frontend\Theme\ThemeCollection;
-use HeyFrame\Uni\Framework\UniInterface;
 use Symfony\Component\Intl\Languages;
 use Symfony\Component\Intl\Locales;
 
@@ -127,21 +126,12 @@ class ExtensionLoader
     private function loadFromPlugin(Context $context, PluginEntity $plugin): ExtensionStruct
     {
         $isTheme = false;
-        $isUni = false;
 
         if (interface_exists(ThemeInterface::class) && class_exists($plugin->getBaseClass())) {
             $implementedInterfaces = class_implements($plugin->getBaseClass());
 
             if (\is_array($implementedInterfaces)) {
                 $isTheme = \array_key_exists(ThemeInterface::class, $implementedInterfaces);
-            }
-        }
-
-        if (interface_exists(UniInterface::class) && class_exists($plugin->getBaseClass())) {
-            $implementedInterfaces = class_implements($plugin->getBaseClass());
-
-            if (\is_array($implementedInterfaces)) {
-                $isUni = \array_key_exists(UniInterface::class, $implementedInterfaces);
             }
         }
 
@@ -159,7 +149,6 @@ class ExtensionLoader
             'active' => $plugin->getActive(),
             'type' => ExtensionStruct::EXTENSION_TYPE_PLUGIN,
             'isTheme' => $isTheme,
-            'isUni' => $isUni,
             'configurable' => $this->configurationService->checkConfiguration(\sprintf('%s.config', $plugin->getName()), $context),
             'updatedAt' => $plugin->getUpgradedAt(),
             'allowDisable' => true,

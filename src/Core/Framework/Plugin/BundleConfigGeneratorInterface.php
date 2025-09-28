@@ -20,10 +20,6 @@ use HeyFrame\Core\Framework\Log\Package;
  *            webpack: string|null,
  *            styleFiles: string[],
  *         },
- *          uni: array{
- *             path: string ,
- *             entryFilePath: string|null
- *          }
  *     }
  */
 #[Package('framework')]
