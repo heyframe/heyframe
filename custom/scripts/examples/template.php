@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Scripts\Examples;
 
@@ -10,11 +10,9 @@ $kernel = require __DIR__ . '/../boot/boot.php';
 
 class Main extends BaseScript
 {
-    public function run()
+    public function run(): void
     {
-
     }
 }
-
 
 (new Main($kernel))->run();

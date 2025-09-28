@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
-use Scripts\Boot\ScriptKernel;
 use HeyFrame\Core\Framework\Adapter\Database\MySQLFactory;
 use HeyFrame\Core\Framework\Adapter\Kernel\KernelFactory;
 use HeyFrame\Core\Framework\Plugin\KernelPluginLoader\DbalKernelPluginLoader;
+use Scripts\Boot\ScriptKernel;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpKernel\KernelInterface;
 
