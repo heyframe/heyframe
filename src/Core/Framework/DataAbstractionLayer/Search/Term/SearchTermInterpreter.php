@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term;
 
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader;
 use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]
@@ -14,23 +13,13 @@ class SearchTermInterpreter
      */
     public function __construct(
         private readonly TokenizerInterface $tokenizer,
-        private readonly SearchConfigLoader $configLoader
     ) {
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:new-optional-parameter - parameter $context will be required
-     */
-    public function interpret(string $term/* , Context $context */): SearchPattern
+    public function interpret(string $term, Context $context): SearchPattern
     {
-        $config = null;
-        if (\func_num_args() === 2) {
-            $context = func_get_arg(1);
-            $config = $this->configLoader->load($context);
-        }
-
         /** @phpstan-ignore arguments.count (This ignore should be removed when the deprecated method signature is updated) */
-        $terms = $this->tokenizer->tokenize($term, $config[0]['min_search_length'] ?? null);
+        $terms = $this->tokenizer->tokenize($term);
 
         $pattern = new SearchPattern(new SearchTerm($term));
 

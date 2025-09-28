@@ -4,9 +4,7 @@ namespace HeyFrame\Frontend\Framework\Twig;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\ChannelRequest;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\AbstractTokenFilter;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +21,6 @@ class TemplateDataExtension extends AbstractExtension implements GlobalsInterfac
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly bool $showStagingBanner,
-        private readonly Connection $connection,
     ) {
     }
 
@@ -42,14 +39,11 @@ class TemplateDataExtension extends AbstractExtension implements GlobalsInterfac
             return [];
         }
 
-        [$controllerName, $controllerAction] = $this->getControllerInfo($request);
-
         $themeId = $request->attributes->get(ChannelRequest::ATTRIBUTE_THEME_ID);
 
         return [
             'heyframe' => [
                 'dateFormat' => \DATE_ATOM,
-                'minSearchLength' => $this->minSearchLength($context),
                 'showStagingBanner' => $this->showStagingBanner,
             ],
             'themeId' => $themeId, /** Not used in Twig template directly, but in @see \HeyFrame\Storefront\Framework\Twig\Extension\ConfigExtension::getThemeId */
@@ -76,15 +70,5 @@ class TemplateDataExtension extends AbstractExtension implements GlobalsInterfac
         }
 
         return ['', ''];
-    }
-
-    private function minSearchLength(ChannelContext $context): int
-    {
-        $min = (int) $this->connection->fetchOne(
-            'SELECT `min_search_length` FROM `product_search_config` WHERE `language_id` = :id',
-            ['id' => Uuid::fromHexToBytes($context->getLanguageId())]
-        );
-
-        return $min ?: AbstractTokenFilter::DEFAULT_MIN_SEARCH_TERM_LENGTH;
     }
 }

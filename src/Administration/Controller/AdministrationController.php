@@ -3,7 +3,6 @@
 namespace HeyFrame\Administration\Controller;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Administration\Events\PreResetExcludedSearchTermEvent;
 use HeyFrame\Administration\Framework\Routing\AdministrationRouteScope;
 use HeyFrame\Administration\Framework\Routing\KnownIps\KnownIpsCollectorInterface;
 use HeyFrame\Administration\Snippet\SnippetFinderInterface;
@@ -57,9 +56,6 @@ class AdministrationController extends AbstractController
         private readonly SnippetFinderInterface $snippetFinder,
         private readonly array $supportedApiVersions,
         private readonly KnownIpsCollectorInterface $knownIpsCollector,
-        private readonly Connection $connection,
-        private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly string $heyframeCoreDir,
         private readonly EntityRepository $customerRepository,
         private readonly EntityRepository $currencyRepository,
         private readonly HtmlSanitizer $htmlSanitizer,
@@ -143,45 +139,6 @@ class AdministrationController extends AbstractController
         $response->setSharedMaxAge(3600);
 
         return $response;
-    }
-
-    #[Route(path: '/api/_admin/reset-excluded-search-term', name: 'api.admin.reset-excluded-search-term', defaults: ['_acl' => ['system_config:update', 'system_config:create', 'system_config:delete']], methods: ['POST'])]
-    public function resetExcludedSearchTerm(Context $context): JsonResponse
-    {
-        $searchConfigId = $this->connection->fetchOne('SELECT id FROM product_search_config WHERE language_id = :language_id', ['language_id' => Uuid::fromHexToBytes($context->getLanguageId())]);
-
-        if ($searchConfigId === false) {
-            throw RoutingException::languageNotFound($context->getLanguageId());
-        }
-
-        $zhLanguageId = $this->fetchLanguageIdByName('zh-CN', $this->connection);
-        $enLanguageId = $this->fetchLanguageIdByName('en-GB', $this->connection);
-
-        switch ($context->getLanguageId()) {
-            case $zhLanguageId:
-                $defaultExcludedTerm = require $this->heyframeCoreDir . '/Migration/Fixtures/stopwords/zh.php';
-
-                break;
-            case $enLanguageId:
-                $defaultExcludedTerm = require $this->heyframeCoreDir . '/Migration/Fixtures/stopwords/en.php';
-
-                break;
-            default:
-                $preResetExcludedSearchTermEvent = $this->eventDispatcher->dispatch(new PreResetExcludedSearchTermEvent($searchConfigId, [], $context));
-                $defaultExcludedTerm = $preResetExcludedSearchTermEvent->getExcludedTerms();
-        }
-
-        $this->connection->executeStatement(
-            'UPDATE `product_search_config` SET `excluded_terms` = :excludedTerms WHERE `id` = :id',
-            [
-                'excludedTerms' => json_encode($defaultExcludedTerm, \JSON_THROW_ON_ERROR),
-                'id' => $searchConfigId,
-            ]
-        );
-
-        return new JsonResponse([
-            'success' => true,
-        ]);
     }
 
     #[Route(path: '/api/_admin/check-customer-email-valid', name: 'api.admin.check-customer-email-valid', methods: ['POST'])]

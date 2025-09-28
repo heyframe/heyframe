@@ -83,7 +83,6 @@
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\SearchTermInterpreter">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Tokenizer"/>
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader"/>
         </service>
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\EntityScoreQueryBuilder"/>
@@ -93,15 +92,6 @@
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\ApiCriteriaValidator"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaArrayConverter"/>
             <argument>%heyframe.api.max_limit%</argument>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
-
-        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\CachedSearchConfigLoader" decorates="HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader" decoration-priority="-1000">
-            <argument type="service" id=".inner"/>
-            <argument type="service" id="cache.object"/>
         </service>
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaArrayConverter">

@@ -21,8 +21,6 @@ class Tokenizer implements TokenizerInterface
 
     public function tokenize(string $string, ?int $tokenMinimumLength = null): array
     {
-        $tokenMinimumLength = func_get_arg(1) ?? AbstractTokenFilter::DEFAULT_MIN_SEARCH_TERM_LENGTH;
-
         $string = mb_strtolower(html_entity_decode($string), 'UTF-8');
         $string = trim(str_replace(['/', '\\'], ' ', $string));
         $string = str_replace('<', ' <', $string);

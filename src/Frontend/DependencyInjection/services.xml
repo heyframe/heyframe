@@ -34,7 +34,6 @@
         <service id="HeyFrame\Frontend\Framework\Twig\TemplateDataExtension">
             <argument type="service" id="request_stack"/>
             <argument>%heyframe.staging.frontend.show_banner%</argument>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
 
             <tag name="twig.extension"/>
         </service>
