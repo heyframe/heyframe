@@ -1,9 +1,9 @@
 <?php
 
 use Scripts\Boot\ScriptKernel;
-use Shopware\Core\Framework\Adapter\Database\MySQLFactory;
-use Shopware\Core\Framework\Adapter\Kernel\KernelFactory;
-use Shopware\Core\Framework\Plugin\KernelPluginLoader\DbalKernelPluginLoader;
+use HeyFrame\Core\Framework\Adapter\Database\MySQLFactory;
+use HeyFrame\Core\Framework\Adapter\Kernel\KernelFactory;
+use HeyFrame\Core\Framework\Plugin\KernelPluginLoader\DbalKernelPluginLoader;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpKernel\KernelInterface;
 
