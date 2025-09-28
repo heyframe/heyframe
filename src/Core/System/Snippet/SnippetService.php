@@ -314,7 +314,12 @@ class SnippetService
     {
         $result = [];
         foreach ($isoList as $iso) {
-            $result[$iso] = $this->snippetFileCollection->getSnippetFilesByIso($iso);
+            $mappedIso = match ($iso) {
+                'zh-CN' => 'zh',
+                'en-GB' => 'en',
+                default => $iso,
+            };
+            $result[$iso] = $this->snippetFileCollection->getSnippetFilesByIso($mappedIso);
         }
 
         return $result;
