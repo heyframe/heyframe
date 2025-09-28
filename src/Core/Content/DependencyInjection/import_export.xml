@@ -179,6 +179,21 @@
             <tag name="heyframe.import_export.pipe_factory" />
         </service>
 
+        <service id="HeyFrame\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\MediaSerializer">
+            <argument type="service" id="HeyFrame\Core\Content\Media\MediaService"/>
+            <argument type="service" id="HeyFrame\Core\Content\Media\File\FileSaver"/>
+            <argument type="service" id="media_folder.repository"/>
+            <argument type="service" id="media.repository"/>
+
+            <tag name="heyframe.import_export.entity_serializer" priority="-400"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\MediaSerializerSubscriber">
+            <argument type="service" id="HeyFrame\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\MediaSerializer"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <service id="HeyFrame\Core\Content\ImportExport\ImportExportFactory" public="true">
             <argument type="service" id="HeyFrame\Core\Content\ImportExport\Service\ImportExportService"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>

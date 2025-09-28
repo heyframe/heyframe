@@ -64,6 +64,7 @@ class Migration1536233560BasicData extends MigrationStep
         $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(), 'entity' => 'customer', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(), 'entity' => 'cms_page', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(), 'entity' => 'payment_method', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $queue->addInsert('media_default_folder', ['id' => Uuid::randomBytes(), 'entity' => 'import_export_profile', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $queue->execute();
 
         $notCreatedDefaultFolders = $connection->executeQuery('
