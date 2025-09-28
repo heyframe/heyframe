@@ -1,0 +1,6 @@
+framework:
+    exceptions:
+        HeyFrame\Frontend\Theme\Exception\ThemeException:
+            log_level: notice
+        HeyFrame\Frontend\Theme\Exception\ThemeAssignmentException:
+            log_level: notice

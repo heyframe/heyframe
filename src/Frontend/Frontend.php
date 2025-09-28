@@ -4,6 +4,7 @@ namespace HeyFrame\Frontend;
 
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Frontend\DependencyInjection\DisableTemplateCachePass;
 use HeyFrame\Frontend\DependencyInjection\FrontendMigrationReplacementCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -25,8 +26,11 @@ class Frontend extends Bundle
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/DependencyInjection'));
         $loader->load('services.xml');
+        $loader->load('theme.xml');
 
         $container->setParameter('frontendRoot', $this->getPath());
+
+        $container->addCompilerPass(new DisableTemplateCachePass());
         $container->addCompilerPass(new FrontendMigrationReplacementCompilerPass());
     }
 }

@@ -11,6 +11,11 @@ use HeyFrame\Core\Framework\Log\Package;
 #[Package('framework')]
 class ThemeCollection extends EntityCollection
 {
+    public function getByTechnicalName(string $technicalName): ?ThemeEntity
+    {
+        return $this->filter(fn (ThemeEntity $theme) => $theme->getTechnicalName() === $technicalName)->first();
+    }
+
     protected function getExpectedClass(): string
     {
         return ThemeEntity::class;

@@ -1,0 +1,369 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Theme -->
+        <service id="HeyFrame\Frontend\Theme\FrontendPluginConfiguration\FrontendPluginConfigurationFactory">
+            <argument type="service" id="HeyFrame\Core\Framework\Plugin\KernelPluginLoader\KernelPluginLoader"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\FrontendPluginRegistry" public="true">
+            <argument type="service" id="kernel"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginConfiguration\FrontendPluginConfigurationFactory"/>
+
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ScssPhpCompiler" />
+
+        <service id="HeyFrame\Frontend\Theme\ThemeCompiler">
+            <argument type="service" id="heyframe.filesystem.theme"/>
+            <argument type="service" id="heyframe.filesystem.temp"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatchInputFactory" />
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFileResolver" />
+            <argument>%kernel.debug%</argument>
+            <argument type="service" id="Symfony\Component\EventDispatcher\EventDispatcherInterface" />
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFilesystemResolver" />
+            <argument type="tagged_iterator" tag="heyframe.asset"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator"/>
+            <argument type="service" id="Psr\Log\LoggerInterface"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\AbstractThemePathBuilder"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ScssPhpCompiler"/>
+            <argument>%frontend.theme.allowed_scss_values%</argument>
+            <argument>%frontend.theme.validate_on_compile%</argument>
+            <argument>%heyframe.filesystem.theme.visibility%</argument>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeLifecycleService">
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="media_folder.repository"/>
+            <argument type="service" id="theme_media.repository"/>
+            <argument type="service" id="HeyFrame\Core\Content\Media\File\FileSaver"/>
+            <argument type="service" id="HeyFrame\Core\Content\Media\File\FileNameProvider"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFilesystemResolver"/>
+            <argument type="service" id="language.repository"/>
+            <argument type="service" id="theme_child.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginConfiguration\FrontendPluginConfigurationFactory" on-invalid="null"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeFileResolver">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFilesystemResolver"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeScripts">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeMergedConfigBuilder">
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="theme.repository"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeService">
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="theme_channel.repository"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeCompiler"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ScssPhpCompiler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ConfigLoader\AbstractConfigLoader"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="messenger.default_bus"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Notification\NotificationService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeMergedConfigBuilder"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ResolvedConfigLoader" lazy="true">
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeConfigCacheInvalidator">
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeLifecycleHandler">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeLifecycleService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeService"/>
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ConfigLoader\DatabaseAvailableThemeProvider">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ConfigLoader\DatabaseConfigLoader">
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="media.repository"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigStorage">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigService">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFileResolver"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeMergedConfigBuilder"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigStorage"/>
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="cache.object"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\SeedingThemePathBuilder" lazy="true">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\MD5ThemePathBuilder"/>
+
+        <service id="HeyFrame\Frontend\Theme\Message\DeleteThemeFilesHandler">
+            <argument type="service" id="heyframe.filesystem.theme"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\AbstractThemePathBuilder"/>
+
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Message\CompileThemeHandler">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeCompiler"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ConfigLoader\AbstractConfigLoader"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Notification\NotificationService"/>
+            <argument type="service" id="channel.repository" />
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigService"/>
+
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ScheduledTask\DeleteThemeFilesTask">
+            <tag name="heyframe.scheduled.task"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ScheduledTask\DeleteThemeFilesTaskHandler">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="heyframe.filesystem.theme"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\AbstractThemePathBuilder"/>
+
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ConfigLoader\StaticFileConfigLoader">
+            <argument type="service" id="heyframe.filesystem.private"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ConfigLoader\StaticFileAvailableThemeProvider">
+            <argument type="service" id="heyframe.filesystem.private"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ConfigLoader\StaticFileConfigDumper">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ConfigLoader\DatabaseConfigLoader"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ConfigLoader\DatabaseAvailableThemeProvider"/>
+            <argument type="service" id="heyframe.filesystem.private"/>
+            <argument type="service" id="heyframe.filesystem.temp"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="heyframe.asset.theme" class="HeyFrame\Frontend\Theme\ThemeAssetPackage" lazy="true">
+            <argument type="collection">
+                <argument>%heyframe.filesystem.theme.url%</argument>
+            </argument>
+            <argument type="service" id="heyframe.asset.theme.version_strategy"/>
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\AbstractThemePathBuilder"/>
+            <tag name="heyframe.asset" asset="theme"/>
+        </service>
+
+        <!-- Entity definitions -->
+        <service id="HeyFrame\Frontend\Theme\ThemeDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Aggregate\ThemeTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Aggregate\ThemeChannelDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Aggregate\ThemeMediaDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Aggregate\ThemeChildDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <!-- Entity extensions -->
+        <service id="HeyFrame\Frontend\Theme\Extension\ChannelExtension">
+            <tag name="heyframe.entity.extension"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Extension\LanguageExtension">
+            <tag name="heyframe.entity.extension"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Extension\MediaExtension">
+            <tag name="heyframe.entity.extension"/>
+        </service>
+
+        <!-- Controller -->
+        <service id="HeyFrame\Frontend\Theme\Controller\ThemeController" public="true">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ScssPhpCompiler"/>
+            <argument>%frontend.theme.allowed_scss_values%</argument>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <!--  Commands -->
+        <service id="HeyFrame\Frontend\Theme\Command\ThemeCreateCommand">
+            <argument>%kernel.project_dir%</argument>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Command\ThemeChangeCommand">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="channel.repository"/>
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="theme_channel.repository"/>
+            <argument type="service" id="media_thumbnail.repository"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Command\ThemeCompileCommand">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ConfigLoader\AbstractAvailableThemeProvider"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Command\ThemeDumpCommand">
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFileResolver"/>
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ConfigLoader\StaticFileConfigDumper"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFilesystemResolver"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Command\ThemeRefreshCommand">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeLifecycleService"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Command\ThemePrepareIconsCommand">
+
+            <tag name="console.command"/>
+        </service>
+
+        <!-- Subscriber -->
+        <service id="HeyFrame\Frontend\Theme\Subscriber\PluginLifecycleSubscriber">
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+            <argument>%kernel.project_dir%</argument>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginConfiguration\FrontendPluginConfigurationFactory"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeLifecycleHandler"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeLifecycleService"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Twig\ThemeInheritanceBuilderInterface"
+                 class="HeyFrame\Frontend\Theme\Twig\ThemeInheritanceBuilder">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigService"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Subscriber\ThemeCompilerEnrichScssVarSubscriber">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\Service\ConfigurationService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\FrontendPluginRegistry"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <!-- Twig -->
+        <service id="HeyFrame\Frontend\Theme\Twig\ThemeNamespaceHierarchyBuilder">
+            <argument type="service" id="HeyFrame\Frontend\Theme\Twig\ThemeInheritanceBuilderInterface"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\DatabaseChannelThemeLoader"/>
+
+            <tag name="kernel.event_subscriber" />
+            <tag name="kernel.reset" method="reset"/>
+
+            <!-- Make sure it runs after default `BundleHierarchyBuilder` -->
+            <tag name="heyframe.twig.hierarchy_builder" priority="500"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Subscriber\FirstRunWizardSubscriber">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeLifecycleService"/>
+            <argument type="service" id="theme.repository" />
+            <argument type="service" id="theme_channel.repository" />
+            <argument type="service" id="channel.repository" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Subscriber\UpdateSubscriber">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeLifecycleService"/>
+            <argument type="service" id="channel.repository" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Subscriber\UnusedMediaSubscriber">
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeService"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\DataAbstractionLayer\ThemeIndexer">
+            <tag name="heyframe.entity_indexer"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="theme.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\DatabaseChannelThemeLoader" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\DataAbstractionLayer\ThemeExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeFilesystemResolver" public="true">
+            <argument type="service" id="kernel"></argument>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\Subscriber\ThemeSnippetsSubscriber">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeRuntimeConfigService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\DatabaseChannelThemeLoader"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</container>
