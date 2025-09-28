@@ -63,7 +63,6 @@ class ThemeLifecycleService
         Context $context,
         ?FrontendPluginConfigurationCollection $configurationCollection = null
     ): void {
-
         $pluginConfigurationCollection = $this->pluginRegistry->getConfigurations();
 
         if ($configurationCollection === null) {

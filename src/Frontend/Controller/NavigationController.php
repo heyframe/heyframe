@@ -26,6 +26,80 @@ class NavigationController extends FrontendController
     )]
     public function home(Request $request, ChannelContext $context): Response
     {
-        return $this->renderFrontend('@Frontend/frontend/page/content/index.html.twig');
+        $cmsPage = $this->getNewCmsStructure();
+
+        return $this->renderFrontend(
+            '@Frontend/frontend/page/content/index.html.twig',
+            [
+                'cmsPage' => $cmsPage,
+            ]
+        );
+    }
+
+    /**
+     * TODO: Remove after final CMS structure is implemented.
+     */
+    private static function getNewCmsStructure()
+    {
+        return [
+            'id' => '123',
+            'name' => 'Home',
+            'elements' => [
+                [
+                    'id' => '123',
+                    'component' => 'Sw:Grid:Container',
+                    'properties' => [
+                        'columns' => '2',
+                        'columnsLg' => '1',
+                        'gap' => '24',
+                        'align' => 'start',
+                        'alignContent' => 'start',
+                        'justify' => 'stretch',
+                        'justifyContent' => 'stretch',
+                    ],
+                    'slots' => [
+                        'column-1' => [
+                            [
+                                'id' => 'ABC',
+                                'component' => 'Sw:Grid:Column',
+                                'properties' => [
+                                    'start' => null,
+                                    'span' => null,
+                                ],
+                                'slots' => [
+                                    'default' => [
+                                        [
+                                            'id' => '123',
+                                            'component' => 'Sw:Content:Text',
+                                            'properties' => [
+                                                'text' => '<h1>Lorem ipsum dolor sit amet.</h1><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>',
+                                            ],
+                                        ],
+                                        [
+                                            'id' => '123',
+                                            'component' => 'Sw:Alert',
+                                            'properties' => [
+                                                'text' => 'Hello World',
+                                            ],
+                                            'slots' => [
+                                                'content' => [
+                                                    [
+                                                        'id' => '123',
+                                                        'component' => 'Sw:Button',
+                                                        'properties' => [
+                                                            'text' => 'Click Me!',
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 }

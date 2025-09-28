@@ -323,6 +323,12 @@ frame-ancestors 'none';
             <tag name="kernel.reset" method="reset"/>
         </service>
 
+        <service id="HeyFrame\Core\Framework\Adapter\Twig\Extension\SwSanitizeTwigFilter" public="false">
+            <argument type="service" id="HeyFrame\Core\Framework\Util\HtmlSanitizer"/>
+            <tag name="twig.extension"/>
+            <tag name="kernel.reset" method="reset"/>
+        </service>
+
         <service id="HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\NamespaceHierarchyBuilder">
             <argument type="tagged_iterator" tag="heyframe.twig.hierarchy_builder"/>
         </service>
