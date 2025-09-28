@@ -564,5 +564,4 @@ class ExtensionStruct extends Struct
     {
         $this->storeUrl = $storeUrl;
     }
-
 }
