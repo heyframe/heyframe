@@ -39,8 +39,6 @@ class ProductIndexer extends EntityIndexer
     final public const CATEGORY_DENORMALIZER_UPDATER = 'product.category-denormalizer';
     final public const CHEAPEST_PRICE_UPDATER = 'product.cheapest-price';
     final public const RATING_AVERAGE_UPDATER = 'product.rating-average';
-    final public const STREAM_UPDATER = 'product.stream';
-    final public const SEARCH_KEYWORD_UPDATER = 'product.search-keyword';
     final public const STATES_UPDATER = 'product.states';
     private const UPDATE_IDS_CHUNK_SIZE = 50;
 
@@ -57,7 +55,6 @@ class ProductIndexer extends EntityIndexer
         private readonly ProductCategoryDenormalizer $categoryDenormalizer,
         private readonly InheritanceUpdater $inheritanceUpdater,
         private readonly RatingAverageUpdater $ratingAverageUpdater,
-        private readonly SearchKeywordUpdater $searchKeywordUpdater,
         private readonly ChildCountUpdater $childCountUpdater,
         private readonly ManyToManyIdFieldUpdater $manyToManyIdFieldUpdater,
         private readonly AbstractStockStorage $stockStorage,
@@ -211,12 +208,6 @@ class ProductIndexer extends EntityIndexer
             });
         }
 
-        if ($message->allow(self::SEARCH_KEYWORD_UPDATER)) {
-            Profiler::trace('product:indexer:search-keywords', function () use ($ids, $context): void {
-                $this->searchKeywordUpdater->update($ids, $context);
-            });
-        }
-
         if ($message->allow(self::STATES_UPDATER)) {
             Profiler::trace('product:indexer:states', function () use ($ids, $context): void {
                 $this->statesUpdater->update($ids, $context);
@@ -249,8 +240,6 @@ class ProductIndexer extends EntityIndexer
             self::CATEGORY_DENORMALIZER_UPDATER,
             self::CHEAPEST_PRICE_UPDATER,
             self::RATING_AVERAGE_UPDATER,
-            self::STREAM_UPDATER,
-            self::SEARCH_KEYWORD_UPDATER,
         ];
     }
 

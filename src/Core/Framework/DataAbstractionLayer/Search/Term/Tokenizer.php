@@ -12,25 +12,16 @@ class Tokenizer implements TokenizerInterface
      * @param string[] $preservedChars
      *
      * @internal
-     *
-     *  @deprecated tag:v6.8.0 - Property `$tokenMinimumLength` will be removed
      */
     public function __construct(
-        private readonly int $tokenMinimumLength,
         private readonly array $preservedChars = ['-', '_', '+', '.', '@']
     ) {
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:new-optional-parameter - parameter $tokenMinimumLength will be added
-     */
-    public function tokenize(string $string/* , ?int $tokenMinimumLength = null */): array
+
+    public function tokenize(string $string, ?int $tokenMinimumLength = null): array
     {
-        if (\func_num_args() === 2) {
-            $tokenMinimumLength = func_get_arg(1) ?? AbstractTokenFilter::DEFAULT_MIN_SEARCH_TERM_LENGTH;
-        } else {
-            $tokenMinimumLength = $this->tokenMinimumLength;
-        }
+        $tokenMinimumLength = func_get_arg(1) ?? AbstractTokenFilter::DEFAULT_MIN_SEARCH_TERM_LENGTH;
 
         $string = mb_strtolower(html_entity_decode($string), 'UTF-8');
         $string = trim(str_replace(['/', '\\'], ' ', $string));

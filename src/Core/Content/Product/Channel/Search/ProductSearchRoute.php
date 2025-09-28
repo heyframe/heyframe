@@ -6,7 +6,6 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityD
 use HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader;
 use HeyFrame\Core\Content\Product\Channel\Listing\ProductListingResult;
 use HeyFrame\Core\Content\Product\Channel\ProductAvailableFilter;
-use HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
@@ -24,7 +23,6 @@ class ProductSearchRoute extends AbstractProductSearchRoute
      * @internal
      */
     public function __construct(
-        private readonly ProductSearchBuilderInterface $searchBuilder,
         private readonly ProductListingLoader $productListingLoader
     ) {
     }
@@ -34,7 +32,7 @@ class ProductSearchRoute extends AbstractProductSearchRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/front-api/search', name: 'front-api.search', methods: ['POST'], defaults: ['_entity' => 'product'])]
+    #[Route(path: '/front-api/search', name: 'front-api.search', defaults: ['_entity' => 'product'], methods: ['POST'])]
     public function load(Request $request, ChannelContext $context, Criteria $criteria): ProductSearchRouteResponse
     {
         $criteria->addState(Criteria::STATE_ELASTICSEARCH_AWARE);
@@ -42,10 +40,6 @@ class ProductSearchRoute extends AbstractProductSearchRoute
         $criteria->addFilter(
             new ProductAvailableFilter($context->getChannelId(), ProductVisibilityDefinition::VISIBILITY_SEARCH)
         );
-
-        if ($request->get('search')) {
-            $this->searchBuilder->build($request, $criteria, $context);
-        }
 
         $result = $this->productListingLoader->load($criteria, $context);
 

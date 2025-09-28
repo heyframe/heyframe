@@ -9,7 +9,6 @@ use HeyFrame\Core\Content\Product\Events\ProductSuggestCriteriaEvent;
 use HeyFrame\Core\Content\Product\Events\ProductSuggestResultEvent;
 use HeyFrame\Core\Content\Product\ProductEvents;
 use HeyFrame\Core\Content\Product\ProductException;
-use HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchBuilderInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
@@ -27,7 +26,6 @@ class ResolvedCriteriaProductSuggestRoute extends AbstractProductSuggestRoute
      * @internal
      */
     public function __construct(
-        private readonly ProductSearchBuilderInterface $searchBuilder,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly AbstractProductSuggestRoute $decorated,
         private readonly CompositeListingProcessor $processor
@@ -57,8 +55,6 @@ class ResolvedCriteriaProductSuggestRoute extends AbstractProductSuggestRoute
         $criteria->addFilter(
             new ProductAvailableFilter($context->getChannelId(), ProductVisibilityDefinition::VISIBILITY_SEARCH)
         );
-
-        $this->searchBuilder->build($request, $criteria, $context);
 
         $this->processor->prepare($request, $criteria, $context);
 

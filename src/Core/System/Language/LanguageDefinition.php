@@ -7,7 +7,6 @@ use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationDefinition;
 use HeyFrame\Core\Content\Media\Aggregate\MediaTranslation\MediaTranslationDefinition;
-use HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOptionTranslation\PropertyGroupOptionTranslationDefinition;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupTranslation\PropertyGroupTranslationDefinition;
@@ -117,7 +116,6 @@ class LanguageDefinition extends EntityDefinition
             (new OneToManyAssociationField('channelTypeTranslations', ChannelTypeTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('pluginTranslations', PluginTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('stateMachineTranslations', StateMachineTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
-            (new OneToManyAssociationField('productSearchKeywords', ProductSearchKeywordDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('stateMachineStateTranslations', StateMachineStateTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('numberRangeTypeTranslations', NumberRangeTypeTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('numberRangeTranslations', NumberRangeTranslationDefinition::class, 'language_id'))->addFlags(new CascadeDelete()),

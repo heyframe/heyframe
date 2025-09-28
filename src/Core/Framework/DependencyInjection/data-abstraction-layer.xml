@@ -79,10 +79,7 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Tokenizer">
-            <argument>%heyframe.dbal.token_minimum_length%</argument>
-            <argument>%heyframe.search.preserved_chars%</argument>
-        </service>
+        <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Tokenizer" />
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\SearchTermInterpreter">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Tokenizer"/>
@@ -90,19 +87,6 @@
         </service>
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\EntityScoreQueryBuilder"/>
-
-        <service id="HeyFrame\Core\Content\Product\SearchKeyword\ProductSearchTermInterpreter">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Tokenizer"/>
-            <argument type="service" id="logger"/>
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\TokenFilter"/>
-            <argument type="service" id="HeyFrame\Core\Content\Product\SearchKeyword\KeywordLoader"/>
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Product\SearchKeyword\KeywordLoader">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
 
         <service id="api.request_criteria_builder" class="HeyFrame\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Parser\AggregationParser"/>
