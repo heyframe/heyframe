@@ -11,6 +11,7 @@ use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Frontend\Event\ThemeCompilerConcatenatedStylesEvent;
+use HeyFrame\Frontend\Framework\Twig\Components\UxComponentHelper;
 use HeyFrame\Frontend\Theme\Event\ThemeCompilerEnrichScssVariablesEvent;
 use HeyFrame\Frontend\Theme\Exception\ThemeException;
 use HeyFrame\Frontend\Theme\FrontendPluginConfiguration\File;

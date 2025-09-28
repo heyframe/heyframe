@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Frontend\Theme;
 
+use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\RequestStack;
 

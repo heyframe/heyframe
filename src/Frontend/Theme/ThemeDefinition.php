@@ -20,9 +20,9 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationFi
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelDefinition;
+use HeyFrame\Frontend\Theme\Aggregate\ThemeChannelDefinition;
 use HeyFrame\Frontend\Theme\Aggregate\ThemeChildDefinition;
 use HeyFrame\Frontend\Theme\Aggregate\ThemeMediaDefinition;
-use HeyFrame\Frontend\Theme\Aggregate\ThemeChannelDefinition;
 use HeyFrame\Frontend\Theme\Aggregate\ThemeTranslationDefinition;
 
 #[Package('framework')]

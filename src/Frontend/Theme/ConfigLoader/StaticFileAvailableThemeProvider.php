@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace HeyFrame\Frontend\Theme\ConfigLoader;
 
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
+use League\Flysystem\FilesystemOperator;
 
 #[Package('framework')]
 class StaticFileAvailableThemeProvider extends AbstractAvailableThemeProvider

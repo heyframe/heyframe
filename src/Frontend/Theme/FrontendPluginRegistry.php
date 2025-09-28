@@ -59,6 +59,7 @@ class FrontendPluginRegistry implements ResetInterface
         if ($pluginConfig = $this->getPluginConfigByTechnicalName($technicalName)) {
             return $pluginConfig;
         }
+
         return null;
     }
 

@@ -27,6 +27,7 @@ class Frontend extends Bundle
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/DependencyInjection'));
         $loader->load('services.xml');
         $loader->load('theme.xml');
+        $loader->load('controller.xml');
 
         $container->setParameter('frontendRoot', $this->getPath());
 

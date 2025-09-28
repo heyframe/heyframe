@@ -1,0 +1,313 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Frontend\Framework\Routing;
+
+use HeyFrame\Core\ChannelRequest;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Routing\RequestTransformerInterface;
+use HeyFrame\Core\PlatformRequest;
+use HeyFrame\Frontend\Framework\Routing\Exception\ChannelMappingException;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * @phpstan-import-type Domain from AbstractDomainLoader
+ */
+#[Package('framework')]
+class RequestTransformer implements RequestTransformerInterface
+{
+    /**
+     * Virtual path of the "domain"
+     *
+     * @example
+     * - `/de`
+     * - `/en`
+     * - {empty} - the virtual path is optional
+     */
+    final public const CHANNEL_BASE_URL = 'sw-channel-base-url';
+
+    /**
+     * Scheme + Host + port + subdir in web root
+     *
+     * @example
+     * - `https://shop.example` - no subdir
+     * - `http://localhost:8000/subdir` - with sub dir `/subdir`
+     */
+    final public const CHANNEL_ABSOLUTE_BASE_URL = 'sw-channel-absolute-base-url';
+
+    /**
+     * Scheme + Host + port + subdir in web root + virtual path
+     *
+     * @example
+     * - `https://shop.example` - no sub dir and no virtual path
+     * - `https://shop.example/en` - no sub dir and virtual path `/en`
+     * - `http://localhost:8000/subdir` - with sub directory `/subdir`
+     * - `http://localhost:8000/subdir/de` - with sub directory `/subdir` and virtual path `/de`
+     */
+    final public const STOREFRONT_URL = 'sw-storefront-url';
+
+    final public const CHANNEL_RESOLVED_URI = 'resolved-uri';
+
+    final public const ORIGINAL_REQUEST_URI = 'sw-original-request-uri';
+
+    private const INHERITABLE_ATTRIBUTE_NAMES = [
+        self::CHANNEL_BASE_URL,
+        self::CHANNEL_ABSOLUTE_BASE_URL,
+        self::STOREFRONT_URL,
+        self::CHANNEL_RESOLVED_URI,
+
+        PlatformRequest::ATTRIBUTE_CHANNEL_ID,
+        ChannelRequest::ATTRIBUTE_IS_CHANNEL_REQUEST,
+
+        ChannelRequest::ATTRIBUTE_DOMAIN_LOCALE,
+        ChannelRequest::ATTRIBUTE_DOMAIN_SNIPPET_SET_ID,
+        ChannelRequest::ATTRIBUTE_DOMAIN_CURRENCY_ID,
+        ChannelRequest::ATTRIBUTE_DOMAIN_ID,
+
+        ChannelRequest::ATTRIBUTE_THEME_ID,
+        ChannelRequest::ATTRIBUTE_THEME_NAME,
+        ChannelRequest::ATTRIBUTE_THEME_BASE_NAME,
+
+        ChannelRequest::ATTRIBUTE_CANONICAL_LINK,
+    ];
+
+    private const DOES_NOT_REQUIRE_CHANNEL = [
+        '/_wdt/',
+        '/_profiler/',
+        '/_error/',
+        '/payment/finalize-transaction',
+        '/installer',
+        '/_fragment/',
+        '/robots.txt',
+        '/storybook/',
+    ];
+
+    /**
+     * @internal
+     *
+     * @param array<string> $registeredApiPrefixes
+     */
+    public function __construct(
+        private readonly RequestTransformerInterface $decorated,
+        private readonly array $registeredApiPrefixes,
+        private readonly AbstractDomainLoader $domainLoader
+    ) {
+    }
+
+    public function transform(Request $request): Request
+    {
+        $request = $this->decorated->transform($request);
+
+        if (!$this->isChannelRequired($request->getPathInfo())) {
+            return $this->decorated->transform($request);
+        }
+
+        $channel = $this->findChannel($request);
+
+        if ($channel === null) {
+            // this class and therefore the "isChannelRequired" method is currently not extendable
+            // which can cause problems when adding custom paths
+            throw new ChannelMappingException($request->getUri());
+        }
+
+        $absoluteBaseUrl = $this->getSchemeAndHttpHost($request) . $request->getBaseUrl();
+        $baseUrl = str_replace($absoluteBaseUrl, '', $channel['url']);
+
+        $currentRequestUri = $request->getRequestUri();
+
+        $pathInfo = $request->getPathInfo();
+
+        /**
+         * - Remove "virtual" suffix of domain mapping heyframe.de/de
+         * - To get only the host heyframe.de as real request uri heyframe.de/
+         * - Resolve remaining seo url and get the real path info heyframe.de/outdoor => heyframe.de/navigation/{id}
+         *
+         * Possible domains
+         *
+         * same host, different "virtual" suffix
+         * http://heyframe.de/de
+         * http://heyframe.de/en
+         * http://heyframe.de/fr
+         *
+         * same host, different location
+         * http://heyframe.fr
+         * http://heyframe.com
+         * http://heyframe.de
+         *
+         * complete different host and location
+         * http://color.com
+         * http://farben.de
+         * http://couleurs.fr
+         *
+         * installation in sub directory
+         * http://localhost/development/public/de
+         * http://localhost/development/public/en
+         * http://localhost/development/public/fr
+         *
+         * installation with port
+         * http://localhost:8080
+         * http://localhost:8080/en
+         * http://localhost:8080/fr
+         */
+        $transformedServerVars = array_merge(
+            $request->server->all(),
+            ['REQUEST_URI' => rtrim($request->getBaseUrl(), '/') . $pathInfo]
+        );
+
+        $transformedRequest = $request->duplicate(null, null, null, null, null, $transformedServerVars);
+        $transformedRequest->attributes->set(self::CHANNEL_BASE_URL, $baseUrl);
+        $transformedRequest->attributes->set(self::CHANNEL_ABSOLUTE_BASE_URL, rtrim($absoluteBaseUrl, '/'));
+        $transformedRequest->attributes->set(
+            self::STOREFRONT_URL,
+            $transformedRequest->attributes->get(self::CHANNEL_ABSOLUTE_BASE_URL)
+            . $transformedRequest->attributes->get(self::CHANNEL_BASE_URL)
+        );
+        $transformedRequest->attributes->set(self::CHANNEL_RESOLVED_URI, $pathInfo);
+
+        $transformedRequest->attributes->set(PlatformRequest::ATTRIBUTE_CHANNEL_ID, $channel['channelId']);
+        $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_IS_CHANNEL_REQUEST, true);
+        $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_DOMAIN_LOCALE, $channel['locale']);
+        $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_DOMAIN_SNIPPET_SET_ID, $channel['snippetSetId']);
+        $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_DOMAIN_CURRENCY_ID, $channel['currencyId']);
+        $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_DOMAIN_ID, $channel['id']);
+        $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_THEME_ID, $channel['themeId']);
+        $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_THEME_NAME, $channel['themeName']);
+        $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_THEME_BASE_NAME, $channel['parentThemeName']);
+
+        $transformedRequest->attributes->set(
+            ChannelRequest::ATTRIBUTE_CHANNEL_MAINTENANCE,
+            (bool) $channel['maintenance']
+        );
+
+        $transformedRequest->attributes->set(
+            ChannelRequest::ATTRIBUTE_CHANNEL_MAINTENANCE_IP_WHITLELIST,
+            $channel['maintenanceIpWhitelist']
+        );
+
+        if (isset($resolved['canonicalPathInfo'])) {
+            $urlPath = parse_url($channel['url'], \PHP_URL_PATH);
+            if ($urlPath === false || $urlPath === null) {
+                $urlPath = '';
+            }
+
+            $baseUrlPath = trim($urlPath, '/');
+            if (\strlen($baseUrlPath) > 1 && !str_starts_with($baseUrlPath, '/')) {
+                $baseUrlPath = '/' . $baseUrlPath;
+            }
+
+            $transformedRequest->attributes->set(
+                ChannelRequest::ATTRIBUTE_CANONICAL_LINK,
+                $this->getSchemeAndHttpHost($request) . $baseUrlPath . $resolved['canonicalPathInfo']
+            );
+        }
+
+        $transformedRequest->headers->add($request->headers->all());
+        $transformedRequest->headers->set(PlatformRequest::HEADER_LANGUAGE_ID, $channel['languageId']);
+        $transformedRequest->attributes->set(self::ORIGINAL_REQUEST_URI, $currentRequestUri);
+
+        return $transformedRequest;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function extractInheritableAttributes(Request $sourceRequest): array
+    {
+        $inheritableAttributes = $this->decorated
+            ->extractInheritableAttributes($sourceRequest);
+
+        foreach (self::INHERITABLE_ATTRIBUTE_NAMES as $attributeName) {
+            if (!$sourceRequest->attributes->has($attributeName)) {
+                continue;
+            }
+
+            $inheritableAttributes[$attributeName] = $sourceRequest->attributes->get($attributeName);
+        }
+
+        return $inheritableAttributes;
+    }
+
+    private function isChannelRequired(string $pathInfo): bool
+    {
+        $pathInfo = '/' . trim($pathInfo, '/') . '/';
+
+        foreach ($this->registeredApiPrefixes as $apiPrefix) {
+            if (str_starts_with($pathInfo, '/' . $apiPrefix . '/')) {
+                return false;
+            }
+        }
+
+        foreach (self::DOES_NOT_REQUIRE_CHANNEL as $prefix) {
+            if (str_starts_with($pathInfo, $prefix)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @return Domain|null
+     */
+    private function findChannel(Request $request): ?array
+    {
+        $domains = $this->domainLoader->load();
+
+        if (empty($domains)) {
+            return null;
+        }
+
+        // domain urls and request uri should be in same format, all with trailing slash
+        $requestUrl = rtrim($this->getSchemeAndHttpHost($request) . $request->getBasePath() . $request->getPathInfo(), '/') . '/';
+
+        // direct hit
+        if (\array_key_exists($requestUrl, $domains)) {
+            $domain = $domains[$requestUrl];
+            $domain['url'] = rtrim($domain['url'], '/');
+
+            return $domain;
+        }
+
+        // reduce front to which base url is the beginning of the request
+        $domains = array_filter($domains, fn ($baseUrl): bool => str_starts_with($requestUrl, $baseUrl), \ARRAY_FILTER_USE_KEY);
+
+        if (empty($domains)) {
+            return null;
+        }
+
+        // determine most matching shop base url
+        $lastBaseUrl = '';
+        $bestMatch = current($domains);
+        foreach ($domains as $baseUrl => $urlConfig) {
+            if (mb_strlen($baseUrl) > mb_strlen($lastBaseUrl)) {
+                $bestMatch = $urlConfig;
+                $lastBaseUrl = $baseUrl;
+            }
+        }
+
+        $bestMatch['url'] = rtrim($bestMatch['url'], '/');
+
+        return $bestMatch;
+    }
+
+    private function getSchemeAndHttpHost(Request $request): string
+    {
+        return $request->getScheme() . '://' . idn_to_utf8($request->getHttpHost());
+    }
+
+    /**
+     * We add the trailing slash to the base url
+     * so we have to add it to the path info too, to check if they are equal
+     */
+    private function equalsBaseUrl(string $seoPathInfo, string $baseUrl): bool
+    {
+        return $baseUrl === rtrim($seoPathInfo, '/') . '/';
+    }
+
+    /**
+     * We don't have to add the trailing slash when we check if the pathInfo contains teh base url
+     */
+    private function containsBaseUrl(string $seoPathInfo, string $baseUrl): bool
+    {
+        return !empty($baseUrl) && mb_strpos($seoPathInfo, $baseUrl) === 0;
+    }
+}

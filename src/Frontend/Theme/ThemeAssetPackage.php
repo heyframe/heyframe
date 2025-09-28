@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Frontend\Theme;
 
+use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Framework\Adapter\Asset\FallbackUrlPackage;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\ChannelRequest;
 use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -54,7 +54,7 @@ class ThemeAssetPackage extends FallbackUrlPackage
             return '';
         }
 
-        $channelId = $currentRequest->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
+        $channelId = $currentRequest->attributes->get(PlatformRequest::ATTRIBUTE_CHANNEL_ID);
         $themeId = $currentRequest->attributes->get(ChannelRequest::ATTRIBUTE_THEME_ID);
 
         if ($themeId === null || $channelId === null) {

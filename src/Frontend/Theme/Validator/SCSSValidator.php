@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Frontend\Theme\Validator;
 
-use ScssPhp\ScssPhp\Colors;
-use ScssPhp\ScssPhp\OutputStyle;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Frontend\Theme\AbstractScssCompiler;
 use HeyFrame\Frontend\Theme\CompilerConfiguration;
 use HeyFrame\Frontend\Theme\Exception\ThemeException;
+use ScssPhp\ScssPhp\Colors;
+use ScssPhp\ScssPhp\OutputStyle;
 
 #[Package('framework')]
 class SCSSValidator

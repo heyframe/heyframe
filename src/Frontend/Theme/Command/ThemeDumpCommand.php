@@ -63,7 +63,7 @@ class ThemeDumpCommand extends Command
         $this->io = new SymfonyStyle($input, $output);
 
         $criteria = new Criteria();
-        $criteria->addFilter(new EqualsFilter('theme.channels.typeId', Defaults::SALES_CHANNEL_TYPE_STOREFRONT));
+        $criteria->addFilter(new EqualsFilter('theme.channels.typeId', Defaults::CHANNEL_TYPE_FRONTEND));
         $criteria->addAssociation('channels.domains');
 
         $themeId = $input->getArgument('theme-id');
@@ -168,7 +168,7 @@ class ThemeDumpCommand extends Command
 
         foreach ($themes as $theme) {
             $themeName = $theme->getName();
-            $channels = $theme->getChannels()?->filterByTypeId(Defaults::SALES_CHANNEL_TYPE_STOREFRONT);
+            $channels = $theme->getChannels()?->filterByTypeId(Defaults::CHANNEL_TYPE_FRONTEND);
             $channelCount = $channels ? $channels->count() : 0;
 
             if ($channelCount > 0) {
@@ -191,7 +191,7 @@ class ThemeDumpCommand extends Command
 
     private function askForDomainUrlIfMoreThanOneExists(ThemeEntity $themeEntity, InputInterface $input, OutputInterface $output): ?string
     {
-        $channels = $themeEntity->getChannels()?->filterByTypeId(Defaults::SALES_CHANNEL_TYPE_STOREFRONT);
+        $channels = $themeEntity->getChannels()?->filterByTypeId(Defaults::CHANNEL_TYPE_FRONTEND);
 
         if (!$channels) {
             return null;

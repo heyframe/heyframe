@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Frontend\Theme;
 
+use HeyFrame\Core\Framework\Log\Package;
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\OutputStyle;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal - may be changed in the future

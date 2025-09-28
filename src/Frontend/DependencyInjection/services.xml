@@ -16,6 +16,47 @@
             <tag name="heyframe.route_scope"/>
         </service>
 
+        <service id="HeyFrame\Frontend\Framework\Twig\IconExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Twig\Extension\IconCacheTwigFilter" public="false">
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Routing\Router" decorates="router">
+            <argument type="service" id="HeyFrame\Frontend\Framework\Routing\Router.inner"/>
+            <argument type="service" id="request_stack"/>
+            <argument>%frontend.router.allowed_routes%</argument>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Routing\ResponseHeaderListener">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Routing\DomainNotMappedListener">
+            <argument type="service" id="service_container"/>
+
+            <tag name="kernel.event_listener" event="kernel.exception"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Routing\RequestTransformer"
+                 decorates="HeyFrame\Core\Framework\Routing\RequestTransformerInterface" public="true">
+            <argument type="service" id="HeyFrame\Frontend\Framework\Routing\RequestTransformer.inner"/>
+            <argument>%heyframe.routing.registered_api_prefixes%</argument>
+            <argument type="service" id="HeyFrame\Frontend\Framework\Routing\DomainLoader"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Routing\CachedDomainLoader" decorates="HeyFrame\Frontend\Framework\Routing\DomainLoader" decoration-priority="-1000">
+            <argument type="service" id="HeyFrame\Frontend\Framework\Routing\CachedDomainLoader.inner"/>
+            <argument type="service" id="cache.object"/>
+            <argument type="service" id="logger"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Routing\DomainLoader">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
         <service id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentRenderEventListener">
             <tag name="kernel.event_listener" />
         </service>

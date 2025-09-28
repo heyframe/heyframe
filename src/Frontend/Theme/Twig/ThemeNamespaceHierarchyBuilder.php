@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Frontend\Theme\Twig;
 
+use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Checkout\Document\Event\DocumentTemplateRendererParameterEvent;
 use HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\TemplateNamespaceHierarchyBuilderInterface;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Frontend\Theme\DatabaseChannelThemeLoader;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
