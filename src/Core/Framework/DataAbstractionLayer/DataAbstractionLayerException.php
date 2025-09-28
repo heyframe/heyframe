@@ -21,7 +21,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Command\WriteTypeIntendEx
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\FieldException\ExpectedArrayException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Script\Execution\Hook;
 use HeyFrame\Core\Framework\Validation\WriteConstraintViolationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraint;
@@ -88,6 +87,8 @@ class DataAbstractionLayerException extends HttpException
     public const UNSUPPORTED_QUERY_FILTER = 'FRAMEWORK__UNSUPPORTED_QUERY_FILTER';
     public const INVALID_SORT_DIRECTION = 'FRAMEWORK__INVALID_SORT_DIRECTION';
     public const PRODUCT_SEARCH_CONFIGURATION_NOT_FOUND = 'FRAMEWORK__PRODUCT_SEARCH_CONFIGURATION_NOT_FOUND';
+    public const ENTITY_NOT_VERSIONABLE = 'FRAMEWORK__DAL_ENTITY_NOT_VERSIONABLE';
+    public const INVALID_UUID = 'FRAMEWORK__DAL_INVALID_UUID';
 
     public const DBAL_UNMAPPED_FIELD = 'FRAMEWORK__DBAL_UNMAPPED_FIELD';
 
@@ -440,6 +441,15 @@ class DataAbstractionLayerException extends HttpException
         return new MissingTranslationLanguageException($path, $index);
     }
 
+    public static function invalidUuid(string $uuid): self
+    {
+        return new self(
+            Response::HTTP_BAD_REQUEST,
+            self::INVALID_UUID,
+            'Invalid UUID provided: {{ uuid }}',
+            ['uuid' => $uuid]
+        );
+    }
     public static function canNotFindAttribute(string $attribute, string $property): self
     {
         return new self(
@@ -776,16 +786,6 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
-    public static function hookInjectionException(Hook $hook, string $class, string $required): self
-    {
-        return new self(
-            Response::HTTP_INTERNAL_SERVER_ERROR,
-            self::HOOK_INJECTION_EXCEPTION,
-            'Class {{ class }} is only executable in combination with hooks that implement the {{ required }} interface. Hook {{ hook }} does not implement this interface',
-            ['class' => $class, 'required' => $required, 'hook' => $hook]
-        );
-    }
-
     public static function invalidSortingDirection(string $direction): self
     {
         return new self(
@@ -848,6 +848,15 @@ class DataAbstractionLayerException extends HttpException
         );
     }
 
+    public static function entityNotVersionable(string $entityName): self
+    {
+        return new self(
+            Response::HTTP_INTERNAL_SERVER_ERROR,
+            self::ENTITY_NOT_VERSIONABLE,
+            'Entity {{ entityName }} is not versionable',
+            ['entityName' => $entityName]
+        );
+    }
     public static function noTranslationDefinition(string $entityName): self
     {
         return new self(

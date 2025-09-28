@@ -21,7 +21,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Write\CloneBehavior;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\WriteContext;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
-use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Profiling\Profiler;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -156,7 +155,7 @@ class EntityRepository
         ReplicaConnection::ensurePrimary();
 
         if (!$this->definition->isVersionAware()) {
-            throw new \RuntimeException(\sprintf('Entity %s is not version aware', $this->definition->getEntityName()));
+            throw DataAbstractionLayerException::entityNotVersionable($this->definition->getEntityName());
         }
 
         return $this->versionManager->createVersion($this->definition, $id, WriteContext::createFromContext($context), $name, $versionId);
@@ -167,7 +166,7 @@ class EntityRepository
         ReplicaConnection::ensurePrimary();
 
         if (!$this->definition->isVersionAware()) {
-            throw new \RuntimeException(\sprintf('Entity %s is not version aware', $this->definition->getEntityName()));
+            throw DataAbstractionLayerException::entityNotVersionable($this->definition->getEntityName());
         }
         $this->versionManager->merge($versionId, WriteContext::createFromContext($context));
     }
@@ -178,7 +177,7 @@ class EntityRepository
 
         $newId ??= Uuid::randomHex();
         if (!Uuid::isValid($newId)) {
-            throw new InvalidUuidException($newId);
+            throw DataAbstractionLayerException::invalidUuid($newId);
         }
 
         $affected = $this->versionManager->clone(
@@ -252,19 +251,21 @@ class EntityRepository
 
         $search = $ids->getData();
 
-        foreach ($entities as $element) {
-            if (!\array_key_exists($element->getUniqueIdentifier(), $search)) {
-                continue;
+        if (!$criteria->hasState(Criteria::STATE_DISABLE_SEARCH_INFO)) {
+            foreach ($entities as $element) {
+                if (!\array_key_exists($element->getUniqueIdentifier(), $search)) {
+                    continue;
+                }
+
+                $data = $search[$element->getUniqueIdentifier()];
+                unset($data['id']);
+
+                if (empty($data)) {
+                    continue;
+                }
+
+                $element->addExtension('search', new ArrayEntity($data));
             }
-
-            $data = $search[$element->getUniqueIdentifier()];
-            unset($data['id']);
-
-            if (empty($data)) {
-                continue;
-            }
-
-            $element->addExtension('search', new ArrayEntity($data));
         }
 
         $result = new EntitySearchResult($this->definition->getEntityName(), $ids->getTotal(), $entities, $aggregations, $criteria, $context);

@@ -25,6 +25,7 @@ class Criteria extends Struct implements \Stringable
     use StateAwareTrait;
 
     final public const STATE_ELASTICSEARCH_AWARE = 'elasticsearchAware';
+    final public const STATE_DISABLE_SEARCH_INFO = 'disableSearchInfo';
 
     /**
      * no total count will be selected. Should be used if no pagination required (fastest)

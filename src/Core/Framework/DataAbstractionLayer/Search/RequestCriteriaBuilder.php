@@ -24,6 +24,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\CountSorting;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use HeyFrame\Core\Framework\FrameworkException;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Package('framework')]
@@ -54,6 +55,9 @@ class RequestCriteriaBuilder
             $criteria = $this->fromArray($request->request->all(), $criteria, $definition, $context);
         }
 
+        if ($request->headers->get(PlatformRequest::HEADER_INCLUDE_SEARCH_INFO, '0') === '0') {
+            $criteria->addState(Criteria::STATE_DISABLE_SEARCH_INFO);
+        }
         return $criteria;
     }
 

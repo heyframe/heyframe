@@ -885,12 +885,6 @@ parameters:
 		-
 			message: '#^Throwing new exceptions within classes are not allowed\.$#'
 			identifier: heyframe.domainException
-			count: 3
-			path: src/Core/Framework/DataAbstractionLayer/EntityRepository.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
 			count: 2
 			path: src/Core/Framework/DataAbstractionLayer/EntityTranslationDefinition.php
 
