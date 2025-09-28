@@ -5,6 +5,7 @@ namespace HeyFrame\Frontend\Framework\Twig;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
+use HeyFrame\Frontend\Framework\Twig\Components\UxComponentRenderEventListener;
 use HeyFrame\Frontend\Theme\ThemeConfigValueAccessor;
 use HeyFrame\Frontend\Theme\ThemeScripts;
 
@@ -17,7 +18,8 @@ class TemplateConfigAccessor
     public function __construct(
         private readonly SystemConfigService $systemConfigService,
         private readonly ThemeConfigValueAccessor $themeConfigAccessor,
-        private readonly ThemeScripts $themeScripts
+        private readonly ThemeScripts $themeScripts,
+        private readonly UxComponentRenderEventListener $uxComponentRenderEventListener
     ) {
     }
 
@@ -48,7 +50,47 @@ class TemplateConfigAccessor
      */
     public function scripts(): array
     {
-        return $this->themeScripts->getThemeScripts();
+        $scripts = [];
+
+        foreach ($this->themeScripts->getThemeScripts() as $script) {
+            if (!str_starts_with($script, 'js/components/')) {
+                $scripts[] = $script;
+            }
+        }
+
+        return $scripts;
+    }
+
+    public function componentScripts(): array
+    {
+        $scripts = [];
+
+        foreach ($this->themeScripts->getThemeScripts() as $script) {
+            if (str_starts_with($script, 'js/components/')) {
+                $scripts[] = $script;
+            }
+        }
+
+        return $scripts;
+    }
+
+    public function mountedComponentScripts(): array
+    {
+        $scripts = [];
+        $mountedScripts = [];
+        $mountedComponents = $this->uxComponentRenderEventListener->getMountedComponents();
+
+        foreach ($mountedComponents as $component) {
+            $mountedScripts[] = 'js/components/' . str_replace(':', '/', $component) . '.js';
+        }
+
+        foreach ($this->themeScripts->getThemeScripts() as $script) {
+            if (str_starts_with($script, 'js/components/') && \in_array($script, $mountedScripts, true)) {
+                $scripts[] = $script;
+            }
+        }
+
+        return $scripts;
     }
 
     /**
@@ -57,11 +99,6 @@ class TemplateConfigAccessor
     private function getStatic(): array
     {
         return [
-            'seo.descriptionMaxLength' => 255,
-            'cms.revocationNoticeCmsPageId' => '00B9A8636F954277AE424E6C1C36A1F5',
-            'cms.taxCmsPageId' => '00B9A8636F954277AE424E6C1C36A1F5',
-            'cms.tosCmsPageId' => '00B9A8636F954277AE424E6C1C36A1F5',
-            'confirm.revocationNotice' => true,
         ];
     }
 }

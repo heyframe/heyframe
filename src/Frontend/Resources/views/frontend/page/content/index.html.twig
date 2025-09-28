@@ -1,1 +1,5 @@
-    <twig:Sw:Content:Page :page="cmsPage" />
+{# Component script files are only loaded for components used within the page. #}
+{% for script in mounted_component_scripts() %}
+    <script type="text/javascript" src="{{ asset(script, 'theme') }}" defer></script>
+{% endfor %}
+<twig:Sw:Content:Page :page="cmsPage"/>

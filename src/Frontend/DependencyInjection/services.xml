@@ -35,6 +35,7 @@
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="HeyFrame\Frontend\Theme\ThemeConfigValueAccessor"/>
             <argument type="service" id="HeyFrame\Frontend\Theme\ThemeScripts" />
+            <argument type="service" id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentRenderEventListener"/>
         </service>
 
         <service id="HeyFrame\Frontend\Framework\Routing\Router" decorates="router">
@@ -51,6 +52,11 @@
             <argument type="service" id="service_container"/>
 
             <tag name="kernel.event_listener" event="kernel.exception"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Twig\Extension\ConfigExtension">
+            <argument type="service" id="HeyFrame\Frontend\Framework\Twig\TemplateConfigAccessor"/>
+            <tag name="twig.extension"/>
         </service>
 
         <service id="HeyFrame\Frontend\Framework\Routing\RequestTransformer"
