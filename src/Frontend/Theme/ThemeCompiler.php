@@ -95,7 +95,6 @@ class ThemeCompiler implements ThemeCompilerInterface
             $themeId,
             $context
         );
-
         $newThemeHash = Uuid::randomHex();
         $themePrefix = $this->themePathBuilder->generateNewPath($channelId, $themeId, $newThemeHash);
         $oldThemePrefix = $this->themePathBuilder->assemblePath($channelId, $themeId);

@@ -32,6 +32,7 @@ class UxComponentHelper
     public function getComponents($includeMetadata = false, $includeProperties = false): UxComponentCollection
     {
         $components = new UxComponentCollection();
+
         foreach ($this->findAnonymousComponents() as $component) {
             if ($includeMetadata || $includeProperties) {
                 $componentMetadata = $this->componentFactory->metadataFor($component->getName());
@@ -53,7 +54,7 @@ class UxComponentHelper
 
     public function findAnonymousComponents(): array
     {
-        $dirs = array_merge($this->getBundleDirs(), $this->getAppDirs());
+        $dirs = $this->getBundleDirs();
 
         $components = [];
         $finderTemplates = new Finder();
@@ -145,31 +146,6 @@ class UxComponentHelper
             }
 
             $dirs[$componentDir] = $namespace;
-        }
-
-        return $dirs;
-    }
-
-    private function getAppDirs(): array
-    {
-        $dirs = [];
-
-        $templates = $this->connection->fetchAllAssociative('
-            SELECT
-                `app_template`.`path` AS `path`,
-                `app`.`name` AS `namespace`,
-                `app`.`path` AS `appPath`
-            FROM `app_template`
-            INNER JOIN `app` ON `app_template`.`app_id` = `app`.`id`
-            WHERE `app_template`.`active` = 1 AND `app`.`active` = 1
-            AND `app_template`.`path` LIKE "%components/%"
-        ');
-
-        foreach ($templates as $template) {
-            $appPath = $this->getAbsoluteAppPath($template['appPath']);
-            $componentDir = $this->getComponentAppDir($appPath, $template['path']);
-
-            $dirs[$componentDir] = $template['namespace'];
         }
 
         return $dirs;

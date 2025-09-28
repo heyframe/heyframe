@@ -78,6 +78,7 @@ class ThemeService implements ResetInterface
         }
 
         $themeConfig = $this->configLoader->load($themeId, $context);
+
         $this->themeCompiler->compileTheme(
             $channelId,
             $themeId,

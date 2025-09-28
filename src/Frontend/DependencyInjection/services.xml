@@ -31,6 +31,14 @@
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
         </service>
 
+        <service id="HeyFrame\Frontend\Framework\Twig\TemplateDataExtension">
+            <argument type="service" id="request_stack"/>
+            <argument>%heyframe.staging.frontend.show_banner%</argument>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+
+            <tag name="twig.extension"/>
+        </service>
+
         <service id="HeyFrame\Frontend\Framework\Twig\TemplateConfigAccessor">
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="HeyFrame\Frontend\Theme\ThemeConfigValueAccessor"/>

@@ -1,3 +1,15 @@
+{% set assets = theme_config('assets.css') %}
+{% for file in assets %}
+    <link rel="stylesheet"
+          href="{{ asset(file, 'theme') }}">
+{% endfor %}
+
+<script>
+    window.themeJsPublicPath = '{{ asset('js/', 'theme') }}';
+</script>
+{% for script in theme_scripts() %}
+    <script type="text/javascript" src="{{ asset(script, 'theme') }}" defer></script>
+{% endfor %}
 {# Component script files are only loaded for components used within the page. #}
 {% for script in mounted_component_scripts() %}
     <script type="text/javascript" src="{{ asset(script, 'theme') }}" defer></script>

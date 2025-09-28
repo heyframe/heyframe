@@ -59,7 +59,7 @@ class ThemeCompileCommand extends Command
         $skipChannel = ((array) $input->getOption('skip')) ?: null;
         if ($onlyChannel !== null && $skipChannel !== null
             && \count(array_intersect($onlyChannel, $skipChannel)) > 0) {
-            $this->io->error('The sales channel includes and skips contain contradicting entries:' . implode(
+            $this->io->error('The channel includes and skips contain contradicting entries:' . implode(
                 ', ',
                 array_intersect($onlyChannel, $skipChannel)
             ));
@@ -87,7 +87,7 @@ class ThemeCompileCommand extends Command
                 continue;
             }
 
-            $this->io->block(\sprintf('Compiling theme for sales channel for : %s', $channelId));
+            $this->io->block(\sprintf('Compiling theme for channel for : %s', $channelId));
 
             $start = microtime(true);
             $this->themeService->compileTheme($channelId, $themeId, $context, null, !$input->getOption('keep-assets'));

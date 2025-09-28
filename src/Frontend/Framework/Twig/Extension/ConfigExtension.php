@@ -63,8 +63,6 @@ class ConfigExtension extends AbstractExtension
 
     /**
      * Returns all scripts that belong to a component.
-     *
-     * @return array
      */
     public function componentScripts(): array
     {
@@ -73,8 +71,6 @@ class ConfigExtension extends AbstractExtension
 
     /**
      * Returns all scripts of components that have been mounted in the template.
-     *
-     * @return array
      */
     public function mountedComponentScripts(): array
     {
@@ -87,15 +83,15 @@ class ConfigExtension extends AbstractExtension
     private function getChannelId(array $context): ?string
     {
         if (isset($context['context'])) {
-            $salesChannelContext = $context['context'];
-            if ($salesChannelContext instanceof ChannelContext) {
-                return $salesChannelContext->getChannelId();
+            $channelContext = $context['context'];
+            if ($channelContext instanceof ChannelContext) {
+                return $channelContext->getChannelId();
             }
         }
-        if (isset($context['salesChannel'])) {
-            $salesChannel = $context['salesChannel'];
-            if ($salesChannel instanceof ChannelEntity) {
-                return $salesChannel->getId();
+        if (isset($context['channel'])) {
+            $channel = $context['channel'];
+            if ($channel instanceof ChannelEntity) {
+                return $channel->getId();
             }
         }
 
@@ -116,13 +112,13 @@ class ConfigExtension extends AbstractExtension
     private function getContext(array $context): ChannelContext
     {
         if (!isset($context['context'])) {
-            throw FrontendFrameworkException::salesChannelContextObjectNotFound();
+            throw FrontendFrameworkException::channelContextObjectNotFound();
         }
 
         $context = $context['context'];
 
         if (!$context instanceof ChannelContext) {
-            throw FrontendFrameworkException::salesChannelContextObjectNotFound();
+            throw FrontendFrameworkException::channelContextObjectNotFound();
         }
 
         return $context;

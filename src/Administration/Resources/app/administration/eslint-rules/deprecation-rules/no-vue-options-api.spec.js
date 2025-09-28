@@ -2310,7 +2310,7 @@ export default {
     ],
 
     props: {
-        salesChannel: {
+        channel: {
             required: true,
         },
     },
@@ -2338,8 +2338,8 @@ export default {
     computed: {
         domainRepository() {
             return this.repositoryFactory.create(
-                this.salesChannel.domains.entity,
-                this.salesChannel.domains.source,
+                this.channel.domains.entity,
+                this.channel.domains.source,
             );
         },
 
@@ -2356,7 +2356,7 @@ export default {
 
     methods: {
         async domainExistsInDatabase(url) {
-            const globalDomainRepository = this.repositoryFactory.create(this.salesChannel.domains.entity);
+            const globalDomainRepository = this.repositoryFactory.create(this.channel.domains.entity);
             const criteria = new Criteria(1, 25);
             criteria.addFilter(Criteria.equals('url', url));
 
@@ -2366,7 +2366,7 @@ export default {
                 return false;
             }
 
-            return items.first().salesChannelId !== this.salesChannel.id;
+            return items.first().channelId !== this.channel.id;
         },
 
         setCurrentDomainBackup(domain) {
@@ -2427,8 +2427,8 @@ export default {
 "      const repositoryFactory = inject('repositoryFactory');\n" +
 '          const domainRepository = computed(() => {\n' +
 '            return repositoryFactory.create(\n' +
-'                props.salesChannel.domains.entity,\n' +
-'                props.salesChannel.domains.source,\n' +
+'                props.channel.domains.entity,\n' +
+'                props.channel.domains.source,\n' +
 '            );\n' +
 '        });\n' +
 '          const currentDomainModalTitle = computed(() => {\n' +
@@ -2441,7 +2441,7 @@ export default {
 '            });\n' +
 '        });\n' +
 '      const domainExistsInDatabase = async (url) => {\n' +
-'            const globalDomainRepository = repositoryFactory.create(props.salesChannel.domains.entity);\n' +
+'            const globalDomainRepository = repositoryFactory.create(props.channel.domains.entity);\n' +
 '            const criteria = new Criteria(1, 25);\n' +
 "            criteria.addFilter(Criteria.equals('url', url));\n" +
 '\n' +
@@ -2451,7 +2451,7 @@ export default {
 '                return false;\n' +
 '            }\n' +
 '\n' +
-'            return items.first().salesChannelId !== props.salesChannel.id;\n' +
+'            return items.first().channelId !== props.channel.id;\n' +
 '        };\n' +
 '      const setCurrentDomainBackup = (domain) => {\n' +
 '            Object.assign(currentDomainBackup, {\n' +
@@ -2502,7 +2502,7 @@ export default {
 '    ],\n' +
 '\n' +
 '    props: {\n' +
-'        salesChannel: {\n' +
+'        channel: {\n' +
 '            required: true,\n' +
 '        },\n' +
 '    },\n' +
