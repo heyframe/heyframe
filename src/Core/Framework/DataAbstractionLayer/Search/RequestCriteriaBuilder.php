@@ -58,6 +58,7 @@ class RequestCriteriaBuilder
         if ($request->headers->get(PlatformRequest::HEADER_INCLUDE_SEARCH_INFO, '0') === '0') {
             $criteria->addState(Criteria::STATE_DISABLE_SEARCH_INFO);
         }
+
         return $criteria;
     }
 

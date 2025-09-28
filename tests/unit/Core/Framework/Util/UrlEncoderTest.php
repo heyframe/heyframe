@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\Util;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\UrlEncoder;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

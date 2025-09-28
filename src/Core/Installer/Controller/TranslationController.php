@@ -39,7 +39,7 @@ class TranslationController extends InstallerController
         $session = $request->getSession();
 
         /** @var list<string> $locales */
-        $locales = (array)$session->get('SELECTED_LANGUAGES', []);
+        $locales = (array) $session->get('SELECTED_LANGUAGES', []);
 
         if (empty($locales)) {
             return new JsonResponse([

@@ -148,7 +148,7 @@ class OpenApiPathBuilder
                         ],
                     ],
                 ]),
-                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string)Response::HTTP_UNAUTHORIZED),
+                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string) Response::HTTP_UNAUTHORIZED),
             ],
         ]);
     }
@@ -171,8 +171,8 @@ class OpenApiPathBuilder
             'parameters' => [$this->getIdParameter($definition)],
             'responses' => [
                 Response::HTTP_OK => $this->getDetailResponse($schemaName),
-                Response::HTTP_NOT_FOUND => $this->getResponseRef((string)Response::HTTP_NOT_FOUND),
-                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string)Response::HTTP_UNAUTHORIZED),
+                Response::HTTP_NOT_FOUND => $this->getResponseRef((string) Response::HTTP_NOT_FOUND),
+                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string) Response::HTTP_UNAUTHORIZED),
             ],
         ]);
     }
@@ -211,8 +211,8 @@ class OpenApiPathBuilder
             ],
             'responses' => [
                 Response::HTTP_CREATED => $this->getDetailResponse($schemaName),
-                Response::HTTP_BAD_REQUEST => $this->getResponseRef((string)Response::HTTP_BAD_REQUEST),
-                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string)Response::HTTP_UNAUTHORIZED),
+                Response::HTTP_BAD_REQUEST => $this->getResponseRef((string) Response::HTTP_BAD_REQUEST),
+                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string) Response::HTTP_UNAUTHORIZED),
             ],
         ]);
     }
@@ -245,9 +245,9 @@ class OpenApiPathBuilder
             ],
             'responses' => [
                 Response::HTTP_OK => $this->getDetailResponse($schemaName),
-                Response::HTTP_BAD_REQUEST => $this->getResponseRef((string)Response::HTTP_BAD_REQUEST),
-                Response::HTTP_NOT_FOUND => $this->getResponseRef((string)Response::HTTP_NOT_FOUND),
-                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string)Response::HTTP_UNAUTHORIZED),
+                Response::HTTP_BAD_REQUEST => $this->getResponseRef((string) Response::HTTP_BAD_REQUEST),
+                Response::HTTP_NOT_FOUND => $this->getResponseRef((string) Response::HTTP_NOT_FOUND),
+                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string) Response::HTTP_UNAUTHORIZED),
             ],
         ]);
     }
@@ -267,9 +267,9 @@ class OpenApiPathBuilder
             'tags' => $tags,
             'parameters' => [$this->getIdParameter($definition), $this->getResponseDataParameter()],
             'responses' => [
-                Response::HTTP_NO_CONTENT => $this->getResponseRef((string)Response::HTTP_NO_CONTENT),
-                Response::HTTP_NOT_FOUND => $this->getResponseRef((string)Response::HTTP_NOT_FOUND),
-                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string)Response::HTTP_UNAUTHORIZED),
+                Response::HTTP_NO_CONTENT => $this->getResponseRef((string) Response::HTTP_NO_CONTENT),
+                Response::HTTP_NOT_FOUND => $this->getResponseRef((string) Response::HTTP_NOT_FOUND),
+                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string) Response::HTTP_UNAUTHORIZED),
             ],
         ]);
     }
@@ -313,8 +313,8 @@ class OpenApiPathBuilder
             ],
             'responses' => [
                 Response::HTTP_OK => $this->getListResponse($schemaName),
-                Response::HTTP_BAD_REQUEST => $this->getResponseRef((string)Response::HTTP_BAD_REQUEST),
-                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string)Response::HTTP_UNAUTHORIZED),
+                Response::HTTP_BAD_REQUEST => $this->getResponseRef((string) Response::HTTP_BAD_REQUEST),
+                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string) Response::HTTP_UNAUTHORIZED),
             ],
         ]);
     }
@@ -362,8 +362,8 @@ class OpenApiPathBuilder
             ],
             'responses' => [
                 Response::HTTP_OK => $this->getListResponse($schemaName),
-                Response::HTTP_BAD_REQUEST => $this->getResponseRef((string)Response::HTTP_BAD_REQUEST),
-                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string)Response::HTTP_UNAUTHORIZED),
+                Response::HTTP_BAD_REQUEST => $this->getResponseRef((string) Response::HTTP_BAD_REQUEST),
+                Response::HTTP_UNAUTHORIZED => $this->getResponseRef((string) Response::HTTP_UNAUTHORIZED),
             ],
         ]);
     }

@@ -450,6 +450,7 @@ class DataAbstractionLayerException extends HttpException
             ['uuid' => $uuid]
         );
     }
+
     public static function canNotFindAttribute(string $attribute, string $property): self
     {
         return new self(
@@ -857,6 +858,7 @@ class DataAbstractionLayerException extends HttpException
             ['entityName' => $entityName]
         );
     }
+
     public static function noTranslationDefinition(string $entityName): self
     {
         return new self(
