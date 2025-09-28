@@ -24,7 +24,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'theme:change',
-    description: 'Change the active theme for a sales channel',
+    description: 'Change the active theme for a channel',
 )]
 #[Package('framework')]
 class ThemeChangeCommand extends Command
@@ -121,7 +121,7 @@ class ThemeChangeCommand extends Command
         /** @var ChannelEntity $channel */
         foreach ($selectedChannel as $channel) {
             $this->io->writeln(
-                \sprintf('Set and compiling theme "%s" (%s) as new theme for sales channel "%s"', $themeName, $theme->getId(), $channel->getName())
+                \sprintf('Set and compiling theme "%s" (%s) as new theme for channel "%s"', $themeName, $theme->getId(), $channel->getName())
             );
 
             $this->themeService->assignTheme(

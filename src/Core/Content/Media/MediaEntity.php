@@ -13,7 +13,6 @@ use HeyFrame\Core\Content\Media\MediaType\SpatialObjectType;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
-use HeyFrame\Core\Framework\App\Aggregate\AppPaymentMethod\AppPaymentMethodCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -99,8 +98,6 @@ class MediaEntity extends Entity
     protected ?ProductConfiguratorSettingCollection $productConfiguratorSettings = null;
 
     protected ?OrderLineItemCollection $orderLineItems = null;
-
-    protected ?AppPaymentMethodCollection $appPaymentMethods = null;
 
     /**
      * @experimental stableVersion:v6.8.0 feature:SPATIAL_BASES
@@ -441,11 +438,6 @@ class MediaEntity extends Entity
     public function setPrivate(bool $private): void
     {
         $this->private = $private;
-    }
-
-    public function getAppPaymentMethods(): ?AppPaymentMethodCollection
-    {
-        return $this->appPaymentMethods;
     }
 
     public function hasPath(): bool

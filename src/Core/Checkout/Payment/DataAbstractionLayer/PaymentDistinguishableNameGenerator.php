@@ -41,8 +41,7 @@ class PaymentDistinguishableNameGenerator
         $criteria = new Criteria();
         $criteria
             ->addAssociation('translations')
-            ->addAssociation('plugin.translations')
-            ->addAssociation('appPaymentMethod.app.translations');
+            ->addAssociation('plugin.translations');
 
         return $this->paymentMethodRepository->search($criteria, $context)->getEntities();
     }
@@ -54,7 +53,7 @@ class PaymentDistinguishableNameGenerator
     {
         $upsertablePayments = [];
         foreach ($payments as $payment) {
-            $pluginOrAppEntity = $payment->getPlugin() ?? $payment->getAppPaymentMethod()?->getApp();
+            $pluginOrAppEntity = $payment->getPlugin();
             if ($pluginOrAppEntity === null || $payment->getTranslations() === null) {
                 continue;
             }

@@ -12,7 +12,7 @@ Guidelines to write uniform Twig UX components that follow our best practices an
 ## Naming and directory structure
 
 * Each component name must be unique.
-* Default storefront components are in the `Sw` namespace. `<twig:Sw:Button>`
+* Default frontend components are in the `Sw` namespace. `<twig:Sw:Button>`
 * Component names are written uppercase.
 * 3rd party components bring their own namespace e.g. `<twig:Acency:Button>`.
 * (S)CSS and JavaScript are in the same directory as the component template.

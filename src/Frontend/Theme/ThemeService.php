@@ -61,8 +61,8 @@ class ThemeService implements ResetInterface
     }
 
     /**
-     * Only compiles a single theme/saleschannel combination.
-     * Use `compileThemeById` to compile all dependend saleschannels
+     * Only compiles a single theme/channel combination.
+     * Use `compileThemeById` to compile all dependend channels
      */
     public function compileTheme(
         string $channelId,
@@ -100,7 +100,7 @@ class ThemeService implements ResetInterface
     }
 
     /**
-     * Compiles all dependend saleschannel/Theme combinations
+     * Compiles all dependend channel/Theme combinations
      *
      * @return array<int, string>
      */
@@ -360,8 +360,8 @@ class ThemeService implements ResetInterface
         $mappings = new ThemeChannelCollection();
         $themeData = $this->connection->fetchAllAssociative(
             'SELECT LOWER(HEX(theme.id)) as id, LOWER(HEX(childTheme.id)) as dependentId,
-            LOWER(HEX(tsc.channel_id)) as saleschannelId,
-            LOWER(HEX(dtsc.channel_id)) as dsaleschannelId
+            LOWER(HEX(tsc.channel_id)) as channelId,
+            LOWER(HEX(dtsc.channel_id)) as dchannelId
             FROM theme
             LEFT JOIN theme as childTheme ON childTheme.parent_theme_id = theme.id
             LEFT JOIN theme_channel as tsc ON theme.id = tsc.theme_id
@@ -371,11 +371,11 @@ class ThemeService implements ResetInterface
         );
 
         foreach ($themeData as $data) {
-            if (isset($data['id']) && isset($data['saleschannelId']) && $data['id'] === $themeId) {
-                $mappings->add(new ThemeChannel($data['id'], $data['saleschannelId']));
+            if (isset($data['id']) && isset($data['channelId']) && $data['id'] === $themeId) {
+                $mappings->add(new ThemeChannel($data['id'], $data['channelId']));
             }
-            if (isset($data['dependentId']) && isset($data['dsaleschannelId'])) {
-                $mappings->add(new ThemeChannel($data['dependentId'], $data['dsaleschannelId']));
+            if (isset($data['dependentId']) && isset($data['dchannelId'])) {
+                $mappings->add(new ThemeChannel($data['dependentId'], $data['dchannelId']));
             }
         }
 

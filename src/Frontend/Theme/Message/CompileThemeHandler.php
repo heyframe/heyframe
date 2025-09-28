@@ -25,14 +25,14 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 final readonly class CompileThemeHandler
 {
     /**
-     * @param EntityRepository<ChannelCollection> $saleschannelRepository
+     * @param EntityRepository<ChannelCollection> $channelRepository
      */
     public function __construct(
         private ThemeCompilerInterface $themeCompiler,
         private AbstractConfigLoader $configLoader,
         private FrontendPluginRegistry $extensionRegistry,
         private NotificationService $notificationService,
-        private EntityRepository $saleschannelRepository,
+        private EntityRepository $channelRepository,
         private ThemeRuntimeConfigService $runtimeConfigService,
     ) {
     }
@@ -62,7 +62,7 @@ final readonly class CompileThemeHandler
             return;
         }
 
-        $channel = $this->saleschannelRepository->search(
+        $channel = $this->channelRepository->search(
             new Criteria([$message->getChannelId()]),
             $message->getContext()
         )->getEntities()->first();

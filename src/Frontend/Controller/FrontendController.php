@@ -70,7 +70,7 @@ abstract class FrontendController extends AbstractController
 
         $this->container->get('event_dispatcher')->dispatch($event);
 
-        $iconCacheEnabled = $this->getSystemConfigService()->get('core.storefrontSettings.iconCache') ?? true;
+        $iconCacheEnabled = $this->getSystemConfigService()->get('core.frontendSettings.iconCache') ?? true;
 
         if ($iconCacheEnabled) {
             IconCacheTwigFilter::enable();

@@ -63,6 +63,7 @@ class ThemeLifecycleService
         Context $context,
         ?FrontendPluginConfigurationCollection $configurationCollection = null
     ): void {
+
         $pluginConfigurationCollection = $this->pluginRegistry->getConfigurations();
 
         if ($configurationCollection === null) {
@@ -75,10 +76,7 @@ class ThemeLifecycleService
         }
     }
 
-    /**
-     * @deprecated tag:v6.8.0 parameter $configurationCollection will be added - reason:new-optional-parameter
-     */
-    public function refreshTheme(FrontendPluginConfiguration $configuration, Context $context/* , ?FrontendPluginConfigurationCollection $configurationCollection = null */): void
+    public function refreshTheme(FrontendPluginConfiguration $configuration, Context $context, ?FrontendPluginConfigurationCollection $configurationCollection = null): void
     {
         $themeData = [];
         $themeData['name'] = $configuration->getName();
@@ -125,9 +123,6 @@ class ThemeLifecycleService
         $toDeleteIds = $this->themeChildRepository->searchIds($parentCriteria, $context)->getIds();
         $this->themeChildRepository->delete($toDeleteIds, $context);
         $this->themeChildRepository->upsert($parentThemes, $context);
-
-        /** @deprecated tag:v6.8.0 - Remove whole next line as $configurationCollection will become a part of method signature */
-        $configurationCollection = \func_num_args() === 3 ? \func_get_arg(2) : null;
 
         // we don't resolve files as theme can be refreshed before it's built
         $filesRequired = false;

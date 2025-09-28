@@ -5,6 +5,8 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <defaults autowire="true"/>
+
         <service id="HeyFrame\Frontend\Framework\Command\ChannelCreateFrontendCommand">
             <argument type="service" id="snippet_set.repository"/>
             <argument type="service" id="HeyFrame\Core\Maintenance\Channel\Service\ChannelCreator"/>
@@ -22,6 +24,17 @@
 
         <service id="HeyFrame\Frontend\Framework\Twig\Extension\IconCacheTwigFilter" public="false">
             <tag name="twig.extension"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Theme\ThemeConfigValueAccessor">
+            <argument type="service" id="HeyFrame\Frontend\Theme\ResolvedConfigLoader"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Twig\TemplateConfigAccessor">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeConfigValueAccessor"/>
+            <argument type="service" id="HeyFrame\Frontend\Theme\ThemeScripts" />
         </service>
 
         <service id="HeyFrame\Frontend\Framework\Routing\Router" decorates="router">
@@ -45,6 +58,11 @@
             <argument type="service" id="HeyFrame\Frontend\Framework\Routing\RequestTransformer.inner"/>
             <argument>%heyframe.routing.registered_api_prefixes%</argument>
             <argument type="service" id="HeyFrame\Frontend\Framework\Routing\DomainLoader"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Routing\CachedDomainLoaderInvalidator">
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator"/>
+            <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="HeyFrame\Frontend\Framework\Routing\CachedDomainLoader" decorates="HeyFrame\Frontend\Framework\Routing\DomainLoader" decoration-priority="-1000">

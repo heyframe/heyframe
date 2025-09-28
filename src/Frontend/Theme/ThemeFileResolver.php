@@ -175,7 +175,7 @@ class ThemeFileResolver
 
                 throw new ThemeCompileException(
                     $themeConfig->getTechnicalName(),
-                    \sprintf('Unable to load file "Resources/%s". Did you forget to build the theme? Try running ./bin/build-storefront.sh', $filepath)
+                    \sprintf('Unable to load file "Resources/%s". Did you forget to build the theme? Try running ./bin/build-frontend.sh', $filepath)
                 );
             }
 
@@ -222,8 +222,8 @@ class ThemeFileResolver
             // Handle @FrontendBootstrap namespace - include base SCSS file
             if ($filepath === '@FrontendBootstrap') {
                 $resolvedFiles->add(new File(
-                    __DIR__ . '/../Resources/app/storefront/src/scss/base.scss',
-                    ['vendor' => __DIR__ . '/../Resources/app/storefront/vendor']
+                    __DIR__ . '/../Resources/app/frontend/src/scss/base.scss',
+                    ['vendor' => __DIR__ . '/../Resources/app/frontend/vendor']
                 ));
 
                 continue;

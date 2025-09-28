@@ -189,9 +189,9 @@ class ThemeLifecycleHandler
         try {
             $themeData = $this->connection->fetchAllAssociative(
                 'SELECT theme.name as themeName, childTheme.name as dthemeName, LOWER(HEX(theme.id)) as id,
-                LOWER(HEX(childTheme.id)) as dependentId, LOWER(HEX(tsc.channel_id)) as saleschannelId,
-                sc.name as saleschannelName, dsc.name as dsaleschannelName,
-                LOWER(HEX(dtsc.channel_id)) as dsaleschannelId
+                LOWER(HEX(childTheme.id)) as dependentId, LOWER(HEX(tsc.channel_id)) as channelId,
+                sc.name as channelName, dsc.name as dchannelName,
+                LOWER(HEX(dtsc.channel_id)) as dchannelId
                 FROM theme
                 LEFT JOIN theme as childTheme ON childTheme.parent_theme_id = theme.id
                 LEFT JOIN theme_channel as tsc ON theme.id = tsc.theme_id
@@ -205,13 +205,13 @@ class ThemeLifecycleHandler
             $childThemeChannel = [];
             foreach ($themeData as $data) {
                 $themeName = $data['themeName'];
-                if (isset($data['id'], $data['saleschannelId']) && $data['id'] === $themeId) {
-                    $themeChannel[(string) $data['themeName']][] = (string) $data['saleschannelId'];
-                    $channels[(string) $data['saleschannelId']] = (string) $data['saleschannelName'];
+                if (isset($data['id'], $data['channelId']) && $data['id'] === $themeId) {
+                    $themeChannel[(string) $data['themeName']][] = (string) $data['channelId'];
+                    $channels[(string) $data['channelId']] = (string) $data['channelName'];
                 }
-                if (isset($data['dsaleschannelId']) && !empty($data['dsaleschannelId']) && isset($data['dthemeName'])) {
-                    $childThemeChannel[(string) $data['dthemeName']][] = (string) $data['dsaleschannelId'];
-                    $channels[(string) $data['dsaleschannelId']] = (string) $data['dsaleschannelName'];
+                if (isset($data['dchannelId']) && !empty($data['dchannelId']) && isset($data['dthemeName'])) {
+                    $childThemeChannel[(string) $data['dthemeName']][] = (string) $data['dchannelId'];
+                    $channels[(string) $data['dchannelId']] = (string) $data['dchannelName'];
                 }
             }
         } catch (\Throwable $e) {

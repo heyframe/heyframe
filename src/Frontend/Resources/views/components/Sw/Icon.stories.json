@@ -13,7 +13,7 @@
           "options": ["default", "solid"]
         },
         "namespace": { "control": "text" },
-        "size": { 
+        "size": {
             "control": "select",
             "options": ["fluid", "lg", "sm", "xs", "1x", "2x", "3x"]
         },
@@ -36,7 +36,7 @@
             "args": {
                 "name": "cart",
                 "pack": "default",
-                "namespace": "Storefront",
+                "namespace": "Frontend",
                 "size": "lg",
                 "color": "primary"
             }

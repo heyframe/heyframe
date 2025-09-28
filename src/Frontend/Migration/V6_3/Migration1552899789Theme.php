@@ -25,51 +25,90 @@ class Migration1552899789Theme extends MigrationStep
     {
         $connection->executeStatement('
             CREATE TABLE `theme` (
-              `id` BINARY(16) NOT NULL,
-              `technical_name` VARCHAR(255) NULL,
-              `name` VARCHAR(255) NOT NULL,
-              `author` VARCHAR(255) NOT NULL,
-              `preview_media_id` BINARY(16) NULL,
-              `parent_theme_id` BINARY(16) NULL,
-              `base_config` JSON NULL,
-              `config_values` JSON NULL,
-              `created_at` DATETIME(3) NOT NULL,
-              `updated_at` DATETIME(3) NULL,
+              `id` binary(16) NOT NULL,
+              `technical_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `preview_media_id` binary(16) DEFAULT NULL,
+              `parent_theme_id` binary(16) DEFAULT NULL,
+              `base_config` json DEFAULT NULL,
+              `config_values` json DEFAULT NULL,
+              `created_at` datetime(3) NOT NULL,
+              `updated_at` datetime(3) DEFAULT NULL,
+              `active` tinyint(1) DEFAULT \'1\',
+              `theme_json` json DEFAULT NULL,
               PRIMARY KEY (`id`),
-              CONSTRAINT `uniq.theme.technical_name` UNIQUE (`technical_name`),
-              CONSTRAINT `json.theme.base_config` CHECK (JSON_VALID(`base_config`)),
-              CONSTRAINT `json.theme.config_values` CHECK (JSON_VALID(`config_values`))
+              UNIQUE KEY `uniq.theme.technical_name` (`technical_name`),
+              KEY `fk.theme.preview_media_id` (`preview_media_id`),
+              CONSTRAINT `theme_ibfk_1` FOREIGN KEY (`preview_media_id`) REFERENCES `media` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+              CONSTRAINT `json.theme.base_config` CHECK (json_valid(`base_config`)),
+              CONSTRAINT `json.theme.config_values` CHECK (json_valid(`config_values`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
         $connection->executeStatement('
             CREATE TABLE `theme_translation` (
-              `theme_id` BINARY(16) NOT NULL,
-              `language_id` BINARY(16) NOT NULL,
-              `description` MEDIUMTEXT COLLATE utf8mb4_unicode_ci NULL,
-              `labels` JSON NULL,
-              `custom_fields` JSON NULL,
-              `created_at` DATETIME(3) NOT NULL,
-              `updated_at` DATETIME(3) NULL,
-              PRIMARY KEY (`theme_id`, `language_id`),
-              CONSTRAINT `json.theme_translation.labels` CHECK (JSON_VALID(`labels`)),
-              CONSTRAINT `json.theme_translation.custom_fields` CHECK (JSON_VALID(`custom_fields`)),
-              CONSTRAINT `fk.theme_translation.language_id` FOREIGN KEY (`language_id`)
-                REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-              CONSTRAINT `fk.theme_translation.theme_id` FOREIGN KEY (`theme_id`)
-                REFERENCES `theme` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+              `theme_id` binary(16) NOT NULL,
+              `language_id` binary(16) NOT NULL,
+              `description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+              `labels` json DEFAULT NULL,
+              `custom_fields` json DEFAULT NULL,
+              `created_at` datetime(3) NOT NULL,
+              `updated_at` datetime(3) DEFAULT NULL,
+              `help_texts` json DEFAULT NULL,
+              PRIMARY KEY (`theme_id`,`language_id`),
+              KEY `fk.theme_translation.language_id` (`language_id`),
+              CONSTRAINT `fk.theme_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `fk.theme_translation.theme_id` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `json.theme_translation.custom_fields` CHECK (json_valid(`custom_fields`)),
+              CONSTRAINT `json.theme_translation.labels` CHECK (json_valid(`labels`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
         $connection->executeStatement('
             CREATE TABLE `theme_channel` (
-              `theme_id` BINARY(16) NOT NULL,
-              `channel_id` BINARY(16) NOT NULL,
+              `theme_id` binary(16) NOT NULL,
+              `channel_id` binary(16) NOT NULL,
               PRIMARY KEY (`channel_id`),
-              CONSTRAINT `fk.theme_channel.theme_id` FOREIGN KEY (`theme_id`)
-                REFERENCES `theme` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-              CONSTRAINT `fk.theme_channel.channel_id` FOREIGN KEY (`channel_id`)
-                REFERENCES `channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+              KEY `fk.theme_channel.theme_id` (`theme_id`),
+              CONSTRAINT `fk.theme_channel.channel_id` FOREIGN KEY (`channel_id`) REFERENCES `channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `fk.theme_channel.theme_id` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ');
+
+        $connection->executeStatement('
+            CREATE TABLE `theme_runtime_config` (
+              `theme_id` binary(16) NOT NULL,
+              `technical_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+              `resolved_config` json NOT NULL,
+              `view_inheritance` json NOT NULL,
+              `script_files` json DEFAULT NULL,
+              `icon_sets` json NOT NULL,
+              `updated_at` datetime(3) NOT NULL,
+              PRIMARY KEY (`theme_id`),
+              KEY `idx.technical_name` (`technical_name`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ');
+
+        $connection->executeStatement('
+            CREATE TABLE `theme_media` (
+              `theme_id` binary(16) NOT NULL,
+              `media_id` binary(16) NOT NULL,
+              PRIMARY KEY (`theme_id`,`media_id`),
+              KEY `fk.theme_media.media_id` (`media_id`),
+              CONSTRAINT `fk.theme_media.media_id` FOREIGN KEY (`media_id`) REFERENCES `media` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.theme_media.theme_id` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ');
+
+        $connection->executeStatement('
+            CREATE TABLE `theme_child` (
+              `parent_id` binary(16) NOT NULL,
+              `child_id` binary(16) NOT NULL,
+              PRIMARY KEY (`parent_id`,`child_id`),
+              KEY `fk.theme_child.child_id` (`child_id`),
+              CONSTRAINT `fk.theme_child.child_id` FOREIGN KEY (`child_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `fk.theme_child.parent_id__theme_id` FOREIGN KEY (`parent_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
