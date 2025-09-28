@@ -1,0 +1,35 @@
+{% props
+    variant = 'info',
+    size = 'text-md',
+    text = null,
+    slots = [],
+%}
+
+{% set alert = cva({
+    base: 'alert',
+    variants: {
+        variant: {
+            primary: 'alert-primary',
+            secondary: 'alert-secondary',
+            warning: 'alert-warning',
+            success: 'alert-success',
+            info: 'alert-info',
+            danger: 'alert-danger',
+            light: 'alert-light',
+            dark: 'alert-dark',
+        },
+        size: {
+            sm: 'text-sm',
+            md: 'text-md',
+            lg: 'text-lg',
+        }
+    }
+}) %}
+
+<div role="alert" {{ attributes.defaults({ class: alert.apply({ variant, size }) }) }}>
+    {% block content %}
+        <twig:Slot name="content">
+            {{ text }}
+        </twig:Slot>
+    {% endblock %}
+</div>

@@ -1,0 +1,25 @@
+{% props
+    product,
+    addToCartExtraFormData = {},
+%}
+
+<div class="product-card-actions d-grid">
+    {% set isAvailable = not product.isCloseout or (product.stock >= product.minPurchase) %}
+    {% set displayFrom = product.calculatedPrices.count > 1 %}
+    {% set displayBuyButton = isAvailable and not displayFrom and product.childCount <= 0 %}
+
+    <twig:Slot name="top"></twig:Slot>
+
+    {% if displayBuyButton and config('core.listing.allowBuyInListing') %}
+        <twig:Sw:Product:BuyButton :product="product" :extraFormData="addToCartExtraFormData" />
+    {% else %}
+        <a href="{{ seoUrl('frontend.detail.page', {productId: product.id}) }}"
+           class="btn btn-light btn-detail">
+            {% block component_product_box_action_detail_label %}
+                {{ 'listing.boxProductDetails'|trans|sw_sanitize }}
+            {% endblock %}
+        </a>
+    {% endif %}
+
+    <twig:Slot name="bottom"></twig:Slot>
+</div>
