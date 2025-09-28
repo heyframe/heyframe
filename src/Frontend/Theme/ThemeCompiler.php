@@ -2,12 +2,6 @@
 
 namespace HeyFrame\Frontend\Theme;
 
-use League\Flysystem\FilesystemException;
-use League\Flysystem\FilesystemOperator;
-use League\Flysystem\UnableToDeleteDirectory;
-use League\Flysystem\Visibility;
-use Psr\Log\LoggerInterface;
-use ScssPhp\ScssPhp\OutputStyle;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheInvalidator;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatch;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatchInput;
@@ -24,6 +18,12 @@ use HeyFrame\Frontend\Theme\FrontendPluginConfiguration\FileCollection;
 use HeyFrame\Frontend\Theme\FrontendPluginConfiguration\FrontendPluginConfiguration;
 use HeyFrame\Frontend\Theme\FrontendPluginConfiguration\FrontendPluginConfigurationCollection;
 use HeyFrame\Frontend\Theme\Validator\SCSSValidator;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\UnableToDeleteDirectory;
+use League\Flysystem\Visibility;
+use Psr\Log\LoggerInterface;
+use ScssPhp\ScssPhp\OutputStyle;
 use Symfony\Component\Asset\Package as AssetPackage;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
@@ -43,6 +43,7 @@ class ThemeCompiler implements ThemeCompilerInterface
         private readonly FilesystemOperator $tempFilesystem,
         private readonly CopyBatchInputFactory $copyBatchInputFactory,
         private readonly ThemeFileResolver $themeFileResolver,
+        private readonly UxComponentHelper $uxComponentHelper,
         private readonly bool $debug,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ThemeFilesystemResolver $themeFilesystemResolver,
@@ -116,9 +117,10 @@ class ThemeCompiler implements ThemeCompilerInterface
             );
         }
 
-        $scriptFiles = $this->copyScriptFilesToTheme($configurationCollection, $themePrefix);
+        $themeScriptCopyFiles = $this->copyScriptFilesToTheme($configurationCollection, $themePrefix);
+        $componentScriptCopyFiles = $this->copyComponentScriptFiles($themePrefix);
 
-        CopyBatch::copy($this->filesystem, ...$assets, ...$scriptFiles);
+        CopyBatch::copy($this->filesystem, ...$assets, ...$themeScriptCopyFiles, ...$componentScriptCopyFiles);
 
         $this->themePathBuilder->saveSeed($channelId, $themeId, $newThemeHash);
 
@@ -199,6 +201,28 @@ class ThemeCompiler implements ThemeCompilerInterface
                     $copyFiles[] = new CopyBatchInput($filePath, [$targetPath . '/' . $file->getFilename()], $this->visibility);
                 }
             }
+        }
+
+        return $copyFiles;
+    }
+
+    private function copyComponentScriptFiles(string $themePrefix): array
+    {
+        $componentScriptFiles = $this->uxComponentHelper->getComponents();
+        $themeComponentsPath = 'theme/' . $themePrefix . '/js/components/';
+
+        $copyFiles = [];
+
+        foreach ($componentScriptFiles as $component) {
+            $componentPath = $component->getScriptPath();
+
+            if ($componentPath === null) {
+                continue;
+            }
+
+            $componentTargetPath = $themeComponentsPath . $component->getRelativeNamespacePath() . '.js';
+
+            $copyFiles[] = new CopyBatchInput($componentPath, [$componentTargetPath]);
         }
 
         return $copyFiles;

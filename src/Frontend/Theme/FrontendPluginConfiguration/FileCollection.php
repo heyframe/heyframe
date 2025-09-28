@@ -43,6 +43,11 @@ class FileCollection extends Collection
             if ($element->assetName === null) {
                 return null;
             }
+
+            if (str_contains($element->getFilepath(), 'Resources/views/components/')) {
+                return $prefix . '/components/' . $element->assetName . '/' . basename($element->getFilepath());
+            }
+
             // removes file with old js structure (before async changes) from collection
             if (!str_ends_with($element->getFilepath(), $element->assetName . '/' . basename($element->getFilepath()))) {
                 return null;
