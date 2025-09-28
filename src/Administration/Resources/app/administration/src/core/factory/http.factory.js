@@ -27,7 +27,7 @@ export default function createHTTPClient(context) {
  * @returns { CancelToken, isCancel, Cancel}
  */
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
-export const { CancelToken, isCancel, Cancel } = Axios;
+export const {CancelToken, isCancel, Cancel} = Axios;
 
 /**
  * Creates the HTTP client with the provided context.
@@ -38,6 +38,10 @@ export const { CancelToken, isCancel, Cancel } = Axios;
 function createClient() {
     const client = Axios.create({
         baseURL: HeyFrame.Context.api.apiPath,
+        // Add request/response size limits to mitigate DoS vulnerability
+        maxContentLength: 50 * 1024 * 1024, // 50MB limit
+        maxBodyLength: 50 * 1024 * 1024, // 50MB limit
+        timeout: 30000, // 30 second timeout
     });
 
     refreshTokenInterceptor(client);
@@ -68,7 +72,6 @@ function createClient() {
  */
 function requestCacheAdapterInterceptor(client) {
     const requestCaches = {};
-
     client.interceptors.request.use((config) => {
         const originalAdapter = config.adapter;
 
@@ -87,7 +90,7 @@ function globalErrorHandlingInterceptor(client) {
     client.interceptors.response.use(
         (response) => response,
         (error) => {
-            const { hasOwnProperty } = HeyFrame.Utils.object;
+            const {hasOwnProperty} = HeyFrame.Utils.object;
 
             if (hasOwnProperty(error?.config?.headers ?? {}, 'sw-app-integration-id')) {
                 return Promise.reject(error);
@@ -97,14 +100,14 @@ function globalErrorHandlingInterceptor(client) {
                 return Promise.reject(error);
             }
 
-            const { status } = error.response ?? { status: undefined };
-            const { errors, data } = error.response?.data ?? {
+            const {status} = error.response ?? {status: undefined};
+            const {errors, data} = error.response?.data ?? {
                 errors: undefined,
                 data: undefined,
             };
 
             try {
-                handleErrorStates({ status, errors, error, data });
+                handleErrorStates({status, errors, error, data});
             } catch (e) {
                 HeyFrame.Utils.debug.error(e);
 
@@ -133,7 +136,7 @@ function globalErrorHandlingInterceptor(client) {
  * @param {Object} error
  * @param {Object} data
  */
-function handleErrorStates({ status, errors, error = null, data }) {
+function handleErrorStates({status, errors, error = null, data}) {
     // Get $tc for translations and bind the Vue component scope to make it working
     const viewRoot = HeyFrame.Application.view.root;
 
@@ -335,7 +338,7 @@ function storeSessionExpiredInterceptor(client) {
             return response;
         },
         (error) => {
-            const { config, response } = error;
+            const {config, response} = error;
             const code = response?.data?.errors?.[0]?.code;
 
             if (config?.storeSessionRequestRetries >= maxRetryLimit) {
