@@ -201,20 +201,25 @@ class ShopConfigurationController extends InstallerController
     {
         // Always include default languages for the UI
         $languages = [
-            'de-DE' => [
-                'id' => 'de-DE',
-                'label' => 'Deutsch',
+            'zh-CN' => [
+                'id' => 'zh-CN',
+                'label' => $this->translator->trans('heyframe.installer.select_language_zh-CN'),
             ],
             'en-GB' => [
                 'id' => 'en-GB',
-                'label' => 'English',
+                'label' => $this->translator->trans('heyframe.installer.select_language_en-GB'),
             ],
         ];
 
         foreach ($this->translationConfig->languages as $language) {
+            $translationKey = 'heyframe.installer.select_language_' . $language->locale;
+            $translatedName = $this->translator->trans($translationKey);
+
+            $label = ($translatedName !== $translationKey) ? $translatedName : $language->name;
+
             $languages[$language->locale] = [
                 'id' => $language->locale,
-                'label' => $language->name,
+                'label' => $label,
             ];
         }
 

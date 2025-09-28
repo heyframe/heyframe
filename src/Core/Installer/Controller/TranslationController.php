@@ -34,10 +34,12 @@ class TranslationController extends InstallerController
     #[Route(path: '/installer/translation/run', name: 'installer.translation-run', methods: ['POST'])]
     public function run(Request $request): JsonResponse
     {
+        set_time_limit(600);
+
         $session = $request->getSession();
 
         /** @var list<string> $locales */
-        $locales = (array) $session->get('SELECTED_LANGUAGES', []);
+        $locales = (array)$session->get('SELECTED_LANGUAGES', []);
 
         if (empty($locales)) {
             return new JsonResponse([
