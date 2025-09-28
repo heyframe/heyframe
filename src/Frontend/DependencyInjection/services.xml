@@ -15,5 +15,19 @@
         <service id="HeyFrame\Frontend\Framework\Routing\FrontendRouteScope">
             <tag name="heyframe.route_scope"/>
         </service>
+
+        <service id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentRenderEventListener">
+            <tag name="kernel.event_listener" />
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentHelper">
+            <argument>Resources/views/components/</argument>
+            <argument>%kernel.project_dir%</argument>
+            <argument>%kernel.bundles_metadata%</argument>
+            <argument type="service" id="twig"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\NamespaceHierarchyBuilder"/>
+            <argument type="service" id="ux.twig_component.component_factory"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
     </services>
 </container>

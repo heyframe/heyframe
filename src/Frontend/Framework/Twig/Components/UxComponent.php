@@ -1,0 +1,145 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Frontend\Framework\Twig\Components;
+
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Struct\Struct;
+use Symfony\Component\Filesystem\Path;
+use Symfony\UX\TwigComponent\ComponentMetadata;
+
+#[Package('framework')]
+class UxComponent extends Struct
+{
+    private const MAIN_NAMESPACE = 'Frontend';
+
+    protected string $name;
+
+    protected string $path;
+
+    protected string $namespace;
+
+    protected ?ComponentMetadata $metadata = null;
+
+    protected array $properties = [];
+
+    public function __construct(
+        string $name,
+        string $path,
+        string $namespace,
+    ) {
+        $this->name = $name;
+        $this->path = $path;
+        $this->namespace = $namespace;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getNamespace(): string
+    {
+        return $this->namespace;
+    }
+
+    public function getBaseName(): string
+    {
+        $nameParts = explode(':', $this->name);
+
+        if (\count($nameParts) <= 1) {
+            return $this->name;
+        }
+
+        return $nameParts[\count($nameParts) - 1];
+    }
+
+    public function getTag(): string
+    {
+        if ($this->namespace !== self::MAIN_NAMESPACE) {
+            return $this->namespace . ':' . $this->name;
+        }
+
+        return $this->name;
+    }
+
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    public function getRelativeNamespacePath(): string
+    {
+        return str_replace(':', '/', $this->getTag());
+    }
+
+    public function getRelativeNamespaceDirectory(): string
+    {
+        $nameParts = explode(':', $this->getTag());
+
+        array_pop($nameParts);
+
+        return implode('/', $nameParts);
+    }
+
+    public function getStylePath(): ?string
+    {
+        $stylePath = Path::join($this->getDirectory(), $this->getBaseName() . '.scss');
+
+        if (!is_file($stylePath)) {
+            return null;
+        }
+
+        return $stylePath;
+    }
+
+    public function getScriptPath(): ?string
+    {
+        $scriptPath = Path::join($this->getDirectory(), $this->getBaseName() . '.js');
+
+        if (!is_file($scriptPath)) {
+            return null;
+        }
+
+        return $scriptPath;
+    }
+
+    public function getDirectory(): string
+    {
+        return Path::getDirectory($this->path);
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function setPath(string $path): void
+    {
+        $this->path = $path;
+    }
+
+    public function setNamespace(string $namespace): void
+    {
+        $this->namespace = $namespace;
+    }
+
+    public function getMetadata(): ?ComponentMetadata
+    {
+        return $this->metadata;
+    }
+
+    public function setMetadata(ComponentMetadata $metadata): void
+    {
+        $this->metadata = $metadata;
+    }
+
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+    public function setProperties(array $properties): void
+    {
+        $this->properties = $properties;
+    }
+}

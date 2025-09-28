@@ -13,7 +13,6 @@ use HeyFrame\Core\Framework\Validation\DataValidationDefinition;
 use HeyFrame\Core\Framework\Validation\DataValidator;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\ChannelException;
 use HeyFrame\Core\System\Channel\Context\ChannelContextPersister;
 use HeyFrame\Core\System\Channel\Context\ChannelContextService;
 use HeyFrame\Core\System\Channel\ContextTokenResponse;
@@ -27,12 +26,8 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 #[Package('framework')]
 class ContextSwitchRoute extends AbstractContextSwitchRoute
 {
-    private const SHIPPING_METHOD_ID = ChannelContextService::SHIPPING_METHOD_ID;
     private const PAYMENT_METHOD_ID = ChannelContextService::PAYMENT_METHOD_ID;
-    private const BILLING_ADDRESS_ID = ChannelContextService::BILLING_ADDRESS_ID;
-    private const SHIPPING_ADDRESS_ID = ChannelContextService::SHIPPING_ADDRESS_ID;
     private const COUNTRY_ID = ChannelContextService::COUNTRY_ID;
-    private const STATE_ID = ChannelContextService::COUNTRY_STATE_ID;
     private const CURRENCY_ID = ChannelContextService::CURRENCY_ID;
     private const LANGUAGE_ID = ChannelContextService::LANGUAGE_ID;
 
@@ -57,12 +52,8 @@ class ContextSwitchRoute extends AbstractContextSwitchRoute
         $definition = new DataValidationDefinition('context_switch');
 
         $parameters = $data->only(
-            self::SHIPPING_METHOD_ID,
             self::PAYMENT_METHOD_ID,
-            self::BILLING_ADDRESS_ID,
-            self::SHIPPING_ADDRESS_ID,
             self::COUNTRY_ID,
-            self::STATE_ID,
             self::CURRENCY_ID,
             self::LANGUAGE_ID
         );
@@ -71,12 +62,8 @@ class ContextSwitchRoute extends AbstractContextSwitchRoute
         $definition
             ->add(self::LANGUAGE_ID, new Type('string'))
             ->add(self::CURRENCY_ID, new Type('string'))
-            ->add(self::SHIPPING_METHOD_ID, new Type('string'))
             ->add(self::PAYMENT_METHOD_ID, new Type('string'))
-            ->add(self::BILLING_ADDRESS_ID, new Type('string'))
-            ->add(self::SHIPPING_ADDRESS_ID, new Type('string'))
             ->add(self::COUNTRY_ID, new Type('string'))
-            ->add(self::STATE_ID, new Type('string'))
         ;
 
         $event = new SwitchContextEvent($data, $context, $definition, $parameters);
@@ -84,20 +71,6 @@ class ContextSwitchRoute extends AbstractContextSwitchRoute
         $parameters = $event->getParameters();
 
         $this->validator->validate($parameters, $definition);
-
-        $addressCriteria = new Criteria();
-        if ($context->getCustomer()) {
-            $addressCriteria->addFilter(new EqualsFilter('customer_address.customerId', $context->getCustomerId()));
-        } else {
-            // do not allow to set address ids if the customer is not logged in
-            if (isset($parameters[self::SHIPPING_ADDRESS_ID])) {
-                throw ChannelException::customerNotLoggedIn();
-            }
-
-            if (isset($parameters[self::BILLING_ADDRESS_ID])) {
-                throw ChannelException::customerNotLoggedIn();
-            }
-        }
 
         $channelId = $context->getChannelId();
         $frameworkContext = $context->getContext();
@@ -111,18 +84,11 @@ class ContextSwitchRoute extends AbstractContextSwitchRoute
         $paymentMethodCriteria = (new Criteria())
             ->addFilter(new EqualsFilter('payment_method.channels.id', $channelId));
 
-        $shippingMethodCriteria = (new Criteria())
-            ->addFilter(new EqualsFilter('shipping_method.channels.id', $channelId));
-
         $definition
             ->add(self::LANGUAGE_ID, new EntityExists(entity: 'language', context: $frameworkContext, criteria: $languageCriteria))
             ->add(self::CURRENCY_ID, new EntityExists(entity: 'currency', context: $frameworkContext, criteria: $currencyCriteria))
-            ->add(self::SHIPPING_METHOD_ID, new EntityExists(entity: 'shipping_method', context: $frameworkContext, criteria: $shippingMethodCriteria))
             ->add(self::PAYMENT_METHOD_ID, new EntityExists(entity: 'payment_method', context: $frameworkContext, criteria: $paymentMethodCriteria))
-            ->add(self::BILLING_ADDRESS_ID, new EntityExists(entity: 'customer_address', context: $frameworkContext, criteria: $addressCriteria))
-            ->add(self::SHIPPING_ADDRESS_ID, new EntityExists(entity: 'customer_address', context: $frameworkContext, criteria: $addressCriteria))
             ->add(self::COUNTRY_ID, new EntityExists(entity: 'country', context: $frameworkContext))
-            ->add(self::STATE_ID, new EntityExists(entity: 'country_state', context: $frameworkContext))
         ;
 
         $event = new SwitchContextEvent($data, $context, $definition, $parameters);

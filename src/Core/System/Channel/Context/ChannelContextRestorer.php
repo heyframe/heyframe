@@ -62,17 +62,10 @@ class ChannelContextRestorer
             $customerGroupId = $customer->getGroupId();
         }
 
-        $billingAddress = $order->getBillingAddress();
-        $countryStateId = null;
-        if ($billingAddress) {
-            $countryStateId = $billingAddress->getCountryStateId();
-        }
-
         $options = [
             ChannelContextService::CURRENCY_ID => $order->getCurrencyId(),
             ChannelContextService::LANGUAGE_ID => $order->getLanguageId(),
             ChannelContextService::CUSTOMER_ID => $order->getOrderCustomer()->getCustomerId(),
-            ChannelContextService::COUNTRY_STATE_ID => $countryStateId,
             ChannelContextService::CUSTOMER_GROUP_ID => $customerGroupId,
             ChannelContextService::PERMISSIONS => OrderConverter::ADMIN_EDIT_ORDER_PERMISSIONS,
             ChannelContextService::VERSION_ID => $context->getVersionId(),
@@ -80,16 +73,6 @@ class ChannelContextRestorer
 
         if ($paymentMethodId = $this->getPaymentMethodId($order)) {
             $options[ChannelContextService::PAYMENT_METHOD_ID] = $paymentMethodId;
-        }
-
-        $shippingMethodId = $order->getPrimaryOrderDelivery()?->getShippingMethodId();
-
-        if (!Feature::isActive('v6.8.0.0')) {
-            $shippingMethodId = $order->getDeliveries()?->first()?->getShippingMethodId();
-        }
-
-        if ($shippingMethodId !== null) {
-            $options[ChannelContextService::SHIPPING_METHOD_ID] = $shippingMethodId;
         }
 
         $options = array_merge($options, $overrideOptions);
