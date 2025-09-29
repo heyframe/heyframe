@@ -10,13 +10,26 @@
             {% block layout_header_navbar %}
                 <div class="col-12 order-2 col-sm order-sm-1 header-navber-col">
                     <div class="row">
-                         <div class="col">
+                        <div class="col">
                             {% sw_include '@Frontend/frontend/layout/header/navbar/navbar.html.twig' %}
                         </div>
                     </div>
                 </div>
             {% endblock %}
 
+            {% block layout_header_actions %}
+                <div class="col-12 order-1 col-sm-auto order-sm-2 header-actions-col">
+                    <div class="row g-0">
+                        {% block layout_header_actions_account %}
+                            <div class="col-auto">
+                                <div class="account-menu">
+                                    {% sw_include '@Frontend/frontend/layout/header/actions/account-widget.html.twig' %}
+                                </div>
+                            </div>
+                        {% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
         </div>
     {% endblock %}
 {% endblock %}

@@ -1,6 +1,27 @@
 /*
+Basic styles
+==================================================
+Contains the imports to all basic styles.
+
+The file organization follows the 7-1 pattern architecture
+https://sass-guidelin.es/#the-7-1-pattern
+
+@sw-package framework
+*/
+
+/*
+ * Variables, Mixins, Functions
+ * ---------------------------- */
+@import 'variables';
+/*
  * Vendors
  * ------- */
 @import 'vendor/bootstrap';
 @import 'vendor/tiny-slider';
 @import 'vendor/datepicker';
+
+/*
+ * Layout-related sections
+ * ----------------------- */
+@import 'layout/container';
+@import 'layout/footer';

@@ -4,5 +4,8 @@
   },
   "header": {
     "logoLink": "返回首页"
+  },
+  "footer": {
+    "copyrightInfo": "© Copyright 2025. HeyFarme all rights reserved."
   }
 }
