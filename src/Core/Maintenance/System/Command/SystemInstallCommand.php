@@ -132,7 +132,7 @@ class SystemInstallCommand extends Command
             if ($application->has('channel:create:frontend')) {
                 $commands[] = [
                     'command' => 'channel:create:frontend',
-                    '--name' => $input->getOption('shop-name') ?? 'web站点',
+                    '--name' => $input->getOption('shop-name') ?? 'Web',
                     '--url' => (string) EnvironmentHelper::getVariable('APP_URL', 'http://localhost'),
                     '--isoCode' => $input->getOption('shop-locale') ?? 'zh-CN',
                 ];
