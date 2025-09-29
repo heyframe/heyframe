@@ -101,5 +101,15 @@
             <argument type="service" id="ux.twig_component.component_factory"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
+
+       <service id="HeyFrame\Frontend\Page\GenericPageLoader">
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Page\Navigation\NavigationPageLoader">
+            <argument type="service" id="HeyFrame\Frontend\Page\GenericPageLoader"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
     </services>
 </container>

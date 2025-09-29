@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Content\Category\Service;
 
 use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Content\Category\CategoryEntity;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\TermsAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\CountAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\Bucket\TermsResult;
@@ -15,7 +16,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
 
 /**
  * @internal
@@ -24,10 +24,10 @@ use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
 class DefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInterface
 {
     /**
-     * @param ChannelRepository<CategoryCollection> $categoryRepository
+     * @param EntityRepository<CategoryCollection> $categoryRepository
      */
     public function __construct(
-        private readonly ChannelRepository $categoryRepository,
+        private readonly EntityRepository $categoryRepository,
     ) {
     }
 
@@ -55,7 +55,7 @@ class DefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInterface
 
         $criteria->setLimit(null);
 
-        $levels = $this->categoryRepository->search($criteria, $context)->getEntities();
+        $levels = $this->categoryRepository->search($criteria, $context->getContext())->getEntities();
 
         $this->addVisibilityCounts($rootId, $rootLevel, $depth, $levels, $context);
 
@@ -92,7 +92,7 @@ class DefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInterface
         );
 
         $termsResult = $this->categoryRepository
-            ->aggregate($criteria, $context)
+            ->aggregate($criteria, $context->getContext())
             ->get('category-ids');
 
         if (!($termsResult instanceof TermsResult)) {

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Frontend\Framework\Twig;
 
-use Doctrine\DBAL\Connection;
 use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;

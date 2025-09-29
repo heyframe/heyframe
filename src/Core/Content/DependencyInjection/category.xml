@@ -17,25 +17,8 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Category\Channel\ChannelCategoryDefinition">
-            <tag name="heyframe.channel.entity.definition"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Category\Service\NavigationLoader">
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Content\Category\Channel\NavigationRoute"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Category\Channel\NavigationRoute" public="true">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="channel.category.repository"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
-            <argument type="service" id="HeyFrame\Core\Content\Category\Tree\CategoryTreePathResolver"/>
-            <argument type="service" id="HeyFrame\Core\Content\Category\Service\DefaultCategoryLevelLoader"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Category\Service\DefaultCategoryLevelLoader">
-            <argument type="service" id="channel.category.repository"/>
+            <argument type="service" id="category.repository"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Category\Service\CachedDefaultCategoryLevelLoader" decorates="HeyFrame\Core\Content\Category\Service\DefaultCategoryLevelLoader">
@@ -48,9 +31,6 @@
 
         <service id="HeyFrame\Core\Content\Category\Tree\CategoryTreePathResolver"/>
 
-        <service id="HeyFrame\Core\Content\Category\Channel\TreeBuildingNavigationRoute" decorates="HeyFrame\Core\Content\Category\Channel\NavigationRoute" decoration-priority="-2000" public="true">
-            <argument type="service" id="HeyFrame\Core\Content\Category\Channel\TreeBuildingNavigationRoute.inner"/>
-        </service>
 
 <!--        <service id="HeyFrame\Core\Content\Category\Channel\CategoryRoute" public="true">-->
 <!--            <argument type="service" id="channel.category.repository"/>-->
@@ -60,7 +40,7 @@
 <!--        </service>-->
 
         <service id="HeyFrame\Core\Content\Category\Channel\CategoryListRoute" public="true">
-            <argument type="service" id="channel.category.repository"/>
+            <argument type="service" id="category.repository"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryIndexer">

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term;
 
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\AbstractTokenFilter;
 use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]
@@ -17,7 +16,6 @@ class Tokenizer implements TokenizerInterface
         private readonly array $preservedChars = ['-', '_', '+', '.', '@']
     ) {
     }
-
 
     public function tokenize(string $string, ?int $tokenMinimumLength = null): array
     {

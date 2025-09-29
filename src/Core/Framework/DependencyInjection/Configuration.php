@@ -934,6 +934,7 @@ class Configuration implements ConfigurationInterface
 
         return $rootNode;
     }
+
     private function createTelemetrySection(): ArrayNodeDefinition
     {
         $treeBuilder = new TreeBuilder('telemetry');

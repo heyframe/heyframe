@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\Category\Channel;
 
 use HeyFrame\Core\Content\Category\CategoryCollection;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -12,7 +13,6 @@ use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
@@ -22,9 +22,9 @@ class CategoryListRoute extends AbstractCategoryListRoute
     /**
      * @internal
      *
-     * @param ChannelRepository<CategoryCollection> $categoryRepository
+     * @param EntityRepository<CategoryCollection> $categoryRepository
      */
-    public function __construct(private readonly ChannelRepository $categoryRepository)
+    public function __construct(private readonly EntityRepository $categoryRepository)
     {
     }
 
@@ -53,6 +53,6 @@ class CategoryListRoute extends AbstractCategoryListRoute
             $criteria->addFilter($filter);
         }
 
-        return new CategoryListRouteResponse($this->categoryRepository->search($criteria, $context));
+        return new CategoryListRouteResponse($this->categoryRepository->search($criteria, $context->getContext()));
     }
 }
