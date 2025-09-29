@@ -34,7 +34,7 @@
         <service id="HeyFrame\Frontend\Framework\Twig\TemplateDataExtension">
             <argument type="service" id="request_stack"/>
             <argument>%heyframe.staging.frontend.show_banner%</argument>
-
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
             <tag name="twig.extension"/>
         </service>
 
@@ -122,6 +122,10 @@
         <service id="HeyFrame\Frontend\Pagelet\Header\HeaderPageletLoader">
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\Content\Navigation\Service\NavigationLoader"/>
+        </service>
+
+        <service id="HeyFrame\Frontend\Framework\Twig\Extension\UrlEncodingTwigFilter" public="false">
+            <tag name="twig.extension"/>
         </service>
     </services>
 </container>

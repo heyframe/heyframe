@@ -1,3 +1,7 @@
 {% block base_footer %}
-    Footer
+    <footer class="footer-main">
+        {% block base_footer_inner %}
+            {% sw_include '@Frontend/frontend/layout/footer/footer.html.twig' %}
+        {% endblock %}
+    </footer>
 {% endblock %}

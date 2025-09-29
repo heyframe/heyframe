@@ -2,8 +2,10 @@
 
 namespace HeyFrame\Frontend\Framework\Twig;
 
+use Doctrine\DBAL\Connection;
 use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +22,7 @@ class TemplateDataExtension extends AbstractExtension implements GlobalsInterfac
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly bool $showStagingBanner,
+        private readonly Connection $connection,
     ) {
     }
 
@@ -37,12 +40,21 @@ class TemplateDataExtension extends AbstractExtension implements GlobalsInterfac
         if (!$context instanceof ChannelContext) {
             return [];
         }
+        [$controllerName, $controllerAction] = $this->getControllerInfo($request);
 
         $themeId = $request->attributes->get(ChannelRequest::ATTRIBUTE_THEME_ID);
+
+        $activeNavigationId = (string) $request->get('navigationId', $context->getChannel()->getNavigationId());
+        $navigationPathIdList = $this->getNavigationPath($activeNavigationId, $context);
+        $navigationInfo = new NavigationInfo(
+            $activeNavigationId,
+            $navigationPathIdList,
+        );
 
         return [
             'heyframe' => [
                 'dateFormat' => \DATE_ATOM,
+                'navigation' => $navigationInfo,
                 'showStagingBanner' => $this->showStagingBanner,
             ],
             'themeId' => $themeId, /** Not used in Twig template directly, but in @see \HeyFrame\Storefront\Framework\Twig\Extension\ConfigExtension::getThemeId */
@@ -69,5 +81,21 @@ class TemplateDataExtension extends AbstractExtension implements GlobalsInterfac
         }
 
         return ['', ''];
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function getNavigationPath(string $activeNavigationId, ChannelContext $context): array
+    {
+        $path = $this->connection->fetchOne(
+            'SELECT path FROM category WHERE id = :id',
+            ['id' => Uuid::fromHexToBytes($activeNavigationId)]
+        ) ?: '';
+
+        $navigationPathIdList = array_filter(explode('|', $path));
+        $navigationPathIdList = array_diff($navigationPathIdList, [$context->getChannel()->getNavigationId()]);
+
+        return array_values($navigationPathIdList);
     }
 }

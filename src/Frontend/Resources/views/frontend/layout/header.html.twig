@@ -1,3 +1,11 @@
 {% block header %}
-    Header
+    {% block base_header %}
+        <header class="header-main">
+            {% block base_header_inner %}
+                <div class="container">
+                    {% sw_include '@Frontend/frontend/layout/header/header.html.twig' %}
+                </div>
+            {% endblock %}
+        </header>
+    {% endblock %}
 {% endblock %}

@@ -1,0 +1,22 @@
+{% block layout_header %}
+    {% block layout_header_navigation %}
+        <div class="row align-items-center header-row">
+            {% block layout_header_logo %}
+                <div class="col-12 col-lg-auto header-logo-col pb-sm-2 my-3 m-lg-0">
+                    {% sw_include '@Frontend/frontend/layout/header/logo.html.twig' %}
+                </div>
+            {% endblock %}
+
+            {% block layout_header_navbar %}
+                <div class="col-12 order-2 col-sm order-sm-1 header-navber-col">
+                    <div class="row">
+                         <div class="col">
+                            {% sw_include '@Frontend/frontend/layout/header/navbar/navbar.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+
+        </div>
+    {% endblock %}
+{% endblock %}
