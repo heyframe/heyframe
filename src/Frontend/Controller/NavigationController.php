@@ -7,6 +7,7 @@ use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Frontend\Framework\Routing\FrontendRouteScope;
 use HeyFrame\Frontend\Page\Navigation\NavigationPageLoaderInterface;
+use HeyFrame\Frontend\Pagelet\Footer\FooterPageletLoaderInterface;
 use HeyFrame\Frontend\Pagelet\Header\HeaderPageletLoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,7 @@ class NavigationController extends FrontendController
     public function __construct(
         private readonly NavigationPageLoaderInterface $navigationPageLoader,
         private readonly HeaderPageletLoaderInterface $headerLoader,
+        private readonly FooterPageletLoaderInterface $footerLoader,
     ) {
     }
 

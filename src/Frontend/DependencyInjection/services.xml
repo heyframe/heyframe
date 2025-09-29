@@ -113,6 +113,11 @@
             <argument type="service" id="HeyFrame\Core\Content\Navigation\Channel\LoadNavigationRoute"/>
         </service>
 
+        <service id="HeyFrame\Frontend\Pagelet\Footer\FooterPageletLoader">
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Navigation\Service\NavigationLoader"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Payment\Channel\PaymentMethodRoute"/>
+        </service>
 
         <service id="HeyFrame\Frontend\Pagelet\Header\HeaderPageletLoader">
             <argument type="service" id="event_dispatcher"/>
