@@ -132,7 +132,32 @@ class NavigationEntity extends Entity
     {
         return $this->metaDescription;
     }
+    /**
+     * @return array<mixed>
+     */
+    public function getPlainBreadcrumb(): array
+    {
+        $breadcrumb = $this->getTranslation('breadcrumb');
+        if ($breadcrumb === null) {
+            return [];
+        }
+        if ($this->path === null) {
+            return $breadcrumb;
+        }
 
+        $parts = \array_slice(explode('|', $this->path), 1, -1);
+
+        $filtered = [];
+        foreach ($parts as $id) {
+            if (isset($breadcrumb[$id])) {
+                $filtered[$id] = $breadcrumb[$id];
+            }
+        }
+
+        $filtered[$this->getId()] = $breadcrumb[$this->getId()];
+
+        return $filtered;
+    }
     public function setMetaDescription(?string $metaDescription): void
     {
         $this->metaDescription = $metaDescription;

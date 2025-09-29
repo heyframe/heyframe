@@ -12,7 +12,7 @@ HeyFrame.Service('privileges')
                 privileges: [
                     'theme:read',
                     'theme_child:read',
-                    'sales_channel:read',
+                    'channel:read',
                     HeyFrame.Service('privileges').getPrivileges('media.viewer')
                 ],
                 dependencies: []

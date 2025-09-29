@@ -18,6 +18,10 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="HeyFrame\Core\Content\Navigation\Channel\ChannelNavigationDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
+        </service>
+
         <service id="HeyFrame\Core\Content\Navigation\DataAbstractionLayer\NavigationIndexer">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
@@ -27,6 +31,13 @@
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="messenger.default_bus"/>
             <tag name="heyframe.entity_indexer"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Navigation\Service\NavigationBreadcrumbBuilder">
+        </service>
+
+        <service id="HeyFrame\Core\Content\Navigation\Service\NavigationUrlGenerator">
+            <argument type="service" id="HeyFrame\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface" />
         </service>
 
         <service id="HeyFrame\Core\Content\Navigation\Channel\LoadNavigationRoute" public="true">

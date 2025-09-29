@@ -30,7 +30,7 @@ readonly class DomainNotMappedListener
             'debug' => $debug,
             'domain' => $event->getRequest()->getSchemeAndHttpHost(),
             'accessedUrl' => $event->getRequest()->getUri(),
-            'registeredDomains' => $debug ? $this->container->get(Connection::class)->fetchFirstColumn('SELECT url FROM sales_channel_domain') : [],
+            'registeredDomains' => $debug ? $this->container->get(Connection::class)->fetchFirstColumn('SELECT url FROM channel_domain') : [],
             'relevantHeaders' => [
                 'Host' => $event->getRequest()->headers->get('Host'),
                 'X-Forwarded-Host' => $event->getRequest()->headers->get('X-Forwarded-Host'),

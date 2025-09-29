@@ -2533,7 +2533,7 @@ export default {
                         const criteria = new Criteria(1, 25);
 
                         criteria.addAssociation('type');
-                        criteria.addAssociation('numberRangeSalesChannels');
+                        criteria.addAssociation('numberRangeChannels');
 
                         return criteria;
                     },
@@ -2567,7 +2567,7 @@ export default {
 
                         this.getState();
                         this.splitPattern();
-                        await this.loadSalesChannels();
+                        await this.loadChannels();
                     },
                 },
             }
@@ -2590,7 +2590,7 @@ export default {
 '                        const criteria = new Criteria(1, 25);\n' +
 '\n' +
 '                        criteria.addAssociation(\'type\');\n' +
-'                        criteria.addAssociation(\'numberRangeSalesChannels\');\n' +
+'                        criteria.addAssociation(\'numberRangeChannels\');\n' +
 '\n' +
 '                        return criteria;\n' +
 '                    });\n' +
@@ -2623,7 +2623,7 @@ export default {
 '\n' +
 '                        getState();\n' +
 '                        this.splitPattern();\n' +
-'                        await this.loadSalesChannels();\n' +
+'                        await this.loadChannels();\n' +
 '                    };\n' +
 '\n' +
 '          return {\n' +

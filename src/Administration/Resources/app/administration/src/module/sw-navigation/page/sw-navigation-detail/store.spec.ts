@@ -20,7 +20,7 @@ const categoriesMock: Record<string, Partial<EntitySchema.Entities['navigation']
     },
     parent: {
         id: '111213',
-        footerChannels: [{ typeId: '12345' }] as EntitySchema.EntityCollection<'sales_channel'>,
+        footerChannels: [{ typeId: '12345' }] as EntitySchema.EntityCollection<'channel'>,
     },
 };
 

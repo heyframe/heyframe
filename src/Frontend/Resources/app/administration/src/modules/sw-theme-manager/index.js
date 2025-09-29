@@ -65,7 +65,7 @@ Module.register('sw-theme-manager', {
                 path: '/sw/sales/channel/detail/:id/theme',
                 meta: {
                     parentPath: 'sw.sales.channel.list',
-                    privilege: 'sales_channel.viewer'
+                    privilege: 'channel.viewer'
                 }
             });
         }

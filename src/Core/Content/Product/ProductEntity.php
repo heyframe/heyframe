@@ -13,6 +13,7 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslatio
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingConfig;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
+use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
@@ -158,7 +159,7 @@ class ProductEntity extends Entity implements \Stringable
     protected ?string $canonicalProductId = null;
 
     protected ?ProductEntity $canonicalProduct = null;
-
+    protected ?MainCategoryCollection $mainCategories = null;
     /**
      * @var array<int, string>
      */
@@ -171,7 +172,7 @@ class ProductEntity extends Entity implements \Stringable
 
     public function __toString(): string
     {
-        return (string) ($this->getTranslation('name') ?? $this->getName());
+        return (string)($this->getTranslation('name') ?? $this->getName());
     }
 
     public function getParentId(): ?string
@@ -231,7 +232,7 @@ class ProductEntity extends Entity implements \Stringable
 
     public function getIsCloseout(): bool
     {
-        return (bool) $this->isCloseout;
+        return (bool)$this->isCloseout;
     }
 
     public function setIsCloseout(?bool $isCloseout): void
@@ -785,4 +786,15 @@ class ProductEntity extends Entity implements \Stringable
     {
         $this->ratingAverage = $ratingAverage;
     }
+
+    public function getMainCategories(): ?MainCategoryCollection
+    {
+        return $this->mainCategories;
+    }
+
+    public function setMainCategories(MainCategoryCollection $mainCategories): void
+    {
+        $this->mainCategories = $mainCategories;
+    }
+
 }

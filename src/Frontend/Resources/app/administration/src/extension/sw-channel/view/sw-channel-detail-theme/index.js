@@ -79,7 +79,7 @@ Component.register('sw-channel-detail-theme', {
         },
 
         openThemeModal() {
-            if (!this.acl.can('sales_channel.editor')) {
+            if (!this.acl.can('channel.editor')) {
                 return;
             }
 

@@ -11,10 +11,10 @@ class GenericPageLoadedEvent extends PageLoadedEvent
 {
     public function __construct(
         protected Page $page,
-        ChannelContext $salesChannelContext,
+        ChannelContext $channelContext,
         Request $request
     ) {
-        parent::__construct($salesChannelContext, $request);
+        parent::__construct($channelContext, $request);
     }
 
     public function getPage(): Page

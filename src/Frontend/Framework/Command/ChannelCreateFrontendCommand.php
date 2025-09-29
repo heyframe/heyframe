@@ -69,7 +69,7 @@ class ChannelCreateFrontendCommand extends ChannelCreateCommand
                     'currencyId' => $input->getOption('currencyId'),
                 ],
             ],
-            'navigationCategoryDepth' => 3,
+            'navigationNavigationDepth' => 3,
             'name' => $input->getOption('name') ?? 'Frontend',
         ];
     }

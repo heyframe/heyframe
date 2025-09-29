@@ -57,7 +57,7 @@ class TemplateDataExtension extends AbstractExtension implements GlobalsInterfac
                 'navigation' => $navigationInfo,
                 'showStagingBanner' => $this->showStagingBanner,
             ],
-            'themeId' => $themeId, /** Not used in Twig template directly, but in @see \HeyFrame\Storefront\Framework\Twig\Extension\ConfigExtension::getThemeId */
+            'themeId' => $themeId, /** Not used in Twig template directly, but in @see \HeyFrame\Frontend\Framework\Twig\Extension\ConfigExtension::getThemeId */
             'context' => $context,
             'activeRoute' => $request->attributes->get('_route'),
             'formViolations' => $request->attributes->get('formViolations'),
@@ -89,7 +89,7 @@ class TemplateDataExtension extends AbstractExtension implements GlobalsInterfac
     private function getNavigationPath(string $activeNavigationId, ChannelContext $context): array
     {
         $path = $this->connection->fetchOne(
-            'SELECT path FROM category WHERE id = :id',
+            'SELECT path FROM navigation WHERE id = :id',
             ['id' => Uuid::fromHexToBytes($activeNavigationId)]
         ) ?: '';
 

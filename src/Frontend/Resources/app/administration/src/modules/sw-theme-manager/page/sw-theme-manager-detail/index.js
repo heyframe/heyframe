@@ -95,7 +95,7 @@ Component.register('sw-theme-manager-detail', {
         },
 
         channelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+            return this.repositoryFactory.create('channel');
         },
 
         previewMedia() {
