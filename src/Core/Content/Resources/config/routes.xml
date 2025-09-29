@@ -10,4 +10,5 @@
     <import resource="../../Product/Channel/**/*Route.php" type="attribute"/>
     <import resource="../../Flow/**/*Controller.php" type="attribute"/>
     <import resource="../../Category/Channel/**/*Route.php" type="attribute"/>
+    <import resource="../../Navigation/Channel/**/*Route.php" type="attribute"/>
 </routes>

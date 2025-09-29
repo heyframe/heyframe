@@ -15,7 +15,7 @@ class NavigationEntity extends Entity
     use EntityIdTrait;
 
     protected ?string $path = null;
-
+    protected ?string $parentId = null;
     protected int $level;
 
     protected bool $active;
@@ -31,7 +31,7 @@ class NavigationEntity extends Entity
     protected ?string $externalLink = null;
 
     protected bool $visible;
-
+    protected int $visibleChildCount = 0;
     protected string $type;
 
     protected ?string $description = null;
@@ -41,7 +41,7 @@ class NavigationEntity extends Entity
     protected ?string $metaDescription = null;
 
     protected ?string $keywords = null;
-
+    protected ?string $afterNavigationId = null;
     protected ?ChannelCollection $navigationChannels = null;
 
     protected ?ChannelCollection $footerChannels = null;
@@ -88,7 +88,7 @@ class NavigationEntity extends Entity
         $this->externalLink = $externalLink;
     }
 
-    public function isVisible(): bool
+    public function getVisible(): bool
     {
         return $this->visible;
     }
@@ -168,7 +168,7 @@ class NavigationEntity extends Entity
         $this->level = $level;
     }
 
-    public function isActive(): bool
+    public function getActive(): bool
     {
         return $this->active;
     }
@@ -217,4 +217,35 @@ class NavigationEntity extends Entity
     {
         $this->serviceChannels = $serviceChannels;
     }
+
+    public function getAfterNavigationId(): ?string
+    {
+        return $this->afterNavigationId;
+    }
+
+    public function setAfterNavigationId(?string $afterNavigationId): void
+    {
+        $this->afterNavigationId = $afterNavigationId;
+    }
+
+    public function getParentId(): ?string
+    {
+        return $this->parentId;
+    }
+
+    public function setParentId(?string $parentId): void
+    {
+        $this->parentId = $parentId;
+    }
+
+    public function getVisibleChildCount(): int
+    {
+        return $this->visibleChildCount;
+    }
+
+    public function setVisibleChildCount(int $visibleChildCount): void
+    {
+        $this->visibleChildCount = $visibleChildCount;
+    }
+
 }

@@ -9,7 +9,7 @@ use HeyFrame\Core\Framework\Log\Package;
  * @extends EntityCollection<NavigationTranslationEntity>
  */
 #[Package('discovery')]
-class NavigationTranslationCollection
+class NavigationTranslationCollection extends EntityCollection
 {
     public function getApiAlias(): string
     {

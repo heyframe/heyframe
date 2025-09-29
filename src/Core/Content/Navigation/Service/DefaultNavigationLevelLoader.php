@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Service;
+namespace HeyFrame\Core\Content\Navigation\Service;
 
-use HeyFrame\Core\Content\Category\CategoryCollection;
-use HeyFrame\Core\Content\Category\CategoryEntity;
+use HeyFrame\Core\Content\Navigation\NavigationCollection;
+use HeyFrame\Core\Content\Navigation\NavigationEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\TermsAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\CountAggregation;
@@ -21,13 +21,13 @@ use HeyFrame\Core\System\Channel\ChannelContext;
  * @internal
  */
 #[Package('discovery')]
-class DefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInterface
+class DefaultNavigationLevelLoader implements DefaultNavigationLevelLoaderInterface
 {
     /**
-     * @param EntityRepository<CategoryCollection> $categoryRepository
+     * @param EntityRepository<NavigationCollection> $navigationRepository
      */
     public function __construct(
-        private readonly EntityRepository $categoryRepository,
+        private readonly EntityRepository $navigationRepository,
     ) {
     }
 
@@ -37,7 +37,7 @@ class DefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInterface
         ChannelContext $context,
         Criteria $criteria,
         int $depth,
-    ): CategoryCollection {
+    ): NavigationCollection {
         $criteria->addFilter(new OrFilter(
             [
                 new EqualsFilter('id', $rootId),
@@ -55,27 +55,27 @@ class DefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInterface
 
         $criteria->setLimit(null);
 
-        $levels = $this->categoryRepository->search($criteria, $context->getContext())->getEntities();
+        $levels = $this->navigationRepository->search($criteria, $context)->getEntities();
 
         $this->addVisibilityCounts($rootId, $rootLevel, $depth, $levels, $context);
 
         return $levels;
     }
 
-    private function addVisibilityCounts(string $rootId, int $rootLevel, int $depth, CategoryCollection $levels, ChannelContext $context): void
+    private function addVisibilityCounts(string $rootId, int $rootLevel, int $depth, NavigationCollection $levels, ChannelContext $context): void
     {
         $counts = [];
-        foreach ($levels as $category) {
-            if (!$category->getActive() || !$category->getVisible()) {
+        foreach ($levels as $navigation) {
+            if (!$navigation->getActive() || !$navigation->getVisible()) {
                 continue;
             }
 
-            $parentId = $category->getParentId();
+            $parentId = $navigation->getParentId();
             $counts[$parentId] ??= 0;
             ++$counts[$parentId];
         }
-        foreach ($levels as $category) {
-            $category->setVisibleChildCount($counts[$category->getId()] ?? 0);
+        foreach ($levels as $navigation) {
+            $navigation->setVisibleChildCount($counts[$navigation->getId()] ?? 0);
         }
 
         // Fetch additional level of categories for counting visible children that are NOT included in the original query
@@ -88,12 +88,12 @@ class DefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInterface
         );
 
         $criteria->addAggregation(
-            new TermsAggregation('category-ids', 'parentId', null, null, new CountAggregation('visible-children-count', 'id'))
+            new TermsAggregation('navigation-ids', 'parentId', null, null, new CountAggregation('visible-children-count', 'id'))
         );
 
-        $termsResult = $this->categoryRepository
-            ->aggregate($criteria, $context->getContext())
-            ->get('category-ids');
+        $termsResult = $this->navigationRepository
+            ->aggregate($criteria, $context)
+            ->get('navigation-ids');
 
         if (!($termsResult instanceof TermsResult)) {
             return;
@@ -108,7 +108,7 @@ class DefaultCategoryLevelLoader implements DefaultCategoryLevelLoaderInterface
 
             $parent = $levels->get($key);
 
-            if ($parent instanceof CategoryEntity) {
+            if ($parent instanceof NavigationEntity) {
                 $parent->setVisibleChildCount($bucket->getCount());
             }
         }

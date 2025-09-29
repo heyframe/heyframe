@@ -9,6 +9,8 @@
         <defaults public="true" />
 
         <service id="HeyFrame\Frontend\Controller\NavigationController">
+            <argument type="service" id="HeyFrame\Frontend\Page\Navigation\NavigationPageLoader"/>
+            <argument type="service" id="HeyFrame\Frontend\Pagelet\Header\HeaderPageletLoader"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>

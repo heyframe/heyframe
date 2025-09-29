@@ -1,10 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Tree;
+namespace HeyFrame\Core\Content\Navigation\Tree;
 
-use HeyFrame\Core\Content\Category\CategoryEntity;
+
+use HeyFrame\Core\Content\Navigation\NavigationEntity;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
+use Shopware\Core\Content\Navigation\Tree\TreeItem;
 
 #[Package('discovery')]
 class Tree extends Struct
@@ -13,18 +15,18 @@ class Tree extends Struct
      * @param TreeItem[] $tree
      */
     public function __construct(
-        protected ?CategoryEntity $active,
+        protected ?NavigationEntity $active,
         protected array $tree,
     ) {
     }
 
-    public function isSelected(CategoryEntity $category): bool
+    public function isSelected(NavigationEntity $navigation): bool
     {
         if ($this->active === null) {
             return false;
         }
 
-        if ($category->getId() === $this->active->getId()) {
+        if ($navigation->getId() === $this->active->getId()) {
             return true;
         }
 
@@ -34,7 +36,7 @@ class Tree extends Struct
 
         $ids = explode('|', $this->active->getPath());
 
-        return \in_array($category->getId(), $ids, true);
+        return \in_array($navigation->getId(), $ids, true);
     }
 
     /**
@@ -53,26 +55,26 @@ class Tree extends Struct
         $this->tree = $tree;
     }
 
-    public function getActive(): ?CategoryEntity
+    public function getActive(): ?NavigationEntity
     {
         return $this->active;
     }
 
-    public function setActive(?CategoryEntity $active): void
+    public function setActive(?NavigationEntity $active): void
     {
         $this->active = $active;
     }
 
-    public function getChildren(string $categoryId): ?Tree
+    public function getChildren(string $navigationId): ?Tree
     {
-        $match = $this->find($categoryId, $this->tree);
+        $match = $this->find($navigationId, $this->tree);
 
         if ($match) {
-            return new Tree($match->getCategory(), $match->getChildren());
+            return new Tree($match->getNavigation(), $match->getChildren());
         }
 
         // active id is not part of $this->tree? active id is root or used as first level
-        if ($this->active && $this->active->getId() === $categoryId) {
+        if ($this->active && $this->active->getId() === $navigationId) {
             return $this;
         }
 
@@ -81,20 +83,20 @@ class Tree extends Struct
 
     public function getApiAlias(): string
     {
-        return 'category_tree';
+        return 'navigation_tree';
     }
 
     /**
      * @param TreeItem[] $tree
      */
-    private function find(string $categoryId, array $tree): ?TreeItem
+    private function find(string $navigationId, array $tree): ?TreeItem
     {
-        if (isset($tree[$categoryId])) {
-            return $tree[$categoryId];
+        if (isset($tree[$navigationId])) {
+            return $tree[$navigationId];
         }
 
         foreach ($tree as $item) {
-            $nested = $this->find($categoryId, $item->getChildren());
+            $nested = $this->find($navigationId, $item->getChildren());
 
             if ($nested) {
                 return $nested;

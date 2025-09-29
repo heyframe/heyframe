@@ -66,13 +66,13 @@ class ChannelEntity extends Entity
 
     protected ?string $homeKeywords = null;
 
-    protected ?string $footerCategoryId = null;
+    protected ?string $footerNavigationId = null;
 
-    protected ?string $footerCategoryVersionId = null;
+    protected ?string $footerNavigationVersionId = null;
 
-    protected ?string $serviceCategoryId = null;
+    protected ?string $serviceNavigationId = null;
 
-    protected ?string $serviceCategoryVersionId = null;
+    protected ?string $serviceNavigationVersionId = null;
 
     protected ?string $name = null;
 
@@ -549,24 +549,24 @@ class ChannelEntity extends Entity
         $this->numberRangeChannels = $numberRangeChannels;
     }
 
-    public function getFooterCategoryId(): ?string
+    public function getFooterNavigationId(): ?string
     {
-        return $this->footerCategoryId;
+        return $this->footerNavigationId;
     }
 
-    public function setFooterCategoryId(string $footerCategoryId): void
+    public function setFooterNavigationId(string $footerNavigationId): void
     {
-        $this->footerCategoryId = $footerCategoryId;
+        $this->footerNavigationId = $footerNavigationId;
     }
 
-    public function getServiceCategoryId(): ?string
+    public function getServiceNavigationId(): ?string
     {
-        return $this->serviceCategoryId;
+        return $this->serviceNavigationId;
     }
 
-    public function setServiceCategoryId(string $serviceCategoryId): void
+    public function setServiceNavigationId(string $serviceNavigationId): void
     {
-        $this->serviceCategoryId = $serviceCategoryId;
+        $this->serviceNavigationId = $serviceNavigationId;
     }
 
     /**
@@ -635,23 +635,23 @@ class ChannelEntity extends Entity
         $this->homeCmsPageVersionId = $homeCmsPageVersionId;
     }
 
-    public function getFooterCategoryVersionId(): ?string
+    public function getFooterNavigationVersionId(): ?string
     {
-        return $this->footerCategoryVersionId;
+        return $this->footerNavigationVersionId;
     }
 
-    public function setFooterCategoryVersionId(?string $footerCategoryVersionId): void
+    public function setFooterNavigationVersionId(?string $footerNavigationVersionId): void
     {
-        $this->footerCategoryVersionId = $footerCategoryVersionId;
+        $this->footerNavigationVersionId = $footerNavigationVersionId;
     }
 
-    public function getServiceCategoryVersionId(): ?string
+    public function getServiceNavigationVersionId(): ?string
     {
-        return $this->serviceCategoryVersionId;
+        return $this->serviceNavigationVersionId;
     }
 
-    public function setServiceCategoryVersionId(?string $serviceCategoryVersionId): void
+    public function setServiceNavigationVersionId(?string $serviceNavigationVersionId): void
     {
-        $this->serviceCategoryVersionId = $serviceCategoryVersionId;
+        $this->serviceNavigationVersionId = $serviceNavigationVersionId;
     }
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Tree;
+namespace HeyFrame\Core\Content\Navigation\Tree;
 
 use HeyFrame\Core\Framework\Log\Package;
 
@@ -8,11 +8,11 @@ use HeyFrame\Core\Framework\Log\Package;
  * @internal
  */
 #[Package('discovery')]
-class CategoryTreePathResolver
+class NavigationTreePathResolver
 {
     /**
-     * Returns a list of paths to load so the whole tree branch for the active category is loaded
-     * It skips the paths that will be automatically loaded because they are in the defined depths of the root category
+     * Returns a list of paths to load so the whole tree branch for the active navigation is loaded
+     * It skips the paths that will be automatically loaded because they are in the defined depths of the root navigation
      *
      * @return list<string>
      */
@@ -29,7 +29,7 @@ class CategoryTreePathResolver
             $currentPath .= $id . '|';
 
             if (str_contains($rootPath, $currentPath)) {
-                // we don't need to fetch the category level above the root
+                // we don't need to fetch the navigation level above the root
                 continue;
             }
 

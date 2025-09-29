@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Event;
+namespace HeyFrame\Core\Content\Navigation\Event;
 
-use HeyFrame\Core\Content\Category\Tree\Tree;
+use HeyFrame\Core\Content\Navigation\Tree\Tree;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\HeyFrameChannelEvent;
 use HeyFrame\Core\Framework\Event\NestedEvent;

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Service;
+namespace HeyFrame\Core\Content\Navigation\Service;
 
-use HeyFrame\Core\Content\Category\CategoryCollection;
+use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -12,7 +12,7 @@ use HeyFrame\Core\System\Channel\ChannelContext;
  * externals should rely on the @see NavigationLoader
  */
 #[Package('discovery')]
-interface DefaultCategoryLevelLoaderInterface
+interface DefaultNavigationLevelLoaderInterface
 {
     public function loadLevels(
         string $rootId,
@@ -20,5 +20,5 @@ interface DefaultCategoryLevelLoaderInterface
         ChannelContext $context,
         Criteria $criteria,
         int $depth,
-    ): CategoryCollection;
+    ): NavigationCollection;
 }

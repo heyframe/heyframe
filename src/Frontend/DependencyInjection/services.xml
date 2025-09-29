@@ -110,6 +110,13 @@
         <service id="HeyFrame\Frontend\Page\Navigation\NavigationPageLoader">
             <argument type="service" id="HeyFrame\Frontend\Page\GenericPageLoader"/>
             <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Navigation\Channel\LoadNavigationRoute"/>
+        </service>
+
+
+        <service id="HeyFrame\Frontend\Pagelet\Header\HeaderPageletLoader">
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Content\Navigation\Service\NavigationLoader"/>
         </service>
     </services>
 </container>

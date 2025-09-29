@@ -1,9 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Tree;
+namespace HeyFrame\Core\Content\Navigation\Tree;
 
-use HeyFrame\Core\Content\Category\CategoryEntity;
-use HeyFrame\Core\Content\Category\CategoryException;
+
+
+use HeyFrame\Core\Content\Navigation\NavigationEntity;
+use HeyFrame\Core\Content\Navigation\NavigationException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
@@ -19,30 +21,30 @@ class TreeItem extends Struct
      * @param TreeItem[] $children
      */
     public function __construct(
-        protected ?CategoryEntity $category,
+        protected ?NavigationEntity $navigation,
         protected array $children,
     ) {
-        $this->afterId = $this->category?->getAfterCategoryId();
+        $this->afterId = $this->navigation?->getAfterNavigationId();
     }
 
     public function getId(): string
     {
-        return $this->getCategory()->getId();
+        return $this->getNavigation()->getId();
     }
 
-    public function setCategory(CategoryEntity $category): void
+    public function setNavigation(NavigationEntity $navigation): void
     {
-        $this->category = $category;
-        $this->afterId = $category->getAfterCategoryId();
+        $this->navigation = $navigation;
+        $this->afterId = $navigation->getAfterNavigationId();
     }
 
-    public function getCategory(): CategoryEntity
+    public function getNavigation(): NavigationEntity
     {
-        if (!$this->category) {
-            throw CategoryException::categoryNotFound('treeItem');
+        if (!$this->navigation) {
+            throw NavigationException::navigationNotFound('treeItem');
         }
 
-        return $this->category;
+        return $this->navigation;
     }
 
     /**
@@ -70,6 +72,6 @@ class TreeItem extends Struct
 
     public function getApiAlias(): string
     {
-        return 'category_tree_item';
+        return 'navigation_tree_item';
     }
 }

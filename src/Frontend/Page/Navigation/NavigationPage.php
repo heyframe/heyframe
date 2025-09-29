@@ -13,6 +13,7 @@ class NavigationPage extends Page
     protected ?CmsPageEntity $cmsPage = null;
 
     protected ?NavigationEntity $navigation = null;
+    protected ?string $navigationId = null;
 
     public function getCmsPage(): ?CmsPageEntity
     {
@@ -33,4 +34,15 @@ class NavigationPage extends Page
     {
         $this->navigation = $navigation;
     }
+
+    public function getNavigationId(): ?string
+    {
+        return $this->navigationId;
+    }
+
+    public function setNavigationId(?string $navigationId): void
+    {
+        $this->navigationId = $navigationId;
+    }
+
 }

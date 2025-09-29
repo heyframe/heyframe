@@ -7,4 +7,17 @@
       itemtype="https://schema.org/WebPage">
 {% endblock %}
 
+{# Set variable to "true" to enable HMR (hot page reloading) mode #}
+{% set isHMRMode = app.request.headers.get('hot-reload-mode') and app.environment == 'dev' %}
+
+{% block base_head %}
+    {% sw_include '@Frontend/frontend/layout/meta.html.twig' %}
+{% endblock %}
+
+
+{% block base_body %}
+    {% block base_body_inner %}
+
+    {% endblock %}
+{% endblock %}
 </html>

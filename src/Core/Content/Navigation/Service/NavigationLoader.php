@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Service;
+namespace HeyFrame\Core\Content\Navigation\Service;
 
-use HeyFrame\Core\Content\Category\CategoryCollection;
-use HeyFrame\Core\Content\Category\CategoryEntity;
-use HeyFrame\Core\Content\Category\Channel\AbstractNavigationRoute;
-use HeyFrame\Core\Content\Category\Event\NavigationLoadedEvent;
-use HeyFrame\Core\Content\Category\Exception\CategoryNotFoundException;
-use HeyFrame\Core\Content\Category\Tree\Tree;
-use HeyFrame\Core\Content\Category\Tree\TreeItem;
+use HeyFrame\Core\Content\Navigation\Channel\AbstractLoadNavigationRoute;
+use HeyFrame\Core\Content\Navigation\Event\NavigationLoadedEvent;
+use HeyFrame\Core\Content\Navigation\Exception\NavigationNotFoundException;
+use HeyFrame\Core\Content\Navigation\NavigationCollection;
+use HeyFrame\Core\Content\Navigation\NavigationEntity;
+use HeyFrame\Core\Content\Navigation\Tree\Tree;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Util\AfterSort;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use HeyFrame\Core\Content\Navigation\Tree\TreeItem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -26,7 +26,7 @@ class NavigationLoader implements NavigationLoaderInterface
      */
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly AbstractNavigationRoute $navigationRoute
+        private readonly AbstractLoadNavigationRoute $navigationRoute
     ) {
         $this->treeItem = new TreeItem(null, []);
     }
@@ -34,7 +34,7 @@ class NavigationLoader implements NavigationLoaderInterface
     /**
      * {@inheritdoc}
      *
-     * @throws CategoryNotFoundException
+     * @throws NavigationNotFoundException
      */
     public function load(string $activeId, ChannelContext $context, string $rootId, int $depth = 2): Tree
     {
@@ -45,11 +45,11 @@ class NavigationLoader implements NavigationLoaderInterface
         $criteria = new Criteria();
         $criteria->setTitle('header::navigation');
 
-        $categories = $this->navigationRoute
+        $navigations = $this->navigationRoute
             ->load($activeId, $rootId, $request, $context, $criteria)
-            ->getCategories();
+            ->getNavigations();
 
-        $navigation = $this->getTree($rootId, $categories, $categories->get($activeId));
+        $navigation = $this->getTree($rootId, $navigations, $navigations->get($activeId));
 
         $event = new NavigationLoadedEvent($navigation, $context);
 
@@ -58,16 +58,16 @@ class NavigationLoader implements NavigationLoaderInterface
         return $event->getNavigation();
     }
 
-    private function getTree(?string $rootId, CategoryCollection $categories, ?CategoryEntity $active): Tree
+    private function getTree(?string $rootId, NavigationCollection $navigations, ?NavigationEntity $active): Tree
     {
         $parents = [];
         $items = [];
-        foreach ($categories as $category) {
+        foreach ($navigations as $navigation) {
             $item = clone $this->treeItem;
-            $item->setCategory($category);
+            $item->setNavigation($navigation);
 
-            $parents[$category->getParentId()][$category->getId()] = $item;
-            $items[$category->getId()] = $item;
+            $parents[$navigation->getParentId()][$navigation->getId()] = $item;
+            $items[$navigation->getId()] = $item;
         }
 
         foreach ($parents as $parentId => $children) {
@@ -77,7 +77,7 @@ class NavigationLoader implements NavigationLoaderInterface
 
             $sorted = AfterSort::sort($children);
 
-            $filtered = \array_filter($sorted, static fn (TreeItem $filter) => $filter->getCategory()->getActive() && $filter->getCategory()->getVisible());
+            $filtered = \array_filter($sorted, static fn (TreeItem $filter) => $filter->getNavigation()->getActive() && $filter->getNavigation()->getVisible());
 
             if (!isset($items[$parentId])) {
                 continue;
@@ -93,7 +93,7 @@ class NavigationLoader implements NavigationLoaderInterface
         $filtered = [];
         /** @var TreeItem $item */
         foreach ($root as $key => $item) {
-            if (!$item->getCategory()->getActive() || !$item->getCategory()->getVisible()) {
+            if (!$item->getNavigation()->getActive() || !$item->getNavigation()->getVisible()) {
                 continue;
             }
 
