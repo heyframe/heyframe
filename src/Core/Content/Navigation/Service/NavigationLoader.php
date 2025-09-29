@@ -2,17 +2,17 @@
 
 namespace HeyFrame\Core\Content\Navigation\Service;
 
-use HeyFrame\Core\Content\Navigation\Channel\AbstractLoadNavigationRoute;
+use HeyFrame\Core\Content\Navigation\Channel\AbstractNavigationRoute;
 use HeyFrame\Core\Content\Navigation\Event\NavigationLoadedEvent;
 use HeyFrame\Core\Content\Navigation\Exception\NavigationNotFoundException;
 use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Content\Navigation\NavigationEntity;
 use HeyFrame\Core\Content\Navigation\Tree\Tree;
+use HeyFrame\Core\Content\Navigation\Tree\TreeItem;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Util\AfterSort;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\Content\Navigation\Tree\TreeItem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -26,7 +26,7 @@ class NavigationLoader implements NavigationLoaderInterface
      */
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly AbstractLoadNavigationRoute $navigationRoute
+        private readonly AbstractNavigationRoute $navigationRoute
     ) {
         $this->treeItem = new TreeItem(null, []);
     }

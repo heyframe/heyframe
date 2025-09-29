@@ -49,7 +49,7 @@
 
         <service id="HeyFrame\Core\Content\Navigation\Service\NavigationLoader">
             <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="HeyFrame\Core\Content\Navigation\Channel\LoadNavigationRoute"/>
+            <argument type="service" id="HeyFrame\Core\Content\Navigation\Channel\NavigationRoute"/>
         </service>
     </services>
 </container>

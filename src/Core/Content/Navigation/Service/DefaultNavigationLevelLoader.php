@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Content\Navigation\Service;
 
 use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Content\Navigation\NavigationEntity;
+use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\TermsAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\CountAggregation;
@@ -55,14 +56,14 @@ class DefaultNavigationLevelLoader implements DefaultNavigationLevelLoaderInterf
 
         $criteria->setLimit(null);
 
-        $levels = $this->navigationRepository->search($criteria, $context)->getEntities();
+        $levels = $this->navigationRepository->search($criteria, $context->getContext())->getEntities();
 
-        $this->addVisibilityCounts($rootId, $rootLevel, $depth, $levels, $context);
+        $this->addVisibilityCounts($rootId, $rootLevel, $depth, $levels, $context->getContext());
 
         return $levels;
     }
 
-    private function addVisibilityCounts(string $rootId, int $rootLevel, int $depth, NavigationCollection $levels, ChannelContext $context): void
+    private function addVisibilityCounts(string $rootId, int $rootLevel, int $depth, NavigationCollection $levels, Context $context): void
     {
         $counts = [];
         foreach ($levels as $navigation) {

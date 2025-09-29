@@ -48,6 +48,38 @@ class NavigationController extends FrontendController
         );
     }
 
+    #[Route(
+        path: '/_esi/global/header',
+        name: 'frontend.header',
+        defaults: ['XmlHttpRequest' => true, '_httpCache' => true, '_esi' => true],
+        methods: ['GET'],
+    )]
+    public function header(Request $request, ChannelContext $context): Response
+    {
+        $header = $this->headerLoader->load($request, $context);
+
+        return $this->renderFrontend('@Frontend/frontend/layout/header.html.twig', [
+            'header' => $header,
+            'headerParameters' => $request->get('headerParameters') ?? [],
+        ]);
+    }
+
+    #[Route(
+        path: '/_esi/global/footer',
+        name: 'frontend.footer',
+        defaults: ['XmlHttpRequest' => true, '_httpCache' => true, '_esi' => true],
+        methods: ['GET'],
+    )]
+    public function footer(Request $request, ChannelContext $context): Response
+    {
+        $footer = $this->footerLoader->load($request, $context);
+
+        return $this->renderFrontend('@Frontend/frontend/layout/footer.html.twig', [
+            'footer' => $footer,
+            'footerParameters' => $request->get('footerParameters') ?? [],
+        ]);
+    }
+
     /**
      * TODO: Remove after final CMS structure is implemented.
      */

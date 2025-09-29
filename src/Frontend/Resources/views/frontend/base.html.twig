@@ -16,8 +16,39 @@
 
 
 {% block base_body %}
+    <body class="{% block base_body_classes %}
+        {%- if activeRoute is not empty -%}is-active-route-{{ activeRoute|replace({'.': '-'}) }}{%- endif -%}
+    {%- endblock %}">
+
+
     {% block base_body_inner %}
+        {% block base_esi_header %}
+            {{ render_esi(path('frontend.header', { headerParameters: headerParameters }), { ignore_errors: false } ) }}
+        {% endblock %}
+
+        {% block base_main %}
+            <main class="content-main" id="content-main">
+                {% block base_main_inner %}
+                    <div class="container">
+                        {% block base_main_container %}
+                            <div class="container-main">
+                                {% block base_content %}{% endblock %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </main>
+        {% endblock %}
+
+        {% block base_esi_footer %}
+            {{ render_esi(path('frontend.footer', { footerParameters: footerParameters }), { ignore_errors: false } ) }}
+        {% endblock %}
 
     {% endblock %}
+
+
+    {% block base_body_script %}
+    {% endblock %}
+    </body>
 {% endblock %}
 </html>
