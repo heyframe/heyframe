@@ -1,0 +1,6 @@
+{
+  "name": "frontend-admin-extension",
+  "version": "1.0.0",
+  "description": "Adding the frontend related changes to the administration.",
+  "main": "./src/main.js"
+}

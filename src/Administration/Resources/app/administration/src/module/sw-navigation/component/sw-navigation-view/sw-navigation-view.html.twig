@@ -1,0 +1,99 @@
+{% block sw_navigation_view %}
+<sw-card-view
+    class="sw-navigation-view"
+    position-identifier="sw-navigation-view"
+>
+    {% block sw_navigation_view_language_info %}
+    <sw-language-info
+        :entity-description="placeholder(navigation, 'name', $tc('sw-manufacturer.detail.textHeadline'))"
+    />
+    {% endblock %}
+
+    {% block sw_navigation_view_column_info %}
+    <mt-banner
+        v-if="isCategoryColumn"
+        class="swag-navigation-view__column-info"
+        variant="info"
+    >
+        <div class="swag-navigation-view__column-info-header">
+            {{ $tc('sw-navigation.view.columnInfoHeader') }}
+        </div>
+        <div class="swag-navigation-view__column-info-content">
+            {{ $tc('sw-navigation.view.columnInfo') }}
+        </div>
+    </mt-banner>
+    {% endblock %}
+
+    {% block sw_navigation_view_tabs %}
+    <sw-tabs
+        v-if="!isLoading"
+        position-identifier="sw-navigation-view"
+        class="sw-navigation-detail-page__tabs"
+    >
+        {% block sw_navigation_view_tabs_general %}
+        <sw-tabs-item
+            class="sw-navigation-detail__tab-base"
+            :route="{ name: 'sw.navigation.detail.base' }"
+            :title="$tc('sw-navigation.view.general')"
+            :has-error="swCategoryViewError"
+        >
+            {{ $tc('sw-navigation.view.general') }}
+        </sw-tabs-item>
+        {% endblock %}
+
+        {% block sw_navigation_view_tabs_products %}
+        <sw-tabs-item
+            v-show="isPage && !isCustomEntity"
+            class="sw-navigation-detail__tab-products"
+            :route="{ name: 'sw.navigation.detail.products' }"
+            :title="$tc('sw-navigation.view.products')"
+        >
+            {{ $tc('sw-navigation.view.products') }}
+        </sw-tabs-item>
+        {% endblock %}
+
+        <sw-tabs-item
+            v-show="isCustomEntity"
+            class="sw-navigation-detail__tab-custom-entity"
+            :route="{ name: 'sw.navigation.detail.customEntity' }"
+            :title="$tc('sw-navigation.view.customEntity')"
+        >
+            {{ $tc('sw-navigation.view.customEntity') }}
+        </sw-tabs-item>
+
+        {% block sw_navigation_view_tabs_cms %}
+        <sw-tabs-item
+            v-show="cmsPage || isPage"
+            class="sw-navigation-detail__tab-cms"
+            :route="{ name: 'sw.navigation.detail.cms' }"
+            :title="$tc('sw-navigation.view.cms')"
+        >
+            {{ $tc('sw-navigation.view.cms') }}
+        </sw-tabs-item>
+        {% endblock %}
+
+        {% block sw_navigation_view_tabs_seo %}
+        <sw-tabs-item
+            v-show="isPage"
+            class="sw-navigation-detail__tab-seo"
+            :route="{ name: 'sw.navigation.detail.seo' }"
+            :title="$tc('sw-navigation.view.seo')"
+        >
+            {{ $tc('sw-navigation.view.seo') }}
+        </sw-tabs-item>
+        {% endblock %}
+    </sw-tabs>
+    {% endblock %}
+
+    {% block sw_navigation_view_content %}
+    <router-view
+        v-slot="{ Component }"
+    >
+        <component
+            :is="Component"
+            :is-loading="isLoading"
+        />
+    </router-view>
+    {% endblock %}
+</sw-card-view>
+{% endblock %}

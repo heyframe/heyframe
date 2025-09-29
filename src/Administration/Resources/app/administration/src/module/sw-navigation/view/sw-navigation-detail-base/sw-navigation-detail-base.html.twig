@@ -1,0 +1,107 @@
+{% block sw_navigation_detail_base %}
+<div class="sw-navigation-detail-base">
+    {% block sw_navigation_detail_information %}
+    <mt-card
+        position-identifier="sw-navigation-detail-base"
+        :title="$tc('sw-navigation.base.general.headlineInformationCard')"
+        :is-loading="isLoading"
+    >
+        <sw-container
+            columns="repeat(auto-fit, minmax(150px, 1fr))"
+            gap="0px 30px"
+        >
+            {% block sw_navigation_detail_information_name %}
+
+            <mt-text-field
+                v-model="navigation.name"
+                required
+                name="navigationName"
+                validation="required"
+                :disabled="!acl.can('navigation.editor')"
+                :label="$tc('sw-navigation.base.general.navigationNameLabel')"
+                :placeholder="placeholder(navigation, 'name')"
+                :error="navigationNameError"
+            />
+            {% endblock %}
+
+            {% block sw_navigation_detail_information_active %}
+
+            <mt-switch
+                v-model="navigation.active"
+                :disabled="!acl.can('navigation.editor')"
+                name="navigationActive"
+                class="sw-navigation-detail-base__active"
+                :label="$tc('sw-navigation.base.general.isCategoryActiveLabel')"
+                bordered
+            />
+            {% endblock %}
+        </sw-container>
+
+        {% block sw_navigation_detail_information_tags %}
+        <sw-entity-tag-select
+            v-if="navigation && !isLoading"
+            v-model:entity-collection="navigation.tags"
+            class="sw-navigation-detail-base__tags"
+            :label="$tc('sw-navigation.base.general.labelCategoryTags')"
+            :placeholder="$tc('sw-navigation.base.general.labelCategoryTagsPlaceholder')"
+            :disabled="!acl.can('navigation.editor')"
+        />
+        {% endblock %}
+
+        {% block sw_navigation_detail_information_type %}
+        <div class="sw-navigation-detail-base__type-container">
+
+            {% block sw_navigation_detail_information_type_select %}
+            <sw-single-select
+                v-model:value="navigation.type"
+                class="sw-navigation-detail-base__type-selection"
+                :help-text="navigationTypeHelpText"
+                :label="$tc('sw-navigation.base.general.types.title')"
+                :disabled="!acl.can('navigation.editor')"
+                :error="navigationTypeError"
+                :options="navigationTypes"
+                show-clearable-button
+            />
+            {% endblock %}
+
+        </div>
+        {% endblock %}
+
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_navigation_detail_entry_point %}
+    <sw-navigation-entry-point-card
+        v-if="(navigation.type === 'folder' || navigation.type === 'page') && !isCategoryColumn"
+        v-bind="{ navigation, isLoading }"
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_link %}
+    <sw-navigation-link-settings
+        v-if="navigation.type === 'link'"
+        v-bind="{ navigation, isLoading }"
+    />
+    {% endblock %}
+
+    <template v-if="navigation.type !== 'link'">
+        {% block sw_navigation_detail_menu %}
+        <sw-navigation-detail-menu v-bind="{ navigation, isLoading }" />
+        {% endblock %}
+    </template>
+
+    {% block sw_navigation_detail_attribute_sets %}
+    <mt-card
+        v-if="customFieldSetsArray.length > 0"
+        position-identifier="sw-navigation-detail-attribute-sets"
+        :title="$tc('sw-settings-custom-field.general.mainMenuItemGeneral')"
+        :is-loading="isLoading"
+    >
+        <sw-custom-field-set-renderer
+            :entity="navigation"
+            :sets="customFieldSetsArray"
+        />
+    </mt-card>
+    {% endblock %}
+</div>
+{% endblock %}

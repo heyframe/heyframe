@@ -36,7 +36,7 @@ class NavigationDefinition extends EntityDefinition
 
     final public const LINK_TYPE_EXTERNAL = 'external';
 
-    final public const LINK_TYPE_CATEGORY = 'category';
+    final public const LINK_TYPE_CATEGORY = 'navigation';
 
     final public const LINK_TYPE_PRODUCT = 'product';
 
@@ -87,9 +87,9 @@ class NavigationDefinition extends EntityDefinition
             (new TranslatedField('metaTitle'))->addFlags(new ApiAware()),
             (new TranslatedField('metaDescription'))->addFlags(new ApiAware()),
             (new TranslatedField('keywords'))->addFlags(new ApiAware()),
-            new OneToManyAssociationField('navigationChannels', ChannelDefinition::class, 'navigation_category_id'),
-            new OneToManyAssociationField('footerChannels', ChannelDefinition::class, 'footer_category_id'),
-            new OneToManyAssociationField('serviceChannels', ChannelDefinition::class, 'service_category_id'),
+            new OneToManyAssociationField('navigationChannels', ChannelDefinition::class, 'navigation_id'),
+            new OneToManyAssociationField('footerChannels', ChannelDefinition::class, 'footer_navigation_id'),
+            new OneToManyAssociationField('serviceChannels', ChannelDefinition::class, 'service_navigation_id'),
             (new TranslationsAssociationField(NavigationTranslationDefinition::class, 'navigation_id'))->addFlags(new ApiAware(), new Required()),
         ]);
     }

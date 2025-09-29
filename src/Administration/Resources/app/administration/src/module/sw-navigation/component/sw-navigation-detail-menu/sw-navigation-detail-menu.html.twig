@@ -1,0 +1,65 @@
+{% block sw_navigation_detail_menu %}
+<mt-card
+    class="sw-navigation-detail-base__menu"
+    position-identifier="sw-navigation-detail-menu"
+    :title="$tc('sw-navigation.base.menu.title')"
+    :is-loading="isLoading"
+>
+
+    {% block sw_navigation_detail_information_visible %}
+
+    <mt-switch
+        v-model="reversedVisibility"
+        bordered
+        :disabled="!acl.can('navigation.editor')"
+        :label="$tc('sw-navigation.base.menu.visible')"
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_menu_media %}
+    <sw-upload-listener
+        :key="navigation.id + 'uploadListener'"
+        :upload-tag="navigation.id"
+        auto-upload
+        @media-upload-finish="onSetMediaItem"
+    />
+    <sw-media-upload-v2
+        :key="navigation.id + 'upload'"
+        :label="$tc('sw-navigation.base.menu.imageLabel')"
+        variant="regular"
+        :disabled="!acl.can('navigation.editor')"
+        :source="mediaItem"
+        :upload-tag="navigation.id"
+        :allow-multi-select="false"
+        :default-folder="navigation.getEntityName()"
+        @media-drop="onMediaDropped"
+        @media-upload-sidebar-open="showMediaModal = true"
+        @media-upload-remove-image="onRemoveMediaItem"
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_menu_media_modal %}
+    <sw-media-modal-v2
+        v-if="showMediaModal"
+        :allow-multi-select="false"
+        :entity-context="navigation.getEntityName()"
+        @media-modal-selection-change="onMediaSelectionChange"
+        @modal-close="showMediaModal = false"
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_menu_description %}
+    <sw-text-editor
+        :key="navigation.id + 'description'"
+        v-model:value="navigation.description"
+        class="sw-navigation-detail-base__description"
+        type="textarea"
+        :disabled="!acl.can('navigation.editor')"
+        sanitize-input
+        sanitize-field-name="navigation_translation.description"
+        :label="$tc('sw-navigation.base.menu.descriptionLabel')"
+        :placeholder="$tc('sw-navigation.base.menu.descriptionPlaceholder')"
+    />
+    {% endblock %}
+</mt-card>
+{% endblock %}

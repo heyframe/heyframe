@@ -1,0 +1,8 @@
+{
+  "sw.navigation.view": {
+    "navigation": [
+      "name",
+      "type"
+    ]
+  }
+}

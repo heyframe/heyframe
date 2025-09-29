@@ -1,0 +1,26 @@
+{% block sw_navigation_entry_point_overwrite_modal %}
+<sw-confirm-modal
+    class="sw-navigation-entry-point-overwrite-modal"
+    @cancel="onCancel"
+    @close="onCancel"
+    @confirm="onConfirm"
+>
+
+    <p class="sw-confirm-modal__text">
+        {{ $tc('sw-navigation.entry-point-overwrite-modal.textBefore', {}, Channels.length) }}
+    </p>
+
+    <ul>
+        <li
+            v-for="Channel in Channels"
+            :key="Channel.translated.name"
+        >
+            {{ Channel.translated.name }}
+        </li>
+    </ul>
+
+    <p class="sw-confirm-modal__text">
+        {{ $tc('sw-navigation.entry-point-overwrite-modal.textAfter', {}, Channels.length) }}
+    </p>
+</sw-confirm-modal>
+{% endblock %}

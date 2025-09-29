@@ -1,0 +1,236 @@
+{% block sw_navigation_entry_point_modal %}
+<sw-modal
+    class="sw-navigation-entry-point-modal"
+    :title="$tc('sw-navigation.base.entry-point-modal.modalTitle')"
+    @modal-close="closeModal"
+>
+
+    {% block sw_navigation_entry_point_modal_sales_channel_selection %}
+    <sw-single-select
+        v-model:value="selectedChannelId"
+        class="sw-navigation-entry-point-modal__channel-selection"
+        :label="$tc('sw-navigation.base.entry-point-modal.ChannelSelection')"
+        :options="ChannelOptions"
+        show-clearable-button
+    />
+    {% endblock %}
+
+    {% block sw_navigation_entry_point_modal_selected_sales_channel %}
+    <template v-if="selectedChannel">
+
+        {% block sw_navigation_entry_point_modal_selected_sales_channel_show_in_main_navigation %}
+
+        <mt-switch
+            v-model="selectedChannel.homeEnabled"
+            class="sw-navigation-entry-point-modal__show-in-main-navigation"
+            :label="$tc('sw-navigation.base.entry-point-modal.showInMainNavigation')"
+            :disabled="!acl.can('navigation.editor') || undefined"
+        />
+        {% endblock %}
+
+        {% block sw_navigation_entry_point_modal_selected_sales_channel_name_in_main_navigation %}
+
+        <mt-text-field
+            v-model="selectedChannel.homeName"
+            class="sw-navigation-entry-point-modal__name-in-main-navigation"
+            :label="$tc('sw-navigation.base.entry-point-modal.mainNavigationName')"
+            :help-text="$tc('sw-navigation.base.entry-point-modal.mainNavigationNameHelpText')"
+            :placeholder="selectedChannel.translated.homeName || $tc('sw-navigation.base.entry-point-modal.mainNavigationNamePlaceholder')"
+            :disabled="!selectedChannel.homeEnabled || !acl.can('navigation.editor')"
+        />
+        {% endblock %}
+
+        {% block sw_navigation_entry_point_modal_selected_sales_channel_layout_headline %}
+        <h3 class="sw-navigation-entry-point-modal__layout-headline">
+            {{ $tc('sw-navigation.base.entry-point-modal.layoutHeadline') }}
+        </h3>
+        {% endblock %}
+
+        {% block sw_navigation_entry_point_modal_selected_sales_channel_layout_selection %}
+        <div class="sw-navigation-entry-point-modal__base-layout">
+
+            {% block sw_navigation_entry_point_modal_layout_preview %}
+            <div
+                class="sw-navigation-entry-point-modal__preview"
+                role="button"
+                tabindex="0"
+                @click="openLayoutModal"
+                @keydown.enter="openLayoutModal"
+            >
+                <sw-cms-list-item
+                    class="sw-navigation-entry-point-modal__layout-item"
+                    :page="selectedChannel.homeCmsPage"
+                    :disabled="!acl.can('navigation.editor') || undefined"
+                    active
+                />
+            </div>
+            {% endblock %}
+
+            {% block sw_navigation_entry_point_modal_layout_modal %}
+            <sw-cms-layout-modal
+                v-if="showLayoutSelectionModal"
+                :pre-selection="selectedChannel.homeCmsPage"
+                :cms-page-types="pageTypes"
+                @modal-layout-select="onLayoutSelect"
+                @modal-close="closeLayoutModal"
+            />
+            {% endblock %}
+
+            {% block sw_navigation_entry_point_modal_layout_desc %}
+            <div class="sw-navigation-entry-point-modal__desc">
+
+                {% block sw_navigation_entry_point_modal_layout_desc_info %}
+                <div class="sw-navigation-entry-point-modal__desc-info">
+
+                    {% block sw_navigation_entry_point_modal_layout_desc_info_headline %}
+                    <div
+                        class="sw-navigation-entry-point-modal__desc-headline"
+                        :class="{ 'is--empty': !selectedChannel.homeCmsPage }"
+                    >
+                        {{ selectedChannel.homeCmsPage ? selectedChannel.homeCmsPage.name : $tc('sw-navigation.base.cms.defaultTitle') }}
+                    </div>
+                    {% endblock %}
+
+                    {% block sw_navigation_entry_point_modal_layout_desc_info_subheadline %}
+                    <div
+                        class="sw-navigation-entry-point-modal__desc-subheadline"
+                        :class="{ 'is--empty': !selectedChannel.homeCmsPage }"
+                    >
+                        {{ getCmsPageTypeName(selectedChannel.homeCmsPage?.type) }}
+                    </div>
+                    {% endblock %}
+
+                </div>
+                {% endblock %}
+
+                {% block sw_navigation_entry_point_modal_layout_desc_actions %}
+                <div class="sw-navigation-entry-point-modal__desc-actions">
+
+                    {% block sw_navigation_entry_point_modal_layout_desc_actions_layout %}
+                    <mt-button
+                        class="sw-navigation-detail-layout__change-layout-action"
+                        size="small"
+                        :disabled="!acl.can('navigation.editor')"
+                        variant="secondary"
+                        @click="openLayoutModal"
+                    >
+                        {{ selectedChannel.homeCmsPage ? $tc('sw-navigation.base.cms.changeLayout') : $tc('sw-navigation.base.cms.changeLayoutEmpty') }}
+                    </mt-button>
+                    {% endblock %}
+
+                    {% block sw_navigation_entry_point_modal_layout_desc_actions_designer %}
+                    <mt-button
+                        class="sw-navigation-detail-layout__open-in-pagebuilder"
+                        size="small"
+                        :disabled="!acl.can('navigation.editor')"
+                        variant="secondary"
+                        @click="openInPagebuilder"
+                    >
+                        {{ selectedChannel.homeCmsPage ? $tc('sw-navigation.base.cms.editInPagebuilder'): $tc('sw-navigation.base.cms.editInPagebuilderEmpty') }}
+                    </mt-button>
+                    {% endblock %}
+
+                    {% block sw_navigation_entry_point_modal_layout_desc_actions_remove %}
+                    <mt-button
+                        v-if="selectedChannel.homeCmsPage"
+                        size="small"
+                        :disabled="!acl.can('navigation.editor')"
+                        class="sw-navigation-detail-layout__layout-reset"
+                        square
+                        variant="secondary"
+                        @click="onLayoutReset"
+                    >
+                        <mt-icon
+                            name="regular-trash"
+                            size="16px"
+                        />
+                    </mt-button>
+                    {% endblock %}
+
+                </div>
+                {% endblock %}
+
+            </div>
+            {% endblock %}
+
+        </div>
+        {% endblock %}
+
+        {% block sw_navigation_entry_point_modal_selected_sales_channel_seo_settings_headline %}
+        <h2 class="sw-navigation-entry-point-modal__seo-headline">
+            {{ $tc('sw-navigation.base.entry-point-modal.seoSettingsHeadline') }}
+        </h2>
+        {% endblock %}
+
+        {% block sw_navigation_entry_point_modal_selected_sales_channel_seo_meta_title %}
+
+        <mt-text-field
+            v-model="selectedChannel.homeMetaTitle"
+            class="sw-navigation-entry-point-modal__meta-title"
+            :label="$tc('sw-navigation.base.entry-point-modal.metaTitleLabel')"
+            :placeholder="selectedChannel.translated.homeMetaTitle || $tc('sw-navigation.base.entry-point-modal.metaTitlePlaceholder')"
+            :disabled="!acl.can('navigation.editor') || undefined"
+        />
+        {% endblock %}
+
+        {% block sw_navigation_entry_point_modal_selected_sales_channel_seo_meta_description %}
+        <mt-textarea
+            v-model="selectedChannel.homeMetaDescription"
+            class="sw-navigation-entry-point-modal__meta-description"
+            :label="$tc('sw-navigation.base.entry-point-modal.metaDescriptionLabel')"
+            :placeholder="selectedChannel.translated.homeMetaDescription || $tc('sw-navigation.base.entry-point-modal.metaDescriptionPlaceholder')"
+            :disabled="!acl.can('navigation.editor') || undefined"
+        />
+        {% endblock %}
+
+        {% block sw_navigation_entry_point_modal_selected_sales_channel_seo_keywords %}
+
+        <mt-text-field
+            v-model="selectedChannel.homeKeywords"
+            class="sw-navigation-entry-point-modal__seo-keywords"
+            :label="$tc('sw-navigation.base.entry-point-modal.seoKeywordsLabel')"
+            :placeholder="selectedChannel.translated.homeKeywords || $tc('sw-navigation.base.entry-point-modal.seoKeywordsPlaceholder')"
+            :disabled="!acl.can('navigation.editor') || undefined"
+        />
+        {% endblock %}
+
+    </template>
+    {% endblock %}
+
+    {% block sw_navigation_entry_point_modal_footer %}
+    <template #modal-footer>
+
+        {% block sw_navigation_entry_point_modal_footer_cancel_button %}
+        <mt-button
+            class="sw-navigation-entry-point-modal__cancel-button"
+            variant="secondary"
+            @click="closeModal"
+        >
+            {{ $tc('global.default.cancel') }}
+        </mt-button>
+        {% endblock %}
+
+        {% block sw_navigation_entry_point_modal_footer_apply_button %}
+        <mt-button
+            class="sw-navigation-entry-point-modal__apply-button"
+            variant="primary"
+            :disabled="!acl.can('navigation.editor')"
+            @click="applyChanges"
+        >
+            {{ $tc('global.default.apply') }}
+        </mt-button>
+        {% endblock %}
+
+    </template>
+    {% endblock %}
+
+    {% block sw_navigation_entry_point_modal_discard_changes_modal %}
+    <sw-discard-changes-modal
+        v-if="isDisplayingLeavePageWarning"
+        @keep-editing="onLeaveModalClose()"
+        @discard-changes="onLeaveModalConfirm(nextRoute)"
+    />
+    {% endblock %}
+
+</sw-modal>
+{% endblock %}

@@ -1,6 +1,6 @@
 import template from './sw-admin-menu.html.twig';
 import './sw-admin-menu.scss';
-import { MtText } from '@heyframe-ag/meteor-component-library';
+import {MtText} from '@heyframe-ag/meteor-component-library';
 import {
     PopoverRoot,
     PopoverTrigger,
@@ -9,7 +9,8 @@ import {
     RovingFocusItem,
     RovingFocusGroup
 } from 'reka-ui';
-const { Criteria } = HeyFrame.Data;
+
+const {Criteria} = HeyFrame.Data;
 import {motion} from 'motion-v';
 
 const MODULES = [
@@ -95,6 +96,14 @@ const MODULES = [
                 match(route) {
                     return route.name.startsWith('sw.theme.manager') ? 'exact' : 'none';
                 }
+            },
+            {
+                id: 'navigation',
+                name: 'Navigation',
+                to: 'sw.navigation.index',
+                match(route) {
+                    return route.name.startsWith('sw.navigation') ? 'exact' : 'none';
+                }
             }
         ]
     },
@@ -161,7 +170,7 @@ export default {
                 css.type = 'text/css'
                 css.appendChild(
                     document.createTextNode(
-`* {
+                        `* {
    -webkit-transition: none !important;
    -moz-transition: none !important;
    -o-transition: none !important;
@@ -172,7 +181,7 @@ export default {
                 );
                 document.head.appendChild(css)
 
-                if (newValue)  {
+                if (newValue) {
                     document.documentElement.dataset.theme = 'dark';
                 } else {
                     document.documentElement.dataset.theme = 'light';

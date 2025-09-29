@@ -1,0 +1,108 @@
+{%  block sw_navigation_link_settings %}
+<mt-card
+    class="sw-navigation-link-settings"
+    position-identifier="sw-navigation-link-settings"
+    :title="$t('sw-navigation.base.link.title')"
+    :is-loading="isLoading"
+>
+    {% block sw_navigation_detail_link_type_select_main %}
+    <sw-single-select
+        v-model:value="mainType"
+        class="sw-navigation-link-settings__type"
+        :disabled="!acl.can('navigation.editor') || undefined"
+        :label="$t('sw-navigation.base.link.mainTypeLabel')"
+        :placeholder="$t('sw-navigation.base.link.mainTypePlaceholder')"
+        :options="linkTypeValues"
+        show-clearable-button
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_link_type_select_entity %}
+    <sw-single-select
+        v-if="isInternal"
+        v-model:value="navigation.linkType"
+        class="sw-navigation-link-settings__entity"
+        :disabled="!acl.can('navigation.editor') || undefined"
+        :label="$t('sw-navigation.base.link.internalTypeLabel')"
+        :placeholder="$t('sw-navigation.base.link.internalTypePlaceholder')"
+        :options="entityValues"
+        show-clearable-button
+        @update:value="changeEntity"
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_link_type_select_entity_navigation %}
+    <template v-if="navigation.linkType === 'navigation'">
+        <sw-navigation-tree-field
+            :allowed-types="allowedCategoryTypes"
+            :categories-collection="categoriesCollection"
+            :placeholder="navigationLinkPlaceholder"
+            :navigation-criteria="navigationCriteria"
+            :single-select="true"
+            :label="$t('global.entities.navigation')"
+            :help-text="navigationLinkHelpText"
+            class="sw-navigation-link-settings__selection-navigation"
+            @selection-add="onSelectionAdd"
+            @selection-remove="onSelectionRemove"
+        />
+    </template>
+    {% endblock %}
+
+    {% block sw_navigation_detail_link_type_select_entity_product %}
+    <sw-entity-single-select
+        v-if="navigation.linkType === 'product'"
+        v-model:value="navigation.internalLink"
+        class="sw-navigation-link-settings__selection-product"
+        :disabled="!acl.can('navigation.editor') || undefined"
+        :label="$t('global.entities.product')"
+        :placeholder="$t('sw-navigation.base.link.productPlaceholder')"
+        :criteria="productCriteria"
+        :display-variants="true"
+        entity="product"
+        show-clearable-button
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_link_type_select_entity_landing_page %}
+    <sw-entity-single-select
+        v-if="navigation.linkType === 'landing_page'"
+        v-model:value="navigation.internalLink"
+        class="sw-navigation-link-settings__selection-landing-page"
+        :disabled="!acl.can('navigation.editor') || undefined"
+        :label="$t('global.entities.landing_page')"
+        :placeholder="$t('sw-navigation.base.link.landingPagePlaceholder')"
+        entity="landing_page"
+        show-clearable-button
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_link_field %}
+    <component
+        :is="linkHasProtocol ? 'mt-url-field' : 'mt-text-field'"
+        v-if="isExternal"
+        v-model="navigation.externalLink"
+        class="sw-navigation-link-settings__external-link"
+        :disabled="!acl.can('navigation.editor') || undefined"
+        :label="$t('sw-navigation.base.link.linkLabel')"
+        :placeholder="$t('sw-navigation.base.link.linkLabel')"
+    />
+    {% endblock %}
+
+    <mt-switch
+        v-if="isExternal"
+        v-model="linkHasProtocol"
+        class="sw-navigation-link-settings__link-has-protocol"
+        :disabled="!acl.can('navigation.editor') || undefined"
+        :label="$t('sw-navigation.base.link.linkHasProtocol')"
+    />
+
+    {% block sw_navigation_detail_link_new_tab %}
+    <mt-switch
+        v-model="navigation.linkNewTab"
+        class="sw-navigation-link-settings__link-new-tab"
+        :disabled="!acl.can('navigation.editor') || undefined"
+        :label="$t('sw-navigation.base.link.linkNewTabLabel')"
+    />
+    {% endblock %}
+</mt-card>
+{%  endblock %}

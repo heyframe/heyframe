@@ -1,0 +1,25 @@
+{% block sw_navigation_detail_seo %}
+<div class="sw-navigation-detail-seo">
+
+    {% block sw_navigation_detail_seo_config %}
+    <mt-card
+        position-identifier="sw-navigation-detail-seo"
+        :title="$tc('sw-navigation.base.seo.title')"
+        :is-loading="isLoading"
+    >
+        <sw-navigation-seo-form :navigation="navigation" />
+    </mt-card>
+    {% endblock %}
+
+    {% block sw_navigation_detail_seo_list %}
+    <sw-seo-url
+        v-if="navigation.seoUrls"
+        :is-loading="isLoading"
+        :has-default-template="false"
+        :disabled="!acl.can('navigation.editor')"
+        :urls="navigation.seoUrls"
+    />
+    {% endblock %}
+
+</div>
+{% endblock %}

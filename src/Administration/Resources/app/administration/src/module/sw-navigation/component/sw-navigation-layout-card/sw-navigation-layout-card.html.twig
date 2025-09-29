@@ -1,0 +1,116 @@
+{% block sw_navigation_layout_card %}
+<mt-card
+    class="sw-navigation-layout-card"
+    position-identifier="sw-navigation-layout"
+    :title="$tc('sw-navigation.base.cms.title')"
+    :is-loading="isLoading"
+>
+    <div class="sw-navigation-layout-card__base-layout">
+
+        {% block sw_navigation_detail_layout_preview %}
+        <div
+            class="sw-navigation-layout-card__preview"
+            role="button"
+            tabindex="0"
+            @click="openLayoutModal"
+            @keydown.enter="openLayoutModal"
+        >
+            <sw-cms-list-item
+                :page="cmsPage"
+                :disabled="!acl.can('navigation.editor')"
+                active
+            />
+        </div>
+        {% endblock %}
+
+        {% block sw_navigation_detail_layout_modal %}
+        <sw-cms-layout-modal
+            v-if="showLayoutSelectionModal"
+            :cms-page-types="pageTypes"
+            :headline="headline"
+            :pre-selection="cmsPage"
+            @modal-layout-select="onLayoutSelect"
+            @modal-close="closeLayoutModal"
+        />
+        {% endblock %}
+
+        {% block sw_navigation_detail_layout_desc %}
+        <div class="sw-navigation-layout-card__desc">
+
+            {% block sw_navigation_detail_layout_desc_info %}
+            <div class="sw-navigation-layout-card__desc-info">
+
+                {% block sw_navigation_detail_layout_desc_info_headline %}
+                <div
+                    class="sw-navigation-layout-card__desc-headline"
+                    :class="{ 'is--empty': !cmsPage }"
+                >
+                    {{ cmsPage ? cmsPage.name : $tc('sw-navigation.base.cms.defaultTitle') }}
+                </div>
+                {% endblock %}
+
+                {% block sw_navigation_detail_layout_desc_info_subheadline %}
+                <div
+                    class="sw-navigation-layout-card__desc-subheadline"
+                    :class="{ 'is--empty': !cmsPage }"
+                >
+                    {{ pageTypeTitle }}
+                </div>
+                {% endblock %}
+
+            </div>
+            {% endblock %}
+
+            {% block sw_navigation_detail_layout_desc_actions %}
+            <div class="sw-navigation-layout-card__desc-actions">
+
+                {% block sw_navigation_detail_layout_desc_actions_layout %}
+                <mt-button
+                    class="sw-navigation-detail-layout__change-layout-action"
+                    size="small"
+                    :disabled="!acl.can('navigation.editor')"
+                    variant="secondary"
+                    @click="openLayoutModal"
+                >
+                    {{ cmsPage ? $tc('sw-navigation.base.cms.changeLayout') : $tc('sw-navigation.base.cms.changeLayoutEmpty') }}
+                </mt-button>
+                {% endblock %}
+
+                {% block sw_navigation_detail_layout_desc_actions_designer %}
+                <mt-button
+                    class="sw-navigation-detail-layout__open-in-pagebuilder"
+                    size="small"
+                    :disabled="!acl.can('navigation.editor')"
+                    variant="secondary"
+                    @click="openInPagebuilder"
+                >
+                    {{ cmsPage ? $tc('sw-navigation.base.cms.editInPagebuilder') : $tc('sw-navigation.base.cms.editInPagebuilderEmpty') }}
+                </mt-button>
+                {% endblock %}
+
+                {% block sw_navigation_detail_layout_desc_actions_remove %}
+                <mt-button
+                    v-if="cmsPage"
+                    size="small"
+                    :disabled="!acl.can('navigation.editor')"
+                    class="sw-navigation-detail-layout__layout-reset"
+                    square
+                    variant="secondary"
+                    @click="onLayoutReset"
+                >
+                    <mt-icon
+                        name="regular-trash"
+                        size="16px"
+                    />
+                </mt-button>
+                {% endblock %}
+
+            </div>
+            {% endblock %}
+
+        </div>
+        {% endblock %}
+
+    </div>
+</mt-card>
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+  "channel-theme": {
+    "title": "主题分配",
+    "changeTheme": "更换主题",
+    "changeThemeEmpty": "分配主题",
+    "createTheme": "创建新主题",
+    "editContent": "编辑主题",
+    "defaultTitle": "未分配主题",
+    "defaultAuthor": "作者",
+    "modal": {
+      "modalTitleChange": "更换主题",
+      "textChangeTheme": "您确定要更换主题吗？这可能会改变商店的显示效果。",
+      "buttonChange": "更换主题",
+      "buttonCancel": "取消"
+    }
+  }
+}

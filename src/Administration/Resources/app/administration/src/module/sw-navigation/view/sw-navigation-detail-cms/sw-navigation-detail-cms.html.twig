@@ -1,0 +1,19 @@
+{% block sw_navigation_detail_cms %}
+<div class="sw-navigation-detail__cms">
+
+    {% block sw_navigation_detail_cms_layout %}
+    <sw-navigation-layout-card
+        v-if="navigation.type === 'page'"
+        v-bind="{ navigation, cmsPage, isLoading }"
+    />
+    {% endblock %}
+
+    {% block sw_navigation_detail_cms_form %}
+    <sw-cms-page-form
+        v-if="cmsPage && acl.can('navigation.editor')"
+        :page="cmsPage"
+    />
+    {% endblock %}
+
+</div>
+{% endblock %}

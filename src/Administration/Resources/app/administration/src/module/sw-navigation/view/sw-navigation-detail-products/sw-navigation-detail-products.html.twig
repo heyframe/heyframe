@@ -1,0 +1,141 @@
+{% block sw_navigation_detail_products %}
+<div class="sw-navigation-detail-products">
+
+    {% block sw_navigation_detail_product_assignment %}
+    <sw-many-to-many-assignment-card
+        v-if="navigation.type !== 'folder'"
+        display-variants
+        :title="$tc('sw-navigation.base.products.productAssignmentHeadline')"
+        :entity-collection="navigation.products"
+        :columns="productColumns"
+        :is-loading="isLoading"
+        :disabled="!acl.can('navigation.editor')"
+        :local-mode="navigation.isNew()"
+        :criteria="productCriteria"
+        :select-label="$tc('sw-navigation.base.products.productAssignmentLabel')"
+        :placeholder="$tc('sw-navigation.base.products.productAssignmentPlaceholder')"
+        @paginate="onPaginateManualProductAssignment"
+    >
+
+        {% block sw_navigation_detail_product_assignment_type_select %}
+        <template #prepend-select>
+
+            {% block sw_navigation_detail_product_assignment_type_select_field %}
+            <sw-single-select
+                v-model:value="navigation.productAssignmentType"
+                class="sw-navigation-detail-products__product-assignment-type-select"
+                :label="$tc('sw-navigation.base.products.productAssignmentTypeLabel')"
+                :error="navigationProductAssignmentTypeError"
+                :options="productAssignmentTypes"
+                :disabled="!acl.can('navigation.editor')"
+                required
+                show-clearable-button
+            />
+            {% endblock %}
+
+            {% block sw_navigation_detail_product_assignment_manual_alert %}
+            <mt-banner
+                v-if="navigation.productAssignmentType === 'product_stream' && manualAssignedProductsCount > 0"
+                variant="info"
+            >
+                {{ $tc('sw-navigation.base.products.alertManualAssignedProductsOnAssignmentTypeStream') }}
+            </mt-banner>
+            {% endblock %}
+        </template>
+        {% endblock %}
+
+        {% block sw_navigation_detail_product_assignment_stream_select %}
+        <template
+            v-if="navigation.productAssignmentType === 'product_stream'"
+            #select
+        >
+
+            {% block sw_navigation_detail_product_assignment_stream_select_field %}
+            <sw-entity-single-select
+                v-model:value="navigation.productStreamId"
+                class="sw-navigation-detail-products__product-stream-select"
+                entity="product_stream"
+                show-clearable-button
+                :disabled="!acl.can('navigation.editor')"
+                :label="$tc('sw-navigation.base.products.productAssignmentTypeStreamLabel')"
+                :help-text="dynamicProductGroupHelpText"
+                :placeholder="$tc('sw-navigation.base.products.productAssignmentTypeStreamPlaceholder')"
+                :error="productStreamInvalidError || navigationProductStreamIdError"
+            />
+            {% endblock %}
+
+            {% block sw_navigation_detail_product_assignment_stream_preview_link %}
+            <div class="sw-navigation-detail-products__product-stream-preview-link">
+                <router-link
+                    v-if="navigation.productStreamId"
+                    :to="{ name: 'sw.product.stream.detail', params: { id: navigation.productStreamId } }"
+                >
+                    {{ $tc('sw-navigation.base.products.dynamicProductGroupDetailLinkText') }}
+                    <mt-icon
+                        name="regular-long-arrow-right"
+                        size="16px"
+                    />
+                </router-link>
+            </div>
+            {% endblock %}
+        </template>
+        {% endblock %}
+
+        {% block sw_navigation_detail_product_assignment_stream_preview_grid %}
+        <template
+            v-if="navigation.productAssignmentType === 'product_stream'"
+            #data-grid
+        >
+            <sw-product-stream-grid-preview
+                :filters="productStreamFilter"
+                :columns="productColumns"
+            />
+        </template>
+        {% endblock %}
+
+        {% block sw_navigation_detail_product_assignment_column_name %}
+        <template #[nameColumn]="{ item, column }">
+            <router-link
+                :to="{ name: column.routerLink, params: { id: item.id } }"
+            >
+                <sw-product-variant-info :variations="item.variation">
+                    {{ getItemName(item) }}
+                </sw-product-variant-info>
+            </router-link>
+        </template>
+        {% endblock %}
+
+        {% block sw_navigation_detail_product_assignment_column_manufacturer %}
+        <template #[manufacturerColumn]="{ item, column }">
+            <router-link
+                v-if="getManufacturer(item)"
+                :to="{ name: column.routerLink, params: { id: item.manufacturerId } }"
+            >
+                {{ getManufacturer(item).name || getManufacturer(item).translated.name }}
+            </router-link>
+            <span v-else></span>
+        </template>
+        {% endblock %}
+
+        {% block sw_navigation_detail_product_assignment_empty_state %}
+        <template #empty-state>
+            <sw-empty-state
+                :title="$tc('sw-navigation.base.products.productAssignmentEmptyStateDescription')"
+                :subline="''"
+                auto-height
+            >
+                <template #icon>
+                    <img
+                        :src="assetFilter('/administration/administration/static/img/empty-states/products-empty-state.svg')"
+                        :alt="$tc('sw-navigation.base.products.productAssignmentEmptyStateDescription')"
+                    >
+                </template>
+            </sw-empty-state>
+        </template>
+        {% endblock %}
+
+    </sw-many-to-many-assignment-card>
+    {% endblock %}
+
+</div>
+{% endblock %}

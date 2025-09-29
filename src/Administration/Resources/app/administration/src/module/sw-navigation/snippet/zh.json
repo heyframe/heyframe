@@ -1,0 +1,263 @@
+{
+  "sw-navigation": {
+    "general": {
+      "mainMenuItemIndex": "导航管理",
+      "mainMenuItemList": "概览",
+      "descriptionTextModule": "在这里管理分类。",
+      "headlineNavigations": "导航",
+      "placeholderSearchBar": "搜索分类...",
+      "buttonCreate": "创建导航",
+      "buttonSafeCategory": "保存",
+      "descriptionLabel": "描述",
+      "messageSaveSuccess": "分类“{name}”已保存。",
+      "useAsLogo": "设为展示图片",
+      "treeHeadline": "导航",
+      "treeHeadSelected": "已选 {count} 项",
+      "emptyStateHeadline": "暂无选中的导航",
+      "errorNavigationEntryPoint": "此导航被设为至少一个渠道的 {entryPointLabel}，无法删除。",
+      "errorNavigationEntryPointMultiple": "一个或多个分类被设为至少一个渠道的主导航，无法删除。",
+      "actions": {
+        "actionsDisabledInLanguage": "导航只能在默认语言下创建。",
+        "createSub": "新建子导航",
+        "createBefore": "在前方新建导航",
+        "createAfter": "在后方新建导航"
+      }
+    },
+    "view": {
+      "general": "基本信息",
+      "cms": "布局",
+      "products": "产品",
+      "customEntity": "自定义实体",
+      "seo": "SEO",
+      "columnInfoHeader": "页脚栏目",
+      "columnInfo": "该导航可在页脚创建指定栏目。导航名称将显示为栏目标题，第一层下的所有分类将显示为栏目下的行。"
+    },
+    "base": {
+      "general": {
+        "navigationNameLabel": "名称",
+        "headlineInformationCard": "基本信息",
+        "isCategoryActiveLabel": "启用",
+        "useAsLink": "作为链接使用",
+        "labelCategoryTags": "标签",
+        "labelCategoryTagsPlaceholder": "逐个输入标签...",
+        "types": {
+          "title": "分类类型",
+          "page": "页面 / 列表",
+          "folder": "结构元素 / 入口",
+          "customEntity": "自定义实体",
+          "link": "链接",
+          "linkUnavailable": "链接（若导航设为入口不可选）",
+          "help": "结构导航本身不可直接访问，仅用于分类展示。",
+          "helpText": {
+            "page": "页面/列表可直接访问并有关联产品，可直接应用布局。",
+            "folder": "结构元素/入口仅在有子分类时显示，默认不可直接访问，除非被指定为渠道入口。",
+            "link": "链接可指向产品、其他导航、落地页或外部站点。"
+          }
+        }
+      },
+      "entry-point-card": {
+        "cardTitle": "导航入口",
+        "labelEntryPoint": "入口类型",
+        "placeholderEntryPoint": "选择入口...",
+        "existingNavigationDescription": "此导航已被指定为以下渠道的主导航入口：",
+        "labelChannelsAdd": "渠道分配",
+        "placeholderChannels": "添加渠道...",
+        "buttonConfigureHome": "配置首页",
+        "types": {
+          "labelMainNavigation": "主导航",
+          "helpTextMainNavigation": "主导航入口为渠道必填项。若将此导航指定为主导航入口，只能在渠道设置中修改分配。",
+          "labelFooterNavigation": "页脚导航",
+          "helpTextFooterNavigation": "将此导航指定为页脚导航入口时，下一层分类将作为栏目显示，可分区展示页脚导航。",
+          "labelServiceNavigation": "页脚服务导航",
+          "helpTextServiceNavigation": "将此导航指定为服务导航入口时，下一层分类将在页脚显示为第二导航。"
+        }
+      },
+      "entry-point-modal": {
+        "modalTitle": "配置首页",
+        "ChannelSelection": "渠道",
+        "showInMainNavigation": "显示在主导航",
+        "mainNavigationName": "显示名称",
+        "mainNavigationNamePlaceholder": "输入首页备用名称...",
+        "mainNavigationNameHelpText": "默认显示为“首页”，可为当前渠道设置替代名称。",
+        "layoutHeadline": "布局",
+        "seoSettingsHeadline": "SEO设置",
+        "metaTitleLabel": "Meta标题",
+        "metaTitlePlaceholder": "输入Meta标题...",
+        "metaDescriptionLabel": "Meta描述",
+        "metaDescriptionPlaceholder": "输入Meta描述...",
+        "seoKeywordsLabel": "SEO关键字",
+        "seoKeywordsPlaceholder": "输入一个或多个关键字..."
+      },
+      "seo": {
+        "title": "SEO",
+        "labelMetaTitle": "Meta标题",
+        "labelMetaDescription": "描述",
+        "labelKeywords": "关键字",
+        "placeholderMetaTitle": "输入Meta标题...",
+        "placeholderMetaDescription": "输入描述...",
+        "placeholderKeywords": "输入一个或多个关键字..."
+      },
+      "menu": {
+        "title": "菜单设置",
+        "visible": "隐藏在导航中",
+        "imageLabel": "展示图片",
+        "descriptionLabel": "描述",
+        "descriptionPlaceholder": "输入描述..."
+      },
+      "customEntity": {
+        "cardTitle": "分配内容",
+        "assignment": {
+          "label": "内容类型",
+          "helpText": "选择要在此导航中显示的内容类型。"
+        },
+        "instanceAssignment": {
+          "title": "标题",
+          "label": "条目",
+          "placeholder": "搜索并分配条目...",
+          "emptyState": {
+            "title": "暂无分配内容"
+          }
+        }
+      },
+      "cms": {
+        "title": "布局分配",
+        "changeLayout": "更改布局",
+        "changeLayoutEmpty": "分配布局",
+        "editInPagebuilder": "在设计器编辑",
+        "editInPagebuilderEmpty": "创建新布局",
+        "editContent": "编辑内容",
+        "defaultTitle": "默认布局",
+        "defaultDesc": "分类页"
+      },
+      "link": {
+        "title": "自定义链接",
+        "mainTypeLabel": "链接类型",
+        "mainTypePlaceholder": "选择链接类型...",
+        "internalTypeLabel": "实体",
+        "internalTypePlaceholder": "选择实体...",
+        "navigationPlaceholder": "选择导航...",
+        "productPlaceholder": "选择产品...",
+        "landingPagePlaceholder": "选择落地页...",
+        "example": "示例：",
+        "internalExampleText": "/my-navigation",
+        "externalDesc": "设置外部链接，请输入完整网址。",
+        "internalDesc": "创建内部链接，只需输入域名后的路径。",
+        "linkLabel": "链接目标",
+        "linkNewTabLabel": "新标签页打开",
+        "navigationHelpText": "内部链接支持以下导航类型：{types}。",
+        "type": {
+          "internal": "内部",
+          "external": "外部"
+        },
+        "linkHasProtocol": "使用协议"
+      },
+      "products": {
+        "productAssignmentHeadline": "产品分配",
+        "productAssignmentPlaceholder": "搜索并分配产品...",
+        "productAssignmentLabel": "产品",
+        "productAssignmentEmptyStateDescription": "暂无分配产品",
+        "productStreamAssignmentEmptyStateDescription": "暂无动态产品组",
+        "columnNameLabel": "名称",
+        "columnManufacturerLabel": "厂商",
+        "productAssignmentTypeLabel": "类型",
+        "productAssignmentTypeManualLabel": "手动选择",
+        "productAssignmentTypeStreamLabel": "动态产品组",
+        "productAssignmentTypeStreamPlaceholder": "搜索并分配动态产品组...",
+        "alertManualAssignedProductsOnAssignmentTypeStream": "当前导航中仍有手动分配产品。这些产品在此导航不可见，但可能在上级分类显示。",
+        "dynamicProductGroupDetailLinkText": "动态产品组详情",
+        "dynamicProductGroupInvalidMessage": "所选动态产品组无效，请检查组详情。",
+        "dynamicProductGroupHelpText": {
+          "label": "符合条件的产品将自动属于动态产品组。条件可在 {link} 模块中设置。",
+          "linkText": "动态产品组",
+          "videoUrl": "",
+          "videoLink": ""
+        }
+      }
+    },
+    "modal": {
+      "textDeleteConfirm": "确定要删除导航“{name}”吗？",
+      "textDeleteChildrenConfirm": "所有子分类也将被删除。",
+      "textDeleteMultipleConfirm": "确定要删除选中的 {count} 个分类吗？"
+    },
+    "entry-point-overwrite-modal": {
+      "textBefore": "您已为以下渠道分配入口：| 您已为以下渠道分配入口：",
+      "textAfter": "是否覆盖当前分配？ | 是否覆盖这些分配？"
+    }
+  },
+  "sw-landing-page": {
+    "view": {
+      "general": "基本信息",
+      "cms": "布局"
+    },
+    "general": {
+      "placeholderSearchBar": "搜索落地页...",
+      "treeHeadSelected": "已选 {count} 项",
+      "buttonCreate": "添加落地页",
+      "treeHeadline": "落地页",
+      "actions": {
+        "actionsDisabledInLanguage": "落地页只能在系统默认语言下创建。"
+      }
+    },
+    "base": {
+      "general": {
+        "labelName": "名称",
+        "headlineInformationCard": "基本信息",
+        "isActiveLabel": "启用",
+        "labelTags": "标签",
+        "labelTagsPlaceholder": "逐个输入标签..."
+      },
+      "seo": {
+        "title": "SEO",
+        "titleGeneralInformation": "基本信息",
+        "titleSocialMedia": "社交媒体",
+        "labelChannel": "渠道",
+        "labelMetaTitle": "Meta标题",
+        "labelSocialMediaTitle": "标题",
+        "labelMetaDescription": "Meta描述",
+        "labelSocialMediaDescription": "描述",
+        "labelKeywords": "SEO关键字",
+        "labelUrl": "SEO链接",
+        "labelPreviewImage": "预览图",
+        "placeholderChannel": "选择渠道...",
+        "placeholderMetaTitle": "输入Meta标题...",
+        "placeholderSocialMediaTitle": "输入社交媒体标题...",
+        "placeholderMetaDescription": "输入Meta描述...",
+        "placeholderSocialMediaDescription": "输入描述...",
+        "placeholderKeywords": "输入一个或多个关键字...",
+        "placeholderUrl": "输入链接...",
+        "socialMediaPreview": "社交媒体预览",
+        "searchResultPreview": "搜索结果预览",
+        "helpTextMetaTitle": "Meta标题建议不超过70字符，超过部分会被Google截断，无法完整显示。",
+        "helpTextMetaDescription": "Meta描述建议长度约150字符，最大255字符。过长可能在搜索结果中被截断。",
+        "notification": {
+          "noLayoutAssigned": "此落地页未分配布局，无法通过SEO访问。"
+        }
+      },
+      "cms": {
+        "title": "布局分配",
+        "changeLayout": "更改布局",
+        "changeLayoutEmpty": "分配布局",
+        "editInPagebuilder": "在设计器编辑",
+        "editInPagebuilderEmpty": "创建新布局",
+        "editContent": "编辑内容",
+        "defaultTitle": "默认布局",
+        "defaultDesc": "分类页",
+        "cmsLayoutModalHeadline": "落地页"
+      }
+    },
+    "modal": {
+      "textDeleteConfirm": "确定要删除落地页“{name}”吗？",
+      "textDeleteMultipleConfirm": "确定要删除选中的 {count} 个落地页吗？"
+    }
+  },
+  "sw-privileges": {
+    "permissions": {
+      "navigation": {
+        "label": "导航"
+      },
+      "landing_page": {
+        "label": "落地页"
+      }
+    }
+  }
+}

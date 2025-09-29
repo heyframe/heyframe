@@ -1,0 +1,190 @@
+{
+  "sw-theme": {
+    "Storefront": {
+      "default": {
+        "themeColors": {
+          "label": "主题颜色",
+          "default": {
+            "sw-color-brand-primary": { "label": "主色" },
+            "sw-color-brand-secondary": { "label": "辅助色" },
+            "sw-border-color": { "label": "边框颜色" },
+            "sw-background-color": { "label": "背景颜色" }
+          }
+        },
+        "statusColors": {
+          "label": "状态颜色",
+          "default": {
+            "sw-color-success": { "label": "成功" },
+            "sw-color-danger": { "label": "错误" },
+            "sw-color-warning": { "label": "提示" },
+            "sw-color-info": { "label": "信息" }
+          }
+        },
+        "typography": {
+          "label": "字体设置",
+          "default": {
+            "sw-font-family-base": { "label": "正文字体" },
+            "sw-text-color": { "label": "文字颜色" },
+            "sw-font-family-headline": { "label": "标题字体" },
+            "sw-headline-color": { "label": "标题颜色" }
+          }
+        },
+        "eCommerce": {
+          "label": "电商元素",
+          "default": {
+            "sw-color-price": { "label": "价格颜色" },
+            "sw-color-buy-button": { "label": "购买按钮颜色" },
+            "sw-color-buy-button-text": { "label": "按钮文字颜色" }
+          }
+        },
+        "media": {
+          "label": "媒体资源",
+          "default": {
+            "sw-logo-desktop": {
+              "label": "桌面端Logo",
+              "helpText": "显示在宽度大于991px的设备上，如果没有设置其他Logo，则在小屏幕设备上也使用。"
+            },
+            "sw-logo-tablet": {
+              "label": "平板端Logo",
+              "helpText": "显示在宽度介于767px到991px的设备上。"
+            },
+            "sw-logo-mobile": {
+              "label": "移动端Logo",
+              "helpText": "显示在宽度小于等于767px的设备上。"
+            },
+            "sw-logo-share": { "label": "应用与分享图标" },
+            "sw-logo-favicon": { "label": "网站图标(Favicon)" }
+          }
+        }
+      }
+    }
+  },
+  "sw-theme-manager": {
+    "general": {
+      "mainMenuItemGeneral": "主题管理",
+      "placeholderSearchBar": "搜索可用主题...",
+      "descriptionTextModule": "在这里管理您的主题。",
+      "mainMenuHeader": "我的主题",
+      "captionMediaUpload": "上传图片",
+      "lockedToolTip": "插件安装的主题已锁定，无法删除",
+      "titleError": "错误",
+      "messageSaveError": "无法将主题分配到销售渠道。",
+      "defaultTab": "常规"
+    },
+    "sorting": {
+      "labelSort": "排序方式：",
+      "labelSortByCreatedAsc": "按创建时间升序",
+      "labelSortByCreatedDsc": "按创建时间降序",
+      "labelSortByUpdatedAsc": "按修改时间升序",
+      "labelSortByUpdatedDsc": "按修改时间降序"
+    },
+    "themeListItem": {
+      "rename": "重命名",
+      "duplicate": "复制",
+      "emptyText": "未分配主题",
+      "addPreviewImage": "添加预览图",
+      "removePreviewImage": "移除预览图",
+      "notificationDeleteErrorTitle": "错误",
+      "notificationDeleteErrorMessage": "该主题仍分配给至少一个销售渠道，无法删除。"
+    },
+    "modal": {
+      "textDeleteInfo": "确定要删除主题“{themeName}”吗？",
+      "errorModalTitle": "主题编译失败",
+      "modalTitleDuplicate": "创建副本",
+      "textDuplicateInfo": "创建副本后，可以在其他销售渠道使用不同的颜色配置。",
+      "labelDuplicateThemeName": "副本名称",
+      "placeholderDuplicateThemeName": "请输入名称",
+      "modalTitleRename": "重命名",
+      "textRenameInfo": "请输入新的主题名称",
+      "labelRenameThemeName": "新主题名称",
+      "placeholderRenameThemeName": "请输入名称",
+      "modalTitleReset": "重置主题",
+      "modalTextResetInfo": "确定要将主题重置为默认设置吗？",
+      "modalTextResetAssigned": "这将改变商店的显示效果。",
+      "modalTitleSave": "保存主题",
+      "textSaveInfo": "确定要保存更改吗？保存后将改变商店外观。",
+      "addToMediaLabel": "添加到 {name}",
+      "channelAlreadyAssignedModal": {
+        "descriptionSingle": "该销售渠道已有主题分配。保存后将替换为 <b>{newThemeName}</b>：",
+        "descriptionMultiple": "部分销售渠道已有主题分配。保存后以下主题分配将替换为 <b>{newThemeName}</b>："
+      },
+      "channelRemovedModal": {
+        "descriptionSingle": "您已移除主题分配。保存后将替换为 <b>{defaultThemeName}</b>：",
+        "descriptionMultiple": "您已移除部分主题分配。保存后以下主题分配将替换为 <b>{defaultThemeName}</b>："
+      }
+    },
+    "list": {
+      "titleSidebarItemRefresh": "刷新",
+      "textThemeOverview": "主题列表",
+      "gridHeaderName": "名称",
+      "gridHeaderCreated": "创建时间",
+      "gridHeaderAssignment": "分配渠道"
+    },
+    "actions": {
+      "saveClean": "干净保存",
+      "saveCleanToolTip": "会完全覆盖当前值，用于字段删除或类型更改后的干净保存。",
+      "validate": "验证配置",
+      "validateToolTip": "验证整个配置，更改不会被保存！",
+      "rename": "重命名",
+      "useImageAs": "使用图片作为",
+      "buttonReset": "恢复默认",
+      "buttonUseTheme": "启用主题",
+      "deleteDisabledToolTip": "主题仍分配给销售渠道，无法删除。"
+    },
+    "detail": {
+      "description": "描述",
+      "channel": "分配渠道",
+      "inheritanceInfo": "该主题继承自“{parentThemeName}”主题。",
+      "showFullError": "查看完整错误",
+      "channelHelpText": "这里无法移除分配。如需更改渠道主题，请前往该渠道设置。",
+      "validate": {
+        "success": "验证成功",
+        "successMessage": "配置验证通过，可以保存更改。",
+        "failed": "验证失败",
+        "failedMessage": "配置有误，无法保存更改。"
+      },
+      "label": {
+        "media": "媒体",
+        "colors": "颜色",
+        "generalColors": "通用颜色",
+        "moreColors": "更多颜色",
+        "fonts": "字体",
+        "links": "链接",
+        "textcolor": "文字颜色",
+        "surface": "表面",
+        "frame": "边框",
+        "text": "文字",
+        "headlines": "标题",
+        "socialMediaLinks": "社交链接",
+        "favicon": "网站图标",
+        "shopLogo": "商店Logo"
+      },
+      "placeholder": {
+        "selectChannel": "选择销售渠道..."
+      },
+      "error": {
+        "themeCompile": {
+          "title": "主题编译错误",
+          "message": "主题无法编译，请查看完整错误信息解决问题。"
+        },
+        "invalidConfiguration": {
+          "title": "配置无效",
+          "message": "配置有误，主题无法保存。"
+        }
+      }
+    },
+    "themeModal": {
+      "actionConfirm": "应用主题",
+      "modalTitle": "选择主题",
+      "modalSubtitle": "更换主题可能会改变商店显示效果。",
+      "headline": "可用主题"
+    }
+  },
+  "sw-privileges": {
+    "permissions": {
+      "theme": {
+        "label": "主题"
+      }
+    }
+  }
+}
