@@ -13,6 +13,7 @@ class MetaInformation extends Struct
     protected string $metaDescription = '';
 
     protected string $metaKeywords = '';
+    protected ?string $canonical = null;
 
     public function getMetaTitle(): string
     {
@@ -42,5 +43,15 @@ class MetaInformation extends Struct
     public function setMetaKeywords(string $metaKeywords): void
     {
         $this->metaKeywords = $metaKeywords;
+    }
+
+    public function getCanonical(): ?string
+    {
+        return $this->canonical;
+    }
+
+    public function setCanonical(?string $canonical): void
+    {
+        $this->canonical = $canonical;
     }
 }
