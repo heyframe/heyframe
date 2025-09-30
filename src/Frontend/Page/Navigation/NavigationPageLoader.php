@@ -63,7 +63,7 @@ class NavigationPageLoader implements NavigationPageLoaderInterface
         return $page;
     }
 
-    private function loadMetaData(NavigationEntity $category, NavigationPage $page, ChannelEntity $channel): void
+    private function loadMetaData(NavigationEntity $navigation, NavigationPage $page, ChannelEntity $channel): void
     {
         $metaInformation = $page->getMetaInformation();
 
@@ -71,23 +71,23 @@ class NavigationPageLoader implements NavigationPageLoaderInterface
             return;
         }
 
-        $isHome = $channel->getNavigationId() === $category->getId();
+        $isHome = $channel->getNavigationId() === $navigation->getId();
 
         $metaDescription = $isHome && $channel->getTranslation('homeMetaDescription')
             ? $channel->getTranslation('homeMetaDescription')
-            : $category->getTranslation('metaDescription')
-            ?? $category->getTranslation('description');
+            : $navigation->getTranslation('metaDescription')
+            ?? $navigation->getTranslation('description');
         $metaInformation->setMetaDescription((string) $metaDescription);
 
         $metaTitle = $isHome && $channel->getTranslation('homeMetaTitle')
             ? $channel->getTranslation('homeMetaTitle')
-            : $category->getTranslation('metaTitle')
-            ?? $category->getTranslation('name');
+            : $navigation->getTranslation('metaTitle')
+            ?? $navigation->getTranslation('name');
         $metaInformation->setMetaTitle((string) $metaTitle);
 
         $keywords = $isHome && $channel->getTranslation('homeKeywords')
             ? $channel->getTranslation('homeKeywords')
-            : $category->getTranslation('keywords');
+            : $navigation->getTranslation('keywords');
         $metaInformation->setMetaKeywords((string) $keywords);
     }
 }
