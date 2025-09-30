@@ -41,18 +41,18 @@
         </service>
 
         <service id="HeyFrame\Core\Content\Navigation\Channel\LoadNavigationRoute" public="true">
-            <argument type="service" id="navigation.repository"/>
+            <argument type="service" id="channel.navigation.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Navigation\Tree\NavigationTreePathResolver"/>
 
         <service id="HeyFrame\Core\Content\Navigation\Service\DefaultNavigationLevelLoader">
-            <argument type="service" id="navigation.repository"/>
+            <argument type="service" id="channel.navigation.repository"/>
         </service>
             <service id="HeyFrame\Core\Content\Navigation\Channel\NavigationRoute" public="true">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="category.repository"/>
+            <argument type="service" id="channel.navigation.repository"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
             <argument type="service" id="HeyFrame\Core\Content\Navigation\Tree\NavigationTreePathResolver"/>
             <argument type="service" id="HeyFrame\Core\Content\Navigation\Service\DefaultNavigationLevelLoader"/>

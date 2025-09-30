@@ -14,11 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 #[Package('inventory')]
 class SeoException extends HttpException
 {
-    public const SALES_CHANNEL_ID_PARAMETER_IS_MISSING = 'FRAMEWORK__SALES_CHANNEL_ID_PARAMETER_IS_MISSING';
+    public const CHANNEL_ID_PARAMETER_IS_MISSING = 'FRAMEWORK__CHANNEL_ID_PARAMETER_IS_MISSING';
     public const TEMPLATE_PARAMETER_IS_MISSING = 'FRAMEWORK__TEMPLATE_PARAMETER_IS_MISSING';
     public const ROUTE_NAME_PARAMETER_IS_MISSING = 'FRAMEWORK__ROUTE_NAME_PARAMETER_IS_MISSING';
     public const ENTITY_NAME_PARAMETER_IS_MISSING = 'FRAMEWORK__ENTITY_NAME_PARAMETER_IS_MISSING';
-    public const SALES_CHANNEL_NOT_FOUND = 'FRAMEWORK__SALES_CHANNEL_NOT_FOUND';
+    public const CHANNEL_NOT_FOUND = 'FRAMEWORK__CHANNEL_NOT_FOUND';
 
     public static function invalidChannelId(string $channelId): HeyFrameHttpException
     {
@@ -29,7 +29,7 @@ class SeoException extends HttpException
     {
         return new self(
             Response::HTTP_BAD_REQUEST,
-            self::SALES_CHANNEL_ID_PARAMETER_IS_MISSING,
+            self::CHANNEL_ID_PARAMETER_IS_MISSING,
             'Parameter "channelId" is missing.',
         );
     }
@@ -65,7 +65,7 @@ class SeoException extends HttpException
     {
         return new self(
             Response::HTTP_NOT_FOUND,
-            self::SALES_CHANNEL_NOT_FOUND,
+            self::CHANNEL_NOT_FOUND,
             self::$couldNotFindMessage,
             ['entity' => 'sales channel', 'field' => 'id', 'value' => $channelId]
         );

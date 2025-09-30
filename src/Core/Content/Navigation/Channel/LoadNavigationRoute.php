@@ -14,6 +14,7 @@ use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -24,12 +25,12 @@ class LoadNavigationRoute extends AbstractLoadNavigationRoute
     final public const HOME = 'home';
 
     /**
-     * @param EntityRepository<NavigationCollection> $navigationRepository
+     * @param ChannelRepository<NavigationCollection> $navigationRepository
      *
      * @internal
      */
     public function __construct(
-        private readonly EntityRepository $navigationRepository,
+        private readonly ChannelRepository $navigationRepository,
         private readonly CacheTagCollector $cacheTagCollector,
     ) {
     }
@@ -56,12 +57,12 @@ class LoadNavigationRoute extends AbstractLoadNavigationRoute
             $request->attributes->set('_route_params', $routeParams);
         }
 
-        $navigation = $this->loadNavigation($navigationId, $context->getContext());
+        $navigation = $this->loadNavigation($navigationId, $context);
 
         return new LoadNavigationRouteResponse($navigation);
     }
 
-    private function loadNavigation(string $navigationId, Context $context): NavigationEntity
+    private function loadNavigation(string $navigationId, ChannelContext $context): NavigationEntity
     {
         $criteria = new Criteria([$navigationId]);
         $criteria->setTitle('navigation::data');

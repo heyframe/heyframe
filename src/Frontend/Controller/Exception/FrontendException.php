@@ -21,7 +21,7 @@ class FrontendException extends HttpException
      * @deprecated tag:v6.8.0 - Will be replaced by `ProductException::PRODUCT_REVIEW_NOT_ACTIVE`
      */
     final public const PRODUCT_REVIEW_NOT_ACTIVE = 'STOREFRONT__REVIEW_NOT_ACTIVE';
-    final public const SALES_CHANNEL_DOMAIN_NOT_FOUND = 'STOREFRONT__SALES_CHANNEL_DOMAIN_NOT_FOUND';
+    final public const CHANNEL_DOMAIN_NOT_FOUND = 'STOREFRONT__CHANNEL_DOMAIN_NOT_FOUND';
 
     private const CUSTOM_APP_PATH = 'custom/apps/';
 
@@ -120,7 +120,7 @@ class FrontendException extends HttpException
     {
         return new self(
             Response::HTTP_INTERNAL_SERVER_ERROR,
-            self::SALES_CHANNEL_DOMAIN_NOT_FOUND,
+            self::CHANNEL_DOMAIN_NOT_FOUND,
             'No domain found for channel {{ channel }}',
             ['channel' => $channel->getTranslation('name')],
         );

@@ -6,7 +6,7 @@ import { mount } from '@vue/test-utils';
 import 'src/module/sw-channel/service/channel-favorites.service';
 
 const PRODUCT_COMPARISON_TYPE_ID = 'ed535e5722134ac1aa6524f73e26881b';
-const STOREFRONT_SALES_CHANNEL_TYPE_ID = '8a243080f92e4c719546314b577cf82b';
+const STOREFRONT_CHANNEL_TYPE_ID = '8a243080f92e4c719546314b577cf82b';
 
 const responses = global.repositoryFactoryMock.responses;
 
@@ -338,7 +338,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
 
         await wrapper.setProps({
             channel: {
-                typeId: STOREFRONT_SALES_CHANNEL_TYPE_ID,
+                typeId: STOREFRONT_CHANNEL_TYPE_ID,
             },
         });
 
@@ -354,7 +354,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
 
         await wrapper.setProps({
             channel: {
-                typeId: STOREFRONT_SALES_CHANNEL_TYPE_ID,
+                typeId: STOREFRONT_CHANNEL_TYPE_ID,
             },
         });
 
@@ -368,7 +368,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
 
         await wrapper.setProps({
             channel: {
-                typeId: STOREFRONT_SALES_CHANNEL_TYPE_ID,
+                typeId: STOREFRONT_CHANNEL_TYPE_ID,
             },
         });
 
@@ -384,7 +384,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
 
         await wrapper.setProps({
             channel: {
-                typeId: STOREFRONT_SALES_CHANNEL_TYPE_ID,
+                typeId: STOREFRONT_CHANNEL_TYPE_ID,
             },
         });
 

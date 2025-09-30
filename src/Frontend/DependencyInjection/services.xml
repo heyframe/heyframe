@@ -75,6 +75,7 @@
         <service id="HeyFrame\Frontend\Framework\Routing\RequestTransformer"
                  decorates="HeyFrame\Core\Framework\Routing\RequestTransformerInterface" public="true">
             <argument type="service" id="HeyFrame\Frontend\Framework\Routing\RequestTransformer.inner"/>
+            <argument type="service" id="HeyFrame\Core\Content\Seo\SeoResolver"/>
             <argument>%heyframe.routing.registered_api_prefixes%</argument>
             <argument type="service" id="HeyFrame\Frontend\Framework\Routing\DomainLoader"/>
         </service>

@@ -2,15 +2,17 @@
 
 namespace HeyFrame\Frontend\Framework\Routing;
 
-use HeyFrame\Core\ChannelRequest;
+use HeyFrame\Core\Content\Seo\AbstractSeoResolver;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\RequestTransformerInterface;
 use HeyFrame\Core\PlatformRequest;
+use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Frontend\Framework\Routing\Exception\ChannelMappingException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @phpstan-import-type Domain from AbstractDomainLoader
+ * @phpstan-import-type ResolvedSeoUrl from AbstractSeoResolver
  */
 #[Package('framework')]
 class RequestTransformer implements RequestTransformerInterface
@@ -43,7 +45,7 @@ class RequestTransformer implements RequestTransformerInterface
      * - `http://localhost:8000/subdir` - with sub directory `/subdir`
      * - `http://localhost:8000/subdir/de` - with sub directory `/subdir` and virtual path `/de`
      */
-    final public const STOREFRONT_URL = 'sw-frontend-url';
+    final public const STOREFRONT_URL = 'sw-storefront-url';
 
     final public const CHANNEL_RESOLVED_URI = 'resolved-uri';
 
@@ -70,7 +72,7 @@ class RequestTransformer implements RequestTransformerInterface
         ChannelRequest::ATTRIBUTE_CANONICAL_LINK,
     ];
 
-    private const DOES_NOT_REQUIRE_CHANNEL = [
+    private const DOES_NOT_REQUIRE_SALESCHANNEL = [
         '/_wdt/',
         '/_profiler/',
         '/_error/',
@@ -78,7 +80,6 @@ class RequestTransformer implements RequestTransformerInterface
         '/installer',
         '/_fragment/',
         '/robots.txt',
-        '/storybook/',
     ];
 
     /**
@@ -88,6 +89,7 @@ class RequestTransformer implements RequestTransformerInterface
      */
     public function __construct(
         private readonly RequestTransformerInterface $decorated,
+        private readonly AbstractSeoResolver $resolver,
         private readonly array $registeredApiPrefixes,
         private readonly AbstractDomainLoader $domainLoader
     ) {
@@ -102,7 +104,6 @@ class RequestTransformer implements RequestTransformerInterface
         }
 
         $channel = $this->findChannel($request);
-
         if ($channel === null) {
             // this class and therefore the "isChannelRequired" method is currently not extendable
             // which can cause problems when adding custom paths
@@ -112,26 +113,31 @@ class RequestTransformer implements RequestTransformerInterface
         $absoluteBaseUrl = $this->getSchemeAndHttpHost($request) . $request->getBaseUrl();
         $baseUrl = str_replace($absoluteBaseUrl, '', $channel['url']);
 
+        $resolved = $this->resolveSeoUrl(
+            $request,
+            $baseUrl,
+            $channel['languageId'],
+            $channel['channelId']
+        );
+
         $currentRequestUri = $request->getRequestUri();
 
-        $pathInfo = $request->getPathInfo();
-
         /**
-         * - Remove "virtual" suffix of domain mapping heyframe.de/de
-         * - To get only the host heyframe.de as real request uri heyframe.de/
-         * - Resolve remaining seo url and get the real path info heyframe.de/outdoor => heyframe.de/navigation/{id}
+         * - Remove "virtual" suffix of domain mapping shopware.de/de
+         * - To get only the host shopware.de as real request uri shopware.de/
+         * - Resolve remaining seo url and get the real path info shopware.de/outdoor => shopware.de/navigation/{id}
          *
          * Possible domains
          *
          * same host, different "virtual" suffix
-         * http://heyframe.de/de
-         * http://heyframe.de/en
-         * http://heyframe.de/fr
+         * http://shopware.de/de
+         * http://shopware.de/en
+         * http://shopware.de/fr
          *
          * same host, different location
-         * http://heyframe.fr
-         * http://heyframe.com
-         * http://heyframe.de
+         * http://shopware.fr
+         * http://shopware.com
+         * http://shopware.de
          *
          * complete different host and location
          * http://color.com
@@ -150,7 +156,7 @@ class RequestTransformer implements RequestTransformerInterface
          */
         $transformedServerVars = array_merge(
             $request->server->all(),
-            ['REQUEST_URI' => rtrim($request->getBaseUrl(), '/') . $pathInfo]
+            ['REQUEST_URI' => rtrim($request->getBaseUrl(), '/') . $resolved['pathInfo']]
         );
 
         $transformedRequest = $request->duplicate(null, null, null, null, null, $transformedServerVars);
@@ -161,7 +167,7 @@ class RequestTransformer implements RequestTransformerInterface
             $transformedRequest->attributes->get(self::CHANNEL_ABSOLUTE_BASE_URL)
             . $transformedRequest->attributes->get(self::CHANNEL_BASE_URL)
         );
-        $transformedRequest->attributes->set(self::CHANNEL_RESOLVED_URI, $pathInfo);
+        $transformedRequest->attributes->set(self::CHANNEL_RESOLVED_URI, $resolved['pathInfo']);
 
         $transformedRequest->attributes->set(PlatformRequest::ATTRIBUTE_CHANNEL_ID, $channel['channelId']);
         $transformedRequest->attributes->set(ChannelRequest::ATTRIBUTE_IS_CHANNEL_REQUEST, true);
@@ -236,7 +242,7 @@ class RequestTransformer implements RequestTransformerInterface
             }
         }
 
-        foreach (self::DOES_NOT_REQUIRE_CHANNEL as $prefix) {
+        foreach (self::DOES_NOT_REQUIRE_SALESCHANNEL as $prefix) {
             if (str_starts_with($pathInfo, $prefix)) {
                 return false;
             }
@@ -267,7 +273,7 @@ class RequestTransformer implements RequestTransformerInterface
             return $domain;
         }
 
-        // reduce front to which base url is the beginning of the request
+        // reduce shops to which base url is the beginning of the request
         $domains = array_filter($domains, fn ($baseUrl): bool => str_starts_with($requestUrl, $baseUrl), \ARRAY_FILTER_USE_KEY);
 
         if (empty($domains)) {
@@ -287,6 +293,32 @@ class RequestTransformer implements RequestTransformerInterface
         $bestMatch['url'] = rtrim($bestMatch['url'], '/');
 
         return $bestMatch;
+    }
+
+    /**
+     * @return ResolvedSeoUrl
+     */
+    private function resolveSeoUrl(Request $request, string $baseUrl, string $languageId, string $channelId): array
+    {
+        $seoPathInfo = $request->getPathInfo();
+
+        // only remove full base url not part
+        // registered domain: 'shop-dev.de/de'
+        // incoming request:  'shop-dev.de/detail'
+        // without leading slash, detail would be stripped
+        $baseUrl = rtrim($baseUrl, '/') . '/';
+
+        if ($this->equalsBaseUrl($seoPathInfo, $baseUrl)) {
+            $seoPathInfo = '';
+        } elseif ($this->containsBaseUrl($seoPathInfo, $baseUrl)) {
+            $seoPathInfo = mb_substr($seoPathInfo, mb_strlen($baseUrl));
+        }
+
+        $resolved = $this->resolver->resolve($languageId, $channelId, $seoPathInfo);
+
+        $resolved['pathInfo'] = '/' . ltrim($resolved['pathInfo'], '/');
+
+        return $resolved;
     }
 
     private function getSchemeAndHttpHost(Request $request): string

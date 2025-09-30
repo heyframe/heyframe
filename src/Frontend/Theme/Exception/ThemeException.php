@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ThemeException extends HttpException
 {
     public const THEME_MEDIA_IN_USE_EXCEPTION = 'THEME__MEDIA_IN_USE_EXCEPTION';
-    public const THEME_SALES_CHANNEL_NOT_FOUND = 'THEME__SALES_CHANNEL_NOT_FOUND';
+    public const THEME_CHANNEL_NOT_FOUND = 'THEME__CHANNEL_NOT_FOUND';
     public const INVALID_THEME_BY_NAME = 'THEME__INVALID_THEME';
     public const INVALID_THEME_BY_ID = 'THEME__INVALID_THEME_BY_ID';
     public const INVALID_SCSS_VAR = 'THEME__INVALID_SCSS_VAR';
@@ -50,7 +50,7 @@ class ThemeException extends HttpException
     {
         return new self(
             Response::HTTP_BAD_REQUEST,
-            self::THEME_SALES_CHANNEL_NOT_FOUND,
+            self::THEME_CHANNEL_NOT_FOUND,
             self::$couldNotFindMessage,
             ['entity' => 'sales channel', 'field' => 'id', 'value' => $channelId]
         );
