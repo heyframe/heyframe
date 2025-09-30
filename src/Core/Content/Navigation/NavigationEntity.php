@@ -15,7 +15,9 @@ class NavigationEntity extends Entity
     use EntityIdTrait;
 
     protected ?string $path = null;
+
     protected ?string $parentId = null;
+
     protected int $level;
 
     protected bool $active;
@@ -31,7 +33,9 @@ class NavigationEntity extends Entity
     protected ?string $externalLink = null;
 
     protected bool $visible;
+
     protected int $visibleChildCount = 0;
+
     protected string $type;
 
     protected ?string $description = null;
@@ -41,7 +45,9 @@ class NavigationEntity extends Entity
     protected ?string $metaDescription = null;
 
     protected ?string $keywords = null;
+
     protected ?string $afterNavigationId = null;
+
     protected ?ChannelCollection $navigationChannels = null;
 
     protected ?ChannelCollection $footerChannels = null;
@@ -132,6 +138,7 @@ class NavigationEntity extends Entity
     {
         return $this->metaDescription;
     }
+
     /**
      * @return array<mixed>
      */
@@ -158,6 +165,7 @@ class NavigationEntity extends Entity
 
         return $filtered;
     }
+
     public function setMetaDescription(?string $metaDescription): void
     {
         $this->metaDescription = $metaDescription;
@@ -272,5 +280,4 @@ class NavigationEntity extends Entity
     {
         $this->visibleChildCount = $visibleChildCount;
     }
-
 }

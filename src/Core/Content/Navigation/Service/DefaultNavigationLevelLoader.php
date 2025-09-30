@@ -4,8 +4,6 @@ namespace HeyFrame\Core\Content\Navigation\Service;
 
 use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Content\Navigation\NavigationEntity;
-use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\TermsAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\CountAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\Bucket\TermsResult;

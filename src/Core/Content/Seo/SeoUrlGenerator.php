@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Seo;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Content\LandingPage\LandingPageCollection;
 use HeyFrame\Core\Content\Product\ProductCollection;
@@ -23,6 +22,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use HeyFrame\Core\System\Channel\ChannelEntity;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;

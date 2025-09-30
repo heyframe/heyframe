@@ -13,8 +13,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NandFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
-use HeyFrame\Core\System\Language\LanguageCollection;
 use HeyFrame\Core\System\Channel\ChannelCollection;
+use HeyFrame\Core\System\Language\LanguageCollection;
 
 /**
  * This class can be used to regenerate the seo urls for a route and an offset at ids.

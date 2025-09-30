@@ -6,8 +6,6 @@ use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Content\Navigation\NavigationEntity;
 use HeyFrame\Core\Content\Navigation\NavigationException;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
-use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;

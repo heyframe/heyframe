@@ -15,8 +15,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Language\LanguageDefinition;
 use HeyFrame\Core\System\Channel\ChannelDefinition;
+use HeyFrame\Core\System\Language\LanguageDefinition;
 
 #[Package('inventory')]
 class SeoUrlDefinition extends EntityDefinition

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace HeyFrame\Frontend\Framework\Twig;
 
-
 use HeyFrame\Core\Framework\Log\Package;
 
 /**

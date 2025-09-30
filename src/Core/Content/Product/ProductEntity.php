@@ -159,7 +159,9 @@ class ProductEntity extends Entity implements \Stringable
     protected ?string $canonicalProductId = null;
 
     protected ?ProductEntity $canonicalProduct = null;
+
     protected ?MainCategoryCollection $mainCategories = null;
+
     /**
      * @var array<int, string>
      */
@@ -172,7 +174,7 @@ class ProductEntity extends Entity implements \Stringable
 
     public function __toString(): string
     {
-        return (string)($this->getTranslation('name') ?? $this->getName());
+        return (string) ($this->getTranslation('name') ?? $this->getName());
     }
 
     public function getParentId(): ?string
@@ -232,7 +234,7 @@ class ProductEntity extends Entity implements \Stringable
 
     public function getIsCloseout(): bool
     {
-        return (bool)$this->isCloseout;
+        return (bool) $this->isCloseout;
     }
 
     public function setIsCloseout(?bool $isCloseout): void
@@ -796,5 +798,4 @@ class ProductEntity extends Entity implements \Stringable
     {
         $this->mainCategories = $mainCategories;
     }
-
 }

@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Content\Navigation\Tree;
 
-
-
 use HeyFrame\Core\Content\Navigation\NavigationEntity;
 use HeyFrame\Core\Content\Navigation\NavigationException;
 use HeyFrame\Core\Framework\Log\Package;

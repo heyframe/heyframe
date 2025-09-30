@@ -9,7 +9,6 @@ use HeyFrame\Core\Content\Navigation\Service\DefaultNavigationLevelLoaderInterfa
 use HeyFrame\Core\Content\Navigation\Tree\NavigationTreePathResolver;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use HeyFrame\Core\Framework\Feature;

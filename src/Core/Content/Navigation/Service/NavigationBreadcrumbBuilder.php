@@ -7,5 +7,4 @@ use HeyFrame\Core\Framework\Log\Package;
 #[Package('discovery')]
 class NavigationBreadcrumbBuilder
 {
-
 }

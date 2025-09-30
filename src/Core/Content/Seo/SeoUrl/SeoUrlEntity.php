@@ -6,8 +6,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Language\LanguageEntity;
 use HeyFrame\Core\System\Channel\ChannelEntity;
+use HeyFrame\Core\System\Language\LanguageEntity;
 
 #[Package('inventory')]
 class SeoUrlEntity extends Entity

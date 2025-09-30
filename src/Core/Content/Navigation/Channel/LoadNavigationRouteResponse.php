@@ -6,7 +6,6 @@ use HeyFrame\Core\Content\Navigation\NavigationEntity;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\FrontApiResponse;
 
-
 /**
  * @extends FrontApiResponse<NavigationEntity>
  */

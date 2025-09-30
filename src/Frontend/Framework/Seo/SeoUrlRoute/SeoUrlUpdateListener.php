@@ -3,11 +3,11 @@
 namespace HeyFrame\Frontend\Framework\Seo\SeoUrlRoute;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Content\Navigation\NavigationDefinition;
-use HeyFrame\Core\Content\Navigation\NavigationEvents;
-use HeyFrame\Core\Content\Navigation\Event\NavigationIndexerEvent;
 use HeyFrame\Core\Content\LandingPage\Event\LandingPageIndexerEvent;
 use HeyFrame\Core\Content\LandingPage\LandingPageEvents;
+use HeyFrame\Core\Content\Navigation\Event\NavigationIndexerEvent;
+use HeyFrame\Core\Content\Navigation\NavigationDefinition;
+use HeyFrame\Core\Content\Navigation\NavigationEvents;
 use HeyFrame\Core\Content\Product\Events\ProductIndexerEvent;
 use HeyFrame\Core\Content\Product\ProductEvents;
 use HeyFrame\Core\Content\Seo\SeoUrlUpdater;

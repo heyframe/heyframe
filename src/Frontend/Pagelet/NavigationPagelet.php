@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Frontend\Pagelet;
 
-
 use HeyFrame\Core\Content\Navigation\Tree\Tree;
 use HeyFrame\Core\Framework\Log\Package;
 

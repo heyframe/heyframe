@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Core\Content\Breadcrumb;
 
-use HeyFrame\Core\Content\Navigation\NavigationException;
 use HeyFrame\Core\Content\Navigation\Exception\NavigationNotFoundException;
+use HeyFrame\Core\Content\Navigation\NavigationException;
 use HeyFrame\Core\Content\Product\Exception\ProductNotFoundException;
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('inventory')]

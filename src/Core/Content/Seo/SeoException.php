@@ -6,9 +6,9 @@ use HeyFrame\Core\Content\Seo\Exception\InvalidTemplateException;
 use HeyFrame\Core\Content\Seo\Exception\NoEntitiesForPreviewException;
 use HeyFrame\Core\Content\Seo\Exception\SeoUrlRouteNotFoundException;
 use HeyFrame\Core\Framework\Api\Exception\InvalidChannelIdException;
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('inventory')]

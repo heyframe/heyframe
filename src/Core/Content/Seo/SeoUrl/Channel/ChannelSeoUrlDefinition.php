@@ -7,8 +7,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInterface;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInterface;
 
 #[Package('inventory')]
 class ChannelSeoUrlDefinition extends SeoUrlDefinition implements ChannelDefinitionInterface

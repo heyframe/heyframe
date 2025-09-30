@@ -3,20 +3,9 @@
 namespace HeyFrame\Frontend\Pagelet\Header;
 
 use HeyFrame\Core\Content\Navigation\Service\NavigationLoaderInterface;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\RoutingException;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\ChannelException;
-use HeyFrame\Core\System\Currency\Channel\AbstractCurrencyRoute;
-use HeyFrame\Core\System\Currency\CurrencyCollection;
-use HeyFrame\Core\System\Language\Channel\AbstractLanguageRoute;
-use HeyFrame\Core\System\Language\LanguageCollection;
-use HeyFrame\Frontend\Event\RouteRequest\CurrencyRouteRequestEvent;
-use HeyFrame\Frontend\Event\RouteRequest\LanguageRouteRequestEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 

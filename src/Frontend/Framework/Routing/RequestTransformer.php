@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Frontend\Framework\Routing;
 
+use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Content\Seo\AbstractSeoResolver;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\RequestTransformerInterface;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Frontend\Framework\Routing\Exception\ChannelMappingException;
 use Symfony\Component\HttpFoundation\Request;
 

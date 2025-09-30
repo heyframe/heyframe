@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Frontend\Event\RouteRequest;
 
-
 use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]

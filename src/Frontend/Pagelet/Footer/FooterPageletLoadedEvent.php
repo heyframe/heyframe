@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Frontend\Pagelet\Footer;
 
-
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Frontend\Pagelet\PageletLoadedEvent;
