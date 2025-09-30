@@ -216,6 +216,19 @@
             <argument type="service" id="channel.product.repository"/>
         </service>
 
+        <service id="HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Sorting\ProductSortingTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Channel\Listing\Processor\SortingListingProcessor">
+            <tag name="heyframe.listing.processor"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="product_sorting.repository"/>
+        </service>
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\TokenFilter">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader"/>
