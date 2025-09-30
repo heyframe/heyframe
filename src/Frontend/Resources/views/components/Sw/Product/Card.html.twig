@@ -118,7 +118,7 @@
 
         {% block title %}
             <twig:Slot name="title">
-                <h2 {{ attributes.nested('title').defaults({ class: defaultClasses.title }) }}>
+                <h6 {{ attributes.nested('title').defaults({ class: defaultClasses.title }) }}>
                     <a
                         {{ attributes.nested('title-link').defaults({
                             class: defaultClasses.titleLink,
@@ -128,7 +128,7 @@
                     >
                         {{ product.translated.name }}
                     </a>
-                </h2>
+                </h6>
             </twig:Slot>
         {% endblock %}
 

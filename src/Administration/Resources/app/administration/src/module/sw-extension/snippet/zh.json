@@ -45,7 +45,6 @@
       "tabs": {
         "app": "应用",
         "theme": "主题",
-        "uni": "小程序",
         "heyframeAccount": "账号"
       },
       "fileUpload": {
