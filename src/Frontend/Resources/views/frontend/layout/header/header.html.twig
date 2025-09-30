@@ -1,4 +1,8 @@
 {% block layout_header %}
+    {% block layout_top_bar %}
+        {% sw_include '@Frontend/frontend/layout/header/top-bar.html.twig' %}
+    {% endblock %}
+
     {% block layout_header_navigation %}
         <div class="row align-items-center header-row">
             {% block layout_header_logo %}
