@@ -38,7 +38,7 @@ class NavigationDefinition extends EntityDefinition
 
     final public const LINK_TYPE_EXTERNAL = 'external';
 
-    final public const LINK_TYPE_CATEGORY = 'navigation';
+    final public const LINK_TYPE_CATEGORY = 'category';
 
     final public const LINK_TYPE_PRODUCT = 'product';
 

@@ -204,10 +204,6 @@ class ThemeFileResolver
 
             // Handle @Components namespace - include all Twig UX components
             if ($filepath === '@Components') {
-                if (!Feature::isActive('STOREFRONT_COMPONENTS')) {
-                    continue;
-                }
-
                 foreach ($this->uxComponentHelper->getComponents() as $component) {
                     $componentPath = $fileType === self::SCRIPT_FILES ? $component->getScriptPath() : $component->getStylePath();
 

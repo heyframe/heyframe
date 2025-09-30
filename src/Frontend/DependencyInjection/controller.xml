@@ -12,9 +12,17 @@
             <argument type="service" id="HeyFrame\Frontend\Page\Navigation\NavigationPageLoader"/>
             <argument type="service" id="HeyFrame\Frontend\Pagelet\Header\HeaderPageletLoader"/>
             <argument type="service" id="HeyFrame\Frontend\Pagelet\Footer\FooterPageletLoader"/>
+            <argument type="service" id="channel.product.repository"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
         </service>
+
+        <service id="HeyFrame\Frontend\Controller\ProductController">
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
     </services>
 </container>

@@ -14,10 +14,12 @@
         }
       }
     },
+    "@Components",
     "@Plugins"
   ],
   "script": [
     "app/frontend/dist/frontend/frontend.js",
+    "@Components",
     "@Plugins"
   ],
   "asset": [

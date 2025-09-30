@@ -2,9 +2,12 @@
 
 namespace HeyFrame\Frontend\Controller;
 
+use HeyFrame\Core\Content\Media\MediaEntity;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
 use HeyFrame\Frontend\Framework\Routing\FrontendRouteScope;
 use HeyFrame\Frontend\Page\Navigation\NavigationPageLoaderInterface;
 use HeyFrame\Frontend\Pagelet\Footer\FooterPageletLoaderInterface;
@@ -25,6 +28,7 @@ class NavigationController extends FrontendController
         private readonly NavigationPageLoaderInterface $navigationPageLoader,
         private readonly HeaderPageletLoaderInterface $headerLoader,
         private readonly FooterPageletLoaderInterface $footerLoader,
+        private readonly ChannelRepository $productRepository,
     ) {
     }
 
@@ -37,7 +41,7 @@ class NavigationController extends FrontendController
     public function home(Request $request, ChannelContext $context): Response
     {
         $page = $this->navigationPageLoader->load($request, $context);
-        $cmsPage = $this->getNewCmsStructure();
+        $cmsPage = $this->getNewCmsStructure($context);
 
         return $this->renderFrontend(
             '@Frontend/frontend/page/content/index.html.twig',
@@ -83,8 +87,24 @@ class NavigationController extends FrontendController
     /**
      * TODO: Remove after final CMS structure is implemented.
      */
-    private static function getNewCmsStructure()
+    private function getNewCmsStructure(ChannelContext $context)
     {
+        $criteria = new Criteria(['11dc680240b04f469ccba354cbf0b967']);
+        $criteria->addAssociation('media.media');
+        $criteria->addAssociation('cover.media');
+        $product = $this->productRepository->search($criteria, $context)->getEntities()->first();
+
+        $elements[] = $product;
+        $media = new MediaEntity();
+        $media->setId('123');
+        $media->setMimeType('image/webp');
+        $media->setFileExtension('webp');
+        $media->setFileSize(1203165);
+        $media->setFileName('inspire-connect-riseup-mood.webp');
+        $media->setTitle('Test');
+        $media->setAlt('Test');
+        $media->setUrl('https://www.shopware.com/media/pages/products/shopping-experiences/inspire-connect-riseup-mood.webp');
+
         return [
             'id' => '123',
             'name' => 'Home',
@@ -103,6 +123,27 @@ class NavigationController extends FrontendController
                     ],
                     'slots' => [
                         'column-1' => [
+                            [
+                                'id' => '123',
+                                'component' => 'Sw:Grid:Column',
+                                'properties' => [
+                                    'start' => null,
+                                    'span' => null,
+                                ],
+                                'slots' => [
+                                    'content' => [
+                                        [
+                                            'id' => '123',
+                                            'component' => 'Sw:Media:Image',
+                                            'properties' => [
+                                                'media' => $media,
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'column-2' => [
                             [
                                 'id' => 'ABC',
                                 'component' => 'Sw:Grid:Column',
@@ -140,6 +181,15 @@ class NavigationController extends FrontendController
                                     ],
                                 ],
                             ],
+                        ],
+                    ],
+                ],
+                [
+                    'id' => '123',
+                    'component' => 'Sw:Product:Listing',
+                    'properties' => [
+                        'listing' => [
+                            'elements' => $elements,
                         ],
                     ],
                 ],

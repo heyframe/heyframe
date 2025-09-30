@@ -12,13 +12,6 @@
 
     {% if displayBuyButton and config('core.listing.allowBuyInListing') %}
         <twig:Sw:Product:BuyButton :product="product" :extraFormData="addToCartExtraFormData" />
-    {% else %}
-        <a href="{{ seoUrl('frontend.detail.page', {productId: product.id}) }}"
-           class="btn btn-light btn-detail">
-            {% block component_product_box_action_detail_label %}
-                {{ 'listing.boxProductDetails'|trans|sw_sanitize }}
-            {% endblock %}
-        </a>
     {% endif %}
 
     <twig:Slot name="bottom"></twig:Slot>

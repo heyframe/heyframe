@@ -106,18 +106,5 @@
             </div>
         {% endif %}
 
-        <div>
-            <button class="fs-6 btn btn-link-inline"
-                    type="button"
-                    data-ajax-modal="true"
-                    data-url="{{ path('frontend.cms.page', { id: config('core.basicInformation.shippingPaymentInfoPage') }) }}">
-                {% if context.taxState == 'gross' %}
-                    {{ 'general.grossTaxInformationShort'|trans|sw_sanitize }}
-                {% else %}
-                    {{ 'general.netTaxInformationShort'|trans|sw_sanitize }}
-                {% endif %}
-            </button>
-        </div>
-
     </div>
 {% endblock %}

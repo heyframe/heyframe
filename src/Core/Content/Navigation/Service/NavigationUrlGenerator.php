@@ -41,23 +41,11 @@ class NavigationUrlGenerator extends AbstractNavigationUrlGenerator
             return null;
         }
 
-        switch ($linkType) {
-            case NavigationDefinition::LINK_TYPE_PRODUCT:
-                return $this->seoUrlReplacer->generate('frontend.detail.page', ['productId' => $internalLink]);
-
-            case NavigationDefinition::LINK_TYPE_CATEGORY:
-                if ($channel !== null && $internalLink === $channel->getNavigationId()) {
-                    return $this->seoUrlReplacer->generate('frontend.home.page');
-                }
-
-                return $this->seoUrlReplacer->generate('frontend.navigation.page', ['navigationId' => $internalLink]);
-
-            case NavigationDefinition::LINK_TYPE_LANDING_PAGE:
-                return $this->seoUrlReplacer->generate('frontend.landing.page', ['landingPageId' => $internalLink]);
-
-            case NavigationDefinition::LINK_TYPE_EXTERNAL:
-            default:
-                return $navigation->getTranslation('externalLink');
-        }
+        return match ($linkType) {
+            NavigationDefinition::LINK_TYPE_PRODUCT => $this->seoUrlReplacer->generate('frontend.detail.page', ['productId' => $internalLink]),
+            NavigationDefinition::LINK_TYPE_CATEGORY => $this->seoUrlReplacer->generate('frontend.category.page', ['categoryId' => $internalLink]),
+            NavigationDefinition::LINK_TYPE_LANDING_PAGE => $this->seoUrlReplacer->generate('frontend.landing.page', ['landingPageId' => $internalLink]),
+            default => $navigation->getTranslation('externalLink'),
+        };
     }
 }
