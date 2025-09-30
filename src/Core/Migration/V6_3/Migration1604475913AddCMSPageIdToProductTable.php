@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Migration\V6_3;
 
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Migration\InheritanceUpdaterTrait;
 use HeyFrame\Core\Framework\Migration\MigrationStep;
 
 /**
@@ -14,6 +15,8 @@ use HeyFrame\Core\Framework\Migration\MigrationStep;
 #[Package('framework')]
 class Migration1604475913AddCMSPageIdToProductTable extends MigrationStep
 {
+    use InheritanceUpdaterTrait;
+
     public function getCreationTimestamp(): int
     {
         return 1604475913;
@@ -27,6 +30,7 @@ class Migration1604475913AddCMSPageIdToProductTable extends MigrationStep
             ADD CONSTRAINT `fk.product.cms_page_id` FOREIGN KEY (`cms_page_id`)
             REFERENCES `cms_page` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
         ');
+        $this->updateInheritance($connection, 'product', 'cmsPage');
     }
 
     public function updateDestructive(Connection $connection): void

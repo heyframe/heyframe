@@ -14,7 +14,6 @@ HeyFrame.Component.register(
     'sw-product-deliverability-downloadable-form',
     () => import('./component/sw-product-deliverability-downloadable-form'),
 );
-HeyFrame.Component.register('sw-product-feature-set-form', () => import('./component/sw-product-feature-set-form'));
 HeyFrame.Component.register('sw-product-category-form', () => import('./component/sw-product-category-form'));
 HeyFrame.Component.register('sw-product-clone-modal', () => import('./component/sw-product-clone-modal'));
 HeyFrame.Component.register(
@@ -26,7 +25,6 @@ HeyFrame.Component.register(
     () => import('./component/sw-product-variants/sw-product-modal-delivery'),
 );
 HeyFrame.Component.register('sw-product-price-form', () => import('./component/sw-product-price-form'));
-HeyFrame.Component.register('sw-product-settings-form', () => import('./component/sw-product-settings-form'));
 HeyFrame.Component.register('sw-product-measurement-form', () => import('./component/sw-product-measurement-form'));
 HeyFrame.Component.register('sw-product-packaging-form', () => import('./component/sw-product-packaging-form'));
 HeyFrame.Component.register('sw-product-seo-form', () => import('./component/sw-product-seo-form'));
@@ -102,7 +100,6 @@ HeyFrame.Component.register('sw-product-detail-context-prices', () => import('./
 HeyFrame.Component.register('sw-product-detail-variants', () => import('./view/sw-product-detail-variants'));
 HeyFrame.Component.register('sw-product-detail-layout', () => import('./view/sw-product-detail-layout'));
 HeyFrame.Component.register('sw-product-detail-seo', () => import('./view/sw-product-detail-seo'));
-HeyFrame.Component.register('sw-product-detail-cross-selling', () => import('./view/sw-product-detail-cross-selling'));
 HeyFrame.Component.register('sw-product-detail-reviews', () => import('./view/sw-product-detail-reviews'));
 HeyFrame.Component.register('sw-product-list', () => import('./page/sw-product-list'));
 HeyFrame.Component.register('sw-product-detail', () => import('./page/sw-product-detail'));

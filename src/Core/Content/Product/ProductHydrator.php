@@ -138,6 +138,7 @@ class ProductHydrator extends EntityHydrator
         }
         $entity->cover = $this->manyToOne($row, $root, $definition->getField('cover'), $context);
         $entity->canonicalProduct = $this->manyToOne($row, $root, $definition->getField('canonicalProduct'), $context);
+        $entity->cmsPage = $this->manyToOne($row, $root, $definition->getField('cmsPage'), $context);
 
         $this->translate($definition, $entity, $row, $root, $context, $definition->getTranslatedFields());
         $this->hydrateFields($definition, $entity, $root, $row, $context, $definition->getExtensionFields());
@@ -147,6 +148,7 @@ class ProductHydrator extends EntityHydrator
         $this->manyToMany($row, $root, $entity, $definition->getField('categories'));
         $this->manyToMany($row, $root, $entity, $definition->getField('categoriesRo'));
         $this->manyToMany($row, $root, $entity, $definition->getField('tags'));
+        $this->manyToMany($row, $root, $entity, $definition->getField('customFieldSets'));
 
         return $entity;
     }

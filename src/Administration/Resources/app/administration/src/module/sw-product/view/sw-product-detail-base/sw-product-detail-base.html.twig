@@ -197,23 +197,6 @@
             @modal-close="onCloseMediaModal"
         />
         {% endblock %}
-
-        {% block sw_product_detail_base_settings_card %}
-        <mt-card
-            v-show="showProductCard('labelling')"
-            class="sw-product-detail-base__labelling-card"
-            position-identifier="sw-product-detail-base-labelling"
-            :title="$tc('sw-product.detailBase.cardTitleSettings')"
-            :is-loading="loading.product"
-        >
-
-            {% block sw_product_detail_base_settings_form %}
-            <sw-product-settings-form :allow-edit="acl.can('product.editor')" />
-            {% endblock %}
-
-        </mt-card>
-        {% endblock %}
-
     </template>
 </div>
 {% endblock %}

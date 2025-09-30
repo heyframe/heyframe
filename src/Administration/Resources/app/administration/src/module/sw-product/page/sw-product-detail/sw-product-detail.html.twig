@@ -215,18 +215,6 @@
                 </sw-tabs-item>
                 {% endblock %}
 
-                {% block sw_product_detail_content_tabs_cross_selling %}
-                <sw-tabs-item
-                    v-show="showModeSetting"
-                    class="sw-product-detail__tab-cross-selling"
-                    :route="{ name: 'sw.product.detail.crossSelling', params: { id: $route.params.id } }"
-                    :has-error="swProductDetailCrossSellingError"
-                    :title="$tc('sw-product.detail.tabCrossSelling')"
-                >
-                    {{ $tc('sw-product.detail.tabCrossSelling') }}
-                </sw-tabs-item>
-                {% endblock %}
-
                 {% block sw_product_detail_content_tabs_reviews %}
                 <sw-tabs-item
                     v-show="showModeSetting"

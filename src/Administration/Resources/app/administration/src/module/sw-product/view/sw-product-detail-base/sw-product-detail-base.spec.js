@@ -172,12 +172,6 @@ describe('src/module/sw-product/view/sw-product-detail-base', () => {
                         enabled: true,
                         name: 'general',
                     },
-                    {
-                        key: 'labelling',
-                        label: 'sw-product.detailBase.cardTitleSettings',
-                        enabled: true,
-                        name: 'general',
-                    },
                 ],
                 advancedMode: {
                     enabled: true,

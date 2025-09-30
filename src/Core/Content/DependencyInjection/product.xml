@@ -13,12 +13,12 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Product\Channel\ChannelProductDefinition">
-            <tag name="heyframe.channel.entity.definition"/>
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCustomFieldSet\ProductCustomFieldSetDefinition">
+            <tag name="heyframe.entity.definition"/>
         </service>
 
-       <service id="HeyFrame\Core\Content\Product\Aggregate\ProductKeywordDictionary\ProductKeywordDictionaryDefinition">
-            <tag name="heyframe.entity.definition"/>
+        <service id="HeyFrame\Core\Content\Product\Channel\ChannelProductDefinition">
+            <tag name="heyframe.channel.entity.definition"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Product\Aggregate\ProductCategory\ProductCategoryDefinition">

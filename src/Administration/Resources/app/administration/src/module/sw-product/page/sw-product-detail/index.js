@@ -115,10 +115,6 @@ export default {
             return HeyFrame.Store.get('swProductDetail').defaultCurrency;
         },
 
-        getDefaultFeatureSet() {
-            return HeyFrame.Store.get('swProductDetail').getDefaultFeatureSet;
-        },
-
         showModeSetting() {
             return HeyFrame.Store.get('swProductDetail').showModeSetting;
         },
@@ -169,10 +165,6 @@ export default {
             return this.repositoryFactory.create('currency');
         },
 
-        taxRepository() {
-            return this.repositoryFactory.create('tax');
-        },
-
         customFieldSetRepository() {
             return this.repositoryFactory.create('custom_field_set');
         },
@@ -190,10 +182,6 @@ export default {
                 return this.repositoryFactory.create(this.product.media.entity, this.product.media.source);
             }
             return null;
-        },
-
-        featureSetRepository() {
-            return this.repositoryFactory.create('product_feature_set');
         },
 
         currentUser() {
@@ -226,30 +214,17 @@ export default {
             criteria.getAssociation('seoUrls').addFilter(Criteria.equals('isCanonical', true));
 
             criteria
-                .getAssociation('crossSellings')
-                .addSorting(Criteria.sort('position', 'ASC'))
-                .getAssociation('assignedProducts')
-                .addSorting(Criteria.sort('position', 'ASC'))
-                .addAssociation('product')
-                .getAssociation('product')
-                .addAssociation('options.group');
-
-            criteria
                 .addAssociation('cover.media')
                 .addAssociation('categories')
                 .addAssociation('visibilities.channel')
                 .addAssociation('options')
                 .addAssociation('configuratorSettings.option')
-                .addAssociation('unit')
                 .addAssociation('productReviews')
                 .addAssociation('seoUrls')
                 .addAssociation('mainCategories')
                 .addAssociation('options.group')
                 .addAssociation('customFieldSets')
                 .addAssociation('cmsPage')
-                .addAssociation('downloads.media');
-
-            criteria.getAssociation('manufacturer').addAssociation('media');
 
             return criteria;
         },
@@ -314,12 +289,6 @@ export default {
                     name: 'general',
                 },
                 {
-                    key: 'deliverability',
-                    label: 'sw-product.detailBase.cardTitleDeliverabilityInfo',
-                    enabled: true,
-                    name: 'general',
-                },
-                {
                     key: 'visibility_structure',
                     label: 'sw-product.detailBase.cardTitleAssignment',
                     enabled: true,
@@ -331,23 +300,11 @@ export default {
                     enabled: true,
                     name: 'general',
                 },
-                {
-                    key: 'labelling',
-                    label: 'sw-product.detailBase.cardTitleSettings',
-                    enabled: true,
-                    name: 'general',
-                },
             ];
         },
 
         getModeSettingSpecificationsTab() {
             return [
-                {
-                    key: 'measurement',
-                    label: 'sw-product.specifications.cardTitleMeasurement',
-                    enabled: true,
-                    name: 'specifications',
-                },
                 {
                     key: 'selling_packaging',
                     label: 'sw-product.specifications.cardTitleSellingPackaging',
@@ -619,7 +576,6 @@ export default {
             return Promise.all([
                 this.loadProduct(),
                 this.loadCurrencies(),
-                this.loadTaxes(),
                 this.loadAttributeSet(),
             ]);
         },
@@ -654,9 +610,7 @@ export default {
 
             return Promise.all([
                 this.loadCurrencies(),
-                this.loadTaxes(),
                 this.loadAttributeSet(),
-                this.loadDefaultFeatureSet(),
             ]).then(() => {
                 // set default product price and empty purchase price
                 this.product.price = [
@@ -672,9 +626,6 @@ export default {
 
                 // Set default tax rate / sales channels on creation
                 if (this.product.isNew) {
-                    this.getDefaultTaxRate().then((result) => {
-                        this.product.taxId = result;
-                    });
 
                     this.getDefaultChannels().then((result) => {
                         if (type.isEmpty(result)) {
@@ -701,10 +652,6 @@ export default {
                             });
                         });
                     });
-                }
-
-                if (this.getDefaultFeatureSet?.length) {
-                    this.product.featureSetId = this.getDefaultFeatureSet?.[0].id;
                 }
 
                 HeyFrame.Store.get('swProductDetail').setLoading([
@@ -826,31 +773,6 @@ export default {
                 });
         },
 
-        loadTaxes() {
-            HeyFrame.Store.get('swProductDetail').setLoading([
-                'taxes',
-                true,
-            ]);
-
-            return this.taxRepository
-                .search(this.taxCriteria)
-                .then((res) => {
-                    HeyFrame.Store.get('swProductDetail').setTaxes(res);
-                })
-                .finally(() => {
-                    HeyFrame.Store.get('swProductDetail').setLoading([
-                        'taxes',
-                        false,
-                    ]);
-                });
-        },
-
-        getDefaultTaxRate() {
-            return this.systemConfigApiService.getValues('core.tax').then((response) => {
-                return response['core.tax.defaultTaxRate'] ?? null;
-            });
-        },
-
         loadAttributeSet() {
             HeyFrame.Store.get('swProductDetail').setLoading([
                 'customFieldSets',
@@ -865,25 +787,6 @@ export default {
                 .finally(() => {
                     HeyFrame.Store.get('swProductDetail').setLoading([
                         'customFieldSets',
-                        false,
-                    ]);
-                });
-        },
-
-        loadDefaultFeatureSet() {
-            HeyFrame.Store.get('swProductDetail').setLoading([
-                'defaultFeatureSet',
-                true,
-            ]);
-
-            return this.featureSetRepository
-                .search(this.defaultFeatureSetCriteria)
-                .then((res) => {
-                    HeyFrame.Store.get('swProductDetail').setDefaultFeatureSet(res);
-                })
-                .finally(() => {
-                    HeyFrame.Store.get('swProductDetail').setLoading([
-                        'defaultFeatureSet',
                         false,
                     ]);
                 });

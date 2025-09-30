@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Content\Product;
 
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use HeyFrame\Core\Content\Category\CategoryCollection;
+use HeyFrame\Core\Content\Cms\CmsPageEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaEntity;
@@ -14,6 +15,7 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityC
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingConfig;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
 use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
+use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
@@ -167,6 +169,8 @@ class ProductEntity extends Entity implements \Stringable
      */
     protected array $states = [];
 
+    protected ?SeoUrlCollection $seoUrls = null;
+    protected ?CmsPageEntity $cmsPage = null;
     public function __construct()
     {
         $this->prices = new ProductPriceCollection();
@@ -798,4 +802,25 @@ class ProductEntity extends Entity implements \Stringable
     {
         $this->mainCategories = $mainCategories;
     }
+
+    public function getSeoUrls(): ?SeoUrlCollection
+    {
+        return $this->seoUrls;
+    }
+
+    public function setSeoUrls(SeoUrlCollection $seoUrls): void
+    {
+        $this->seoUrls = $seoUrls;
+    }
+
+    public function getCmsPage(): ?CmsPageEntity
+    {
+        return $this->cmsPage;
+    }
+
+    public function setCmsPage(?CmsPageEntity $cmsPage): void
+    {
+        $this->cmsPage = $cmsPage;
+    }
+
 }
