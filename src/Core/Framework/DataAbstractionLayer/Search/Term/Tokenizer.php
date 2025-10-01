@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term;
 
+use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\Filter\AbstractTokenFilter;
 use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]
@@ -19,6 +20,10 @@ class Tokenizer implements TokenizerInterface
 
     public function tokenize(string $string, ?int $tokenMinimumLength = null): array
     {
+        if ($tokenMinimumLength === null) {
+            $tokenMinimumLength = AbstractTokenFilter::DEFAULT_MIN_SEARCH_TERM_LENGTH;
+        }
+
         $string = mb_strtolower(html_entity_decode($string), 'UTF-8');
         $string = trim(str_replace(['/', '\\'], ' ', $string));
         $string = str_replace('<', ' <', $string);
@@ -32,7 +37,7 @@ class Tokenizer implements TokenizerInterface
 
         $string = trim((string) preg_replace(\sprintf("/[^\pL%s0-9]/u", $allowChars), ' ', $string));
 
-        /** @var list<string> $tags */
+        /** @var list<non-falsy-string> $tags */
         $tags = array_filter(explode(' ', $string));
 
         $filtered = [];

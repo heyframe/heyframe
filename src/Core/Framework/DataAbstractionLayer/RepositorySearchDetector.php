@@ -6,7 +6,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelpe
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\CriteriaPartInterface;
 use HeyFrame\Core\Framework\Log\Package;
 
 /**
@@ -51,7 +50,6 @@ class RepositorySearchDetector
             $criteria->getPostFilters()
         );
 
-        /** @var CriteriaPartInterface $filter */
         foreach ($filters as $filter) {
             $accessors = $filter->getFields();
             foreach ($accessors as $accessor) {

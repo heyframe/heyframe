@@ -51,7 +51,7 @@ class MaintenanceModeResolver
     {
         $whitelist = $request->attributes->get(ChannelRequest::ATTRIBUTE_CHANNEL_MAINTENANCE_IP_WHITLELIST) ?? '';
 
-        /** @var string[] $allowedIps */
+        /** @var list<string> $allowedIps */
         $allowedIps = Json::decodeToList((string) $whitelist);
 
         return $allowedIps;

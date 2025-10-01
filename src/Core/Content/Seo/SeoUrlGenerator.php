@@ -15,6 +15,8 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\RepositoryIterator;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -72,7 +74,7 @@ class SeoUrlGenerator
 
             $criteria->setLimit(50);
 
-            /** @var RepositoryIterator<LandingPageCollection|CategoryCollection|ProductCollection> $iterator */
+            /** @var RepositoryIterator<EntityCollection<covariant Entity>> $iterator */
             $iterator = $context->enableInheritance(static fn (Context $context): RepositoryIterator => new RepositoryIterator($repository, $context, $criteria));
 
             while ($searchResult = $iterator->fetch()) {
@@ -82,7 +84,7 @@ class SeoUrlGenerator
     }
 
     /**
-     * @param EntitySearchResult<LandingPageCollection|CategoryCollection|ProductCollection> $searchResult
+     * @param EntitySearchResult<EntityCollection<covariant Entity>> $searchResult
      *
      * @return iterable<SeoUrlEntity>
      */

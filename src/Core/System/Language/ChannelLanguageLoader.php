@@ -14,7 +14,7 @@ use Symfony\Contracts\Service\ResetInterface;
 class ChannelLanguageLoader implements ResetInterface
 {
     /**
-     * @var array<string, array<string>>|null
+     * @var array<string, list<string>>|null
      */
     private ?array $languages = null;
 
@@ -26,7 +26,7 @@ class ChannelLanguageLoader implements ResetInterface
     }
 
     /**
-     * @return array<string, array<string>>
+     * @return array<string, list<string>>
      */
     public function loadLanguages(): array
     {
@@ -36,13 +36,13 @@ class ChannelLanguageLoader implements ResetInterface
 
         $result = $this->connection->fetchAllAssociative('SELECT LOWER(HEX(`language_id`)), LOWER(HEX(`channel_id`)) as channelId FROM channel_language');
 
-        /** @var array<string, array{ channelId: string }> $grouped */
         $grouped = FetchModeHelper::group($result);
 
         foreach ($grouped as $languageId => $value) {
             $grouped[$languageId] = array_column($value, 'channelId');
         }
 
+        /** @var array<string, list<string>> $grouped */
         return $this->languages = $grouped;
     }
 

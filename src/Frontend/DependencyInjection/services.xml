@@ -22,6 +22,11 @@
             <tag name="twig.extension"/>
         </service>
 
+        <service id="HeyFrame\Frontend\Framework\Routing\MaintenanceModeResolver">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Routing\MaintenanceModeResolver"/>
+        </service>
+
         <service id="HeyFrame\Frontend\Framework\Twig\Extension\IconCacheTwigFilter" public="false">
             <tag name="twig.extension"/>
         </service>

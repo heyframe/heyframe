@@ -351,11 +351,11 @@ class ChannelValidator implements EventSubscriberInterface
     /**
      * @param array<string> $channelIds
      *
-     * @return array<string, string>
+     * @return list<array<string, string>>
      */
     private function fetchCurrentLanguageStates(array $channelIds): array
     {
-        /** @var array<string, mixed> $result */
+        /** @var list<array<string, mixed>> $result */
         $result = $this->connection->fetchAllAssociative(
             'SELECT LOWER(HEX(channel.id)) AS channel_id,
             LOWER(HEX(channel.language_id)) AS current_default,
@@ -373,7 +373,7 @@ class ChannelValidator implements EventSubscriberInterface
 
     /**
      * @param array<string, mixed> $mapping
-     * @param array<string, mixed> $states
+     * @param list<array<string, mixed>> $states
      *
      * @return array<string, mixed>
      */

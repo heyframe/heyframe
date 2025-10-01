@@ -66,7 +66,7 @@ class ChannelMaintenanceEnableCommand extends Command
             $criteria->setIds($ids);
         }
 
-        /** @var array<string> $channelIds */
+        /** @var list<string> $channelIds */
         $channelIds = $this->channelRepository->searchIds($criteria, $context)->getIds();
 
         if (empty($channelIds)) {

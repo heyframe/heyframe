@@ -140,7 +140,6 @@ class UpdateController extends AbstractController
 
     private function rebootKernelWithoutPlugins(): ContainerInterface
     {
-        /** @var Kernel $kernel */
         $kernel = $this->container->get('kernel');
 
         $classLoad = $kernel->getPluginLoader()->getClassLoader();

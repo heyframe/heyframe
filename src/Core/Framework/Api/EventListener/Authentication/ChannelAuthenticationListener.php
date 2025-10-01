@@ -144,7 +144,7 @@ class ChannelAuthenticationListener implements EventSubscriberInterface
         }
 
         try {
-            /** @var string[] $allowedIps */
+            /** @var list<string> $allowedIps */
             $allowedIps = Json::decodeToList((string) ($channelData['maintenanceIpWhitelist'] ?? ''));
         } catch (UtilException) {
             return;

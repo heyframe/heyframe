@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * @phpstan-type NavigationMetaInformation array{id: string, level: int, path: string}
+ * @phpstan-type NavigationMetaInformation array{id: string, level: string, path: string}
  */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('discovery')]

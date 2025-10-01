@@ -74,7 +74,7 @@ class MediaDefinition extends EntityDefinition
 
     protected function defineFields(): FieldCollection
     {
-        $fields = new FieldCollection([
+        return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new ApiAware(), new PrimaryKey(), new Required()),
             new FkField('user_id', 'userId', UserDefinition::class),
             new FkField('media_folder_id', 'mediaFolderId', MediaFolderDefinition::class),
@@ -111,7 +111,5 @@ class MediaDefinition extends EntityDefinition
             (new OneToManyAssociationField('orderLineItems', OrderLineItemDefinition::class, 'cover_id'))->addFlags(new SetNullOnDelete()),
             (new StringField('file_hash', 'fileHash'))->addFlags(new Computed()),
         ]);
-
-        return $fields;
     }
 }

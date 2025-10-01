@@ -4,6 +4,7 @@ namespace HeyFrame\Frontend\Theme\Extension;
 
 use HeyFrame\Core\Content\Media\MediaDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtension;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
@@ -21,7 +22,7 @@ class MediaExtension extends EntityExtension
         );
 
         $collection->add(
-            new ManyToManyAssociationField('themeMedia', ThemeDefinition::class, ThemeMediaDefinition::class, 'media_id', 'theme_id')
+            (new ManyToManyAssociationField('themeMedia', ThemeDefinition::class, ThemeMediaDefinition::class, 'media_id', 'theme_id'))->addFlags(new RestrictDelete())
         );
     }
 

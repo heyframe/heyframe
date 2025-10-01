@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi;
 
-use HeyFrame\Core\Content\MeasurementSystem\Field\MeasurementUnitsField;
 use HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\Api\Context\ChannelApiSource;
@@ -411,12 +410,6 @@ class OpenApiDefinitionSchemaBuilder
                 'property' => $jsonField->getPropertyName(),
                 'items' => new Schema(['ref' => '#/components/schemas/Price']),
             ]);
-        } elseif ($jsonField instanceof MeasurementUnitsField) {
-            $definition = new Property([
-                'type' => 'object',
-                'property' => $jsonField->getPropertyName(),
-                'ref' => '#/components/schemas/MeasurementUnits',
-            ]);
         } else {
             $definition = new Property([
                 'type' => 'object',
@@ -568,6 +561,7 @@ class OpenApiDefinitionSchemaBuilder
     private function getRelationShipEntity(Property $relationship): string
     {
         /** @var array<mixed> $relationshipData */
+        // @phpstan-ignore varTag.type (the data is a array instead of an property object here)
         $relationshipData = $relationship->properties['data'];
         $type = $relationshipData['type'];
         $entity = '';
@@ -587,6 +581,7 @@ class OpenApiDefinitionSchemaBuilder
         $entityName = $this->snakeCaseToCamelCase($entity);
 
         /** @var array<mixed> $relationshipData */
+        // @phpstan-ignore varTag.type (the data is a array instead of an property object here)
         $relationshipData = $relationship->properties['data'];
         $type = $relationshipData['type'];
 
