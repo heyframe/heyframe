@@ -150,11 +150,71 @@
             </template>
         </sw-sidebar-collapse>
         {% endblock %}
+
+        {% block sw_landing_page_collapse %}
+        <sw-sidebar-collapse
+            class="sw-category-detail__landing-page-collapse"
+            :expand-on-loading="landingPageId !== null"
+        >
+            <template #header>
+
+                {% block sw_landing_page_collapse_header %}
+                <div
+                    v-if="landingPageCheckedItem > 0"
+                    class="sw-category-detail__collapse-selected-count"
+                >
+                    {{ $tc(`sw-landing-page.general.treeHeadSelected`, { count: landingPageCheckedItem }) }}:
+                </div>
+                <div
+                    v-else
+                    class="sw-category-detail__collapse-headline"
+                >
+                    {{ $tc(`sw-landing-page.general.treeHeadline`) }}
+                </div>
+                {% endblock %}
+
+            </template>
+
+            <template #actions>
+
+                {% block sw_landing_page_collapse_actions %}
+                <div v-if="landingPageCheckedItem > 0">
+                    <mt-button
+                        class="sw-tree-actions__delete_categories"
+                        variant="critical"
+                        size="small"
+                        @click="onLandingPageDelete"
+                    >
+                        {{ $tc('global.default.delete') }}
+                    </mt-button>
+                </div>
+                {% endblock %}
+
+            </template>
+
+            <template #content>
+
+                {% block sw_landing_page_tree %}
+                <sw-landing-page-tree
+                    ref="landingPageTree"
+                    :landing-page-id="landingPageId"
+                    :current-language-id="currentLanguageId"
+                    :allow-edit="acl.can('landing_page.editor')"
+                    :allow-create="acl.can('landing_page.creator')"
+                    :allow-delete="acl.can('landing_page.deleter')"
+                    @unsaved-changes="openChangeModal"
+                    @landing-page-checked-elements-count="landingPageCheckedElementsCount"
+                />
+                {% endblock %}
+
+            </template>
+        </sw-sidebar-collapse>
+        {% endblock %}
         {% endblock %}
     </template>
 
     {% block sw_category_content %}
-    <div #content>
+    <template #content>
 
         <template v-if="isLoading">
             <sw-skeleton variant="detail-bold" />
@@ -177,7 +237,7 @@
             {% block sw_category_content_entry_point_overwrite_modal %}
             <sw-category-entry-point-overwrite-modal
                 v-if="showEntryPointOverwriteModal"
-                :channels="entryPointOverwriteChannels"
+                :sales-channels="entryPointOverwriteSalesChannels"
                 @cancel="cancelEntryPointOverwrite"
                 @confirm="confirmEntryPointOverwrite"
             />
@@ -208,8 +268,6 @@
                 :description="$t($route.meta.$module.description)"
             />
             {% endblock %}
-        {% endblock %}
-
         </div>
     </template>
     {% endblock %}
