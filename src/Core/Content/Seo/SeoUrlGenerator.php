@@ -2,9 +2,6 @@
 
 namespace HeyFrame\Core\Content\Seo;
 
-use HeyFrame\Core\Content\Category\CategoryCollection;
-use HeyFrame\Core\Content\LandingPage\LandingPageCollection;
-use HeyFrame\Core\Content\Product\ProductCollection;
 use HeyFrame\Core\Content\Seo\SeoUrl\SeoUrlEntity;
 use HeyFrame\Core\Content\Seo\SeoUrlRoute\SeoUrlMapping;
 use HeyFrame\Core\Content\Seo\SeoUrlRoute\SeoUrlRouteConfig;

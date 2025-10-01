@@ -39,7 +39,6 @@
         <service id="HeyFrame\Core\System\Snippet\Command\Util\CountryAgnosticFileLinter">
             <argument type="service" id="Symfony\Component\Filesystem\Filesystem"/>
             <argument type="service" id="plugin.repository"/>
-            <argument type="service" id="app.repository"/>
         </service>
 
         <service id="HeyFrame\Core\System\Snippet\Command\LintTranslationFilesCommand">

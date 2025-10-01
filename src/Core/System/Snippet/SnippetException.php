@@ -236,7 +236,8 @@ class SnippetException extends HttpException
             $previous
         );
     }
-        /**
+
+    /**
      * @param list<string> $extensionName
      */
     public static function invalidExtensions(array $extensionName): self

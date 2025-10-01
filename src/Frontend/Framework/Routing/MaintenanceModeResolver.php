@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Frontend\Framework\Routing;
 
+use HeyFrame\Core\ChannelRequest;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Routing\MaintenanceModeResolver as CoreMaintenanceModeResolver;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\PlatformRequest;
-use HeyFrame\Core\ChannelRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 

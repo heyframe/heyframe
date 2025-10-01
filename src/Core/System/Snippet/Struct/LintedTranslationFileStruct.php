@@ -3,9 +3,6 @@
 namespace HeyFrame\Core\System\Snippet\Struct;
 
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Snippet\Struct\FixableTranslationFileCollection;
-use HeyFrame\Core\System\Snippet\Struct\TranslationFile;
-use HeyFrame\Core\System\Snippet\Struct\TranslationFileCollection;
 
 /**
  * @internal

@@ -14,7 +14,6 @@ use HeyFrame\Core\Framework\Update\Event\UpdatePrePrepareEvent;
 use HeyFrame\Core\Framework\Update\Services\ApiClient;
 use HeyFrame\Core\Framework\Update\Services\ExtensionCompatibility;
 use HeyFrame\Core\Framework\Update\Steps\DeactivateExtensionsStep;
-use HeyFrame\Core\Kernel;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\NoContentResponse;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;

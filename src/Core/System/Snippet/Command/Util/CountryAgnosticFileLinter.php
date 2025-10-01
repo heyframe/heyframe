@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\System\Snippet\Command\Util;
 
-use HeyFrame\Core\Framework\App\AppCollection;
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -29,17 +27,15 @@ class CountryAgnosticFileLinter
     public const PLATFORM_DOMAINS = [
         'administration' => 'Administration',
         'messages' => 'Core',
-        'storefront' => 'Storefront',
+        'Frontend' => 'Frontend',
     ];
 
     /**
      * @param EntityRepository<PluginCollection> $pluginRepository
-     * @param EntityRepository<AppCollection> $appRepository
      */
     public function __construct(
         private readonly Filesystem $filesystem,
         private readonly EntityRepository $pluginRepository,
-        private readonly EntityRepository $appRepository,
     ) {
     }
 
@@ -175,11 +171,9 @@ class CountryAgnosticFileLinter
         $context = Context::createCLIContext();
 
         $plugins = $this->pluginRepository->search($criteria, $context)->getEntities();
-        $apps = $this->appRepository->search($criteria, $context)->getEntities();
 
         $extensionPaths = [
             ...$plugins->map(static fn (PluginEntity $plugin) => $plugin->getPath()),
-            ...$apps->map(static fn (AppEntity $app) => $app->getPath()),
         ];
 
         if (empty($extensionPaths)) {

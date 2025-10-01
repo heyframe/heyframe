@@ -23,6 +23,7 @@ class HttpCacheCookieEvent
         private array $parts
     ) {
     }
+
     /**
      * @return string|array<string>|null
      */
@@ -30,6 +31,7 @@ class HttpCacheCookieEvent
     {
         return $this->parts[$key] ?? null;
     }
+
     /**
      * @param string|array<string> $value
      */

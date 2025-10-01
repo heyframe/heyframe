@@ -3,13 +3,13 @@
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
 use Doctrine\DBAL\Query\QueryBuilder;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

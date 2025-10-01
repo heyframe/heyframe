@@ -101,7 +101,6 @@ class SnippetFileHandler
             ->ignoreUnreadableDirs()
             ->name(SnippetPatterns::CORE_SNIPPET_FILE_PATTERN);
 
-
         $finder->name('/[a-z]{2}-[A-Z]{2}(?:\.base)?\.json$/');
 
         $iterator = $finder->getIterator();
