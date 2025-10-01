@@ -10,6 +10,7 @@ use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Customer\CustomerEntity;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Adapter\Twig\TemplateFinder;
+use HeyFrame\Core\Framework\Api\OAuth\SymfonyBearerTokenValidator;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -27,9 +28,12 @@ use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\Exception\ConstraintViolationException;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Currency\CurrencyCollection;
+use HeyFrame\Core\System\Language\LanguageCollection;
+use HeyFrame\Core\System\Language\LanguageEntity;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
+use League\OAuth2\Server\Exception\OAuthServerException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,12 +46,18 @@ use Symfony\Component\Validator\ConstraintViolationList;
 #[Package('framework')]
 class AdministrationController extends AbstractController
 {
+    private const UNAUTHENTICATED_SNIPPET_NAMESPACES = [
+        'sw-login',
+        'global',
+    ];
+
     /**
-     * @internal
-     *
      * @param array<int, int> $supportedApiVersions
      * @param EntityRepository<CustomerCollection> $customerRepository
      * @param EntityRepository<CurrencyCollection> $currencyRepository
+     * @param EntityRepository<LanguageCollection> $languageRepository
+     *
+     * @internal
      */
     public function __construct(
         private readonly TemplateFinder $finder,
@@ -61,6 +71,8 @@ class AdministrationController extends AbstractController
         private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
         private readonly SystemConfigService $systemConfigService,
         private readonly FilesystemOperator $fileSystem,
+        private readonly EntityRepository $languageRepository,
+        private readonly SymfonyBearerTokenValidator $tokenValidator,
         private readonly string $refreshTokenTtl = 'P1W',
     ) {
     }
@@ -89,18 +101,38 @@ class AdministrationController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/api/_admin/snippets', name: 'api.admin.snippets', methods: ['GET'])]
+    #[Route(path: '/api/_admin/snippets', name: 'api.admin.snippets', defaults: ['auth_required' => false], methods: ['GET'])]
     public function snippets(Request $request): Response
     {
         $snippets = [];
-        $locale = $request->query->get('locale', 'zh-CN');
-        $snippets[$locale] = $this->snippetFinder->findSnippets((string) $locale);
+        $locale = (string) $request->query->get('locale', 'zh-CN');
+        $snippets[$locale] = $this->snippetFinder->findSnippets($locale);
 
         if ($locale !== 'zh-CN') {
             $snippets['zh-CN'] = $this->snippetFinder->findSnippets('zh-CN');
         }
+        $snippets = $this->filterByAuthentication($request, $snippets, $locale);
 
         return new JsonResponse($snippets);
+    }
+
+    #[Route(path: '/api/_admin/locales', name: 'api.admin.locales', defaults: ['auth_required' => false], methods: ['GET'])]
+    public function getLocales(Request $request, Context $context): Response
+    {
+        $criteria = (new Criteria())->addAssociation('locale');
+
+        $languages = $this->languageRepository->search($criteria, $context);
+        /** @var array<string, string> $installedLocales */
+        $installedLocales = $languages->reduce(static function (array $accumulator, LanguageEntity $language) {
+            $locale = $language->getLocale();
+            if ($locale !== null) {
+                $accumulator[$language->getId()] = $locale->getCode();
+            }
+
+            return $accumulator;
+        }, []);
+
+        return new JsonResponse($installedLocales);
     }
 
     #[Route(path: '/api/_admin/known-ips', name: 'api.admin.known-ips', methods: ['GET'])]
@@ -269,5 +301,20 @@ class AdministrationController extends AbstractController
         ]));
 
         return $this->customerRepository->search($criteria, $context)->getEntities()->first();
+    }
+
+    private function filterByAuthentication(Request $request, array $snippets, string $locale): array
+    {
+        try {
+            $this->tokenValidator->validateAuthorization($request);
+        } catch (OAuthServerException) {
+            $snippets[$locale] = \array_filter(
+                $snippets[$locale],
+                static fn (string $key) => \in_array($key, self::UNAUTHENTICATED_SNIPPET_NAMESPACES, true),
+                \ARRAY_FILTER_USE_KEY
+            );
+        }
+
+        return $snippets;
     }
 }

@@ -2,9 +2,6 @@
  * @sw-package framework
  */
 
-import zh from './snippet/zh.json';
-import en from './snippet/en.json';
-
 const { Component, Module } = HeyFrame;
 
 /** @private */
@@ -21,11 +18,6 @@ Module.register('sw-login', {
     version: '1.0.0',
     targetVersion: '1.0.0',
     color: '#F19D12',
-
-    snippets: {
-        'zh-CN': zh,
-        'en-GB': en,
-    },
 
     routes: {
         index: {

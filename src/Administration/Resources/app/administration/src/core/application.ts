@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
 import type Bottle from 'bottlejs';
-import type { App } from 'vue';
-import { reactive } from 'vue';
-import type { ContextStore } from '../app/store/context.store';
+import type {App} from 'vue';
+import {reactive} from 'vue';
+import type {ContextStore} from '../app/store/context.store';
 import type VueAdapter from '../app/adapter/view/vue.adapter';
+
 /**
  * @sw-package framework
  *
@@ -47,7 +48,8 @@ class ApplicationBootstrapper {
      */
     constructor(container: Bottle) {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        const noop = (): void => {};
+        const noop = (): void => {
+        };
         this.$container = container;
 
         this.view = null;
@@ -176,7 +178,10 @@ class ApplicationBootstrapper {
         return this;
     }
 
-    registerConfig(config: { apiContext?: ContextStore['api']; appContext?: ContextStore['app'] }): ApplicationBootstrapper {
+    registerConfig(config: {
+        apiContext?: ContextStore['api'];
+        appContext?: ContextStore['app']
+    }): ApplicationBootstrapper {
         if (config.apiContext) {
             this.registerApiContext(config.apiContext);
         }
@@ -521,13 +526,12 @@ class ApplicationBootstrapper {
      * Initialize the initializers right away cause these are the mandatory services for the application
      * to boot successfully.
      */
-    private initializeLoginInitializer(): Promise<unknown[]> {
+    private async initializeLoginInitializer(): Promise<unknown[]> {
         const loginInitializer = [
             'login',
             'baseComponents',
-            'locale',
             'coreDirectives',
-            'apiServices',
+            'locale',
             'store',
         ];
 
@@ -558,6 +562,9 @@ class ApplicationBootstrapper {
         });
 
         this.$container.digest(pre);
+        // Ensure that the api services are available for the locale.init.ts
+        await HeyFrame.Application.getContainer('init-pre').apiServices;
+
         this.$container.digest(init);
         this.$container.digest(post);
 
@@ -637,9 +644,9 @@ class ApplicationBootstrapper {
             })
             .map(
                 ([
-                    ,
-                    plugin,
-                ]) => this.injectPlugin(plugin),
+                     ,
+                     plugin,
+                 ]) => this.injectPlugin(plugin),
             );
 
         // inject iFrames of plugins
@@ -647,16 +654,16 @@ class ApplicationBootstrapper {
         const bundles = HeyFrame.Context.app.config.bundles as bundlesPluginResponse;
         Object.entries(bundles).forEach(
             ([
-                bundleName,
-                bundle,
-            ]) => {
+                 bundleName,
+                 bundle,
+             ]) => {
                 if (isDevelopmentMode) {
                     // replace the baseUrl with the webpack url of the html file
                     Object.entries(plugins).forEach(
                         ([
-                            pluginName,
-                            entryFiles,
-                        ]) => {
+                             pluginName,
+                             entryFiles,
+                         ]) => {
                             const stringUtils = HeyFrame.Utils.string;
                             const camelCasePluginName = stringUtils.upperFirst(stringUtils.camelCase(pluginName));
 
@@ -794,13 +801,13 @@ class ApplicationBootstrapper {
      * Inject hidden iframes
      */
     private injectIframe({
-        active,
-        integrationId,
-        bundleName,
-        iframeSrc,
-        bundleVersion,
-        bundleType,
-    }: {
+                             active,
+                             integrationId,
+                             bundleName,
+                             iframeSrc,
+                             bundleVersion,
+                             bundleType,
+                         }: {
         active?: boolean;
         integrationId?: string;
         bundleName: string;
