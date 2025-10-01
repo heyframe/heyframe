@@ -346,7 +346,7 @@
       "headline": "No email template assigned to this order status, please assign one.",
       "placeholderAssignMailTemplate": "Assign an email template...",
       "alertHeadline": "Hint",
-      "alertMessage": "This assignment affects all following orders received through this sales channel.",
+      "alertMessage": "This assignment affects all following orders received through this channel.",
       "buttonCreateMailTemplate": "Create email template",
       "buttonAssignMailTemplate": "Assign email template",
       "buttonNotAssignMailTemplate": "Don't assign an email template",
@@ -502,13 +502,13 @@
         "columnEmailAddress": "Email address",
         "titleSelectChannel": "Select Channel",
         "descriptionSelectChannel": "The selected customer has access to multiple Channels, please select the Channel you wish to use for this order.",
-        "alertSelectChannel": "Because the selected Sales channel channel determines the available products and options, changing it will remove the products and reset the options.",
+        "alertSelectChannel": "Because the selected channel determines the available products and options, changing it will remove the products and reset the options.",
         "labelChannel": "Use Channel",
         "placeholderChannel": "Select a Channel...",
         "buttonSelectChannel": "Select",
         "labelAllChannel": "All Channels",
         "titleCustomerChanges": "Change Customer",
-        "descriptionCustomerChanges": "Are you sure you want to change the customer for this order? This customer has a different sales channel, this will remove the products and reset the options.",
+        "descriptionCustomerChanges": "Are you sure you want to change the customer for this order? This customer has a different channel, this will remove the products and reset the options.",
         "buttonChangeCustomer": "Change customer"
       },
       "options": {
@@ -521,7 +521,7 @@
         "labelShippingCosts": "Shipping costs"
       },
       "tooltip": {
-        "customerUnavailable": "This customer can only use one sales channel. The Channel is currently inactive or does not exist anymore."
+        "customerUnavailable": "This customer can only use one channel. The Channel is currently inactive or does not exist anymore."
       }
     },
     "filters": {
