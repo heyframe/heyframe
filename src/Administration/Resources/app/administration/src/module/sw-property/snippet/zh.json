@@ -17,7 +17,8 @@
       "messageEmpty": "暂无属性",
       "columnDescription": "描述",
       "buttonDelete": "删除",
-      "textDeleteConfirm": "确定要删除属性 \"{name}\" 吗？"
+      "textDeleteConfirm": "确定要删除属性 \"{name}\" 吗？",
+      "errorDelete": "属性被使用，不能删除。"
     },
     "detail": {
       "mediaDisplayType": "图片",
