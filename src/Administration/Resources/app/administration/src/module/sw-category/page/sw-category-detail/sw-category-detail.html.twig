@@ -154,14 +154,17 @@
     </template>
 
     {% block sw_category_content %}
-    <template #content>
+    <div #content>
 
         <template v-if="isLoading">
             <sw-skeleton variant="detail-bold" />
             <sw-skeleton />
         </template>
 
-        <template v-else>
+        <div
+            v-else
+            class="sw-category__content"
+        >
             {% block sw_category_content_view %}
             <sw-category-view
                 v-if="category"
@@ -197,20 +200,16 @@
             {% endblock %}
 
             {% block sw_category_content_empty %}
-            <sw-empty-state
+            <mt-empty-state
                 v-if="showEmptyState"
-                :title="$tc('sw-category.general.emptyStateHeadline')"
-            >
-                <template #icon>
-                    <img
-                        :src="assetFilter('/administration/administration/static/img/empty-states/products-empty-state.svg')"
-                        :alt="$tc('sw-category.general.emptyStateHeadline')"
-                    >
-                </template>
-            </sw-empty-state>
+                class="mt-empty-state--center"
+                :icon="$route.meta.$module.icon"
+                :headline="$t('sw-category.general.emptyStateHeadline')"
+            />
+            {% endblock %}
         {% endblock %}
 
-        </template>
+        </div>
     </template>
     {% endblock %}
 

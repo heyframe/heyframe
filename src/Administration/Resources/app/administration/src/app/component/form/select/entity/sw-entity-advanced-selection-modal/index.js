@@ -66,12 +66,6 @@ export default {
             type: Object,
             required: true,
         },
-        // Path to an image that is used as an Icon for the empty state.
-        // This depends on what entity is used for the modal and where it is found in the administration.
-        emptyImagePath: {
-            type: String,
-            required: true,
-        },
         // Additional associations which can't be inferred from the entityColumns or entityFilters.
         // This is most likely needed if the column slots are used for custom rendering and usage of associations.
         entityAssociations: {

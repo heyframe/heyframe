@@ -1,7 +1,7 @@
 /**
  * @sw-package fundamentals@framework
  */
-import { mount } from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
 import TimezoneService from 'src/core/service/timezone.service';
 import EntityCollection from 'src/core/data/entity-collection.data';
 
@@ -25,7 +25,7 @@ async function createWrapper(privileges = []) {
                     },
                     loginService: {},
                     userService: {
-                        getUser: () => Promise.resolve({ data: {} }),
+                        getUser: () => Promise.resolve({data: {}}),
                     },
                     mediaDefaultFolderService: {
                         getDefaultFolderId: (folder) => Promise.resolve(folder),
@@ -76,6 +76,11 @@ async function createWrapper(privileges = []) {
                         params: {
                             id: '1a2b3c4d',
                         },
+                        meta: {
+                            $module: {
+                                icon: 'solid-content',
+                            },
+                        },
                     },
                 },
                 stubs: {
@@ -91,7 +96,6 @@ async function createWrapper(privileges = []) {
                     'sw-entity-multi-select': true,
                     'sw-single-select': true,
                     'sw-skeleton': true,
-                    'sw-empty-state': true,
                     'sw-data-grid': true,
                     'sw-context-menu-item': true,
                     'sw-button-process': true,
@@ -102,6 +106,7 @@ async function createWrapper(privileges = []) {
         },
     );
 }
+
 describe('modules/sw-users-permissions/page/sw-users-permissions-user-create', () => {
     let wrapper;
 
@@ -134,7 +139,7 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-create', (
     });
 
     it('should allow to set the password', async () => {
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
         expect(wrapper.vm.user.password).toBe('');
 
         const fieldPassword = wrapper.findByLabel('sw-users-permissions.users.user-detail.labelPassword');
@@ -145,7 +150,7 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-create', (
     });
 
     it('should not be an admin by default', async () => {
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
 
         expect(wrapper.vm.user.admin).toBe(false);
     });

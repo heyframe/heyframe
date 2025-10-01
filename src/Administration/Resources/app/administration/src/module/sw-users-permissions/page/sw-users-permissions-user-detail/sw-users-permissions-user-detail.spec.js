@@ -1,7 +1,7 @@
 /**
  * @sw-package fundamentals@framework
  */
-import { mount } from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
 import TimezoneService from 'src/core/service/timezone.service';
 import EntityCollection from 'src/core/data/entity-collection.data';
 
@@ -56,13 +56,13 @@ async function createWrapper(
                     },
                     loginService: mockedLoginService,
                     userService: {
-                        getUser: () => Promise.resolve({ data: {} }),
+                        getUser: () => Promise.resolve({data: {}}),
                     },
                     mediaDefaultFolderService: {
                         getDefaultFolderId: () => Promise.resolve('1234'),
                     },
                     userValidationService: {
-                        checkUserEmail: () => Promise.resolve({ emailIsUnique: true }),
+                        checkUserEmail: () => Promise.resolve({emailIsUnique: true}),
                     },
                     integrationService: {},
                     repositoryFactory: {
@@ -113,6 +113,11 @@ async function createWrapper(
                         params: {
                             id: '1a2b3c4d',
                         },
+                        meta: {
+                            $module: {
+                                icon: 'regular-content',
+                            },
+                        },
                     },
                     $device: {
                         getSystemKey: () => 'STRG',
@@ -152,12 +157,12 @@ async function createWrapper(
                     'sw-data-grid': {
                         props: ['dataSource'],
                         template: `
-                        <div>
-                            <template v-for="item in dataSource">
-                                <slot name="actions" v-bind="{ item }"></slot>
-                            </template>
-                        </div>
-                    `,
+                            <div>
+                                <template v-for="item in dataSource">
+                                    <slot name="actions" v-bind="{ item }"></slot>
+                                </template>
+                            </div>
+                        `,
                     },
                     'sw-context-menu-item': true,
                     'sw-empty-state': true,
@@ -189,7 +194,8 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
             return new TimezoneService();
         });
 
-        jest.spyOn(HeyFrame.ExtensionAPI, 'publishData').mockImplementation(() => {});
+        jest.spyOn(HeyFrame.ExtensionAPI, 'publishData').mockImplementation(() => {
+        });
     });
 
     beforeEach(async () => {
@@ -205,7 +211,7 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
     });
 
     it('should contain all fields', async () => {
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
         await flushPromises();
 
         const fieldFirstName = wrapper.findComponent('.sw-settings-user-detail__grid-firstName');
@@ -394,11 +400,11 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
         wrapper = await createWrapper('users_and_permissions.editor', {
             global: {
                 stubs: {
-                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', { sync: true }),
+                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', {sync: true}),
                 },
             },
         });
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
         await flushPromises();
 
         expect(wrapper.vm.user.password).toBeUndefined();
@@ -417,11 +423,11 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
         wrapper = await createWrapper('users_and_permissions.editor', {
             global: {
                 stubs: {
-                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', { sync: true }),
+                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', {sync: true}),
                 },
             },
         });
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
         await flushPromises();
 
         expect(wrapper.vm.user.password).toBeUndefined();
@@ -446,11 +452,11 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
         wrapper = await createWrapper('users_and_permissions.editor', {
             global: {
                 stubs: {
-                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', { sync: true }),
+                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', {sync: true}),
                 },
             },
         });
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
         await flushPromises();
 
         expect(wrapper.vm.user.password).toBeUndefined();
@@ -469,11 +475,11 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
         wrapper = await createWrapper('users_and_permissions.editor', {
             global: {
                 stubs: {
-                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', { sync: true }),
+                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', {sync: true}),
                 },
             },
         });
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
         await flushPromises();
 
         expect(wrapper.vm.user.password).toBeUndefined();
@@ -496,10 +502,10 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
 
     it('should update data onDropMedia item', async () => {
         const mediaId = '2142';
-        const mediaItem = { id: mediaId };
+        const mediaItem = {id: mediaId};
 
         wrapper = await createWrapper('users_and_permissions.editor');
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
         await flushPromises();
 
         wrapper.vm.onDropMedia(mediaItem);
@@ -512,10 +518,10 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
 
     it('should set media data', async () => {
         const mediaId = '2142';
-        const mediaItem = { id: mediaId };
+        const mediaItem = {id: mediaId};
 
         wrapper = await createWrapper('users_and_permissions.editor');
-        await wrapper.setData({ isLoading: false });
+        await wrapper.setData({isLoading: false});
         await flushPromises();
 
         expect(wrapper.vm.mediaDefaultFolderId).toBe('1234');
@@ -546,18 +552,18 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
 
     it('should update the auth token if user password is changed', async () => {
         HeyFrame.Application.$container.resetProviders();
-        HeyFrame.Application.addServiceProvider('localeHelper', () => ({ setLocaleWithId: () => Promise.resolve() }));
+        HeyFrame.Application.addServiceProvider('localeHelper', () => ({setLocaleWithId: () => Promise.resolve()}));
         wrapper.vm.user.password = 'newPassword';
         await wrapper.vm.saveUser();
         await flushPromises();
 
         expect(mockedLoginService.verifyUserToken).toHaveBeenCalledWith('newPassword');
-        expect(mockedLoginService.setBearerAuthentication).toHaveBeenCalledWith({ access: 'verifiedToken' });
+        expect(mockedLoginService.setBearerAuthentication).toHaveBeenCalledWith({access: 'verifiedToken'});
     });
 
     it('should not update the auth token if user password is not changed', async () => {
         HeyFrame.Application.$container.resetProviders();
-        HeyFrame.Application.addServiceProvider('localeHelper', () => ({ setLocaleWithId: () => Promise.resolve() }));
+        HeyFrame.Application.addServiceProvider('localeHelper', () => ({setLocaleWithId: () => Promise.resolve()}));
         await wrapper.vm.saveUser();
         await flushPromises();
 
@@ -567,7 +573,7 @@ describe('modules/sw-users-permissions/page/sw-users-permissions-user-detail', (
 
     it('should not update the auth token if user a different user then the currently logged in user is changed', async () => {
         HeyFrame.Application.$container.resetProviders();
-        HeyFrame.Application.addServiceProvider('localeHelper', () => ({ setLocaleWithId: () => Promise.resolve() }));
+        HeyFrame.Application.addServiceProvider('localeHelper', () => ({setLocaleWithId: () => Promise.resolve()}));
         wrapper.vm.user.password = 'newPassword';
         wrapper.vm.user.id = 'randomId';
         await wrapper.vm.saveUser();

@@ -1,13 +1,14 @@
-import { mount } from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
 import EntityCollection from 'src/core/data/entity-collection.data';
-import RuleAssignmentConfigurationService from 'src/module/sw-settings-rule/service/rule-assignment-configuration.service';
+import RuleAssignmentConfigurationService
+    from 'src/module/sw-settings-rule/service/rule-assignment-configuration.service';
 
 /**
  * @sw-package fundamentals@after-sales
  */
 
-const { Criteria } = HeyFrame.Data;
-const { Context } = HeyFrame;
+const {Criteria} = HeyFrame.Data;
+const {Context} = HeyFrame;
 
 jest.mock('src/module/sw-settings-rule/service/rule-assignment-configuration.service');
 
@@ -38,7 +39,7 @@ const testConfig = {
             return criteria;
         },
         api: () => {
-            const api = { ...Context.api };
+            const api = {...Context.api};
             api.inheritance = true;
 
             return api;
@@ -78,13 +79,13 @@ function repositoryMock(entityName, entitiesWithResults) {
     return {
         search: jest.fn((_, api) => {
             const entities = [
-                { name: 'Foo' },
-                { name: 'Bar' },
-                { name: 'Baz' },
+                {name: 'Foo'},
+                {name: 'Bar'},
+                {name: 'Baz'},
             ];
 
             if (api.inheritance) {
-                entities.push({ name: 'Inherited' });
+                entities.push({name: 'Inherited'});
             }
 
             if (entitiesWithResults.includes(entityName)) {
@@ -109,7 +110,7 @@ const ruleConditionDataProviderServiceMock = {
     getRestrictedRuleTooltipConfig: (_, association) => {
         const message = association ? 'has_association' : 'has_no_association';
 
-        return { message, disabled: true };
+        return {message, disabled: true};
     },
 };
 
@@ -132,18 +133,17 @@ async function createWrapper(
                         'sw-settings-rule-add-assignment-modal',
                     ),
                     'sw-checkbox-field': await wrapTestComponent('sw-checkbox-field'),
-                    'sw-checkbox-field-deprecated': await wrapTestComponent('sw-checkbox-field-deprecated', { sync: true }),
+                    'sw-checkbox-field-deprecated': await wrapTestComponent('sw-checkbox-field-deprecated', {sync: true}),
                     'sw-base-field': await wrapTestComponent('sw-base-field'),
                     'sw-entity-listing': await wrapTestComponent('sw-entity-listing'),
                     'sw-data-grid': await wrapTestComponent('sw-data-grid'),
                     'sw-simple-search-field': await wrapTestComponent('sw-simple-search-field'),
                     'sw-text-field': await wrapTestComponent('sw-text-field'),
-                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', { sync: true }),
+                    'sw-text-field-deprecated': await wrapTestComponent('sw-text-field-deprecated', {sync: true}),
                     'sw-context-button': await wrapTestComponent('sw-context-button'),
                     'sw-contextual-field': await wrapTestComponent('sw-contextual-field'),
                     'sw-block-field': await wrapTestComponent('sw-block-field'),
                     'sw-card-filter': await wrapTestComponent('sw-card-filter'),
-                    'sw-empty-state': await wrapTestComponent('sw-empty-state'),
                     'router-link': {
                         template: '<a class="router-link" :detail-route="to.name"><slot></slot></a>',
                         props: ['to'],
@@ -171,7 +171,7 @@ async function createWrapper(
                     'sw-data-grid-skeleton': true,
                     'sw-settings-rule-add-assignment-listing': true,
                     'sw-settings-rule-category-tree': true,
-                    'sw-provide': { template: '<slot/>', inheritAttrs: false },
+                    'sw-provide': {template: '<slot/>', inheritAttrs: false},
                 },
                 provide: {
                     ruleConditionDataProviderService: ruleConditionDataProviderServiceMock,
@@ -187,6 +187,15 @@ async function createWrapper(
                     shortcutService: {
                         startEventListener: jest.fn(),
                         stopEventListener: jest.fn(),
+                    },
+                },
+                mocks: {
+                    $route: {
+                        meta: {
+                            $module: {
+                                icon: 'solid-content',
+                            },
+                        },
                     },
                 },
             },
@@ -219,9 +228,9 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
     });
 
     it.each([
-        { name: 'default api', defaultApi: true },
-        { name: 'custom api', defaultApi: false },
-    ])('should load association data for defined entities: $name', async ({ defaultApi }) => {
+        {name: 'default api', defaultApi: true},
+        {name: 'custom api', defaultApi: false},
+    ])('should load association data for defined entities: $name', async ({defaultApi}) => {
         ruleAssignmentServiceMock.getConfiguration.mockImplementationOnce(() => {
             return {
                 ...testConfig,
@@ -237,9 +246,9 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
 
         const repository = wrapper.vm.associationEntities[0].repository;
         const expectedEntityCollectionResult = expect.arrayContaining([
-            expect.objectContaining({ name: 'Foo' }),
-            expect.objectContaining({ name: 'Bar' }),
-            expect.objectContaining({ name: 'Baz' }),
+            expect.objectContaining({name: 'Foo'}),
+            expect.objectContaining({name: 'Bar'}),
+            expect.objectContaining({name: 'Baz'}),
         ]);
 
         expect(repository.search).toHaveBeenNthCalledWith(
@@ -370,8 +379,8 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
             restricted: false,
             disabled: false,
         },
-        { name: 'restricted', total: 10, restricted: true, disabled: true },
-    ])('should enable/disable rule add button: $name', async ({ total, restricted, disabled }) => {
+        {name: 'restricted', total: 10, restricted: true, disabled: true},
+    ])('should enable/disable rule add button: $name', async ({total, restricted, disabled}) => {
         ruleConditionDataProviderServiceMock.isRuleRestricted.mockImplementationOnce(() => {
             return restricted;
         });
@@ -395,9 +404,9 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
     });
 
     it.each([
-        { name: 'has association', associationName: 'test' },
-        { name: 'has no association', associationName: null },
-    ])('should assign tooltip config to add button: $name', async ({ name, associationName }) => {
+        {name: 'has association', associationName: 'test'},
+        {name: 'has no association', associationName: null},
+    ])('should assign tooltip config to add button: $name', async ({name, associationName}) => {
         ruleAssignmentServiceMock.getConfiguration.mockImplementationOnce(() => {
             return {
                 ...testConfig,
@@ -418,9 +427,9 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
     });
 
     it.each([
-        { name: 'render', expected: true },
-        { name: 'not render', expected: false },
-    ])('should $name deletion', async ({ expected }) => {
+        {name: 'render', expected: true},
+        {name: 'not render', expected: false},
+    ])('should $name deletion', async ({expected}) => {
         ruleAssignmentServiceMock.getConfiguration.mockImplementationOnce(() => {
             return {
                 ...testConfig,
@@ -491,9 +500,9 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
     });
 
     it.each([
-        { name: 'default api', defaultApi: true },
-        { name: 'custom api', defaultApi: false },
-    ])('should refresh assignment data after entities saved: $name', async ({ defaultApi }) => {
+        {name: 'default api', defaultApi: true},
+        {name: 'custom api', defaultApi: false},
+    ])('should refresh assignment data after entities saved: $name', async ({defaultApi}) => {
         ruleAssignmentServiceMock.getConfiguration.mockImplementationOnce(() => {
             return {
                 ...testConfig,
@@ -553,10 +562,10 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
     });
 
     it.each([
-        { name: 'default api', defaultApi: true, type: 'many-to-many' },
-        { name: 'custom api', defaultApi: false, type: 'many-to-many' },
-        { name: 'one-to-many', defaultApi: false, type: 'one-to-many' },
-    ])('should delete item and refresh assignment data: $name', async ({ defaultApi, type }) => {
+        {name: 'default api', defaultApi: true, type: 'many-to-many'},
+        {name: 'custom api', defaultApi: false, type: 'many-to-many'},
+        {name: 'one-to-many', defaultApi: false, type: 'one-to-many'},
+    ])('should delete item and refresh assignment data: $name', async ({defaultApi, type}) => {
         ruleAssignmentServiceMock.getConfiguration.mockImplementationOnce(() => {
             return {
                 ...testConfig,
@@ -575,7 +584,7 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
 
         const itemMock = {
             name: 'Foo',
-            test: { remove: removeMock },
+            test: {remove: removeMock},
             getEntityName: () => 'product',
         };
 
@@ -603,7 +612,7 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
         expect(repositoryOverwriteMock.save).toHaveBeenNthCalledWith(
             1,
             // eslint-disable-next-line jest/no-conditional-expect
-            type === 'one-to-many' ? { ...itemMock, test: null } : expect.any(Object),
+            type === 'one-to-many' ? {...itemMock, test: null} : expect.any(Object),
             defaultApi ? Context.api : testConfig.product.api(),
         );
         expect(repositoryOverwriteMock.search).toHaveBeenCalledTimes(2);
@@ -624,7 +633,7 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
 
         const itemMock = {
             name: 'Foo',
-            test: { remove: jest.fn() },
+            test: {remove: jest.fn()},
             getEntityName: () => 'product',
         };
 
@@ -652,9 +661,9 @@ describe('src/module/sw-settings-rule/view/sw-settings-rule-detail-assignments',
     });
 
     it.each([
-        { name: 'default api', defaultApi: true },
-        { name: 'custom api', defaultApi: false },
-    ])('should filter entities by search term: $name', async ({ defaultApi }) => {
+        {name: 'default api', defaultApi: true},
+        {name: 'custom api', defaultApi: false},
+    ])('should filter entities by search term: $name', async ({defaultApi}) => {
         jest.useFakeTimers();
 
         ruleAssignmentServiceMock.getConfiguration.mockImplementationOnce(() => {

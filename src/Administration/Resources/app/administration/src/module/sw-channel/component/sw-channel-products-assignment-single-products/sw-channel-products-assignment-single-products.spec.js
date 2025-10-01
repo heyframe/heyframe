@@ -2,7 +2,7 @@
  * @sw-package discovery
  */
 
-import { mount } from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
 
 let productData = [];
 
@@ -10,7 +10,7 @@ function mockCriteria() {
     return {
         limit: 25,
         page: 1,
-        sortings: [{ field: 'name', naturalSorting: false, order: 'ASC' }],
+        sortings: [{field: 'name', naturalSorting: false, order: 'ASC'}],
         resetSorting() {
             this.sortings = [];
         },
@@ -30,7 +30,7 @@ function setProductData(products) {
 }
 
 async function createWrapper() {
-    return mount(await wrapTestComponent('sw-channel-products-assignment-single-products', { sync: true }), {
+    return mount(await wrapTestComponent('sw-channel-products-assignment-single-products', {sync: true}), {
         global: {
             stubs: {
                 'sw-container': true,
@@ -40,25 +40,24 @@ async function createWrapper() {
                 'sw-card-section': {
                     template: '<div><slot></slot></div>',
                 },
-                'sw-block-field': await wrapTestComponent('sw-block-field', { sync: true }),
+                'sw-block-field': await wrapTestComponent('sw-block-field', {sync: true}),
                 'sw-base-field': await wrapTestComponent('sw-base-field', {
                     sync: true,
                 }),
                 'sw-field-error': true,
-                'sw-contextual-field': await wrapTestComponent('sw-contextual-field', { sync: true }),
-                'sw-entity-listing': await wrapTestComponent('sw-entity-listing', { sync: true }),
+                'sw-contextual-field': await wrapTestComponent('sw-contextual-field', {sync: true}),
+                'sw-entity-listing': await wrapTestComponent('sw-entity-listing', {sync: true}),
                 'sw-data-grid': await wrapTestComponent('sw-data-grid', {
                     sync: true,
                 }),
-                'sw-simple-search-field': await wrapTestComponent('sw-simple-search-field', { sync: true }),
+                'sw-simple-search-field': await wrapTestComponent('sw-simple-search-field', {sync: true}),
                 'sw-text-field': await wrapTestComponent('sw-text-field', {
                     sync: true,
                 }),
-                'sw-checkbox-field': await wrapTestComponent('sw-checkbox-field', { sync: true }),
-                'sw-checkbox-field-deprecated': await wrapTestComponent('sw-checkbox-field-deprecated', { sync: true }),
-                'sw-context-button': await wrapTestComponent('sw-context-button', { sync: true }),
+                'sw-checkbox-field': await wrapTestComponent('sw-checkbox-field', {sync: true}),
+                'sw-checkbox-field-deprecated': await wrapTestComponent('sw-checkbox-field-deprecated', {sync: true}),
+                'sw-context-button': await wrapTestComponent('sw-context-button', {sync: true}),
                 'sw-context-menu-item': true,
-                'sw-empty-state': true,
                 'sw-modal': true,
                 'sw-tabs': true,
                 'sw-tab-items': true,
@@ -85,6 +84,15 @@ async function createWrapper() {
                 },
                 validationService: {},
             },
+            mocks: {
+                $route: {
+                    meta: {
+                        $module: {
+                            icon: 'solid-content',
+                        },
+                    },
+                },
+            },
         },
         props: {
             channel: {
@@ -102,7 +110,7 @@ describe('src/module/sw-channel/component/sw-channel-products-assignment-single-
         setProductData([]);
         const wrapper = await createWrapper();
 
-        expect(wrapper.find('sw-empty-state-stub').exists()).toBeTruthy();
+        expect(wrapper.find('.mt-empty-state').exists()).toBeTruthy();
     });
 
     it('should display data grid when there is product data', async () => {
@@ -192,12 +200,12 @@ describe('src/module/sw-channel/component/sw-channel-products-assignment-single-
         expect(wrapper.vm.productCriteria.sortings).toEqual([]);
         wrapper.vm.products.criteria = mockCriteria();
 
-        await wrapper.vm.onChangePage({ page: 2, limit: 25 });
+        await wrapper.vm.onChangePage({page: 2, limit: 25});
 
         expect(wrapper.vm.page).toBe(2);
         expect(wrapper.vm.limit).toBe(25);
         expect(wrapper.vm.productCriteria.sortings).toEqual([
-            { field: 'name', naturalSorting: false, order: 'ASC' },
+            {field: 'name', naturalSorting: false, order: 'ASC'},
         ]);
         expect(wrapper.vm.getProducts).toHaveBeenCalledTimes(1);
         wrapper.vm.getProducts.mockRestore();

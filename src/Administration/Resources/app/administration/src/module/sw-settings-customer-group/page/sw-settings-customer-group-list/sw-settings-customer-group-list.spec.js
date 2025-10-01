@@ -2,8 +2,8 @@
  * @sw-package discovery
  */
 
-import { mount } from '@vue/test-utils';
-import { searchRankingPoint } from 'src/app/service/search-ranking.service';
+import {mount} from '@vue/test-utils';
+import {searchRankingPoint} from 'src/app/service/search-ranking.service';
 import Criteria from 'src/core/data/criteria.data';
 
 async function createWrapper(privileges = []) {
@@ -18,6 +18,11 @@ async function createWrapper(privileges = []) {
                         query: {
                             page: 1,
                             limit: 25,
+                        },
+                        meta: {
+                            $module: {
+                                icon: 'solid-content',
+                            },
                         },
                     },
                 },
@@ -45,24 +50,23 @@ async function createWrapper(privileges = []) {
                             'detailRoute',
                         ],
                         template: `
-                    <div>
-                        <template v-for="item in items">
-                            <slot name="actions" v-bind="{ item }">
-                                <slot name="detail-action" v-bind="{ item }">
-                                    <div class="sw-entity-listing__context-menu-edit-action"
-                                         v-if="detailRoute"
-                                         :disabled="!allowEdit || undefined"
-                                         :routerLink="{ name: detailRoute, params: { id: item.id } }"
-                                    >
-                                    </div>
-                                </slot>
+                            <div>
+                                <template v-for="item in items">
+                                    <slot name="actions" v-bind="{ item }">
+                                        <slot name="detail-action" v-bind="{ item }">
+                                            <div class="sw-entity-listing__context-menu-edit-action"
+                                                 v-if="detailRoute"
+                                                 :disabled="!allowEdit || undefined"
+                                                 :routerLink="{ name: detailRoute, params: { id: item.id } }"
+                                            >
+                                            </div>
+                                        </slot>
 
-                                <slot name="delete-action" v-bind="{ item }"></slot>
-                            </slot>
-                        </template>
-                    </div>`,
+                                        <slot name="delete-action" v-bind="{ item }"></slot>
+                                    </slot>
+                                </template>
+                            </div>`,
                     },
-                    'sw-empty-state': true,
                     'router-link': true,
                     'sw-search-bar': true,
                     'sw-language-info': true,
@@ -249,7 +253,7 @@ describe('src/module/sw-settings-customer-group/page/sw-settings-customer-group-
         });
 
         wrapper.vm.searchRankingService.getSearchFieldsByEntity = jest.fn(() => {
-            return { name: 500 };
+            return {name: 500};
         });
 
         await wrapper.vm.getList();
@@ -316,11 +320,9 @@ describe('src/module/sw-settings-customer-group/page/sw-settings-customer-group-
         });
         await wrapper.vm.getList();
 
-        const emptyState = wrapper.find('sw-empty-state-stub');
-
         expect(wrapper.vm.searchRankingService.getSearchFieldsByEntity).toHaveBeenCalledTimes(1);
-        expect(emptyState.exists()).toBeTruthy();
-        expect(emptyState.attributes().title).toBe('sw-empty-state.messageNoResultTitle');
+        expect(wrapper.find('.mt-empty-state').exists()).toBeTruthy();
+        expect(wrapper.find('.mt-empty-state__headline').text()).toBe('sw-empty-state.messageNoResultTitle');
         expect(wrapper.find('sw-entity-listing-stub').exists()).toBeFalsy();
         expect(wrapper.vm.entitySearchable).toBe(false);
 

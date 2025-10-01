@@ -49,7 +49,6 @@ async function createWrapper(privileges = []) {
                     </div>
                 `,
                 },
-                'sw-empty-state': true,
                 'sw-context-menu-item': true,
                 'sw-modal': {
                     template: `

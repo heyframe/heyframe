@@ -1,11 +1,11 @@
-import { mount } from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
 
 /**
  * @sw-package after-sales
  */
 
-const { Context } = HeyFrame;
-const { EntityCollection } = HeyFrame.Data;
+const {Context} = HeyFrame;
+const {EntityCollection} = HeyFrame.Data;
 
 const mockData = [
     {
@@ -21,7 +21,7 @@ const flowTemplateRepositorySearchMock = jest.fn((criteria) => {
 });
 
 async function createWrapper(privileges = [], props = {}) {
-    return mount(await wrapTestComponent('sw-flow-list-flow-templates', { sync: true }), {
+    return mount(await wrapTestComponent('sw-flow-list-flow-templates', {sync: true}), {
         global: {
             stubs: {
                 'sw-page': {
@@ -50,7 +50,6 @@ async function createWrapper(privileges = [], props = {}) {
                 'sw-context-menu-item': true,
                 'sw-data-grid-skeleton': true,
                 'sw-pagination': true,
-                'sw-empty-state': true,
                 'sw-search-bar': true,
                 'sw-extension-component-section': true,
                 'sw-ai-copilot-badge': true,
@@ -61,7 +60,7 @@ async function createWrapper(privileges = [], props = {}) {
                 'sw-data-grid-settings': true,
                 'sw-data-grid-column-boolean': true,
                 'sw-data-grid-inline-edit': true,
-                'sw-provide': { template: '<slot/>', inheritAttrs: false },
+                'sw-provide': {template: '<slot/>', inheritAttrs: false},
             },
             provide: {
                 repositoryFactory: {
@@ -89,6 +88,11 @@ async function createWrapper(privileges = [], props = {}) {
                     query: {
                         page: 1,
                         limit: 25,
+                    },
+                    meta: {
+                        $module: {
+                            icon: 'solid-content',
+                        },
                     },
                 },
             },
@@ -145,7 +149,7 @@ describe('module/sw-flow/view/listing/sw-flow-list-flow-templates', () => {
 
         expect(routerPush).toHaveBeenLastCalledWith({
             name: 'sw.flow.detail',
-            params: { id: '44de136acf314e7184401d36406c1e90' },
+            params: {id: '44de136acf314e7184401d36406c1e90'},
             query: {
                 type: 'template',
             },

@@ -1,8 +1,8 @@
 /**
  * @sw-package discovery
  */
-import { reactive } from 'vue';
-import { mount } from '@vue/test-utils';
+import {reactive} from 'vue';
+import {mount} from '@vue/test-utils';
 import 'src/module/sw-cms/mixin/sw-cms-element.mixin';
 import EntityCollection from 'src/core/data/entity-collection.data';
 
@@ -17,9 +17,9 @@ const productSortingRepositoryMock = {
 };
 
 const propertyGroupMock = [
-    { id: 'x01', name: 'bar' },
-    { id: 'x02', name: 'baz' },
-    { id: 'x03', name: 'foo' },
+    {id: 'x01', name: 'bar'},
+    {id: 'x02', name: 'baz'},
+    {id: 'x03', name: 'foo'},
 ];
 
 const propertyGroupRepositoryMock = {
@@ -69,17 +69,16 @@ async function createWrapper(activeTab = 'sorting') {
                     'sw-container': true,
                     'sw-tabs-item': true,
 
-                    'sw-empty-state': true,
                     'sw-tabs': {
                         data() {
-                            return { active: activeTab };
+                            return {active: activeTab};
                         },
                         template: `
-                        <div>
-                            <slot></slot>
-                            <slot name="content" v-bind="{ active }"></slot>
-                        </div>
-                    `,
+                            <div>
+                                <slot></slot>
+                                <slot name="content" v-bind="{ active }"></slot>
+                            </div>
+                        `,
                     },
                     'sw-highlight-text': true,
                     'sw-select-result': true,
@@ -101,6 +100,15 @@ async function createWrapper(activeTab = 'sorting') {
                     },
                     repositoryFactory: {
                         create: (entity) => repositoryMockFactory(entity),
+                    },
+                },
+                mocks: {
+                    $route: {
+                        meta: {
+                            $module: {
+                                icon: 'solid-content',
+                            },
+                        },
                     },
                 },
             },

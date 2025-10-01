@@ -1534,6 +1534,7 @@
     "messageNoResultSubline": "请修改筛选条件或搜索关键词以获取结果。同时请检查搜索配置。",
     "messageNoResultSublineBefore": "请修改筛选条件或搜索关键词以获取结果。同时请检查",
     "messageNoResultSublineLink": "配置",
+    "messageNoResultLink": "前往搜索设置",
     "messageNoResultSublineAfter": "的设置。"
   },
   "sw-restricted-rules": {

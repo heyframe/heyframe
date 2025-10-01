@@ -1,7 +1,7 @@
 /**
  * @sw-package framework
  */
-import { mount } from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
 
 const set = {
     id: '9f359a2ab0824784a608fc2a443c5904',
@@ -18,7 +18,7 @@ function mockCustomFieldData() {
             id: `id${i}`,
             name: `custom_additional_field_${i}`,
             config: {
-                label: { 'en-GB': `Special field ${i}` },
+                label: {'en-GB': `Special field ${i}`},
                 customFieldType: 'checkbox',
                 customFieldPosition: i + 1,
             },
@@ -94,9 +94,6 @@ async function createWrapper(privileges = [], repo = mockCustomFieldRepository()
                 },
                 stubs: {
                     'mt-card': true,
-                    'sw-empty-state': {
-                        template: '<div></div>',
-                    },
                     'sw-simple-search-field': {
                         template: '<div></div>',
                     },
@@ -127,6 +124,15 @@ async function createWrapper(privileges = [], repo = mockCustomFieldRepository()
                     'mt-number-field': true,
                     'sw-custom-field-detail': true,
                     'sw-select-field': true,
+                },
+                mocks: {
+                    $route: {
+                        meta: {
+                            $module: {
+                                icon: 'solid-content',
+                            },
+                        },
+                    },
                 },
             },
         },
@@ -167,7 +173,7 @@ describe('src/module/sw-settings-custom-field/component/sw-custom-field-list/sw-
         await flushPromises();
 
         expect(repoMock.save).toHaveBeenCalledTimes(1);
-        expect(wrapper.vm.createNotificationError).toHaveBeenNthCalledWith(1, { message: 'Some error happened' });
+        expect(wrapper.vm.createNotificationError).toHaveBeenNthCalledWith(1, {message: 'Some error happened'});
 
         const errors = HeyFrame.Store.get('error').getAllApiErrors();
         expect(errors).toHaveLength(1);
@@ -201,7 +207,7 @@ describe('src/module/sw-settings-custom-field/component/sw-custom-field-list/sw-
             id: 'id1337',
             name: 'new_field',
             config: {
-                label: { 'en-GB': 'New' },
+                label: {'en-GB': 'New'},
                 customFieldType: 'text',
                 customFieldPosition: 0,
             },
@@ -227,7 +233,7 @@ describe('src/module/sw-settings-custom-field/component/sw-custom-field-list/sw-
             id: 'id0',
             name: 'custom_additional_field_1',
             config: {
-                label: { 'en-GB': 'Special field 1' },
+                label: {'en-GB': 'Special field 1'},
                 customFieldType: 'checkbox',
                 customFieldPosition: 0,
             },
