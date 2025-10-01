@@ -110,6 +110,7 @@ class AdministrationController extends AbstractController
 
         if ($locale !== 'zh-CN') {
             $snippets['zh-CN'] = $this->snippetFinder->findSnippets('zh-CN');
+            $snippets = $this->filterByAuthentication($request, $snippets, 'zh-CN');
         }
         $snippets = $this->filterByAuthentication($request, $snippets, $locale);
 
