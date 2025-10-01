@@ -21,3 +21,4 @@ rules:
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\NoManualChannelContextCreationRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\NoDelayStampRule
     - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\NoAddCacheTagEventRule
+    - HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\NoUpdatesInExecuteQueryRule
