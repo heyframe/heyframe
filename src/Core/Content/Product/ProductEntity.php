@@ -170,7 +170,9 @@ class ProductEntity extends Entity implements \Stringable
     protected array $states = [];
 
     protected ?SeoUrlCollection $seoUrls = null;
+
     protected ?CmsPageEntity $cmsPage = null;
+
     public function __construct()
     {
         $this->prices = new ProductPriceCollection();
@@ -822,5 +824,4 @@ class ProductEntity extends Entity implements \Stringable
     {
         $this->cmsPage = $cmsPage;
     }
-
 }

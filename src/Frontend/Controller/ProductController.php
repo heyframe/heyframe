@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace HeyFrame\Frontend\Controller;
+
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -20,7 +21,6 @@ class ProductController extends FrontendController
     #[Route(path: '/detail/{productId}', name: 'frontend.detail.page', defaults: ['_httpCache' => true], methods: ['GET'])]
     public function index(ChannelContext $context, Request $request): Response
     {
-
         return new Response();
     }
 }

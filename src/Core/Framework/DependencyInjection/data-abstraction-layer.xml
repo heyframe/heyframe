@@ -2,16 +2,11 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
         <parameter key="env(HEYFRAME_DBAL_TIMEZONE_SUPPORT_ENABLED)" type="string">0</parameter>
         <parameter key="heyframe.dbal.time_zone_support_enabled">%env(bool:HEYFRAME_DBAL_TIMEZONE_SUPPORT_ENABLED)%</parameter>
-
-        <!-- @deprecated tag:v6.8.0 Will be removed -->
-        <parameter key="env(HEYFRAME_DBAL_TOKEN_MINIMUM_LENGTH)" type="string">3</parameter>
-        <!-- @deprecated tag:v6.8.0 Will be removed -->
-        <parameter key="heyframe.dbal.token_minimum_length">%env(int:HEYFRAME_DBAL_TOKEN_MINIMUM_LENGTH)%</parameter>
     </parameters>
 
     <services>
@@ -58,9 +53,11 @@
         </service>
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Command\CreateHydratorCommand">
-            <tag name="console.command"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Symfony\Component\Filesystem\Filesystem"/>
             <argument>%kernel.project_dir%</argument>
+
+            <tag name="console.command"/>
         </service>
 
         <service id="HeyFrame\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator" public="true" />

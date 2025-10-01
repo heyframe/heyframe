@@ -13,6 +13,7 @@ class MetaInformation extends Struct
     protected string $metaDescription = '';
 
     protected string $metaKeywords = '';
+
     protected ?string $canonical = null;
 
     public function getMetaTitle(): string
