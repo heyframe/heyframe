@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Frontend\Theme;
 
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Frontend\Framework\Twig\Components\UxComponent;
 use HeyFrame\Frontend\Framework\Twig\Components\UxComponentHelper;
 use HeyFrame\Frontend\Theme\Exception\ThemeCompileException;
 use HeyFrame\Frontend\Theme\Exception\ThemeException;
@@ -118,7 +118,7 @@ class ThemeFileResolver
      * @param FrontendPluginConfiguration $themeConfig The theme configuration to resolve files for
      * @param FrontendPluginConfigurationCollection $configurationCollection Collection of all available theme configurations
      * @param bool $onlySourceFiles Whether to only include source files (true) or also compiled files (false)
-     * @param callable $configFileResolver Function to get the initial file collection (either style or script files)
+     * @param callable(FrontendPluginConfiguration, bool): FileCollection $configFileResolver Function to get the initial file collection (either style or script files)
      * @param array<int, string> $included List of already included files to prevent duplicates
      *
      * @return FileCollection Collection of resolved files
@@ -205,10 +205,20 @@ class ThemeFileResolver
             // Handle @Components namespace - include all Twig UX components
             if ($filepath === '@Components') {
                 foreach ($this->uxComponentHelper->getComponents() as $component) {
-                    $componentPath = $fileType === self::SCRIPT_FILES ? $component->getScriptPath() : $component->getStylePath();
+                    /** @var UxComponent $component */
+                    if ($fileType === self::SCRIPT_FILES) {
+                        /** @var string|null $componentPath */
+                        $componentPath = $component->getScriptPath();
+                    } else {
+                        /** @var string|null $componentPath */
+                        $componentPath = $component->getStylePath();
+                    }
 
                     if ($componentPath !== null) {
-                        $resolvedFiles->add(new File($componentPath, [], $component->getRelativeNamespaceDirectory()));
+                        $namespaceDir = $component->getRelativeNamespaceDirectory();
+                        // Use null for assetName if the namespace directory is empty to avoid double slashes
+                        $assetName = $namespaceDir !== '' ? $namespaceDir : null;
+                        $resolvedFiles->add(new File($componentPath, [], $assetName));
                     }
                 }
 

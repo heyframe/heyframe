@@ -6,8 +6,10 @@ use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Frontend\DependencyInjection\DisableTemplateCachePass;
 use HeyFrame\Frontend\DependencyInjection\FrontendMigrationReplacementCompilerPass;
+use HeyFrame\Frontend\DependencyInjection\TwigComponentBundlePass;
 use HeyFrame\Frontend\Framework\ThemeInterface;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
@@ -34,5 +36,8 @@ class Frontend extends Bundle implements ThemeInterface
 
         $container->addCompilerPass(new DisableTemplateCachePass());
         $container->addCompilerPass(new FrontendMigrationReplacementCompilerPass());
+        // Auto-register Twig component namespaces for all bundles
+        // Must run before Symfony's TwigComponentPass processes the configuration
+        $container->addCompilerPass(new TwigComponentBundlePass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 100);
     }
 }
