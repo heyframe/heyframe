@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\System\Snippet;
 
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Snippet\Files\GenericSnippetFile;
 use HeyFrame\Core\System\Snippet\Files\SnippetFileCollection;
@@ -13,6 +12,8 @@ use HeyFrame\Core\System\Snippet\Struct\MissingSnippetStruct;
 use HeyFrame\Core\System\Snippet\Struct\SnippetValidationStruct;
 
 /**
+ * @internal
+ *
  * @phpstan-type MissingSnippetsArray array<string, array<string, array{
  *      path: string,
  *      availableISO: string,
@@ -21,56 +22,16 @@ use HeyFrame\Core\System\Snippet\Struct\SnippetValidationStruct;
  * }>>
  */
 #[Package('discovery')]
-class SnippetValidator implements SnippetValidatorInterface
+readonly class SnippetValidator
 {
-    /**
-     * Locale pattern based on BCP 47,
-     * restricted to ISO 639-1 (2-letter) language codes.
-     * Excludes 3-letter prefixes like `ger` or `eng`.
-     */
-    public const LOCALE_PATTERN_BCP47_ISO639_1 =
-        '(?P<locale>' .
-        '(?P<language>[a-z]{2})' .              // ISO 639-1 language prefix
-        '(?:[_-](?P<script>[A-Z][a-z]{3}))?' .  // optional script (Hant, Latn, Cyrl)
-        '(?:[_-](?P<region>[A-Z]{2}|\d{3}))?' . // optional region (DE, US, 419)
-        ')';
-
-    public const SNIPPET_FILE_PATTERN = '/^(?P<domain>.+?)\.' . self::LOCALE_PATTERN_BCP47_ISO639_1 . '(?P<isBase>\.base)?\.json$/';
-
     /**
      * @internal
      */
     public function __construct(
-        private readonly SnippetFileCollection $deprecatedSnippetFiles,
-        private readonly SnippetFileHandler $snippetFileHandler,
-        private readonly string $projectDir
+        private SnippetFileCollection $deprecatedSnippetFiles,
+        private SnippetFileHandler $snippetFileHandler,
+        private string $projectDir
     ) {
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed, use `getValidation()` instead
-     *
-     * @return MissingSnippetsArray
-     */
-    public function validate(): array
-    {
-        Feature::triggerDeprecationOrThrow(
-            'v6.8.0.0',
-            'The method  Will be removed, use `getValidation()` instead.'
-        );
-
-        $missingSnippetsArray = [];
-        foreach ($this->getValidation()->missingSnippets as $entry) {
-            $key = $entry->getKeyPath();
-            $missingSnippetsArray[$entry->getMissingForISO()][$key] = [
-                'path' => $entry->getFilePath(),
-                'availableISO' => $entry->getAvailableISO(),
-                'availableValue' => $entry->getAvailableTranslation(),
-                'keyPath' => $key,
-            ];
-        }
-
-        return $missingSnippetsArray;
     }
 
     public function getValidation(): SnippetValidationStruct
@@ -126,9 +87,9 @@ class SnippetValidator implements SnippetValidatorInterface
     {
         $deprecatedFiles = $this->findDeprecatedSnippetFiles();
         $administrationFiles = $this->snippetFileHandler->findAdministrationSnippetFiles();
-        $frontendSnippetFiles = $this->snippetFileHandler->findFrontendSnippetFiles();
+        $storefrontSnippetFiles = $this->snippetFileHandler->findStorefrontSnippetFiles();
 
-        return $this->hydrateFiles(array_merge($deprecatedFiles, $administrationFiles, $frontendSnippetFiles));
+        return $this->hydrateFiles(array_merge($deprecatedFiles, $administrationFiles, $storefrontSnippetFiles));
     }
 
     /**
@@ -170,11 +131,11 @@ class SnippetValidator implements SnippetValidatorInterface
 
     private function getLocaleFromFileName(string $fileName): string
     {
-        $return = preg_match(self::SNIPPET_FILE_PATTERN, $fileName, $matches);
+        $return = preg_match(SnippetPatterns::CORE_SNIPPET_FILE_PATTERN, $fileName, $matches);
 
-        // Snippet file name is not known, return 'zh' per default
+        // Snippet file name is not known, return 'en' per default
         if (!$return) {
-            return 'zh';
+            return 'en';
         }
 
         return \str_replace('_', '-', $matches['locale']);
@@ -252,7 +213,7 @@ class SnippetValidator implements SnippetValidatorInterface
     {
         $unformattedSnippet = strtolower(preg_replace('/\s+/', '', $snippetContent) ?: '');
 
-        $isSymfonyTranslationFile = preg_match('/frontend|messages/i', $filePath);
+        $isSymfonyTranslationFile = preg_match('/storefront|messages/i', $filePath);
         $hasPluralization = str_contains($snippetContent, '|');
 
         if (!$isSymfonyTranslationFile || !$hasPluralization) {

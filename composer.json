@@ -253,7 +253,11 @@
     "frontend:storybook": "Runs the Storybook development server for the Frontend component library",
     "stylelint:frontend": "Code Style checks for all Frontend SCSS files",
     "stylelint:frontend:fix": "Code Style checks for all Frontend SCSS files and fixes them if possible",
-    "watch:frontend": "Enables hot module reloading for the Frontend"
+    "watch:frontend": "Enables hot module reloading for the Frontend",
+    "translation:lint-filenames": "Validates snippet filesnames",
+    "translation:lint-filenames:fix": "Validates snippet filesnames and migrates them if necessary",
+    "translation:install": "Downloads and installs translations from the translations GitHub repository",
+    "translation:lint": "Validates existence of snippets in all core-supported languages"
   },
   "scripts": {
     "admin:code-mods": "@npm:admin run code-mods --",
@@ -368,6 +372,11 @@
     "stylelint:admin": "@npm:admin run lint:scss",
     "stylelint:admin:fix": "@npm:admin run lint:scss-fix",
     "lint:snippets": "@php bin/console snippets:validate",
+    "translation:lint-filenames": "php bin/shopware translation:lint-filenames",
+    "translation:lint-filenames:fix": "php bin/shopware translation:lint-filenames --fix",
+    "translation:install": "php bin/shopware translation:install",
+    "translation:lint": "@php bin/shopware translation:validate",
+    "translation:update": "php bin/shopware translation:update",
     "watch:admin": [
       "Composer\\Config::disableProcessTimeout",
       "@php bin/console feature:dump",

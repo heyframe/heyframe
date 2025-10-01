@@ -98,7 +98,9 @@ class SnippetFileHandler
         $finder = (new Finder())
             ->files()
             ->in($path)
-            ->ignoreUnreadableDirs();
+            ->ignoreUnreadableDirs()
+            ->name(SnippetPatterns::CORE_SNIPPET_FILE_PATTERN);
+
 
         $finder->name('/[a-z]{2}-[A-Z]{2}(?:\.base)?\.json$/');
 
