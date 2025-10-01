@@ -7,6 +7,9 @@
       "tooltipTechnicalName": "技术名称必须唯一，并且以后无法更改。",
       "tooltipType": "字段类型以后无法更改。"
     },
+    "error": {
+      "CUSTOM_FIELD_NAME_INVALID": "字段名称无效：只能包含字母、数字或下划线，并且必须以字母或下划线开头。"
+    },
     "set": {
       "list": {
         "textHeadline": "自定义字段",

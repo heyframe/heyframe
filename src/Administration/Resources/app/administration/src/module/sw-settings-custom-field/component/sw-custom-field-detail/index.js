@@ -4,8 +4,9 @@
 import template from './sw-custom-field-detail.html.twig';
 import './sw-custom-field-detail.scss';
 
-const { Mixin, Context } = HeyFrame;
+const { Mixin, Context, Component } = HeyFrame;
 const { Criteria } = HeyFrame.Data;
+const { mapPropertyErrors } = Component.getComponentHelper();
 
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 export default {
@@ -100,6 +101,10 @@ export default {
                 };
             });
         },
+
+        ...mapPropertyErrors('currentCustomField', [
+            'name',
+        ]),
     },
 
     created() {
