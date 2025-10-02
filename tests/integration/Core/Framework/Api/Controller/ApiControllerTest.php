@@ -1007,7 +1007,7 @@ EOF;
             'paymentMethodVersionId' => Defaults::LIVE_VERSION,
             'navigationVersionId' => Defaults::LIVE_VERSION,
             'countryId' => $this->getValidCountryId(),
-            'navigationCategoryId' => $this->getValidCategoryId(),
+            'navigationCategoryId' => $this->getValidNavigationId(),
             'countryVersionId' => Defaults::LIVE_VERSION,
             'currencies' => [['id' => Defaults::CURRENCY]],
             'languages' => [['id' => $languageId]],

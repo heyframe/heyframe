@@ -2,14 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Update\Event;
 
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Webhook\AclPrivilegeCollection;
-use HeyFrame\Core\Framework\Webhook\Hookable;
-
 #[Package('framework')]
-class UpdatePostFinishEvent extends UpdateEvent implements Hookable
+class UpdatePostFinishEvent extends UpdateEvent
 {
     public const EVENT_NAME = 'heyframe.updated';
 
@@ -46,18 +42,5 @@ class UpdatePostFinishEvent extends UpdateEvent implements Hookable
     public function getName(): string
     {
         return self::EVENT_NAME;
-    }
-
-    public function getWebhookPayload(?AppEntity $app = null): array
-    {
-        return [
-            'oldVersion' => $this->oldVersion,
-            'newVersion' => $this->newVersion,
-        ];
-    }
-
-    public function isAllowed(string $appId, AclPrivilegeCollection $permissions): bool
-    {
-        return true;
     }
 }

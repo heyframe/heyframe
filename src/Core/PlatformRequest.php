@@ -26,7 +26,6 @@ final class PlatformRequest
     public const HEADER_INCLUDE_SEARCH_INFO = 'sw-include-search-info';
 
     public const HEADER_SKIP_TRIGGER_FLOW = 'sw-skip-trigger-flow';
-    public const HEADER_APP_INTEGRATION_ID = 'sw-app-integration-id';
     public const HEADER_APP_USER_ID = 'sw-app-user-id';
     public const HEADER_INDEXING_BEHAVIOR = 'indexing-behavior';
     public const HEADER_INDEXING_SKIP = 'indexing-skip';

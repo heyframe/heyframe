@@ -83,7 +83,6 @@ use HeyFrame\Core\System\User\UserDefinition;
 #[Package('checkout')]
 class PermissionCategorization
 {
-    private const CATEGORY_APP = 'app';
     private const CATEGORY_ADMIN_USER = 'admin_user';
     private const CATEGORY_CATEGORY = 'category';
     private const CATEGORY_CMS = 'cms';

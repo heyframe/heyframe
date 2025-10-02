@@ -44,7 +44,7 @@ class StorePluginStruct extends Struct
     protected bool $isCategoryLead;
 
     /**
-     * @var 'plugin'|'app'
+     * @var 'plugin'
      */
     protected string $type;
 

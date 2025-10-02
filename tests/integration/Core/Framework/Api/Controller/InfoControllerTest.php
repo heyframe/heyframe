@@ -484,12 +484,6 @@ class InfoControllerTest extends TestCase
         $aclRoleId = Uuid::randomHex();
         $this->createAclRole($aclRoleId);
 
-        $appId = Uuid::randomHex();
-        $this->createApp($appId, $aclRoleId);
-
-        $flowAppId = Uuid::randomHex();
-        $this->createAppFlowAction($flowAppId, $appId);
-
         $url = '/api/_info/flow-actions.json';
         $client = $this->getBrowser();
         $client->request(Request::METHOD_GET, $url);
@@ -573,63 +567,6 @@ class InfoControllerTest extends TestCase
         static::assertSame('stdClass', $stats['stats']['messageTypeStats'][0]['type']);
         static::assertArrayHasKey('count', $stats['stats']['messageTypeStats'][0]);
     }
-
-    private function createApp(string $appId, string $aclRoleId): void
-    {
-        $this->connection->insert('app', [
-            'id' => Uuid::fromHexToBytes($appId),
-            'name' => 'flowbuilderactionapp',
-            'active' => 1,
-            'path' => 'custom/apps/flowbuilderactionapp',
-            'version' => '1.0.0',
-            'configurable' => 0,
-            'app_secret' => 'appSecret',
-            'acl_role_id' => Uuid::fromHexToBytes($aclRoleId),
-            'integration_id' => $this->getIntegrationId(),
-            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-        ]);
-    }
-
-    private function createAppFlowAction(string $flowAppId, string $appId): void
-    {
-        $this->connection->insert('app_flow_action', [
-            'id' => Uuid::fromHexToBytes($flowAppId),
-            'app_id' => Uuid::fromHexToBytes($appId),
-            'name' => 'telegram.send.message',
-            'badge' => 'Telegram',
-            'url' => 'https://example.xyz',
-            'delayable' => true,
-            'requirements' => json_encode(['orderaware'], \JSON_THROW_ON_ERROR),
-            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-        ]);
-    }
-
-    private function createAppFlowEvent(string $flowAppId, string $appId): void
-    {
-        $this->connection->insert('app_flow_event', [
-            'id' => Uuid::fromHexToBytes($flowAppId),
-            'app_id' => Uuid::fromHexToBytes($appId),
-            'name' => 'customer.wishlist',
-            'aware' => json_encode(['mailAware', 'customerAware'], \JSON_THROW_ON_ERROR),
-            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-        ]);
-    }
-
-    private function getIntegrationId(): string
-    {
-        $integrationId = Uuid::randomBytes();
-
-        $this->connection->insert('integration', [
-            'id' => $integrationId,
-            'access_key' => 'test',
-            'secret_access_key' => 'test',
-            'label' => 'test',
-            'created_at' => (new \DateTimeImmutable())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-        ]);
-
-        return $integrationId;
-    }
-
     private function createAclRole(string $aclRoleId): void
     {
         $this->connection->insert('acl_role', [

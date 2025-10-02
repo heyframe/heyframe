@@ -12,7 +12,6 @@ class RoutingException extends HttpException
 {
     public const MISSING_REQUEST_PARAMETER_CODE = 'FRAMEWORK__MISSING_REQUEST_PARAMETER';
     public const INVALID_REQUEST_PARAMETER_CODE = 'FRAMEWORK__INVALID_REQUEST_PARAMETER';
-    public const APP_INTEGRATION_NOT_FOUND = 'FRAMEWORK__APP_INTEGRATION_NOT_FOUND';
     public const LANGUAGE_NOT_FOUND = 'FRAMEWORK__LANGUAGE_NOT_FOUND';
     public const CHANNEL_MAINTENANCE_MODE = 'FRAMEWORK__ROUTING_CHANNEL_MAINTENANCE';
 
@@ -48,16 +47,6 @@ class RoutingException extends HttpException
             self::LANGUAGE_NOT_FOUND,
             self::$couldNotFindMessage,
             ['entity' => 'language', 'field' => 'id', 'value' => $languageId]
-        );
-    }
-
-    public static function appIntegrationNotFound(string $integrationId): self
-    {
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::APP_INTEGRATION_NOT_FOUND,
-            self::$couldNotFindMessage,
-            ['entity' => 'app integration', 'field' => 'id', 'value' => $integrationId]
         );
     }
 

@@ -38,7 +38,6 @@ class Sequence extends Struct
         string $flowId,
         string $sequenceId,
         array $config = [],
-        ?string $appFlowActionId = null
     ): ActionSequence {
         $sequence = new ActionSequence();
         $sequence->action = $action;
@@ -46,7 +45,6 @@ class Sequence extends Struct
         $sequence->nextAction = $nextAction;
         $sequence->flowId = $flowId;
         $sequence->sequenceId = $sequenceId;
-        $sequence->appFlowActionId = $appFlowActionId;
 
         return $sequence;
     }

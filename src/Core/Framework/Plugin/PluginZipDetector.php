@@ -13,7 +13,7 @@ use HeyFrame\Core\Framework\Plugin\Util\ZipUtils;
 class PluginZipDetector
 {
     /**
-     * @return PluginManagementService::PLUGIN|PluginManagementService::APP
+     * @return PluginManagementService::PLUGIN
      */
     public function detect(string $zipFilePath): string
     {
@@ -26,7 +26,6 @@ class PluginZipDetector
         try {
             return match (true) {
                 $this->isPlugin($archive) => PluginManagementService::PLUGIN,
-                $this->isApp($archive) => PluginManagementService::APP,
                 default => throw PluginException::noPluginFoundInZip($zipFilePath),
             };
         } finally {
@@ -49,20 +48,5 @@ class PluginZipDetector
         $statManifestFile = $archive->statName($manifestFile);
 
         return $statComposerFile !== false && $statManifestFile === false;
-    }
-
-    public function isApp(\ZipArchive $archive): bool
-    {
-        $entry = $archive->statIndex(0);
-        if ($entry === false) {
-            return false;
-        }
-
-        $pluginName = explode('/', (string) $entry['name'])[0];
-        $manifestFile = $pluginName . '/manifest.xml';
-
-        $statManifestFile = $archive->statName($manifestFile);
-
-        return $statManifestFile !== false;
     }
 }

@@ -10,39 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 #[Package('framework')]
 class GatewayException extends HttpException
 {
-    public const EMPTY_APP_RESPONSE_CODE = 'CONTEXT_GATEWAY__EMPTY_APP_RESPONSE';
-    public const PAYLOAD_INVALID_CODE = 'CONTEXT_GATEWAY__PAYLOAD_INVALID';
     public const HANDLER_NOT_FOUND_CODE = 'CONTEXT_GATEWAY__HANDLER_NOT_FOUND';
     public const HANDLER_EXCEPTION = 'CONTEXT_GATEWAY__HANDLER_EXCEPTION';
     public const COMMAND_VALIDATION_FAILED = 'CONTEXT_GATEWAY__COMMAND_VALIDATION_FAILED';
     public const REQUEST_FAILED = 'CONTEXT_GATEWAY__REQUEST_FAILED';
     public const CUSTOMER_MESSAGE = 'CONTEXT_GATEWAY__CUSTOMER_MESSAGE';
 
-    public static function emptyAppResponse(string $appName): self
-    {
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::EMPTY_APP_RESPONSE_CODE,
-            'App "{{ app }}" did not provide context gateway response',
-            ['app' => $appName]
-        );
-    }
-
-    public static function payloadInvalid(?string $commandKey = null): self
-    {
-        $message = 'Payload invalid for command';
-
-        if ($commandKey !== null) {
-            $message .= ' "{{ command }}"';
-        }
-
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::PAYLOAD_INVALID_CODE,
-            $message,
-            ['command' => $commandKey]
-        );
-    }
 
     public static function handlerNotFound(string $commandKey): self
     {

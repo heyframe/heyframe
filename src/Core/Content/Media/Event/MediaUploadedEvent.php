@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Media\Event;
 
 use HeyFrame\Core\Content\Flow\Dispatching\Aware\ScalarValuesAware;
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Event\EventData\EventDataCollection;
 use HeyFrame\Core\Framework\Event\EventData\ScalarValueType;

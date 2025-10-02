@@ -158,10 +158,10 @@ trait BasicTestDataBehaviour
         return $id;
     }
 
-    protected function getValidCategoryId(): string
+    protected function getValidNavigationId(): string
     {
         /** @var EntityRepository<CategoryCollection> $repository */
-        $repository = static::getContainer()->get('category.repository');
+        $repository = static::getContainer()->get('navigation.repository');
 
         $criteria = (new Criteria())
             ->setLimit(1)

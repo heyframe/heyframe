@@ -94,7 +94,6 @@ class FlowBuilder
                 $currentSequence['flow_id'],
                 $currentSequence['sequence_id'],
                 $config,
-                $currentSequence['app_flow_action_id']
             );
         }
 
@@ -106,7 +105,6 @@ class FlowBuilder
             $currentSequence['flow_id'],
             $currentSequence['sequence_id'],
             $config,
-            $currentSequence['app_flow_action_id']
         );
     }
 

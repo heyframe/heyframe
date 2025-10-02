@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Checkout\Payment\DataAbstractionLayer;
 
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
-use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -53,8 +52,8 @@ class PaymentDistinguishableNameGenerator
     {
         $upsertablePayments = [];
         foreach ($payments as $payment) {
-            $pluginOrAppEntity = $payment->getPlugin();
-            if ($pluginOrAppEntity === null || $payment->getTranslations() === null) {
+            $plugin = $payment->getPlugin();
+            if ($plugin === null || $payment->getTranslations() === null) {
                 continue;
             }
 
@@ -63,7 +62,7 @@ class PaymentDistinguishableNameGenerator
                 $languageId = $translation->getLanguageId();
 
                 $distinguishableNames[$languageId] = $this->generatePaymentName(
-                    $pluginOrAppEntity,
+                    $plugin,
                     $languageId,
                     $translation->getName() ?? $payment->getTranslation('name'),
                 );
@@ -84,7 +83,7 @@ class PaymentDistinguishableNameGenerator
     }
 
     private function generatePaymentName(
-        AppEntity|PluginEntity $entity,
+        PluginEntity $entity,
         string $languageId,
         string $paymentName,
     ): ?string {

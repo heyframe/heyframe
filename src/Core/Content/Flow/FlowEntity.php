@@ -25,8 +25,6 @@ class FlowEntity extends Entity
 
     protected int $priority;
 
-    protected ?string $appFlowEventId = null;
-
     /**
      * @internal
      */
@@ -126,15 +124,5 @@ class FlowEntity extends Entity
     public function setSequences(FlowSequenceCollection $sequences): void
     {
         $this->sequences = $sequences;
-    }
-
-    public function getAppFlowEventId(): ?string
-    {
-        return $this->appFlowEventId;
-    }
-
-    public function setAppFlowEventId(?string $appFlowEventId): void
-    {
-        $this->appFlowEventId = $appFlowEventId;
     }
 }

@@ -19,8 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 class PluginManagementService
 {
     final public const PLUGIN = 'plugin';
-    final public const APP = 'app';
-
     public function __construct(
         private readonly string $projectDir,
         private readonly PluginZipDetector $pluginZipDetector,
@@ -47,7 +45,6 @@ class PluginManagementService
 
         match ($type) {
             self::PLUGIN => $this->extractPlugin($file, $delete),
-            self::APP => $this->extractApp($file, $delete),
         };
 
         return $type;
@@ -115,10 +112,5 @@ class PluginManagementService
     {
         $this->pluginExtractor->extract($fileName, $delete, self::PLUGIN);
         $this->cacheClearer->clearContainerCache();
-    }
-
-    private function extractApp(string $fileName, bool $delete): void
-    {
-        $this->pluginExtractor->extract($fileName, $delete, self::APP);
     }
 }

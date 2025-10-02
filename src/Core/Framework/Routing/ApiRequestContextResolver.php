@@ -129,16 +129,7 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
     private function resolveContextSource(Request $request): ContextSource
     {
         if ($userId = $request->attributes->get(PlatformRequest::ATTRIBUTE_OAUTH_USER_ID)) {
-            $appIntegrationId = $request->headers->get(PlatformRequest::HEADER_APP_INTEGRATION_ID);
-
-            // The app integration id header is only to be used by a privileged user
-            if ($this->userAppIntegrationHeaderPrivileged($userId, $appIntegrationId)) {
-                $userId = null;
-            } else {
-                $appIntegrationId = null;
-            }
-
-            return $this->getAdminApiSource($userId, $appIntegrationId);
+            return $this->getAdminApiSource($userId);
         }
 
         if (!$request->attributes->has(PlatformRequest::ATTRIBUTE_OAUTH_ACCESS_TOKEN_ID)) {
@@ -158,10 +149,6 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
             $integrationId = $this->getIntegrationIdByAccessKey($clientId);
 
             $userId = $request->headers->get(PlatformRequest::HEADER_APP_USER_ID);
-
-            if ($userId !== null && !$this->userAppIntegrationHeaderPrivileged($userId, $integrationId)) {
-                $userId = null;
-            }
 
             return $this->getAdminApiSource($userId, $integrationId);
         }
@@ -350,58 +337,5 @@ class ApiRequestContextResolver implements RequestContextResolverInterface
         }
 
         return array_unique(array_filter($list));
-    }
-
-    private function fetchAppNameByIntegrationId(string $integrationId): ?string
-    {
-        $name = $this->connection->createQueryBuilder()
-            ->select('app.name')
-            ->from('app', 'app')
-            ->innerJoin('app', 'integration', 'integration', 'integration.id = app.integration_id')
-            ->where('integration.id = :integrationId')
-            ->andWhere('app.active = 1')
-            ->setParameter('integrationId', Uuid::fromHexToBytes($integrationId))
-            ->executeQuery()
-            ->fetchOne();
-
-        if ($name === false) {
-            return null;
-        }
-
-        return $name;
-    }
-
-    /**
-     * @throws RoutingException
-     */
-    private function userAppIntegrationHeaderPrivileged(string $userId, ?string $appIntegrationId): bool
-    {
-        if ($appIntegrationId === null) {
-            return false;
-        }
-
-        $appName = $this->fetchAppNameByIntegrationId($appIntegrationId);
-        if ($appName === null) {
-            throw RoutingException::appIntegrationNotFound($appIntegrationId);
-        }
-
-        if ($this->isAdmin($userId)) {
-            return true;
-        }
-
-        $permissions = $this->fetchPermissions($userId);
-        $allAppsPrivileged = \in_array('app.all', $permissions, true);
-        $appPrivilegeName = \sprintf('app.%s', $appName);
-        $specificAppPrivileged = \in_array($appPrivilegeName, $permissions, true);
-
-        if (!($specificAppPrivileged || $allAppsPrivileged)) {
-            if (!Feature::isActive('v6.8.0.0')) {
-                // @phpstan-ignore-next-line
-                throw new MissingPrivilegeException([$appPrivilegeName]);
-            }
-            throw RoutingException::missingPrivileges([$appPrivilegeName]);
-        }
-
-        return true;
     }
 }

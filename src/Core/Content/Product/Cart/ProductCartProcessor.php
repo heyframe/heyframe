@@ -448,7 +448,7 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
             return false;
         }
 
-        if ($lineItem->getPriceDefinition() !== null && $lineItem->isModifiedByApp()) {
+        if ($lineItem->getPriceDefinition() !== null) {
             return false;
         }
 
