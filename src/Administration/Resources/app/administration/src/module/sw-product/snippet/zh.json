@@ -32,12 +32,9 @@
       "labelTitle": "名称",
       "labelDescription": "描述",
       "labelProductNumber": "产品编号",
-      "labelManufacturer": "制造商",
-      "labelManufacturerCreation": "制造商",
       "placeholderName": "输入产品名称...",
       "placeholderDescriptionLong": "输入产品描述...",
       "placeholderId": "输入产品编号...",
-      "placeholderManufacturer": "输入产品制造商...",
       "productNumberHelpText": {
         "label": "产品编号能帮你识别和管理产品。为了方便管理，建议保持编号规则一致。你可以在 {link} 里设置产品编号模板。",
         "linkText": "设置"

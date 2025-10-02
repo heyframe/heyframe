@@ -32,12 +32,9 @@
       "labelTitle": "Name",
       "labelDescription": "Description",
       "labelProductNumber": "Product number",
-      "labelManufacturer": "Manufacturer",
-      "labelManufacturerCreation": "manufacturer",
       "placeholderName": "Enter product title...",
       "placeholderDescriptionLong": "Enter product description...",
       "placeholderId": "Enter product number...",
-      "placeholderManufacturer": "Enter product manufacturer...",
       "productNumberHelpText": {
         "label": "Product numbers help you identify and manage your products. To achieve this, try and keep a consistent structure in your product numbers. You can define product number templates in {link}.",
         "linkText": "settings"
