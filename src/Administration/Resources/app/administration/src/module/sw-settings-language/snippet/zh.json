@@ -24,7 +24,7 @@
       "textFilterInheritedLanguages": "仅显示继承语言",
       "manageSnippets": "管理文本片段",
       "cardTitle": "语言",
-      "cardSubtitle": "可以将语言分配给销售渠道域名，以显示对应翻译。同时也支持分类、产品、购物体验页面等内容的翻译。"
+      "cardSubtitle": "可以将语言分配给渠道域名，以显示对应翻译。同时也支持分类、产品、CMS页面等内容的翻译。"
     },
     "detail": {
       "textHeadline": "新建语言",

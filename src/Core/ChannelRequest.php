@@ -27,8 +27,6 @@ final class ChannelRequest
 
     public const ATTRIBUTE_CANONICAL_LINK = 'sw-canonical-link';
 
-    public const ATTRIBUTE_STOREFRONT_URL = 'sw-frontend-url';
-
     private function __construct()
     {
     }

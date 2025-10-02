@@ -108,6 +108,25 @@ const MODULES = [
         ]
     },
     {
+        id: 'automations',
+        name: 'Automations',
+        to: 'sw.flow.index.flows',
+        icon: 'bolt',
+        match(route) {
+            return route.name.startsWith('sw.flow') ? 'exact' : 'none';
+        },
+        children: [
+            {
+                id: 'rules',
+                name: 'Rule Builder',
+                to: 'sw.settings.rule.index',
+                match(route) {
+                    return route.name.startsWith('sw.settings.rule') ? 'exact' : 'none';
+                }
+            }
+        ]
+    },
+    {
         id: 'extensions',
         name: 'Extensions',
         icon: 'puzzle-piece',
