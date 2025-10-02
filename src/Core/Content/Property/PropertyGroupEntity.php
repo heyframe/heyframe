@@ -20,6 +20,7 @@ class PropertyGroupEntity extends Entity
     protected string $displayType;
 
     protected string $sortingType;
+
     protected ?string $technicalName;
 
     protected ?string $description = null;
@@ -133,5 +134,4 @@ class PropertyGroupEntity extends Entity
     {
         $this->technicalName = $technicalName;
     }
-
 }

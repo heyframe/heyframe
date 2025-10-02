@@ -228,11 +228,6 @@ class EntityDefinitionQueryHelper
      *
      * @example
      *
-     *
-     * fieldName => product.name
-     * root      => product
-     * return    => COALESCE(`product.translation`.`name`,`product.parent.translation`.`name`)
-     *
      * @throws UnmappedFieldException
      */
     public function getFieldAccessor(string $fieldName, EntityDefinition $definition, string $root, Context $context): string

@@ -121,7 +121,7 @@ class ClientRepository implements ClientRepositoryInterface
      */
     private function getIntegrationByAccessKey(string $clientIdentifier): ?array
     {
-        $key = $this->connection->fetchAssociative('SELECT integration.id AS id, label, app.active AS active, secret_access_key FROM integration LEFT JOIN app ON app.integration_id = integration.id WHERE access_key = :accessKey', [
+        $key = $this->connection->fetchAssociative('SELECT integration.id AS id, label, secret_access_key FROM integration WHERE access_key = :accessKey', [
             'accessKey' => $clientIdentifier,
         ]);
 

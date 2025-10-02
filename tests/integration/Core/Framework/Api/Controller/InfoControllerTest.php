@@ -567,6 +567,7 @@ class InfoControllerTest extends TestCase
         static::assertSame('stdClass', $stats['stats']['messageTypeStats'][0]['type']);
         static::assertArrayHasKey('count', $stats['stats']['messageTypeStats'][0]);
     }
+
     private function createAclRole(string $aclRoleId): void
     {
         $this->connection->insert('acl_role', [

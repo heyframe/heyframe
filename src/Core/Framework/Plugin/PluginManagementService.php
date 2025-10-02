@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PluginManagementService
 {
     final public const PLUGIN = 'plugin';
+
     public function __construct(
         private readonly string $projectDir,
         private readonly PluginZipDetector $pluginZipDetector,

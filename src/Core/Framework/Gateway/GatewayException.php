@@ -16,7 +16,6 @@ class GatewayException extends HttpException
     public const REQUEST_FAILED = 'CONTEXT_GATEWAY__REQUEST_FAILED';
     public const CUSTOMER_MESSAGE = 'CONTEXT_GATEWAY__CUSTOMER_MESSAGE';
 
-
     public static function handlerNotFound(string $commandKey): self
     {
         return new self(

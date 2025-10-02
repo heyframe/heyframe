@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Framework\Update\Event;
 
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
+
 #[Package('framework')]
 class UpdatePostFinishEvent extends UpdateEvent
 {

@@ -8,7 +8,6 @@ use HeyFrame\Core\Framework\Adapter\Twig\TokenParser\ReturnNodeTokenParser;
 use HeyFrame\Core\Framework\Adapter\Twig\TokenParser\SwMacroFunctionTokenParser;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldVisibility;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Script\Facade\ArrayFacade;
 use HeyFrame\Core\Framework\Util\Hasher;
 use Squirrel\TwigPhpSyntax\ExpressionParser\BinaryOperatorExpressionParser;
 use Squirrel\TwigPhpSyntax\Operator\NotSameAsBinary;
@@ -127,17 +126,8 @@ class PhpSyntaxExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('array', $this->createArray(...)),
             new TwigFunction('version_compare', version_compare(...)),
         ];
-    }
-
-    /**
-     * @param array<array-key, mixed> $array
-     */
-    public function createArray(array $array): ArrayFacade
-    {
-        return new ArrayFacade($array);
     }
 
     public function getTests(): array

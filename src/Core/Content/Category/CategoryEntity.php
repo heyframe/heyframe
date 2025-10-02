@@ -295,6 +295,7 @@ class CategoryEntity extends Entity
     {
         $this->description = $description;
     }
+
     public function getTechnicalName(): ?string
     {
         return $this->technicalName;
@@ -304,5 +305,4 @@ class CategoryEntity extends Entity
     {
         $this->technicalName = $technicalName;
     }
-
 }

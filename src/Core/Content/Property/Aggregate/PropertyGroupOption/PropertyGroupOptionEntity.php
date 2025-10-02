@@ -24,6 +24,7 @@ class PropertyGroupOptionEntity extends Entity
     protected ?string $name = null;
 
     protected ?int $position = null;
+
     protected ?string $technicalName = null;
 
     protected ?string $colorHexCode = null;
@@ -188,5 +189,4 @@ class PropertyGroupOptionEntity extends Entity
     {
         $this->technicalName = $technicalName;
     }
-
 }
