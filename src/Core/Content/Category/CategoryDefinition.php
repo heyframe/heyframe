@@ -30,6 +30,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TreeLevelField;
@@ -43,8 +44,6 @@ use HeyFrame\Core\System\Tag\TagDefinition;
 class CategoryDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'category';
-
-    final public const CONFIG_KEY_DEFAULT_CMS_PAGE_CATEGORY = 'core.cms.default_category_cms_page';
 
     public function getEntityName(): string
     {
@@ -104,6 +103,7 @@ class CategoryDefinition extends EntityDefinition
 
             (new BoolField('cms_page_id_switched', 'cmsPageIdSwitched'))->addFlags(new Runtime(), new ApiAware()),
             (new IntField('visible_child_count', 'visibleChildCount'))->addFlags(new Runtime(), new ApiAware()),
+            (new StringField('technical_name', 'technicalName'))->addFlags(new ApiAware()),
 
             (new TranslatedField('name'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),

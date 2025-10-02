@@ -81,6 +81,7 @@ class PropertyGroupDefinition extends EntityDefinition
             (new IdField('id', 'id'))->addFlags(new ApiAware(), new PrimaryKey(), new Required()),
             (new TranslatedField('name'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             (new TranslatedField('description'))->addFlags(new ApiAware()),
+            (new StringField('technical_name', 'technicalName'))->addFlags(new ApiAware()),
             (new StringField('display_type', 'displayType'))->addFlags(new ApiAware(), new Required()),
             (new StringField('sorting_type', 'sortingType'))->addFlags(new ApiAware(), new Required()),
             (new BoolField('filterable', 'filterable'))->addFlags(new ApiAware()),

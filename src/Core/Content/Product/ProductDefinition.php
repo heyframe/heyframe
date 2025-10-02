@@ -67,6 +67,7 @@ use HeyFrame\Core\System\Tag\TagDefinition;
 class ProductDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'product';
+    final public const PRODUCT_TYPE_PRODCUT = 'product';
 
     final public const CONFIG_KEY_DEFAULT_CMS_PAGE_PRODUCT = 'core.cms.default_product_cms_page';
 
@@ -101,6 +102,7 @@ class ProductDefinition extends EntityDefinition
             'purchaseSteps' => 1,
             'restockTime' => null,
             'active' => true,
+            'productType' => self::PRODUCT_TYPE_PRODCUT,
         ];
     }
 
@@ -157,7 +159,7 @@ class ProductDefinition extends EntityDefinition
             (new ChildCountField())->addFlags(new ApiAware()),
             (new IntField('sales', 'sales'))->addFlags(new ApiAware(), new WriteProtected()),
             (new ListField('states', 'states', StringField::class))->addFlags(new ApiAware(), new WriteProtected()),
-            (new StringField('product_type', 'productType'))->addFlags(new ApiAware(), new Inherited()),
+            (new StringField('product_type', 'productType'))->addFlags(new ApiAware(), new Required(), new Inherited()),
             (new ExtraFields())->addFlags(new ApiAware()),
             (new TranslatedField('metaDescription'))->addFlags(new ApiAware(), new Inherited()),
             (new TranslatedField('name', true))->addFlags(new ApiAware(), new Inherited(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),

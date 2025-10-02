@@ -24,6 +24,8 @@ class CategoryEntity extends Entity
 
     protected int $autoIncrement;
 
+    protected ?string $technicalName;
+
     protected ?string $mediaId = null;
 
     protected ?string $name = null;
@@ -293,44 +295,14 @@ class CategoryEntity extends Entity
     {
         $this->description = $description;
     }
-
-    public function getMetaTitle(): ?string
+    public function getTechnicalName(): ?string
     {
-        return $this->metaTitle;
+        return $this->technicalName;
     }
 
-    public function setMetaTitle(?string $metaTitle): void
+    public function setTechnicalName(?string $technicalName): void
     {
-        $this->metaTitle = $metaTitle;
+        $this->technicalName = $technicalName;
     }
 
-    public function getMetaDescription(): ?string
-    {
-        return $this->metaDescription;
-    }
-
-    public function setMetaDescription(?string $metaDescription): void
-    {
-        $this->metaDescription = $metaDescription;
-    }
-
-    public function getKeywords(): ?string
-    {
-        return $this->keywords;
-    }
-
-    public function setKeywords(?string $keywords): void
-    {
-        $this->keywords = $keywords;
-    }
-
-    public function getCustomEntityTypeId(): ?string
-    {
-        return $this->customEntityTypeId;
-    }
-
-    public function setCustomEntityTypeId(?string $customEntityTypeId): void
-    {
-        $this->customEntityTypeId = $customEntityTypeId;
-    }
 }

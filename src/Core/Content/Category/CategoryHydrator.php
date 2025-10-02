@@ -23,6 +23,9 @@ class CategoryHydrator extends EntityHydrator
         if (isset($row[$root . '.parentId'])) {
             $entity->parentId = Uuid::fromBytesToHex($row[$root . '.parentId']);
         }
+        if (isset($row[$root . '.technicalName'])) {
+            $entity->technicalName = Uuid::fromBytesToHex($row[$root . '.technicalName']);
+        }
         if (isset($row[$root . '.afterCategoryId'])) {
             $entity->afterCategoryId = Uuid::fromBytesToHex($row[$root . '.afterCategoryId']);
         }

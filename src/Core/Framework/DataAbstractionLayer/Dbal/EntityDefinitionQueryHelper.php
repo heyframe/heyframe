@@ -228,12 +228,6 @@ class EntityDefinitionQueryHelper
      *
      * @example
      *
-     * fieldName => product.taxId
-     * root      => product
-     * returns   => `product`.`tax_id`
-     *
-     * This function is also used for complex field accessors like JsonArray Field, JsonObject fields.
-     * It considers the translation and parent-child inheritance.
      *
      * fieldName => product.name
      * root      => product

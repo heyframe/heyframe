@@ -26,6 +26,9 @@ class PropertyGroupOptionHydrator extends EntityHydrator
         if (isset($row[$root . '.mediaId'])) {
             $entity->mediaId = Uuid::fromBytesToHex($row[$root . '.mediaId']);
         }
+        if (isset($row[$root . '.technicalName'])) {
+            $entity->technicalName = Uuid::fromBytesToHex($row[$root . '.technicalName']);
+        }
         if (isset($row[$root . '.createdAt'])) {
             $entity->createdAt = new \DateTimeImmutable($row[$root . '.createdAt']);
         }

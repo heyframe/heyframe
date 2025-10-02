@@ -24,6 +24,7 @@ class PropertyGroupOptionEntity extends Entity
     protected ?string $name = null;
 
     protected ?int $position = null;
+    protected ?string $technicalName = null;
 
     protected ?string $colorHexCode = null;
 
@@ -177,4 +178,15 @@ class PropertyGroupOptionEntity extends Entity
     {
         $this->configuratorSetting = $configuratorSetting;
     }
+
+    public function getTechnicalName(): ?string
+    {
+        return $this->technicalName;
+    }
+
+    public function setTechnicalName(?string $technicalName): void
+    {
+        $this->technicalName = $technicalName;
+    }
+
 }

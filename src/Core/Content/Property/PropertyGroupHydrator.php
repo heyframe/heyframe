@@ -23,6 +23,9 @@ class PropertyGroupHydrator extends EntityHydrator
         if (isset($row[$root . '.sortingType'])) {
             $entity->sortingType = $row[$root . '.sortingType'];
         }
+        if (isset($row[$root . '.technicalName'])) {
+            $entity->technicalName = $row[$root . '.technicalName'];
+        }
         if (isset($row[$root . '.filterable'])) {
             $entity->filterable = (bool) $row[$root . '.filterable'];
         }

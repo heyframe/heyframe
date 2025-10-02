@@ -24,12 +24,14 @@ class Migration1536232630PropertyGroup extends MigrationStep
         $connection->executeStatement('
             CREATE TABLE `property_group` (
               `id` binary(16) NOT NULL,
+              `technical_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
               `sorting_type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT \'alphanumeric\',
               `display_type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT \'text\',
               `created_at` datetime(3) NOT NULL,
               `updated_at` datetime(3) DEFAULT NULL,
               `filterable` tinyint(1) NOT NULL DEFAULT \'1\',
               `visible_on_product_detail_page` tinyint(1) DEFAULT \'1\',
+              UNIQUE KEY `uniq.technical_name` (`technical_name`),
               PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
