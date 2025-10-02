@@ -43,11 +43,6 @@ export default {
         defaultCurrency() {
             return HeyFrame.Store.get('swProductDetail').defaultCurrency;
         },
-
-        productTaxRate() {
-            return HeyFrame.Store.get('swProductDetail').productTaxRate;
-        },
-
         showModeSetting() {
             return HeyFrame.Store.get('swProductDetail').showModeSetting;
         },
@@ -60,16 +55,11 @@ export default {
             return HeyFrame.Store.get('swProductDetail').parentProduct;
         },
 
-        taxes() {
-            return HeyFrame.Store.get('swProductDetail').taxes;
-        },
-
         currencies() {
             return HeyFrame.Store.get('swProductDetail').currencies;
         },
 
         ...mapPropertyErrors('product', [
-            'taxId',
             'price',
             'purchasePrices',
         ]),
@@ -122,16 +112,6 @@ export default {
                 purchasePrices: this.product.purchasePrices || this.parentProduct.purchasePrices,
             };
         },
-
-        taxRateOptions() {
-            return this.taxes.map((tax) => {
-                return {
-                    id: tax.id,
-                    value: tax.id,
-                    label: this.getTaxLabel(tax),
-                };
-            });
-        },
     },
 
     methods: {
@@ -178,15 +158,6 @@ export default {
 
             this.displayMaintainCurrencies = false;
         },
-
-        getTaxLabel(tax) {
-            if (this.$te(`global.tax-rates.${tax.name}`)) {
-                return this.$tc(`global.tax-rates.${tax.name}`);
-            }
-
-            return tax.name;
-        },
-
         updatePrices(index) {
             this.product.price.splice(index, 1);
         },

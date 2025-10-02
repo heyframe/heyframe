@@ -25,8 +25,6 @@ HeyFrame.Component.register(
     () => import('./component/sw-product-variants/sw-product-modal-delivery'),
 );
 HeyFrame.Component.register('sw-product-price-form', () => import('./component/sw-product-price-form'));
-HeyFrame.Component.register('sw-product-measurement-form', () => import('./component/sw-product-measurement-form'));
-HeyFrame.Component.register('sw-product-packaging-form', () => import('./component/sw-product-packaging-form'));
 HeyFrame.Component.register('sw-product-seo-form', () => import('./component/sw-product-seo-form'));
 HeyFrame.Component.extend(
     'sw-product-visibility-select',
@@ -84,12 +82,7 @@ HeyFrame.Component.extend(
     'sw-media-upload-v2',
     () => import('./component/sw-product-variants/sw-product-variants-media-upload'),
 );
-HeyFrame.Component.register('sw-product-cross-selling-form', () => import('./component/sw-product-cross-selling-form'));
 HeyFrame.Component.register('sw-product-variant-modal', () => import('./component/sw-product-variant-modal'));
-HeyFrame.Component.register(
-    'sw-product-cross-selling-assignment',
-    () => import('./component/sw-product-cross-selling-assignment'),
-);
 HeyFrame.Component.register('sw-product-layout-assignment', () => import('./component/sw-product-layout-assignment'));
 HeyFrame.Component.register('sw-product-settings-mode', () => import('./component/sw-product-settings-mode'));
 HeyFrame.Component.register('sw-product-properties', () => import('./component/sw-product-properties'));

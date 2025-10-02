@@ -135,23 +135,6 @@
       "labelAvailableStock": "可用库存",
       "labelPurchaseSteps": "购买步长"
     },
-    "measurementForm": {
-      "description": "用可用的单位输入产品尺寸。在前台展示给顾客时，会根据 {link} 自动转换。",
-      "linkText": "销售渠道设置"
-    },
-    "packagingForm": {
-      "description": "定义产品的销售和包装方式。这些信息会展示在前台。",
-      "labelProductUnit": "产品单位",
-      "placeholderSellingUnit": "例如 6...",
-      "placeholderProductUnit": "选择产品单位...",
-      "placeholderBasicUnit": "例如 1...",
-      "placeholderPackagingUnit": "例如 瓶...",
-      "placeholderPackagingUnitPlural": "例如 瓶装...",
-      "helpTextBasicUnit": "计算产品单价时必填。输入的基准值取决于选择的计量单位。<ul><li>单价 = （产品价格 * 基本单位）/ 销售单位</li></ul>当销售单位和基本单位相同，单价不会显示。",
-      "helpTextPackUnit": "包装类型，例如：瓶、箱、罐...",
-      "helpTextPackUnitPlural": "包装类型（复数），例如：瓶装、箱装、罐装...",
-      "helpTextSellingUnit": "计算产品单价时必填。输入的数值取决于选择的计量单位。<ul><li>单价 = （产品价格 * 基本单位）/ 销售单位</li></ul>当销售单位和基本单位相同，单价不会显示。"
-    },
     "detailBase": {
       "cardTitleProductInfo": "基本信息",
       "cardTitleAssignment": "可见性与结构",

@@ -56,7 +56,6 @@ export default {
     computed: {
         product() {
             const state = HeyFrame.Store.get('swProductDetail');
-
             if (this.isInherited) {
                 return state.parentProduct;
             }

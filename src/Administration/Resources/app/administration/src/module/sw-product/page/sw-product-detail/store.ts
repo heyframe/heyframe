@@ -9,14 +9,11 @@ type LoadingProperties =
     | 'init'
     | 'product'
     | 'parentProduct'
-    | 'manufacturers'
     | 'currencies'
-    | 'taxes'
     | 'customFieldSets'
     | 'media'
     | 'rules'
     | 'variants'
-    | 'defaultFeatureSet'
     | 'advancedMode';
 
 const swProductDetail = HeyFrame.Store.register({
@@ -28,10 +25,8 @@ const swProductDetail = HeyFrame.Store.register({
             parentProduct: {} as EntitySchema.product,
             currencies: [] as EntitySchema.currency[],
             apiContext: {} as ContextStore['api'],
-            taxes: [] as EntitySchema.tax[],
             variants: [],
             customFieldSets: [] as { id: string }[],
-            defaultFeatureSet: {} as EntitySchema.product_feature_set,
             loading: {
                 init: false,
                 product: false,
@@ -54,11 +49,7 @@ const swProductDetail = HeyFrame.Store.register({
                 'deliverability',
                 'visibility_structure',
                 'media',
-                'labelling',
-                'measurement',
-                'selling_packaging',
                 'properties',
-                'essential_characteristics',
                 'custom_fields',
             ],
             /* Product "types" provided by the split button for creating a new product through a router parameter */
@@ -100,34 +91,6 @@ const swProductDetail = HeyFrame.Store.register({
             return (
                 productPrice.find((price: { currencyId: 'string' }) => {
                     return price.currencyId === this.defaultCurrency.id;
-                }) ?? {}
-            );
-        },
-
-        getDefaultFeatureSet(state): EntitySchema.product_feature_set | object {
-            if (!state.defaultFeatureSet) {
-                return {};
-            }
-
-            return state.defaultFeatureSet;
-        },
-
-        productTaxRate(state): EntitySchema.tax | object {
-            if (!state.taxes) {
-                return {};
-            }
-
-            return (
-                state.taxes.find((tax) => {
-                    if (!state.product.taxId) {
-                        if (!state.parentProduct.taxId) {
-                            return {};
-                        }
-
-                        return tax.id === state.parentProduct.taxId;
-                    }
-
-                    return tax.id === state.product.taxId;
                 }) ?? {}
             );
         },
@@ -199,30 +162,6 @@ const swProductDetail = HeyFrame.Store.register({
                 return true;
             }
             return false;
-        },
-
-        setAssignedProductsFromCrossSelling({
-            id,
-            collection,
-        }: {
-            id: string;
-            collection: EntityCollection<'product_cross_selling_assigned_products'>;
-        }) {
-            const entity = this.product.crossSellings?.get(id);
-            if (!entity) return;
-            entity.assignedProducts = collection;
-        },
-
-        setTaxes(newTaxes: EntitySchema.tax[]) {
-            this.taxes = newTaxes;
-
-            if (this.product && this.product.taxId === null && !this.parentProduct.id) {
-                this.product.taxId = this.taxes[0]?.id;
-            }
-        },
-
-        setDefaultFeatureSet(newDefaultFeatureSet: EntitySchema.product_feature_set) {
-            this.defaultFeatureSet = newDefaultFeatureSet;
         },
 
         setLengthUnit(unit: string) {
