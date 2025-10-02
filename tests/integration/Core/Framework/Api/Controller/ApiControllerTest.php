@@ -23,7 +23,6 @@ use HeyFrame\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
 use HeyFrame\Core\Framework\Test\TestCaseHelper\TestUser;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\Language\LanguageCollection;
-use HeyFrame\Core\Test\Stub\Framework\IdsCollection;
 use HeyFrame\Core\Test\TestDefaults;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
@@ -1043,26 +1042,5 @@ EOF;
         static::assertIsString($id);
 
         return $id;
-    }
-
-    private function createCustomer(): IdsCollection
-    {
-        $ids = new IdsCollection();
-
-        $data = [
-            'id' => $ids->get('customer'),
-            'number' => '1337',
-            'nickname' => 'Mustermann',
-            'customerNumber' => '1337',
-            'email' => $ids->get('email') . '@example.com',
-            'password' => TestDefaults::HASHED_PASSWORD,
-            'groupId' => TestDefaults::FALLBACK_CUSTOMER_GROUP,
-            'channelId' => TestDefaults::CHANNEL,
-        ];
-
-        static::getContainer()->get('customer.repository')
-            ->create([$data], Context::createDefaultContext());
-
-        return $ids;
     }
 }

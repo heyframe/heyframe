@@ -117,7 +117,7 @@ class CartPersisterTest extends TestCase
 
     public function testSkipPersistenceCartShouldNotBeSaved(): void
     {
-        $cartBehavior = new CartBehavior([CheckoutPermissions::SKIP_CART_PERSISTENCE => true], true);
+        $cartBehavior = new CartBehavior([CheckoutPermissions::SKIP_CART_PERSISTENCE => true]);
 
         $cart = new Cart('existing');
         $cart->setBehavior($cartBehavior);

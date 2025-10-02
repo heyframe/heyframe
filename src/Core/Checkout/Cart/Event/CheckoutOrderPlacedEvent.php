@@ -14,12 +14,11 @@ use HeyFrame\Core\Framework\Event\EventData\EventDataCollection;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Script\Execution\Awareness\ChannelContextAware;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Contracts\EventDispatcher\Event;
 
 #[Package('checkout')]
-class CheckoutOrderPlacedEvent extends Event implements ChannelAware, ChannelContextAware, OrderAware, CustomerAware, CustomerGroupAware, FlowEventAware
+class CheckoutOrderPlacedEvent extends Event implements ChannelAware, OrderAware, CustomerAware, CustomerGroupAware, FlowEventAware
 {
     final public const EVENT_NAME = 'checkout.order.placed';
 
@@ -53,11 +52,6 @@ class CheckoutOrderPlacedEvent extends Event implements ChannelAware, ChannelCon
     public function getContext(): Context
     {
         return $this->context->getContext();
-    }
-
-    public function getChannelContext(): ChannelContext
-    {
-        return $this->context;
     }
 
     public function getChannelId(): string

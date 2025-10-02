@@ -235,7 +235,7 @@ class ApiRequestContextResolverTest extends TestCase
         $connection->insert('acl_role', [
             'id' => Uuid::fromHexToBytes($ids->create('acl_role')),
             'name' => 'integration',
-            'privileges' => '["sales_channel:read"]',
+            'privileges' => '["channel:read"]',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
 

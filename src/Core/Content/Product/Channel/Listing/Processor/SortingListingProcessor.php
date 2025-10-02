@@ -83,7 +83,7 @@ class SortingListingProcessor extends AbstractListingProcessor
         return !empty($criteria->getQueries()) || $criteria->getTerm();
     }
 
-    private function getCurrentSorting(ProductSortingCollection $sortings, Request $request, string $salesChannelId): ?ProductSortingEntity
+    private function getCurrentSorting(ProductSortingCollection $sortings, Request $request, string $channelId): ?ProductSortingEntity
     {
         $key = $request->get('order');
 
@@ -96,7 +96,7 @@ class SortingListingProcessor extends AbstractListingProcessor
             return $sorting;
         }
 
-        return $sortings->get($this->systemConfigService->getString('core.listing.defaultSorting', $salesChannelId));
+        return $sortings->get($this->systemConfigService->getString('core.listing.defaultSorting', $channelId));
     }
 
     private function getAvailableSortings(Request $request, Context $context): ProductSortingCollection

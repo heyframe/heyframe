@@ -54,7 +54,7 @@ class ChannelAuthenticationListenerTest extends TestCase
         $this->assertExceptionResponse(
             $browser,
             Response::HTTP_SERVICE_UNAVAILABLE,
-            ApiException::API_SALES_CHANNEL_MAINTENANCE_MODE
+            ApiException::API_CHANNEL_MAINTENANCE_MODE
         );
     }
 
@@ -86,7 +86,7 @@ class ChannelAuthenticationListenerTest extends TestCase
         $this->assertExceptionResponse(
             $browser,
             Response::HTTP_SERVICE_UNAVAILABLE,
-            ApiException::API_SALES_CHANNEL_MAINTENANCE_MODE
+            ApiException::API_CHANNEL_MAINTENANCE_MODE
         );
     }
 
@@ -106,7 +106,7 @@ class ChannelAuthenticationListenerTest extends TestCase
         $this->assertExceptionResponse(
             $browser,
             Response::HTTP_SERVICE_UNAVAILABLE,
-            ApiException::API_SALES_CHANNEL_MAINTENANCE_MODE
+            ApiException::API_CHANNEL_MAINTENANCE_MODE
         );
     }
 
@@ -126,7 +126,7 @@ class ChannelAuthenticationListenerTest extends TestCase
         $this->assertExceptionResponse(
             $browser,
             Response::HTTP_SERVICE_UNAVAILABLE,
-            ApiException::API_SALES_CHANNEL_MAINTENANCE_MODE
+            ApiException::API_CHANNEL_MAINTENANCE_MODE
         );
     }
 

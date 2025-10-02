@@ -13,7 +13,6 @@ use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
-use HeyFrame\Core\Framework\Script\Execution\Hook;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -26,8 +25,6 @@ class CartException extends HttpException
     public const TOKEN_NOT_FOUND_CODE = 'CHECKOUT__CART_TOKEN_NOT_FOUND';
     public const CUSTOMER_NOT_LOGGED_IN_CODE = 'CHECKOUT__CUSTOMER_NOT_LOGGED_IN';
     public const INSUFFICIENT_PERMISSION_CODE = 'CHECKOUT__INSUFFICIENT_PERMISSION';
-    public const CART_DELIVERY_DATE_NOT_SUPPORTED_UNIT = 'CHECKOUT__CART_DELIVERY_DATE_NOT_SUPPORTED_UNIT';
-    public const CART_DELIVERY_NOT_FOUND_CODE = 'CHECKOUT__CART_DELIVERY_POSITION_NOT_FOUND';
     public const CART_INVALID_CODE = 'CHECKOUT__CART_INVALID';
     public const CART_INVALID_LINE_ITEM_PAYLOAD_CODE = 'CHECKOUT__CART_INVALID_LINE_ITEM_PAYLOAD';
     public const CART_INVALID_LINE_ITEM_QUANTITY_CODE = 'CHECKOUT__CART_INVALID_LINE_ITEM_QUANTITY';
@@ -52,21 +49,18 @@ class CartException extends HttpException
     public const CART_SURCHARGE_TYPE_NOT_SUPPORTED_CODE = 'CHECKOUT__CART_SURCHARGE_TYPE_NOT_SUPPORTED';
     public const CART_INVALID_PERCENTAGE_SURCHARGE_CODE = 'CHECKOUT__CART_INVALID_PERCENTAGE_SURCHARGE';
     public const CART_MISSING_BEHAVIOR_CODE = 'CHECKOUT__CART_MISSING_BEHAVIOR';
-    public const TAX_ID_NOT_FOUND = 'CHECKOUT__TAX_ID_NOT_FOUND';
     public const PRICE_PARAMETER_IS_MISSING = 'CHECKOUT__PRICE_PARAMETER_IS_MISSING';
     public const PRICES_PARAMETER_IS_MISSING = 'CHECKOUT__PRICES_PARAMETER_IS_MISSING';
     public const CART_LINE_ITEM_INVALID = 'CHECKOUT__CART_LINE_ITEM_INVALID';
     public const VALUE_NOT_SUPPORTED = 'CONTENT__RULE_VALUE_NOT_SUPPORTED';
     public const CART_HASH_MISMATCH = 'CHECKOUT__CART_HASH_MISMATCH';
     public const CART_WRONG_DATA_TYPE = 'CHECKOUT__CART_WRONG_DATA_TYPE';
-    public const SHIPPING_METHOD_NOT_FOUND = 'CHECKOUT__SHIPPING_METHOD_NOT_FOUND';
     public const CHECKOUT_CURRENCY_NOT_FOUND = 'CHECKOUT__CURRENCY_NOT_FOUND';
     public const CART_PRODUCT_NOT_FOUND = 'CHECKOUT__CART_PRODUCT_NOT_FOUND';
     public const INVALID_COMPRESSION_METHOD = 'CHECKOUT__CART_INVALID_COMPRESSION_METHOD';
     public const CART_MIGRATION_INVALID_SOURCE = 'CHECKOUT_CART_MIGRATION_INVALID_SOURCE';
     public const CART_MIGRATION_MISSING_REDIS_CONNECTION = 'CHECKOUT__CART_MIGRATION_MISSING_REDIS_CONNECTION';
     public const CART_EMPTY = 'CHECKOUT__CART_EMPTY';
-    public const HOOK_INJECTION_EXCEPTION = 'CHECKOUT__HOOK_INJECTION_EXCEPTION';
     public const LINE_ITEM_GROUP_PACKAGER_NOT_FOUND = 'CHECKOUT__GROUP_PACKAGER_NOT_FOUND';
     public const LINE_ITEM_GROUP_SORTER_NOT_FOUND = 'CHECKOUT__GROUP_SORTER_NOT_FOUND';
     public const UNEXPECTED_VALUE_EXCEPTION = 'CHECKOUT__UNEXPECTED_VALUE_EXCEPTION';
@@ -75,27 +69,6 @@ class CartException extends HttpException
     public const RULE_OPERATOR_NOT_SUPPORTED = 'CHECKOUT__RULE_OPERATOR_NOT_SUPPORTED';
     public const CART_LOCKED = 'CHECKOUT__CART_LOCKED';
     public const CART_SERIALIZATION_TOO_LARGE = 'CHECKOUT__CART_SERIALIZATION_TOO_LARGE';
-
-    public static function shippingMethodNotFound(string $id, ?\Throwable $e = null): self
-    {
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::SHIPPING_METHOD_NOT_FOUND,
-            self::$couldNotFindMessage,
-            ['entity' => 'shipping method', 'field' => 'id', 'value' => $id],
-            $e
-        );
-    }
-
-    public static function deliveryDateNotSupportedUnit(string $unit): self
-    {
-        return new self(
-            Response::HTTP_INTERNAL_SERVER_ERROR,
-            self::CART_DELIVERY_DATE_NOT_SUPPORTED_UNIT,
-            'Not supported unit {{ unit }}',
-            ['unit' => $unit]
-        );
-    }
 
     public static function deserializeFailed(): self
     {
@@ -213,16 +186,6 @@ class CartException extends HttpException
             self::CART_INVALID_LINE_ITEM_QUANTITY_CODE,
             'The quantity must be a positive integer. Given: "{{ quantity }}"',
             ['quantity' => $quantity]
-        );
-    }
-
-    public static function deliveryNotFound(string $id): self
-    {
-        return new self(
-            Response::HTTP_NOT_FOUND,
-            self::CART_DELIVERY_NOT_FOUND_CODE,
-            'Delivery with identifier {{ id }} not found.',
-            ['id' => $id]
         );
     }
 
@@ -404,16 +367,6 @@ class CartException extends HttpException
         );
     }
 
-    public static function taxRuleNotFound(string $taxId): self
-    {
-        return new self(
-            Response::HTTP_NOT_FOUND,
-            self::TAX_ID_NOT_FOUND,
-            'Tax rule with id "{{ taxId }}" not found.',
-            ['taxId' => $taxId]
-        );
-    }
-
     public static function priceParameterIsMissing(): self
     {
         return new self(
@@ -540,16 +493,6 @@ class CartException extends HttpException
     public static function cartEmpty(): self|EmptyCartException
     {
         return new EmptyCartException();
-    }
-
-    public static function hookInjectionException(Hook $hook, string $class, string $required): self
-    {
-        return new self(
-            Response::HTTP_INTERNAL_SERVER_ERROR,
-            self::HOOK_INJECTION_EXCEPTION,
-            'Class {{ class }} is only executable in combination with hooks that implement the {{ required }} interface. Hook {{ hook }} does not implement this interface',
-            ['class' => $class, 'required' => $required, 'hook' => $hook->getName()]
-        );
     }
 
     public static function lineItemGroupPackagerNotFoundException(string $key): self

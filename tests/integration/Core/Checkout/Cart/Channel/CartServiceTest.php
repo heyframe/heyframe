@@ -14,7 +14,6 @@ use HeyFrame\Core\Checkout\Cart\Event\CartCreatedEvent;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Checkout\Cart\LineItemFactoryHandler\ProductLineItemFactory;
 use HeyFrame\Core\Checkout\Cart\PriceDefinitionFactory;
-use HeyFrame\Core\Checkout\Customer\Channel\AccountService;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Defaults;
@@ -47,8 +46,6 @@ class CartServiceTest extends TestCase
      */
     private EntityRepository $customerRepository;
 
-    private AccountService $accountService;
-
     private Connection $connection;
 
     private string $productId;
@@ -59,7 +56,6 @@ class CartServiceTest extends TestCase
 
         $this->connection = static::getContainer()->get(Connection::class);
         $this->customerRepository = static::getContainer()->get('customer.repository');
-        $this->accountService = static::getContainer()->get(AccountService::class);
 
         $context = Context::createDefaultContext();
         $this->productId = Uuid::randomHex();

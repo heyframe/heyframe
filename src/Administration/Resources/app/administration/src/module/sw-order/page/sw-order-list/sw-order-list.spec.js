@@ -19,7 +19,7 @@ const mockItem = {
         translated: { name: 'Open' },
         name: 'Open',
     },
-    salesChannel: {
+    channel: {
         name: 'Test',
     },
     primaryOrderTransaction: {
@@ -382,7 +382,7 @@ describe('src/module/sw-order/page/sw-order-list', () => {
         expect(criteria.getLimit()).toBe(25);
         [
             'billingAddress',
-            'salesChannel',
+            'channel',
             'orderCustomer',
             'currency',
             'documents',

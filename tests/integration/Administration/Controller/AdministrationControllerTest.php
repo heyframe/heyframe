@@ -206,37 +206,6 @@ class AdministrationControllerTest extends TestCase
         return $customerId;
     }
 
-    private function insertOtherLanguage(): string
-    {
-        $langId = $this->connection->executeQuery(
-            'SELECT id FROM `language` WHERE `name` = :langName',
-            [
-                'langName' => 'Vietnamese',
-            ]
-        )->fetchFirstColumn();
-
-        $localeId = $this->connection->executeQuery(
-            'SELECT id FROM `locale` WHERE `code` = :code',
-            [
-                'code' => 'vi-VN',
-            ]
-        )->fetchFirstColumn();
-
-        if ($langId) {
-            return $langId[0];
-        }
-
-        $newLanguageId = Uuid::randomBytes();
-        $this->connection->executeStatement(
-            '
-            INSERT INTO `language` (`id`, `name`, `locale_id`, `translation_code_id`, `created_at`)
-            VALUES (?, ?, ?, ?, ?)',
-            [$newLanguageId, 'Vietnamese', $localeId[0], $localeId[0], '2021-04-01 04:41:12.045']
-        );
-
-        return $newLanguageId;
-    }
-
     private function setCustomerBoundToChannels(bool $value): void
     {
         static::getContainer()

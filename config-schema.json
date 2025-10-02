@@ -75,8 +75,8 @@
                 "number_range": {
                     "$ref": "#/definitions/number_range"
                 },
-                "sales_channel_context": {
-                    "$ref": "#/definitions/sales_channel_context"
+                "channel_context": {
+                    "$ref": "#/definitions/channel_context"
                 },
                 "html_sanitizer": {
                     "$ref": "#/definitions/html_sanitizer"
@@ -211,7 +211,7 @@
                         }
                     }
                 },
-                "sales_channel": {
+                "channel": {
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
@@ -1322,7 +1322,7 @@
             },
             "title": "HeyFrame store"
         },
-        "sales_channel_context": {
+        "channel_context": {
             "type": "object",
             "additionalProperties": false,
             "properties": {

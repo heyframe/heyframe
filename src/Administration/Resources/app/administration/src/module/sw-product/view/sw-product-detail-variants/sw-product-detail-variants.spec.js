@@ -108,7 +108,7 @@ describe('src/module/sw-product/view/sw-product-detail-variants', () => {
                     entity: 'review',
                     customerId: 'd4c3b2a1',
                     productId: 'd4c3b2a1',
-                    salesChannelId: 'd4c3b2a1',
+                    channelId: 'd4c3b2a1',
                 },
             ],
         };
@@ -122,7 +122,7 @@ describe('src/module/sw-product/view/sw-product-detail-variants', () => {
                     entity: 'review',
                     customerId: 'd4c3b2a1',
                     productId: 'd4c3b2a1',
-                    salesChannelId: 'd4c3b2a1',
+                    channelId: 'd4c3b2a1',
                 },
             ],
             purchasePrices: [

@@ -58,8 +58,6 @@ class CartOrderRouteTest extends TestCase
      */
     private EntityRepository $customerRepository;
 
-    private string $validSalutationId;
-
     private string $validCountryId;
 
     protected function setUp(): void

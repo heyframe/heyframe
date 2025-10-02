@@ -23,14 +23,14 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(LineItemQuantitySplitter::class)]
 class LineItemQuantitySplitterTest extends TestCase
 {
-    private ChannelContext $salesChannelContext;
+    private ChannelContext $channelContext;
 
     protected function setUp(): void
     {
         $context = $this->createMock(ChannelContext::class);
         $context->method('getItemRounding')->willReturn(new CashRoundingConfig(2, 0.01, true));
 
-        $this->salesChannelContext = $context;
+        $this->channelContext = $context;
     }
 
     public function testSplitTaxesUnrounded(): void
@@ -41,7 +41,7 @@ class LineItemQuantitySplitterTest extends TestCase
         $lineItem->setPrice(new CalculatedPrice(39.95, 399.50));
         $lineItem->setStackable(true);
 
-        $newLineItem = $splitter->split($lineItem, 1, $this->salesChannelContext);
+        $newLineItem = $splitter->split($lineItem, 1, $this->channelContext);
 
         static::assertNotSame($lineItem, $newLineItem);
         static::assertSame(1, $newLineItem->getQuantity());
@@ -57,7 +57,7 @@ class LineItemQuantitySplitterTest extends TestCase
         $lineItem->setPrice(new CalculatedPrice(10, 10 * $itemQty, $itemQty));
         $lineItem->setStackable(true);
 
-        $newLineItem = $splitter->split($lineItem, $splitterQty, $this->salesChannelContext);
+        $newLineItem = $splitter->split($lineItem, $splitterQty, $this->channelContext);
 
         if (!$calcExpects) {
             static::assertEquals($lineItem, $newLineItem);

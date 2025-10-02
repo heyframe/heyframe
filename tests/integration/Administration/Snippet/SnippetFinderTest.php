@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Tests\Integration\Administration\Snippet;
 
-use Doctrine\DBAL\Connection;
 use HeyFrame\Administration\Snippet\SnippetFinder;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
@@ -38,7 +37,6 @@ class SnippetFinderTest extends TestCase
 
         $this->snippetFinder = new SnippetFinder(
             self::getKernel(),
-            static::getContainer()->get(Connection::class),
             $flySystem,
             $configLoader->load(),
             $this->createMock(TranslationLoader::class),

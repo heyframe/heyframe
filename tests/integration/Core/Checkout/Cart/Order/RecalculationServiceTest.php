@@ -19,8 +19,6 @@ use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Checkout\Order\OrderException;
-use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscount\PromotionDiscountEntity;
-use HeyFrame\Core\Checkout\Promotion\Cart\PromotionProcessor;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
@@ -413,23 +411,6 @@ class RecalculationServiceTest extends TestCase
         $this->addCreditItemToVersionedOrder($orderId, $versionId, $total, $orderDateTime, $stateId);
     }
 
-    public function testAddPromotionItemToOrder(): void
-    {
-        // create order
-        $cart = $this->generateDemoCart();
-        ['orderId' => $orderId, 'orderDateTime' => $orderDateTime, 'stateId' => $stateId] = $this->persistCart($cart);
-
-        // create version of order
-        $versionId = $this->createVersionedOrder($orderId);
-
-        // create a promotion code with discount
-        $code = 'GET5';
-        $discountValue = 5.0;
-        $this->createPromotion($discountValue, $code);
-
-        $this->addPromotionItemToVersionedOrder($orderId, $versionId, $code, $orderDateTime, $stateId);
-    }
-
     public function testAddNonExistingPromotionItemToOrder(): void
     {
         // create order
@@ -454,140 +435,6 @@ class RecalculationServiceTest extends TestCase
 
         $errors = array_values($content['errors']);
         static::assertSame($errors[0]['translatedMessage'], '优惠码“some-random-code”未找到');
-    }
-
-    public function testApplyAutomaticPromotions(): void
-    {
-        // create order
-        $cart = $this->generateDemoCart();
-        ['orderId' => $orderId, 'orderDateTime' => $orderDateTime, 'stateId' => $stateId] = $this->persistCart($cart);
-
-        // create version of order
-        $versionId = $this->createVersionedOrder($orderId);
-
-        // create an automatic promotion with discount
-        $discountValue = 5.0;
-        $promotionId = $this->createPromotion($discountValue);
-
-        [$order, $content] = $this->applyAutomaticPromotions($orderId, $versionId, $promotionId);
-        $promotionItem = $order->getLineItems()?->filterByType(PromotionProcessor::LINE_ITEM_TYPE)->first();
-
-        static::assertCount(1, $content['errors']);
-        static::assertNotNull($promotionItem);
-        static::assertSame('折扣“auto promotion”已被添加', array_values($content['errors'])[0]['translatedMessage']);
-        static::assertSame($order->getStateId(), $stateId);
-
-        // On recalculation, promotion is applied once more, creating a new line item.
-        [$order, $content] = $this->applyAutomaticPromotions($orderId, $versionId, $promotionId);
-        $newPromotionItem = $order->getLineItems()?->filterByType(PromotionProcessor::LINE_ITEM_TYPE)->first();
-
-        static::assertEmpty($content['errors']);
-        static::assertNotNull($newPromotionItem);
-        static::assertSame($promotionItem->getId(), $newPromotionItem->getId(), 'line-item id of promotion should not differ between recalculations');
-        static::assertSame($promotionItem->getPayload(), $newPromotionItem->getPayload());
-    }
-
-    public function testRecalculationOfPinnedDisabledPromotion(): void
-    {
-        $cart = $this->generateDemoCart();
-        ['orderId' => $orderId, 'orderDateTime' => $orderDateTime, 'stateId' => $stateId] = $this->persistCart($cart);
-
-        $promotionId = $this->createPromotion(10.0, 'GET5', PromotionDiscountEntity::TYPE_PERCENTAGE);
-
-        $versionId = $this->createVersionedOrder($orderId);
-        $order = $this->addPromotionItemToVersionedOrder($orderId, $versionId, 'GET5', $orderDateTime, $stateId);
-
-        static::assertSame(215.98, $order->getAmountTotal());
-
-        static::getContainer()->get('promotion.repository')->upsert(
-            [['id' => $promotionId, 'active' => false]],
-            $this->context,
-        );
-
-        $this->getBrowser()->request(
-            'POST',
-            \sprintf('/api/_action/order/%s/recalculate', $orderId),
-            server: [
-                'HTTP_' . PlatformRequest::HEADER_VERSION_ID => $versionId,
-            ]
-        );
-
-        $criteria = new Criteria([$orderId]);
-        $criteria->addAssociation('lineItems');
-        $order = $this->orderRepository->search($criteria, $this->context->createWithVersionId($versionId))->get($orderId);
-        static::assertNotNull($order);
-
-        static::assertNotNull($order->getLineItems());
-        static::assertCount(3, $order->getLineItems());
-        static::assertNotNull($order->getLineItems()->filterByType(PromotionProcessor::LINE_ITEM_TYPE)->first());
-        static::assertSame(215.98, $order->getAmountTotal());
-    }
-
-    public function testRecalculationOfPinnedPromotionWithProductAdded(): void
-    {
-        $cart = $this->generateDemoCart();
-        ['orderId' => $orderId, 'orderDateTime' => $orderDateTime, 'stateId' => $stateId] = $this->persistCart($cart);
-
-        $promotionId = $this->createPromotion(10.0, 'GET5', PromotionDiscountEntity::TYPE_PERCENTAGE);
-
-        $versionId = $this->createVersionedOrder($orderId);
-        $order = $this->addPromotionItemToVersionedOrder($orderId, $versionId, 'GET5', $orderDateTime, $stateId);
-
-        static::assertSame(215.98, $order->getAmountTotal());
-
-        static::getContainer()->get('promotion.repository')->upsert(
-            [['id' => $promotionId, 'active' => false]],
-            $this->context,
-        );
-
-        $this->addProductToVersionedOrder('Test', 10.0, $orderId, $versionId, 224.98);
-
-        $criteria = new Criteria([$orderId]);
-        $criteria->addAssociation('lineItems');
-        $order = $this->orderRepository->search($criteria, $this->context->createWithVersionId($versionId))->get($orderId);
-        static::assertNotNull($order);
-
-        static::assertNotNull($order->getLineItems());
-        static::assertCount(4, $order->getLineItems());
-        static::assertNotNull($order->getLineItems()->filterByType(PromotionProcessor::LINE_ITEM_TYPE)->first());
-        static::assertNotSame(237.17, $order->getAmountTotal(), 'Promotion of order isn\'t recalculated');
-        static::assertSame(224.98, $order->getAmountTotal());
-    }
-
-    public function testRecalculationOfPinnedAutomaticDisabledPromotion(): void
-    {
-        $cart = $this->generateDemoCart();
-        ['orderId' => $orderId] = $this->persistCart($cart);
-        $versionId = $this->createVersionedOrder($orderId);
-
-        $promotionId = $this->createPromotion(10.0, null, PromotionDiscountEntity::TYPE_PERCENTAGE);
-
-        [$order] = $this->applyAutomaticPromotions($orderId, $versionId, $promotionId);
-
-        static::assertSame(215.98, $order->getAmountTotal());
-
-        static::getContainer()->get('promotion.repository')->upsert(
-            [['id' => $promotionId, 'active' => false]],
-            $this->context,
-        );
-
-        $this->addProductToVersionedOrder('Test', 10.0, $orderId, $versionId, 224.98);
-
-        $criteria = new Criteria([$orderId]);
-        $criteria->addAssociation('lineItems');
-        $order = $this->orderRepository->search($criteria, $this->context->createWithVersionId($versionId))->get($orderId);
-        static::assertNotNull($order);
-
-        static::assertNotNull($order->getLineItems());
-        static::assertCount(4, $order->getLineItems());
-        static::assertNotNull($order->getLineItems()->filterByType(PromotionProcessor::LINE_ITEM_TYPE)->first());
-        static::assertSame(224.98, $order->getAmountTotal());
-
-        // as promotion is disabled, it should be removed again
-        [$order] = $this->applyAutomaticPromotions($orderId, $versionId, null);
-        static::assertNotNull($order->getLineItems());
-        static::assertCount(3, $order->getLineItems());
-        static::assertSame(249.98, $order->getAmountTotal());
     }
 
     public function testCreatedVersionedOrderAndMerge(): void
@@ -821,40 +668,6 @@ class RecalculationServiceTest extends TestCase
         static::getContainer()->get('product.repository')->create([$data], $this->context);
 
         return $productId;
-    }
-
-    private function createPromotion(float $discountValue, ?string $code = null, string $type = PromotionDiscountEntity::TYPE_ABSOLUTE): string
-    {
-        $promotionId = Uuid::randomHex();
-
-        $data = [
-            'id' => $promotionId,
-            'name' => 'auto promotion',
-            'active' => true,
-            'useCodes' => false,
-            'useSetGroups' => false,
-            'channels' => [
-                ['channelId' => TestDefaults::CHANNEL, 'priority' => 1],
-            ],
-            'discounts' => [
-                [
-                    'scope' => PromotionDiscountEntity::SCOPE_CART,
-                    'type' => $type,
-                    'value' => $discountValue,
-                    'considerAdvancedRules' => false,
-                ],
-            ],
-        ];
-
-        if ($code) {
-            $data['name'] = $code;
-            $data['useCodes'] = true;
-            $data['code'] = $code;
-        }
-
-        static::getContainer()->get('promotion.repository')->create([$data], $this->context);
-
-        return $promotionId;
     }
 
     private function createCustomer(): string

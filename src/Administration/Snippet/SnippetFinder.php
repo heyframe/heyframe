@@ -4,7 +4,6 @@ namespace HeyFrame\Administration\Snippet;
 
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin;
-use HeyFrame\Core\Framework\Util\HtmlSanitizer;
 use HeyFrame\Core\Kernel;
 use HeyFrame\Core\System\Snippet\DataTransfer\SnippetPath\SnippetPath;
 use HeyFrame\Core\System\Snippet\DataTransfer\SnippetPath\SnippetPathCollection;
@@ -240,31 +239,6 @@ class SnippetFinder implements SnippetFinderInterface
         \ksort($snippets);
 
         return $snippets;
-    }
-
-    /**
-     * @param array<string, mixed> $snippets
-     *
-     * @return array<string, mixed>
-     */
-    private function sanitizeAppSnippets(array $snippets): array
-    {
-        $sanitizer = new HtmlSanitizer();
-
-        $sanitizedSnippets = [];
-        foreach ($snippets as $key => $value) {
-            if (\is_string($value)) {
-                $sanitizedSnippets[$key] = $sanitizer->sanitize($value);
-
-                continue;
-            }
-
-            if (\is_array($value)) {
-                $sanitizedSnippets[$key] = $this->sanitizeAppSnippets($value);
-            }
-        }
-
-        return $sanitizedSnippets;
     }
 
     /**
