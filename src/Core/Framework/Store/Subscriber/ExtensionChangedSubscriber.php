@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Store\Subscriber;
 
-use HeyFrame\Core\Framework\App\AppEvents;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginEvents;
 use HeyFrame\Core\Framework\Store\Services\StoreClient;
@@ -24,7 +23,6 @@ readonly class ExtensionChangedSubscriber implements EventSubscriberInterface
     {
         return [
             PluginEvents::PLUGIN_WRITTEN_EVENT => 'onExtensionChanged',
-            AppEvents::APP_WRITTEN_EVENT => 'onExtensionChanged',
         ];
     }
 

@@ -29,10 +29,6 @@
             <tag name="heyframe.rule.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Framework\Rule\ScriptRule">
-            <tag name="heyframe.rule.definition"/>
-        </service>
-
         <service id="HeyFrame\Core\Framework\Rule\DateRangeRule">
             <tag name="heyframe.rule.definition"/>
         </service>

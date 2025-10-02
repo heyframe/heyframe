@@ -76,7 +76,7 @@ class ChannelListCommand extends Command
                 $channel->getId(),
                 $channel->getName() ?? 'n/a',
                 $channel->getAccessKey() ?? 'n/a',
-                $channel->getType()->getName() ?? 'n/a',
+                $channel->getType()?->getName() ?? 'n/a',
                 $channel->getActive() ? 'active' : 'inactive',
                 $channel->isMaintenance() ? 'on' : 'off',
                 $language?->getName() ?? 'n/a',

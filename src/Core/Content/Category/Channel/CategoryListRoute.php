@@ -5,9 +5,6 @@ namespace HeyFrame\Core\Content\Category\Channel;
 use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
@@ -36,23 +33,6 @@ class CategoryListRoute extends AbstractCategoryListRoute
     #[Route(path: '/front-api/category', name: 'store-api.category.search', defaults: ['_entity' => 'category'], methods: ['GET', 'POST'])]
     public function load(Criteria $criteria, ChannelContext $context): CategoryListRouteResponse
     {
-        $rootIds = array_filter([
-            $context->getChannel()->getNavigationId(),
-            $context->getChannel()->getFooterCategoryId(),
-            $context->getChannel()->getServiceCategoryId(),
-        ]);
-
-        if (!empty($rootIds)) {
-            $filter = new OrFilter();
-
-            foreach ($rootIds as $rootId) {
-                $filter->addQuery(new EqualsFilter('id', $rootId));
-                $filter->addQuery(new ContainsFilter('path', '|' . $rootId . '|'));
-            }
-
-            $criteria->addFilter($filter);
-        }
-
         return new CategoryListRouteResponse($this->categoryRepository->search($criteria, $context->getContext()));
     }
 }

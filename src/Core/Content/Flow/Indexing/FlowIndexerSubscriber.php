@@ -2,11 +2,6 @@
 
 namespace HeyFrame\Core\Content\Flow\Indexing;
 
-use HeyFrame\Core\Framework\App\Event\AppActivatedEvent;
-use HeyFrame\Core\Framework\App\Event\AppDeactivatedEvent;
-use HeyFrame\Core\Framework\App\Event\AppDeletedEvent;
-use HeyFrame\Core\Framework\App\Event\AppInstalledEvent;
-use HeyFrame\Core\Framework\App\Event\AppUpdatedEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\MessageQueue\IterateEntityIndexerMessage;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostActivateEvent;
@@ -35,11 +30,6 @@ class FlowIndexerSubscriber implements EventSubscriberInterface
             PluginPostUpdateEvent::class => 'refreshPlugin',
             PluginPostDeactivateEvent::class => 'refreshPlugin',
             PluginPostUninstallEvent::class => 'refreshPlugin',
-            AppInstalledEvent::class => 'refreshPlugin',
-            AppUpdatedEvent::class => 'refreshPlugin',
-            AppActivatedEvent::class => 'refreshPlugin',
-            AppDeletedEvent::class => 'refreshPlugin',
-            AppDeactivatedEvent::class => 'refreshPlugin',
         ];
     }
 

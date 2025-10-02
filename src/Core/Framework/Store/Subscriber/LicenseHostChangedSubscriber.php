@@ -5,7 +5,6 @@ namespace HeyFrame\Core\Framework\Store\Subscriber;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Authentication\StoreRequestOptionsProvider;
-use HeyFrame\Core\Framework\Store\InAppPurchase\Services\InAppPurchaseProvider;
 use HeyFrame\Core\System\SystemConfig\Event\BeforeSystemConfigChangedEvent;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -43,7 +42,6 @@ class LicenseHostChangedSubscriber implements EventSubscriberInterface
 
         // The shop secret & IAP key is unique for each license host and thus cannot remain the same
         $this->systemConfigService->delete(StoreRequestOptionsProvider::CONFIG_KEY_STORE_SHOP_SECRET);
-        $this->systemConfigService->delete(InAppPurchaseProvider::CONFIG_STORE_IAP_KEY);
 
         // Log out all users to enforce re-authentication
         $this->connection->executeStatement('UPDATE user SET store_token = NULL');

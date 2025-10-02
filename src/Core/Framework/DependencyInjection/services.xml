@@ -635,11 +635,6 @@ frame-ancestors 'none';
             <argument />  <!-- $serviceLocator will be set in the compiler pass -->
         </service>
 
-
-        <service id="HeyFrame\Core\Framework\Routing\Facade\RequestFacadeFactory" public="true">
-            <argument type="service" id="request_stack"/>
-        </service>
-
         <service id="HeyFrame\Core\Framework\Adapter\Storage\AbstractKeyValueStorage" class="HeyFrame\Core\Framework\Adapter\Storage\MySQLKeyValueStorage" public="true">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>

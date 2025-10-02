@@ -79,10 +79,10 @@ class PriceSerializer extends FieldSerializer
 
             $listPrice = null;
             if (isset($price['listPrice']) && $this->isValidPrice($price['listPrice'])) {
-                $listPrice = new Price($currency, (float) $price['listPrice']['net'], (float) $price['listPrice']['gross'], (bool) ($price['listPrice']['linked'] ?? false));
+                $listPrice = new Price($currency, (float) $price['listPrice']['gross']);
             }
 
-            $priceStruct = new Price($currency, (float) $price['net'], (float) $price['gross'], (bool) ($price['linked'] ?? false), $listPrice);
+            $priceStruct = new Price($currency, (float) $price['gross'], $listPrice);
             $prices[$currency] = $priceStruct->jsonSerialize();
 
             if (isset($prices[$currency]['listPrice']) && $prices[$currency]['listPrice'] instanceof Price) {

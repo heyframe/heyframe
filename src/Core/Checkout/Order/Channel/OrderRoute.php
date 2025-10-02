@@ -7,7 +7,6 @@ use HeyFrame\Core\Checkout\Order\Event\OrderCriteriaEvent;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Checkout\Order\OrderException;
-use HeyFrame\Core\Content\Rule\RuleEntity;
 use HeyFrame\Core\Framework\Adapter\Database\ReplicaConnection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -103,22 +102,6 @@ class OrderRoute extends AbstractOrderRoute
                 return false;
             }
             if ($nestedRule instanceof PaymentMethodRule) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function checkCartRule(RuleEntity $cartRule): bool
-    {
-        $payload = $cartRule->getPayload();
-        if (!$payload instanceof Container) {
-            return true;
-        }
-
-        foreach ($payload->getRules() as $rule) {
-            if ($rule instanceof Container && $this->checkRuleType($rule) === false) {
                 return false;
             }
         }

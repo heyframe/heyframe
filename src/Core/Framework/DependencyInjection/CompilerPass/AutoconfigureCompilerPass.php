@@ -10,13 +10,10 @@ use HeyFrame\Core\Checkout\Cart\LineItem\Group\LineItemGroupSorterInterface;
 use HeyFrame\Core\Checkout\Cart\LineItemFactoryHandler\LineItemFactoryInterface;
 use HeyFrame\Core\Checkout\Customer\Password\LegacyEncoder\LegacyEncoderInterface;
 use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\AbstractPaymentHandler;
-use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\FilterPickerInterface;
-use HeyFrame\Core\Checkout\Promotion\Cart\Discount\Filter\FilterSorterInterface;
 use HeyFrame\Core\Content\Flow\Dispatching\Storer\FlowStorer;
 use HeyFrame\Core\Content\Product\Channel\Listing\Filter\AbstractListingFilterHandler;
 use HeyFrame\Core\Content\Product\Channel\Listing\Processor\AbstractListingProcessor;
 use HeyFrame\Core\Content\Seo\SeoUrlRoute\SeoUrlRouteInterface;
-use HeyFrame\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\AdapterFactoryInterface;
 use HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\TemplateNamespaceHierarchyBuilderInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\BulkEntityExtension;
@@ -105,14 +102,6 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
             ->addTag('heyframe.payment.method');
 
         $container
-            ->registerForAutoconfiguration(FilterSorterInterface::class)
-            ->addTag('promotion.filter.sorter');
-
-        $container
-            ->registerForAutoconfiguration(FilterPickerInterface::class)
-            ->addTag('promotion.filter.picker');
-
-        $container
             ->registerForAutoconfiguration(Rule::class)
             ->addTag('heyframe.rule.definition');
 
@@ -123,10 +112,6 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
         $container
             ->registerForAutoconfiguration(FlowStorer::class)
             ->addTag('flow.storer');
-
-        $container
-            ->registerForAutoconfiguration(AbstractUrlProvider::class)
-            ->addTag('heyframe.sitemap_url_provider');
 
         $container
             ->registerForAutoconfiguration(AdapterFactoryInterface::class)

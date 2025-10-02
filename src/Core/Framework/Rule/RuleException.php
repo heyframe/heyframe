@@ -2,13 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
-use HeyFrame\Core\Framework\Rule\Exception\UnsupportedValueException;
-use HeyFrame\Core\Framework\Script\Exception\ScriptExecutionFailedException;
-use HeyFrame\Core\Framework\Script\ScriptException;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('fundamentals@after-sales')]
@@ -19,21 +14,8 @@ class RuleException extends HttpException
     public const MULTIPLE_NOT_RULES = 'CONTENT__TOO_MANY_NOT_RULES';
     public const INVALID_DATE_RANGE_USAGE = 'FRAMEWORK__INVALID_DATE_RANGE_USAGE';
 
-    public static function scriptExecutionFailed(string $hook, string $scriptName, \Throwable $previous): ScriptException
+    public static function unsupportedOperator(string $operator, string $class): self
     {
-        // use own exception class so it can be caught properly
-        return new ScriptExecutionFailedException($hook, $scriptName, $previous);
-    }
-
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function unsupportedOperator(string $operator, string $class): self|UnsupportedOperatorException
-    {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new UnsupportedOperatorException($operator, $class);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::RULE_OPERATOR_NOT_SUPPORTED,
@@ -42,15 +24,8 @@ class RuleException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function unsupportedValue(string $type, string $class): self|UnsupportedValueException
+    public static function unsupportedValue(string $type, string $class): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new UnsupportedValueException($type, $class);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::VALUE_NOT_SUPPORTED,

@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Rule;
 
-use HeyFrame\Core\Framework\App\Manifest\Xml\CustomField\CustomFieldTypes\MultiEntitySelectField;
-use HeyFrame\Core\Framework\App\Manifest\Xml\CustomField\CustomFieldTypes\MultiSelectField;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\ArrayComparator;
 use HeyFrame\Core\Framework\Util\FloatComparator;
@@ -149,14 +147,6 @@ class CustomFieldRule
 
         if (!\array_key_exists('componentName', $renderedField['config'])) {
             return false;
-        }
-
-        if ($renderedField['config']['componentName'] === MultiSelectField::COMPONENT_NAME) {
-            return true;
-        }
-
-        if ($renderedField['config']['componentName'] === MultiEntitySelectField::COMPONENT_NAME) {
-            return true;
         }
 
         return false;

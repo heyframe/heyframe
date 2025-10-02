@@ -6,9 +6,7 @@ use Doctrine\DBAL\Schema\PrimaryKeyConstraint;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Types;
-use HeyFrame\Core\Content\Cms\DataAbstractionLayer\Field\SlotConfigField;
 use HeyFrame\Core\Content\Flow\DataAbstractionLayer\Field\FlowTemplateConfigField;
-use HeyFrame\Core\Content\MeasurementSystem\Field\MeasurementUnitsField;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPriceField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -32,6 +30,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateIntervalField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateTimeField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\EmailField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\EnumField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ExtraFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
@@ -108,6 +107,7 @@ class SchemaBuilder
         ListField::class => Types::JSON,
         ConfigJsonField::class => Types::JSON,
         CustomFields::class => Types::JSON,
+        ExtraFields::class => Types::JSON,
         BreadcrumbField::class => Types::JSON,
         CashRoundingConfigField::class => Types::JSON,
         ObjectField::class => Types::JSON,
@@ -116,10 +116,8 @@ class SchemaBuilder
         VariantListingConfigField::class => Types::JSON,
         VersionDataPayloadField::class => Types::JSON,
         ManyToManyIdField::class => Types::JSON,
-        SlotConfigField::class => Types::JSON,
         FlowTemplateConfigField::class => Types::JSON,
         CheapestPriceField::class => Types::JSON,
-        MeasurementUnitsField::class => Types::JSON,
 
         ChildCountField::class => Types::INTEGER,
         IntField::class => Types::INTEGER,

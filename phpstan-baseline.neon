@@ -49,12 +49,6 @@ parameters:
 			path: src/Core/Content/Flow/Dispatching/FlowBuilder.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Content/Flow/Dispatching/Storer/ScalarValuesStorer.php
-
-		-
 			message: '#^Property HeyFrame\\Core\\Content\\Flow\\Dispatching\\Struct\\ActionSequence\:\:\$config type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -125,18 +119,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Content/ImportExport/Aggregate/ImportExportLog/ImportExportLogEntity.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Entity/AbstractEntitySerializer.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/ToOneSerializer.php
 
 		-
 			message: '#^Method HeyFrame\\Core\\Content\\ImportExport\\DataAbstractionLayer\\Serializer\\PrimaryKeyResolver\:\:getValueFromPath\(\) has parameter \$data with no value type specified in iterable type array\.$#'
@@ -329,12 +311,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Content/ImportExport/Message/DeleteFileMessage.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Content/ImportExport/Processing/Mapping/Mapping.php
 
 		-
 			message: '#^Method HeyFrame\\Core\\Content\\ImportExport\\Processing\\Mapping\\UpdateBy\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
@@ -835,34 +811,10 @@ parameters:
 			path: src/Core/Framework/DataAbstractionLayer/Dbal/FieldResolver/TranslationFieldResolver.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 3
-			path: src/Core/Framework/DataAbstractionLayer/EntityDefinition.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 4
-			path: src/Core/Framework/DataAbstractionLayer/EntityProtection/EntityProtectionValidator.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Framework\\DataAbstractionLayer\\EntityProtection\\WriteProtection\:\:getAllowedScopes\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Framework/DataAbstractionLayer/EntityProtection/WriteProtection.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Framework/DataAbstractionLayer/EntityTranslationDefinition.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/DataAbstractionLayer/EntityWriteResult.php
 
 		-
 			message: '#^Method HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Event\\EntityDeletedEvent\:\:__construct\(\) has parameter \$errors with no value type specified in iterable type array\.$#'
@@ -1108,18 +1060,6 @@ parameters:
 			message: '#^Throwing new exceptions within classes are not allowed\.$#'
 			identifier: heyframe.domainException
 			count: 1
-			path: src/Core/Framework/DataAbstractionLayer/FieldSerializer/AbstractFieldSerializer.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/DataAbstractionLayer/FieldSerializer/PHPUnserializeFieldSerializer.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
 			path: src/Core/Framework/DataAbstractionLayer/FieldSerializer/StateMachineStateFieldSerializer.php
 
 		-
@@ -1249,22 +1189,28 @@ parameters:
 			path: src/Core/Framework/DataAbstractionLayer/Write/CloneBehavior.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 3
-			path: src/Core/Framework/DataAbstractionLayer/Write/Command/WriteCommandQueue.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Framework/DataAbstractionLayer/Write/EntityWriter.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Write\\PrimaryKeyBag\:\:add\(\) has parameter \$primaryKey with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Framework/DataAbstractionLayer/Write/PrimaryKeyBag.php
+
+		-
+			message: '#^Method Shopware\\Core\\Framework\\DataAbstractionLayer\\FieldSerializer\\PriceDefinitionFieldSerializer\:\:buildViolation\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Core/Framework/DataAbstractionLayer/FieldSerializer/PriceDefinitionFieldSerializer.php
+
+		-
+			message: '#^Method Shopware\\Core\\Framework\\DataAbstractionLayer\\FieldSerializer\\PriceDefinitionFieldSerializer\:\:decodeRule\(\) has parameter \$rule with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Core/Framework/DataAbstractionLayer/FieldSerializer/PriceDefinitionFieldSerializer.php
+
+		-
+			message: '#^Method Shopware\\Core\\Framework\\DataAbstractionLayer\\FieldSerializer\\PriceDefinitionFieldSerializer\:\:validateConsistence\(\) has parameter \$fieldValidations with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Core/Framework/DataAbstractionLayer/FieldSerializer/PriceDefinitionFieldSerializer.php
 
 		-
 			message: '#^Method HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Write\\PrimaryKeyBag\:\:addExistenceState\(\) has parameter \$primaryKey with no value type specified in iterable type array\.$#'
@@ -1339,46 +1285,16 @@ parameters:
 			path: src/Core/Framework/DataAbstractionLayer/Write/Validation/WriteCommandExceptionEvent.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Framework/DataAbstractionLayer/Write/WriteContext.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Framework\\DataAbstractionLayer\\Write\\WriteException\:\:getExceptions\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Framework/DataAbstractionLayer/Write/WriteException.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Framework/DependencyInjection/CompilerPass/FeatureFlagCompilerPass.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Framework\\DependencyInjection\\FrameworkExtension\:\:addHeyFrameConfig\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Framework/DependencyInjection/FrameworkExtension.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/Event/BusinessEventCollector.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/Event/EventData/ScalarValueType.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/MessageQueue/ScheduledTask/Scheduler/TaskScheduler.php
 
 		-
 			message: '#^Expected domain exception class HeyFrame\\Core\\Framework\\Notification\\NotificationException, got HeyFrame\\Core\\Framework\\Api\\ApiException$#'
@@ -1423,28 +1339,10 @@ parameters:
 			path: src/Core/Framework/Plugin/Command/Lifecycle/AbstractPluginLifecycleCommand.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Framework/Plugin/Composer/PackageProvider.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Framework\\Plugin\\KernelPluginLoader\\StaticKernelPluginLoader\:\:__construct\(\) has parameter \$plugins with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Framework/Plugin/KernelPluginLoader/StaticKernelPluginLoader.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 3
-			path: src/Core/Framework/Plugin/PluginExtractor.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/Plugin/Requirement/RequirementExceptionStack.php
 
 		-
 			message: '#^Method HeyFrame\\Core\\Framework\\Plugin\\Util\\VersionSanitizer\:\:sanitizePluginVersion\(\) should return string but returns string\|null\.$#'
@@ -1463,66 +1361,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/Core/Framework/RateLimiter/Policy/TimeBackoff.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/RateLimiter/Policy/TimeBackoff.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Framework/RateLimiter/Policy/TimeBackoffLimiter.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Framework/RateLimiter/RateLimiter.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 2
-			path: src/Core/Framework/Routing/Annotation/CriteriaValueResolver.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 3
-			path: src/Core/Framework/Routing/RouteScopeListener.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/Routing/RouteScopeRegistry.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/Rule/Collector/RuleConditionRegistry.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/Rule/Rule.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 9
-			path: src/Core/Framework/Store/Api/FirstRunWizardController.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 8
-			path: src/Core/Framework/Store/Api/StoreController.php
 
 		-
 			message: '#^Throwing new exceptions within classes are not allowed\.$#'
@@ -1547,12 +1385,6 @@ parameters:
 			identifier: heyframe.domainException
 			count: 2
 			path: src/Core/Framework/Store/Command/StoreDownloadCommand.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 4
-			path: src/Core/Framework/Store/Command/StoreLoginCommand.php
 
 		-
 			message: '#^Method HeyFrame\\Core\\Framework\\Store\\Search\\EqualsFilterStruct\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
@@ -1699,22 +1531,10 @@ parameters:
 			path: src/Core/Framework/Store/Struct/ReviewStruct.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 1
-			path: src/Core/Framework/Store/Struct/ReviewStruct.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Framework\\Store\\Struct\\StoreLicenseViolationStruct\:\:getActions\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/Framework/Store/Struct/StoreLicenseViolationStruct.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 4
-			path: src/Core/Framework/Struct/Serializer/StructNormalizer.php
 
 		-
 			message: '#^Throwing new exceptions within classes are not allowed\.$#'

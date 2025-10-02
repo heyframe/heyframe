@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Plugin;
 
-use HeyFrame\Core\Framework\App\Manifest\Manifest;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginExtractionException;
 use HeyFrame\Core\Framework\Plugin\Util\ZipUtils;
@@ -37,7 +36,6 @@ class PluginExtractor
         }
 
         $pluginName = $this->getPluginName($archive);
-        $this->validatePluginZip($pluginName, $archive);
 
         $oldFile = $this->findOldFile($destination, $pluginName);
         $backupFile = $this->createBackupFile($oldFile);
@@ -61,28 +59,6 @@ class PluginExtractor
         $this->clearOpcodeCache();
 
         $archive->close();
-    }
-
-    /**
-     * Iterates all files of the provided zip archive
-     * path and validates the plugin namespace, directory traversal
-     * and multiple plugin directories.
-     */
-    private function validatePluginZip(string $prefix, \ZipArchive $archive): void
-    {
-        $file = $prefix . '/manifest.xml';
-        $manifestAsString = $archive->getFromName($file);
-        if (\is_string($manifestAsString)) {
-            Manifest::validate($manifestAsString, $file);
-        }
-
-        for ($i = 2; $i < $archive->numFiles; ++$i) {
-            $stat = $archive->statIndex($i);
-            \assert($stat !== false);
-
-            $this->assertNoDirectoryTraversal($stat['name']);
-            $this->assertPrefix($stat['name'], $prefix);
-        }
     }
 
     private function getPluginName(\ZipArchive $archive): string

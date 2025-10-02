@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\Store;
 
 use GuzzleHttp\Exception\ClientException;
-use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Exception\ExtensionNotFoundException;
@@ -25,7 +24,6 @@ class StoreException extends HttpException
     public const MISSING_INTEGRATION_IN_CONTEXT_SOURCE = 'FRAMEWORK__STORE_MISSING_INTEGRATION_IN_CONTEXT_SOURCE';
     public const MISSING_REQUEST_PARAMETER_CODE = 'FRAMEWORK__STORE_MISSING_REQUEST_PARAMETER';
     public const INVALID_TYPE = 'FRAMEWORK__STORE_INVALID_TYPE';
-    public const JWKS_KEY_NOT_FOUND = 'FRAMEWORK__STORE_JWKS_NOT_FOUND';
     public const PLUGIN_NOT_A_ZIP_FILE = 'FRAMEWORK__PLUGIN_NOT_A_ZIP_FILE';
     public const INVALID_CONTEXT_SOURCE_USER = 'FRAMEWORK__INVALID_CONTEXT_SOURCE_USER';
 
@@ -119,16 +117,6 @@ class StoreException extends HttpException
                 'expectedContextSource' => $expectedContextSource,
                 'actualContextSource' => $actualContextSource,
             ],
-        );
-    }
-
-    public static function jwksNotFound(?\Throwable $e = null): self|AppException
-    {
-        return new self(
-            statusCode: Response::HTTP_INTERNAL_SERVER_ERROR,
-            errorCode: self::JWKS_KEY_NOT_FOUND,
-            message: 'Unable to retrieve JWKS key',
-            previous: $e
         );
     }
 

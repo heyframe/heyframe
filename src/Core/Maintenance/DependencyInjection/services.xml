@@ -65,7 +65,6 @@
 
         <service id="HeyFrame\Core\Maintenance\System\Service\AppUrlVerifier">
             <argument type="service" id="heyframe.maintenance.client"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument>%kernel.environment%</argument>
             <argument>%env(bool:APP_URL_CHECK_DISABLED)%</argument>
         </service>

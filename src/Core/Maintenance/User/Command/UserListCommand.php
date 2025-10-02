@@ -133,7 +133,7 @@ class UserListCommand extends Command
             'id' => $user->getId(),
             'email' => $user->getEmail(),
             'username' => $user->getUsername(),
-            'name' => $user->getFirstName() . ' ' . $user->getLastName(),
+            'name' => $user->getName(),
         ];
     }
 

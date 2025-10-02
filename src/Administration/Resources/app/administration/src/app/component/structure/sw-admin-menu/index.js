@@ -16,7 +16,7 @@ import {motion} from 'motion-v';
 const MODULES = [
     {
         id: 'dashboard',
-        name: 'Dashboard',
+        name: '首页',
         icon: 'dashboard',
         to: 'sw.dashboard.index',
         match(route) {
@@ -25,7 +25,7 @@ const MODULES = [
     },
     {
         id: 'products',
-        name: 'Products',
+        name: '产品',
         icon: 'tag',
         to: 'sw.product.index',
         match(route) {
@@ -38,7 +38,7 @@ const MODULES = [
         children: [
             {
                 id: 'reviews',
-                name: 'Reviews',
+                name: '评价',
                 to: 'sw.review.index',
                 match(route) {
                     return route.name.startsWith('sw.review') ? 'exact' : 'none';
@@ -46,7 +46,7 @@ const MODULES = [
             },
             {
                 id: 'categories',
-                name: 'Categories',
+                name: '分类',
                 to: 'sw.category.index',
                 match(route) {
                     return route.name.startsWith('sw.category') ? 'exact' : 'none';
@@ -54,7 +54,7 @@ const MODULES = [
             },
             {
                 id: 'properties',
-                name: 'Properties',
+                name: '属性',
                 to: 'sw.property.index',
                 match(route) {
                     return route.name.startsWith('sw.property') ? 'exact' : 'none';
@@ -64,7 +64,7 @@ const MODULES = [
     },
     {
         id: 'orders',
-        name: 'Orders',
+        name: '订单',
         icon: 'shopping-bag',
         to: 'sw.order.index',
         match(route) {
@@ -73,7 +73,7 @@ const MODULES = [
     },
     {
         id: 'customers',
-        name: 'Customers',
+        name: '客户',
         icon: 'users',
         to: 'sw.customer.index',
         match(route) {
@@ -82,7 +82,7 @@ const MODULES = [
     },
     {
         id: 'content',
-        name: 'Content',
+        name: '内容',
         icon: 'image-text',
         to: 'sw.cms.index',
         match(route) {
@@ -91,7 +91,7 @@ const MODULES = [
         children: [
             {
                 id: 'themes',
-                name: 'Themes',
+                name: '主题',
                 to: 'sw.theme.manager.index',
                 match(route) {
                     return route.name.startsWith('sw.theme.manager') ? 'exact' : 'none';
@@ -99,7 +99,7 @@ const MODULES = [
             },
             {
                 id: 'navigation',
-                name: 'Navigation',
+                name: '导航',
                 to: 'sw.navigation.index',
                 match(route) {
                     return route.name.startsWith('sw.navigation') ? 'exact' : 'none';
@@ -109,7 +109,7 @@ const MODULES = [
     },
     {
         id: 'automations',
-        name: 'Automations',
+        name: '流程',
         to: 'sw.flow.index.flows',
         icon: 'bolt',
         match(route) {
@@ -117,7 +117,7 @@ const MODULES = [
         },
         children: [
             {
-                id: 'rules',
+                id: '规则',
                 name: 'Rule Builder',
                 to: 'sw.settings.rule.index',
                 match(route) {
@@ -128,7 +128,7 @@ const MODULES = [
     },
     {
         id: 'extensions',
-        name: 'Extensions',
+        name: '扩展',
         icon: 'puzzle-piece',
         to: 'sw.extension.my-extensions.listing',
         match(route) {
@@ -137,7 +137,7 @@ const MODULES = [
     },
     {
         id: 'settings',
-        name: 'Settings',
+        name: '设置',
         icon: 'cog',
         to: 'sw.settings.index',
         match(route) {
