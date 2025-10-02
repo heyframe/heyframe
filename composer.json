@@ -364,6 +364,9 @@
       "@lint:changelog",
       "@lint:snippets"
     ],
+    "init:db": [
+      "@php bin/console system:install --drop-database --basic-setup --force --no-assign-theme"
+    ],
     "npm:admin": "@npm:admin:bin npm",
     "npm:admin:bin": "export PROJECT_ROOT=\"$PWD\"; cd src/Administration/Resources/app/administration; export PATH=\"$PWD/node_modules/.bin/:$PATH\"; \"$PROJECT_ROOT\"/bin/exec-with-env ",
     "npm:admin:check-license": "export ALLOWED_LICENSES=\"$(sed -z 's/\\n/;/g' .allowed-licenses)\"; cd src/Administration/Resources/app/administration; bash -c \"node_modules/.bin/license-checker-rseidelsohn --onlyAllow \\\"$ALLOWED_LICENSES\\\" --excludePrivatePackages\"",

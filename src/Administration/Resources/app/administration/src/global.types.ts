@@ -28,7 +28,6 @@ import type FilterFactoryData from 'src/core/data/filter-factory.data';
 import type UserApiService from 'src/core/service/api/user.api.service';
 import type UserConfigService from 'src/core/service/api/user-config.api.service';
 import type ApiServiceFactory from 'src/core/factory/api-service.factory';
-import type ShopIdChangeService from 'src/core/service/api/shop-id-change.service';
 import type { ComponentInternalInstance, PropType as VuePropType } from 'vue';
 import type { I18n } from 'vue-i18n';
 import type {
@@ -229,7 +228,6 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ServiceContainer extends SubContainer<'service'> {
         acl: AclService;
-        appAclService: $TSFixMe;
         appCmsService: $TSFixMe;
         businessEventService: BusinessEventsApiService;
         cartStoreService: CartStoreService;
@@ -284,7 +282,6 @@ declare global {
         userService: UserApiService;
         userConfigService: UserConfigService;
         validationService: $TSFixMe;
-        shopIdChangeService: ShopIdChangeService;
     }
 
     interface MixinContainer {
