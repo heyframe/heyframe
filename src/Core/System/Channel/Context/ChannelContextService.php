@@ -93,10 +93,6 @@ class ChannelContextService implements ChannelContextServiceInterface
                 $session[self::CUSTOMER_ID] = $parameters->getCustomerId();
             }
 
-            if ($parameters->getImitatingUserId() !== null) {
-                $session[self::IMITATING_USER_ID] = $parameters->getImitatingUserId();
-            }
-
             $context = $this->factory->create($token, $parameters->getChannelId(), $session);
 
             if ($parameters->getOriginalContext()?->hasState(Context::ELASTICSEARCH_EXPLAIN_MODE)) {
