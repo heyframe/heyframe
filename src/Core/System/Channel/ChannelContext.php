@@ -29,8 +29,6 @@ class ChannelContext extends Struct
 
     protected bool $permisionsLocked = false;
 
-    protected ?string $imitatingUserId = null;
-
     protected ContextSource $source;
 
     /**
@@ -284,25 +282,11 @@ class ChannelContext extends Struct
         if ($this->customer === null) {
             throw ChannelException::customerNotLoggedIn();
         }
-
-        if (!$allowGuest && $this->customer->getGuest()) {
-            throw ChannelException::customerNotLoggedIn();
-        }
     }
 
     public function getCustomerId(): ?string
     {
         return $this->customer?->getId();
-    }
-
-    public function getImitatingUserId(): ?string
-    {
-        return $this->imitatingUserId;
-    }
-
-    public function setImitatingUserId(?string $imitatingUserId): void
-    {
-        $this->imitatingUserId = $imitatingUserId;
     }
 
     /**

@@ -22,10 +22,6 @@ HeyFrame.Component.register(
     () => import('./component/sw-customer-address-form-options'),
 );
 HeyFrame.Component.register('sw-customer-default-addresses', () => import('./component/sw-customer-default-addresses'));
-HeyFrame.Component.register(
-    'sw-customer-imitate-customer-modal',
-    () => import('./component/sw-customer-imitate-customer-modal'),
-);
 HeyFrame.Component.register('sw-customer-card', () => import('./component/sw-customer-card'));
 /* eslint-enable max-len, sw-deprecation-rules/private-feature-declarations */
 

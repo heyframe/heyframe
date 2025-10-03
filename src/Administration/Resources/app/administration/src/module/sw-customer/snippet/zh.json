@@ -30,12 +30,6 @@
       }
     },
     "card": {
-      "buttonImitateCustomer": "以客户身份登录",
-      "tooltipImitateCustomerGuest": "访客客户无法模拟登录。",
-      "tooltipImitateCustomerInactive": "非活跃客户无法模拟登录。",
-      "tooltipImitateCustomerInactiveChannel": "客户所属的销售渠道未激活。",
-      "tooltipImitateCustomerNoDomain": "客户的销售渠道未配置域名。",
-      "tooltipImitateCustomerNoStorefront": "客户的销售渠道类型不是 Storefront。",
       "placeholderTitle": "称谓",
       "placeholderFirstName": "名",
       "placeholderLastName": "姓",
@@ -182,14 +176,6 @@
       "emptySubline": "在这里管理客户的订单",
       "buttonCreateOrder": "添加订单",
       "ordersTitle": "订单列表"
-    },
-    "imitateCustomerModal": {
-      "modalTitle": "以 {firstname} {lastname} 身份登录",
-      "modalDescription": "请选择您希望以 {firstname} {lastname} 身份登录的销售渠道。",
-      "modalInfo": "请在完成操作后记得 {logout}。",
-      "modalInfoLogout": "注销",
-      "modalInfoNoDomains": "未找到活动域名，请检查销售渠道设置。",
-      "labelCancel": "关闭"
     },
     "addressForm": {
       "labelCompany": "公司",

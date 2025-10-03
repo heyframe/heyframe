@@ -5,42 +5,6 @@
     :title="title"
     :is-loading="isLoading"
 >
-    {% block sw_customer_card_header_right %}
-    <template #headerRight>
-        {% block sw_customer_card_imitate_customer_modal %}
-        <sw-customer-imitate-customer-modal
-            v-if="showImitateCustomerModal"
-            :customer="customer"
-            @modal-close="onCloseImitateCustomerModal"
-        />
-        {% endblock %}
-
-        {% block sw_customer_card_action_customer_impersonation %}
-        <mt-button
-            v-tooltip="{
-                message: customerImitationWarning,
-                disabled: canUseCustomerImitation,
-                showOnDisabledElements: true
-            }"
-            :disabled="!canUseCustomerImitation"
-            variant="action"
-            @click="onImitateCustomer"
-        >
-            <template v-if="hasSingleBoundChannelUrl">
-                {{ $tc('sw-customer.card.buttonImitateCustomer') }}
-                <mt-icon
-                    name="regular-external-link-s"
-                    size="12px"
-                />
-            </template>
-            <template v-else>
-                {{ $tc('sw-customer.card.buttonImitateCustomer') }}
-            </template>
-        </mt-button>
-        {% endblock %}
-    </template>
-    {% endblock %}
-
     {% block sw_customer_card_rows %}
     <template #grid>
         <sw-container rows="auto auto">

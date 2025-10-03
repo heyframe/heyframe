@@ -146,11 +146,6 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerLogoutSubscriber">
-            <argument type="service" id="Symfony\Component\HttpFoundation\RequestStack"/>
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Customer\DataAbstractionLayer\CustomerIndexer">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
             <argument type="service" id="customer.repository"/>

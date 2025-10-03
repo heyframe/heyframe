@@ -108,10 +108,6 @@ class ChannelContextFactory extends AbstractChannelContextFactory
             $channelContext->lockPermissions();
         }
 
-        if (\is_string($options[ChannelContextService::IMITATING_USER_ID] ?? null)) {
-            $channelContext->setImitatingUserId($options[ChannelContextService::IMITATING_USER_ID]);
-        }
-
         return $channelContext;
     }
 

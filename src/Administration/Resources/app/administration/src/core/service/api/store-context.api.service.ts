@@ -78,43 +78,6 @@ class StoreContextService extends ApiService {
 
         return this.httpClient.get(route, { ...additionalParams, headers });
     }
-
-    generateImitateCustomerToken(customerId: string, channelId: string, additionalParams = {}, additionalHeaders = {}) {
-        const route = '_proxy/generate-imitate-customer-token';
-        const headers = this.getBasicHeaders(additionalHeaders);
-
-        return this.httpClient.post(
-            route,
-            {
-                customerId,
-                channelId,
-            },
-            { ...additionalParams, headers },
-        );
-    }
-
-    redirectToChannelUrl(channelDomainUrl: string, token: string, customerId: string, userId: string) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = `${channelDomainUrl}/account/login/imitate-customer`;
-        form.target = '_blank';
-        document.body.appendChild(form);
-
-        this.#createHiddenInput(form, 'token', token);
-        this.#createHiddenInput(form, 'customerId', customerId);
-        this.#createHiddenInput(form, 'userId', userId);
-
-        form.submit();
-        form.remove();
-    }
-
-    #createHiddenInput(form: HTMLFormElement, name: string, value: string) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = name;
-        input.value = value;
-        form.appendChild(input);
-    }
 }
 
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations

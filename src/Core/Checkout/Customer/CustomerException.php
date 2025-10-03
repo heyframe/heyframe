@@ -7,15 +7,12 @@ use HeyFrame\Core\Checkout\Customer\Exception\CustomerAuthThrottledException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundByHashException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundByIdException;
 use HeyFrame\Core\Checkout\Customer\Exception\CustomerNotFoundException;
-use HeyFrame\Core\Checkout\Customer\Exception\InvalidImitateCustomerTokenException;
 use HeyFrame\Core\Checkout\Customer\Exception\PasswordPoliciesUpdatedException;
-use HeyFrame\Core\Content\Product\Exception\ProductNotFoundException;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
-use HeyFrame\Core\Framework\Rule\Exception\UnsupportedValueException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -214,11 +211,6 @@ class CustomerException extends HttpException
         return new PasswordPoliciesUpdatedException();
     }
 
-    public static function invalidImitationToken(string $token): InvalidImitateCustomerTokenException
-    {
-        return new InvalidImitateCustomerTokenException($token);
-    }
-
     public static function missingRouteAnnotation(string $annotation, string $route): self
     {
         return new self(
@@ -256,15 +248,8 @@ class CustomerException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function unsupportedValue(string $type, string $class): self|UnsupportedValueException
+    public static function unsupportedValue(string $type, string $class): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new UnsupportedValueException($type, $class);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::VALUE_NOT_SUPPORTED,
@@ -283,15 +268,8 @@ class CustomerException extends HttpException
         );
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - reason:return-type-change - Will return self
-     */
-    public static function productNotFound(string $productId): self|ProductNotFoundException
+    public static function productNotFound(string $productId): self
     {
-        if (!Feature::isActive('v6.8.0.0')) {
-            return new ProductNotFoundException($productId);
-        }
-
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::MISSING_REQUEST_PARAMETER_CODE,

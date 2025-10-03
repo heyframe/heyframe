@@ -11,7 +11,6 @@ use HeyFrame\Core\Checkout\Cart\Event\BeforeCartMergeEvent;
 use HeyFrame\Core\Checkout\Cart\Event\CartMergedEvent;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\Event\ChannelContextRestoredEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -140,8 +139,6 @@ class CartRestorer
             ($originalToken === null) ? $customerId : null,
         );
 
-        $this->updateImpersonation($currentContext);
-
         return $currentContext;
     }
 
@@ -149,23 +146,6 @@ class CartRestorer
     {
         $this->cartService->deleteCart($guestContext);
         $this->contextPersister->delete($guestContext->getToken(), $guestContext->getChannelId(), $customerId);
-    }
-
-    private function updateImpersonation(ChannelContext $context): void
-    {
-        $request = $this->requestStack->getMainRequest();
-
-        if (!$request?->hasSession()) {
-            return;
-        }
-
-        $session = $request->getSession();
-
-        if (!$context->getImitatingUserId()) {
-            $session->remove(PlatformRequest::ATTRIBUTE_IMITATING_USER_ID);
-        } else {
-            $session->set(PlatformRequest::ATTRIBUTE_IMITATING_USER_ID, $context->getImitatingUserId());
-        }
     }
 
     private function enrichCustomerContext(
@@ -191,11 +171,6 @@ class CartRestorer
         $restoredCart->addErrors(...array_values($guestCart->getErrors()->getPersistent()->getElements()));
 
         $this->deleteGuestContext($currentContext, $customerId);
-
-        if ($currentContext->getImitatingUserId() !== $customerContext->getImitatingUserId()) {
-            $customerContext->setImitatingUserId($currentContext->getImitatingUserId());
-            $this->updateImpersonation($customerContext);
-        }
 
         $errors = $restoredCart->getErrors();
         $result = $this->cartRuleLoader->loadByToken($customerContext, $restoredCart->getToken());
