@@ -47,7 +47,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedAtField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionDataPayloadField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\CustomEntity\Schema\DynamicEntityDefinition;
 
 /**
  * @internal
@@ -90,6 +89,10 @@ class EntitySchemaGenerator implements ApiDefinitionGeneratorInterface
 
             $entitySchema = $this->getEntitySchema($definition);
 
+            if ($entity === 'notification') {
+                dd($entitySchema['read-protected']);
+            }
+
             if ($entitySchema['write-protected'] && $entitySchema['read-protected']) {
                 continue;
             }
@@ -118,18 +121,12 @@ class EntitySchemaGenerator implements ApiDefinitionGeneratorInterface
             $properties[$field->getPropertyName()] = $this->parseField($definition, $field);
         }
 
-        $result = [
+        return [
             'entity' => $definition->getEntityName(),
             'properties' => $properties,
             'write-protected' => $definition->getProtections()->get(WriteProtection::class) !== null,
             'read-protected' => $definition->getProtections()->get(ReadProtection::class) !== null,
         ];
-
-        if ($definition instanceof DynamicEntityDefinition) {
-            $result['flags'] = $definition->getFlags();
-        }
-
-        return $result;
     }
 
     /**

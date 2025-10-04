@@ -52,7 +52,7 @@ class FrontApiGenerator implements ApiDefinitionGeneratorInterface
 
     public function supports(string $format, string $api): bool
     {
-        return $format === self::FORMAT && $api === DefinitionService::STORE_API;
+        return $format === self::FORMAT && $api === DefinitionService::FRONT_API;
     }
 
     public function generate(array $definitions, string $api, string $apiType, ?string $bundleName): array
@@ -62,7 +62,7 @@ class FrontApiGenerator implements ApiDefinitionGeneratorInterface
         ]);
         $this->openApiBuilder->enrich($openApi, $api);
 
-        $forChannel = $api === DefinitionService::STORE_API;
+        $forChannel = $api === DefinitionService::FRONT_API;
 
         ksort($definitions);
 

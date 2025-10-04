@@ -14,7 +14,7 @@ marked.setOptions({
 
 async function fetchGithub(url: string, { headers = {}, method = "GET", body }: { headers?: Record<string, string>, body?: string, method?: string } = {}) {
     const ghToken = Deno.env.get("GITHUB_TOKEN");
-    headers['User-Agent'] = 'Shopware Release Info Generator';
+    headers['User-Agent'] = 'HeyFrame Release Info Generator';
 
     if (ghToken) {
         headers["Authorization"] = `token ${ghToken}`;
@@ -48,7 +48,7 @@ async function fetchVulnerabilitiesByDescription(list: Array<Vulnerability>, bod
     const unique = matches.filter((value, index, array) => array.indexOf(value) === index);
 
     for (let match of unique) {
-        const json = await (await fetchGithub(`https://api.github.com/repos/shopware/shopware/security-advisories/${match}`)).json();
+        const json = await (await fetchGithub(`https://api.github.com/repos/heyframe/heyframe/security-advisories/${match}`)).json();
 
         if (json.severity === undefined) {
             continue;
@@ -110,7 +110,7 @@ function parseMitreCve(cve: any) {
 }
 
 async function generateVersionInfo() {
-    const json = await (await fetchGithub("https://api.github.com/repos/shopware/shopware/releases")).json();
+    const json = await (await fetchGithub("https://api.github.com/repos/heyframe/heyframe/releases")).json();
     const vulnerabilities = await fetchVulnerabilities();
 
     for (const release of json) {
@@ -118,7 +118,7 @@ async function generateVersionInfo() {
             continue;
         }
 
-        marked.use(baseUrl(`https://github.com/shopware/shopware/blob/${release.tag_name}/changelog`));
+        marked.use(baseUrl(`https://github.com/heyframe/heyframe/blob/${release.tag_name}/changelog`));
 
         const detail = await (await fetchGithub(release.url)).json();
 
@@ -139,11 +139,11 @@ async function generateVersionInfo() {
 
 async function generateVersionListing() {
     let currentPage = 1
-    const latestRelease = await (await fetchGithub("https://api.github.com/repos/shopware/shopware/releases/latest")).json();
+    const latestRelease = await (await fetchGithub("https://api.github.com/repos/heyframe/heyframe/releases/latest")).json();
     const versions = [];
 
     while (true) {
-        const releases = await (await fetchGithub("https://api.github.com/repos/shopware/shopware/releases?per_page=100&page=" + currentPage)).json();
+        const releases = await (await fetchGithub("https://api.github.com/repos/heyframe/heyframe/releases?per_page=100&page=" + currentPage)).json();
 
         for (const release of releases) {
             if (release.draft) {
@@ -171,7 +171,7 @@ async function generateVersionListing() {
 }
 
 async function fetchVulnerabilities() {
-    const json = await (await fetchGithub("https://api.github.com/repos/shopware/shopware/security-advisories?per_page=100&state=published")).json();
+    const json = await (await fetchGithub("https://api.github.com/repos/heyframe/heyframe/security-advisories?per_page=100&state=published")).json();
 
     const formatted = {};
 

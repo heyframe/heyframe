@@ -9,7 +9,7 @@ use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInstanceRegistry;
 use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInterface;
 
 /**
- * @phpstan-type Api DefinitionService::API|DefinitionService::STORE_API
+ * @phpstan-type Api DefinitionService::API|DefinitionService::FRONT_API
  * @phpstan-type ApiType DefinitionService::TYPE_JSON_API|DefinitionService::TYPE_JSON
  * @phpstan-type OpenApiSpec  array{paths: array<string,array<mixed>>, components: array<mixed>}
  * @phpstan-type ApiSchema array<string, array{name: string, translatable: list<string>, properties: array<string, mixed>}|array{entity: string, properties: array<string, mixed>, write-protected: bool, read-protected: bool}>
@@ -18,7 +18,7 @@ use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInterface;
 class DefinitionService
 {
     final public const API = 'api';
-    final public const STORE_API = 'front-api';
+    final public const FRONT_API = 'front-api';
 
     final public const TYPE_JSON_API = 'jsonapi';
 
@@ -98,7 +98,7 @@ class DefinitionService
             return $this->definitionRegistry->getDefinitions();
         }
 
-        if ($type === self::STORE_API) {
+        if ($type === self::FRONT_API) {
             return $this->channelDefinitionRegistry->getDefinitions();
         }
 

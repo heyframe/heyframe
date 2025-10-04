@@ -66,7 +66,7 @@ class FrontApiGeneratorTest extends TestCase
     {
         $schema = $this->generator->generate(
             $this->definitionRegistry->getDefinitions(),
-            DefinitionService::STORE_API,
+            DefinitionService::FRONT_API,
             DefinitionService::TYPE_JSON_API,
             null
         );
@@ -79,7 +79,7 @@ class FrontApiGeneratorTest extends TestCase
     {
         $schema = $this->generator->generate(
             $this->definitionRegistry->getDefinitions(),
-            DefinitionService::STORE_API,
+            DefinitionService::FRONT_API,
             DefinitionService::TYPE_JSON_API,
             null
         );
@@ -92,7 +92,7 @@ class FrontApiGeneratorTest extends TestCase
     {
         $schema = $this->customApiGenerator->generate(
             $this->definitionRegistry->getDefinitions(),
-            DefinitionService::STORE_API,
+            DefinitionService::FRONT_API,
             DefinitionService::TYPE_JSON_API,
             $this->customBundleSchemas->getName()
         );
@@ -107,7 +107,7 @@ class FrontApiGeneratorTest extends TestCase
     {
         $schema = $this->customApiGenerator->generate(
             $this->definitionRegistry->getDefinitions(),
-            DefinitionService::STORE_API,
+            DefinitionService::FRONT_API,
             DefinitionService::TYPE_JSON_API,
             $this->customBundleSchemas->getName()
         );
@@ -122,7 +122,7 @@ class FrontApiGeneratorTest extends TestCase
     {
         $schema = $this->customApiGenerator->generate(
             $this->definitionRegistry->getDefinitions(),
-            DefinitionService::STORE_API,
+            DefinitionService::FRONT_API,
             DefinitionService::TYPE_JSON_API,
             $this->customBundleSchemas->getName()
         );
@@ -140,7 +140,7 @@ class FrontApiGeneratorTest extends TestCase
     {
         $schema = $this->generator->generate(
             $this->definitionRegistry->getDefinitions(),
-            DefinitionService::STORE_API,
+            DefinitionService::FRONT_API,
             DefinitionService::TYPE_JSON_API,
             null
         );

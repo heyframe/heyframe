@@ -43,7 +43,7 @@ class NavigationTranslationDefinition extends EntityTranslationDefinition
     protected function defineFields(): FieldCollection
     {
         return new FieldCollection([
-            (new StringField('name', 'name'))->addFlags(new ApiAware(), new Required()),
+            (new StringField('name', 'name'))->addFlags(new ApiAware()),
             (new StringField('link_type', 'linkType'))->addFlags(new ApiAware()),
             (new IdField('internal_link', 'internalLink'))->addFlags(new ApiAware()),
             (new StringField('external_link', 'externalLink'))->addFlags(new ApiAware()),

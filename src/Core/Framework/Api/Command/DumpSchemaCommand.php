@@ -68,7 +68,7 @@ class DumpSchemaCommand extends Command
 
                 break;
             case 'openapi3':
-                $api = $input->getOption('front-api') ? DefinitionService::STORE_API : DefinitionService::API;
+                $api = $input->getOption('front-api') ? DefinitionService::FRONT_API : DefinitionService::API;
                 $definitionContents = $this->definitionService->generate('openapi-3', $api, DefinitionService::TYPE_JSON_API, $bundleName);
 
                 break;

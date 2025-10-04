@@ -42,7 +42,7 @@ class OpenApiValidationCommand extends Command
         $validatorURL = $input->getArgument('validatorUrl');
         $apiType = match ($input->getOption('api-type')) {
             DefinitionService::API => DefinitionService::API,
-            DefinitionService::STORE_API => DefinitionService::STORE_API,
+            DefinitionService::FRONT_API => DefinitionService::FRONT_API,
             default => throw new \InvalidArgumentException('Invalid --api-type, must be one of "api" or "front-api"'),
         };
 

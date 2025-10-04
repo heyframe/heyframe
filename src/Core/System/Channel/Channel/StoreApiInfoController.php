@@ -48,7 +48,7 @@ class StoreApiInfoController
             throw RoutingException::invalidRequestParameter('type');
         }
 
-        $data = $this->definitionService->generate(OpenApi3Generator::FORMAT, DefinitionService::STORE_API, $apiType);
+        $data = $this->definitionService->generate(OpenApi3Generator::FORMAT, DefinitionService::FRONT_API, $apiType);
 
         return new JsonResponse($data);
     }
@@ -61,7 +61,7 @@ class StoreApiInfoController
     )]
     public function openApiSchema(): JsonResponse
     {
-        $data = $this->definitionService->getSchema(OpenApi3Generator::FORMAT, DefinitionService::STORE_API);
+        $data = $this->definitionService->getSchema(OpenApi3Generator::FORMAT, DefinitionService::FRONT_API);
 
         return new JsonResponse($data);
     }

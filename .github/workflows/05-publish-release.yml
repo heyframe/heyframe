@@ -33,5 +33,5 @@ jobs:
           if: github.event.action == 'published'
           id: sts-admin-api-reference
           with:
-            scope: shopware/admin-api-reference
+            scope: heyframe/admin-api-reference
             identity: release
