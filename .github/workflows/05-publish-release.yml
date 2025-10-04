@@ -29,9 +29,14 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-        - uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # 1.0.0
+        - name: Trigger heyframe/template build
           if: github.event.action == 'published'
-          id: sts-admin-api-reference
-          with:
-            scope: heyframe/admin-api-reference
-            identity: release
+          continue-on-error: true
+          run: |
+            curl \
+            -X POST \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Authorization: Bearer ${{ secrets.TOKEN }}" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/heyframe/template/actions/workflows/update.yml/dispatches \
+            -d '{"ref": "trunk"}'
