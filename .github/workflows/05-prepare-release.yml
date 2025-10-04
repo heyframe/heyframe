@@ -90,9 +90,8 @@ jobs:
       matrix:
         package:
           - administration
-          - storefront
+          - frontend
           - core
-          - elasticsearch
     env:
       GIT_AUTHOR_EMAIL: "heyframebot@heyframe.net"
       GIT_AUTHOR_NAME: "heyframeBot"
