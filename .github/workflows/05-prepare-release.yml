@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-24.04
     if: github.repository == 'heyframe/heyframe' && github.ref_type == 'tag'
     env:
-      GH_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ secrets.TOKEN }}
       CHECK_REPOSITORY: "heyframe/recipes"
       CHECK_WORKFLOW: "nightly.yml"
       CHECK_STATUS: "success"
