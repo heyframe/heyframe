@@ -7,7 +7,7 @@
     "shop"
   ],
   "homepage": "https://www.heyframe.net",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "autoload": {
     "files": [
       "Framework/Adapter/Doctrine/Patch/AbstractAsset.php"
@@ -89,7 +89,7 @@
     "setasign/fpdi": "^2.3.7",
     "setasign/tfpdf": "^1.33",
     "heyframe/conflicts": "0.6.0",
-    "heyframe/pay-bundle": "dev-main",
+    "heyframe/pay-bundle": "^2.0.0",
     "heyframe/pay": "^1.0",
     "squirrelphp/twig-php-syntax": "^1.13.0",
     "symfony/asset": "~7.3.0",
