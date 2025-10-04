@@ -257,7 +257,8 @@
     "translation:lint-filenames": "Validates snippet filesnames",
     "translation:lint-filenames:fix": "Validates snippet filesnames and migrates them if necessary",
     "translation:install": "Downloads and installs translations from the translations GitHub repository",
-    "translation:lint": "Validates existence of snippets in all core-supported languages"
+    "translation:lint": "Validates existence of snippets in all core-supported languages",
+    "setup": "Resets and re-installs this Shopware instance"
   },
   "scripts": {
     "admin:code-mods": "@npm:admin run code-mods --",
@@ -356,6 +357,15 @@
     "init:testdb": [
       "@putenv FORCE_INSTALL=true",
       "vendor/bin/phpunit --group=none --testsuite migration,unit,integration,devops"
+    ],
+    "setup": [
+      "@composer install -o",
+      "mkdir -p custom/plugins || true",
+      "@init:db",
+      "@init:js",
+      "@build:js",
+      "@php bin/console theme:change --sync --all Frontend",
+      "@php bin/console assets:install"
     ],
     "lint": [
       "@stylelint",
