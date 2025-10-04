@@ -112,7 +112,7 @@ jobs:
       - name: Prepare repo
         run: |
           set -e
-          git remote add bc-checker-upstream https://github.com/heyframe/platform.git
+          git remote add bc-checker-upstream https://github.com/heyframe/heyframe.git
           git fetch bc-checker-upstream
       - name: BC Checker lastest tag
         if: github.event_name != 'pull_request'
@@ -156,22 +156,22 @@ jobs:
 
       - name: Load OpenApi StoreAPI schema from the instance
         run: |
-          api-gen loadSchema --apiType=store
+          api-gen loadSchema --apiType=front
 
       - name: Upload OpenApi StoreAPI schema
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # 4.6.2
         with:
-          name: storeApiSchema.json
-          path: ./api-types/storeApiSchema.json
+          name: frontApiSchema.json
+          path: ./api-types/frontApiSchema.json
           retention-days: 1
 
       - name: Generate StoreAPI schema
         run: |
-          api-gen generate --apiType=store
+          api-gen generate --apiType=front
 
       - name: Lint OpenApi StoreAPI schema
         run: |
-          redocly lint --skip-rule operation-4xx-response --skip-rule no-server-example.com --skip-rule no-unused-components ./api-types/storeApiSchema.json
+          redocly lint --skip-rule operation-4xx-response --skip-rule no-server-example.com --skip-rule no-unused-components ./api-types/frontApiSchema.json
 
       - name: Generate & Lint OpenApi API schema
         run: |
