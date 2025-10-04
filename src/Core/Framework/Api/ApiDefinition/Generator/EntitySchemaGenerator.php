@@ -89,10 +89,6 @@ class EntitySchemaGenerator implements ApiDefinitionGeneratorInterface
 
             $entitySchema = $this->getEntitySchema($definition);
 
-            if ($entity === 'notification') {
-                dd($entitySchema['read-protected']);
-            }
-
             if ($entitySchema['write-protected'] && $entitySchema['read-protected']) {
                 continue;
             }
