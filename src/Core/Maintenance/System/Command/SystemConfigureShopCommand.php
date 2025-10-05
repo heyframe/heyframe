@@ -45,7 +45,7 @@ class SystemConfigureShopCommand extends Command
 
         $this->shopConfigurator->updateBasicInformation($input->getOption('shop-name'), $input->getOption('shop-email'));
 
-        $output->writeln('Shop configured successfully');
+        $output->writeln('Website configured successfully');
         $output->writeln('');
 
         if ($input->getOption('shop-locale')) {

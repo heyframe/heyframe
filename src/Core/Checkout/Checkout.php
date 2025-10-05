@@ -31,5 +31,6 @@ class Checkout extends Bundle
         $loader->load('order.xml');
         $loader->load('payment.xml');
         $loader->load('rule.xml');
+        $loader->load('promotion.xml');
     }
 }

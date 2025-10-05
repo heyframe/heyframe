@@ -1,0 +1,283 @@
+{
+  "sw-promotion-v2": {
+    "general": {
+      "mainMenuItemGeneral": "促销活动",
+      "mainMenuItemList": "活动列表",
+      "description": "在这里管理你的促销活动。"
+    },
+    "list": {
+      "textTitle": "促销活动",
+      "buttonAddPromotion": "创建活动",
+      "columnActive": "启用",
+      "columnName": "名称",
+      "columnValidFrom": "开始时间",
+      "columnValidUntil": "结束时间",
+      "titleEmpty": "还没有任何促销活动",
+      "descriptionEmpty": "通过打折、优惠等方式来提升你的销售额吧！",
+      "placeholderSearchBar": "搜索活动...",
+      "textDeleteConfirm": "确定要删除活动 “{name}” 吗？",
+      "titleSidebarItemRefresh": "刷新",
+      "duplicatePromotionInfo": "活动优惠码不会自动复制，需要重新生成。",
+      "deleteDisabledToolTip": "该活动正在使用中，无法删除。"
+    },
+    "detail": {
+      "header": {
+        "titleCreate": "新建促销活动",
+        "titleEdit": "编辑促销活动"
+      },
+      "tabs": {
+        "tabGeneral": "基本信息",
+        "tabConditions": "条件设置",
+        "tabDiscounts": "折扣规则"
+      },
+      "codeChangeModal": {
+        "title": "修改优惠码类型",
+        "text": "切换优惠码类型会删除之前生成的所有优惠码。"
+      },
+      "base": {
+        "general": {
+          "cardTitle": "基础设置",
+          "nameLabel": "活动名称",
+          "namePlaceholder": "请输入名称...",
+          "priorityLabel": "优先级",
+          "helpTextPriority": "优先级决定多个活动叠加时的应用顺序，数字越大优先级越高。",
+          "validFromLabel": "开始时间",
+          "validFromPlaceholder": "选择开始日期...",
+          "validUntilLabel": "结束时间",
+          "validUntilPlaceholder": "选择结束日期...",
+          "maxUsesGlobalLabel": "活动总使用次数",
+          "maxUsesGlobalPlaceholder": "不限",
+          "maxUsesPerCustomerLabel": "每位客户使用次数",
+          "maxUsesPerCustomerPlaceholder": "不限",
+          "activeLabel": "启用"
+        },
+        "codes": {
+          "cardTitle": "优惠码设置",
+          "codeTypeLabel": "优惠码类型",
+          "none": {
+            "description": "无需输入优惠码即可参与"
+          },
+          "fixed": {
+            "description": "固定优惠码",
+            "codeLabel": "优惠码",
+            "codePlaceholder": "输入优惠码...",
+            "generateButton": "生成随机优惠码"
+          },
+          "individual": {
+            "description": "独立优惠码（每位客户不同）",
+            "emptyStateTitle": "还未生成任何优惠码。",
+            "generateButton": "生成优惠码",
+            "searchPlaceholder": "搜索优惠码...",
+            "addButton": "添加优惠码",
+            "columnCode": "优惠码",
+            "columnRedeemed": "已使用",
+            "columnCustomer": "客户",
+            "columnCreatedAt": "生成时间",
+            "textDeleteConfirm": "确定删除优惠码 “{code}” 吗？| 确定删除这 {count} 条优惠码吗？",
+            "openCustomer": "查看客户",
+            "routingError": "未找到客户 “{name}”。",
+            "addCodesModal": {
+              "title": "添加优惠码",
+              "description": "新优惠码会延续之前的前缀、后缀和生成规则。",
+              "addCodesButton": "添加优惠码",
+              "codeAmountLabel": "优惠码数量"
+            },
+            "generateModal": {
+              "title": "生成优惠码",
+              "buttonGenerate": "生成",
+              "warning": "重新生成优惠码会删除现有优惠码，旧码将失效。",
+              "description": "优惠码由大写字母与数字随机组成。你可以设置固定的前缀、后缀或自定义生成规则。",
+              "labelPrefix": "前缀",
+              "placeholderPrefix": "输入前缀...",
+              "labelCodeLength": "长度",
+              "labelSuffix": "后缀",
+              "placeholderSuffix": "输入后缀...",
+              "labelCustomPattern": "自定义规则",
+              "placeholderCustomPattern": "输入规则...",
+              "helpTextCustomPattern": "变量规则：<ul><li>%d - 数字 (0-9)</li><li>%s - 字母 (A-Z)</li></ul>",
+              "labelUseCustomPattern": "启用自定义规则",
+              "labelPreview": "优惠码预览",
+              "labelCodeAmount": "生成数量",
+              "notComplexEnoughException": "生成失败，请增加规则复杂度。",
+              "alreadyInUseException": "该规则已被其他活动使用，请更换规则。",
+              "unknownErrorCode": "生成优惠码出错，请查看开发者工具。"
+            }
+          }
+        }
+      },
+      "conditions": {
+        "preConditions": {
+          "cardTitlePreConditions": "前置条件",
+          "cardTitleRuleConditions": "规则条件",
+          "labelPreventCombination": "禁止与其他活动叠加",
+          "helpTextPreventCombination": "开启后，此活动将独占应用，无法与其他促销叠加。",
+          "labelPromotionExclusions": "排除的促销活动",
+          "placeholderPromotionExclusions": "选择促销活动...",
+          "labelPromotionSalesChannel": "适用销售渠道",
+          "placeholderPromotionSalesChannel": "选择销售渠道...",
+          "labelCustomerSelect": "客户规则",
+          "placeholderCustomerSelect": "选择客户规则...",
+          "labelCartConditionSelect": "购物车规则",
+          "placeholderCartConditionSelect": "选择购物车规则...",
+          "labelOrderConditionSelect": "订单规则",
+          "placeholderOrderConditionSelect": "选择订单规则..."
+        },
+        "setgroups": {
+          "switchGroupsEnabled": "按商品组合促销",
+          "buttonAddGroup": "添加商品组",
+          "titleName": "组名",
+          "labelMode": "模式",
+          "labelValue": "数值",
+          "labelSorting": "排序",
+          "labelRules": "商品规则",
+          "placeholder": "选择商品规则...",
+          "packager": {
+            "COUNT": "数量",
+            "PRICE_UNIT_GROSS": "金额（含税）",
+            "PRICE_UNIT_NET": "金额（未税）"
+          },
+          "sorter": {
+            "PRICE_ASC": "价格升序",
+            "PRICE_DESC": "价格降序"
+          }
+        }
+      },
+      "discounts": {
+        "emptyStateTitle": "还没有折扣规则。",
+        "addDiscountButton": "添加折扣",
+        "wizard": {
+          "basic": {
+            "prefixTitle": "基础折扣 - {title}",
+            "titleDiscountType": "折扣类型",
+            "titleProductRules": "适用商品规则",
+            "description": "先选择折扣类型，再定义触发条件。"
+          },
+          "shipping-discount": {
+            "prefixTitle": "运费折扣 - {title}",
+            "titleDiscountType": "折扣类型",
+            "titleTriggerSelection": "触发条件（可选）",
+            "description": "可通过规则设置运费折扣触发条件，例如订单满额或购买特定商品。"
+          },
+          "buy-x-get-y": {
+            "prefixTitle": "买X送Y - {title}",
+            "titleDiscountType": "折扣类型",
+            "titleTriggerSelection": "触发条件（可选）"
+          }
+        },
+        "settings": {
+          "discountType": {
+            "labelDiscountType": "折扣类型",
+            "labelValue": "金额 / 百分比",
+            "labelMaxDiscountValue": "最大折扣金额",
+            "labelApplyDiscountTo": "应用范围",
+            "discountTypeSelection": {
+              "displayFixedPrice": "固定价格",
+              "displayFixedDiscount": "固定金额",
+              "displayPercentage": "百分比",
+              "displayFree": "赠品"
+            },
+            "applyDiscountTo": {
+              "displayTotalPrice": "订单总额",
+              "displayProductPrice": "商品价格"
+            }
+          },
+          "ruleSelection": {
+            "description": "选择或创建规则，确定哪些商品可享受折扣。",
+            "labelSelection": "选择规则",
+            "placeholderSelection": "选择规则..."
+          },
+          "trigger": {
+            "labelUseTrigger": "启用触发条件",
+            "triggerType": {
+              "displaySingleTrigger": "单一商品触发",
+              "displayMultiTrigger": "多商品触发"
+            },
+            "labelNumberOfTriggers": "触发数量类型"
+          }
+        },
+        "pricesModal": {
+          "advancedPricesHeader": "高级价格设置",
+          "closeModal": "关闭",
+          "labelCurrency": "货币",
+          "labelPrice": "数值",
+          "linkAdvancedPrices": "打开高级价格视图"
+        }
+      },
+      "discount-selection": {
+        "modalTitle": "新折扣",
+        "description": "折扣可按金额或百分比应用于商品、商品组合或运费。",
+        "basic": {
+          "name": "基础折扣",
+          "description": "对整个购物车或特定商品组进行折扣。"
+        },
+        "buy-x-get-y": {
+          "name": "买X送Y",
+          "description": "当购物车中包含指定商品时自动触发赠送。"
+        },
+        "shipping-discount": {
+          "name": "运费折扣",
+          "description": "设置满额免运费或运费折扣。"
+        }
+      },
+      "shipping-discount-trigger": {
+        "modalTitle": "运费折扣触发条件（可选）",
+        "description": "你可以使用规则构建器设置何时触发运费折扣，例如购物车满一定金额或购买特定商品。",
+        "labelUseTrigger": "启用触发条件"
+      }
+    },
+    "ruleSelect": {
+      "labelAddNewRule": "新建规则"
+    }
+  },
+  "sw-promotion": {
+    "detail": {
+      "main": {
+        "discounts": {
+          "card": "折扣",
+          "labelValue": "折扣值",
+          "labelMaxValue": "最大折扣金额",
+          "helpTextMaxValueAdvancedPrices": "最大可减金额（绝对值）。",
+          "placeholderValue": "输入百分比或固定金额...",
+          "labelScope": "作用范围",
+          "flagProductScopeLabel": "仅适用于指定商品。",
+          "labelRules": "商品规则",
+          "placeholder": "选择商品规则...",
+          "labelType": "类型",
+          "valueScopeCart": "购物车",
+          "valueTypeAbsolute": "固定金额",
+          "valueScopeDelivery": "运费",
+          "valueScopeSet": "整组商品",
+          "valueScopeSetGroup": "商品组",
+          "valueTypePercentage": "百分比",
+          "valueTypeFixed": "固定价",
+          "valueTypeFixedUnit": "每件固定价",
+          "buttonAddDiscount": "添加折扣",
+          "buttonDeleteDiscount": "删除折扣",
+          "delete": {
+            "confirmTitle": "删除折扣",
+            "confirmText": "确定要从活动中删除该折扣吗？",
+            "buttonDelete": "删除"
+          },
+          "labelSorting": "排序方式",
+          "labelPicking": "商品选择模式",
+          "labelApplyCount": "应用次数",
+          "labelMaxCount": "最大使用次数",
+          "linkAdvancedPrices": "打开高级价格视图",
+          "pricesModal": {
+            "advancedPricesHeader": "高级价格",
+            "closeModal": "关闭",
+            "labelCurrency": "货币",
+            "labelPrice": "数值"
+          }
+        }
+      }
+    }
+  },
+  "sw-privileges": {
+    "permissions": {
+      "promotion": {
+        "label": "促销活动"
+      }
+    }
+  }
+}

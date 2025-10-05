@@ -126,6 +126,15 @@ const MODULES = [
             }
         ]
     },
+        {
+        id: 'marketing',
+        name: '营销',
+        icon: 'megaphone',
+        to: 'sw.promotion.v2.index',
+        match(route) {
+            return route.name.startsWith('sw.promotion.v2') ? 'exact' : 'none';
+        }
+    },
     {
         id: 'extensions',
         name: '扩展',
