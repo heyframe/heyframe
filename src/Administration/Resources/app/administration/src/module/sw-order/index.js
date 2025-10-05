@@ -61,31 +61,6 @@ HeyFrame.Component.register('sw-order-inline-field', () => import('./component/s
  * @deprecated tag:v6.8.0 - File will be removed. No longer used.
  */
 HeyFrame.Component.register('sw-order-user-card', () => import('./component/sw-order-user-card'));
-HeyFrame.Component.register('sw-order-document-card', () => import('./component/sw-order-document-card'));
-HeyFrame.Component.register(
-    'sw-order-document-settings-modal',
-    () => import('./component/sw-order-document-settings-modal'),
-);
-HeyFrame.Component.extend(
-    'sw-order-document-settings-invoice-modal',
-    'sw-order-document-settings-modal',
-    () => import('./component/sw-order-document-settings-invoice-modal'),
-);
-HeyFrame.Component.extend(
-    'sw-order-document-settings-storno-modal',
-    'sw-order-document-settings-modal',
-    () => import('./component/sw-order-document-settings-storno-modal'),
-);
-HeyFrame.Component.extend(
-    'sw-order-document-settings-delivery-note-modal',
-    'sw-order-document-settings-modal',
-    () => import('./component/sw-order-document-settings-delivery-note-modal'),
-);
-HeyFrame.Component.extend(
-    'sw-order-document-settings-credit-note-modal',
-    'sw-order-document-settings-modal',
-    () => import('./component/sw-order-document-settings-credit-note-modal'),
-);
 HeyFrame.Component.register('sw-order-create-details-header', () => import('./component/sw-order-create-details-header'));
 HeyFrame.Component.register('sw-order-create-details-body', () => import('./component/sw-order-create-details-body'));
 HeyFrame.Component.register('sw-order-create-details-footer', () => import('./component/sw-order-create-details-footer'));
