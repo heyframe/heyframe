@@ -74,10 +74,7 @@
         "promotionDiscounts": "promotion discount product rule | promotion discount product rules",
         "flowSequences": "flow | flows",
         "paymentMethods": "payment method | payment methods",
-        "productPrices": "product price | product prices",
-        "shippingMethodPriceCalculations": "shipping method price matrix | shipping method price matrices",
-        "shippingMethodPrices": "shipping method price | shipping method prices",
-        "shippingMethods": "shipping method | shipping methods"
+        "productPrices": "product price | product prices"
       }
     },
     "detail": {
@@ -104,19 +101,15 @@
       "tabAssignments": "Assignments",
       "buttonAddAssignment": "Add assignment",
       "associations": {
-        "shippingMethods": "Shipping methods",
         "promotions": "Promotions",
         "products": "Product price rules",
-        "shippingMethodPrices": "Shipping method price rules",
         "paymentMethods": "Payment methods",
         "promotionCustomerRules": "Promotion customer rules",
         "promotionOrderRules": "Promotion order rules",
         "promotionCartRules": "Promotion cart rules",
         "promotionDiscountRules": "Promotion discount product rules",
         "promotionGroupRules": "Promotion set group rules",
-        "shippingMethodAvailabilityRule": "Shipping method availability rules",
-        "flows": "Flow Builders",
-        "taxProviders": "Tax Providers"
+        "flows": "Flow Builders"
       },
       "typeHasNoAssociations": "No rules assigned",
       "hasNoAssociations": "This rule is not in use",

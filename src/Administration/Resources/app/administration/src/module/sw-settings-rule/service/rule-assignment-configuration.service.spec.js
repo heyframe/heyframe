@@ -11,15 +11,6 @@ describe('src/module/sw-settings-rule/service/rule-assignment-configuration.serv
             product: {
                 id: 'product',
             },
-            shipping_method_availability_rule: {
-                id: 'shipping_method_availability_rule',
-            },
-            shipping_method_prices: {
-                id: 'shipping_method_prices',
-            },
-            tax_provider: {
-                id: 'tax_provider',
-            },
             payment_method: {
                 id: 'payment_method',
             },

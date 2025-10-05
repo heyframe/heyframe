@@ -74,10 +74,7 @@
         "promotionDiscounts": "促销折扣产品规则 | 促销折扣产品规则",
         "flowSequences": "流程 | 流程",
         "paymentMethods": "支付方式 | 支付方式",
-        "productPrices": "产品价格 | 产品价格",
-        "shippingMethodPriceCalculations": "配送方式价格矩阵 | 配送方式价格矩阵",
-        "shippingMethodPrices": "配送方式价格 | 配送方式价格",
-        "shippingMethods": "配送方式 | 配送方式"
+        "productPrices": "产品价格 | 产品价格"
       }
     },
     "detail": {
@@ -104,19 +101,15 @@
       "tabAssignments": "应用对象",
       "buttonAddAssignment": "添加应用对象",
       "associations": {
-        "shippingMethods": "配送方式",
         "promotions": "促销",
         "products": "产品价格规则",
-        "shippingMethodPrices": "配送方式价格规则",
         "paymentMethods": "支付方式",
         "promotionCustomerRules": "客户促销规则",
         "promotionOrderRules": "订单促销规则",
         "promotionCartRules": "购物车促销规则",
         "promotionDiscountRules": "折扣产品规则",
         "promotionGroupRules": "促销套组规则",
-        "shippingMethodAvailabilityRule": "配送方式可用性规则",
-        "flows": "流程构建器",
-        "taxProviders": "税务提供者"
+        "flows": "流程构建器"
       },
       "typeHasNoAssociations": "未分配规则",
       "hasNoAssociations": "此规则未被使用",

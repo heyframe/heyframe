@@ -31,10 +31,6 @@ const entityRepositoryMock = {
     search: jest.fn(() => Promise.resolve(createEntityCollectionMock('test_entity', entityResultMock))),
 };
 
-const shippingMethodRepositoryMock = {
-    create: jest.fn(() => new Entity('shipping_method', 'test_id', {})),
-    sync: jest.fn(() => Promise.resolve(createEntityCollectionMock('shipping_method', entityResultMock))),
-};
 
 const gridColumnsMock = [
     {
