@@ -14,6 +14,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CreatedByField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\DateTimeField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ExtraFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
@@ -98,6 +99,7 @@ class OrderDefinition extends EntityDefinition
             (new ManyToOneAssociationField('stateMachineState', 'state_id', StateMachineStateDefinition::class, 'id'))->addFlags(new ApiAware()),
             new ListField('rule_ids', 'ruleIds', StringField::class),
             (new CustomFields())->addFlags(new ApiAware()),
+            (new ExtraFields())->addFlags(new ApiAware()),
             (new CreatedByField())->addFlags(new ApiAware()),
             (new UpdatedByField())->addFlags(new ApiAware()),
 

@@ -9,6 +9,7 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionColl
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
 use HeyFrame\Core\Framework\Log\Package;
@@ -23,6 +24,7 @@ use HeyFrame\Core\System\User\UserEntity;
 class OrderEntity extends Entity
 {
     use EntityCustomFieldsTrait;
+    use EntityExtraFieldsTrait;
     use EntityIdTrait;
 
     protected ?string $orderNumber = null;

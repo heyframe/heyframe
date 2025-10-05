@@ -34,8 +34,7 @@ class PaymentHandlerRegistry
     {
         $result = $this->connection->createQueryBuilder()
             ->select('
-                payment_method.handler_identifier,
-                app_payment_method.id as app_payment_method_id
+                payment_method.handler_identifier
             ')
             ->from('payment_method')
             ->andWhere('payment_method.id = :paymentMethodId')

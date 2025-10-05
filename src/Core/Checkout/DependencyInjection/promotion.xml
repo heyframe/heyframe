@@ -88,13 +88,6 @@
             <tag name="heyframe.cart.processor" priority="4900"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Promotion\Cart\PromotionDeliveryProcessor">
-            <argument type="service" id="HeyFrame\Core\Checkout\Promotion\Cart\PromotionDeliveryCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\LineItem\Group\LineItemGroupBuilder"/>
-
-            <tag name="heyframe.cart.processor" priority="-5100"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Promotion\Cart\PromotionCalculator">
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\AmountCalculator"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\AbsolutePriceCalculator"/>
@@ -108,12 +101,6 @@
             <argument type="service" id="HeyFrame\Core\Checkout\Promotion\Cart\Discount\ScopePackager\CartScopeDiscountPackager"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Promotion\Cart\Discount\ScopePackager\SetGroupScopeDiscountPackager"/>
             <argument type="service" id="HeyFrame\Core\Checkout\Promotion\Cart\Discount\ScopePackager\SetScopeDiscountPackager"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Promotion\Cart\PromotionDeliveryCalculator">
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Cart\Price\PercentagePriceCalculator"/>
-            <argument type="service" id="HeyFrame\Core\Checkout\Promotion\Cart\PromotionItemBuilder"/>
         </service>
 
         <!-- SUBSCRIBERS -->

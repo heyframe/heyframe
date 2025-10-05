@@ -39,10 +39,6 @@ class OrderConverter
 
     final public const ORIGINAL_ID = 'originalId';
 
-    final public const ORIGINAL_ADDRESS_ID = 'originalAddressId';
-
-    final public const ORIGINAL_ADDRESS_VERSION_ID = 'originalAddressVersionId';
-
     final public const ORIGINAL_ORDER_NUMBER = 'originalOrderNumber';
 
     final public const ORIGINAL_PRIMARY_ORDER_DELIVERY = 'originalPrimaryOrderDelivery';
