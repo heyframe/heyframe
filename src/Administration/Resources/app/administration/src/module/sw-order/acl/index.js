@@ -53,7 +53,6 @@ HeyFrame.Service('privileges')
                     'user_config:create',
                     'user_config:update',
                     'customer:read',
-                    'customer_address:read',
                     'version:delete',
                     'media_default_folder:read',
                 ],

@@ -66,22 +66,6 @@ export default {
         languageId() {
             return this.loadLanguage(this.customer?.channelId);
         },
-
-        salutationRepository() {
-            return this.repositoryFactory.create('salutation');
-        },
-
-        salutationCriteria() {
-            const criteria = new Criteria(1, 1);
-
-            criteria.addFilter(Criteria.equals('salutationKey', 'not_specified'));
-
-            return criteria;
-        },
-
-        salutationFilter() {
-            return HeyFrame.Filter.getByName('salutation');
-        },
     },
 
     watch: {
@@ -108,26 +92,9 @@ export default {
 
     methods: {
         async createdComponent() {
-            const defaultSalutationId = await this.getDefaultSalutation();
-
             HeyFrame.Store.get('context').resetLanguageToDefault();
             this.customer = this.customerRepository.create();
-
-            const addressRepository = this.repositoryFactory.create(
-                this.customer.addresses.entity,
-                this.customer.addresses.source,
-            );
-
-            this.customer.accountType = CUSTOMER.ACCOUNT_TYPE_PRIVATE;
-            this.address = addressRepository.create();
-
-            this.customer.addresses.add(this.address);
-            this.customer.defaultBillingAddressId = this.address.id;
-            this.customer.defaultShippingAddressId = this.address.id;
             this.customer.password = '';
-            this.customer.vatIds = [];
-            this.customer.salutationId = defaultSalutationId;
-            this.address.salutationId = defaultSalutationId;
         },
 
         saveFinish() {
@@ -253,12 +220,6 @@ export default {
             }
 
             return res.data[0];
-        },
-
-        async getDefaultSalutation() {
-            const res = await this.salutationRepository.searchIds(this.salutationCriteria);
-
-            return res.data?.[0];
         },
     },
 };

@@ -29,18 +29,6 @@ export default {
     computed: {
         ...mapPropertyErrors('customer', errorConfig['sw.customer.detail.base'].customer),
 
-        salutationCriteria() {
-            const criteria = new Criteria(1, 25);
-
-            criteria.addFilter(
-                Criteria.not('or', [
-                    Criteria.equals('id', Defaults.defaultSalutationId),
-                ]),
-            );
-
-            return criteria;
-        },
-
         accountTypeOptions() {
             return [
                 {

@@ -20,7 +20,6 @@ export default {
 
     mixins: [
         Mixin.getByName('notification'),
-        Mixin.getByName('salutation'),
         Mixin.getByName('listing'),
     ],
 
@@ -47,15 +46,9 @@ export default {
             filterCriteria: [],
             defaultFilters: [
                 'customer-number-filter',
-                'affiliate-code-filter',
-                'campaign-code-filter',
-                'customer-group-request-filter',
-                'salutation-filter',
                 'account-status-filter',
                 'default-payment-method-filter',
                 'group-filter',
-                'billing-address-country-filter',
-                'shipping-address-country-filter',
                 'tags-filter',
             ],
             storeKey: 'grid.filter.customer',
@@ -171,7 +164,7 @@ export default {
             promise
                 .then(() => {
                     this.createNotificationSuccess({
-                        message: this.$tc('sw-customer.detail.messageSaveSuccess', { name: this.salutation(customer) }, 0),
+                        message: this.$tc('sw-customer.detail.messageSaveSuccess', { name: customer.nickname }, 0),
                     });
                 })
                 .catch(() => {
@@ -241,10 +234,10 @@ export default {
         getCustomerColumns() {
             const columns = [
                 {
-                    property: 'firstName',
-                    dataIndex: 'lastName,firstName',
+                    property: 'nickname',
+                    dataIndex: 'nickname',
                     inlineEdit: 'string',
-                    label: 'sw-customer.list.columnName',
+                    label: 'sw-customer.list.columnNickname',
                     routerLink: 'sw.customer.detail',
                     width: '250px',
                     allowResize: true,

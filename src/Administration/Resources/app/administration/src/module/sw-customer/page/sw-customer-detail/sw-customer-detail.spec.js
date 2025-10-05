@@ -197,10 +197,4 @@ describe('module/sw-customer/page/sw-customer-detail', () => {
 
         wrapperWithPrivileges.vm.createNotificationError.mockRestore();
     });
-
-    it('should get default salutation is value not specified', async () => {
-        await flushPromises();
-
-        expect(wrapper.vm.customer.salutationId).toBe('1');
-    });
 });

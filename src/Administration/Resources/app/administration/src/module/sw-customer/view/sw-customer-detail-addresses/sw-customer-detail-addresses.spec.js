@@ -125,21 +125,6 @@ describe('module/sw-customer/view/sw-customer-detail-addresses.spec.js', () => {
         expect(lastNameCell.find('a').text()).toContain('Nguyen');
     });
 
-    it('should set not_specified salutation key when creating a new address', async () => {
-        await wrapper.setProps({
-            customerEditMode: true,
-        });
-        wrapper.vm.salutationRepository.searchIds = jest.fn(() => Promise.resolve({ data: ['1'] }));
-
-        expect(wrapper.vm.currentAddress).toBeNull();
-
-        const swButton = wrapper.findByText('button', 'sw-customer.detailAddresses.buttonAddAddress');
-        await swButton.trigger('click');
-        await flushPromises();
-
-        expect(wrapper.vm.currentAddress.salutationId).toBe('1');
-    });
-
     it('should dispatch error/addApiError when the form has invalid field errors', async () => {
         const entityMock = {
             getEntityName: () => 'customer_address',

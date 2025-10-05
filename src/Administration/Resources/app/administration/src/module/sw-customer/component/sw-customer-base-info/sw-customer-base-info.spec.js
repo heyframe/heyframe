@@ -190,18 +190,6 @@ describe('module/sw-customer/page/sw-customer-base-info', () => {
         );
         expect(leftColumn.findAll('.sw-description-list')[2].find('dd').text()).toBe('Group test');
 
-        // Affiliate code
-        expect(leftColumn.findAll('.sw-description-list')[5].find('dt').text()).toBe(
-            'sw-customer.baseInfo.labelAffiliateCode',
-        );
-        expect(leftColumn.findAll('.sw-description-list')[5].find('dd').text()).toBe('-');
-
-        // Campaign code
-        expect(leftColumn.findAll('.sw-description-list')[6].find('dt').text()).toBe(
-            'sw-customer.baseInfo.labelCampaignCode',
-        );
-        expect(leftColumn.findAll('.sw-description-list')[6].find('dd').text()).toBe('-');
-
         // Email confirmation shouldn't be displayed
         expect(leftColumn.findAll('.sw-description-list').map((w) => w.find('dt').text())).not.toContain(
             'sw-customer.baseInfo.labelConfirmed',
@@ -237,26 +225,5 @@ describe('module/sw-customer/page/sw-customer-base-info', () => {
         expect(leftColumn.findAll('.sw-description-list')[2].find('dd').text()).toBe(
             'sw-customer.baseInfo.contentConfirmed',
         );
-    });
-
-    it('should hide affiliate and campaign code value in edit mode', async () => {
-        await wrapper.setProps({
-            customerEditMode: true,
-        });
-
-        await wrapper.vm.$nextTick();
-
-        const leftColumn = wrapper.findAll('.sw-customer-base-info-columns')[0];
-        // Affiliate code
-        expect(leftColumn.findAll('.sw-description-list')[3].find('dt').text()).toBe(
-            'sw-customer.baseInfo.labelAffiliateCode',
-        );
-        expect(leftColumn.findAll('.sw-description-list')[3].find('dd').text()).not.toBe('-');
-
-        // Campaign code
-        expect(leftColumn.findAll('.sw-description-list')[4].find('dt').text()).toBe(
-            'sw-customer.baseInfo.labelCampaignCode',
-        );
-        expect(leftColumn.findAll('.sw-description-list')[4].find('dd').text()).not.toBe('-');
     });
 });

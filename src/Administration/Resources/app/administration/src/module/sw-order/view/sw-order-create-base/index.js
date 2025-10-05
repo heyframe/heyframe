@@ -45,11 +45,6 @@ export default {
         customerRepository() {
             return Service('repositoryFactory').create('customer');
         },
-
-        customerAddressRepository() {
-            return Service('repositoryFactory').create('customer_address');
-        },
-
         currencyRepository() {
             return Service('repositoryFactory').create('currency');
         },
@@ -326,76 +321,6 @@ export default {
             this.currencyRepository.get(customer.channel.currencyId).then((currency) => {
                 Store.get('swOrder').setCurrency(currency);
             });
-        },
-
-        onEditBillingAddress() {
-            const contextId = 'billingAddressId';
-            const contextDataKey = 'billingAddress';
-            const contextDataDefaultId = 'defaultBillingAddressId';
-            const data = this.customer[contextDataKey] ? this.customer[contextDataKey] : this.customer.defaultBillingAddress;
-
-            this.addAddressModalTitle = this.$tc('sw-order.addressSelection.modalTitleAddBillingAddress');
-            this.editAddressModalTitle = this.$tc('sw-order.addressSelection.modalTitleEditBillingAddress');
-            this.address = {
-                contextId,
-                contextDataKey,
-                contextDataDefaultId,
-                data,
-            };
-            this.showAddressModal = true;
-        },
-
-        onEditShippingAddress() {
-            const contextId = 'shippingAddressId';
-            const contextDataKey = 'shippingAddress';
-            const contextDataDefaultId = 'defaultShippingAddressId';
-            const data = this.customer[contextDataKey]
-                ? this.customer[contextDataKey]
-                : this.customer.defaultShippingAddress;
-
-            this.addAddressModalTitle = this.$tc('sw-order.addressSelection.modalTitleAddShippingAddress');
-            this.editAddressModalTitle = this.$tc('sw-order.addressSelection.modalTitleEditShippingAddress');
-            this.address = {
-                contextId,
-                contextDataKey,
-                contextDataDefaultId,
-                data,
-            };
-            this.showAddressModal = true;
-        },
-
-        setCustomerAddress({ contextId, data }) {
-            this.customer[contextId] = data.id;
-            const availableCustomerAddresses = [
-                {
-                    id: this.customer.billingAddressId,
-                    dataKey: 'billingAddress',
-                },
-                {
-                    id: this.customer.shippingAddressId,
-                    dataKey: 'shippingAddress',
-                },
-                {
-                    id: this.customer.defaultBillingAddressId,
-                    dataKey: 'defaultBillingAddress',
-                },
-                {
-                    id: this.customer.defaultShippingAddressId,
-                    dataKey: 'defaultShippingAddress',
-                },
-            ];
-
-            this.customerAddressRepository
-                .get(data.id, HeyFrame.Context.api, this.customerAddressCriteria)
-                .then((updatedAddress) => {
-                    availableCustomerAddresses.forEach((customerAddress) => {
-                        if (customerAddress.id === data.id) {
-                            this.customer[customerAddress.dataKey] = updatedAddress;
-                        }
-                    });
-
-                    this.setCustomer(this.customer);
-                });
         },
 
         closeModal() {

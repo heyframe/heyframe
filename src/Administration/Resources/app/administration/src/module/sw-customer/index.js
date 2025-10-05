@@ -16,11 +16,6 @@ HeyFrame.Component.register('sw-customer-detail-addresses', () => import('./view
 HeyFrame.Component.register('sw-customer-detail-order', () => import('./view/sw-customer-detail-order'));
 HeyFrame.Component.register('sw-customer-base-form', () => import('./component/sw-customer-base-form'));
 HeyFrame.Component.register('sw-customer-base-info', () => import('./component/sw-customer-base-info'));
-HeyFrame.Component.register('sw-customer-address-form', () => import('./component/sw-customer-address-form'));
-HeyFrame.Component.register(
-    'sw-customer-address-form-options',
-    () => import('./component/sw-customer-address-form-options'),
-);
 HeyFrame.Component.register('sw-customer-default-addresses', () => import('./component/sw-customer-default-addresses'));
 HeyFrame.Component.register('sw-customer-card', () => import('./component/sw-customer-card'));
 /* eslint-enable max-len, sw-deprecation-rules/private-feature-declarations */
@@ -71,14 +66,6 @@ Module.register('sw-customer', {
                 base: {
                     component: 'sw-customer-detail-base',
                     path: 'base',
-                    meta: {
-                        parentPath: 'sw.customer.index',
-                        privilege: 'customer.viewer',
-                    },
-                },
-                addresses: {
-                    component: 'sw-customer-detail-addresses',
-                    path: 'addresses',
                     meta: {
                         parentPath: 'sw.customer.index',
                         privilege: 'customer.viewer',

@@ -63,18 +63,6 @@
                                 />
                                 {% endblock %}
 
-                                {% block sw_customer_card_metadata_customer_name_editor_salutation %}
-                                <sw-entity-single-select
-                                    v-model:value="customer.salutationId"
-                                    name="sw-field--customer-salutationId"
-                                    class="sw-customer-card__salutation-select"
-                                    entity="salutation"
-                                    label-property="displayName"
-                                    :label="$tc('sw-customer.card.labelSalutation')"
-                                    :criteria="salutationCriteria"
-                                />
-                                {% endblock %}
-
                                 {% block sw_customer_card_metadata_customer_name_editor_title %}
 
                                 <mt-text-field

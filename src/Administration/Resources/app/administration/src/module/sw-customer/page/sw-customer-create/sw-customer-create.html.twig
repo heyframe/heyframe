@@ -3,7 +3,7 @@
 
     {% block sw_customer_create_header %}
     <template #smart-bar-header>
-        <h2>{{ salutationFilter(customer, $tc('sw-customer.general.newCustomer')) }}</h2>
+        <h2>{{ $tc('sw-customer.general.newCustomer') }}</h2>
     </template>
     {% endblock %}
 
@@ -45,18 +45,6 @@
                     :is-loading="isLoading"
                     :customer="customer"
                     @channel-change="onChangeChannel"
-                />
-            </mt-card>
-            {% endblock %}
-
-            {% block sw_customer_create_adress_form %}
-            <mt-card
-                :title="$tc('sw-customer.detailBase.labelAddressesCard')"
-                position-identifier="sw-customer-create-address-form"
-            >
-                <sw-customer-address-form
-                    v-if="customer"
-                    v-bind="{ customer, address }"
                 />
             </mt-card>
             {% endblock %}

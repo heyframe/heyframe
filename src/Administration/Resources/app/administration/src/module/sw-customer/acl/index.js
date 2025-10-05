@@ -10,9 +10,7 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
         viewer: {
             privileges: [
                 'customer:read',
-                'customer_address:read',
                 'customer_group:read',
-                'salutation:read',
                 'channel:read',
                 'channel_domain:read',
                 'payment_method:read',
@@ -35,15 +33,11 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
         editor: {
             privileges: [
                 'customer:update',
-                'customer_address:update',
-                'customer_address:create',
-                'customer_address:delete',
                 'tag:create',
                 'customer_tag:create',
                 'customer_group:update',
                 'custom_field:update',
                 'system_config:read',
-                'api_proxy_imitate-customer',
             ],
             dependencies: [
                 'customer.viewer',

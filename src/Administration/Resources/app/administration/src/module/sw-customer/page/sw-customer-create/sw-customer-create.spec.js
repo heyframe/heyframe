@@ -66,17 +66,6 @@ async function createWrapper({ customerRepositorySaveMock, languageRepositorySea
                                         })),
                             };
                         }
-
-                        if (entity === 'salutation') {
-                            return {
-                                searchIds: () =>
-                                    Promise.resolve({
-                                        total: 1,
-                                        data: ['salutationId'],
-                                    }),
-                            };
-                        }
-
                         return {
                             create: () => Promise.resolve(),
                         };
@@ -196,14 +185,6 @@ describe('module/sw-customer/page/sw-customer-create', () => {
         const context = await wrapper.vm.onSave();
 
         expect(context.languageId).toEqual(HeyFrame.Context.api.languageId);
-    });
-
-    it('should get default salutation is value not specified', async () => {
-        const wrapper = await createWrapper();
-        await flushPromises();
-
-        expect(wrapper.vm.customer.salutationId).toBe('salutationId');
-        expect(wrapper.vm.address.salutationId).toBe('salutationId');
     });
 
     it('should not render sw-customer-base-form and sw-customer-address-form if customer is null', async () => {

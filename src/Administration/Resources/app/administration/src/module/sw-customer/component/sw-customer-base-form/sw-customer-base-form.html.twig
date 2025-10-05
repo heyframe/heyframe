@@ -19,20 +19,6 @@
             columns="1fr 1fr"
             class="sw-customer-base-form__first-item sw-customer-base-form__first-item--full"
         >
-            {% block sw_customer_base_form_first_salutation_field %}
-            <sw-entity-single-select
-                v-model:value="customer.salutationId"
-                name="sw-field--customer-salutationId"
-                class="sw-customer-base-form__salutation-select"
-                entity="salutation"
-                :label="$tc('sw-customer.baseForm.labelSalutation')"
-                :placeholder="$tc('sw-customer.baseForm.placeholderSalutation')"
-                :error="customerSalutationIdError"
-                :criteria="salutationCriteria"
-                label-property="displayName"
-            />
-            {% endblock %}
-
             {% block sw_customer_base_form_title_field %}
 
             <mt-text-field

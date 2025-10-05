@@ -20,25 +20,6 @@
         </sw-customer-card>
         {% endblock %}
 
-        {% block sw_customer_detail_base_default_addresses_card %}
-        <mt-card
-            v-if="customer.defaultShippingAddress || customer.defaultBillingAddress"
-            :title="$tc('sw-customer.detailBase.labelAddressesCard')"
-            position-identifier="sw-customer-detail-base-default-addresses"
-            class="sw-customer-detail-base__default-addresses"
-            :is-loading="customer.isLoading"
-        >
-            {% block sw_customer_detail_base_default_addresses %}
-            <template #grid>
-                <sw-customer-default-addresses
-                    :customer-edit-mode="customerEditMode"
-                    :customer="customer"
-                />
-            </template>
-            {% endblock %}
-        </mt-card>
-        {% endblock %}
-
         {% block sw_customer_detail_custom_field_sets %}
         <mt-card
             v-if="!!customerCustomFieldSets && customerCustomFieldSets.length > 0"

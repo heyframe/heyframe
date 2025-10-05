@@ -6,7 +6,7 @@
         #smart-bar-header
     >
         <h2>
-            {{ salutation(customer) }}
+            {{ customer.nickname }}
         </h2>
         <sw-label
             v-if="customer?.createdById"
@@ -129,16 +129,6 @@
                     :has-error="swCustomerDetailBaseError"
                 >
                     {{ $tc('sw-customer.detail.tabGeneral') }}
-                </sw-tabs-item>
-                {% endblock %}
-
-                {% block sw_customer_detail_content_tab_addresses %}
-                <sw-tabs-item
-                    class="sw-customer-detail__tab-addresses"
-                    :route="addressesRoute"
-                    :title="$tc('sw-customer.detail.tabAddresses')"
-                >
-                    {{ $tc('sw-customer.detail.tabAddresses') }}
                 </sw-tabs-item>
                 {% endblock %}
 

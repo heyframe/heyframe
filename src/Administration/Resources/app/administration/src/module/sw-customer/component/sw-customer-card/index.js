@@ -23,7 +23,6 @@ export default {
 
     mixins: [
         Mixin.getByName('notification'),
-        Mixin.getByName('salutation'),
     ],
 
     props: {
@@ -68,27 +67,7 @@ export default {
         },
 
         fullName() {
-            const name = {
-                name: this.salutation(this.customer),
-                company: this.customer.company,
-            };
-
-            return Object.values(name)
-                .filter((item) => item !== null)
-                .join(' - ')
-                .trim();
-        },
-
-        salutationCriteria() {
-            const criteria = new Criteria(1, 25);
-
-            criteria.addFilter(
-                Criteria.not('or', [
-                    Criteria.equals('id', Defaults.defaultSalutationId),
-                ]),
-            );
-
-            return criteria;
+            return this.customer.nickname;
         },
 
         ...mapPropertyErrors('customer', [

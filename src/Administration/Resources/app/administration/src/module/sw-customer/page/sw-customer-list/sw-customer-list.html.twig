@@ -97,62 +97,40 @@
 
                 {% block sw_customer_list_grid_columns %}
 
-                    {% block sw_product_list_grid_columns_name_preview %}
-                        <template #preview-firstName="{ item, compact }">
+                    {% block sw_product_list_grid_columns_nickname_preview %}
+                        <template #preview-nickname="{ item, compact }">
                             <sw-avatar
                                 :size="compact ? '32px' : '48px'"
                                 :source-context="item"
-                                :first-name="item.firstName"
-                                :last-name="item.lastName"
+                                :name="item.nickname"
                             />
                         </template>
                     {% endblock %}
 
-                    {% block sw_customer_list_grid_columns_name %}
-                        <template #column-firstName="{ item, compact, isInlineEdit }">
+                    {% block sw_customer_list_grid_columns_nickname %}
+                        <template #column-nickname="{ item, compact, isInlineEdit }">
 
-                            {% block sw_customer_list_grid_inline_edit_name %}
+                            {% block sw_customer_list_grid_inline_edit_nickname %}
                                 <template v-if="isInlineEdit">
-                                    {% block sw_customer_list_grid_inline_edit_first_name %}
+                                    {% block sw_customer_list_grid_inline_edit_nickname %}
 
                                         <mt-text-field
-                                            v-model="item.firstName"
-                                            name="sw-field--item-firstName"
-                                            class="sw-customer-list__inline-edit-first-name"
-                                            :size="compact ? 'small' : 'default'"
-                                        />
-                                    {% endblock %}
-
-                                    {% block sw_customer_list_grid_inline_edit_last_name %}
-
-                                        <mt-text-field
-                                            v-model="item.lastName"
-                                            name="sw-field--item-lastName"
-                                            class="sw-customer-list__inline-edit-last-name"
+                                            v-model="item.nickname"
+                                            name="sw-field--item-nickname"
+                                            class="sw-customer-list__inline-edit-nickname"
                                             :size="compact ? 'small' : 'default'"
                                         />
                                     {% endblock %}
                                 </template>
                             {% endblock %}
 
-                            {% block sw_customer_list_grid_columns_name_link %}
+                            {% block sw_customer_list_grid_columns_nickname_link %}
                                 <router-link
                                     v-else
                                     :to="{ name: 'sw.customer.detail', params: { id: item.id }, query: { edit: false } }"
                                 >
-                                    {{ item.lastName }}, {{ item.firstName }}
+                                    {{ item.nickname }}
                                 </router-link>
-                            {% endblock %}
-
-                            {% block sw_customer_list_grid_columns_name_guest_label %}
-                                <sw-label
-                                    v-if="!isInlineEdit && item.guest"
-                                    appearance="pill"
-                                    size="small"
-                                    class="sw-customer-list__metadata-customer-guest-label"
-                                >
-                                    {{ $tc('sw-customer.list.columnNameGuestLabel') }}
-                                </sw-label>
                             {% endblock %}
 
                             <sw-label
