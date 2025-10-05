@@ -2,36 +2,8 @@
 <div class="sw-product-price-form">
     {% block sw_product_price_form_fields %}
     <sw-container
-        columns="1fr 2fr"
-        gap="0px 30px"
         class="sw-product-price-form__prices"
     >
-
-        {% block sw_product_price_form_tax_field %}
-        <sw-inherit-wrapper
-            ref="taxIdInheritation"
-            v-model:value="product.taxId"
-            :inherited-value="parentProduct.taxId"
-            :has-parent="!!parentProduct.taxId"
-            :help-text="taxRateHelpText"
-            :label="$tc('sw-product.priceForm.labelTaxRate')"
-            class="sw-product-price-form__tax-rate"
-            required
-        >
-            <template #content="{ currentValue, updateCurrentValue, isInherited }">
-                <mt-select
-                    name="sw-field--product-taxId"
-                    :placeholder="$tc('sw-product.priceForm.placeholderTaxRate')"
-                    validation="required"
-                    :disabled="isInherited || !allowEdit || undefined"
-                    :model-value="currentValue"
-                    :error="productTaxIdError"
-                    :options="taxRateOptions"
-                    @update:model-value="updateCurrentValue"
-                />
-            </template>
-        </sw-inherit-wrapper>
-        {% endblock %}
 
         {% block sw_product_price_form_price_field %}
         <sw-inherit-wrapper
@@ -49,7 +21,6 @@
                     vertical
                     :price="currentValue.price"
                     :purchase-prices="currentValue.purchasePrices"
-                    :tax-rate="productTaxRate"
                     :disabled="isInherited || !allowEdit || undefined"
                     :error="productPriceError ? productPriceError[0] : null"
                     :currency="defaultCurrency"

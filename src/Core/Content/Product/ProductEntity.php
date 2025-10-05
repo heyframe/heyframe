@@ -55,8 +55,6 @@ class ProductEntity extends Entity implements \Stringable
 
     protected bool $available;
 
-    protected ?int $restockTime = null;
-
     protected ?bool $isCloseout = null;
 
     protected ?int $purchaseSteps = null;
@@ -64,8 +62,6 @@ class ProductEntity extends Entity implements \Stringable
     protected ?int $maxPurchase = null;
 
     protected ?int $minPurchase = null;
-
-    protected ?PriceCollection $purchasePrices = null;
 
     protected ?\DateTimeInterface $releaseDate = null;
 
@@ -278,16 +274,6 @@ class ProductEntity extends Entity implements \Stringable
         $this->minPurchase = $minPurchase;
     }
 
-    public function getPurchasePrices(): ?PriceCollection
-    {
-        return $this->purchasePrices;
-    }
-
-    public function setPurchasePrices(?PriceCollection $purchasePrices): void
-    {
-        $this->purchasePrices = $purchasePrices;
-    }
-
     public function getReleaseDate(): ?\DateTimeInterface
     {
         return $this->releaseDate;
@@ -356,16 +342,6 @@ class ProductEntity extends Entity implements \Stringable
     public function setPrices(ProductPriceCollection $prices): void
     {
         $this->prices = $prices;
-    }
-
-    public function getRestockTime(): ?int
-    {
-        return $this->restockTime;
-    }
-
-    public function setRestockTime(?int $restockTime): void
-    {
-        $this->restockTime = $restockTime;
     }
 
     public function isReleased(): bool

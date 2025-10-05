@@ -251,13 +251,6 @@ export default {
             return criteria;
         },
 
-        taxCriteria() {
-            const criteria = new Criteria(1, 500);
-            criteria.addSorting(Criteria.sort('position'));
-
-            return criteria;
-        },
-
         tooltipSave() {
             const systemKey = this.$device.getSystemKey();
 
@@ -884,6 +877,7 @@ export default {
             }
 
             if (!this.entityValidationService.validate(this.product, this.customValidate, this.ignoreFieldsValidation)) {
+
                 const titleSaveError = this.$tc('global.default.error');
                 const messageSaveError = this.$tc('global.notification.notificationSaveErrorMessageRequiredFieldsInvalid');
 
@@ -930,18 +924,13 @@ export default {
                     return;
                 }
 
-                if (!price[priceLabel].gross && !price[priceLabel].net) {
+                if (!price[priceLabel].gross) {
                     price[priceLabel] = null;
                     return;
                 }
 
                 if (!price[priceLabel].gross) {
                     price[priceLabel].gross = 0;
-                    return;
-                }
-
-                if (!price[priceLabel].net) {
-                    price[priceLabel].net = 0;
                 }
             });
         },

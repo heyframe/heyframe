@@ -100,7 +100,6 @@ class ProductDefinition extends EntityDefinition
             'minPurchase' => 1,
             'isCloseout' => false,
             'purchaseSteps' => 1,
-            'restockTime' => null,
             'active' => true,
             'productType' => self::PRODUCT_TYPE_PRODCUT,
         ];
@@ -131,7 +130,6 @@ class ProductDefinition extends EntityDefinition
 
             (new PriceField('price', 'price'))->addFlags(new Inherited(), new Required(), new ApiCriteriaAware()),
             (new NumberRangeField('product_number', 'productNumber'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING, false), new Required()),
-            (new IntField('restock_time', 'restockTime'))->addFlags(new ApiAware(), new Inherited()),
             new AutoIncrementField(),
             (new BoolField('active', 'active'))->addFlags(new ApiAware(), new Inherited()),
             (new BoolField('available', 'available'))->addFlags(new ApiAware(), new WriteProtected()),
@@ -148,8 +146,6 @@ class ProductDefinition extends EntityDefinition
 
             (new IntField('max_purchase', 'maxPurchase'))->addFlags(new ApiAware(), new Inherited()),
             (new IntField('min_purchase', 'minPurchase', 1))->addFlags(new ApiAware(), new Inherited()),
-            (new FloatField('purchase_unit', 'purchaseUnit'))->addFlags(new ApiAware(), new Inherited()),
-            (new PriceField('purchase_prices', 'purchasePrices'))->addFlags(new Inherited()),
             (new DateTimeField('release_date', 'releaseDate'))->addFlags(new ApiAware(), new Inherited()),
             (new FloatField('rating_average', 'ratingAverage'))->addFlags(new ApiAware(), new WriteProtected(), new Inherited()),
             (new ManyToManyIdField('property_ids', 'propertyIds', 'properties'))->addFlags(new ApiAware(), new Inherited()),

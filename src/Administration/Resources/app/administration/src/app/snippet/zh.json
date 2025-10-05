@@ -210,17 +210,12 @@
       "url": "https://www.heyframe.com/zh/gtc"
     },
     "sw-price-field": {
-      "labelPriceGross": "价格（含税）",
-      "labelPriceNet": "价格（不含税）",
-      "toggleLinkedCurrency": "切换含税价与不含税价的联动"
+      "labelPriceGross": "价格"
     },
     "sw-list-price-field": {
-      "labelListPriceGross": "划线价（含税）",
+      "labelListPriceGross": "划线价",
       "helpTextListPriceGross": "划线价用于显示产品折扣。它表示“原价”，通常会被划掉并标红。实际销售价（折后价）会以默认颜色显示在旁边。",
-      "labelListPriceNet": "划线价（不含税）",
-      "labelRegulationPriceGross": "最低价（最近30天，含税）",
-      "helpTextRegulationPriceGross": "如果你在欧盟地区宣传产品降价，必须填写此字段。根据欧盟第98/6/EC号指令第6a条规定，在展示降价时，除了显示当前降价后的价格，还必须同时显示过去30天内该产品的最低价格，便于消费者验证。",
-      "labelRegulationPriceNet": "最低价（最近30天，不含税）"
+      "labelRegulationPriceGross": "最低价（最近30天）"
     },
     "sw-text-editor": {
       "labelTextLength": "{count} 个字符"

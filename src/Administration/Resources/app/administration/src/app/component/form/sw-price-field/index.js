@@ -56,14 +56,6 @@ export default {
             default: false,
         },
 
-        taxRate: {
-            type: Object,
-            required: false,
-            default() {
-                return {};
-            },
-        },
-
         currency: {
             type: Object,
             required: true,
@@ -144,12 +136,6 @@ export default {
             required: false,
             default: null,
         },
-
-        netHelpText: {
-            type: String,
-            required: false,
-            default: null,
-        },
     },
 
     data() {
@@ -187,8 +173,6 @@ export default {
                 return {
                     currencyId: this.currency.id,
                     gross: null,
-                    linked: this.defaultPrice.linked,
-                    net: null,
                 };
             },
             set(newValue) {
@@ -232,11 +216,6 @@ export default {
             return this.label ? label : '';
         },
 
-        labelNet() {
-            const label = this.netLabel ? this.netLabel : this.$tc('global.sw-price-field.labelPriceNet');
-            return this.label ? label : '';
-        },
-
         grossError() {
             return this.error ? this.error.gross : null;
         },
@@ -260,25 +239,9 @@ export default {
                 this.convertGrossToNet(this.priceForCurrency.gross);
             }
         },
-
-        'taxRate.id': function taxRateWatcher() {
-            if (this.priceForCurrency.linked === true && this.priceForCurrency.gross !== null) {
-                this.convertGrossToNet(this.priceForCurrency.gross);
-            }
-        },
     },
 
     methods: {
-        onLockSwitch() {
-            if (this.isDisabled) {
-                return;
-            }
-            this.priceForCurrency.linked = !this.priceForCurrency.linked;
-            this.$emit('price-lock-change', this.priceForCurrency.linked);
-
-            this.$emit('change', this.priceForCurrency);
-        },
-
         onEndsWithDecimalSeparator(value) {
             if (value) {
                 // cancel might not be a function if debounce is not active
@@ -302,26 +265,9 @@ export default {
             }
         },
 
-        onPriceNetInputChange(value) {
-            this.priceForCurrency.net = value;
-
-            this.$emit('price-net-change', value);
-            this.$emit('change', this.priceForCurrency);
-
-            if (this.priceForCurrency.linked && value && !value.toString().endsWith('.')) {
-                this.onPriceNetChangeDebounce();
-            }
-        },
-
         onPriceGrossChange(value) {
             if (this.priceForCurrency.linked && value && !value.toString().endsWith('.')) {
                 this.convertGrossToNet(value);
-            }
-        },
-
-        onPriceNetChange(value) {
-            if (this.priceForCurrency.linked && value && !value.toString().endsWith('.')) {
-                this.convertNetToGross(value);
             }
         },
 
@@ -338,68 +284,7 @@ export default {
                 return false;
             }
             this.$emit('price-calculate', true);
-
-            this.requestTaxValue(numericValue, 'net').then((res) => {
-                const newValue = this.priceForCurrency.net + res;
-                this.priceForCurrency.gross = parseFloat(newValue.toPrecision(14));
-            });
             return true;
-        },
-
-        convertGrossToNet(value) {
-            const numericValue = typeof value === 'string' ? parseFloat(value) : value;
-
-            if (Number.isNaN(numericValue) || numericValue === null) {
-                this.priceForCurrency.net = this.allowEmpty ? null : 0;
-                this.$emit('calculating', false);
-                return false;
-            }
-
-            if (!numericValue) {
-                this.priceForCurrency.net = 0;
-                this.$emit('calculating', false);
-                return false;
-            }
-            this.$emit('price-calculate', true);
-
-            this.requestTaxValue(numericValue, 'gross').then((res) => {
-                const newValue = this.priceForCurrency.gross - res;
-                this.priceForCurrency.net = parseFloat(newValue.toPrecision(14));
-            });
-            return true;
-        },
-
-        requestTaxValue(value, outputType) {
-            this.$emit('price-calculate', true);
-            return new Promise((resolve) => {
-                if (!value || typeof value !== 'number' || !this.priceForCurrency[outputType] || !outputType) {
-                    return;
-                }
-
-                if (!this.taxRate.id) {
-                    resolve(0);
-                    this.$emit('price-calculate', false);
-                    return;
-                }
-
-                this.calculatePriceApiService
-                    .calculatePrice({
-                        taxId: this.taxRate.id,
-                        currencyId: this.currency.id,
-                        price: this.priceForCurrency[outputType],
-                        output: outputType,
-                    })
-                    .then(({ data }) => {
-                        let tax = 0;
-
-                        data.calculatedTaxes.forEach((item) => {
-                            tax += item.tax;
-                        });
-
-                        resolve(tax);
-                        this.$emit('price-calculate', false);
-                    });
-            });
         },
 
         convertPrice(value) {

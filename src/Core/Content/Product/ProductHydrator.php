@@ -58,9 +58,6 @@ class ProductHydrator extends EntityHydrator
         if (isset($row[$root . '.stock'])) {
             $entity->stock = (int) $row[$root . '.stock'];
         }
-        if (isset($row[$root . '.restockTime'])) {
-            $entity->restockTime = (int) $row[$root . '.restockTime'];
-        }
         if (isset($row[$root . '.autoIncrement'])) {
             $entity->autoIncrement = (int) $row[$root . '.autoIncrement'];
         }
@@ -96,9 +93,6 @@ class ProductHydrator extends EntityHydrator
         }
         if (isset($row[$root . '.minPurchase'])) {
             $entity->minPurchase = (int) $row[$root . '.minPurchase'];
-        }
-        if (\array_key_exists($root . '.purchasePrices', $row)) {
-            $entity->purchasePrices = $definition->decode('purchasePrices', self::value($row, $root, 'purchasePrices'));
         }
         if (isset($row[$root . '.releaseDate'])) {
             $entity->releaseDate = new \DateTimeImmutable($row[$root . '.releaseDate']);

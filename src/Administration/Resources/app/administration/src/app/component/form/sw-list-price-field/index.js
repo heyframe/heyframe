@@ -43,14 +43,6 @@ export default {
             default: true,
         },
 
-        taxRate: {
-            type: Object,
-            required: true,
-            default() {
-                return {};
-            },
-        },
-
         currency: {
             type: Object,
             required: true,
@@ -136,16 +128,12 @@ export default {
                 // otherwise calculate values
                 return {
                     gross: this.convertPrice(this.defaultPrice.gross),
-                    linked: this.defaultPrice.linked,
-                    net: this.convertPrice(this.defaultPrice.net),
                     listPrice: this.defaultPrice.listPrice,
                     regulationPrice: this.defaultPrice.regulationPrice,
                 };
             },
             set(newValue) {
                 this.priceForCurrency.gross = newValue.gross;
-                this.priceForCurrency.linked = newValue.linked;
-                this.priceForCurrency.net = newValue.net;
             },
         },
 
@@ -161,8 +149,6 @@ export default {
                     {
                         gross: null,
                         currencyId: this.defaultPrice.currencyId ? this.defaultPrice.currencyId : this.currency.id,
-                        linked: true,
-                        net: null,
                     },
                 ];
             },
@@ -244,14 +230,6 @@ export default {
             }
 
             return this.$tc('global.sw-list-price-field.helpTextListPriceGross');
-        },
-
-        regulationPriceHelpText() {
-            if (!this.vertical || this.compact) {
-                return null;
-            }
-
-            return this.$tc('global.sw-list-price-field.helpTextRegulationPriceGross');
         },
     },
 

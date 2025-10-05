@@ -62,7 +62,6 @@ class Migration1536233120Product extends MigrationStep
               `max_purchase` INT(11) unsigned NULL,
               `min_purchase` INT(11) unsigned NULL,
               `purchase_unit` DECIMAL(11,4) unsigned NULL,
-              `purchase_prices` json DEFAULT NULL,
               `purchase_price` DOUBLE NULL,
               `release_date` DATETIME(3) NULL,
               `sales` int NOT NULL DEFAULT \'0\',

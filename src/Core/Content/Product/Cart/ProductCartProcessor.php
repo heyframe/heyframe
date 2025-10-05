@@ -294,18 +294,11 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
 
         $lineItem->setQuantityInformation($quantityInformation);
 
-        $purchasePrices = null;
-        $purchasePricesCollection = $product->getPurchasePrices();
-        if ($purchasePricesCollection !== null) {
-            $purchasePrices = $purchasePricesCollection->getCurrencyPrice(Defaults::CURRENCY);
-        }
-
         $payload = [
             'isCloseout' => $product->getIsCloseout(),
             'customFields' => $product->getTranslation('customFields'),
             'createdAt' => $product->getCreatedAt() ? $product->getCreatedAt()->format(Defaults::STORAGE_DATE_TIME_FORMAT) : null,
             'releaseDate' => $product->getReleaseDate() ? $product->getReleaseDate()->format(Defaults::STORAGE_DATE_TIME_FORMAT) : null,
-            'purchasePrices' => $purchasePrices ? json_encode($purchasePrices, \JSON_THROW_ON_ERROR) : null,
             'productNumber' => $product->getProductNumber(),
             'tagIds' => $product->getTagIds(),
             'propertyIds' => $product->getPropertyIds(),

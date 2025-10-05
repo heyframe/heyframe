@@ -61,40 +61,16 @@ export default {
 
         ...mapPropertyErrors('product', [
             'price',
-            'purchasePrices',
         ]),
-
-        taxRateHelpText() {
-            const link = {
-                name: 'sw.settings.tax.index',
-            };
-
-            return this.$tc(
-                'sw-product.priceForm.taxRateHelpText.label',
-                {
-                    link: `<sw-internal-link
-                           :router-link=${JSON.stringify(link)}
-                           :inline="true">
-                           ${this.$tc('sw-product.priceForm.taxRateHelpText.linkText')}
-                      </sw-internal-link>`,
-                },
-                0,
-            );
-        },
 
         prices: {
             get() {
                 const prices = {
                     price: [],
-                    purchasePrices: [],
                 };
 
                 if (this.product && Array.isArray(this.product.price)) {
                     prices.price = [...this.product.price];
-                }
-
-                if (this.product && Array.isArray(this.product.purchasePrices)) {
-                    prices.purchasePrices = [...this.product.purchasePrices];
                 }
 
                 return prices;
@@ -102,14 +78,12 @@ export default {
 
             set(newValue) {
                 this.product.price = newValue?.price || null;
-                this.product.purchasePrices = newValue?.purchasePrices || null;
             },
         },
 
         parentPrices() {
             return {
                 price: this.product.price || this.parentProduct.price,
-                purchasePrices: this.product.purchasePrices || this.parentProduct.purchasePrices,
             };
         },
     },
@@ -117,32 +91,17 @@ export default {
     methods: {
         removePriceInheritation(refPrice) {
             const defaultRefPrice = refPrice.price?.find((price) => price.currencyId === this.defaultCurrency.id);
-            const defaultRefPurchasePrice = refPrice.purchasePrices?.find(
-                (price) => price.currencyId === this.defaultCurrency.id,
-            );
 
             const prices = {
                 price: [],
-                purchasePrices: [],
             };
 
             if (defaultRefPrice) {
                 prices.price.push({
                     currencyId: defaultRefPrice.currencyId,
                     gross: defaultRefPrice.gross,
-                    net: defaultRefPrice.net,
-                    linked: defaultRefPrice.linked,
                     listPrice: defaultRefPrice.listPrice ? defaultRefPrice.listPrice : null,
                     regulationPrice: defaultRefPrice.regulationPrice ? defaultRefPrice.regulationPrice : null,
-                });
-            }
-
-            if (defaultRefPurchasePrice) {
-                prices.purchasePrices.push({
-                    currencyId: defaultRefPurchasePrice.currencyId,
-                    gross: defaultRefPurchasePrice.gross,
-                    net: defaultRefPurchasePrice.net,
-                    linked: defaultRefPurchasePrice.linked,
                 });
             }
 
@@ -150,7 +109,7 @@ export default {
         },
 
         inheritationCheckFunction() {
-            return !this.prices.price.length && !this.prices.purchasePrices.length;
+            return !this.prices.price.length;
         },
 
         onMaintainCurrenciesClose(prices) {

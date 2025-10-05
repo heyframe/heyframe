@@ -210,17 +210,12 @@
       "url": "https://www.heyframe.com/en/gtc"
     },
     "sw-price-field": {
-      "labelPriceGross": "Price (gross)",
-      "labelPriceNet": "Price (net)",
-      "toggleLinkedCurrency": "Toggle link between gross and net price"
+      "labelPriceGross": "Price"
     },
     "sw-list-price-field": {
-      "labelListPriceGross": "List price (gross)",
+      "labelListPriceGross": "List price",
       "helpTextListPriceGross": "List prices indicate a discounted product. List prices are denoted as the \"original\" price which is crossed out and coloured in red. The actual and discounted price will be displayed alongside in the default text colour.",
-      "labelListPriceNet": "List price (net)",
-      "labelRegulationPriceGross": "Cheapest price (last 30 days, gross)",
-      "helpTextRegulationPriceGross": "You must fill in this field if you want to advertise price reductions in your store in the EU. Such information should be verifiable by the customers. Therefore, in the case of price reductions, in addition to the price reduction on the current price, the lowest price of the goods in the last 30 days before the price reduction must also be indicated. This is prescribed in Art. 6 a of Directive 98/6/EC.",
-      "labelRegulationPriceNet": "Cheapest price (last 30 days, net)"
+      "labelRegulationPriceGross": "Cheapest price (last 30 days)"
     },
     "sw-text-editor": {
       "labelTextLength": "{count} character | {count} characters"
