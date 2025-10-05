@@ -4,8 +4,6 @@
 import type { ContextState } from '../../../app/composables/use-context';
 
 interface OrderAddressId {
-    orderAddressId: string;
-    customerAddressId: string;
     type: string;
     edited: boolean;
 }
@@ -24,7 +22,6 @@ const swOrderDetailStore = HeyFrame.Store.register({
             editing: false,
             savedSuccessful: false,
             versionContext: null as ContextState['api'] | null,
-            orderAddressIds: [] as OrderAddressId[],
         };
     },
 
@@ -48,39 +45,6 @@ const swOrderDetailStore = HeyFrame.Store.register({
                 return;
             }
             this.loading[name] = data;
-        },
-
-        setOrderAddressIds(value: OrderAddressId) {
-            if (!value) {
-                this.orderAddressIds = [];
-                return;
-            }
-
-            const { orderAddressId, customerAddressId, type, edited } = value;
-
-            // Handle deletion scenario where orderAddressId matches customerAddressId
-            if (orderAddressId === customerAddressId && !edited) {
-                this.orderAddressIds = this.orderAddressIds.filter(
-                    (ids) => !(ids.orderAddressId === orderAddressId && ids.type === type),
-                );
-
-                return;
-            }
-
-            // Find index of the existing item
-            const index = this.orderAddressIds.findIndex(
-                (ids) => ids.orderAddressId === orderAddressId && ids.type === type,
-            );
-
-            // If found, update the existing item
-            if (index !== -1) {
-                this.orderAddressIds[index].customerAddressId = customerAddressId;
-
-                return;
-            }
-
-            // Add a new item if no existing item was found
-            this.orderAddressIds.push(value);
         },
     },
 });

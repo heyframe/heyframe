@@ -94,14 +94,6 @@ export default {
 
         ...mapPropertyErrors('order', ['orderCustomer.email']),
 
-        delivery() {
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                return this.order.deliveries.length > 0 && this.order.deliveries[0];
-            }
-
-            return this.order.primaryOrderDelivery;
-        },
-
         transaction() {
             for (let i = 0; i < this.order.transactions.length; i += 1) {
                 if (
@@ -155,16 +147,6 @@ export default {
             return this.order.currency;
         },
 
-        billingAddress() {
-            return this.order.addresses.find((address) => {
-                return address.id === this.order.billingAddressId;
-            });
-        },
-
-        shippingAddress() {
-            return this.delivery.shippingOrderAddress;
-        },
-
         selectedBillingAddressId() {
             const currentAddress = this.orderAddressIds.find((item) => item.type === 'billing');
             return currentAddress?.customerAddressId || this.billingAddress.id;
@@ -173,16 +155,6 @@ export default {
         selectedShippingAddressId() {
             const currentAddress = this.orderAddressIds.find((item) => item.type === 'shipping');
             return currentAddress?.customerAddressId || this.shippingAddress.id;
-        },
-
-        // @deprecated tag:v6.8.0 - Will be removed, change shipping cost on order general view instead.
-        shippingCosts: {
-            get() {
-                return this.delivery?.shippingCosts.totalPrice || 0.0;
-            },
-            set(value) {
-                this.onShippingChargeEdited(value);
-            },
         },
     },
 
@@ -199,16 +171,6 @@ export default {
                 this.loadingChange(false);
             });
         },
-
-        // @deprecated tag:v6.8.0 - Will be removed, change shipping cost on order general view instead.
-        onShippingChargeEdited: Utils.debounce(function onShippingChargeEdited(amount) {
-            if (amount >= 0) {
-                this.delivery.shippingCosts.unitPrice = amount;
-                this.delivery.shippingCosts.totalPrice = amount;
-            }
-
-            this.saveAndRecalculate();
-        }, 800),
 
         loadingChange(loading) {
             if (this.swOrderDetailOnLoadingChange) {
@@ -256,31 +218,6 @@ export default {
             } else {
                 this.$emit('error', error);
             }
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - will be removed without replacement
-         */
-        updateLoading(loadingValue) {
-            Store.get('swOrderDetail').setLoading([
-                'order',
-                loadingValue,
-            ]);
-        },
-
-        validateTrackingCode(searchTerm) {
-            const trackingCode = searchTerm.trim();
-
-            if (trackingCode.length <= 0) {
-                return false;
-            }
-
-            const isExist = this.delivery?.trackingCodes?.find((code) => code === trackingCode);
-            return !isExist;
-        },
-
-        onChangeOrderAddress(value) {
-            Store.get('swOrderDetail').setOrderAddressIds(value);
         },
     },
 };

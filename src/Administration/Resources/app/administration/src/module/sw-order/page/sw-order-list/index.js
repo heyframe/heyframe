@@ -98,6 +98,7 @@ export default {
             criteria.addAssociation('currency');
             criteria.addAssociation('stateMachineState');
             criteria.addAssociation('primaryOrderTransaction.stateMachineState');
+            criteria.addAssociation('primaryOrderTransaction.paymentMethod');
 
             return criteria;
         },
@@ -334,10 +335,9 @@ export default {
                     allowResize: true,
                 },
                 {
-                    property: 'orderCustomer.company',
-                    label: 'sw-order.list.columnCustomerCompany',
+                    property: 'primaryOrderTransaction.paymentMethod.name',
+                    label: 'sw-order.list.columnCustomerPaymentMethod',
                     allowResize: true,
-                    visible: false,
                 },
                 {
                     property: 'amountTotal',
@@ -375,16 +375,6 @@ export default {
             return this.stateStyleDataProviderService.getStyle('order_transaction.state', technicalName).colorCode;
         },
 
-        getVariantFromDeliveryState(order) {
-            let technicalName = order.primaryOrderDelivery?.stateMachineState.technicalName;
-
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                technicalName = this.getDelivery(order).stateMachineState.technicalName;
-            }
-
-            return this.stateStyleDataProviderService.getStyle('order_delivery.state', technicalName).colorCode;
-        },
-
         onDelete(id) {
             this.showDeleteModal = id;
         },
@@ -419,19 +409,8 @@ export default {
         async onBulkEditItems() {
             await this.$nextTick();
 
-            const ordersExcludeDelivery = Object.values(this.$refs.orderGrid.selection).filter((order) => {
-                if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                    return !this.getDelivery(order);
-                }
-                return !order.primaryOrderDelivery;
-            });
-            const excludeDelivery = ordersExcludeDelivery.length > 0 ? '1' : '0';
-
             this.$router.push({
                 name: 'sw.bulk.edit.order',
-                params: {
-                    excludeDelivery,
-                },
             });
         },
 
@@ -455,17 +434,6 @@ export default {
             }
 
             return order.transactions.last();
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - will be removed, use order.primaryOrderDelivery instead
-         */
-        getDelivery(order) {
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                return order.deliveries[0];
-            }
-
-            return order.primaryOrderDelivery;
         },
     },
 };

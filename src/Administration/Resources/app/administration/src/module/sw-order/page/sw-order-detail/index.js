@@ -65,7 +65,6 @@ export default {
             hasOrderDeepEdit: false,
             missingProductLineItems: [],
             promotionsToDelete: [],
-            deliveryDiscountsToDelete: [],
             askForSaveBeforehand: null,
         };
     },
@@ -141,18 +140,10 @@ export default {
             return this.order.lineItems.filter((item) => item.type === 'promotion' && item.referencedId === null);
         },
 
-        deliveryDiscounts() {
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                return array.slice(this.order.deliveries, 1) || [];
-            }
-
-            return this.order.deliveries.filter((delivery) => delivery.id !== this.order.primaryOrderDeliveryId);
-        },
-
         orderCriteria() {
             const criteria = new Criteria(1, 25);
 
-            criteria.addAssociation('currency').addAssociation('orderCustomer.salutation').addAssociation('language');
+            criteria.addAssociation('currency').addAssociation('orderCustomer').addAssociation('language');
 
             criteria
                 .getAssociation('lineItems')
@@ -164,38 +155,17 @@ export default {
             criteria.addAssociation('channel.domains');
 
             criteria
-                .addAssociation('addresses.country')
-                .addAssociation('addresses.countryState')
-                .addAssociation('documents.documentType')
                 .addAssociation('tags')
                 .addAssociation('primaryOrderTransaction')
                 .addAssociation('primaryOrderTransaction.paymentMethod')
                 .addAssociation('primaryOrderTransaction.stateMachineState')
-                .addAssociation('primaryOrderDelivery')
-                .addAssociation('primaryOrderDelivery.shippingMethod')
-                .addAssociation('primaryOrderDelivery.stateMachineState')
-                .addAssociation('primaryOrderDelivery.shippingOrderAddress.country');
-
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                criteria
-                    .addAssociation('deliveries.shippingMethod')
-                    .addAssociation('deliveries.shippingOrderAddress')
-                    .addAssociation('transactions.paymentMethod');
-            }
 
             criteria.addAssociation('stateMachineState');
-
-            criteria
-                .getAssociation('deliveries')
-                .addAssociation('stateMachineState')
-                .addSorting(Criteria.sort('shippingCosts.unitPrice', 'DESC'));
 
             criteria
                 .getAssociation('transactions')
                 .addAssociation('stateMachineState')
                 .addSorting(Criteria.sort('createdAt'));
-
-            criteria.addAssociation('billingAddress');
 
             return criteria;
         },
@@ -327,18 +297,12 @@ export default {
                 return;
             }
 
-            if (this.deliveryDiscountsToDelete.length > 0) {
-                this.order.deliveries = this.order.deliveries.filter(
-                    (delivery) => !this.deliveryDiscountsToDelete.includes(delivery.id),
-                );
-            }
 
             await this.orderRepository
                 .save(this.order, this.versionContext)
                 .then(() => {
                     this.hasOrderDeepEdit = false;
                     this.promotionsToDelete = [];
-                    this.deliveryDiscountsToDelete = [];
                     return this.orderRepository.mergeVersion(this.versionContext.versionId, this.versionContext);
                 })
                 .then(() => this.createNewVersionId())

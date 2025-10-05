@@ -61,7 +61,6 @@ export default {
         return {
             currentActionName: null,
             currentStateType: null,
-            deliveryStateOptions: [],
             liveOrder: null,
             modalConfirmed: false,
             orderStateOptions: [],
@@ -133,7 +132,6 @@ export default {
                 Criteria.equalsAny('state_machine_state.stateMachine.technicalName', [
                     'order.state',
                     'order_transaction.state',
-                    'order_delivery.state',
                 ]),
             );
 
@@ -157,14 +155,6 @@ export default {
             }
 
             return this.order.primaryOrderTransaction;
-        },
-
-        delivery() {
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                return this.order.deliveries[0];
-            }
-
-            return this.order.primaryOrderDelivery;
         },
 
         currencyFilter() {
@@ -279,9 +269,6 @@ export default {
                 case 'order_transaction':
                     technicalName = this.transaction.stateMachineState.technicalName;
                     break;
-                case 'order_delivery':
-                    technicalName = this.delivery.stateMachineState.technicalName;
-                    break;
                 case 'order':
                     technicalName = this.order.stateMachineState.technicalName;
                     break;
@@ -306,10 +293,6 @@ export default {
                 statePromises.push(this.stateMachineService.getState('order_transaction', this.transaction.id));
             }
 
-            if (this.delivery) {
-                statePromises.push(this.stateMachineService.getState('order_delivery', this.delivery.id));
-            }
-
             return Promise.all([
                 this.getAllStates(),
                 ...statePromises,
@@ -330,15 +313,6 @@ export default {
                             'order_transaction.state',
                             allStates,
                             orderTransactionState.data.transitions,
-                        );
-                    }
-
-                    if (this.delivery) {
-                        const orderDeliveryState = data[3];
-                        this.deliveryStateOptions = this.buildTransitionOptions(
-                            'order_delivery.state',
-                            allStates,
-                            orderDeliveryState.data.transitions,
                         );
                     }
 
@@ -400,13 +374,6 @@ export default {
                 case 'order_transaction':
                     transition = this.orderStateMachineService.transitionOrderTransactionState(
                         this.transaction.id,
-                        this.currentActionName,
-                        { documentIds: docIds, sendMail },
-                    );
-                    break;
-                case 'order_delivery':
-                    transition = this.orderStateMachineService.transitionOrderDeliveryState(
-                        this.delivery.id,
                         this.currentActionName,
                         { documentIds: docIds, sendMail },
                     );

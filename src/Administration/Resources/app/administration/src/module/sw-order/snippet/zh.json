@@ -7,13 +7,13 @@
       "placeholderSearchBar": "搜索订单..."
     },
     "list": {
-      "columnCustomerCompany": "公司",
+      "columnCustomerPaymentMethod": "支付方式",
       "columnCustomerName": "客户名称",
       "columnAmount": "金额",
       "columnState": "订单状态",
       "columnTransactionState": "支付状态",
       "columnOrderNumber": "订单号",
-      "columnChannel": "销售渠道",
+      "columnChannel": "渠道",
       "orderDate": "下单时间",
       "buttonAddOrder": "新建订单",
       "textOrders": "订单",
@@ -74,12 +74,12 @@
       "labelShippingAddress": "收货地址",
       "placeholderBillingAddress": "请选择账单地址...",
       "placeholderShippingAddress": "请选择收货地址...",
-      "labelChannel": "销售渠道",
+      "labelChannel": "渠道",
       "labelPaymentMethod": "支付方式",
       "labelShippingMethod": "配送方式",
       "labelOrderLanguage": "订单语言",
       "labelCurrency": "货币",
-      "placeholderChannel": "请选择销售渠道...",
+      "placeholderChannel": "请选择渠道...",
       "placeholderPaymentMethod": "请选择支付方式...",
       "placeholderShippingMethod": "请选择配送方式...",
       "placeholderOrderLanguage": "请选择订单语言...",
@@ -116,12 +116,12 @@
         "placeholderAddress": "请选择地址..."
       },
       "detailsFooter": {
-        "labelChannel": "销售渠道",
+        "labelChannel": "渠道",
         "labelPaymentMethod": "支付方式",
         "labelShippingMethod": "配送方式",
         "labelOrderLanguage": "订单语言",
         "labelCurrency": "货币",
-        "placeholderChannel": "请选择销售渠道...",
+        "placeholderChannel": "请选择渠道...",
         "placeholderPaymentMethod": "请选择支付方式...",
         "placeholderShippingMethod": "请选择配送方式...",
         "placeholderOrderLanguage": "请选择订单语言...",
@@ -218,7 +218,7 @@
       "summaryLabelTaxes": "加上 {taxRate}% 增值税",
       "labelOrderStatus": "订单状态",
       "labelPaymentStatus": "支付状态",
-      "labelChannel": "销售渠道",
+      "labelChannel": "渠道",
       "labelOrderDate": "下单日期",
       "headlineBillingAddress": "账单地址",
       "headlineDeliveryAddress": "收货地址",
@@ -346,7 +346,7 @@
       "headline": "当前订单状态未分配邮件模板，请分配。",
       "placeholderAssignMailTemplate": "分配邮件模板...",
       "alertHeadline": "提示",
-      "alertMessage": "该分配将影响该销售渠道的所有后续订单。",
+      "alertMessage": "该分配将影响该渠道的所有后续订单。",
       "buttonCreateMailTemplate": "新建邮件模板",
       "buttonAssignMailTemplate": "分配邮件模板",
       "buttonNotAssignMailTemplate": "不分配邮件模板",
@@ -498,17 +498,17 @@
         "contextOpenButton": "查看",
         "columnCustomerName": "姓名",
         "columnCustomerNumber": "客户编号",
-        "columnChannel": "销售渠道",
+        "columnChannel": "渠道",
         "columnEmailAddress": "邮箱",
-        "titleSelectChannel": "选择销售渠道",
-        "descriptionSelectChannel": "该客户有多个可用销售渠道，请选择用于此订单的销售渠道。",
-        "alertSelectChannel": "更换销售渠道会影响可选产品和配置，切换后产品将被清空，选项也会被重置。",
-        "labelChannel": "使用销售渠道",
-        "placeholderChannel": "请选择销售渠道...",
+        "titleSelectChannel": "选择渠道",
+        "descriptionSelectChannel": "该客户有多个可用渠道，请选择用于此订单的渠道。",
+        "alertSelectChannel": "更换渠道会影响可选产品和配置，切换后产品将被清空，选项也会被重置。",
+        "labelChannel": "使用渠道",
+        "placeholderChannel": "请选择渠道...",
         "buttonSelectChannel": "选择",
         "labelAllChannel": "全部渠道",
         "titleCustomerChanges": "更换客户",
-        "descriptionCustomerChanges": "确定要更换订单客户吗？新客户所属的销售渠道不同，当前产品将被清空，选项也会被重置。",
+        "descriptionCustomerChanges": "确定要更换订单客户吗？新客户所属的渠道不同，当前产品将被清空，选项也会被重置。",
         "buttonChangeCustomer": "更换客户"
       },
       "options": {
@@ -521,7 +521,7 @@
         "labelShippingCosts": "运费"
       },
       "tooltip": {
-        "customerUnavailable": "该客户只能使用一个销售渠道，该渠道已停用或不存在。"
+        "customerUnavailable": "该客户只能使用一个渠道，该渠道已停用或不存在。"
       }
     },
     "filters": {
@@ -552,8 +552,8 @@
         "placeholder": "选择付款方式..."
       },
       "channelFilter": {
-        "label": "销售渠道",
-        "placeholder": "选择销售渠道..."
+        "label": "渠道",
+        "placeholder": "选择渠道..."
       },
       "orderNumberFilter": {
         "label": "订单号",
@@ -570,6 +570,10 @@
       "productFilter": {
         "label": "产品",
         "placeholder": "选择产品..."
+      },
+      "customerGroupFilter": {
+        "label": "客户组",
+        "placeholder": "选择客户组..."
       },
       "promotionCodeFilter": {
         "label": "优惠码",

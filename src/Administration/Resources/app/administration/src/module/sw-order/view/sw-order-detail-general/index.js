@@ -86,45 +86,6 @@ export default {
 
         versionContext: () => Store.get('swOrderDetail').versionContext,
 
-        delivery() {
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                return this.order.deliveries[0];
-            }
-
-            return this.order.primaryOrderDelivery;
-        },
-
-        deliveryDiscounts() {
-            if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
-                return array.slice(this.order.deliveries, 1) || [];
-            }
-
-            return this.order.deliveries.filter((delivery) => delivery.id !== this.order.primaryOrderDeliveryId);
-        },
-
-        shippingCostsDetail() {
-            const calcTaxes = this.sortByTaxRate(cloneDeep(this.order.shippingCosts.calculatedTaxes));
-            const formattedTaxes = `${calcTaxes
-                .map(
-                    (calcTax) =>
-                        `${this.$tc(
-                            'sw-order.detailBase.shippingCostsTax',
-                            {
-                                taxRate: calcTax.taxRate,
-                                tax: format.currency(calcTax.tax, this.order.currency.isoCode),
-                            },
-                            0,
-                        )}`,
-                )
-                .join('<br>')}`;
-
-            return `${this.$tc('sw-order.detailBase.tax')}<br>${formattedTaxes}`;
-        },
-
-        sortedCalculatedTaxes() {
-            return this.sortByTaxRate(cloneDeep(this.order.price.calculatedTaxes)).filter((price) => price.tax !== 0);
-        },
-
         taxStatus() {
             return this.order.price.taxStatus;
         },
@@ -154,25 +115,6 @@ export default {
     },
 
     methods: {
-        sortByTaxRate(price) {
-            return price.sort((prev, current) => {
-                return prev.taxRate - current.taxRate;
-            });
-        },
-
-        onShippingChargeEdited() {
-            if (this.shippingCosts >= 0) {
-                this.delivery.shippingCosts.unitPrice = this.shippingCosts;
-                this.delivery.shippingCosts.totalPrice = this.shippingCosts;
-            }
-
-            this.saveAndRecalculate();
-        },
-
-        onShippingChargeUpdated(amount) {
-            this.shippingCosts = amount;
-        },
-
         saveAndRecalculate() {
             if (this.swOrderDetailOnSaveAndRecalculate) {
                 this.swOrderDetailOnSaveAndRecalculate();
@@ -195,16 +137,6 @@ export default {
             } else {
                 this.$emit('recalculate-and-reload');
             }
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - will be removed without replacement
-         */
-        updateLoading(loadingValue) {
-            Store.get('swOrderDetail').setLoading([
-                'order',
-                loadingValue,
-            ]);
         },
 
         reloadEntityData() {

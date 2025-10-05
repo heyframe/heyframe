@@ -7,7 +7,7 @@
       "placeholderSearchBar": "Search all orders..."
     },
     "list": {
-      "columnCustomerCompany": "Company",
+      "columnCustomerPaymentMethod": "Payment method",
       "columnCustomerName": "Customer name",
       "columnAmount": "Total",
       "columnState": "Order status",
@@ -402,7 +402,7 @@
       "promotionsField": {
         "labelPromotions": "Promotions with code",
         "placeholderPromotions": "Enter promotion code ...",
-        "automaticPromotion":  "automatically applied",
+        "automaticPromotion": "automatically applied",
         "labelToggleAutomaticPromotions": "Disable automatically applied promotions",
         "automaticPromotions": {
           "title": "Update promotions",
@@ -570,6 +570,10 @@
       "productFilter": {
         "label": "Products",
         "placeholder": "Select products..."
+      },
+      "customerGroupFilter": {
+        "label": "Customer group",
+        "placeholder": "Select customer group..."
       },
       "promotionCodeFilter": {
         "label": "Promotion code",
