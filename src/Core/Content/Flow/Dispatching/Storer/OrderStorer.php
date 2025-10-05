@@ -70,24 +70,16 @@ class OrderStorer extends FlowStorer
     private function loadOrder(Criteria $criteria, Context $context, string $orderId): ?OrderEntity
     {
         $criteria->addAssociations([
-            'primaryOrderDelivery',
             'primaryOrderTransaction',
             'orderCustomer',
-            'orderCustomer.salutation',
             'lineItems.downloads.media',
             'lineItems.cover',
-            'deliveries.shippingMethod',
-            'deliveries.shippingOrderAddress.country',
-            'deliveries.shippingOrderAddress.countryState',
             'stateMachineState',
             'transactions.stateMachineState',
             'transactions.paymentMethod',
             'deliveries.stateMachineState',
             'currency',
-            'addresses.country',
-            'addresses.countryState',
             'tags',
-            'documents',
         ]);
 
         $criteria->getAssociation('transactions')->addSorting(new FieldSorting('createdAt'));

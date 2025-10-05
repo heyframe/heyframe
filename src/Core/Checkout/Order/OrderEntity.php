@@ -69,10 +69,6 @@ class OrderEntity extends Entity
 
     protected string $stateId;
 
-    protected ?string $primaryOrderDeliveryId = null;
-
-    protected ?string $primaryOrderDeliveryVersionId = null;
-
     protected ?OrderTransactionEntity $primaryOrderTransaction = null;
 
     protected ?string $primaryOrderTransactionId = null;
@@ -306,16 +302,6 @@ class OrderEntity extends Entity
         $this->positionPrice = $positionPrice;
     }
 
-    public function getPrimaryOrderDeliveryId(): ?string
-    {
-        return $this->primaryOrderDeliveryId;
-    }
-
-    public function setPrimaryOrderDeliveryId(?string $primaryOrderDeliveryId): void
-    {
-        $this->primaryOrderDeliveryId = $primaryOrderDeliveryId;
-    }
-
     public function getPrimaryOrderTransaction(): ?OrderTransactionEntity
     {
         return $this->primaryOrderTransaction;
@@ -486,16 +472,6 @@ class OrderEntity extends Entity
     public function setTotalRounding(?CashRoundingConfig $totalRounding): void
     {
         $this->totalRounding = $totalRounding;
-    }
-
-    public function getPrimaryOrderDeliveryVersionId(): ?string
-    {
-        return $this->primaryOrderDeliveryVersionId;
-    }
-
-    public function setPrimaryOrderDeliveryVersionId(?string $primaryOrderDeliveryVersionId): void
-    {
-        $this->primaryOrderDeliveryVersionId = $primaryOrderDeliveryVersionId;
     }
 
     public function getPrimaryOrderTransactionVersionId(): ?string

@@ -33,7 +33,6 @@ class ProductGateway implements ProductGatewayInterface
         $criteria->setTitle('cart::products');
         $criteria->addAssociation('cover.media');
         $criteria->addAssociation('options.group');
-        $criteria->addAssociation('featureSet');
         $criteria->addAssociation('properties.group');
 
         $this->eventDispatcher->dispatch(

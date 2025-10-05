@@ -200,7 +200,6 @@ class ProductDetailRoute extends AbstractProductDetailRoute
             ->addFilter(new EqualsFilter('product.parentId', $productId))
             ->setLimit(1);
 
-        $criteria->addState(Criteria::STATE_ELASTICSEARCH_AWARE);
         $criteria->setTerm($term);
 
         $criteria->setTitle('product-detail-route::find-best-variant-by-term');

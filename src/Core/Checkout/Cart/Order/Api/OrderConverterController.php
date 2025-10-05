@@ -37,13 +37,9 @@ class OrderConverterController extends AbstractController
     public function convertToCart(string $orderId, Context $context): JsonResponse
     {
         $criteria = (new Criteria([$orderId]))
-            ->addAssociation('primaryOrderDelivery')
             ->addAssociation('lineItems')
             ->addAssociation('transactions.stateMachineState')
-            ->addAssociation('deliveries.shippingMethod')
-            ->addAssociation('deliveries.positions.orderLineItem')
-            ->addAssociation('deliveries.shippingOrderAddress.country')
-            ->addAssociation('deliveries.shippingOrderAddress.countryState');
+            ->addAssociation('deliveries.positions.orderLineItem');
 
         $order = $this->orderRepository->search($criteria, $context)->getEntities()->first();
         if (!$order) {

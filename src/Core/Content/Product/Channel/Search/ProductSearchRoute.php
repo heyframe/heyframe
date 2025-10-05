@@ -35,8 +35,6 @@ class ProductSearchRoute extends AbstractProductSearchRoute
     #[Route(path: '/front-api/search', name: 'front-api.search', defaults: ['_entity' => 'product'], methods: ['POST'])]
     public function load(Request $request, ChannelContext $context, Criteria $criteria): ProductSearchRouteResponse
     {
-        $criteria->addState(Criteria::STATE_ELASTICSEARCH_AWARE);
-
         $criteria->addFilter(
             new ProductAvailableFilter($context->getChannelId(), ProductVisibilityDefinition::VISIBILITY_SEARCH)
         );

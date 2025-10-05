@@ -65,7 +65,6 @@ class ProductListingLoader
      */
     private function _load(Criteria $criteria, ChannelContext $context): EntitySearchResult
     {
-        $criteria->addState(Criteria::STATE_ELASTICSEARCH_AWARE);
         $clone = clone $criteria;
 
         $idResult = $this->extensions->publish(

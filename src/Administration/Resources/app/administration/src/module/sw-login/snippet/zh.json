@@ -26,7 +26,7 @@
   },
   "global": {
     "sw-admin-menu": {
-      "textHeyFrameAdmin": "HeyFrame 快速构建前后端应用的全栈开发平台"
+      "textHeyFrameAdmin": "HeyFrame 后台管理系统"
     },
     "default": {
       "error": "错误"

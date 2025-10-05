@@ -124,7 +124,6 @@
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\Plugin\Event\PluginPostUpdateEvent" method="invalidateConfig" priority="2001" />
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\Plugin\Event\PluginPostDeactivateEvent" method="invalidateRules" priority="2000" />
             <tag name="kernel.event_listener" event="HeyFrame\Core\Framework\Plugin\Event\PluginPostDeactivateEvent" method="invalidateConfig" priority="2001" />
-            <tag name="kernel.event_listener" event="HeyFrame\Core\System\SystemConfig\Event\SystemConfigChangedHook" method="invalidateConfigKey" priority="2000" />
             <tag name="kernel.event_listener" event="HeyFrame\Core\Content\Media\Event\MediaIndexerEvent" method="invalidateMedia" priority="2000" />
         </service>
 

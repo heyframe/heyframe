@@ -22,7 +22,6 @@ use HeyFrame\Core\Checkout\Promotion\PromotionEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\HtmlSanitizer;
 use HeyFrame\Core\Framework\Uuid\Uuid;

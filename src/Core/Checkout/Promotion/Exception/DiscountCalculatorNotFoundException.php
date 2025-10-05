@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Checkout\Promotion\Exception;
 
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

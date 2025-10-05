@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Promotion\Subscriber\Storefront;
 
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Cart\CartException;
 use HeyFrame\Core\Checkout\Cart\Event\BeforeLineItemAddedEvent;
@@ -14,6 +13,7 @@ use HeyFrame\Core\Checkout\Promotion\Cart\Extension\CartExtension;
 use HeyFrame\Core\Checkout\Promotion\Cart\PromotionProcessor;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 

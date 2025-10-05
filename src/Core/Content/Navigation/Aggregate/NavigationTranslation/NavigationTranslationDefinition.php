@@ -8,7 +8,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;

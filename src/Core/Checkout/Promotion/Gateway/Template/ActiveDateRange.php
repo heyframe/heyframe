@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Core\Checkout\Promotion\Gateway\Template;
 
-use Psr\Clock\ClockInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Clock\ClockInterface;
 
 /**
  * @final

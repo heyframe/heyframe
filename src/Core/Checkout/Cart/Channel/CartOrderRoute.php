@@ -86,10 +86,8 @@ class CartOrderRoute extends AbstractCartOrderRoute
             $criteria = new Criteria([$orderId]);
             $criteria
                 ->setTitle('order-route::order-loading')
-                ->addAssociation('primaryOrderDelivery')
                 ->addAssociation('primaryOrderTransaction')
                 ->addAssociation('orderCustomer.customer')
-                ->addAssociation('orderCustomer.salutation')
                 ->addAssociation('transactions.paymentMethod')
                 ->addAssociation('lineItems.cover')
                 ->addAssociation('lineItems.downloads.media')
