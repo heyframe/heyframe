@@ -39,12 +39,8 @@
       "placeholderNewPasswordConfirm": "Re-enter new password...",
       "labelFirstName": "First name",
       "labelLastName": "Last name",
-      "labelCompany": "Company",
       "labelEmail": "Email",
-      "labelTags": "Tags",
-      "labelGuest": "Guest account",
-      "labelVatId": "VAT Reg.No.",
-      "placeholderVatId": "Enter VAT Reg.No..."
+      "labelTags": "Tags"
     },
     "list": {
       "textCustomers": "Customers",
@@ -57,6 +53,8 @@
       "columnFirstName": "First name",
       "columnLastName": "Last name",
       "columnEmail": "Email address",
+      "columnPhone": "Phone number",
+      "columnName": "Name",
       "columnLastLogin": "Last login",
       "columnActions": "Action(s)",
       "columnBoundChannel": "Channel",

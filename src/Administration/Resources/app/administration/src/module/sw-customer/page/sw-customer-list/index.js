@@ -31,18 +31,6 @@ export default {
             sortDirection: 'DESC',
             isLoading: false,
             showDeleteModal: false,
-            /**
-             * @deprecated tag:v6.8.0 - will be removed without replacement
-             */
-            filterLoading: false,
-            /**
-             * @deprecated tag:v6.8.0 - will be removed without replacement
-             */
-            availableAffiliateCodes: [],
-            /**
-             * @deprecated tag:v6.8.0 - will be removed without replacement
-             */
-            availableCampaignCodes: [],
             filterCriteria: [],
             defaultFilters: [
                 'customer-number-filter',
@@ -245,8 +233,8 @@ export default {
                     useCustomSort: true,
                 },
                 {
-                    property: 'company',
-                    label: 'sw-customer.list.columnCompany',
+                    property: 'phoneNumber',
+                    label: 'sw-customer.list.columnPhone',
                     allowResize: true,
                     visible: false,
                     useCustomSort: true,
@@ -282,6 +270,13 @@ export default {
                     property: 'boundChannelId',
                     label: 'sw-customer.list.columnBoundChannel',
                     allowResize: true,
+                    visible: true,
+                    useCustomSort: true,
+                },
+                {
+                    property: 'name',
+                    label: 'sw-customer.list.columnName',
+                    allowResize: true,
                     visible: false,
                     useCustomSort: true,
                 },
@@ -290,7 +285,7 @@ export default {
                     inlineEdit: 'boolean',
                     label: 'sw-customer.list.columnActive',
                     allowResize: true,
-                    visible: false,
+                    visible: true,
                     useCustomSort: true,
                 },
                 {
@@ -301,26 +296,6 @@ export default {
             ];
 
             return columns;
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - will be removed without replacement
-         */
-        loadFilterValues() {
-            this.filterLoading = true;
-
-            return this.customerRepository
-                .search(this.filterSelectCriteria)
-                .then(({ aggregations }) => {
-                    this.availableAffiliateCodes = aggregations?.affiliateCodes?.buckets ?? [];
-                    this.availableCampaignCodes = aggregations?.campaignCodes?.buckets ?? [];
-                    this.filterLoading = false;
-
-                    return aggregations;
-                })
-                .catch(() => {
-                    this.filterLoading = false;
-                });
         },
 
         updateCriteria(criteria) {
