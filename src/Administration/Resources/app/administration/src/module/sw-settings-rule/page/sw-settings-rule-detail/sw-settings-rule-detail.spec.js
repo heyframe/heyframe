@@ -340,10 +340,7 @@ describe('src/module/sw-settings-rule/page/sw-settings-rule-detail', () => {
             'cartPromotions',
             'promotionDiscounts',
             'promotionSetGroups',
-            'shippingMethodPriceCalculations',
-            'shippingMethodPrices',
             'productPrices',
-            'shippingMethods',
             'paymentMethods',
         ];
 

@@ -16,7 +16,7 @@
         v-if="!isLoading && acl.can('product.editor')"
         variant="regular"
         :upload-tag="product.id"
-        :default-folder="product.getEntityName()"
+        default-folder="product"
         :file-accept="fileAccept"
         @media-upload-sidebar-open="onOpenMedia"
     />

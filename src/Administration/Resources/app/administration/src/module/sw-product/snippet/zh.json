@@ -1,17 +1,17 @@
 {
   "sw-product": {
     "visibility": {
-      "textHeadline": "每个销售渠道的产品展示模式",
-      "placeholderVisibility": "选择销售渠道...",
-      "columnChannel": "销售渠道",
+      "textHeadline": "每个渠道的产品展示模式",
+      "placeholderVisibility": "选择渠道...",
+      "columnChannel": "渠道",
       "columnAll": "可见",
       "columnSearchOnly": "在列表中隐藏",
       "columnLinkOnly": "在列表和搜索中隐藏",
       "visibilityModalDescription": "“在列表中隐藏”会让产品不出现在产品总览列表、产品滑块和关联销售里。选择“在列表和搜索中隐藏”则还会把产品从搜索结果里排除。不过，产品依然可以通过链接访问。",
-      "linkAdvancedVisibility": "为所选销售渠道设置可见性",
-      "labelVisibility": "销售渠道",
-      "bodyVisibility": "添加你想展示产品的销售渠道。你还可以通过下面的链接，进一步设置每个店铺销售渠道的可见性。",
-      "errorMessage": "无法加载默认的销售渠道配置。"
+      "linkAdvancedVisibility": "为所选渠道设置可见性",
+      "labelVisibility": "渠道",
+      "bodyVisibility": "添加你想展示产品的渠道。你还可以通过下面的链接，进一步设置每个店铺渠道的可见性。",
+      "errorMessage": "无法加载默认的渠道配置。"
     },
     "general": {
       "mainMenuItemGeneral": "产品",
@@ -56,7 +56,7 @@
       "helpTextSearchKeyword": "在前台，产品也可以通过这些关键词被搜索到。",
       "helpTextTags": "标签只用于内部管理，可以帮你分组产品、应用规则，或者作为自定义搜索条件。",
       "categoriesTitle": "分类和标签",
-      "descriptionCategories": "添加分类后，产品就能通过前台主菜单或者 API 访问到。请确保选择的分类在所选销售渠道里是有效并启用的。",
+      "descriptionCategories": "添加分类后，产品就能通过前台主菜单或者 API 访问到。请确保选择的分类在所选渠道里是有效并启用的。",
       "descriptionTags": "标签能让你更快找到产品，也方便分组，还能配合规则生成器自动化处理一些任务。"
     },
     "priceForm": {
@@ -83,7 +83,7 @@
       "labelMaxPurchase": "最大购买量",
       "labelManufacturerNumber": "制造商货号",
       "labelStock": "库存",
-      "labelActive": "对所选销售渠道启用",
+      "labelActive": "对所选渠道启用",
       "labelShippingFree": "包邮",
       "labelMarkAsTopseller": "推荐产品",
       "labelIsCloseout": "清仓处理",
@@ -142,7 +142,7 @@
         "confirmText": "你确定要删除这条评价吗？",
         "buttonDelete": "删除"
       },
-      "messageEmptyTitle": "该产品还没有评价",
+      "messageEmptyTitle": "暂无评价",
       "messageEmptySubline": "去看看其他产品的评价吧。",
       "emptyStateButton": "查看评价"
     },
@@ -180,7 +180,7 @@
       "columnCreatedAt": "创建时间",
       "columnUpdatedAt": "更新时间",
       "columnReleaseDate": "上架时间",
-      "columnVisibilities": "销售渠道",
+      "columnVisibilities": "渠道",
       "columnCategories": "分类",
       "columnTags": "标签",
       "columnActions": "操作",
@@ -239,7 +239,7 @@
     "advancedPrices": {
       "deletionNotPossibleMessage": "至少需要一个价格层级。请尝试删除整个定价规则。",
       "newRuleWarning": "要创建新的定价规则，请先选择一个条件规则。",
-      "advancedPricesNotExisting": "尚未设置高级价格。",
+      "advancedPricesNotExisting": "未设置高级价格",
       "columnFrom": "数量从...",
       "columnTo": "到...",
       "columnType": "类型",
@@ -264,11 +264,11 @@
       "linkPropertiesOfParent": "查看父产品属性",
       "inheritSwitchLabel": "使用父产品属性",
       "propertiesNotInherited": "您现在可以为此变体使用自定义属性。",
-      "propertiesNotExisting": "此产品尚未分配任何属性。",
+      "propertiesNotExisting": "此产品未分配任何属性。",
       "cardTitle": "属性",
       "buttonAddProperty": "配置属性",
       "buttonAddProperties": "配置属性",
-      "titleEmptyState": "此产品尚未分配任何属性。",
+      "titleEmptyState": "此产品未分配任何属性。",
       "titleEmptyStateList": "未找到属性。",
       "columnProperty": "属性",
       "columnValue": "属性值",

@@ -104,9 +104,9 @@
           "messageSuccess": "媒体文件索引完成。"
         },
         "channel": {
-          "title": "正在索引销售渠道",
-          "message": "销售渠道已索引。 | 还剩 1 个销售渠道... | 还剩 {n} 个销售渠道...",
-          "messageSuccess": "销售渠道索引完成。"
+          "title": "正在索引渠道",
+          "message": "渠道已索引。 | 还剩 1 个渠道... | 还剩 {n} 个渠道...",
+          "messageSuccess": "渠道索引完成。"
         },
         "rule": {
           "title": "正在索引规则",
@@ -668,52 +668,26 @@
         },
         "placeholder": "搜索条件...",
         "orderCountRule": "已完成订单数量",
-        "channelRule": "销售渠道",
+        "channelRule": "渠道",
         "currencyRule": "货币",
         "languageRule": "语言",
         "customerIsActiveRule": "客户活跃",
-        "billingCountryRule": "账单地址：国家",
-        "billingCityRule": "账单地址：城市",
-        "billingStreetRule": "账单地址：街道",
-        "billingStateRule": "账单地址：省/州",
-        "billingZipCodeRule": "账单地址：邮编",
         "customerGroupRule": "客户组",
-        "customerRequestedGroupRule": "请求客户组",
         "customerTagRule": "带标签客户",
         "customerNumberRule": "客户编号",
-        "differentAddressesRule": "使用不同收货地址的客户",
         "emailRule": {
           "label": "客户邮箱",
           "placeholder": "输入邮箱或用“*”通配符..."
         },
-        "lastNameRule": "客户姓氏",
-        "isCompanyRule": "企业客户",
-        "cartTaxDisplay": {
-          "label": "税费显示",
-          "gross": "含税",
-          "net": "不含税"
-        },
-        "isGuestRule": "访客账户",
-        "isNewsletterRecipient": "订阅邮件客户",
         "daysSinceLastOrderRule": "上次订单时间",
-        "shippingCountryRule": "收货地址：国家",
-        "shippingCityRule": "收货地址：城市",
-        "shippingStreetRule": "收货地址：街道",
-        "shippingStateRule": "收货地址：省/州",
-        "shippingZipCodeRule": "收货地址：邮编",
         "customerLoggedInRule": "客户已登录",
         "customerAgeRule": "客户年龄",
         "customerDaysSinceLastLogin": "上次登录时间",
         "customerDaysSinceFirstLogin": "首次登录时间",
-        "customerAffiliateCodeRule": "客户推广码",
-        "customerCampaignCodeRule": "客户活动码",
-        "orderAffiliateCodeRule": "订单推广码",
-        "orderCampaignCodeRule": "订单活动码",
         "cartAmountRule": "购物车总额",
         "cartPositionPrice": "产品总价",
         "goodsCountRule": "不同产品数量",
         "goodsPriceRule": "产品小计",
-        "cartTotalPurchasePrice": "总采购价",
         "lineItemOfTypeRule": {
           "label": "产品类型",
           "product": "产品",
@@ -726,15 +700,11 @@
         "lineItemTotalPriceRule": "小计",
         "lineItemWithQuantityRule": "数量",
         "orderTagRule": "带标签订单",
-        "orderTrackingCodeRule": "追踪码",
-        "orderDeliveryStatusRule": "发货状态（流程）",
         "orderCreatedByAdminRule": "管理员创建订单（流程）",
         "adminChannelSourceRule": "后台适用",
         "orderTransactionStatusRule": "支付状态",
         "orderStatusRule": "订单状态",
         "orderCustomFieldRule": "带自定义字段订单",
-        "orderDocumentTypeRule": "带文档订单",
-        "orderDocumentTypeSentRule": "已发送文档订单",
         "withTime": "包含时间戳",
         "withoutTime": "不包含时间戳",
         "and": "且",
@@ -758,11 +728,7 @@
         "deleteAllConditions": "删除所有条件",
         "createBefore": "创建于之前",
         "createAfter": "创建于之后",
-        "hasDeliveryFreeItemRule": "包邮产品",
         "timeRangeRule": "时间范围",
-        "weightOfCartRule": "产品总重量",
-        "volumeOfCartRule": "产品总体积",
-        "cartShippingCost": "运费",
         "dayOfWeekRule": "星期几",
         "lineItemTagRule": "带标签产品",
         "alwaysValidRule": "始终有效",
@@ -770,21 +736,11 @@
         "lineItemNoveltyRule": "新品",
         "lineItemCustomFieldRule": "带自定义字段产品",
         "lineItemIsNewRule": "标记为“新”的产品",
-        "lineItemOfManufacturerRule": "指定厂商产品",
-        "lineItemPurchasePriceRule": "采购价产品",
-        "lineItemCreationDateRule": "创建日期产品",
-        "lineItemReleaseDateRule": "发布日期产品",
-        "lineItemClearanceSale": "清仓产品",
-        "lineItemPromotedRule": "促销产品",
-        "lineItemInCategoryRule": "所属分类产品",
-        "categoryWithProductStreamTooltip": "该分类产品由动态产品组分配，请使用“动态产品组内产品”条件访问。",
-        "lineItemInProductStreamRule": "动态产品组内产品",
-        "lineItemTaxationRule": "含税产品",
-        "lineItemDimensionWidthRule": "宽度",
-        "lineItemDimensionHeightRule": "高度",
-        "lineItemDimensionLengthRule": "长度",
-        "lineItemDimensionWeightRule": "重量",
-        "lineItemDimensionVolumeRule": "体积",
+        "lineItemCreationDateRule": "创建日期",
+        "lineItemReleaseDateRule": "发布日期",
+        "lineItemClearanceSale": "清仓",
+        "lineItemPromotedRule": "促销",
+        "lineItemInCategoryRule": "所属分类",
         "lineItemListPriceRule": "标价产品",
         "lineItemListPriceRatioRule": "标价比",
         "lineItemStockRule": "可售产品",
@@ -842,22 +798,6 @@
           "options": {
             "product": "产品",
             "promotion": "折扣/附加费"
-          }
-        }
-      },
-      "cartTaxDisplay": {
-        "taxDisplay": {
-          "options": {
-            "gross": "含税",
-            "net": "不含税"
-          }
-        }
-      },
-      "cartTotalPurchasePrice": {
-        "type": {
-          "options": {
-            "gross": "含税",
-            "net": "不含税"
           }
         }
       },
@@ -995,8 +935,8 @@
       "promotion_persona_rule": "促销目标群体 | 促销目标群体",
       "rule": "规则 | 规则",
       "rule_condition": "条件 | 条件",
-      "channel": "销售渠道 | 销售渠道",
-      "channel_type": "销售渠道类型 | 销售渠道类型",
+      "channel": "渠道 | 渠道",
+      "channel_type": "渠道类型 | 渠道类型",
       "salutation": "称呼 | 称呼",
       "seo_url": "SEO URL | SEO URL",
       "shipping_method": "配送方式 | 配送方式",
@@ -1311,11 +1251,11 @@
     }
   },
   "sw-channel-switch": {
-    "messageModalUnsavedChanges": "当前销售渠道有未保存的更改。是否要立即保存？",
+    "messageModalUnsavedChanges": "当前渠道有未保存的更改。是否要立即保存？",
     "placeholderSelect": "搜索...",
     "titleModalUnsavedChanges": "未保存的更改",
     "titleModalButtonRevertUnsavedChanges": "放弃更改",
-    "labelDefaultOption": "所有销售渠道"
+    "labelDefaultOption": "所有渠道"
   },
   "sw-config-form-renderer": {
     "placeholder": "请填写 {name}...",
@@ -1400,7 +1340,7 @@
     "keyboardShortcutAddManufacturer": "A M",
     "functionAddRule": "添加规则",
     "keyboardShortcutAddRule": "A R",
-    "functionAddSaleschannel": "添加销售渠道",
+    "functionAddSaleschannel": "添加渠道",
     "keyboardShortcutAddSaleschannel": "A S",
     "functionGoToDashboard": "进入仪表盘",
     "keyboardShortcutGoToDashboard": "G H",
@@ -1536,9 +1476,6 @@
     "restrictedAssignment": {
       "general": "此规则使用的条件不允许分配给 {relation}。",
       "productPrices": "价格规则",
-      "shippingMethodPrices": "价格规则",
-      "shippingMethodPriceCalculations": "运费计算规则",
-      "shippingMethods": "配送方式可用性规则",
       "paymentMethods": "支付方式可用性规则",
       "flowSequences": "流程构建器规则",
       "personaPromotions": "客户规则",
@@ -1555,8 +1492,6 @@
         "flowTrigger": "触发器的流程：{assignments}",
         "promotion": "促销活动：{assignments}",
         "productPrices": "产品：{assignments}",
-        "shippingMethods": "配送方式：{assignments}",
-        "shippingMethodPrices": "配送方式：{assignments}",
         "paymentMethods": "支付方式：{assignments}"
       }
     },

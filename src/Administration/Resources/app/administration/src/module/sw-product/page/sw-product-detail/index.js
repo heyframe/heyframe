@@ -358,7 +358,6 @@ export default {
             if (!this.product) {
                 return null;
             }
-
             return Object.keys(EntityDefinition.getTranslatedFields(this.product.getEntityName()));
         },
 
@@ -437,8 +436,6 @@ export default {
                     HeyFrame.Store.get('context').resetLanguageToDefault();
                 }
             }
-
-            await this.initProductMeasurementUnits();
 
             // initialize default state
             this.initState();
@@ -1224,24 +1221,6 @@ export default {
                 ...HeyFrame.Context.api,
                 inheritance: true,
             });
-        },
-
-        async initProductMeasurementUnits() {
-            const preferenceUnits = await this.getPreferredMeasurementUnits();
-            const store = HeyFrame.Store.get('swProductDetail');
-
-            const defaultUnits = {
-                length: store.lengthUnit,
-                weight: store.weightUnit,
-            };
-
-            const units = preferenceUnits || defaultUnits;
-
-            store.setLengthUnit(units.length);
-            store.setWeightUnit(units.weight);
-
-            this.previousLengthUnit = units.length;
-            this.previousWeightUnit = units.weight;
         },
 
         async getPreferredMeasurementUnits() {

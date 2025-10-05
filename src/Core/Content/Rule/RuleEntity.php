@@ -3,6 +3,9 @@
 namespace HeyFrame\Core\Content\Rule;
 
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
+use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionDiscount\PromotionDiscountCollection;
+use HeyFrame\Core\Checkout\Promotion\Aggregate\PromotionSetGroup\PromotionSetGroupCollection;
+use HeyFrame\Core\Checkout\Promotion\PromotionCollection;
 use HeyFrame\Core\Content\Flow\Aggregate\FlowSequence\FlowSequenceCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceCollection;
 use HeyFrame\Core\Content\Rule\Aggregate\RuleCondition\RuleConditionCollection;
@@ -48,9 +51,19 @@ class RuleEntity extends Entity
      */
     protected ?array $areas = null;
 
+    protected ?PromotionDiscountCollection $promotionDiscounts = null;
+
+    protected ?PromotionSetGroupCollection $promotionSetGroups = null;
+
+    protected ?PromotionCollection $personaPromotions = null;
+
     protected ?FlowSequenceCollection $flowSequences = null;
 
     protected ?TagCollection $tags = null;
+
+    protected ?PromotionCollection $orderPromotions = null;
+
+    protected ?PromotionCollection $cartPromotions = null;
 
     public function getName(): string
     {
@@ -174,6 +187,44 @@ class RuleEntity extends Entity
         $this->moduleTypes = $moduleTypes;
     }
 
+    public function getPromotionDiscounts(): ?PromotionDiscountCollection
+    {
+        return $this->promotionDiscounts;
+    }
+
+    public function setPromotionDiscounts(PromotionDiscountCollection $promotionDiscounts): void
+    {
+        $this->promotionDiscounts = $promotionDiscounts;
+    }
+
+    public function getPromotionSetGroups(): ?PromotionSetGroupCollection
+    {
+        return $this->promotionSetGroups;
+    }
+
+    public function setPromotionSetGroups(PromotionSetGroupCollection $promotionSetGroups): void
+    {
+        $this->promotionSetGroups = $promotionSetGroups;
+    }
+
+    /**
+     * Gets a list of all promotions where this rule
+     * is being used within the Persona Conditions
+     */
+    public function getPersonaPromotions(): ?PromotionCollection
+    {
+        return $this->personaPromotions;
+    }
+
+    /**
+     * Sets a list of all promotions where this rule should be
+     * used as Persona Condition
+     */
+    public function setPersonaPromotions(PromotionCollection $personaPromotions): void
+    {
+        $this->personaPromotions = $personaPromotions;
+    }
+
     public function getFlowSequences(): ?FlowSequenceCollection
     {
         return $this->flowSequences;
@@ -192,5 +243,41 @@ class RuleEntity extends Entity
     public function setTags(TagCollection $tags): void
     {
         $this->tags = $tags;
+    }
+
+    /**
+     * Gets a list of all promotions where this rule is
+     * being used within the Order Conditions.
+     */
+    public function getOrderPromotions(): ?PromotionCollection
+    {
+        return $this->orderPromotions;
+    }
+
+    /**
+     * Sets a list of all promotions where this rule should be
+     * used as Order Condition.
+     */
+    public function setOrderPromotions(PromotionCollection $orderPromotions): void
+    {
+        $this->orderPromotions = $orderPromotions;
+    }
+
+    /**
+     * Gets a list of all promotions where this rule is
+     * being used within the Cart Conditions.
+     */
+    public function getCartPromotions(): ?PromotionCollection
+    {
+        return $this->cartPromotions;
+    }
+
+    /**
+     * Sets a list of all promotions where this rule should be
+     * used as Cart Condition.
+     */
+    public function setCartPromotions(PromotionCollection $cartPromotions): void
+    {
+        $this->cartPromotions = $cartPromotions;
     }
 }

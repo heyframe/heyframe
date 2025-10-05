@@ -117,8 +117,8 @@ const MODULES = [
         },
         children: [
             {
-                id: '规则',
-                name: 'Rule Builder',
+                id: 'rule',
+                name: '规则',
                 to: 'sw.settings.rule.index',
                 match(route) {
                     return route.name.startsWith('sw.settings.rule') ? 'exact' : 'none';

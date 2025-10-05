@@ -54,30 +54,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
         scopes: ['global'],
         group: 'general',
     });
-    ruleConditionService.addCondition('cartTaxDisplay', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.cartTaxDisplay.label',
-        scopes: ['cart'],
-        group: 'general',
-    });
-    ruleConditionService.addCondition('customerBillingCountry', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.billingCountryRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerBillingStreet', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.billingStreetRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerBillingZipCode', {
-        component: 'sw-condition-billing-zip-code',
-        label: 'global.sw-condition.condition.billingZipCodeRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
     ruleConditionService.addCondition('customerCustomerGroup', {
         component: 'sw-condition-generic',
         label: 'global.sw-condition.condition.customerGroupRule',
@@ -102,57 +78,9 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
         scopes: ['checkout'],
         group: 'customer',
     });
-    ruleConditionService.addCondition('customerDifferentAddresses', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.differentAddressesRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
     ruleConditionService.addCondition('customerEmail', {
         component: 'sw-condition-generic',
         label: 'global.sw-condition.condition.emailRule.label',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerLastName', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.lastNameRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerIsCompany', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.isCompanyRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerIsGuest', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.isGuestRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerIsNewsletterRecipient', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.isNewsletterRecipient',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerShippingCountry', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.shippingCountryRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerShippingStreet', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.shippingStreetRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerShippingZipCode', {
-        component: 'sw-condition-shipping-zip-code',
-        label: 'global.sw-condition.condition.shippingZipCodeRule',
         scopes: ['checkout'],
         group: 'customer',
     });
@@ -162,35 +90,10 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
         scopes: ['checkout'],
         group: 'customer',
     });
-
-    ruleConditionService.addCondition('customerBillingCity', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.billingCityRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerBillingState', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.billingStateRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
     ruleConditionService.addCondition('customerIsActive', {
         component: 'sw-condition-generic',
         label: 'global.sw-condition.condition.customerIsActiveRule',
         scopes: ['global'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerShippingCity', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.shippingCityRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerShippingState', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.shippingStateRule',
-        scopes: ['checkout'],
         group: 'customer',
     });
     ruleConditionService.addCondition('customerAge', {
@@ -211,30 +114,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
         scopes: ['checkout'],
         group: 'customer',
     });
-    ruleConditionService.addCondition('customerAffiliateCode', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.customerAffiliateCodeRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('customerCampaignCode', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.customerCampaignCodeRule',
-        scopes: ['checkout'],
-        group: 'customer',
-    });
-    ruleConditionService.addCondition('orderAffiliateCode', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.orderAffiliateCodeRule',
-        scopes: ['checkout'],
-        group: 'order',
-    });
-    ruleConditionService.addCondition('orderCampaignCode', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.orderCampaignCodeRule',
-        scopes: ['checkout'],
-        group: 'order',
-    });
     ruleConditionService.addCondition('cartCartAmount', {
         component: 'sw-condition-generic',
         label: 'global.sw-condition.condition.cartAmountRule',
@@ -250,12 +129,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
     ruleConditionService.addCondition('cartGoodsCount', {
         component: 'sw-condition-goods-count',
         label: 'global.sw-condition.condition.goodsCountRule',
-        scopes: ['cart'],
-        group: 'cart',
-    });
-    ruleConditionService.addCondition('cartTotalPurchasePrice', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.cartTotalPurchasePrice',
         scopes: ['cart'],
         group: 'cart',
     });
@@ -313,24 +186,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
         scopes: ['global'],
         group: 'general',
     });
-    ruleConditionService.addCondition('cartWeight', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.weightOfCartRule',
-        scopes: ['cart'],
-        group: 'cart',
-    });
-    ruleConditionService.addCondition('cartVolume', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.volumeOfCartRule',
-        scopes: ['cart'],
-        group: 'cart',
-    });
-    ruleConditionService.addCondition('cartShippingCost', {
-        component: 'sw-condition-generic',
-        label: 'global.sw-condition.condition.cartShippingCost',
-        scopes: ['cart'],
-        group: 'cart',
-    });
     ruleConditionService.addCondition('cartLineItemTag', {
         component: 'sw-condition-generic-line-item',
         label: 'global.sw-condition.condition.lineItemTagRule',
@@ -352,18 +207,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
     ruleConditionService.addCondition('cartLineItemIsNew', {
         component: 'sw-condition-generic-line-item',
         label: 'global.sw-condition.condition.lineItemIsNewRule',
-        scopes: ['lineItem'],
-        group: 'item',
-    });
-    ruleConditionService.addCondition('cartLineItemOfManufacturer', {
-        component: 'sw-condition-generic-line-item',
-        label: 'global.sw-condition.condition.lineItemOfManufacturerRule',
-        scopes: ['lineItem'],
-        group: 'item',
-    });
-    ruleConditionService.addCondition('cartLineItemPurchasePrice', {
-        component: 'sw-condition-line-item-purchase-price',
-        label: 'global.sw-condition.condition.lineItemPurchasePriceRule',
         scopes: ['lineItem'],
         group: 'item',
     });
@@ -397,45 +240,9 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
         scopes: ['lineItem'],
         group: 'item',
     });
-    ruleConditionService.addCondition('cartLineItemInProductStream', {
-        component: 'sw-condition-generic-line-item',
-        label: 'global.sw-condition.condition.lineItemInProductStreamRule',
-        scopes: ['lineItem'],
-        group: 'item',
-    });
     ruleConditionService.addCondition('cartLineItemTaxation', {
         component: 'sw-condition-generic-line-item',
         label: 'global.sw-condition.condition.lineItemTaxationRule',
-        scopes: ['lineItem'],
-        group: 'item',
-    });
-    ruleConditionService.addCondition('cartLineItemDimensionWidth', {
-        component: 'sw-condition-generic-line-item',
-        label: 'global.sw-condition.condition.lineItemDimensionWidthRule',
-        scopes: ['lineItem'],
-        group: 'item',
-    });
-    ruleConditionService.addCondition('cartLineItemDimensionHeight', {
-        component: 'sw-condition-generic-line-item',
-        label: 'global.sw-condition.condition.lineItemDimensionHeightRule',
-        scopes: ['lineItem'],
-        group: 'item',
-    });
-    ruleConditionService.addCondition('cartLineItemDimensionLength', {
-        component: 'sw-condition-generic-line-item',
-        label: 'global.sw-condition.condition.lineItemDimensionLengthRule',
-        scopes: ['lineItem'],
-        group: 'item',
-    });
-    ruleConditionService.addCondition('cartLineItemDimensionWeight', {
-        component: 'sw-condition-generic-line-item',
-        label: 'global.sw-condition.condition.lineItemDimensionWeightRule',
-        scopes: ['lineItem'],
-        group: 'item',
-    });
-    ruleConditionService.addCondition('cartLineItemDimensionVolume', {
-        component: 'sw-condition-generic-line-item',
-        label: 'global.sw-condition.condition.lineItemDimensionVolumeRule',
         scopes: ['lineItem'],
         group: 'item',
     });
@@ -646,7 +453,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
     ruleConditionService.addAwarenessConfiguration('personaPromotions', {
         notEquals: [
             'cartCartAmount',
-            'cartShippingCost',
         ],
         equalsAny: [
             ...ruleConditionService.getRestrictionsByGroup('customer'),
@@ -658,7 +464,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
     ruleConditionService.addAwarenessConfiguration('orderPromotions', {
         notEquals: [
             'cartCartAmount',
-            'cartShippingCost',
             ...ruleConditionService.getRestrictionsByGroup('order'),
         ],
         snippet: 'sw-restricted-rules.restrictedAssignment.orderPromotions',
@@ -667,7 +472,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
     ruleConditionService.addAwarenessConfiguration('cartPromotions', {
         notEquals: [
             'cartCartAmount',
-            'cartShippingCost',
             ...ruleConditionService.getRestrictionsByGroup('order'),
         ],
         snippet: 'sw-restricted-rules.restrictedAssignment.cartPromotions',
@@ -676,7 +480,6 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
     ruleConditionService.addAwarenessConfiguration('promotionSetGroups', {
         notEquals: [
             'cartCartAmount',
-            'cartShippingCost',
         ],
         snippet: 'sw-restricted-rules.restrictedAssignment.promotionSetGroups',
     });
@@ -684,26 +487,10 @@ Application.addServiceProviderDecorator('ruleConditionDataProviderService', (rul
     ruleConditionService.addAwarenessConfiguration('promotionDiscounts', {
         notEquals: [
             'cartCartAmount',
-            'cartShippingCost',
         ],
         snippet: 'sw-restricted-rules.restrictedAssignment.promotionDiscounts',
     });
 
-    ruleConditionService.addAwarenessConfiguration('shippingMethodPriceCalculations', {
-        notEquals: [
-            'cartCartAmount',
-            'cartShippingCost',
-        ],
-        snippet: 'sw-restricted-rules.restrictedAssignment.shippingMethodPriceCalculations',
-    });
-
-    ruleConditionService.addAwarenessConfiguration('shippingMethodPrices', {
-        notEquals: [
-            'cartCartAmount',
-            'cartShippingCost',
-        ],
-        snippet: 'sw-restricted-rules.restrictedAssignment.shippingMethodPrices',
-    });
 
     return ruleConditionService;
 });

@@ -78,7 +78,7 @@ export default {
         },
 
         cover() {
-            if (!this.product) {
+            if (!this.product || !this.product?.media) {
                 return null;
             }
             const coverId = this.product.cover ? this.product.cover.mediaId : this.product.coverId;

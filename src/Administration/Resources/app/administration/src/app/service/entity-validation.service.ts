@@ -130,10 +130,6 @@ export default class EntityValidationService {
                 // detected price field -> custom handling of price fields
                 value.forEach((price, index) => {
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                    if (price.net === undefined || price.net === null) {
-                        errors.push(EntityValidationService.createRequiredError(`/0/${field}/${index}/net`));
-                    }
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                     if (price.gross === undefined || price.gross === null) {
                         errors.push(EntityValidationService.createRequiredError(`/0/${field}/${index}/gross`));
                     }

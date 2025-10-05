@@ -672,48 +672,22 @@
         "currencyRule": "Currency",
         "languageRule": "Language",
         "customerIsActiveRule": "Customer is active",
-        "billingCountryRule": "Billing address: Country",
-        "billingCityRule": "Billing address: City",
-        "billingStreetRule": "Billing address: Street",
-        "billingStateRule": "Billing address: State",
-        "billingZipCodeRule": "Billing address: Postal code",
         "customerGroupRule": "Customer group",
-        "customerRequestedGroupRule": "Requested customer group",
         "customerTagRule": "Customer with tag",
         "customerNumberRule": "Customer number",
-        "differentAddressesRule": "Customer with deviating shipping address",
         "emailRule": {
           "label": "Customer email address",
           "placeholder": "Enter a distinct email address or use \"*\" as a wildcard character..."
         },
-        "lastNameRule": "Customer surname",
-        "isCompanyRule": "Commercial customer",
-        "cartTaxDisplay": {
-          "label": "Tax display",
-          "gross": "Gross",
-          "net": "Net"
-        },
-        "isGuestRule": "Guest account",
-        "isNewsletterRecipient": "Customer is newsletter recipient",
         "daysSinceLastOrderRule": "Time since last finished order",
-        "shippingCountryRule": "Shipping address: Country",
-        "shippingCityRule": "Shipping address: City",
-        "shippingStreetRule": "Shipping address: Street",
-        "shippingStateRule": "Shipping address: State",
-        "shippingZipCodeRule": "Shipping address: Postal code",
         "customerLoggedInRule": "Customer logged in",
         "customerAgeRule": "Customer age",
         "customerDaysSinceLastLogin": "Time since last login",
         "customerDaysSinceFirstLogin": "Time since first login",
-        "customerAffiliateCodeRule": "Affiliate code (customer)",
-        "customerCampaignCodeRule": "Campaign code (customer)",
-        "orderAffiliateCodeRule": "Affiliate code (order)",
-        "orderCampaignCodeRule": "Campaign code (order)",
         "cartAmountRule": "Grand total",
         "cartPositionPrice": "Total",
         "goodsCountRule": "Total quantity of distinct products",
         "goodsPriceRule": "Subtotal of all items",
-        "cartTotalPurchasePrice": "Total of all purchase prices",
         "lineItemOfTypeRule": {
           "label": "Item of type",
           "product": "Product",
@@ -726,15 +700,11 @@
         "lineItemTotalPriceRule": "Item subtotal",
         "lineItemWithQuantityRule": "Item quantity",
         "orderTagRule": "Order with tag",
-        "orderTrackingCodeRule": "Tracking code",
-        "orderDeliveryStatusRule": "Delivery status (flow)",
         "orderCreatedByAdminRule": "Order created by administrator (flow)",
         "adminChannelSourceRule": "Applicable in Administration",
         "orderTransactionStatusRule": "Payment status",
         "orderStatusRule": "Order status",
         "orderCustomFieldRule": "Order with custom field",
-        "orderDocumentTypeRule": "Order with document",
-        "orderDocumentTypeSentRule": "Order with sent document",
         "withTime": "Including timestamp",
         "withoutTime": "Excluding timestamp",
         "and": "And",
@@ -758,11 +728,7 @@
         "deleteAllConditions": "Delete all conditions",
         "createBefore": "Create before",
         "createAfter": "Create after",
-        "hasDeliveryFreeItemRule": "Item with free shipping",
         "timeRangeRule": "Time range",
-        "weightOfCartRule": "Total weight of all products",
-        "volumeOfCartRule": "Total volume of all products",
-        "cartShippingCost": "Shipping costs",
         "dayOfWeekRule": "Day of the week",
         "lineItemTagRule": "Item with tag",
         "alwaysValidRule": "Always valid",
@@ -770,21 +736,11 @@
         "lineItemNoveltyRule": "Novelties",
         "lineItemCustomFieldRule": "Item with custom field",
         "lineItemIsNewRule": "Item marked as \"new\"",
-        "lineItemOfManufacturerRule": "Item with manufacturer",
-        "lineItemPurchasePriceRule": "Item with purchase price",
         "lineItemCreationDateRule": "Item with creation date",
         "lineItemReleaseDateRule": "Item with release date",
         "lineItemClearanceSale": "Item with clearance sale",
         "lineItemPromotedRule": "Item is promoted",
         "lineItemInCategoryRule": "Item in category",
-        "categoryWithProductStreamTooltip": "Products in this category are assigned by a dynamic product group. Please use the condition \"Item in dynamic product group\" to dynamically access these products.",
-        "lineItemInProductStreamRule": "Item in dynamic product group",
-        "lineItemTaxationRule": "Item with tax rate",
-        "lineItemDimensionWidthRule": "Item with width",
-        "lineItemDimensionHeightRule": "Item with height",
-        "lineItemDimensionLengthRule": "Item with length",
-        "lineItemDimensionWeightRule": "Item with weight",
-        "lineItemDimensionVolumeRule": "Item with volume",
         "lineItemListPriceRule": "Item with list price",
         "lineItemListPriceRatioRule": "Item with price/list price ratio",
         "lineItemStockRule": "Item available",
@@ -842,22 +798,6 @@
           "options": {
             "product": "Product",
             "promotion": "Discount / surcharge"
-          }
-        }
-      },
-      "cartTaxDisplay": {
-        "taxDisplay": {
-          "options": {
-            "gross": "Gross",
-            "net": "Net"
-          }
-        }
-      },
-      "cartTotalPurchasePrice": {
-        "type": {
-          "options": {
-            "gross": "Gross",
-            "net": "Net"
           }
         }
       },
@@ -1536,9 +1476,6 @@
     "restrictedAssignment": {
       "general": "This rule uses conditions that are not allowed for assignment to {relation}.",
       "productPrices": "pricing rules",
-      "shippingMethodPrices": "pricing rules",
-      "shippingMethodPriceCalculations": "shipping cost calculation rules",
-      "shippingMethods": "shipping method availability rules",
       "paymentMethods": "payment method availability rules",
       "flowSequences": "Flow Builder rules",
       "personaPromotions": "customer rule|customer rules",
@@ -1555,8 +1492,6 @@
         "flowTrigger": "Flows with trigger: {assignments}",
         "promotion": "Promotions as {assignments}",
         "productPrices": "Products as {assignments}",
-        "shippingMethods": "Shipping methods as {assignments}",
-        "shippingMethodPrices": "Shipping methods as {assignments}",
         "paymentMethods": "Payment methods as {assignments}"
       }
     },

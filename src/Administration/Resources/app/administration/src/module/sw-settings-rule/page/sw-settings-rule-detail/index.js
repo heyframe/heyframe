@@ -80,10 +80,7 @@ export default {
                 'cartPromotions',
                 'promotionDiscounts',
                 'promotionSetGroups',
-                'shippingMethodPriceCalculations',
-                'shippingMethodPrices',
                 'productPrices',
-                'shippingMethods',
                 'paymentMethods',
             ];
 

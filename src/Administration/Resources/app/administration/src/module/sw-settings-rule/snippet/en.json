@@ -28,10 +28,7 @@
           "promotionDiscounts": "Promotion discount product rules",
           "flowSequences": "Flows",
           "paymentMethods": "Payment methods",
-          "productPrices": "Product price rules",
-          "shippingMethodPriceCalculations": "Shipping method price matrices",
-          "shippingMethodPrices": "Shipping method price rules",
-          "shippingMethods": "Shipping method availability rules"
+          "productPrices": "Product price rules"
         }
       },
       "tagFilter": {

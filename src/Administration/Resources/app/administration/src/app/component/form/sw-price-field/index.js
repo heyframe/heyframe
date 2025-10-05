@@ -11,8 +11,8 @@ const { debounce } = HeyFrame.Utils;
  * @status ready
  * @example-type static
  * @component-example
- * <sw-price-field :taxRate="{ taxRate: 19 }"
- *                 :value="[{ net: 10, gross: 11.90, currencyId: '...' }, ...]"
+ * <sw-price-field"
+ *                 :value="[{ gross: 11.90, currencyId: '...' }, ...]"
  *                 :defaultPrice="{...}"
  *                 :currency="{...}">
  * </sw-price-field>
@@ -220,73 +220,12 @@ export default {
             return this.error ? this.error.gross : null;
         },
 
-        netError() {
-            return this.error ? this.error.net : null;
-        },
-
         grossFieldName() {
             return this.name ? `${this.name}-gross` : 'sw-price-field-gross';
-        },
-
-        netFieldName() {
-            return this.name ? `${this.name}-net` : 'sw-price-field-net';
-        },
-    },
-
-    watch: {
-        'priceForCurrency.linked': function priceLinkedWatcher(value) {
-            if (value === true && this.priceForCurrency.gross !== null) {
-                this.convertGrossToNet(this.priceForCurrency.gross);
-            }
         },
     },
 
     methods: {
-        onEndsWithDecimalSeparator(value) {
-            if (value) {
-                // cancel might not be a function if debounce is not active
-                if (this.onPriceGrossChangeDebounce.cancel) {
-                    this.onPriceGrossChangeDebounce.cancel();
-                }
-                if (this.onPriceNetChangeDebounce.cancel) {
-                    this.onPriceNetChangeDebounce.cancel();
-                }
-            }
-        },
-
-        onPriceGrossInputChange(value) {
-            this.priceForCurrency.gross = value;
-
-            this.$emit('price-gross-change', value);
-            this.$emit('change', this.priceForCurrency);
-
-            if (this.priceForCurrency.linked && value && !value.toString().endsWith('.')) {
-                this.onPriceGrossChangeDebounce();
-            }
-        },
-
-        onPriceGrossChange(value) {
-            if (this.priceForCurrency.linked && value && !value.toString().endsWith('.')) {
-                this.convertGrossToNet(value);
-            }
-        },
-
-        convertNetToGross(value) {
-            const numericValue = typeof value === 'string' ? parseFloat(value) : value;
-
-            if (Number.isNaN(numericValue) || numericValue === null) {
-                this.priceForCurrency.gross = this.allowEmpty ? null : 0;
-                return false;
-            }
-
-            if (!numericValue) {
-                this.priceForCurrency.gross = 0;
-                return false;
-            }
-            this.$emit('price-calculate', true);
-            return true;
-        },
-
         convertPrice(value) {
             return value * this.currency.factor;
         },
@@ -301,13 +240,5 @@ export default {
         onCloseModal() {
             this.showModal = false;
         },
-
-        onPriceGrossChangeDebounce: debounce(function onPriceGrossChange() {
-            this.onPriceGrossChange(this.priceForCurrency.gross);
-        }, 300),
-
-        onPriceNetChangeDebounce: debounce(function onPriceNetChange() {
-            this.onPriceNetChange(this.priceForCurrency.net);
-        }, 300),
     },
 };

@@ -54,8 +54,6 @@ const swProductDetail = HeyFrame.Store.register({
             ],
             /* Product "types" provided by the split button for creating a new product through a router parameter */
             creationStates: [] as string[],
-            lengthUnit: 'mm',
-            weightUnit: 'kg',
         };
     },
 
@@ -162,14 +160,6 @@ const swProductDetail = HeyFrame.Store.register({
                 return true;
             }
             return false;
-        },
-
-        setLengthUnit(unit: string) {
-            this.lengthUnit = unit;
-        },
-
-        setWeightUnit(unit: string) {
-            this.weightUnit = unit;
         },
     },
 });

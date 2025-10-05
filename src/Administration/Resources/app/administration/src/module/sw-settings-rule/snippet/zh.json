@@ -28,10 +28,7 @@
           "promotionDiscounts": "促销折扣产品规则",
           "flowSequences": "流程",
           "paymentMethods": "支付方式",
-          "productPrices": "产品价格规则",
-          "shippingMethodPriceCalculations": "配送方式价格矩阵",
-          "shippingMethodPrices": "配送方式价格规则",
-          "shippingMethods": "配送方式可用性规则"
+          "productPrices": "产品价格规则"
         }
       },
       "tagFilter": {
