@@ -487,7 +487,7 @@ class Migration1536233560BasicData extends MigrationStep
                 'nameZh' => '产品',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['product']['id'],
-                'pattern' => '{date_ymd}{n}{date_Hs}',
+                'pattern' => '{date_ymd}{date_Hs}{n}',
                 'start' => 1000000,
             ],
             'order' => [
@@ -496,7 +496,7 @@ class Migration1536233560BasicData extends MigrationStep
                 'nameZh' => '订单',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['order']['id'],
-                'pattern' => '{date_ymd}{n}{date_Hs}',
+                'pattern' => '{date_ymd}{date_Hs}{n}',
                 'start' => 1000000,
             ],
             'customer' => [
@@ -505,7 +505,7 @@ class Migration1536233560BasicData extends MigrationStep
                 'nameZh' => '客户',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['customer']['id'],
-                'pattern' => '{date_ymd}{n}{date_Hs}',
+                'pattern' => '{date_ymd}{date_Hs}{n}',
                 'start' => 1000000,
             ],
         ];

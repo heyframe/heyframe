@@ -1,0 +1,62 @@
+{
+  "sw-settings-number-range": {
+    "general": {
+      "mainMenuItemGeneral": "编号规则",
+      "placeholderSearchBar": "搜索编号规则...",
+      "infoGlobalType": "“{typeName}”类型只能存在一个全局编号规则。在此处修改将影响所有渠道。",
+      "infoGlobalTypeTitle": "全局编号规则类型“{typeName}”",
+      "infoGlobal": "无法修改全局编号规则的类型，但可在概览中为多数类型创建指定渠道的额外规则。",
+      "infoGlobalTitle": "全局编号规则“{name}”",
+      "infoChannelBound": "如需修改编号规则类型，请先移除所有渠道分配。"
+    },
+    "list": {
+      "textHeadline": "编号规则",
+      "textDeleteConfirm": "确定删除编号规则“{name}”？",
+      "columnName": "名称",
+      "columnUsedIn": "类型",
+      "columnAssignment": "分配范围",
+      "buttonAddNumberRange": "新建编号规则",
+      "contextMenuEdit": "编辑",
+      "contextMenuDelete": "删除",
+      "messageDeleteSuccess": "编号规则“{name}”已删除",
+      "buttonDelete": "删除",
+      "global": "全局"
+    },
+    "detail": {
+      "textHeadline": "新建编号规则",
+      "configCard": "基础设置",
+      "assignmentCard": "分配设置",
+      "messageSaveSuccess": "编号规则“{name}”已保存",
+      "messageSaveError": "编号规则“{name}”保存失败",
+      "labelName": "规则名称",
+      "labelDescription": "规则描述",
+      "labelPrefix": "前缀",
+      "labelSuffix": "后缀",
+      "labelPattern": "生成规则",
+      "labelStart": "起始编号",
+      "labelCurrentNumber": "当前编号",
+      "labelPreview": "规则预览",
+      "labelAdvanced": "高级模式",
+      "labelType": "规则类型",
+      "labelChannel": "渠道",
+      "placeholderName": "请输入名称...",
+      "placeholderDescription": "请输入描述...",
+      "placeholderPrefix": "输入前缀...",
+      "placeholderSuffix": "输入后缀...",
+      "placeholderPattern": "输入生成规则，例如：prefix_{n}_suffix",
+      "placeholderStart": "输入起始编号...",
+      "placeholderPleaseSelect": "请选择...",
+      "placeholderSimpleModeImpossible": "已启用高级模式",
+      "helpTextAdvancedField": "高级规则语法：<br/>{'{prefix}_{n}_{suffix}'}<br/><li>“n”代表起始编号</li><li>（“_”可替换为任意分隔符）</li><br/>支持日期参数：<br/><li>{'{date}'}: 国际格式(YYYY-MM-DD)</li><li>{'{date_dmy}'}: 日月年格式(DD-MM-YY)</li>",
+      "errorPatternNeededMessage": "未设置生成规则，请至少配置起始编号",
+      "infoStartDecrementMessage": "仅当起始编号大于当前编号时，修改才会生效"
+    }
+  },
+  "sw-privileges": {
+    "permissions": {
+      "number_ranges": {
+        "label": "编号规则"
+      }
+    }
+  }
+}

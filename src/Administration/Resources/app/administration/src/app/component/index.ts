@@ -509,11 +509,6 @@ export default () => {
         () => import('./rule/condition-type/sw-condition-time-range/index'),
     );
     HeyFrame.Component.extend(
-        'sw-condition-shipping-zip-code',
-        'sw-condition-base',
-        () => import('./rule/condition-type/sw-condition-shipping-zip-code/index'),
-    );
-    HeyFrame.Component.extend(
         'sw-condition-script',
         'sw-condition-base',
         () => import('./rule/condition-type/sw-condition-script/index'),
@@ -597,11 +592,6 @@ export default () => {
         'sw-condition-customer-custom-field',
         'sw-condition-base',
         () => import('./rule/condition-type/sw-condition-customer-custom-field/index'),
-    );
-    HeyFrame.Component.extend(
-        'sw-condition-billing-zip-code',
-        'sw-condition-base',
-        () => import('./rule/condition-type/sw-condition-billing-zip-code/index'),
     );
     HeyFrame.Component.extend(
         'sw-url-field-deprecated',
