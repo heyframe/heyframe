@@ -139,7 +139,6 @@ export default {
 
         getList() {
             this.isLoading = true;
-            HeyFrame.Store.get('swFlow').fetchTriggerActions();
 
             this.flowRepository
                 .search(this.flowCriteria)

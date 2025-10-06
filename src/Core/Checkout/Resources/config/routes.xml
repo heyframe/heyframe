@@ -7,6 +7,7 @@
     <import resource="../../Cart/**/*Controller.php" type="attribute" />
     <import resource="../../Payment/**/*Controller.php" type="attribute" />
     <import resource="../../Cart/Channel/**/*Controller.php" type="attribute" />
+    <import resource="../../Promotion/**/*Controller.php" type="attribute" />
     <import resource="../../Customer/Channel/**/*Controller.php" type="attribute" />
     <import resource="../../Order/Api/**/*Controller.php" type="attribute" />
     <import resource="../../Customer/Channel/**/*Route.php" type="attribute" />
