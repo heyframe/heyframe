@@ -417,7 +417,7 @@ class Migration1536233560BasicData extends MigrationStep
 
         $connection->insert('state_machine_translation', array_merge($translationZH, [
             'state_machine_id' => $stateMachineId,
-            'name' => 'Bestellstatus',
+            'name' => '订单状态',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]));
 

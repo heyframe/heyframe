@@ -81,7 +81,7 @@ export default {
                 .addAssociation('personaRules')
                 .addAssociation('orderRules')
                 .addAssociation('cartRules')
-                .addAssociation('salesChannels');
+                .addAssociation('channels');
 
             criteria.getAssociation('discounts').addSorting(Criteria.sort('createdAt', 'ASC'));
 
@@ -131,7 +131,7 @@ export default {
     },
 
     beforeRouteLeave() {
-        HeyFrame.Store.get('shopwareApps').selectedIds = [];
+        HeyFrame.Store.get('heyframeApps').selectedIds = [];
     },
 
     methods: {
@@ -155,7 +155,7 @@ export default {
                 return;
             }
 
-            HeyFrame.Store.get('shopwareApps').selectedIds = [
+            HeyFrame.Store.get('heyframeApps').selectedIds = [
                 this.promotionId,
             ];
 

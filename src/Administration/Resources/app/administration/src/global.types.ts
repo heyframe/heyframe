@@ -126,6 +126,7 @@ import type { SwOrderStore } from './module/sw-order/store/order.store';
 import type { PaymentOverviewCardStore } from './module/sw-settings-payment/store/overview-cards.store';
 import type { SwProductDetailStore } from './module/sw-product/page/sw-product-detail/store';
 import type { SwProfileStore } from './module/sw-profile/store/sw-profile.store';
+import type { SwPromotionDetailStore } from './module/sw-promotion-v2/page/sw-promotion-v2-detail/store';
 import type { SwFlowStore } from './module/sw-flow/store/flow.store';
 import type { SwBulkStore } from './app/store/sw-bulk-edit.store';
 // eslint-disable-next-line max-len
@@ -410,6 +411,7 @@ declare global {
         paymentOverviewCard: PaymentOverviewCardStore;
         swProductDetail: SwProductDetailStore;
         swProfile: SwProfileStore;
+        swPromotionDetail: SwPromotionDetailStore;
         swFlow: SwFlowStore;
         swBulkEdit: SwBulkStore;
         mediaModal: MediaModalStore;

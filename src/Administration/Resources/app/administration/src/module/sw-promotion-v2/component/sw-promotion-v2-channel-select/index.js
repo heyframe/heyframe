@@ -23,41 +23,41 @@ export default {
 
     data() {
         return {
-            salesChannels: [],
+            channels: [],
             sortBy: 'name',
         };
     },
 
     computed: {
-        salesChannelRepository() {
+        channelRepository() {
             return this.repositoryFactory.create('channel');
         },
 
-        promotionSalesChannelRepository() {
+        promotionChannelRepository() {
             if (this.promotion) {
                 return this.repositoryFactory.create(
-                    this.promotion.salesChannels.entity,
-                    this.promotion.salesChannels.source,
+                    this.promotion.channels.entity,
+                    this.promotion.channels.source,
                 );
             }
 
             return null;
         },
 
-        salesChannelIds: {
+        channelIds: {
             get() {
                 if (!this.promotion) {
                     return [];
                 }
 
-                return this.promotion.salesChannels.map((promotionSalesChannels) => {
-                    return promotionSalesChannels.salesChannelId;
+                return this.promotion.channels.map((promotionChannels) => {
+                    return promotionChannels.channelId;
                 });
             },
 
-            set(salesChannelsIds) {
-                salesChannelsIds = salesChannelsIds || [];
-                const { deleted, added } = this.getChangeset(salesChannelsIds);
+            set(channelsIds) {
+                channelsIds = channelsIds || [];
+                const { deleted, added } = this.getChangeset(channelsIds);
 
                 if (this.promotion.isNew()) {
                     this.handleLocalMode(deleted, added);
@@ -68,11 +68,11 @@ export default {
             },
         },
 
-        salesChannelCriteria() {
-            const salesChannelCriteria = new Criteria(1, 500);
-            salesChannelCriteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, this.naturalSorting));
+        channelCriteria() {
+            const channelCriteria = new Criteria(1, 500);
+            channelCriteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, this.naturalSorting));
 
-            return salesChannelCriteria;
+            return channelCriteria;
         },
     },
 
@@ -82,69 +82,69 @@ export default {
 
     methods: {
         createdComponent() {
-            this.salesChannelRepository.search(this.salesChannelCriteria).then((searchresult) => {
-                this.salesChannels = searchresult;
+            this.channelRepository.search(this.channelCriteria).then((searchresult) => {
+                this.channels = searchresult;
             });
         },
 
-        getChangeset(salesChannelsIds) {
+        getChangeset(channelsIds) {
             const deleted = [];
             const added = [];
 
-            salesChannelsIds.forEach((id) => {
-                const foundSalesChannel = this.promotion.salesChannels.find((salesChannel) => {
-                    return salesChannel.salesChannelId === id;
+            channelsIds.forEach((id) => {
+                const foundChannel = this.promotion.channels.find((channel) => {
+                    return channel.channelId === id;
                 });
 
-                if (!foundSalesChannel) {
+                if (!foundChannel) {
                     added.push(id);
                 }
             });
 
-            this.promotion.salesChannels.forEach((salesChannel) => {
-                if (!salesChannelsIds.includes(salesChannel.salesChannelId)) {
-                    deleted.push(salesChannel.salesChannelId);
+            this.promotion.channels.forEach((channel) => {
+                if (!channelsIds.includes(channel.channelId)) {
+                    deleted.push(channel.channelId);
                 }
             });
 
             return { deleted, added };
         },
 
-        getAssociationBySalesChannelId(salesChannelId) {
-            return this.promotion.salesChannels.find((association) => {
-                return association.salesChannelId === salesChannelId;
+        getAssociationByChannelId(channelId) {
+            return this.promotion.channels.find((association) => {
+                return association.channelId === channelId;
             });
         },
 
         handleLocalMode(deleted, added) {
             deleted.forEach((deletedId) => {
-                const collectionEntry = this.getAssociationBySalesChannelId(deletedId);
-                this.promotion.salesChannels.remove(collectionEntry.id);
+                const collectionEntry = this.getAssociationByChannelId(deletedId);
+                this.promotion.channels.remove(collectionEntry.id);
             });
 
             added.forEach((newId) => {
-                const newAssociation = this.promotionSalesChannelRepository.create(this.promotion.salesChannels.context);
+                const newAssociation = this.promotionChannelRepository.create(this.promotion.channels.context);
 
-                newAssociation.salesChannelId = newId;
+                newAssociation.channelId = newId;
                 newAssociation.promotionId = this.promotion.id;
                 newAssociation.priority = 1;
-                this.promotion.salesChannels.add(newAssociation);
+                this.promotion.channels.add(newAssociation);
             });
         },
 
         handleWithRepository(deleted, added) {
             deleted.forEach((deletedId) => {
-                const associationEntry = this.getAssociationBySalesChannelId(deletedId);
-                this.promotion.salesChannels.remove(associationEntry.id);
+                const associationEntry = this.getAssociationByChannelId(deletedId);
+                this.promotion.channels.remove(associationEntry.id);
             });
 
             added.forEach((addedId) => {
-                const newAssociation = this.promotionSalesChannelRepository.create(this.promotion.salesChannels.context);
+                const newAssociation = this.promotionChannelRepository.create(this.promotion.channels.context);
 
-                newAssociation.salesChannelId = addedId;
+                newAssociation.channelId = addedId;
                 newAssociation.promotionId = this.promotion.id;
                 newAssociation.priority = 1;
-                this.promotion.salesChannels.add(newAssociation);
+                this.promotion.channels.add(newAssociation);
             });
         },
     },

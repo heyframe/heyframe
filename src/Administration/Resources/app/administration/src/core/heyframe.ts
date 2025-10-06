@@ -31,6 +31,7 @@ import FlatTreeHelper from 'src/core/helper/flattree.helper';
 import SanitizerHelper from 'src/core/helper/sanitizer.helper';
 import DeviceHelper from 'src/core/helper/device.helper';
 import MiddlewareHelper from 'src/core/helper/middleware.helper';
+import { DiscountScopes, DiscountTypes, PromotionPermissions } from 'src/module/sw-promotion-v2/helper/promotion.helper';
 import data from 'src/core/data/index';
 import ApplicationBootstrapper from 'src/core/application';
 
@@ -291,6 +292,11 @@ class HeyFrameClass implements CustomHeyFrameProperties {
         RefreshTokenHelper: RefreshTokenHelper,
         SanitizerHelper: SanitizerHelper,
         DeviceHelper: DeviceHelper,
+        PromotionHelper: {
+            DiscountScopes,
+            DiscountTypes,
+            PromotionPermissions,
+        },
         OrderHelper: {
             LineItemType,
         },

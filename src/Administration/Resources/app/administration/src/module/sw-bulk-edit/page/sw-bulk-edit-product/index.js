@@ -906,7 +906,6 @@ export default {
 
             const promises = [
                 this.loadCurrencies(),
-                this.loadTaxes(),
                 this.loadCustomFieldSets(),
                 this.loadDefaultCurrency(),
                 this.loadRules(),
@@ -1012,13 +1011,6 @@ export default {
         loadCustomFieldSets() {
             return this.customFieldSetRepository.search(this.customFieldSetCriteria).then((res) => {
                 this.customFieldSets = res;
-            });
-        },
-
-        loadTaxes() {
-            return this.taxRepository.search(this.taxCriteria).then((taxes) => {
-                this.taxRate = this.isChild ? this.parentProduct?.tax : taxes[0];
-                HeyFrame.Store.get('swProductDetail').setTaxes(taxes);
             });
         },
 

@@ -26,21 +26,6 @@ describe('src/module/sw-bulk-edit/page/sw-bulk-edit-product', () => {
     ) {
         const productEntity = productEntityOverride === undefined ? { metaTitle: 'test' } : productEntityOverride;
 
-        const taxes = [
-            {
-                id: 'rate1',
-                name: 'Rate 1',
-                position: 1,
-                taxRate: 19,
-            },
-            {
-                id: 'rate2',
-                name: 'Rate 2',
-                position: 2,
-                taxRate: 27,
-            },
-        ];
-
         const rules = [
             {
                 id: '1',
@@ -65,7 +50,6 @@ describe('src/module/sw-bulk-edit/page/sw-bulk-edit-product', () => {
 
         HeyFrame.Store.get('swProductDetail').$reset();
         HeyFrame.Store.get('swProductDetail').product = productEntity;
-        HeyFrame.Store.get('swProductDetail').setTaxes(taxes);
 
         return mount(await wrapTestComponent('sw-bulk-edit-product', { sync: true }), {
             global: {
@@ -255,13 +239,6 @@ describe('src/module/sw-bulk-edit/page/sw-bulk-edit-product', () => {
                                             { id: 'field-set-id-1' },
                                         ]),
                                     get: () => Promise.resolve({ id: '' }),
-                                };
-                            }
-
-                            if (entity === 'tax') {
-                                return {
-                                    search: () => Promise.resolve(taxes),
-                                    get: () => Promise.resolve(null),
                                 };
                             }
 
