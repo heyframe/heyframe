@@ -5,6 +5,7 @@ namespace HeyFrame\Frontend\Theme\Subscriber;
 use Doctrine\DBAL\Exception as DBALException;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Util\IOStreamHelper;
 use HeyFrame\Core\System\SystemConfig\Service\ConfigurationService;
 use HeyFrame\Frontend\Theme\Event\ThemeCompilerEnrichScssVariablesEvent;
 use HeyFrame\Frontend\Theme\FrontendPluginRegistry;
@@ -58,12 +59,8 @@ class ThemeCompilerEnrichScssVarSubscriber implements EventSubscriberInterface
                 );
             }
         } catch (DBALException $e) {
-            if (\defined('\STDERR') && !EnvironmentHelper::getVariable('TESTS_RUNNING')) {
-                fwrite(
-                    \STDERR,
-                    'Warning: Failed to load plugin css configuration. Ignoring plugin css customizations. Message: '
-                    . $e->getMessage() . \PHP_EOL
-                );
+            if (!EnvironmentHelper::getVariable('TESTS_RUNNING')) {
+                IOStreamHelper::writeError('Warning: Failed to load plugin css configuration. Ignoring plugin css customizations.', $e);
             }
         }
 

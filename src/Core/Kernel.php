@@ -15,6 +15,7 @@ use HeyFrame\Core\Framework\Plugin\KernelPluginCollection;
 use HeyFrame\Core\Framework\Plugin\KernelPluginLoader\KernelPluginLoader;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\Framework\Util\Hasher;
+use HeyFrame\Core\Framework\Util\IOStreamHelper;
 use HeyFrame\Core\Framework\Util\VersionParser;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\ConfigCache;
@@ -140,9 +141,7 @@ class Kernel extends HttpKernel
                 // initialize plugins before booting
                 $this->pluginLoader->initializePlugins($this->getProjectDir());
             } catch (DBALException $e) {
-                if (\defined('\STDERR')) {
-                    fwrite(\STDERR, 'Warning: Failed to load plugins. Message: ' . $e->getMessage() . \PHP_EOL);
-                }
+                IOStreamHelper::writeError('Warning: Failed to load plugins', $e);
             }
         }
 
