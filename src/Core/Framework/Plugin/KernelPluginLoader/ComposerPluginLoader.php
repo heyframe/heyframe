@@ -42,7 +42,7 @@ class ComposerPluginLoader extends KernelPluginLoader
             \assert(\is_array($composerJson));
             $pluginClass = $composerJson['extra']['heyframe-plugin-class'] ?? '';
 
-          if ($pluginClass === '' || !\class_exists($pluginClass)) {
+            if ($pluginClass === '' || !\class_exists($pluginClass)) {
                 IOStreamHelper::writeError(\sprintf('Skipped package %s due invalid "shopware-plugin-class" config', $composerPackage->name));
 
                 continue;
