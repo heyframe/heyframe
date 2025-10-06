@@ -26,7 +26,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RuleAreas;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Since;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
