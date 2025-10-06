@@ -20,60 +20,60 @@ class FilesystemConfigMigrationCompilerPassTest extends TestCase
     {
         $this->builder = new ContainerBuilder();
         $this->builder->addCompilerPass(new FilesystemConfigMigrationCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
-        $this->builder->setParameter('shopware.filesystem.public', []);
-        $this->builder->setParameter('shopware.filesystem.public.type', 'local');
-        $this->builder->setParameter('shopware.filesystem.public.config', []);
-        $this->builder->setParameter('shopware.cdn.url', 'http://test.de');
+        $this->builder->setParameter('heyframe.filesystem.public', []);
+        $this->builder->setParameter('heyframe.filesystem.public.type', 'local');
+        $this->builder->setParameter('heyframe.filesystem.public.config', []);
+        $this->builder->setParameter('heyframe.cdn.url', 'http://test.de');
     }
 
     public function testConfigMigration(): void
     {
         $this->builder->compile();
 
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public'), $this->builder->getParameter('shopware.filesystem.theme'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public'), $this->builder->getParameter('shopware.filesystem.asset'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public'), $this->builder->getParameter('shopware.filesystem.sitemap'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public'), $this->builder->getParameter('heyframe.filesystem.theme'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public'), $this->builder->getParameter('heyframe.filesystem.asset'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public'), $this->builder->getParameter('heyframe.filesystem.sitemap'));
 
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.type'), $this->builder->getParameter('shopware.filesystem.theme.type'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.type'), $this->builder->getParameter('shopware.filesystem.asset.type'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.type'), $this->builder->getParameter('shopware.filesystem.sitemap.type'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.type'), $this->builder->getParameter('heyframe.filesystem.theme.type'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.type'), $this->builder->getParameter('heyframe.filesystem.asset.type'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.type'), $this->builder->getParameter('heyframe.filesystem.sitemap.type'));
 
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.config'), $this->builder->getParameter('shopware.filesystem.theme.config'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.config'), $this->builder->getParameter('shopware.filesystem.asset.config'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.config'), $this->builder->getParameter('shopware.filesystem.sitemap.config'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.config'), $this->builder->getParameter('heyframe.filesystem.theme.config'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.config'), $this->builder->getParameter('heyframe.filesystem.asset.config'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.config'), $this->builder->getParameter('heyframe.filesystem.sitemap.config'));
 
         // We cannot inherit them, cause they use always in 6.2 the shop url instead the configured one
-        static::assertSame('', $this->builder->getParameter('shopware.filesystem.theme.url'));
-        static::assertSame('', $this->builder->getParameter('shopware.filesystem.asset.url'));
-        static::assertSame('', $this->builder->getParameter('shopware.filesystem.sitemap.url'));
+        static::assertSame('', $this->builder->getParameter('heyframe.filesystem.theme.url'));
+        static::assertSame('', $this->builder->getParameter('heyframe.filesystem.asset.url'));
+        static::assertSame('', $this->builder->getParameter('heyframe.filesystem.sitemap.url'));
 
-        static::assertTrue($this->builder->hasParameter('shopware.filesystem.theme.visibility'));
+        static::assertTrue($this->builder->hasParameter('heyframe.filesystem.theme.visibility'));
     }
 
     public function testSetCustomConfigForTheme(): void
     {
-        $this->builder->setParameter('shopware.filesystem.theme', ['foo' => 'foo']);
-        $this->builder->setParameter('shopware.filesystem.theme.type', 'amazon-s3');
-        $this->builder->setParameter('shopware.filesystem.theme.config', ['test' => 'test']);
-        $this->builder->setParameter('shopware.filesystem.theme.url', 'http://cdn.de');
+        $this->builder->setParameter('heyframe.filesystem.theme', ['foo' => 'foo']);
+        $this->builder->setParameter('heyframe.filesystem.theme.type', 'amazon-s3');
+        $this->builder->setParameter('heyframe.filesystem.theme.config', ['test' => 'test']);
+        $this->builder->setParameter('heyframe.filesystem.theme.url', 'http://cdn.de');
 
         $this->builder->compile();
 
-        static::assertNotSame($this->builder->getParameter('shopware.filesystem.public'), $this->builder->getParameter('shopware.filesystem.theme'));
-        static::assertNotSame($this->builder->getParameter('shopware.filesystem.public.type'), $this->builder->getParameter('shopware.filesystem.theme.type'));
-        static::assertNotSame($this->builder->getParameter('shopware.filesystem.public.config'), $this->builder->getParameter('shopware.filesystem.theme.config'));
+        static::assertNotSame($this->builder->getParameter('heyframe.filesystem.public'), $this->builder->getParameter('heyframe.filesystem.theme'));
+        static::assertNotSame($this->builder->getParameter('heyframe.filesystem.public.type'), $this->builder->getParameter('heyframe.filesystem.theme.type'));
+        static::assertNotSame($this->builder->getParameter('heyframe.filesystem.public.config'), $this->builder->getParameter('heyframe.filesystem.theme.config'));
 
-        static::assertSame('amazon-s3', $this->builder->getParameter('shopware.filesystem.theme.type'));
-        static::assertSame('http://cdn.de', $this->builder->getParameter('shopware.filesystem.theme.url'));
-        static::assertSame(['test' => 'test'], $this->builder->getParameter('shopware.filesystem.theme.config'));
-        static::assertTrue($this->builder->hasParameter('shopware.filesystem.theme.visibility'));
+        static::assertSame('amazon-s3', $this->builder->getParameter('heyframe.filesystem.theme.type'));
+        static::assertSame('http://cdn.de', $this->builder->getParameter('heyframe.filesystem.theme.url'));
+        static::assertSame(['test' => 'test'], $this->builder->getParameter('heyframe.filesystem.theme.config'));
+        static::assertTrue($this->builder->hasParameter('heyframe.filesystem.theme.visibility'));
 
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public'), $this->builder->getParameter('shopware.filesystem.asset'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.type'), $this->builder->getParameter('shopware.filesystem.asset.type'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.config'), $this->builder->getParameter('shopware.filesystem.asset.config'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public'), $this->builder->getParameter('heyframe.filesystem.asset'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.type'), $this->builder->getParameter('heyframe.filesystem.asset.type'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.config'), $this->builder->getParameter('heyframe.filesystem.asset.config'));
 
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public'), $this->builder->getParameter('shopware.filesystem.sitemap'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.type'), $this->builder->getParameter('shopware.filesystem.sitemap.type'));
-        static::assertSame($this->builder->getParameter('shopware.filesystem.public.config'), $this->builder->getParameter('shopware.filesystem.sitemap.config'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public'), $this->builder->getParameter('heyframe.filesystem.sitemap'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.type'), $this->builder->getParameter('heyframe.filesystem.sitemap.type'));
+        static::assertSame($this->builder->getParameter('heyframe.filesystem.public.config'), $this->builder->getParameter('heyframe.filesystem.sitemap.config'));
     }
 }

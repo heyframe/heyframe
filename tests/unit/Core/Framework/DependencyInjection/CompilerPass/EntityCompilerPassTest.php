@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\DependencyInjection\CompilerPass;
 
-use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerAddress\CustomerAddressDefinition;
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Content\Product\ProductDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\AttributeEntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -24,27 +24,27 @@ class EntityCompilerPassTest extends TestCase
     {
         $container = new ContainerBuilder();
 
-        $container->register(CustomerAddressDefinition::class, CustomerAddressDefinition::class)
-            ->addTag('shopware.entity.definition');
+        $container->register(CustomerRoleDefinition::class, CustomerRoleDefinition::class)
+            ->addTag('heyframe.entity.definition');
         $container->register(CustomerDefinition::class, CustomerDefinition::class)
-            ->addTag('shopware.entity.definition');
+            ->addTag('heyframe.entity.definition');
 
         $container->register(DefinitionInstanceRegistry::class, DefinitionInstanceRegistry::class)
             ->addArgument(new Reference('service_container'))
             ->addArgument([
                 CustomerDefinition::ENTITY_NAME => CustomerDefinition::class,
-                CustomerAddressDefinition::ENTITY_NAME => CustomerAddressDefinition::class,
+                CustomerRoleDefinition::ENTITY_NAME => CustomerRoleDefinition::class,
             ])
             ->addArgument([
                 CustomerDefinition::ENTITY_NAME => 'customer.repository',
-                CustomerAddressDefinition::ENTITY_NAME => 'customer_address.repository',
+                CustomerRoleDefinition::ENTITY_NAME => 'customer_role.repository',
             ]);
 
         $entityCompilerPass = new EntityCompilerPass();
         $entityCompilerPass->process($container);
 
         static::assertTrue($container->hasAlias('HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository $customerRepository'));
-        static::assertTrue($container->hasAlias('HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository $customerAddressRepository'));
+        static::assertTrue($container->hasAlias('HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository $customerRoleRepository'));
     }
 
     public function testEntityRepositoryAutowiringForAlreadyDefinedRepositories(): void
@@ -53,7 +53,7 @@ class EntityCompilerPassTest extends TestCase
 
         $container
             ->register(ProductDefinition::class, ProductDefinition::class)
-            ->addTag('shopware.entity.definition')
+            ->addTag('heyframe.entity.definition')
         ;
 
         $container
@@ -83,7 +83,7 @@ class EntityCompilerPassTest extends TestCase
         $container = new ContainerBuilder();
         $container
             ->register('test_attribute_entity.definition', AttributeEntityDefinition::class)
-            ->addTag('shopware.entity.definition')
+            ->addTag('heyframe.entity.definition')
         ;
         $container
             ->register(DefinitionInstanceRegistry::class, DefinitionInstanceRegistry::class)

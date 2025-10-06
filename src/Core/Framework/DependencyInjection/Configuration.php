@@ -50,9 +50,27 @@ class Configuration implements ConfigurationInterface
                 ->append($this->createMessengerSection())
                 ->append($this->createTelemetrySection())
                 ->append($this->createRedisSection())
+                ->append($this->createSearchSection())
             ->end();
 
         return $treeBuilder;
+    }
+
+    private function createSearchSection(): ArrayNodeDefinition
+    {
+        $treeBuilder = new TreeBuilder('search');
+
+        $rootNode = $treeBuilder->getRootNode();
+        $rootNode
+            ->children()
+            ->integerNode('term_max_length')->defaultValue(300)->end()
+            ->arrayNode('preserved_chars')
+            ->performNoDeepMerging()->defaultValue([])
+            ->prototype('scalar')->end()
+            ->end()
+            ->end();
+
+        return $rootNode;
     }
 
     private function createFilesystemSection(): ArrayNodeDefinition

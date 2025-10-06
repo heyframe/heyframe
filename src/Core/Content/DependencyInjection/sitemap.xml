@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="HeyFrame\Core\Content\Sitemap\Service\SitemapExporter">
+            <argument type="tagged_iterator" tag="heyframe.sitemap_url_provider"/>
+            <argument type="service" id="cache.system"/>
+            <argument>%heyframe.sitemap.batchsize%</argument>
+            <argument type="service" id="heyframe.filesystem.sitemap"/>
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\SitemapHandleFactoryInterface"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="HeyFrame\Core\Checkout\Cart\CartRuleLoader"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Service\SitemapLister">
+            <argument type="service" id="heyframe.filesystem.sitemap"/>
+            <argument type="service" id="heyframe.asset.sitemap"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Service\ConfigHandler">
+            <argument type="tagged_iterator" tag="heyframe.sitemap.config_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Service\SitemapHandleFactoryInterface" class="HeyFrame\Core\Content\Sitemap\Service\SitemapHandleFactory">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Channel\SitemapRoute" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\SitemapLister"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\SitemapExporter"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Channel\SitemapFileRoute" public="true">
+            <argument type="service" id="heyframe.filesystem.sitemap"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Extensions\ExtensionDispatcher"/>
+        </service>
+
+        <!-- UrlProviders -->
+        <service id="HeyFrame\Core\Content\Sitemap\Provider\HomeUrlProvider">
+            <tag name="heyframe.sitemap_url_provider"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Provider\CategoryUrlProvider">
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\ConfigHandler"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Content\Category\CategoryDefinition"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="event_dispatcher"/>
+
+            <tag name="heyframe.sitemap_url_provider"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Provider\CustomUrlProvider">
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\ConfigHandler"/>
+
+            <tag name="heyframe.sitemap_url_provider"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Provider\ProductUrlProvider">
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\ConfigHandler"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="HeyFrame\Core\Content\Product\ProductDefinition"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+
+            <tag name="heyframe.sitemap_url_provider"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\Provider\LandingPageUrlProvider">
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\ConfigHandler"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="router"/>
+
+            <tag name="heyframe.sitemap_url_provider"/>
+        </service>
+
+        <!-- Config Handler -->
+        <service id="HeyFrame\Core\Content\Sitemap\ConfigHandler\File">
+            <argument>%heyframe.sitemap%</argument>
+            <tag name="heyframe.sitemap.config_handler"/>
+        </service>
+
+        <!-- Commands -->
+        <service id="HeyFrame\Core\Content\Sitemap\Commands\SitemapGenerateCommand">
+            <argument type="service" id="channel.repository"/>
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\SitemapExporter"/>
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextFactory"/>
+            <argument type="service" id="event_dispatcher"/>
+
+            <tag name="console.command"/>
+        </service>
+
+        <!-- scheduled task -->
+        <service id="HeyFrame\Core\Content\Sitemap\ScheduledTask\SitemapGenerateTask">
+            <tag name="heyframe.scheduled.task"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\ScheduledTask\SitemapGenerateTaskHandler">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="channel.repository"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="messenger.default_bus"/>
+            <argument type="service" id="event_dispatcher"/>
+
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Sitemap\ScheduledTask\SitemapMessageHandler">
+            <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextFactory"/>
+            <argument type="service" id="HeyFrame\Core\Content\Sitemap\Service\SitemapExporter"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
+
+            <tag name="messenger.message_handler"/>
+        </service>
+    </services>
+</container>

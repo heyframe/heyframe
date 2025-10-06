@@ -27,6 +27,6 @@ class RedisPrefixCompilerPassTest extends TestCase
         $pass = new RedisPrefixCompilerPass();
         $pass->process($container);
 
-        static::assertSame('%shopware.cache.redis_prefix%foo', $definition->getArgument(1));
+        static::assertSame('%heyframe.cache.redis_prefix%foo', $definition->getArgument(1));
     }
 }

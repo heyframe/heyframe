@@ -16,7 +16,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity as EntityStruct;
 use HeyFrame\Core\Framework\DependencyInjection\CompilerPass\AttributeEntityCompilerPass;
 use HeyFrame\Core\Framework\Struct\ArrayEntity;
-use HeyFrame\Core\System\SalesChannel\Entity\SalesChannelDefinitionInstanceRegistry;
+use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInstanceRegistry;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -32,11 +32,11 @@ class AttributeEntityCompilerPassTest extends TestCase
     {
         $container = new ContainerBuilder();
         $container->setDefinition(DefinitionInstanceRegistry::class, new Definition(DefinitionInstanceRegistry::class));
-        $container->setDefinition(SalesChannelDefinitionInstanceRegistry::class, new Definition(SalesChannelDefinitionInstanceRegistry::class));
+        $container->setDefinition(ChannelDefinitionInstanceRegistry::class, new Definition(ChannelDefinitionInstanceRegistry::class));
 
         $attributeEntity = new Definition(TestAttributeEntity::class);
         $attributeEntity->setPublic(true);
-        $attributeEntity->addTag('shopware.entity');
+        $attributeEntity->addTag('heyframe.entity');
         $container->setDefinition(TestAttributeEntity::class, $attributeEntity);
 
         $compiler = new AttributeEntityCompiler();
@@ -45,13 +45,13 @@ class AttributeEntityCompilerPassTest extends TestCase
         $compilerPass->process($container);
 
         static::assertTrue($container->hasDefinition('test_attribute_entity.definition'));
-        static::assertTrue($container->getDefinition('test_attribute_entity.definition')->hasTag('shopware.entity.definition'));
+        static::assertTrue($container->getDefinition('test_attribute_entity.definition')->hasTag('heyframe.entity.definition'));
 
         static::assertTrue($container->hasDefinition('test_attribute_entity_translation.definition'));
-        static::assertTrue($container->getDefinition('test_attribute_entity_translation.definition')->hasTag('shopware.entity.definition'));
+        static::assertTrue($container->getDefinition('test_attribute_entity_translation.definition')->hasTag('heyframe.entity.definition'));
 
         static::assertTrue($container->hasDefinition('customer_test_attribute_entity.definition'));
-        static::assertTrue($container->getDefinition('customer_test_attribute_entity.definition')->hasTag('shopware.entity.definition'));
+        static::assertTrue($container->getDefinition('customer_test_attribute_entity.definition')->hasTag('heyframe.entity.definition'));
     }
 }
 

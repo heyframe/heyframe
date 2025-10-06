@@ -16,6 +16,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ListField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
+use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]
 class CustomerRoleDefinition extends EntityDefinition

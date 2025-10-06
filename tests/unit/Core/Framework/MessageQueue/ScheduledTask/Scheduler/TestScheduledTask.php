@@ -179,7 +179,7 @@ class TaskSchedulerTest extends TestCase
             $scheduledTaskRepository,
             $bus,
             new ParameterBag([
-                'shopware.test.active' => false,
+                'heyframe.test.active' => false,
             ]),
             12
         );
@@ -229,7 +229,7 @@ class TaskSchedulerTest extends TestCase
         $scheduler = new TaskScheduler(
             $scheduledTaskRepository,
             $bus,
-            new ParameterBag(['shopware.test.active' => $shouldSchedule]),
+            new ParameterBag(['heyframe.test.active' => $shouldSchedule]),
             12
         );
 
@@ -279,7 +279,7 @@ class TestScheduledTask extends ScheduledTask
 {
     public static function getTaskName(): string
     {
-        return 'shopware.test';
+        return 'heyframe.test';
     }
 
     public static function getDefaultInterval(): int
@@ -289,6 +289,6 @@ class TestScheduledTask extends ScheduledTask
 
     public static function shouldRun(ParameterBagInterface $bag): bool
     {
-        return (bool) $bag->get('shopware.test.active');
+        return (bool) $bag->get('heyframe.test.active');
     }
 }

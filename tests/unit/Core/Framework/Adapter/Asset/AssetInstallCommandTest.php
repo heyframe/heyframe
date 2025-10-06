@@ -3,7 +3,6 @@
 namespace HeyFrame\Tests\Unit\Core\Framework\Adapter\Asset;
 
 use HeyFrame\Core\Framework\Adapter\Asset\AssetInstallCommand;
-use HeyFrame\Core\Framework\App\ActiveAppsLoader;
 use HeyFrame\Core\Framework\Plugin\Util\AssetService;
 use HeyFrame\Core\Installer\Installer;
 use HeyFrame\Tests\Unit\Core\Framework\Plugin\_fixtures\ExampleBundle\ExampleBundle;
@@ -23,7 +22,7 @@ class AssetInstallCommandTest extends TestCase
     public function testHtaccessCopy(): void
     {
         $fs = new Filesystem();
-        $tmpDir = sys_get_temp_dir() . '/' . uniqid('shopware', true);
+        $tmpDir = sys_get_temp_dir() . '/' . uniqid('heyframe', true);
         $fs->mkdir($tmpDir . '/public');
         $fs->dumpFile($tmpDir . '/public/.htaccess.dist', 'FOO');
 
@@ -33,7 +32,6 @@ class AssetInstallCommandTest extends TestCase
         $command = new AssetInstallCommand(
             $kernel,
             $this->createMock(AssetService::class),
-            $this->createMock(ActiveAppsLoader::class)
         );
 
         $runner = new CommandTester($command);
@@ -53,8 +51,6 @@ class AssetInstallCommandTest extends TestCase
         $kernel->method('getBundles')->willReturn([$exampleBundle]);
 
         $service = $this->createMock(AssetService::class);
-        $appLoader = $this->createMock(ActiveAppsLoader::class);
-        $appLoader->method('getActiveApps')->willReturn([]);
 
         $invokedCount = $this->exactly(2);
         $service->expects($invokedCount)
@@ -73,7 +69,6 @@ class AssetInstallCommandTest extends TestCase
         $command = new AssetInstallCommand(
             $kernel,
             $service,
-            $appLoader
         );
 
         $runner = new CommandTester($command);

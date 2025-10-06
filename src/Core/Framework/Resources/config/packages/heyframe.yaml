@@ -540,6 +540,11 @@ heyframe:
     feature_toggle:
         enable: true
 
+    search:
+        term_max_length: 300
+        # special chars that will not be removed on tokenizing
+        preserved_chars: ['-', '_', '+', '.', '@']
+
     staging:
         mailing:
             disable_delivery: true

@@ -164,15 +164,15 @@ class TranslationLoaderTest extends TestCase
 
         static::assertCount(5, $writtenFiles);
 
-        $shopwarePath = Path::join(TranslationLoader::TRANSLATION_DIR, TranslationLoader::TRANSLATION_LOCALE_SUB_DIR, 'es-ES', 'Platform');
-        $shopwarePath = mb_ltrim($shopwarePath, '/\\');
+        $heyframePath = Path::join(TranslationLoader::TRANSLATION_DIR, TranslationLoader::TRANSLATION_LOCALE_SUB_DIR, 'es-ES', 'Platform');
+        $heyframePath = mb_ltrim($heyframePath, '/\\');
         $pluginPath = Path::join(TranslationLoader::TRANSLATION_DIR, TranslationLoader::TRANSLATION_LOCALE_SUB_DIR, 'es-ES', 'Plugins', 'SwagPublisher');
         $pluginPath = mb_ltrim($pluginPath, '/\\');
 
         $expectedFiles = [
-            $shopwarePath . '/administration.json',
-            $shopwarePath . '/messages.es-ES.base.json',
-            $shopwarePath . '/frontend.json',
+            $heyframePath . '/administration.json',
+            $heyframePath . '/messages.es-ES.base.json',
+            $heyframePath . '/frontend.json',
             $pluginPath . '/frontend.json',
             $pluginPath . '/administration.json',
         ];

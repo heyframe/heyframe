@@ -34,5 +34,6 @@ class Content extends Bundle
         $loader->load('landing_page.xml');
         $loader->load('navigation.xml');
         $loader->load('breadcrumb.xml');
+        $loader->load('sitemap.xml');
     }
 }

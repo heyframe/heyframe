@@ -24,7 +24,7 @@ class FeatureFlagsCompilerPassTest extends TestCase
     public function testItRemovesServiceIfInactive(): void
     {
         $definition = new Definition();
-        $definition->addTag('shopware.feature', [
+        $definition->addTag('heyframe.feature', [
             'flag' => 'FEATURE_NEXT_123',
         ]);
 
@@ -33,7 +33,7 @@ class FeatureFlagsCompilerPassTest extends TestCase
             'feature_service' => $definition,
         ]);
 
-        $container->setParameter('shopware.feature.flags', [
+        $container->setParameter('heyframe.feature.flags', [
             'FEATURE_NEXT_123' => [
                 'name' => 'FEATURE_NEXT_123',
                 'active' => false,
@@ -50,7 +50,7 @@ class FeatureFlagsCompilerPassTest extends TestCase
     public function testItKeepServiceIfActive(): void
     {
         $definition = new Definition();
-        $definition->addTag('shopware.feature', [
+        $definition->addTag('heyframe.feature', [
             'flag' => 'FEATURE_NEXT_123',
         ]);
 
@@ -59,7 +59,7 @@ class FeatureFlagsCompilerPassTest extends TestCase
             'feature_service' => $definition,
         ]);
 
-        $container->setParameter('shopware.feature.flags', [
+        $container->setParameter('heyframe.feature.flags', [
             'FEATURE_NEXT_123' => [
                 'name' => 'FEATURE_NEXT_123',
                 'active' => true,
