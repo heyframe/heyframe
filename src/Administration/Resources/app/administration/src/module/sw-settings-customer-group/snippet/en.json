@@ -7,14 +7,11 @@
       "placeholderSearchBar": "Search customer groups..."
     },
     "list": {
-      "columnName": "Name",
-      "columnDisplayGross": "Tax display"
+      "columnName": "Name"
     },
     "detail": {
       "cardTitle": "Customer group",
       "fieldNameLabel": "Name",
-      "fieldDisplayGrossLabel": "Tax display",
-      "fieldDisplayGrossValues": "Gross | Net",
       "placeholderName": "Enter a name...",
       "placeholderNewCustomerGroup": "New customer group",
       "notificationErrorMessage": "An error occured while saving your customer group.",

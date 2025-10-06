@@ -16,7 +16,6 @@ export default {
         'loginService',
         'repositoryFactory',
         'acl',
-        'ssoSettingsService',
     ],
 
     emits: ['get-list'],
@@ -24,14 +23,7 @@ export default {
     mixins: [
         Mixin.getByName('listing'),
         Mixin.getByName('notification'),
-        Mixin.getByName('salutation'),
     ],
-
-    created() {
-        this.ssoSettingsService.isSso().then((isSso) => {
-            this.isSso = isSso.isSso;
-        });
-    },
 
     data() {
         return {
@@ -43,7 +35,6 @@ export default {
             sortBy: 'username',
             isConfirmingPassword: false,
             showInvitationModal: false,
-            isSso: false,
         };
     },
 
@@ -82,36 +73,19 @@ export default {
         },
 
         userColumns() {
-            if (this.isSso) {
-                return [
-                    {
-                        property: 'email',
-                        label: this.$tc('sw-users-permissions.users.user-grid.labelEmail'),
-                    },
-                    {
-                        property: 'aclRoles',
-                        sortable: false,
-                        label: this.$tc('sw-users-permissions.users.user-grid.labelRoles'),
-                    },
-                    {
-                        property: 'status',
-                        label: this.$tc('sw-users-permissions.users.user-grid.status'),
-                    },
-                ];
-            }
-
             return [
                 {
                     property: 'username',
                     label: this.$tc('sw-users-permissions.users.user-grid.labelUsername'),
                 },
                 {
-                    property: 'firstName',
-                    label: this.$tc('sw-users-permissions.users.user-grid.labelFirstName'),
+                    property: 'name',
+                    label: this.$tc('sw-users-permissions.users.user-grid.labelName'),
                 },
                 {
-                    property: 'lastName',
-                    label: this.$tc('sw-users-permissions.users.user-grid.labelLastName'),
+                    property: 'phoneNumber',
+                    label: this.$tc('sw-users-permissions.users.user-grid.labelPhoneNumber'),
+                    visible: false,
                 },
                 {
                     property: 'aclRoles',

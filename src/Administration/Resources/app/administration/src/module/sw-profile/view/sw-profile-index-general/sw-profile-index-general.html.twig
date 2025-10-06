@@ -7,23 +7,23 @@
         :is-loading="isUserLoading || !languageId"
     >
         <sw-container v-bind="{ columns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '0 30px' }">
-            {% block sw_profile_index_general_information_firstname %}
+            {% block sw_profile_index_general_information_name %}
 
             <mt-text-field
-                v-model="user.firstName"
-                name="sw-field--user-firstName"
-                :label="$tc('sw-profile.index.labelFirstNameField')"
+                v-model="user.name"
+                name="sw-field--user-name"
+                :label="$tc('sw-profile.index.labelNameField')"
                 :disabled="isDisabled || !acl.can('user.update_profile')"
             />
             {% endblock %}
 
-            {% block sw_profile_index_general_information_lastname %}
+            {% block sw_profile_index_general_information_phone %}
 
             <mt-text-field
-                v-model="user.lastName"
-                name="sw-field--user-lastName"
-                :label="$tc('sw-profile.index.labelLastNameField')"
-                :disabled="isDisabled || !acl.can('user.update_profile')"
+                v-model="user.phoneNumber"
+                name="sw-field--user-phone"
+                :label="$tc('sw-profile.index.labelPhoneNumberField')"
+                :disabled="!acl.can('user.update_profile')"
             />
             {% endblock %}
         </sw-container>

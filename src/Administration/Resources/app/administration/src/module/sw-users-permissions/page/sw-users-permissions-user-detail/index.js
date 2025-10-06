@@ -103,7 +103,6 @@ export default {
             const criteria = new Criteria(1, 25);
 
             // Roles created by apps should not be assignable in the admin
-            criteria.addFilter(Criteria.equals('app.id', null));
             criteria.addFilter(Criteria.equals('deletedAt', null));
 
             return criteria;

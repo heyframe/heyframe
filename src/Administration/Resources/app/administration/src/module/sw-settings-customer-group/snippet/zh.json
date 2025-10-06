@@ -7,14 +7,11 @@
       "placeholderSearchBar": "搜索客户群组..."
     },
     "list": {
-      "columnName": "名称",
-      "columnDisplayGross": "含税显示"
+      "columnName": "名称"
     },
     "detail": {
       "cardTitle": "客户组",
       "fieldNameLabel": "名称",
-      "fieldDisplayGrossLabel": "税显示",
-      "fieldDisplayGrossValues": "含税 | 不含税",
       "placeholderName": "输入名称...",
       "placeholderNewCustomerGroup": "新客户群组",
       "notificationErrorMessage": "保存客户群组时发生错误。",

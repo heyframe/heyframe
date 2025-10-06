@@ -739,7 +739,7 @@ class Migration1536233560BasicData extends MigrationStep
         $liId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $liId, 'iso' => 'LI', 'position' => 10, 'iso3' => 'LIE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($liId, 'Liechtenstein'));
-        $connection->insert('country_translation', $languageZH($liId, 'Liechtenstein'));
+        $connection->insert('country_translation', $languageZH($liId, '列支敦士登'));
 
         $aeId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $aeId, 'iso' => 'AE', 'position' => 10, 'active' => 1, 'iso3' => 'ARE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);

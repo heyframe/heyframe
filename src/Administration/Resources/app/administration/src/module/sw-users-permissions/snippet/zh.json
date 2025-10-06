@@ -95,8 +95,8 @@
       },
       "user-grid": {
         "labelUsername": "用户名",
-        "labelFirstName": "名",
-        "labelLastName": "姓",
+        "labelName": "姓名",
+        "labelPhoneNumber": "手机号",
         "labelRoles": "角色",
         "labelEmail": "邮箱地址",
         "status": "状态",
@@ -121,8 +121,8 @@
       "user-detail": {
         "labelCard": "基本信息",
         "labelIntegrationsCard": "集成",
-        "labelFirstName": "名",
-        "labelLastName": "姓",
+        "labelName": "姓名",
+        "labelPhoneNumber": "手机号",
         "labelEmail": "邮箱地址",
         "errorEmailUsed": "该邮箱地址已被使用。",
         "errorUsernameUsed": "该用户名已被使用。",

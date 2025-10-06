@@ -98,11 +98,6 @@ export default {
                     routerLink: 'sw.settings.customer.group.detail',
                     primary: true,
                 },
-                {
-                    property: 'displayGross',
-                    label: 'sw-settings-customer-group.list.columnDisplayGross',
-                    inlineEdit: 'boolean',
-                },
             ];
         },
 
