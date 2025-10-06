@@ -423,6 +423,7 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "HeyFrame\\Tests\\Examples\\": "tests/examples/",
       "HeyFrame\\Tests\\Unit\\": "tests/unit/",
       "HeyFrame\\Tests\\Integration\\": "tests/integration/",
       "HeyFrame\\Tests\\Migration\\": "tests/migration/",
