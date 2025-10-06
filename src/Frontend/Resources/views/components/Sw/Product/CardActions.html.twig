@@ -1,9 +1,10 @@
 {% props
     product,
     addToCartExtraFormData = {},
+    horizontal = false,
 %}
 
-<div class="product-card-actions d-grid">
+<div class="product-card-actions{% if not horizontal %} d-grid{% endif %}">
     {% set isAvailable = not product.isCloseout or (product.stock >= product.minPurchase) %}
     {% set displayFrom = product.calculatedPrices.count > 1 %}
     {% set displayBuyButton = isAvailable and not displayFrom and product.childCount <= 0 %}
@@ -12,6 +13,13 @@
 
     {% if displayBuyButton and config('core.listing.allowBuyInListing') %}
         <twig:Sw:Product:BuyButton :product="product" :extraFormData="addToCartExtraFormData" />
+    {% else %}
+        <a href="{{ seoUrl('frontend.detail.page', {productId: product.id}) }}"
+           class="btn btn-light btn-detail">
+            {% block component_product_box_action_detail_label %}
+                {{ 'listing.boxProductDetails'|trans|sw_sanitize }}
+            {% endblock %}
+        </a>
     {% endif %}
 
     <twig:Slot name="bottom"></twig:Slot>
