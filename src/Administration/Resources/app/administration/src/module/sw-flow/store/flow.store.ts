@@ -8,9 +8,6 @@ const { types } = HeyFrame.Utils;
 type Flow = Entity<'flow'>;
 type Sequence = Entity<'flow_sequence'>;
 type Sequences = EntityCollection<'flow_sequence'>;
-type Actions = EntityCollection<'app_flow_action'>;
-type Event = Entity<'app_flow_event'>;
-type Events = EntityCollection<'app_flow_event'>;
 
 type EntityActions =
     | 'ADD_ORDER_TAG'
@@ -33,8 +30,6 @@ const swFlowStore = HeyFrame.Store.register('swFlow', {
         } as Flow,
         originFlow: {} as Flow,
         triggerEvent: {} as Event,
-        triggerEvents: [] as unknown as Events,
-        triggerActions: [] as unknown as Actions,
         invalidSequences: [],
         stateMachineState: [],
         documentTypes: [],
@@ -43,17 +38,10 @@ const swFlowStore = HeyFrame.Store.register('swFlow', {
         customFields: [],
         customerGroups: [],
         restrictedRules: [],
-        appActions: [] as unknown as Actions,
         originAvailableActions: [] as string[],
     }),
 
     getters: {
-        getSelectedAppAction(state) {
-            return (actionName: string) => {
-                return state.appActions?.find((item) => item.name === actionName);
-            };
-        },
-
         sequences(state) {
             return state.flow.sequences;
         },
@@ -80,43 +68,6 @@ const swFlowStore = HeyFrame.Store.register('swFlow', {
 
             const firstSequence = state.flow.sequences[0];
             return !firstSequence.actionName && !firstSequence.ruleId;
-        },
-
-        availableActions(state) {
-            if (!state.triggerEvent || !state.triggerActions) return [];
-
-            const availableActions: string[] = [];
-
-            state.triggerActions.forEach((action) => {
-                if (!action.requirements?.length) {
-                    availableActions.push(action.name);
-                    return;
-                }
-
-                // check if the current active action contains any required keys from an action option.
-                const isActive = action.requirements.some((item) => state.triggerEvent?.aware?.includes(item));
-
-                if (!isActive) {
-                    return;
-                }
-
-                const actionType = Service('flowBuilderService').mapActionType(action.name as EntityActionName);
-
-                if (actionType) {
-                    // check if the action is already in the available actions list by typeq
-                    const hasDuplicateAction = availableActions.find(
-                        (option) => Service('flowBuilderService').mapActionType(option as EntityActionName) === actionType,
-                    );
-
-                    if (hasDuplicateAction !== undefined) {
-                        return;
-                    }
-                }
-
-                availableActions.push(action.name);
-            });
-
-            return availableActions;
         },
 
         mailTemplateIds(state) {
@@ -158,47 +109,12 @@ const swFlowStore = HeyFrame.Store.register('swFlow', {
         actionGroups() {
             return Service('flowBuilderService').getGroups();
         },
-
-        hasAvailableAction: (state) => (actionName: string) => {
-            // This information was originally persisted into the state in the `availableActions` getter.
-            // That's an antipattern and caused endless loops in the flow module.
-            // Therefore, we need to recalculate the available actions here.
-            const getOriginActions = () => {
-                const originAvailableActions: string[] = [];
-
-                if (!state.triggerEvent || !state.triggerActions) return [];
-
-                state.triggerActions.forEach((action) => {
-                    if (!action.requirements?.length) {
-                        originAvailableActions.push(action.name);
-                        return;
-                    }
-
-                    // check if the current active action contains any required keys from an action option.
-                    const isActive = action.requirements.some((item) => state.triggerEvent?.aware?.includes(item));
-
-                    if (!isActive || originAvailableActions.includes(action.name)) {
-                        return;
-                    }
-
-                    originAvailableActions.push(action.name);
-                });
-
-                return originAvailableActions;
-            };
-            const originAvailableActions = getOriginActions();
-
-            return originAvailableActions?.some((name) => name === actionName) ?? false;
-        },
     },
 
     actions: {
-        setAppActions(actions: Actions) {
-            this.appActions.push(...actions);
-        },
-
         setFlow(flow: Flow & { config?: Flow }) {
             this.flow = flow;
+
             if (flow.config) {
                 this.flow.description = flow.config.description;
                 this.flow.sequences = flow.config.sequences;
@@ -207,10 +123,27 @@ const swFlowStore = HeyFrame.Store.register('swFlow', {
         },
 
         setOriginFlow(flow: Flow) {
-            this.originFlow = {
-                ...flow,
-                sequences: flow.sequences?.map((item) => ({ ...item })) as Sequences,
-            } as Flow;
+            const clonedFlow = HeyFrame.Utils.object.cloneDeep(flow);
+
+            if (!flow.sequences) {
+                this.originFlow = clonedFlow;
+                return;
+            }
+
+            const sequences = new EntityCollection(
+                flow.sequences.source,
+                flow.sequences.entity,
+                HeyFrame.Context.api,
+                null,
+                [],
+            );
+
+            flow.sequences.forEach((item) => {
+                sequences.add(HeyFrame.Utils.object.cloneDeep(item) as Sequence);
+            });
+
+            clonedFlow.sequences = sequences;
+            this.originFlow = clonedFlow;
         },
 
         setEventName(eventName: string) {
@@ -285,17 +218,6 @@ const swFlowStore = HeyFrame.Store.register('swFlow', {
                 .getRestrictedRules(`flowTrigger.${id}`)
                 .then((result) => {
                     this.setRestrictedRules(result?.[0]);
-                });
-        },
-
-        fetchTriggerActions() {
-            return Service('businessEventService')
-                .getBusinessEvents()
-                .then((result: Events) => {
-                    this.triggerEvents = result;
-                })
-                .catch(() => {
-                    this.triggerEvents = [] as unknown as Events;
                 });
         },
     },

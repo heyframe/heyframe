@@ -6,8 +6,8 @@ import template from './sw-order-state-history-modal.html.twig';
  * @sw-package checkout
  */
 
-const { Component, Mixin } = HeyFrame;
-const { Criteria } = HeyFrame.Data;
+const {Component, Mixin} = HeyFrame;
+const {Criteria} = HeyFrame.Data;
 
 interface StateMachineHistoryData {
     order: Entity<'state_machine_state'>;
@@ -89,9 +89,6 @@ export default Component.wrapComponentConfig({
                 this.order.id,
                 ...(this.order.transactions ?? []).map((transaction) => {
                     return transaction.id;
-                }),
-                ...(this.order.deliveries ?? []).map((delivery) => {
-                    return delivery.id;
                 }),
             ];
 
@@ -209,10 +206,6 @@ export default Component.wrapComponentConfig({
                     allEntries.filter((entry) => {
                         return entry.entityName === 'order_transaction';
                     })[0]?.fromStateMachineState ?? this.order.transactions?.last()?.stateMachineState,
-                order_delivery:
-                    allEntries.filter((entry) => {
-                        return entry.entityName === 'order_delivery';
-                    })[0]?.fromStateMachineState ?? this.order.deliveries?.first()?.stateMachineState,
             };
 
             const entries = [] as Array<StateMachineHistoryData>;
@@ -234,7 +227,8 @@ export default Component.wrapComponentConfig({
                                     // @ts-expect-error - states exists
                                     order_transaction: entry.fromStateMachineState,
                                 },
-                                { ...entry, user: undefined },
+                                entry,
+                                true,
                             ),
                         );
                     }
@@ -272,13 +266,14 @@ export default Component.wrapComponentConfig({
         createEntry(
             states: CombinedStates,
             entry: Entity<'state_machine_history'> | Entity<'order'> | Entity<'order_transaction'>,
+            hideUser = false,
         ): StateMachineHistoryData {
             return {
                 order: states.order,
                 transaction: states.order_transaction,
                 delivery: states.order_delivery,
                 createdAt: 'orderDateTime' in entry ? entry.orderDateTime : entry.createdAt,
-                user: 'user' in entry ? entry.user : undefined,
+                user: !hideUser && 'user' in entry ? entry.user : undefined,
                 integration: 'integration' in entry ? entry.integration : undefined,
                 entity: 'entityName' in entry ? entry.entityName : entry.getEntityName(),
                 referencedId: 'referencedId' in entry ? entry.referencedId : entry.id,
@@ -295,7 +290,7 @@ export default Component.wrapComponentConfig({
             this.$emit('modal-close');
         },
 
-        onPageChange({ page, limit }: { page: number; limit: number }): void {
+        onPageChange({page, limit}: { page: number; limit: number }): void {
             this.page = page;
             this.limit = limit;
 

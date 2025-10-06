@@ -1,3 +1,5 @@
+import EntityCollection from '@heyframe-ag/meteor-admin-sdk/es/_internals/data/EntityCollection';
+
 describe('module/sw-flow/store/flow.store', () => {
     const store = HeyFrame.Store.get('swFlow');
 
@@ -10,8 +12,6 @@ describe('module/sw-flow/store/flow.store', () => {
         expect(store.flow.sequences).toEqual([]);
         expect(store.originFlow).toEqual({});
         expect(store.triggerEvent).toEqual({});
-        expect(store.triggerEvents).toEqual([]);
-        expect(store.triggerActions).toEqual([]);
         expect(store.invalidSequences).toEqual([]);
         expect(store.stateMachineState).toEqual([]);
         expect(store.documentTypes).toEqual([]);
@@ -20,7 +20,6 @@ describe('module/sw-flow/store/flow.store', () => {
         expect(store.customFields).toEqual([]);
         expect(store.customerGroups).toEqual([]);
         expect(store.restrictedRules).toEqual([]);
-        expect(store.appActions).toEqual([]);
         expect(store.originAvailableActions).toEqual([]);
     });
 
@@ -55,15 +54,21 @@ describe('module/sw-flow/store/flow.store', () => {
     });
 
     it('should set origin flow correctly', () => {
+        const sequences = new EntityCollection('/flow_sequence', 'flow_sequence', HeyFrame.Context.api, null, [
+            { actionName: 'testAction', ruleId: 'testRule', config: {} },
+        ] as Entity<'flow_sequence'>[]);
+
         const flow = {
             eventName: 'testEvent',
-            sequences: [{ actionName: 'testAction', ruleId: 'testRule', config: {} }],
+            sequences,
         } as Entity<'flow'>;
 
         store.setOriginFlow(flow);
 
         expect(store.originFlow.eventName).toBe('testEvent');
-        expect(store.originFlow.sequences).toEqual(flow.sequences);
+        expect(store.originFlow.sequences).toBeInstanceOf(EntityCollection);
+        expect(store.originFlow.sequences?.length).toBe(1);
+        expect(store.originFlow.sequences?.first()).toEqual(sequences.first());
     });
 
     it('should add sequence correctly', () => {
@@ -111,18 +116,5 @@ describe('module/sw-flow/store/flow.store', () => {
         store.updateSequence(updatedSequence);
 
         expect(store.flow.sequences).toContainEqual(updatedSequence);
-    });
-
-    it('should get the selected app action', () => {
-        const appActions = [
-            { name: 'appAction1', label: 'App Action 1' },
-            { name: 'appAction2', label: 'App Action 2' },
-        ] as EntityCollection<'app_flow_action'>;
-
-        store.appActions = appActions;
-
-        const selectedAppAction = store.getSelectedAppAction('appAction2');
-
-        expect(selectedAppAction).toEqual(appActions[1]);
     });
 });
