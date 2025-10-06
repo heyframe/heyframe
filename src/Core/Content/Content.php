@@ -2,9 +2,11 @@
 
 namespace HeyFrame\Core\Content;
 
+use HeyFrame\Core\Content\Mail\MailerConfigurationCompilerPass;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
@@ -35,5 +37,8 @@ class Content extends Bundle
         $loader->load('navigation.xml');
         $loader->load('breadcrumb.xml');
         $loader->load('sitemap.xml');
+        $loader->load('mail_template.xml');
+
+        $container->addCompilerPass(new MailerConfigurationCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
     }
 }

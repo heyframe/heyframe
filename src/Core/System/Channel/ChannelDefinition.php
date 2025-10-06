@@ -6,6 +6,7 @@ use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinit
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
+use HeyFrame\Core\Content\MailTemplate\Aggregate\MailHeaderFooter\MailHeaderFooterDefinition;
 use HeyFrame\Core\Content\Navigation\NavigationDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -115,6 +116,7 @@ class ChannelDefinition extends EntityDefinition
             (new BoolField('maintenance', 'maintenance'))->addFlags(new ApiAware()),
             new ListField('maintenance_ip_whitelist', 'maintenanceIpWhitelist'),
             new OneToManyAssociationField('customers', CustomerDefinition::class, 'channel_id', 'id'),
+            (new FkField('mail_header_footer_id', 'mailHeaderFooterId', MailHeaderFooterDefinition::class))->addFlags(new ApiAware()),
 
             new TranslatedField('homeSlotConfig'),
             new TranslatedField('homeEnabled'),
@@ -129,6 +131,7 @@ class ChannelDefinition extends EntityDefinition
             (new OneToManyAssociationField('productVisibilities', ProductVisibilityDefinition::class, 'channel_id'))->addFlags(new CascadeDelete()),
             (new OneToManyAssociationField('numberRangeChannels', NumberRangeChannelDefinition::class, 'channel_id'))->addFlags(new CascadeDelete()),
             new OneToManyAssociationField('boundCustomers', CustomerDefinition::class, 'bound_channel_id', 'id'),
+            new ManyToOneAssociationField('mailHeaderFooter', 'mail_header_footer_id', MailHeaderFooterDefinition::class, 'id', false),
         ]);
     }
 }

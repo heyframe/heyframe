@@ -14,6 +14,7 @@ use HeyFrame\Core\Content\Flow\Dispatching\Storer\FlowStorer;
 use HeyFrame\Core\Content\Product\Channel\Listing\Filter\AbstractListingFilterHandler;
 use HeyFrame\Core\Content\Product\Channel\Listing\Processor\AbstractListingProcessor;
 use HeyFrame\Core\Content\Seo\SeoUrlRoute\SeoUrlRouteInterface;
+use HeyFrame\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\AdapterFactoryInterface;
 use HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\TemplateNamespaceHierarchyBuilderInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\BulkEntityExtension;
@@ -112,6 +113,10 @@ class AutoconfigureCompilerPass implements CompilerPassInterface
         $container
             ->registerForAutoconfiguration(FlowStorer::class)
             ->addTag('flow.storer');
+
+        $container
+            ->registerForAutoconfiguration(AbstractUrlProvider::class)
+            ->addTag('heyframe.sitemap_url_provider');
 
         $container
             ->registerForAutoconfiguration(AdapterFactoryInterface::class)

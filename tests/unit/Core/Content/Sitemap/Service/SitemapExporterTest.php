@@ -2,12 +2,6 @@
 
 namespace HeyFrame\Tests\Unit\Core\Content\Sitemap\Service;
 
-use League\Flysystem\FilesystemOperator;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
 use HeyFrame\Core\Checkout\Cart\CartRuleLoader;
 use HeyFrame\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use HeyFrame\Core\Content\Sitemap\Provider\CustomUrlProvider;
@@ -25,6 +19,12 @@ use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainEntity;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\Channel\ChannelEntity;
 use HeyFrame\Core\Test\Generator;
+use League\Flysystem\FilesystemOperator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Psr\Cache\CacheItemInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 

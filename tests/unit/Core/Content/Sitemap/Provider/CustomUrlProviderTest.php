@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Tests\Unit\Core\Content\Sitemap\Provider;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Content\Sitemap\Provider\CustomUrlProvider;
 use HeyFrame\Core\Content\Sitemap\Service\ConfigHandler;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

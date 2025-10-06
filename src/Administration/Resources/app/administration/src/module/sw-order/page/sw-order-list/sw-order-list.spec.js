@@ -48,7 +48,7 @@ const mockItem = {
     },
 };
 
-if (!Shopware.Feature.isActive('v6.8.0.0')) {
+if (!HeyFrame.Feature.isActive('v6.8.0.0')) {
     mockItem.addresses = [
         {
             street: '123 Random street',
@@ -150,7 +150,7 @@ async function createWrapper() {
     });
 }
 
-Shopware.Service().register('filterService', () => {
+HeyFrame.Service().register('filterService', () => {
     return {
         mergeWithStoredFilters: (storeKey, criteria) => criteria,
     };

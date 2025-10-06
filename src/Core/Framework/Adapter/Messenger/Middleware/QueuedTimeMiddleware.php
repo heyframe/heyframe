@@ -16,7 +16,7 @@ class QueuedTimeMiddleware implements MiddlewareInterface
     {
         // add a SentAtStamp if the envelope does not have one and is not in the receive phase
         if ($envelope->last(SentAtStamp::class) === null && $envelope->last(ReceivedStamp::class) === null) {
-            $now = new \DateTimeImmutable('@' . time());
+            $now = new \DateTimeImmutable('now', new \DateTimeZone('Asia/Shanghai'));
             $envelope = $envelope->with(new SentAtStamp($now));
         }
 

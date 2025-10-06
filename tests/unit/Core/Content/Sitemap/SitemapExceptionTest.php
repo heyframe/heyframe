@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Tests\Unit\Core\Content\Sitemap;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Content\Sitemap\SitemapException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

@@ -1,0 +1,62 @@
+{
+  "sw-settings-mailer": {
+    "general": {
+      "mainMenuItemGeneral": "邮件服务器",
+      "textHeadline": "邮件服务器",
+      "buttonSave": "保存",
+      "helpText": "更多信息请参阅 <a href='https://docs.heyframe.net/zh-cn/shopware-6'>文档</a>"
+    },
+    "mailer-configuration": {
+      "card-title": "邮件服务器配置",
+      "agent": "首选邮件代理",
+      "local-agent": "本地邮件代理",
+      "local-helptext": "此选项使用系统默认的邮件发送程序（Sendmail）。请确保 Sendmail 在您的主机环境中可用并正常工作。",
+      "smtp-server": "SMTP 服务器",
+      "smtp-server-oauth": "带 OAuth 2 的 SMTP 服务器",
+      "env-file": "使用环境配置"
+    },
+    "first-configuration": {
+      "headline": "建立邮件通信",
+      "description": "与客户保持沟通是日常电商运营中的关键环节。因此，尽早设置好邮件发送方案非常重要。"
+    },
+    "sendmail": {
+      "sync": "同步发送邮件",
+      "async": "异步发送邮件"
+    },
+    "card-smtp": {
+      "host": "主机",
+      "host-placeholder": "请输入主机名...",
+      "port": "端口",
+      "port-placeholder": "请输入端口号...",
+      "username": "用户名",
+      "username-placeholder": "请输入用户名...",
+      "password": "密码",
+      "password-placeholder": "请输入密码...",
+      "oauth-url": "OAuth 地址",
+      "oauth-url-placeholder": "请输入 OAuth 地址...",
+      "oauth-scope": "OAuth 范围",
+      "oauth-scope-placeholder": "请输入 OAuth 范围...",
+      "oauth-client-id": "客户端 ID",
+      "oauth-client-id-placeholder": "请输入客户端 ID...",
+      "oauth-client-secret": "客户端密钥",
+      "oauth-client-secret-placeholder": "请输入客户端密钥...",
+      "encryption": "加密方式",
+      "encryption-placeholder": "请选择加密方式...",
+      "sender-address": "发件人地址",
+      "sender-address-placeholder": "请输入可用的发件邮箱地址...",
+      "delivery-address": "测试收件地址",
+      "delivery-address-placeholder": "请输入用于测试的邮箱地址...",
+      "delivery-address-helptext": "所有外发邮件会同时抄送至该邮箱，仅供测试使用。",
+      "disable-delivery": "禁用邮件发送",
+      "error": {
+        "notificationMessage": "您输入的 SMTP 配置似乎无效。"
+      }
+    },
+    "encryption": {
+      "no-encryption": "不加密",
+      "ssl": "SSL",
+      "tls": "TLS"
+    },
+    "helpText": "更多信息请参阅 <a target=\"_blank\" href=\"https://docs.heyframe.net/zh-cn/shopware-6\">文档</a>。"
+  }
+}

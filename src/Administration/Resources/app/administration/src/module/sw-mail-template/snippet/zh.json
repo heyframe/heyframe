@@ -1,0 +1,149 @@
+{
+  "sw-mail-template": {
+    "general": {
+      "mainMenuItemList": "模板概览",
+      "mainMenuItemGeneral": "邮件模板",
+      "placeholderSearchBar": "搜索邮件模板...",
+      "notificationTestMailChannelErrorMessage": "请先选择一个渠道",
+      "notificationTestMailErrorMessage": "测试邮件发送失败。",
+      "notificationTestMailSuccessMessage": "测试邮件已成功发送。",
+      "notificationSyntaxValidationErrorMessage": "模板语法错误，请检查：{errorMsg}",
+      "notificationGeneralSyntaxValidationErrorMessage": "模板语法错误，请检查。",
+      "missingMailTemplateTypeErrorMessage": "缺少必需的邮件模板类型。"
+    },
+    "list": {
+      "textMailTemplateOverview": "邮件模板",
+      "titleMailTemplateList": "模板列表",
+      "titleMailFooterList": "页脚模板",
+      "buttonAddMailTemplate": "新建邮件模板",
+      "columnMailType": "模板类型",
+      "columnDescription": "描述",
+      "columnChannels": "渠道",
+      "contextMenuDelete": "删除",
+      "contextMenuEdit": "编辑",
+      "contextMenuDuplicate": "复制",
+      "textDeleteConfirm": "确定要删除邮件模板“{subject}”吗？",
+      "buttonDelete": "删除",
+      "titleSidebarItemRefresh": "刷新",
+      "errorMediaItemDuplicated": "该附件已添加",
+      "columnFilename": "文件名",
+      "emptyStateTitle": "暂无邮件模板",
+      "emptyStateSubTitle": "点击“新建”按钮添加邮件模板。"
+    },
+    "detail": {
+      "basic": {
+        "titleCard": "基本信息",
+        "labelMailType": "模板类型",
+        "labelDescription": "模板描述",
+        "labelChannels": "关联渠道",
+        "placeholderMailType": "请选择模板类型...",
+        "placeholderDescription": "输入模板描述...",
+        "placeholderChannels": "请选择关联渠道..."
+      },
+      "options": {
+        "titleCard": "邮件选项",
+        "labelSenderMail": "发件邮箱",
+        "labelSenderName": "发件人名称",
+        "labelSubject": "邮件主题",
+        "placeholderSenderMail": "例如：shop@example.com",
+        "placeholderSenderName": "例如：示例商店",
+        "placeholderSubject": "请输入邮件主题..."
+      },
+      "mailText": {
+        "titleCard": "邮件内容",
+        "labelContentPlain": "纯文本内容",
+        "labelContentHtml": "HTML 内容",
+        "placeholderPlain": "输入纯文本内容...",
+        "placeholderHtml": "输入 HTML 格式内容..."
+      },
+      "media": {
+        "titleCard": "附件",
+        "buttonDelete": "删除"
+      },
+      "sidebar": {
+        "labelContextMenuAddToMailTemplate": "添加为附件",
+        "placeholderTestMail": "输入邮箱地址...",
+        "buttonTestMail": "发送测试邮件",
+        "labelTestMail": "收件人地址",
+        "titleTestMail": "发送测试邮件",
+        "titleShowPreview": "预览",
+        "titleShowAvailableVariables": "可用变量",
+        "copyTooltip": "复制到剪贴板",
+        "languageNotAssignedToChannel": "当前语言未分配给所选渠道。"
+      },
+      "previewModalTitle": "邮件预览",
+      "buttonSave": "保存",
+      "textHeadline": "新建邮件模板",
+      "textHeadlineEdit": "编辑邮件模板",
+      "titleResult": "邮件模板",
+      "messageSaveSuccess": "邮件模板“{subject}”已保存。",
+      "messageSaveError": "邮件模板“{subject}”保存失败。",
+      "textErrorMessage": "错误信息"
+    }
+  },
+  "sw-mail-header-footer": {
+    "general": {
+      "mainMenuItemList": "页头页脚",
+      "placeholderSearchBar": "搜索页头页脚模板...",
+      "mainMenuItemGeneral": "邮件页头页脚"
+    },
+    "list": {
+      "textMailHeaderFooterOverview": "页头页脚模板",
+      "buttonAddMailHeaderFooter": "新建页头页脚",
+      "columnName": "名称",
+      "columnDescription": "描述",
+      "columnChannels": "渠道",
+      "contextMenuDelete": "删除",
+      "contextMenuEdit": "编辑",
+      "contextMenuDuplicate": "复制",
+      "textDeleteConfirm": "确定要删除页头页脚“{name}”吗？",
+      "buttonDelete": "删除",
+      "titleSidebarItemRefresh": "刷新",
+      "messageDeleteError": "页头页脚“{name}”已分配给渠道，无法删除。",
+      "emptyStateTitle": "暂无页头页脚模板",
+      "emptyStateSubTitle": "点击“新建”按钮添加页头页脚模板。"
+    },
+    "detail": {
+      "basic": {
+        "titleCard": "基本信息",
+        "labelName": "名称",
+        "labelDescription": "描述",
+        "labelChannels": "渠道",
+        "placeholderName": "请输入名称...",
+        "placeholderDescription": "请输入描述...",
+        "placeholderChannels": "请选择关联渠道..."
+      },
+      "header": {
+        "titleCard": "邮件页头",
+        "labelPlain": "纯文本页头",
+        "labelHtml": "HTML 页头",
+        "placeholderPlain": "输入纯文本页头内容...",
+        "placeholderHtml": "输入 HTML 格式页头内容..."
+      },
+      "footer": {
+        "titleCard": "邮件页脚",
+        "labelPlain": "纯文本页脚",
+        "labelHtml": "HTML 页脚",
+        "placeholderPlain": "输入纯文本页脚内容...",
+        "placeholderHtml": "输入 HTML 格式页脚内容..."
+      },
+      "buttonSave": "保存",
+      "textHeadline": "新建页头页脚",
+      "titleResult": "邮件页头页脚",
+      "messageSaveSuccess": "页头页脚“{name}”已保存。",
+      "messageSaveError": "页头页脚“{name}”保存失败。"
+    },
+    "modal": {
+      "title": "重复分配提醒",
+      "mainContent": "以下渠道已分配其他页头页脚。如果继续保存，这些分配将被新模板覆盖。",
+      "affectedList": "受影响的渠道："
+    }
+  },
+  "sw-privileges": {
+    "permissions": {
+      "mail_templates": {
+        "label": "邮件模板"
+      }
+    }
+  }
+}

@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Content\Sitemap\Exception;
 
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('discovery')]
 class InvalidSitemapKey extends HeyFrameHttpException

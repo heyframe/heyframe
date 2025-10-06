@@ -44,6 +44,7 @@ class Migration1536232940Channel extends MigrationStep
               `maintenance` tinyint(1) NOT NULL DEFAULT '0',
               `maintenance_ip_whitelist` json DEFAULT NULL,
               `customer_group_id` BINARY(16) NOT NULL,
+              `mail_header_footer_id` BINARY(16) NULL,
               `created_at` DATETIME(3) NOT NULL,
               `updated_at` DATETIME(3) NULL,
               PRIMARY KEY (`id`),
@@ -59,7 +60,8 @@ class Migration1536232940Channel extends MigrationStep
               CONSTRAINT `fk.channel.payment_method_id` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.channel.type_id` FOREIGN KEY (`type_id`) REFERENCES `channel_type` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.channel.service_navigation_id` FOREIGN KEY (`service_navigation_id`, `service_navigation_version_id`) REFERENCES `navigation` (`id`, `version_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-              CONSTRAINT `fk.channel.customer_group_id` FOREIGN KEY (`customer_group_id`) REFERENCES `customer_group` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+              CONSTRAINT `fk.channel.customer_group_id` FOREIGN KEY (`customer_group_id`) REFERENCES `customer_group` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+              CONSTRAINT `fk.channel.id` FOREIGN KEY (`mail_header_footer_id`) REFERENCES `mail_header_footer` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
 

@@ -8,6 +8,7 @@ use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Order\OrderCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
+use HeyFrame\Core\Content\MailTemplate\Aggregate\MailHeaderFooter\MailHeaderFooterEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
@@ -140,6 +141,8 @@ class ChannelEntity extends Entity
     protected ?CustomerGroupCollection $customerGroupsRegistrations = null;
 
     protected ?CustomerCollection $boundCustomers = null;
+
+    protected ?MailHeaderFooterEntity $mailHeaderFooter = null;
 
     public function getMailHeaderFooterId(): ?string
     {
@@ -653,5 +656,15 @@ class ChannelEntity extends Entity
     public function setServiceNavigationVersionId(?string $serviceNavigationVersionId): void
     {
         $this->serviceNavigationVersionId = $serviceNavigationVersionId;
+    }
+
+    public function getMailHeaderFooter(): ?MailHeaderFooterEntity
+    {
+        return $this->mailHeaderFooter;
+    }
+
+    public function setMailHeaderFooter(MailHeaderFooterEntity $mailHeaderFooter): void
+    {
+        $this->mailHeaderFooter = $mailHeaderFooter;
     }
 }

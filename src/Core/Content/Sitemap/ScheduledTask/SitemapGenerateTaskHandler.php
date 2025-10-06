@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Sitemap\ScheduledTask;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\Sitemap\Event\SitemapChannelCriteriaEvent;
 use HeyFrame\Core\Content\Sitemap\Service\SitemapExporterInterface;
 use HeyFrame\Core\Defaults;
@@ -17,6 +16,7 @@ use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use HeyFrame\Core\System\Channel\Aggregate\ChannelDomain\ChannelDomainEntity;
 use HeyFrame\Core\System\Channel\ChannelCollection;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
