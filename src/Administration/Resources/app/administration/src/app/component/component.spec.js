@@ -219,7 +219,6 @@ const componentNames = [
     'sw-alert-deprecated',
     'sw-alert',
     'sw-address',
-    'sw-app-wrong-app-url-modal',
     'sw-app-topbar-button',
     'sw-app-shop-id-change-modal',
     'sw-app-actions',
