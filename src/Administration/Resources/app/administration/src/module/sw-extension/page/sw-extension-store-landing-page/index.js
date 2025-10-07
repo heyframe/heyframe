@@ -28,7 +28,7 @@ export default {
 
     computed: {
         extensionName() {
-            return 'SwagExtensionStore';
+            return 'HeyExtensionStore';
         },
 
         assetFilter() {

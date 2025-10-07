@@ -151,6 +151,16 @@ const MODULES = [
         match(route) {
             return route.name.startsWith('sw.extension.my-extensions') ? 'exact' : 'none';
         },
+         children: [
+            {
+                id: 'store',
+                name: '应用市场',
+                to: 'sw.extension.store.landing-page',
+                match(route) {
+                    return route.name.startsWith('sw.extension.store') ? 'exact' : 'none';
+                }
+            }
+        ]
     },
     {
         id: 'settings',
