@@ -3,7 +3,7 @@
     "general": {
       "mainMenuItemGeneral": "编号规则",
       "placeholderSearchBar": "搜索编号规则...",
-      "infoGlobalType": "“{typeName}”类型只能存在一个全局编号规则。在此处修改将影响所有渠道。",
+      "infoGlobalType": "“{typeName}”类型只能存在一个全局编号规则。在此处修改将影响全部渠道。",
       "infoGlobalTypeTitle": "全局编号规则类型“{typeName}”",
       "infoGlobal": "无法修改全局编号规则的类型，但可在概览中为多数类型创建指定渠道的额外规则。",
       "infoGlobalTitle": "全局编号规则“{name}”",

@@ -25,6 +25,10 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
+        <service id="HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
         <service id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCapture\OrderTransactionCaptureDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>

@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Entity Definitions -->
+        <service id="HeyFrame\Core\Content\ContentSystem\ContentLayout\ContentLayoutDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\ContentRoute\ContentRouteDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\ContentLayoutAssignment\ContentLayoutAssignmentDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\ContentRoute\ContentRouteChannelDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <!-- Routing Services -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Routing\RouteCollection\RouteCollectionBuilder">
+            <argument type="service" id="content_route.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Routing\Matcher\ContentRouteMatcher"/>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Routing\ContentRouter">
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Routing\RouteCollection\RouteCollectionBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Routing\Matcher\ContentRouteMatcher"/>
+        </service>
+
+        <!-- Resolver Services -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Resolver\ParameterExtractor"/>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Resolver\EntityIdResolver">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Resolver\ParameterExtractor"/>
+        </service>
+
+        <!-- Layout resolver using DAL for type safety and maintainability -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Resolver\LayoutResolver">
+            <argument type="service" id="content_layout_assignment.repository"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+        </service>
+
+        <!-- Compilation Services -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Compilation\PlaceholderFillerService"/>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Compilation\ContentPageBuilder">
+            <argument type="service" id="content_layout.repository"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Compilation\PlaceholderFillerService"/>
+        </service>
+
+        <!-- Hydration Services -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Hydration\HydrationService">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+        </service>
+
+        <!-- Store-API Route -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Channel\ContentRoute">
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Routing\ContentRouter"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Resolver\EntityIdResolver"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Resolver\LayoutResolver"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Compilation\ContentPageBuilder"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Hydration\HydrationService"/>
+            <tag name="heyframe.channel.route"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Channel\AbstractContentRoute" alias="HeyFrame\Core\Content\ContentSystem\Channel\ContentRoute"/>
+
+        <!-- Frontend Controller -->
+        <service id="HeyFrame\Frontend\Controller\ContentController" public="true">
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Channel\AbstractContentRoute"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+    </services>
+</container>

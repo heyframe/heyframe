@@ -9,11 +9,13 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductCategory\ProductCategoryDefin
 use HeyFrame\Core\Content\Product\Aggregate\ProductCategoryTree\ProductCategoryTreeDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductCustomFieldSet\ProductCustomFieldSetDefinition;
+use HeyFrame\Core\Content\Product\Aggregate\ProductDownload\ProductDownloadDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductOption\ProductOptionDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductProperty\ProductPropertyDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewDefinition;
+use HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTag\ProductTagDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
@@ -180,7 +182,9 @@ class ProductDefinition extends EntityDefinition
             (new OneToManyAssociationField('configuratorSettings', ProductConfiguratorSettingDefinition::class, 'product_id', 'id'))->addFlags(new ApiAware(), new CascadeDelete()),
 
             (new OneToManyAssociationField('visibilities', ProductVisibilityDefinition::class, 'product_id'))->addFlags(new CascadeDelete(), new Inherited()),
+            (new OneToManyAssociationField('searchKeywords', ProductSearchKeywordDefinition::class, 'product_id'))->addFlags(new CascadeDelete(false)),
             (new OneToManyAssociationField('mainCategories', MainCategoryDefinition::class, 'product_id'))->addFlags(new ApiAware(), new CascadeDelete()),
+            (new OneToManyAssociationField('downloads', ProductDownloadDefinition::class, 'product_id'))->addFlags(new ApiAware(), new CascadeDelete()),
 
             (new OneToManyAssociationField('productReviews', ProductReviewDefinition::class, 'product_id'))->addFlags(new ApiAware(), new CascadeDelete(false)),
             (new OneToManyAssociationField('orderLineItems', OrderLineItemDefinition::class, 'product_id'))->addFlags(new SetNullOnDelete()),

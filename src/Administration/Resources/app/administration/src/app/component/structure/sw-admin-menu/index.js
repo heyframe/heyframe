@@ -90,6 +90,14 @@ const MODULES = [
         },
         children: [
             {
+                id: 'media',
+                name: '媒体',
+                to: 'sw.media.index',
+                match(route) {
+                    return route.name.startsWith('sw.media') ? 'exact' : 'none';
+                }
+            },
+            {
                 id: 'themes',
                 name: '主题',
                 to: 'sw.theme.manager.index',
@@ -126,7 +134,7 @@ const MODULES = [
             }
         ]
     },
-        {
+    {
         id: 'marketing',
         name: '营销',
         icon: 'megaphone',

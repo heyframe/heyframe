@@ -26,6 +26,7 @@ class Migration1536232730CountryState extends MigrationStep
               `id`          BINARY(16)                              NOT NULL,
               `country_id`  BINARY(16)                              NOT NULL,
               `short_code`  VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `code`  VARCHAR(255) COLLATE utf8mb4_unicode_ci NULL,
               `position`    INT(11)                                 NOT NULL DEFAULT 1,
               `active`      TINYINT(1)                              NOT NULL DEFAULT 1,
               `created_at`  DATETIME(3)                             NOT NULL,
@@ -50,6 +51,30 @@ class Migration1536232730CountryState extends MigrationStep
                 REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
               CONSTRAINT `fk.country_state_translation.country_state_id` FOREIGN KEY (`country_state_id`)
                 REFERENCES `country_state` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ');
+
+        $connection->executeStatement('
+            CREATE TABLE `region` (
+              `id`          BINARY(16)                              NOT NULL,
+              `parent_id`  BINARY(16)                               NULL,
+              `country_id`  BINARY(16)                              NOT NULL,
+              `country_state_id`  BINARY(16)                        NOT NULL,
+              `code`  VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `config` json DEFAULT NULL,
+              `position`    INT(11)                                 NOT NULL DEFAULT 1,
+              `active`      TINYINT(1)                              NOT NULL DEFAULT 1,
+              `created_at`  DATETIME(3)                             NOT NULL,
+              `updated_at`  DATETIME(3)                             NULL,
+              PRIMARY KEY (`id`),
+              KEY `fk.region.parent_id` (`parent_id`),
+              KEY `idx.code` (`code`),
+              KEY `idx.country_id` (`country_id`),
+              UNIQUE KEY `uniq.country_id.country_state_id.code` (`country_id`,`country_state_id`, `code`),
+              CONSTRAINT `json.region.config` CHECK (json_valid(`config`)),
+              CONSTRAINT `fk.region.parent_id` FOREIGN KEY (`parent_id`) REFERENCES `region` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `fk.region.country_state_id` FOREIGN KEY (`country_state_id`) REFERENCES `country_state` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+              CONSTRAINT `fk.region.country_id` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }

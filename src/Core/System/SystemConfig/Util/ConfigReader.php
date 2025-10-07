@@ -11,7 +11,7 @@ use HeyFrame\Core\System\SystemConfig\SystemConfigException;
 #[Package('framework')]
 class ConfigReader extends XmlReader
 {
-    private const FALLBACK_LOCALE = 'en-GB';
+    private const FALLBACK_LOCALE = 'zh-CN';
 
     protected string $xsdFile = __DIR__ . '/../Schema/config.xsd';
 

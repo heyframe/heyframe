@@ -23,8 +23,6 @@ HeyFrame.Service('privileges').addPrivilegeMappingEntry({
         editor: {
             privileges: [
                 'customer_group:update',
-                'customer_group_registration_channels:create',
-                'customer_group_registration_channels:delete',
             ],
             dependencies: [
                 'customer_groups.viewer',

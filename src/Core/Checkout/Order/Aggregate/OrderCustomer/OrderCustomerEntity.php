@@ -35,6 +35,8 @@ class OrderCustomerEntity extends Entity
 
     protected string $orderVersionId;
 
+    protected int $gender;
+
     public function getEmail(): string
     {
         return $this->email;
@@ -133,5 +135,15 @@ class OrderCustomerEntity extends Entity
     public function setOrderVersionId(string $orderVersionId): void
     {
         $this->orderVersionId = $orderVersionId;
+    }
+
+    public function getGender(): int
+    {
+        return $this->gender;
+    }
+
+    public function setGender(int $gender): void
+    {
+        $this->gender = $gender;
     }
 }

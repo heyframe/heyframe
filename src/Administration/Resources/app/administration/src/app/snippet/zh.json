@@ -1255,7 +1255,7 @@
     "placeholderSelect": "搜索...",
     "titleModalUnsavedChanges": "未保存的更改",
     "titleModalButtonRevertUnsavedChanges": "放弃更改",
-    "labelDefaultOption": "所有渠道"
+    "labelDefaultOption": "全部渠道"
   },
   "sw-config-form-renderer": {
     "placeholder": "请填写 {name}...",

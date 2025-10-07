@@ -46,6 +46,8 @@ class CustomerEntity extends Entity implements \Stringable
      */
     protected ?string $password = null;
 
+    protected int $gender;
+
     protected string $email;
 
     protected bool $active;
@@ -529,5 +531,15 @@ class CustomerEntity extends Entity implements \Stringable
     public function setRoles(CustomerRoleCollection $roles): void
     {
         $this->roles = $roles;
+    }
+
+    public function getGender(): int
+    {
+        return $this->gender;
+    }
+
+    public function setGender(int $gender): void
+    {
+        $this->gender = $gender;
     }
 }

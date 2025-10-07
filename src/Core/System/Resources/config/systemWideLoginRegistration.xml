@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/heyframe/heyframe/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>客户设置</title>
+        <title lang="en-GB">Customer scope</title>
+
+        <input-field type="bool">
+            <name>isCustomerBoundToChannel</name>
+            <label>客户绑定到渠道</label>
+            <label lang="en-GB">Bind customers to Channel</label>
+            <helpText>如果启用，客户可以针对每个渠道单独注册。已有客户不会受到此设置的影响。</helpText>
+            <helpText lang="en-GB">If activated, customers can sign up separately for each Channel. Existing customers are not affected by this setting.</helpText>
+        </input-field>
+    </card>
+</config>

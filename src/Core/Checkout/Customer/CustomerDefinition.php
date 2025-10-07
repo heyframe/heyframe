@@ -100,6 +100,7 @@ class CustomerDefinition extends EntityDefinition
             (new DateField('birthday', 'birthday'))->addFlags(new ApiAware()),
             (new DateTimeField('last_order_date', 'lastOrderDate'))->addFlags(new ApiAware(), new WriteProtected(Context::SYSTEM_SCOPE)),
             (new IntField('order_count', 'orderCount'))->addFlags(new ApiAware(), new WriteProtected(Context::SYSTEM_SCOPE)),
+            (new IntField('gender', 'gender'))->addFlags(new ApiAware()),
             (new FloatField('order_total_amount', 'orderTotalAmount'))->addFlags(new ApiAware(), new WriteProtected(Context::SYSTEM_SCOPE)),
             (new CustomFields())->addFlags(new ApiAware()),
             (new ExtraFields())->addFlags(new ApiAware()),

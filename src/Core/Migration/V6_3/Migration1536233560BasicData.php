@@ -219,8 +219,8 @@ class Migration1536233560BasicData extends MigrationStep
         $versionId = Uuid::fromHexToBytes(Defaults::LIVE_VERSION);
 
         $connection->insert('navigation', ['id' => $id, 'version_id' => $versionId, 'type' => NavigationDefinition::TYPE_PAGE, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame - A Full-Stack PHP Development Framework', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame - PHP 全栈开发框架', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame ｜ Fast development, build full-stack apps in no time', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame ｜ 极速开发，快速构建全栈应用', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createPaymentMethod(Connection $connection): void
@@ -433,7 +433,7 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $openId, 'name' => 'Open']));
 
         $connection->insert('state_machine_state', ['id' => $completedId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderStates::STATE_COMPLETED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $completedId, 'name' => '完成']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $completedId, 'name' => '已完成']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $completedId, 'name' => 'Done']));
 
         $connection->insert('state_machine_state', ['id' => $inProgressId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderStates::STATE_IN_PROGRESS, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);

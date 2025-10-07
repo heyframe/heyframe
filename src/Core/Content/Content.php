@@ -38,6 +38,7 @@ class Content extends Bundle
         $loader->load('breadcrumb.xml');
         $loader->load('sitemap.xml');
         $loader->load('mail_template.xml');
+        $loader->load('content_system.xml');
 
         $container->addCompilerPass(new MailerConfigurationCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
     }

@@ -6,10 +6,12 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection
 use HeyFrame\Core\Content\Category\CategoryCollection;
 use HeyFrame\Core\Content\Cms\CmsPageEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingCollection;
+use HeyFrame\Core\Content\Product\Aggregate\ProductDownload\ProductDownloadCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductMedia\ProductMediaEntity;
 use HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductReview\ProductReviewCollection;
+use HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslationCollection;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingConfig;
@@ -168,6 +170,10 @@ class ProductEntity extends Entity implements \Stringable
     protected ?SeoUrlCollection $seoUrls = null;
 
     protected ?CmsPageEntity $cmsPage = null;
+
+    protected ?ProductSearchKeywordCollection $searchKeywords = null;
+
+    protected ?ProductDownloadCollection $downloads = null;
 
     public function __construct()
     {
@@ -799,5 +805,25 @@ class ProductEntity extends Entity implements \Stringable
     public function setCmsPage(?CmsPageEntity $cmsPage): void
     {
         $this->cmsPage = $cmsPage;
+    }
+
+    public function getSearchKeywords(): ?ProductSearchKeywordCollection
+    {
+        return $this->searchKeywords;
+    }
+
+    public function setSearchKeywords(ProductSearchKeywordCollection $searchKeywords): void
+    {
+        $this->searchKeywords = $searchKeywords;
+    }
+
+    public function getDownloads(): ?ProductDownloadCollection
+    {
+        return $this->downloads;
+    }
+
+    public function setDownloads(ProductDownloadCollection $downloads): void
+    {
+        $this->downloads = $downloads;
     }
 }

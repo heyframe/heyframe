@@ -37,8 +37,32 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfig\ProductSearchConfigDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+       <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfigField\ProductSearchConfigFieldExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfigField\ProductSearchConfigFieldDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
         <service id="HeyFrame\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingExceptionHandler">
             <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductSearchConfig\ProductSearchConfigExceptionHandler">
+            <tag name="heyframe.dal.exception_handler"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\Product\Aggregate\ProductDownload\ProductDownloadDefinition">
+            <tag name="heyframe.entity.definition"/>
         </service>
 
         <service id="HeyFrame\Core\Content\Product\Aggregate\ProductPrice\ProductPriceDefinition">

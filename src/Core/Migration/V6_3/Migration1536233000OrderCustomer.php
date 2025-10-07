@@ -27,6 +27,7 @@ class Migration1536233000OrderCustomer extends MigrationStep
               `version_id` BINARY(16) NOT NULL,
               `customer_id` BINARY(16) NULL,
               `order_id` BINARY(16) NOT NULL,
+              `gender` TINYINT(1) NOT NULL DEFAULT 0,
               `order_version_id` BINARY(16) NOT NULL,
               `email` VARCHAR(254) COLLATE utf8mb4_unicode_ci NOT NULL,
               `phone_number` VARCHAR(254) COLLATE utf8mb4_unicode_ci  NULL,

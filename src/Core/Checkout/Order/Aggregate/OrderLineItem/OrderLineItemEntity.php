@@ -4,6 +4,7 @@ namespace HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItem;
 
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\PriceDefinitionInterface;
+use HeyFrame\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefundPosition\OrderTransactionCaptureRefundPositionCollection;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Content\Media\MediaEntity;
@@ -79,6 +80,8 @@ class OrderLineItemEntity extends Entity
      * @var array<int, string>
      */
     protected array $states = [];
+
+    protected ?OrderLineItemDownloadCollection $downloads = null;
 
     protected string $orderVersionId;
 
@@ -375,6 +378,16 @@ class OrderLineItemEntity extends Entity
     public function setStates(array $states): void
     {
         $this->states = $states;
+    }
+
+    public function getDownloads(): ?OrderLineItemDownloadCollection
+    {
+        return $this->downloads;
+    }
+
+    public function setDownloads(OrderLineItemDownloadCollection $downloads): void
+    {
+        $this->downloads = $downloads;
     }
 
     public function getOrderVersionId(): string

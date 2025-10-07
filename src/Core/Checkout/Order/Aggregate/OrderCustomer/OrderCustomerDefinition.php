@@ -12,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
@@ -59,7 +60,7 @@ class OrderCustomerDefinition extends EntityDefinition
 
             (new FkField('order_id', 'orderId', OrderDefinition::class))->addFlags(new Required()),
             (new ReferenceVersionField(OrderDefinition::class))->addFlags(new Required()),
-
+            (new IntField('gender', 'gender'))->addFlags(new ApiAware()),
             (new StringField('email', 'email'))->addFlags(new ApiAware(), new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
             (new StringField('name', 'name'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::LOW_SEARCH_RANKING)),
             (new StringField('nickname', 'nickname'))->addFlags(new ApiAware(), new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
