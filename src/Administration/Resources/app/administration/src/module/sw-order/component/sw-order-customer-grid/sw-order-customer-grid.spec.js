@@ -49,12 +49,12 @@ function generateCustomers() {
             customerNumber: `sw${i}`,
             channel: {
                 translated: {
-                    name: 'Storefront',
+                    name: 'Frontend',
                 },
             },
             boundChannel: {
                 translated: {
-                    name: 'Storefront',
+                    name: 'Frontend',
                 },
             },
             boundChannelId: '1234',

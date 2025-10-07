@@ -47,15 +47,15 @@ const storeFrontWithStandardDomain = {
         },
     ],
     type: {
-        id: HeyFrame.Defaults.storefrontChannelTypeId,
+        id: HeyFrame.Defaults.frontendChannelTypeId,
         iconName: 'default-building-shop',
     },
     translated: {
-        name: 'Storefront with default domains',
+        name: 'Frontend with default domains',
     },
 };
 
-const storefrontWithoutDefaultDomain = {
+const frontendWithoutDefaultDomain = {
     id: '0a660a4e-c1c8-4de7-a1cf-bd7a9c9886fa',
     active: true,
     domains: [
@@ -69,28 +69,28 @@ const storefrontWithoutDefaultDomain = {
         },
     ],
     type: {
-        id: HeyFrame.Defaults.storefrontChannelTypeId,
+        id: HeyFrame.Defaults.frontendChannelTypeId,
         iconName: 'default-building-shop',
     },
     translated: {
-        name: 'Storefront with non mapped domain',
+        name: 'Frontend with non mapped domain',
     },
 };
 
-const storefrontWithoutDomains = {
+const frontendWithoutDomains = {
     id: '613cc4f6-1ace-4fbf-867a-e4b2ade87203',
     active: true,
     domains: [],
     type: {
-        id: HeyFrame.Defaults.storefrontChannelTypeId,
+        id: HeyFrame.Defaults.frontendChannelTypeId,
         iconName: 'default-building-shop',
     },
     translated: {
-        name: 'Storefront with non mapped domain',
+        name: 'Frontend with non mapped domain',
     },
 };
 
-const inactiveStorefront = {
+const inactiveFrontend = {
     id: 'a9237944-c347-4583-88b9-6d00719baff6',
     active: false,
     domains: [
@@ -104,11 +104,11 @@ const inactiveStorefront = {
         },
     ],
     type: {
-        id: HeyFrame.Defaults.storefrontChannelTypeId,
+        id: HeyFrame.Defaults.frontendChannelTypeId,
         iconName: 'default-building-shop',
     },
     translated: {
-        name: 'Storefront with non mapped domain',
+        name: 'Frontend with non mapped domain',
     },
 };
 
@@ -258,9 +258,9 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
         const testChannels = [
             headlessChannel,
             storeFrontWithStandardDomain,
-            storefrontWithoutDefaultDomain,
-            storefrontWithoutDomains,
-            inactiveStorefront,
+            frontendWithoutDefaultDomain,
+            frontendWithoutDomains,
+            inactiveFrontend,
         ];
 
         const wrapper = await createWrapper(testChannels);
@@ -272,7 +272,7 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
         expect(channelItems).toHaveLength(testChannels.length);
     });
 
-    it('does not add a link to sales channel for non storefront sales channel', async () => {
+    it('does not add a link to sales channel for non frontend sales channel', async () => {
         const wrapper = await createWrapper([headlessChannel]);
 
         await flushPromises();
@@ -299,7 +299,7 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
     it('prefers link to domain with actual admin language over others', async () => {
         window.open = jest.fn();
 
-        const wrapper = await createWrapper([storefrontWithoutDefaultDomain]);
+        const wrapper = await createWrapper([frontendWithoutDefaultDomain]);
 
         await flushPromises();
 
@@ -315,7 +315,7 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
         window.open = jest.fn();
         HeyFrame.Store.get('session').languageId = HeyFrame.Utils.createId();
 
-        const wrapper = await createWrapper([storefrontWithoutDefaultDomain]);
+        const wrapper = await createWrapper([frontendWithoutDefaultDomain]);
 
         await flushPromises();
 
@@ -327,8 +327,8 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
         expect(window.open).toHaveBeenCalledWith('http://shop/custom-language', '_blank');
     });
 
-    it('does not pick a storefront domain if there is none', async () => {
-        const wrapper = await createWrapper([storefrontWithoutDomains]);
+    it('does not pick a frontend domain if there is none', async () => {
+        const wrapper = await createWrapper([frontendWithoutDomains]);
 
         await flushPromises();
 
@@ -336,8 +336,8 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
         expect(channelMenuEntry.find('button.sw-channel-menu-domain-link').exists()).toBe(false);
     });
 
-    it('does not show a storefront domain if storefront is not active', async () => {
-        const wrapper = await createWrapper([inactiveStorefront]);
+    it('does not show a frontend domain if frontend is not active', async () => {
+        const wrapper = await createWrapper([inactiveFrontend]);
 
         await flushPromises();
 
@@ -348,10 +348,10 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
     it('shows "more" when no favourites are selected and there are more than 7 saleschannels', async () => {
         const channels = [
             storeFrontWithStandardDomain,
-            storefrontWithoutDefaultDomain,
+            frontendWithoutDefaultDomain,
             headlessChannel,
-            storefrontWithoutDomains,
-            inactiveStorefront,
+            frontendWithoutDomains,
+            inactiveFrontend,
         ];
 
         for (let i = 0; i < 3; i += 1) {
@@ -378,10 +378,10 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
     it('shows "more" when more than 50 sales channels are available and marked as favourites', async () => {
         const channels = [
             storeFrontWithStandardDomain,
-            storefrontWithoutDefaultDomain,
+            frontendWithoutDefaultDomain,
             headlessChannel,
-            storefrontWithoutDomains,
-            inactiveStorefront,
+            frontendWithoutDomains,
+            inactiveFrontend,
         ];
 
         for (let i = 0; i < 51; i += 1) {
@@ -410,10 +410,10 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
     it('hide "more" when less than 7 sales channels are available and no favourites are selected', async () => {
         const wrapper = await createWrapper([
             storeFrontWithStandardDomain,
-            storefrontWithoutDefaultDomain,
+            frontendWithoutDefaultDomain,
             headlessChannel,
-            storefrontWithoutDomains,
-            inactiveStorefront,
+            frontendWithoutDomains,
+            inactiveFrontend,
             {
                 id: '1a',
                 translated: { name: '1a' },
@@ -442,10 +442,10 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
     it('hide "more" when less than 50 sales channels are available and favourites are selected', async () => {
         const channels = [
             storeFrontWithStandardDomain,
-            storefrontWithoutDefaultDomain,
+            frontendWithoutDefaultDomain,
             headlessChannel,
-            storefrontWithoutDomains,
-            inactiveStorefront,
+            frontendWithoutDomains,
+            inactiveFrontend,
         ];
 
         const wrapper = await createWrapper(channels);
@@ -462,10 +462,10 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
     it('should only load the sales channel once when no favorites are defined', async () => {
         const channels = [
             storeFrontWithStandardDomain,
-            storefrontWithoutDefaultDomain,
+            frontendWithoutDefaultDomain,
             headlessChannel,
-            storefrontWithoutDomains,
-            inactiveStorefront,
+            frontendWithoutDomains,
+            inactiveFrontend,
         ];
 
         const wrapper = await createWrapper(channels);
@@ -478,10 +478,10 @@ describe('src/module/sw-channel/component/structure/sw-channel-menu', () => {
     it('should only load the sales channel once when also favorites are defined', async () => {
         const channels = [
             storeFrontWithStandardDomain,
-            storefrontWithoutDefaultDomain,
+            frontendWithoutDefaultDomain,
             headlessChannel,
-            storefrontWithoutDomains,
-            inactiveStorefront,
+            frontendWithoutDomains,
+            inactiveFrontend,
         ];
 
         HeyFrame.Service('channelFavorites').state.favorites = channels.map((el) => el.id);

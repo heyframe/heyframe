@@ -69,12 +69,12 @@ readonly class LintedTranslationFileStruct
     }
 
     /**
-     * @description Returns correct collection domain name. All files with a custom domain are no base files and therefore considered storefront files
+     * @description Returns correct collection domain name. All files with a custom domain are no base files and therefore considered frontend files
      *
-     * @example Entered custom domain 'swag-cms-extensions' instead of 'messages' or 'storefront' will return 'storefront'
+     * @example Entered custom domain 'swag-cms-extensions' instead of 'messages' or 'frontend' will return 'frontend'
      */
     private function getCollectionDomainName(string $domain): string
     {
-        return \in_array($domain, ['administration', 'messages'], true) ? $domain : 'storefront';
+        return \in_array($domain, ['administration', 'messages'], true) ? $domain : 'frontend';
     }
 }

@@ -142,7 +142,7 @@ export default {
                 return;
             }
 
-            // Subtract to fake look in storefront which has more width
+            // Subtract to fake look in frontend which has more width
             const fakeLookWidth = 100;
             const elGap = 32;
             let elWidth = parseInt(this.element.config.elMinWidth.value.replace('px', ''), 10);

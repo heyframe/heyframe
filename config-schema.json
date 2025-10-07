@@ -12,8 +12,8 @@
                 "heyframe": {
                     "$ref": "#/definitions/heyframe"
                 },
-                "storefront": {
-                    "$ref": "#/definitions/storefront"
+                "frontend": {
+                    "$ref": "#/definitions/frontend"
                 },
                 "elasticsearch": {
                     "$ref": "#/definitions/elasticsearch"
@@ -191,7 +191,7 @@
                         }
                     }
                 },
-                "storefront": {
+                "frontend": {
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
@@ -1332,7 +1332,7 @@
             },
             "title": "Sales channel context"
         },
-        "storefront": {
+        "frontend": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -1353,7 +1353,7 @@
                     "title": "Theme loader configuration"
                 }
             },
-            "title": "Storefront bundle configuration"
+            "title": "Frontend bundle configuration"
         },
         "elasticsearch": {
             "title": "Elasticsearch",

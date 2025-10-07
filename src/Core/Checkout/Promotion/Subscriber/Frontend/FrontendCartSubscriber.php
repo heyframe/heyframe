@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Checkout\Promotion\Subscriber\Storefront;
+namespace HeyFrame\Core\Checkout\Promotion\Subscriber\Frontend;
 
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Cart\CartException;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @internal
  */
 #[Package('checkout')]
-class StorefrontCartSubscriber implements EventSubscriberInterface
+class FrontendCartSubscriber implements EventSubscriberInterface
 {
     final public const SESSION_KEY_PROMOTION_CODES = 'cart-promotion-codes';
 

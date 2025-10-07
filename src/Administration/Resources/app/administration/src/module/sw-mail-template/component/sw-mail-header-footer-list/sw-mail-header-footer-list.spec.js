@@ -10,7 +10,7 @@ const mailHeaderFooterMock = [
         name: 'Order Header',
         channels: [
             {
-                name: 'Storefront',
+                name: 'Frontend',
             },
         ],
     },
@@ -216,7 +216,7 @@ describe('modules/sw-mail-template/component/sw-mail-header-footer-list', () => 
         // fill listing with mail templates mocks
         wrapper.vm.mailHeaderFooters = [
             { type: 'contact_form', channel: 'Headless' },
-            { type: 'password_recovery', channel: 'Storefront' },
+            { type: 'password_recovery', channel: 'Frontend' },
         ];
 
         // wait for vue to update the grid

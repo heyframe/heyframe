@@ -7,7 +7,7 @@ import { mount } from '@vue/test-utils';
 const channelFixture = {
     id: '12345',
     translated: {
-        name: 'Storefront',
+        name: 'Frontend',
     },
 };
 

@@ -2071,7 +2071,7 @@ describe('core/factory/async-component.factory.ts', () => {
             it(`${testCase}`, async () => {
                 // Social Shopping - sw-channel-detail (override)
                 ComponentFactory.override('detail-component', components.A());
-                // Storefront - sw-channel-detail (override)
+                // Frontend - sw-channel-detail (override)
                 ComponentFactory.override('detail-component', components.B());
                 // Social Shopping - sw-channel-create (override)
                 ComponentFactory.override('create-component', components.C());

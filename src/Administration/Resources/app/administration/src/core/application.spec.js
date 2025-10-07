@@ -49,9 +49,9 @@ describe('core/application.js', () => {
                 css: '/bundles/rulebuilderpreview/administration/css/rule-builder-preview.css',
                 js: '/bundles/rulebuilderpreview/administration/js/rule-builder-preview.js',
             },
-            storefront: {
-                css: '/bundles/storefront/administration/css/storefront.css',
-                js: '/bundles/storefront/administration/js/storefront.js',
+            frontend: {
+                css: '/bundles/frontend/administration/css/frontend.css',
+                js: '/bundles/frontend/administration/js/frontend.js',
             },
             'return-management': {
                 js: '/bundles/returnmanagement/administration/js/return-management.js',
@@ -103,9 +103,9 @@ describe('core/application.js', () => {
             'swag-commercial': {
                 js: '/bundles/swagcommercial/administration/js/swag-commercial.js',
             },
-            storefront: {
-                css: '/bundles/storefront/administration/css/storefront.css',
-                js: '/bundles/storefront/administration/js/storefront.js',
+            frontend: {
+                css: '/bundles/frontend/administration/css/frontend.css',
+                js: '/bundles/frontend/administration/js/frontend.js',
             },
             'test-plugin': {
                 baseUrl: 'http://localhost:8000/bundles/testplugin/administration/',

@@ -149,7 +149,7 @@ export default {
             return true;
         },
 
-        openStorefrontLink(storeFrontLink) {
+        openFrontendLink(storeFrontLink) {
             window.open(storeFrontLink, '_blank');
         },
 
@@ -157,8 +157,8 @@ export default {
             return this.channelFavoritesService.isFavorite(channelId);
         },
 
-        isStorefrontChannel(channel) {
-            return channel.type.id === Defaults.storefrontChannelTypeId;
+        isFrontendChannel(channel) {
+            return channel.type.id === Defaults.frontendChannelTypeId;
         },
     },
 };

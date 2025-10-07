@@ -76,7 +76,7 @@
             {% if isHMRMode %}
                 {% block layout_head_javascript_hmr_dev %}
                 {# Entry point for dev-server #}
-                <script type="text/javascript" src="/_webpack_hot_proxy_/storefront/hot-reloading.js" defer></script>
+                <script type="text/javascript" src="/_webpack_hot_proxy_/frontend/hot-reloading.js" defer></script>
                 {% for script in theme_scripts() %}
                 <script type="text/javascript" src="{{ script|replace({'js/': '/_webpack_hot_proxy_/'}) }}"
                         defer></script>

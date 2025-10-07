@@ -393,7 +393,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
         expect(field.attributes()['disable-edit']).toBeUndefined();
     });
 
-    it('should have the select field for product export storefront sales channel id disabled', async () => {
+    it('should have the select field for product export frontend sales channel id disabled', async () => {
         const wrapper = await createWrapper();
 
         await wrapper.setProps({
@@ -402,12 +402,12 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
             },
         });
 
-        const field = wrapper.get('.sw-channel-detail__product-comparison-storefront');
+        const field = wrapper.get('.sw-channel-detail__product-comparison-frontend');
 
         expect(field.attributes().disabled).toBe('true');
     });
 
-    it('should have the select field for product export storefront sales channel id enabled', async () => {
+    it('should have the select field for product export frontend sales channel id enabled', async () => {
         global.activeAclRoles = ['channel.editor'];
 
         const wrapper = await createWrapper();
@@ -418,7 +418,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
             },
         });
 
-        const field = wrapper.get('.sw-channel-detail__product-comparison-storefront');
+        const field = wrapper.get('.sw-channel-detail__product-comparison-frontend');
 
         expect(field.attributes().disabled).toBeUndefined();
     });
@@ -432,7 +432,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
             },
             productExport: {
                 channelDomainId: '1a',
-                storefrontChannelId: '2b',
+                frontendChannelId: '2b',
             },
         });
 
@@ -452,7 +452,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
             },
             productExport: {
                 channelDomainId: '1a',
-                storefrontChannelId: '2b',
+                frontendChannelId: '2b',
             },
         });
 
@@ -1048,7 +1048,7 @@ describe('src/module/sw-channel/view/sw-channel-detail-base', () => {
                 productExports: [
                     {
                         id: 'export-id',
-                        storefrontChannelId: 'sc-id',
+                        frontendChannelId: 'sc-id',
                     },
                 ],
             },

@@ -10,7 +10,7 @@
       "visibilityModalDescription": "“Hide in listing” will exclude the product from product overview listings but also from product sliders and cross selling lists. Selecting the option “Hide in listing and search” will also exclude the product from search actions. Products can still be reached via URL.",
       "linkAdvancedVisibility": "Set visibility for selected Channels",
       "labelVisibility": "Channels",
-      "bodyVisibility": "Add Channels in which this product should be displayed. You may further define the product visibility for each Storefront Channel via the link below.",
+      "bodyVisibility": "Add Channels in which this product should be displayed. You may further define the product visibility for each Frontend Channel via the link below.",
       "errorMessage": "Unable to load default Channel configuration."
     },
     "general": {
@@ -53,10 +53,10 @@
       "placeholderSearchKeywords": "Enter keywords that find this product...",
       "textAddSearchKeyword": "Click here to add search keyword",
       "textEnterValidSearchKeyword": "Searchable keywords",
-      "helpTextSearchKeyword": "The product in the Storefront can also be found using these keywords.",
+      "helpTextSearchKeyword": "The product in the Frontend can also be found using these keywords.",
       "helpTextTags": "Tags are meant for internal use only. They can help you manage groups of products, apply rules or serve as custom search terms.",
       "categoriesTitle": "Categories and tags",
-      "descriptionCategories": "Add categories so that the product can be found via the Storefront main menu or by API connections. Make sure you select  categories that are available and active in the selected Channel.",
+      "descriptionCategories": "Add categories so that the product can be found via the Frontend main menu or by API connections. Make sure you select  categories that are available and active in the selected Channel.",
       "descriptionTags": "Tags help you find products faster. They make it easier to group products and can be  utilised to automate task with the Rule Builder."
     },
     "priceForm": {
@@ -329,7 +329,7 @@
         "filterReset": "Reset",
         "filter": "Filter",
         "generateVariants": "Generate variants",
-        "storefrontDelivery": "Storefront presentation"
+        "frontendDelivery": "Frontend presentation"
       },
       "configuratorModal": {
         "title": "Generate variants",
@@ -365,7 +365,7 @@
         "addVariantsOnly": "Add variants only"
       },
       "deliveryModal": {
-        "modalHeadline": "Storefront presentation",
+        "modalHeadline": "Frontend presentation",
         "order": "Display sequence",
         "orderExplanation": "Use drag & drop to alter the display sequence of property values",
         "media": "Assigned media",

@@ -56,8 +56,8 @@ jobs:
     uses: ./.github/workflows/php.yml
     secrets: inherit
     if: github.repository == 'heyframe/heyframe' || github.event_name == 'workflow_dispatch'
-  storefront:
-    uses: ./.github/workflows/storefront.yml
+  frontend:
+    uses: ./.github/workflows/frontend.yml
     secrets: inherit
     if: github.repository == 'heyframe/heyframe' || github.event_name == 'workflow_dispatch'
   downstream:

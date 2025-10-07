@@ -104,7 +104,7 @@
         </service>
 
         <!-- SUBSCRIBERS -->
-        <service id="HeyFrame\Core\Checkout\Promotion\Subscriber\Storefront\StorefrontCartSubscriber">
+        <service id="HeyFrame\Core\Checkout\Promotion\Subscriber\Frontend\FrontendCartSubscriber">
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="request_stack"/>
             <tag name="kernel.event_subscriber"/>

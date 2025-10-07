@@ -70,8 +70,8 @@
                     <button
                         v-if="entry.domainLink && entry.active"
                         class="sw-channel-menu-domain-link"
-                        :title="$tc('sw-channel.general.tooltipOpenStorefront')"
-                        @click.prevent="openStorefrontLink(entry.domainLink)"
+                        :title="$tc('sw-channel.general.tooltipOpenFrontend')"
+                        @click.prevent="openFrontendLink(entry.domainLink)"
                     >
                         <mt-icon
                             class="sw-channel-menu-domain-link__icon"

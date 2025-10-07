@@ -163,7 +163,7 @@ class Translator extends AbstractTranslator
         $formatLocale = Locale::getFallback($catalogue->getLocale()) ?? $catalogue->getLocale();
 
         while (!$catalogue->has($id, $domain) && $catalogue->getFallbackCatalogue() !== null) {
-            $domain = 'storefront';
+            $domain = 'frontend';
             $catalogue = $catalogue->getFallbackCatalogue();
         }
 

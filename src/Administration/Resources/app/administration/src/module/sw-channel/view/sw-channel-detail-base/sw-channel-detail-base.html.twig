@@ -278,55 +278,55 @@
     />
     {% endblock %}
 
-    {% block sw_channel_detail_base_general_input_product_comparison_storefront %}
+    {% block sw_channel_detail_base_general_input_product_comparison_frontend %}
     <mt-card
         v-if="channel && isProductComparison"
-        position-identifier="sw-channel-detail-base-general-input-product-comparison-storefront"
+        position-identifier="sw-channel-detail-base-general-input-product-comparison-frontend"
         :is-loading="isLoading"
-        :title="$tc('sw-channel.detail.productComparison.storefront')"
+        :title="$tc('sw-channel.detail.productComparison.frontend')"
     >
-        {% block sw_channel_detail_base_general_input_product_comparison_storefront_select %}
+        {% block sw_channel_detail_base_general_input_product_comparison_frontend_select %}
         <sw-entity-single-select
-            v-model:value="productExport.storefrontChannelId"
-            class="sw-channel-detail__product-comparison-storefront"
-            :label="$tc('sw-channel.detail.productComparison.storefront')"
-            :criteria="storefrontChannelCriteria"
+            v-model:value="productExport.frontendChannelId"
+            class="sw-channel-detail__product-comparison-frontend"
+            :label="$tc('sw-channel.detail.productComparison.frontend')"
+            :criteria="frontendChannelCriteria"
             label-property="name"
             :disabled="!acl.can('channel.editor') || undefined"
             value-property="id"
             entity="channel"
             required
             show-clearable-button
-            @update:value="onStorefrontSelectionChange"
+            @update:value="onFrontendSelectionChange"
         />
         {% endblock %}
 
-        {% block sw_channel_detail_base_general_input_product_comparison_storefront_domain %}
+        {% block sw_channel_detail_base_general_input_product_comparison_frontend_domain %}
         <sw-entity-single-select
             v-model:value="productExport.channelDomainId"
             class="sw-channel-detail__product-comparison-domain"
-            :label="$tc('sw-channel.detail.productComparison.storefrontDomain')"
-            :criteria="storefrontChannelDomainCriteria"
+            :label="$tc('sw-channel.detail.productComparison.frontendDomain')"
+            :criteria="frontendChannelDomainCriteria"
             label-property="url"
             value-property="id"
             entity="channel_domain"
             required
             show-clearable-button
-            :disabled="(!productExport.channelDomainId && !productExport.storefrontChannelId) || !acl.can('channel.editor') || undefined"
+            :disabled="(!productExport.channelDomainId && !productExport.frontendChannelId) || !acl.can('channel.editor') || undefined"
             :error="productExportChannelDomainIdError"
-            @update:value="onStorefrontDomainSelectionChange"
+            @update:value="onFrontendDomainSelectionChange"
         />
         {% endblock %}
 
-        {% block sw_channel_detail_base_general_input_product_comparison_storefront_domain_currency %}
+        {% block sw_channel_detail_base_general_input_product_comparison_frontend_domain_currency %}
         <div
             v-if="productExport.channelDomain"
             class="sw-channel-detail-base__product-comparison-container"
         >
             <sw-entity-single-select
                 v-model:value="productExport.currencyId"
-                :label="$tc('sw-channel.detail.productComparison.storefrontDomainCurrency.label')"
-                :criteria="storefrontChannelCurrencyCriteria"
+                :label="$tc('sw-channel.detail.productComparison.frontendDomainCurrency.label')"
+                :criteria="frontendChannelCurrencyCriteria"
                 label-property="name"
                 value-property="id"
                 required
@@ -338,14 +338,14 @@
         </div>
         {% endblock %}
 
-        {% block sw_channel_detail_base_general_input_product_comparison_storefront_domain_language %}
+        {% block sw_channel_detail_base_general_input_product_comparison_frontend_domain_language %}
         <div
             v-if="productExport.channelDomain"
             class="sw-channel-detail-base__product-comparison-container"
         >
             <sw-entity-single-select
                 v-model:value="productExport.channelDomain.languageId"
-                :label="$tc('sw-channel.detail.productComparison.storefrontDomainLanguage.label')"
+                :label="$tc('sw-channel.detail.productComparison.frontendDomainLanguage.label')"
                 label-property="name"
                 value-property="id"
                 entity="language"
@@ -354,18 +354,18 @@
             />
             <sw-help-text
                 class="sw-channel-detail-base__product-comparison-helptext"
-                :text="$tc('sw-channel.detail.productComparison.storefrontDomainLanguage.help')"
+                :text="$tc('sw-channel.detail.productComparison.frontendDomainLanguage.help')"
                 :disabled="!acl.can('channel.editor')"
                 tooltip-position="top"
             />
         </div>
         {% endblock %}
 
-        {% block sw_channel_detail_base_general_input_product_comparison_storefront_channel_customer_group %}
+        {% block sw_channel_detail_base_general_input_product_comparison_frontend_channel_customer_group %}
         <div class="sw-channel-detail-base__product-comparison-container">
             <sw-entity-single-select
                 v-model:value="channel.customerGroupId"
-                :label="$tc('sw-channel.detail.productComparison.storefrontChannelCustomerGroup.label')"
+                :label="$tc('sw-channel.detail.productComparison.frontendChannelCustomerGroup.label')"
                 label-property="name"
                 value-property="id"
                 entity="customer_group"
@@ -374,7 +374,7 @@
             />
             <sw-help-text
                 class="sw-channel-detail-base__product-comparison-helptext"
-                :text="$tc('sw-channel.detail.productComparison.storefrontChannelCustomerGroup.help')"
+                :text="$tc('sw-channel.detail.productComparison.frontendChannelCustomerGroup.help')"
                 tooltip-position="top"
             />
         </div>

@@ -329,14 +329,14 @@ export default {
             if (this.$route.params.id) {
                 this.pageId = this.$route.params.id.toLowerCase();
                 this.isLoading = true;
-                const defaultStorefrontId = '8A243080F92E4C719546314B577CF82B';
+                const defaultFrontendId = '8A243080F92E4C719546314B577CF82B';
 
                 HeyFrame.Store.get('heyframeApps').selectedIds = [
                     this.pageId,
                 ];
 
                 const criteria = new Criteria(1, 25);
-                criteria.addFilter(Criteria.equals('typeId', defaultStorefrontId));
+                criteria.addFilter(Criteria.equals('typeId', defaultFrontendId));
 
                 this.channelRepository.search(criteria).then((response) => {
                     this.channels = response;

@@ -176,7 +176,7 @@ async function createWrapper(layoutType = 'product_list', systemConfigApiService
                                 });
                             }
 
-                            if (channelId === 'storefront_id') {
+                            if (channelId === 'frontend_id') {
                                 return Promise.resolve({
                                     'core.basicInformation.contactPage': 'uuid007',
                                     'core.basicInformation.imprintPage': 'uuid2',
@@ -489,14 +489,14 @@ describe('module/sw-cms/component/sw-cms-layout-assignment-modal', () => {
                 null: [
                     'core.basicInformation.contactPage',
                 ],
-                'storefront_test-id': null,
+                'frontend_test-id': null,
             },
             previousShopPages: {
                 null: [
                     'core.basicInformation.contactPage',
                     'core.basicInformation.newsletterPage',
                 ],
-                'storefront_test-id': null,
+                'frontend_test-id': null,
             },
         });
         await flushPromises();
@@ -522,7 +522,7 @@ describe('module/sw-cms/component/sw-cms-layout-assignment-modal', () => {
                 'core.basicInformation.contactPage': 'uuid007',
                 'core.basicInformation.newsletterPage': null, // Set removed item to null
             },
-            'storefront_test-id': {},
+            'frontend_test-id': {},
         });
 
         expect(wrapper.emitted('modal-close')).toStrictEqual([[true]]);
@@ -621,13 +621,13 @@ describe('module/sw-cms/component/sw-cms-layout-assignment-modal', () => {
 
         // Set new sales channel id
         await wrapper.setData({
-            shopPageChannelId: 'storefront_id',
+            shopPageChannelId: 'frontend_id',
         });
 
         // Trigger sales channel select change
         await wrapper.find('.sw-cms-layout-assignment-modal__channel-select').trigger('change');
 
-        expect(wrapper.vm.selectedShopPages.storefront_id).toEqual([
+        expect(wrapper.vm.selectedShopPages.frontend_id).toEqual([
             'core.basicInformation.contactPage',
         ]);
     });

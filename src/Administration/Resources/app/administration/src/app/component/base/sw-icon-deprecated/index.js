@@ -31,7 +31,7 @@ import '@heyframe-ag/meteor-icon-kit/icons/regular/chevron-circle-left.svg';
  * @component-example
  * <div>
  *     <sw-icon name="regular-circle-download" color="#1abc9c"></sw-icon>
- *     <sw-icon name="regular-storefront" color="#3498db"></sw-icon>
+ *     <sw-icon name="regular-frontend" color="#3498db"></sw-icon>
  *     <sw-icon name="regular-eye-slash" color="#9b59b6"></sw-icon>
  *     <sw-icon name="regular-fingerprint" color="#f39c12"></sw-icon>
  *     <sw-icon name="regular-tools-alt" color="#d35400"></sw-icon>

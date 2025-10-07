@@ -16,7 +16,7 @@ abstract class RouteRequestEvent extends NestedEvent implements HeyFrameChannelE
     private readonly Criteria $criteria;
 
     public function __construct(
-        private readonly Request $storefrontRequest,
+        private readonly Request $frontendRequest,
         private readonly Request $storeApiRequest,
         private readonly ChannelContext $channelContext,
         ?Criteria $criteria = null
@@ -26,7 +26,7 @@ abstract class RouteRequestEvent extends NestedEvent implements HeyFrameChannelE
 
     public function getFrontendRequest(): Request
     {
-        return $this->storefrontRequest;
+        return $this->frontendRequest;
     }
 
     public function getStoreApiRequest(): Request

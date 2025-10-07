@@ -6,7 +6,7 @@
   },
   "sw-channel": {
     "general": {
-      "tooltipOpenStorefront": "打开商城前台",
+      "tooltipOpenFrontend": "打开商城前台",
       "titleMenuItems": "渠道",
       "titleMenuMoreItems": "更多",
       "manageChannels": "管理渠道",

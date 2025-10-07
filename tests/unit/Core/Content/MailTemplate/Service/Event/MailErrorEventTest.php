@@ -50,7 +50,7 @@ class MailErrorEventTest extends TestCase
             '{{ subject }}',
             [
                 'eventName' => CheckoutOrderPlacedEvent::EVENT_NAME,
-                'shopName' => 'Storefront',
+                'shopName' => 'Frontend',
             ],
         );
 
@@ -63,7 +63,7 @@ class MailErrorEventTest extends TestCase
             'eventName' => 'checkout.order.placed',
             'templateData' => [
                 'eventName' => 'checkout.order.placed',
-                'shopName' => 'Storefront',
+                'shopName' => 'Frontend',
             ],
         ], $event->getLogData());
         static::assertSame('mail.sent.error', $event->getName());

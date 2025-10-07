@@ -45,7 +45,7 @@ class RequestTransformer implements RequestTransformerInterface
      * - `http://localhost:8000/subdir` - with sub directory `/subdir`
      * - `http://localhost:8000/subdir/de` - with sub directory `/subdir` and virtual path `/de`
      */
-    final public const STOREFRONT_URL = 'sw-storefront-url';
+    final public const STOREFRONT_URL = 'sw-frontend-url';
 
     final public const CHANNEL_RESOLVED_URI = 'resolved-uri';
 

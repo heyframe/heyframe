@@ -150,10 +150,10 @@ describe('src/app/component/structure/sw-search-bar', () => {
                                     return Promise.resolve([
                                         {
                                             id: '8a243080f92e4c719546314b577cf82b',
-                                            translated: { name: 'Storefront' },
+                                            translated: { name: 'Frontend' },
                                             type: {
                                                 translated: {
-                                                    name: 'Storefront',
+                                                    name: 'Frontend',
                                                 },
                                             },
                                         },
@@ -164,7 +164,7 @@ describe('src/app/component/structure/sw-search-bar', () => {
                                     return Promise.resolve([
                                         {
                                             id: 'xxxxxxx',
-                                            translated: { name: 'Storefront' },
+                                            translated: { name: 'Frontend' },
                                         },
                                     ]);
                                 }
@@ -849,7 +849,7 @@ describe('src/app/component/structure/sw-search-bar', () => {
 
         expect(module.entity).toBe('module');
         expect(module.total).toBe(1);
-        expect(module.entities[0].label).toBe('Storefront');
+        expect(module.entities[0].label).toBe('Frontend');
         expect(module.entities[0].route.name).toBe('sw.channel.create');
     });
 

@@ -110,12 +110,12 @@
             </mt-button>
 
             <mt-button
-                class="sw-product-variants__configure-storefront-action"
+                class="sw-product-variants__configure-frontend-action"
                 :disabled="!acl.can('product.editor')"
                 variant="primary"
                 @click="$emit('delivery-open')"
             >
-                {{ $tc('sw-product.variations.overview.storefrontDelivery') }}
+                {{ $tc('sw-product.variations.overview.frontendDelivery') }}
             </mt-button>
             {% endblock %}
 

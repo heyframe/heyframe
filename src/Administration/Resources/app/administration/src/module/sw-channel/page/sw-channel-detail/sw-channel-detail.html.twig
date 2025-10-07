@@ -63,7 +63,7 @@
 
                 {% block sw_channel_detail_content_tab_products %}
                 <sw-tabs-item
-                    v-if="isHeadless || isStorefront"
+                    v-if="isHeadless || isFrontend"
                     :route="{ name: 'sw.channel.detail.products', params: { id: $route.params.id } }"
                     :title="$tc('sw-channel.detail.tabProducts')"
                 >

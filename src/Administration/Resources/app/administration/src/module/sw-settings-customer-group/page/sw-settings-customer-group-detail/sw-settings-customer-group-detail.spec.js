@@ -129,7 +129,7 @@ async function createWrapper(privileges = []) {
                                         seoPathInfo: 'Hello-world',
                                         channel: {
                                             translated: {
-                                                name: 'Storefront',
+                                                name: 'Frontend',
                                             },
                                             domains: [
                                                 {

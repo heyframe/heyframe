@@ -105,9 +105,9 @@ async function createWrapper(defaultValues = {}) {
                                 return Promise.resolve(
                                     createEntityCollection([
                                         {
-                                            name: 'Storefront',
-                                            translated: { name: 'Storefront' },
-                                            id: uuid.get('storefront'),
+                                            name: 'Frontend',
+                                            translated: { name: 'Frontend' },
+                                            id: uuid.get('frontend'),
                                         },
                                         {
                                             name: 'Headless',

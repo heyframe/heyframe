@@ -10,7 +10,7 @@ const mailHeaderFooterMock = {
     name: 'Order Header',
     channels: [
         {
-            name: 'Storefront',
+            name: 'Frontend',
         },
     ],
     isNew: () => false,

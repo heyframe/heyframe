@@ -27,7 +27,7 @@ const productsMock = [
             {
                 id: '1',
                 productId: '101',
-                channelId: 'storefrontChannelTypeId',
+                channelId: 'frontendChannelTypeId',
             },
         ],
     },
@@ -40,7 +40,7 @@ const productsMock = [
             {
                 id: '2',
                 productId: '202',
-                channelId: 'storefrontChannelTypeId',
+                channelId: 'frontendChannelTypeId',
             },
         ],
     },
@@ -56,7 +56,7 @@ const variantProductMocks = [
             {
                 id: '1',
                 productId: '101',
-                channelId: 'storefrontChannelTypeId',
+                channelId: 'frontendChannelTypeId',
             },
         ],
     },
@@ -70,7 +70,7 @@ const variantProductMocks = [
             {
                 id: '2',
                 productId: '202',
-                channelId: 'storefrontChannelTypeId',
+                channelId: 'frontendChannelTypeId',
             },
         ],
     },
@@ -87,7 +87,7 @@ const productMock = {
         {
             id: '02',
             productId: '101',
-            channelId: 'storefrontChannelTypeId',
+            channelId: 'frontendChannelTypeId',
         },
     ],
 };
@@ -189,7 +189,7 @@ async function createWrapper({ channel, products } = {}) {
             },
             props: {
                 channel: channel ?? {
-                    id: 'storefrontChannelTypeId',
+                    id: 'frontendChannelTypeId',
                 },
             },
         },

@@ -194,7 +194,7 @@ class SnippetFinder implements SnippetFinderInterface
                 continue;
             }
 
-            if ($bundle->getName() === 'Storefront') {
+            if ($bundle->getName() === 'Frontend') {
                 $paths->add(new SnippetPath($bundle->getPath() . '/Resources/app/administration/src/app/snippet', true));
                 $paths->add(new SnippetPath($bundle->getPath() . '/Resources/app/administration/src/modules/*/snippet', true));
 

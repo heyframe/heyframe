@@ -174,7 +174,7 @@ export default {
             this.showModal = true;
         },
 
-        openStorefrontLink(storeFrontLink) {
+        openFrontendLink(storeFrontLink) {
             window.open(storeFrontLink, '_blank');
         },
     },

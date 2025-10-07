@@ -60,7 +60,7 @@ const repositoryMockFactory = (entity) => {
             get: () =>
                 Promise.resolve({
                     id: '1a2b3c',
-                    name: 'Storefront',
+                    name: 'Frontend',
                     languages: new EntityCollection(
                         '/language',
                         'language',

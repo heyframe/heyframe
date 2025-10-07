@@ -47,7 +47,7 @@ export default {
             return this.placeholder(this.channel, 'name');
         },
 
-        isStorefront() {
+        isFrontend() {
             if (!this.channel) {
                 return this.$route.params.typeId === Defaults.frontendChannelTypeId;
             }

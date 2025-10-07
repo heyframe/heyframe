@@ -71,7 +71,7 @@ Component.register('sw-theme-manager-detail', {
             if (!this.theme) {
                 return false;
             }
-            if (this.theme.technicalName === 'Storefront') {
+            if (this.theme.technicalName === 'Frontend') {
                 return false;
             }
             if (this.parentTheme) {
@@ -79,7 +79,7 @@ Component.register('sw-theme-manager-detail', {
             }
             if (
                 isArray(this.theme?.baseConfig?.configInheritance) &&
-                !this.theme.baseConfig.configInheritance.includes('@Storefront')
+                !this.theme.baseConfig.configInheritance.includes('@Frontend')
             ) {
                 return false;
             }
@@ -615,7 +615,7 @@ Component.register('sw-theme-manager-detail', {
         getThemeCompatibleChannels() {
             const criteria = new Criteria();
             criteria.addAssociation('type');
-            criteria.addFilter(Criteria.equalsAny('type.name', ['Storefront', 'Headless']));
+            criteria.addFilter(Criteria.equalsAny('type.name', ['Frontend', 'Headless']));
 
             return this.channelRepository.search(criteria).then((searchResult) => {
                 return searchResult.getIds();
@@ -651,7 +651,7 @@ Component.register('sw-theme-manager-detail', {
 
         getDefaultTheme() {
             const criteria = new Criteria();
-            criteria.addFilter(Criteria.equals('technicalName', 'Storefront'));
+            criteria.addFilter(Criteria.equals('technicalName', 'Frontend'));
 
             return this.themeRepository.search(criteria).then((response) => {
                return response.first();

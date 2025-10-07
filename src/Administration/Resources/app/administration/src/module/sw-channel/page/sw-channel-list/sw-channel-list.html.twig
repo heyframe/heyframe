@@ -145,13 +145,13 @@
                             </sw-context-menu-item>
                             {% endblock %}
 
-                            {% block sw_channel_list_grid_actions_item_open_storefront %}
+                            {% block sw_channel_list_grid_actions_item_open_frontend %}
                             <sw-context-menu-item
-                                v-if="isStorefrontChannel(item)"
+                                v-if="isFrontendChannel(item)"
                                 :disabled="!item.active || !checkForDomainLink(item)"
-                                @click.prevent="openStorefrontLink(item.domainLink)"
+                                @click.prevent="openFrontendLink(item.domainLink)"
                             >
-                                {{ $tc('sw-channel.general.tooltipOpenStorefront') }}
+                                {{ $tc('sw-channel.general.tooltipOpenFrontend') }}
                             </sw-context-menu-item>
                             {% endblock %}
                         </template>

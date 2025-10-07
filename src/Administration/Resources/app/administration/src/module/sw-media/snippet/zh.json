@@ -22,7 +22,7 @@
         "replace": "替换",
         "settings": "设置",
         "ar": "启用 AR 查看",
-        "arHelpText": "在 Storefront 中呈现时启用 AR 功能。你可以在 <a href=\"{settingsLink}\">3D 设置</a> 中更改默认值。",
+        "arHelpText": "在 Frontend 中呈现时启用 AR 功能。你可以在 <a href=\"{settingsLink}\">3D 设置</a> 中更改默认值。",
         "arPlacement": "AR 放置方式",
         "arPlacementHelpText": "选择对象是放置在水平表面（如地面）还是垂直表面（如墙面）。",
         "horizontal": "水平",

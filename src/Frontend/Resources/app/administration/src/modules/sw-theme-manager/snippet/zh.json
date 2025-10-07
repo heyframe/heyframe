@@ -1,6 +1,6 @@
 {
   "sw-theme": {
-    "Storefront": {
+    "Frontend": {
       "default": {
         "themeColors": {
           "label": "主题颜色",

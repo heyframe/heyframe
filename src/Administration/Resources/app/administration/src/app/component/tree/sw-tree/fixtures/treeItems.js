@@ -309,7 +309,7 @@ export default function getTreeItems() {
                     serviceCategoryVersionId: '0fa91ce3e96a4bc2be4bd9ce752c3425',
                     mailHeaderFooterId: null,
                     hreflangDefaultDomainId: null,
-                    name: 'Storefront',
+                    name: 'Frontend',
                     shortName: null,
                     taxCalculationType: 'horizontal',
                     accessKey: 'SWSCDLJPNUPVDJHLZWX6D1FWNA',
@@ -337,7 +337,7 @@ export default function getTreeItems() {
                     createdAt: '2021-06-17T06:26:33.374+00:00',
                     updatedAt: null,
                     translated: {
-                        name: 'Storefront',
+                        name: 'Frontend',
                         customFields: [],
                         homeSlotConfig: null,
                         homeEnabled: true,

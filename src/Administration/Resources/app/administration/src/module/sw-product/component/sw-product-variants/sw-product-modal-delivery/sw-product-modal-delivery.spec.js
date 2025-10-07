@@ -62,7 +62,7 @@ describe('src/module/sw-product/component/sw-product-variants/sw-product-modal-d
         expect(saveButton.attributes('disabled')).toBeUndefined();
     });
 
-    it('should be able to allow save storefront presentation modal', async () => {
+    it('should be able to allow save frontend presentation modal', async () => {
         global.activeAclRoles = ['product.editor'];
         const wrapper = await createWrapper([
             'product.editor',

@@ -6,7 +6,7 @@
   },
   "sw-channel": {
     "general": {
-      "tooltipOpenStorefront": "Open storefront",
+      "tooltipOpenFrontend": "Open frontend",
       "titleMenuItems": "Channels",
       "titleMenuMoreItems": "More",
       "manageChannels": "Manage Channels",

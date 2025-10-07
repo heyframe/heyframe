@@ -95,7 +95,7 @@ export default {
             isLoadingDomains: false,
             deleteDomain: null,
             frontendDomains: [],
-            selectedStorefrontChannel: null,
+            selectedFrontendChannel: null,
             invalidFileName: false,
             isFileNameChecking: false,
             disableGenerateByCronjob: false,
@@ -111,7 +111,7 @@ export default {
             return this.showSecretAccessKey ? 'text' : 'password';
         },
 
-        isStorefront() {
+        isFrontend() {
             return this.channel?.typeId === Defaults.frontendChannelTypeId;
         },
 
@@ -597,7 +597,7 @@ export default {
             }
         },
 
-        onStorefrontSelectionChange(frontendChannelId) {
+        onFrontendSelectionChange(frontendChannelId) {
             this.channelRepository.get(frontendChannelId).then((entity) => {
                 this.channel.languageId = entity.languageId;
                 this.channel.currencyId = entity.currencyId;
@@ -610,7 +610,7 @@ export default {
             });
         },
 
-        onStorefrontDomainSelectionChange(frontendChannelDomainId) {
+        onFrontendDomainSelectionChange(frontendChannelDomainId) {
             this.globalDomainRepository.get(frontendChannelDomainId).then((entity) => {
                 this.productExport.channelDomain = entity;
                 this.productExport.currencyId = entity.currencyId;
@@ -618,7 +618,7 @@ export default {
             });
         },
 
-        loadStorefrontDomains(frontendChannelId) {
+        loadFrontendDomains(frontendChannelId) {
             const criteria = new Criteria(1, 25);
 
             criteria.addFilter(Criteria.equals('channelId', frontendChannelId));

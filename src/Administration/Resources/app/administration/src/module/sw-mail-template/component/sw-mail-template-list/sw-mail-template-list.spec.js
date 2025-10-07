@@ -21,7 +21,7 @@ const createWrapper = async (privileges = []) => {
                                     channels: [
                                         {
                                             channel: {
-                                                name: 'Storefront',
+                                                name: 'Frontend',
                                             },
                                         },
                                     ],
@@ -178,7 +178,7 @@ describe('modules/sw-mail-template/component/sw-mail-template-list', () => {
         // fill listing with mail templates mocks
         wrapper.vm.mailTemplates = [
             { type: 'contact_form', channel: 'Headless' },
-            { type: 'password_recovery', channel: 'Storefront' },
+            { type: 'password_recovery', channel: 'Frontend' },
         ];
 
         const amountOfSkeletons = wrapper.vm.skeletonItemAmount;

@@ -281,24 +281,24 @@ jobs:
           env: dev
           path: new-heyframe
 
-      - name: Cache Storefront npm packages
+      - name: Cache Frontend npm packages
         uses: actions/cache@v4
         with:
-          path: new-heyframe/src/Storefront/Resources/app/storefront/node_modules
-          key: ${{ runner.os }}-storefront-${{ hashFiles('new-heyframe/src/Storefront/Resources/app/storefront/package-lock.json') }}
+          path: new-heyframe/src/Frontend/Resources/app/frontend/node_modules
+          key: ${{ runner.os }}-frontend-${{ hashFiles('new-heyframe/src/Frontend/Resources/app/frontend/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-storefront-
+            ${{ runner.os }}-frontend-
 
       - name: Build new heyframe
         working-directory: new-heyframe
         run: |
-          composer run npm:storefront ci
-          composer run npm:storefront run production
-          (cd src/Storefront/Resources/app/storefront && node copy-to-vendor.js)
+          composer run npm:frontend ci
+          composer run npm:frontend run production
+          (cd src/Frontend/Resources/app/frontend && node copy-to-vendor.js)
 
           composer -d src/Core config version ${SW_RECOVERY_NEXT_VERSION}
           composer -d src/Administration config version ${SW_RECOVERY_NEXT_VERSION}
-          composer -d src/Storefront config version ${SW_RECOVERY_NEXT_VERSION}
+          composer -d src/Frontend config version ${SW_RECOVERY_NEXT_VERSION}
           composer -d src/Elasticsearch config version ${SW_RECOVERY_NEXT_VERSION}
 
       - name: Checkout template

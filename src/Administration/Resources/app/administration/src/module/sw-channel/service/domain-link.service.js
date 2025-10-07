@@ -11,7 +11,7 @@ Application.addServiceProvider('domainLinkService', () => {
 });
 
 function getDomainLink(channel) {
-    if (channel.type.id !== Defaults.storefrontChannelTypeId) {
+    if (channel.type.id !== Defaults.frontendChannelTypeId) {
         return null;
     }
 

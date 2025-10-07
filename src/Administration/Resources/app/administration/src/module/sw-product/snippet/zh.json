@@ -328,7 +328,7 @@
         "filterReset": "重置",
         "filter": "筛选",
         "generateVariants": "生成变体",
-        "storefrontDelivery": "前台展示"
+        "frontendDelivery": "前台展示"
       },
       "configuratorModal": {
         "title": "生成变体",

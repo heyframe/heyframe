@@ -186,7 +186,7 @@ export default {
                 return;
             }
 
-            // Subtract to fake look in storefront which has more width
+            // Subtract to fake look in frontend which has more width
             const fakeLookWidth = 100;
             const boxWidth = productHolder.offsetWidth;
             const elGap = 32;

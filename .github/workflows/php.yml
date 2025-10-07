@@ -149,7 +149,7 @@ jobs:
           echo "PATH=${{ env.NPM_CONFIG_PREFIX }}/bin:$PATH" >> $GITHUB_ENV
           curl localhost:8000/
           npm i -g @redocly/cli@1.32.1 @heyframe/api-gen
-          export STOREFRONT_ID=$(bin/console sales-channel:list --output json | jq -r '.[] | select(.name == "Storefront") | .id')
+          export STOREFRONT_ID=$(bin/console sales-channel:list --output json | jq -r '.[] | select(.name == "Frontend") | .id')
           export OPENAPI_ACCESS_KEY=$(mysql -u root -h 127.0.0.1 heyframe -se "SELECT access_key FROM sales_channel WHERE id = UNHEX(\"${STOREFRONT_ID}\")";)
           echo -e "OPENAPI_JSON_URL=http://localhost:8000\nHEYFRAME_ADMIN_USERNAME=admin\nHEYFRAME_ADMIN_PASSWORD=heyframe\nOPENAPI_ACCESS_KEY=${OPENAPI_ACCESS_KEY}" > .env
           cat .env

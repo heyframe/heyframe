@@ -193,7 +193,7 @@ async function createWrapper() {
         props: {
             channel: {
                 id: '1234',
-                name: 'Storefront',
+                name: 'Frontend',
             },
             containerStyle: {},
         },
