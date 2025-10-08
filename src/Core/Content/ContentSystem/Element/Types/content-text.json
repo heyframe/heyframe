@@ -1,0 +1,23 @@
+{
+  "type": "Sw:Content:Text",
+  "category": "static",
+  "label": "Text Content",
+  "description": "Displays static or translated text content",
+  "properties_schema": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Text content or translation key"
+      }
+    }
+  },
+  "data_requirements": {
+    "text": {
+      "type": "translation",
+      "property": "text",
+      "domain": "storefront"
+    }
+  }
+}

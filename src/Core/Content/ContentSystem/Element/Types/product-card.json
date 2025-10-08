@@ -1,0 +1,40 @@
+{
+  "type": "Sw:Product:Card",
+  "category": "service",
+  "label": "Product Card",
+  "description": "Displays a single product with image, name, price, and basic information",
+  "properties_schema": {
+    "type": "object",
+    "properties": {
+      "product": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Product ID"
+      },
+      "mediaHeight": {
+        "type": "integer",
+        "default": 240,
+        "description": "Height of the product image in pixels"
+      },
+      "defaultRoute": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Default route for product link"
+      },
+      "layout": {
+        "type": "string",
+        "default": "default",
+        "enum": ["default", "compact", "detailed", "minimal"],
+        "description": "Card layout variant"
+      }
+    }
+  },
+  "data_requirements": {
+    "product": {
+      "type": "entity",
+      "entity": "product",
+      "property": "product",
+      "associations": ["cover", "manufacturer", "prices", "seoUrls"]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "type": "Sw:Product:Listing",
+  "category": "service",
+  "label": "Product Listing",
+  "description": "Displays a list of products with filtering and pagination",
+  "properties_schema": {
+    "type": "object",
+    "properties": {
+      "categoryId": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Category ID for listing"
+      },
+      "limit": {
+        "type": "integer",
+        "default": 24,
+        "description": "Products per page"
+      }
+    }
+  },
+  "data_requirements": {
+    "listing": {
+      "type": "product_listing",
+      "property": "listing",
+      "limit": 24,
+      "associations": ["cover", "prices"]
+    }
+  },
+  "slots_schema": {
+    "filters": {
+      "repeatable": false,
+      "accepts": ["Sw:Filter:Panel"]
+    },
+    "items": {
+      "repeatable": true,
+      "accepts": ["Sw:Product:Card"]
+    }
+  }
+}

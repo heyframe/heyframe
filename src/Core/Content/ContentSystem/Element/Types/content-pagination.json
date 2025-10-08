@@ -1,0 +1,41 @@
+{
+  "type": "Sw:Content:Pagination",
+  "category": "static",
+  "label": "Pagination",
+  "description": "Displays pagination controls for listings",
+  "properties_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Current page number"
+      },
+      "totalPages": {
+        "type": ["integer", "null"],
+        "default": null,
+        "description": "Total number of pages"
+      },
+      "total": {
+        "type": ["integer", "null"],
+        "default": null,
+        "description": "Total number of items"
+      },
+      "limit": {
+        "type": ["integer", "null"],
+        "default": null,
+        "description": "Items per page"
+      },
+      "scope": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Pagination scope identifier"
+      },
+      "pageParameter": {
+        "type": "string",
+        "default": "p",
+        "description": "URL parameter name for page number"
+      }
+    }
+  }
+}

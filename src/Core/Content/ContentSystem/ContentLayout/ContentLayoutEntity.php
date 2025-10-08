@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\ContentLayout;
 
+use HeyFrame\Core\Content\ContentSystem\Element\Runtime\ContentElement;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
@@ -15,10 +16,7 @@ class ContentLayoutEntity extends Entity
 
     protected string $version;
 
-    /**
-     * @var array<string, mixed>
-     */
-    protected array $structure;
+    protected ContentElement $layout;
 
     /**
      * @var array<string, mixed>|null
@@ -45,20 +43,14 @@ class ContentLayoutEntity extends Entity
         $this->version = $version;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function getStructure(): array
+    public function getLayout(): ContentElement
     {
-        return $this->structure;
+        return $this->layout;
     }
 
-    /**
-     * @param array<string, mixed> $structure
-     */
-    public function setStructure(array $structure): void
+    public function setLayout(ContentElement $layout): void
     {
-        $this->structure = $structure;
+        $this->layout = $layout;
     }
 
     /**

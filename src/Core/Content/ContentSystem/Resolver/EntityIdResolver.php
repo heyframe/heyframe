@@ -32,28 +32,23 @@ class EntityIdResolver
         $passthroughParams = $extracted['passthrough'];
 
         if (empty($resolutionParams)) {
-            // No resolution needed, just pass through parameters
-            return new ResolvedData([], $passthroughParams);
+            return new ResolvedData(EntityIdMap::empty(), new ParameterMap($passthroughParams));
         }
 
-        // Group by entity type for batch resolution
         $grouped = $this->groupByEntityType($resolutionParams);
-
         $resolvedEntityIds = [];
 
         foreach ($grouped as $entityType => $items) {
             $ids = $this->resolveEntityType($entityType, $items, $context);
 
             if ($ids === null) {
-                // Resolution failed for this entity type
                 return null;
             }
 
             $resolvedEntityIds = \array_merge($resolvedEntityIds, $ids);
         }
 
-        // Return separated entity IDs and parameters
-        return new ResolvedData($resolvedEntityIds, $passthroughParams);
+        return new ResolvedData(new EntityIdMap($resolvedEntityIds), new ParameterMap($passthroughParams));
     }
 
     /**
@@ -95,14 +90,10 @@ class EntityIdResolver
         }
 
         $repository = $this->definitionRegistry->getRepository($definition->getEntityName());
-
-        // Build batch query with OR filter for all items
         $criteria = new Criteria();
 
-        // Add sales channel visibility filter (applies to entire query)
         $this->addVisibilityFilter($criteria, $entityType, $context);
 
-        // Build OR filter combining all items
         $itemFilters = [];
         $itemsByMatchValue = [];
 
@@ -111,26 +102,20 @@ class EntityIdResolver
             $value = $item['value'];
             $constraints = $item['resolution']['constraints'] ?? [];
 
-            // Each item gets its own AND filter combining match + constraints
             $andFilters = [new EqualsFilter($matchField, $value)];
 
-            // Add constraints for this specific item
             foreach ($constraints as $field => $constraint) {
                 $andFilters[] = $this->buildConstraintFilter($field, $constraint);
             }
 
-            // Combine match + constraints with AND
             $itemFilters[] = new MultiFilter(MultiFilter::CONNECTION_AND, $andFilters);
 
-            // Create lookup key for mapping results back
             $lookupKey = $matchField . ':' . $value;
             $itemsByMatchValue[$lookupKey] = $item;
         }
 
-        // Combine all items with OR
         $criteria->addFilter(new MultiFilter(MultiFilter::CONNECTION_OR, $itemFilters));
 
-        // Add associations to load match fields for mapping
         $matchFields = array_unique(array_map(
             fn ($item) => $item['resolution']['match_field'] ?? 'id',
             $items
@@ -142,10 +127,7 @@ class EntityIdResolver
             }
         }
 
-        // Execute single batch query
         $result = $repository->search($criteria, $context->getContext());
-
-        // Map results back to placeholders
         $resolvedIds = [];
 
         foreach ($items as $item) {
@@ -153,7 +135,6 @@ class EntityIdResolver
             $value = $item['value'];
             $placeholder = $item['placeholder'];
 
-            // Find matching entity from batch results
             $found = false;
             foreach ($result as $entity) {
                 $fieldValue = $matchField === 'id' ? $entity->getUniqueIdentifier() : $entity->get($matchField);
@@ -176,11 +157,7 @@ class EntityIdResolver
 
     protected function getDefinition(string $entityType): ?EntityDefinition
     {
-        try {
-            return $this->definitionRegistry->getByEntityName($entityType);
-        } catch (\Exception) {
-            return null;
-        }
+        return $this->definitionRegistry->getByEntityName($entityType);
     }
 
     /**
@@ -207,7 +184,6 @@ class EntityIdResolver
     protected function buildConstraintFilter(string $field, $constraint): MultiFilter|EqualsFilter|RangeFilter
     {
         if (\is_array($constraint)) {
-            // Range filter (e.g., {"gte": 100})
             $filters = [];
             foreach ($constraint as $operator => $value) {
                 $filters[] = new RangeFilter($field, [
@@ -218,7 +194,6 @@ class EntityIdResolver
             return new MultiFilter(MultiFilter::CONNECTION_AND, $filters);
         }
 
-        // Simple equals filter
         return new EqualsFilter($field, $constraint);
     }
 }

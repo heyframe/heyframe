@@ -1,0 +1,96 @@
+{
+  "type": "Sw:Grid",
+  "category": "static",
+  "label": "Grid Layout",
+  "description": "Container element that arranges child elements in a responsive grid",
+  "properties_schema": {
+    "type": "object",
+    "properties": {
+      "columns": {
+        "type": "string",
+        "default": "auto",
+        "description": "Number of columns or 'auto'"
+      },
+      "columnsSm": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Columns for small screens"
+      },
+      "columnsMd": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Columns for medium screens"
+      },
+      "columnsLg": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Columns for large screens"
+      },
+      "columnsXl": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Columns for extra-large screens"
+      },
+      "rows": {
+        "type": ["string", "null"],
+        "default": null,
+        "description": "Number of rows"
+      },
+      "rowsSm": {
+        "type": ["string", "null"],
+        "default": null
+      },
+      "rowsMd": {
+        "type": ["string", "null"],
+        "default": null
+      },
+      "rowsLg": {
+        "type": ["string", "null"],
+        "default": null
+      },
+      "rowsXl": {
+        "type": ["string", "null"],
+        "default": null
+      },
+      "gap": {
+        "type": "integer",
+        "default": 24,
+        "description": "Gap between grid items in pixels"
+      },
+      "align": {
+        "type": "string",
+        "default": "start",
+        "enum": ["start", "center", "end", "stretch"],
+        "description": "Vertical alignment of items"
+      },
+      "alignContent": {
+        "type": "string",
+        "default": "start",
+        "enum": ["start", "center", "end", "stretch", "space-between", "space-around"],
+        "description": "Vertical alignment of grid content"
+      },
+      "justify": {
+        "type": "string",
+        "default": "start",
+        "enum": ["start", "center", "end", "stretch"],
+        "description": "Horizontal alignment of items"
+      },
+      "justifyContent": {
+        "type": "string",
+        "default": "start",
+        "enum": ["start", "center", "end", "stretch", "space-between", "space-around"],
+        "description": "Horizontal alignment of grid content"
+      },
+      "centered": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether grid is centered in its container"
+      }
+    }
+  },
+  "slots_schema": {
+    "default": {
+      "repeatable": true
+    }
+  }
+}

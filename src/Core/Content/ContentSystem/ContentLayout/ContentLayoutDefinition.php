@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\ContentLayout;
 
+use HeyFrame\Core\Content\ContentSystem\Field\ContentLayoutField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
@@ -43,7 +44,7 @@ class ContentLayoutDefinition extends EntityDefinition
             (new IdField('id', 'id'))->addFlags(new ApiAware(), new PrimaryKey(), new Required()),
             (new StringField('name', 'name', 255))->addFlags(new ApiAware(), new Required()),
             (new StringField('version', 'version', 20))->addFlags(new ApiAware(), new Required()),
-            (new JsonField('structure', 'structure'))->addFlags(new ApiAware(), new Required()),
+            (new ContentLayoutField('layout', 'layout'))->addFlags(new ApiAware(), new Required()),
             (new JsonField('schema', 'schema'))->addFlags(new ApiAware()),
         ]);
     }

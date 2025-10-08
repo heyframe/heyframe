@@ -6,10 +6,10 @@ use HeyFrame\Core\Content\ContentSystem\Channel\Struct\ContentPageStruct;
 use HeyFrame\Core\Content\ContentSystem\ContentLayout\ContentLayoutCollection;
 use HeyFrame\Core\Content\ContentSystem\ContentLayout\ContentLayoutEntity;
 use HeyFrame\Core\Content\ContentSystem\Resolver\Struct\ResolvedData;
-use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\System\Channel\ChannelContext;
 
 #[Package('discovery')]
 class ContentPageBuilder
@@ -21,39 +21,30 @@ class ContentPageBuilder
      */
     public function __construct(
         private readonly EntityRepository $contentLayoutRepository,
-        private readonly PlaceholderFillerService $placeholderFiller
+        private readonly LayoutRefinery $refinery
     ) {
     }
 
-    /**
-     * Builds a content page from a layout ID and resolved data.
-     */
-    public function build(string $layoutId, ResolvedData $resolvedData, Context $context): ?ContentPageStruct
+    public function build(string $layoutId, ResolvedData $resolvedData, ChannelContext $context): ?ContentPageStruct
     {
-        // Load layout from database
         $criteria = new Criteria([$layoutId]);
-        $layout = $this->contentLayoutRepository->search($criteria, $context)->first();
+        $layout = $this->contentLayoutRepository->search($criteria, $context->getContext())->first();
 
         if (!$layout instanceof ContentLayoutEntity) {
             return null;
         }
 
-        // Get layout structure
-        $structure = $layout->getStructure();
+        $contentLayout = $layout->getLayout();
+        $refinedLayout = $this->refinery->refine($contentLayout, $resolvedData, $context);
 
-        // Fill placeholders in structure
-        $filledStructure = $this->placeholderFiller->fill($structure, $resolvedData);
-
-        // Create content page struct
         $contentPage = new ContentPageStruct(
             $layoutId,
             $resolvedData,
-            null, // route will be set later
-            [] // matched parameters will be set later
+            null,
+            []
         );
 
-        // Add filled structure to content page
-        $contentPage->setStructure($filledStructure);
+        $contentPage->setLayout($refinedLayout);
         $contentPage->setLayoutName($layout->getName());
         $contentPage->setLayoutVersion($layout->getVersion());
 

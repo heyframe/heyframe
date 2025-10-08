@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\Content\ContentSystem\Channel\Struct;
 
 use HeyFrame\Core\Content\ContentSystem\ContentRoute\ContentRouteEntity;
+use HeyFrame\Core\Content\ContentSystem\Element\Runtime\ContentElement;
 use HeyFrame\Core\Content\ContentSystem\Resolver\Struct\ResolvedData;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
@@ -12,7 +13,6 @@ class ContentPageStruct extends Struct
 {
     /**
      * @param array<string, mixed> $matchedParameters
-     * @param array<string, mixed>|null $structure
      * @param array<string, mixed> $hydratedEntities
      */
     public function __construct(
@@ -20,7 +20,7 @@ class ContentPageStruct extends Struct
         protected ResolvedData $resolvedData,
         protected ?ContentRouteEntity $route,
         protected array $matchedParameters,
-        protected ?array $structure = null,
+        protected ?ContentElement $layout = null,
         protected ?string $layoutName = null,
         protected ?string $layoutVersion = null,
         protected array $hydratedEntities = []
@@ -55,20 +55,14 @@ class ContentPageStruct extends Struct
         return $this->matchedParameters;
     }
 
-    /**
-     * @return array<string, mixed>|null
-     */
-    public function getStructure(): ?array
+    public function getLayout(): ?ContentElement
     {
-        return $this->structure;
+        return $this->layout;
     }
 
-    /**
-     * @param array<string, mixed> $structure
-     */
-    public function setStructure(array $structure): void
+    public function setLayout(ContentElement $layout): void
     {
-        $this->structure = $structure;
+        $this->layout = $layout;
     }
 
     public function getLayoutName(): ?string

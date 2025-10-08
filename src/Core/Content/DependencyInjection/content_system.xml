@@ -41,24 +41,119 @@
             <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Resolver\ParameterExtractor"/>
         </service>
 
-        <!-- Layout resolver using DAL for type safety and maintainability -->
-        <service id="HeyFrame\Core\Content\ContentSystem\Resolver\LayoutResolver">
-            <argument type="service" id="content_layout_assignment.repository"/>
+        <!-- Cascade step factory for polymorphic layout resolution -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Resolver\Cascade\CascadeStepFactory">
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
         </service>
 
-        <!-- Compilation Services -->
-        <service id="HeyFrame\Core\Content\ContentSystem\Compilation\PlaceholderFillerService"/>
+        <!-- Layout resolver using DAL and polymorphic cascade steps -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Resolver\LayoutResolver">
+            <argument type="service" id="content_layout_assignment.repository"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Resolver\Cascade\CascadeStepFactory"/>
+        </service>
+
+        <!-- Layout Refinement Services -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Compilation\Refiner\PlaceholderResolutionRefiner">
+            <tag name="content_system.layout_refiner" priority="0"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Compilation\LayoutRefinery">
+            <argument type="tagged_iterator" tag="content_system.layout_refiner"/>
+        </service>
 
         <service id="HeyFrame\Core\Content\ContentSystem\Compilation\ContentPageBuilder">
             <argument type="service" id="content_layout.repository"/>
-            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Compilation\PlaceholderFillerService"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Compilation\LayoutRefinery"/>
+        </service>
+
+        <!-- Field Serializers -->
+        <service id="HeyFrame\Core\Content\ContentSystem\FieldSerializer\ContentLayoutFieldSerializer">
+            <argument type="service" id="Symfony\Component\Validator\Validator\ValidatorInterface"/>
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\TypeRegistry\ContentElementTypeRegistry"/>
+            <tag name="heyframe.field_serializer"/>
+        </service>
+
+        <!-- Type Registry System -->
+        <service id="HeyFrame\Core\Content\ContentSystem\TypeRegistry\ContentElementTypeRegistry">
+            <argument type="tagged_iterator" tag="content_system.element_hydrator"/>
+        </service>
+
+        <!-- Element Type Definition Services -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Element\Definition\SchemaValidator"/>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Element\Loader\ElementTypeLoader">
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Element\Definition\SchemaValidator"/>
+        </service>
+
+        <!-- Content Data Loaders -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Hydration\DataLoader\EntityLoader">
+            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <tag name="content_system.data_loader" key="entity"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Hydration\DataLoader\ProductListingDataLoader">
+            <argument type="service" id="HeyFrame\Core\Content\Product\Channel\Listing\ProductListingLoader"/>
+            <tag name="content_system.data_loader" key="product_listing"/>
+        </service>
+
+        <!-- ServiceLocator for Data Loaders -->
+        <service id="content_system.data_loader_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
+            <tag name="container.service_locator"/>
+            <argument type="collection">
+                <argument key="entity" type="service" id="HeyFrame\Core\Content\ContentSystem\Hydration\DataLoader\EntityLoader"/>
+                <argument key="product_listing" type="service" id="HeyFrame\Core\Content\ContentSystem\Hydration\DataLoader\ProductListingDataLoader"/>
+            </argument>
+        </service>
+
+        <!-- Element Hydrators (2 hydrators only: Static + Service) -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Hydration\StaticElementHydrator">
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\TypeRegistry\ContentElementTypeRegistry"/>
+            <argument type="service" id="translator"/>
+            <tag name="content_system.element_hydrator"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\Hydration\ServiceElementHydrator">
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\TypeRegistry\ContentElementTypeRegistry"/>
+            <argument type="service" id="content_system.data_loader_locator"/>
+            <tag name="content_system.element_hydrator"/>
+        </service>
+
+        <!-- Data Context Resolution -->
+        <!-- Distribution Strategies -->
+        <service id="HeyFrame\Core\Content\ContentSystem\DataContext\Distribution\BroadcastDistributor">
+            <tag name="content_system.distribution_strategy"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\DataContext\Distribution\IndexedDistributor">
+            <tag name="content_system.distribution_strategy"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\DataContext\Distribution\IteratorDistributor">
+            <tag name="content_system.distribution_strategy"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\DataContext\Distribution\KeyedDistributor">
+            <tag name="content_system.distribution_strategy"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\DataContext\Distribution\SlicedDistributor">
+            <tag name="content_system.distribution_strategy"/>
+        </service>
+
+        <service id="HeyFrame\Core\Content\ContentSystem\DataContext\DataContextResolver">
+            <argument type="tagged_iterator" tag="content_system.distribution_strategy"/>
         </service>
 
         <!-- Hydration Services -->
         <service id="HeyFrame\Core\Content\ContentSystem\Hydration\HydrationService">
-            <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="tagged_iterator" tag="content_system.element_hydrator"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\TypeRegistry\ContentElementTypeRegistry"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\DataContext\DataContextResolver"/>
         </service>
+
+        <!-- Response Generation (Phase 4) -->
+        <service id="HeyFrame\Core\Content\ContentSystem\Response\ContentResponseGenerator"/>
 
         <!-- Store-API Route -->
         <service id="HeyFrame\Core\Content\ContentSystem\Channel\ContentRoute">
@@ -67,6 +162,7 @@
             <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Resolver\LayoutResolver"/>
             <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Compilation\ContentPageBuilder"/>
             <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Hydration\HydrationService"/>
+            <argument type="service" id="HeyFrame\Core\Content\ContentSystem\Response\ContentResponseGenerator"/>
             <tag name="heyframe.channel.route"/>
         </service>
 

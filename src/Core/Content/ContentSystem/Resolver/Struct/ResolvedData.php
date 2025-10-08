@@ -2,24 +2,38 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\Resolver\Struct;
 
-use HeyFrame\Core\Content\ContentSystem\ContentSystemException;
+use HeyFrame\Core\Content\ContentSystem\Resolver\EntityIdMap;
+use HeyFrame\Core\Content\ContentSystem\Resolver\ParameterMap;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+/**
+ * Rich value object representing resolved routing data.
+ *
+ * Encapsulates entity IDs (resolved from database) and scalar parameters
+ * (pass-through values). Provides behavior for placeholder resolution.
+ *
+ * @internal
+ */
 #[Package('discovery')]
 class ResolvedData extends Struct
 {
-    /**
-     * @param array<string, string> $entityIds Entity placeholder => Entity ID (UUID)
-     * @param array<string, int|string|bool|float> $parameters Parameter name => Scalar value
-     */
     public function __construct(
-        protected readonly array $entityIds,
-        protected readonly array $parameters,
+        protected readonly EntityIdMap $entityIds,
+        protected readonly ParameterMap $parameters,
         protected ?string $resolvedLayoutId = null
     ) {
-        $this->validateEntityIds($entityIds);
-        $this->validateParameters($parameters);
+    }
+
+    /**
+     * Create empty resolved data.
+     */
+    public static function empty(): self
+    {
+        return new self(
+            EntityIdMap::empty(),
+            ParameterMap::empty()
+        );
     }
 
     /**
@@ -27,7 +41,7 @@ class ResolvedData extends Struct
      */
     public function getEntityId(string $placeholder): ?string
     {
-        return $this->entityIds[$placeholder] ?? null;
+        return $this->entityIds->get($placeholder);
     }
 
     /**
@@ -35,7 +49,7 @@ class ResolvedData extends Struct
      */
     public function getParameter(string $name): int|string|bool|float|null
     {
-        return $this->parameters[$name] ?? null;
+        return $this->parameters->get($name);
     }
 
     /**
@@ -43,7 +57,7 @@ class ResolvedData extends Struct
      */
     public function hasEntityId(string $placeholder): bool
     {
-        return isset($this->entityIds[$placeholder]);
+        return $this->entityIds->has($placeholder);
     }
 
     /**
@@ -51,38 +65,34 @@ class ResolvedData extends Struct
      */
     public function hasParameter(string $name): bool
     {
-        return isset($this->parameters[$name]);
+        return $this->parameters->has($name);
     }
 
     /**
-     * Get all entity IDs.
-     *
-     * @return array<string, string>
+     * Get entity ID map.
      */
-    public function getEntityIds(): array
+    public function getEntityIds(): EntityIdMap
     {
         return $this->entityIds;
     }
 
     /**
-     * Get all parameters.
-     *
-     * @return array<string, int|string|bool|float>
+     * Get parameter map.
      */
-    public function getParameters(): array
+    public function getParameters(): ParameterMap
     {
         return $this->parameters;
     }
 
     /**
      * Get all values (entity IDs + parameters combined).
-     * For backward compatibility and template access.
+     * For template access and placeholder resolution.
      *
      * @return array<string, string|int|bool|float>
      */
     public function getValues(): array
     {
-        return \array_merge($this->entityIds, $this->parameters);
+        return \array_merge($this->entityIds->toArray(), $this->parameters->toArray());
     }
 
     /**
@@ -91,7 +101,7 @@ class ResolvedData extends Struct
      */
     public function getValue(string $name): string|int|bool|float|null
     {
-        return $this->entityIds[$name] ?? $this->parameters[$name] ?? null;
+        return $this->entityIds->get($name) ?? $this->parameters->get($name);
     }
 
     public function getResolvedLayoutId(): ?string
@@ -104,48 +114,76 @@ class ResolvedData extends Struct
         $this->resolvedLayoutId = $layoutId;
     }
 
+    /**
+     * Resolve placeholders in a string.
+     *
+     * Replaces {{placeholder}} patterns with actual values.
+     * Used by ContentElement->replacePlaceholders().
+     */
+    public function resolvePlaceholdersInString(string $input): string
+    {
+        $values = $this->getValues();
+
+        foreach ($values as $key => $value) {
+            if (\is_scalar($value)) {
+                $placeholder = '{{' . $key . '}}';
+                $input = \str_replace($placeholder, (string) $value, $input);
+            }
+        }
+
+        return $input;
+    }
+
+    /**
+     * Add entity ID (returns new instance).
+     */
+    public function withEntityId(string $placeholder, string $entityId): self
+    {
+        return new self(
+            $this->entityIds->add($placeholder, $entityId),
+            $this->parameters,
+            $this->resolvedLayoutId
+        );
+    }
+
+    /**
+     * Add parameter (returns new instance).
+     */
+    public function withParameter(string $name, int|string|bool|float $value): self
+    {
+        return new self(
+            $this->entityIds,
+            $this->parameters->add($name, $value),
+            $this->resolvedLayoutId
+        );
+    }
+
+    /**
+     * Merge entity IDs (returns new instance).
+     */
+    public function mergeEntityIds(EntityIdMap $entityIds): self
+    {
+        return new self(
+            $this->entityIds->merge($entityIds),
+            $this->parameters,
+            $this->resolvedLayoutId
+        );
+    }
+
+    /**
+     * Merge parameters (returns new instance).
+     */
+    public function mergeParameters(ParameterMap $parameters): self
+    {
+        return new self(
+            $this->entityIds,
+            $this->parameters->merge($parameters),
+            $this->resolvedLayoutId
+        );
+    }
+
     public function getApiAlias(): string
     {
         return 'content_resolved_data';
-    }
-
-    /**
-     * @param array<string, mixed> $entityIds
-     */
-    private function validateEntityIds(array $entityIds): void
-    {
-        foreach ($entityIds as $key => $value) {
-            if (!\is_string($key)) {
-                throw ContentSystemException::invalidResolvedData(
-                    \sprintf('Entity ID key must be string, got %s', \get_debug_type($key))
-                );
-            }
-
-            if (!\is_string($value)) {
-                throw ContentSystemException::invalidResolvedData(
-                    \sprintf('Entity ID value for "%s" must be string (UUID), got %s', $key, \get_debug_type($value))
-                );
-            }
-        }
-    }
-
-    /**
-     * @param array<string, mixed> $parameters
-     */
-    private function validateParameters(array $parameters): void
-    {
-        foreach ($parameters as $key => $value) {
-            if (!\is_string($key)) {
-                throw ContentSystemException::invalidResolvedData(
-                    \sprintf('Parameter key must be string, got %s', \get_debug_type($key))
-                );
-            }
-
-            if (!\is_scalar($value)) {
-                throw ContentSystemException::invalidResolvedData(
-                    \sprintf('Parameter value for "%s" must be scalar (int, string, bool, float), got %s', $key, \get_debug_type($value))
-                );
-            }
-        }
     }
 }
