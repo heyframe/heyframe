@@ -2,30 +2,32 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\Hydration\DataLoader;
 
-use HeyFrame\Core\Content\ContentSystem\ContentSystemException;
-use HeyFrame\Core\Content\ContentSystem\Element\Runtime\ContentElement;
+use HeyFrame\Core\Content\ContentSystem\Layout\Element\ContentElement;
+use HeyFrame\Core\Content\ContentSystem\Layout\Element\DataRequirement\DataRequirement;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use HeyFrame\Core\System\Channel\ChannelEntity;
+use HeyFrame\Core\System\Channel\Entity\ChannelDefinitionInstanceRegistry;
+use HeyFrame\Core\System\Channel\Exception\ChannelRepositoryNotFoundException;
 
 /**
- * Generic entity loader for content elements.
- *
- * Handles data requirements with type='entity' by loading single DAL entities.
- * Configuration is provided in the requirement specification, not inferred from properties.
- *
- * Supports loading any entity type by ID from element properties.
- * Uses sales channel repositories when available, falls back to regular repositories.
+ * @phpstan-type EntityLoaderConfig array{
+ *   entity: string,
+ *   property?: string,
+ *   associations?: list<string>
+ * }
  *
  * @internal
  */
 #[Package('discovery')]
-class EntityLoader implements ContentDataLoaderInterface
+readonly class EntityLoader implements ContentDataLoaderInterface
 {
     public function __construct(
-        private readonly DefinitionInstanceRegistry $definitionRegistry
+        private ChannelDefinitionInstanceRegistry $channelDefinitionRegistry,
+        private DefinitionInstanceRegistry $definitionRegistry
     ) {
     }
 
@@ -34,85 +36,64 @@ class EntityLoader implements ContentDataLoaderInterface
         return 'entity';
     }
 
+    /**
+     * @param DataRequirement $requirement Expects $requirement->config to be EntityLoaderConfig
+     */
     public function load(
         ContentElement $element,
-        array $requirement,
+        DataRequirement $requirement,
         ChannelContext $context
-    ): mixed {
-        // Validate requirement is array (should always be true due to interface, but defensive)
-        if (!\is_array($requirement)) {
-            throw ContentSystemException::invalidDataRequirement(get_debug_type($requirement));
-        }
+    ): ChannelEntity|Entity|null {
+        $entityType = $requirement->config['entity'] ?? null;
 
-        // Get entity type from requirement specification
-        $entityType = $requirement['entity'] ?? null;
-
-        if ($entityType === null || !\is_string($entityType)) {
+        if (!\is_string($entityType)) {
             return null;
         }
 
-        // Get property name containing the entity ID
-        $propertyName = $requirement['property'] ?? $entityType;
-
-        // Get entity ID from element property
+        $propertyName = $requirement->config['property'] ?? $entityType;
         $entityId = $element->getProperty($propertyName);
 
         if ($entityId === null) {
             return null;
         }
 
-        // If already an entity (from parent context), return as-is
-        if ($entityId instanceof Entity) {
-            return $entityId;
-        }
-
-        // Must be a string ID to load
         if (!\is_string($entityId)) {
             return null;
         }
 
-        // Get associations from requirement specification
-        $associations = $requirement['associations'] ?? [];
+        $associations = $requirement->config['associations'] ?? [];
         if (!\is_array($associations)) {
             $associations = [];
         }
 
-        // Load the entity
         return $this->loadEntity($entityType, $entityId, $associations, $context);
     }
 
     /**
-     * Load a single entity by ID.
+     * @param list<string> $associations
      */
     private function loadEntity(
-        string $entityType,
+        string $entityName,
         string $entityId,
         array $associations,
         ChannelContext $context
-    ): mixed {
+    ): ChannelEntity|Entity|null {
         $criteria = new Criteria([$entityId]);
 
-        // Add associations
         foreach ($associations as $association) {
             if (\is_string($association)) {
                 $criteria->addAssociation($association);
             }
         }
 
-        // Get repository
-        $repository = $this->getRepository($entityType, $context);
-
-        // Execute search
-        $result = $repository->search($criteria, $context->getContext());
+        try {
+            $channelRepository = $this->channelDefinitionRegistry->getChannelRepository($entityName);
+            $result = $channelRepository->search($criteria, $context);
+        } catch (ChannelRepositoryNotFoundException) {
+            $repository = $this->definitionRegistry->getRepository($entityName);
+            $result = $repository->search($criteria, $context->getContext());
+        }
 
         return $result->first();
-    }
-
-    /**
-     * Get repository for entity type.
-     */
-    private function getRepository(string $entityType, ChannelContext $context): mixed
-    {
-        return $this->definitionRegistry->getRepository($entityType);
     }
 }

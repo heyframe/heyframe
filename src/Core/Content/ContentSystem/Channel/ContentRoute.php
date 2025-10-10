@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\Channel;
 
-use HeyFrame\Core\Content\ContentSystem\Compilation\ContentPageBuilder;
+use HeyFrame\Core\Content\ContentSystem\Channel\Struct\ContentPage;
 use HeyFrame\Core\Content\ContentSystem\ContentSystemException;
-use HeyFrame\Core\Content\ContentSystem\Hydration\HydrationService;
-use HeyFrame\Core\Content\ContentSystem\Resolver\EntityIdResolver;
-use HeyFrame\Core\Content\ContentSystem\Resolver\LayoutResolver;
-use HeyFrame\Core\Content\ContentSystem\Response\ContentResponseGenerator;
-use HeyFrame\Core\Content\ContentSystem\Routing\ContentRouter;
+use HeyFrame\Core\Content\ContentSystem\Hydration\ContentElementHydrator;
+use HeyFrame\Core\Content\ContentSystem\Layout\Refinery\RefinedLayoutBuilder;
+use HeyFrame\Core\Content\ContentSystem\Routing\IdResolution\EntityIdResolver;
+use HeyFrame\Core\Content\ContentSystem\Routing\LayoutResolution\LayoutResolver;
+use HeyFrame\Core\Content\ContentSystem\Routing\Router\ContentRouter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
@@ -17,6 +17,9 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * @final
+ */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('discovery')]
 class ContentRoute extends AbstractContentRoute
@@ -28,9 +31,8 @@ class ContentRoute extends AbstractContentRoute
         private readonly ContentRouter $contentRouter,
         private readonly EntityIdResolver $entityIdResolver,
         private readonly LayoutResolver $layoutResolver,
-        private readonly ContentPageBuilder $contentPageBuilder,
-        private readonly HydrationService $hydrationService,
-        private readonly ContentResponseGenerator $responseGenerator
+        private readonly RefinedLayoutBuilder $refinedLayoutBuilder,
+        private readonly ContentElementHydrator $hydrationService
     ) {
     }
 
@@ -40,10 +42,19 @@ class ContentRoute extends AbstractContentRoute
     }
 
     #[Route(
-        path: '/front-api/content/{path}',
-        name: 'front-api.content.detail',
+        path: '/store-api/content/{path}',
+        name: 'store-api.content.detail',
         requirements: ['path' => '.+'],
-        defaults: ['_httpCache' => true],
+        defaults: [
+            '_httpCache' => true,
+            'excludes' => [
+                'content_element' => [
+                    'dataRequirements',
+                    'properties',
+                    'contextDefinitions',
+                ],
+            ],
+        ],
         methods: ['GET', 'POST']
     )]
     public function load(string $path, Request $request, ChannelContext $context): ContentRouteResponse
@@ -53,7 +64,6 @@ class ContentRoute extends AbstractContentRoute
         $match = $this->contentRouter->match($pathInfo, $context);
 
         if ($match === null) {
-            // SOFT ERROR: No route matches this URL
             throw ContentSystemException::contentNotFound($pathInfo);
         }
 
@@ -62,12 +72,10 @@ class ContentRoute extends AbstractContentRoute
         try {
             $resolvedData = $this->entityIdResolver->resolve($match, $context);
         } catch (\Throwable $e) {
-            // HARD ERROR: Resolution process failed unexpectedly
             throw ContentSystemException::resolutionFailed($route->getName(), $e->getMessage(), $e);
         }
 
         if ($resolvedData === null) {
-            // SOFT ERROR: Entity doesn't exist or constraints not satisfied
             $parameterBinding = $route->getParameterBinding();
             $parameters = $match->getParameters();
 
@@ -90,12 +98,10 @@ class ContentRoute extends AbstractContentRoute
             try {
                 $layoutId = $this->layoutResolver->resolve($match, $resolvedData, $context);
             } catch (\Throwable $e) {
-                // HARD ERROR: Layout resolution failed unexpectedly
                 throw ContentSystemException::resolutionFailed($route->getName(), $e->getMessage(), $e);
             }
 
             if ($layoutId === null) {
-                // SOFT ERROR: No layout assigned to this entity
                 $entityIds = $resolvedData->getEntityIds();
                 $entityIdsArray = $entityIds->toArray();
                 $firstEntityKey = array_key_first($entityIdsArray);
@@ -113,28 +119,24 @@ class ContentRoute extends AbstractContentRoute
         }
 
         try {
-            $contentPage = $this->contentPageBuilder->build($layoutId, $resolvedData, $context);
+            $refinedLayout = $this->refinedLayoutBuilder->build($layoutId, $resolvedData, $context);
         } catch (\Throwable $e) {
-            // HARD ERROR: Page building failed
-            throw ContentSystemException::pageBuildingFailed($layoutId, $e->getMessage(), $e);
+            throw ContentSystemException::layoutRefineryFailed($layoutId, $e->getMessage(), $e);
         }
-
-        if ($contentPage === null) {
-            // HARD ERROR: Layout doesn't exist (configuration error)
-            throw ContentSystemException::layoutNotFound($layoutId);
-        }
-
-        $contentPage->setRoute($route);
 
         try {
-            $this->hydrationService->hydrate($contentPage, $context);
+            $this->hydrationService->hydrate($refinedLayout, $context);
         } catch (\Throwable $e) {
-            // HARD ERROR: Hydration failed
             throw ContentSystemException::hydrationFailed($e->getMessage(), $e);
         }
 
-        $response = $this->responseGenerator->generate($contentPage, $context);
-        $contentPage->assign(['response' => $response]);
+        $contentPage = new ContentPage(
+            layoutId: $layoutId,
+            layout: $refinedLayout->rootElement,
+            layoutName: $refinedLayout->layoutEntity->getName(),
+            layoutVersion: $refinedLayout->layoutEntity->getVersionId(),
+            route: $route
+        );
 
         return new ContentRouteResponse($contentPage);
     }

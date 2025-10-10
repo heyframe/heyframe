@@ -27,10 +27,6 @@ class ContentController extends FrontendController
     ) {
     }
 
-    /**
-     * Catch-all route for content system.
-     * This route has very low priority to allow specific routes to match first.
-     */
     #[Route(
         path: '/{path}',
         name: 'frontend.content.page',
@@ -42,14 +38,8 @@ class ContentController extends FrontendController
     public function index(Request $request, ChannelContext $context): Response
     {
         $pathInfo = $request->getPathInfo();
-
-        // Call Front-API route to get content page
         $response = $this->contentRoute->load($pathInfo, $request, $context);
-
-        $contentPage = $response->getContentPage();
-
-        // Phase 3 & 4: TODO - Page building and hydration will be implemented later
-        // For now, return a simple response showing what we've resolved
+        $contentPage = $response->getDecomposedContentPage();
 
         return $this->renderFrontend('@Frontend/frontend/page/content/index.html.twig', [
             'contentPage' => $contentPage,

@@ -7,9 +7,7 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * This route can be used to load content pages based on URL patterns.
- * It matches incoming URLs against content routes stored in the database,
- * resolves entity IDs, and determines the appropriate content layout.
+ * Abstract base for content route resolution.
  */
 #[Package('discovery')]
 abstract class AbstractContentRoute

@@ -2,10 +2,13 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\Routing\Struct;
 
-use HeyFrame\Core\Content\ContentSystem\ContentRoute\ContentRouteEntity;
+use HeyFrame\Core\Content\ContentSystem\Routing\Entity\ContentRouteEntity;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\Struct;
 
+/**
+ * @final
+ */
 #[Package('discovery')]
 class RouteMatchResult extends Struct
 {

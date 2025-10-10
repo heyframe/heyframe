@@ -6,6 +6,11 @@ use Doctrine\DBAL\Schema\PrimaryKeyConstraint;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Types;
+use HeyFrame\Core\Content\ContentSystem\Layout\Field\ContentElementField;
+use HeyFrame\Core\Content\ContentSystem\Layout\Field\ContextConsumersField;
+use HeyFrame\Core\Content\ContentSystem\Layout\Field\ContextProvidersField;
+use HeyFrame\Core\Content\ContentSystem\Layout\Field\DataRequirementsField;
+use HeyFrame\Core\Content\ContentSystem\Layout\Field\ElementSlotsField;
 use HeyFrame\Core\Content\Flow\DataAbstractionLayer\Field\FlowTemplateConfigField;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPriceField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
@@ -118,6 +123,11 @@ class SchemaBuilder
         ManyToManyIdField::class => Types::JSON,
         FlowTemplateConfigField::class => Types::JSON,
         CheapestPriceField::class => Types::JSON,
+        ContentElementField::class => Types::JSON,
+        DataRequirementsField::class => Types::JSON,
+        ElementSlotsField::class => Types::JSON,
+        ContextProvidersField::class => Types::JSON,
+        ContextConsumersField::class => Types::JSON,
 
         ChildCountField::class => Types::INTEGER,
         IntField::class => Types::INTEGER,
