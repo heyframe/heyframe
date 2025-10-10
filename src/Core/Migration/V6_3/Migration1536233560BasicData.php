@@ -5,8 +5,7 @@ namespace HeyFrame\Core\Migration\V6_3;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Checkout\Order\OrderStates;
-use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\AliPaymentHandler;
-use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\WeChatPaymentHandler;
+use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\CashPayment;
 use HeyFrame\Core\Content\Navigation\NavigationDefinition;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
@@ -229,14 +228,9 @@ class Migration1536233560BasicData extends MigrationStep
         $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
 
         $wechat = Uuid::randomBytes();
-        $connection->insert('payment_method', ['id' => $wechat, 'handler_identifier' => WeChatPaymentHandler::class, 'technical_name' => 'wechat', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $wechat, 'language_id' => $languageEN, 'name' => 'WeChat Pay', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $wechat, 'language_id' => $languageZH, 'name' => '微信', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-
-        $alipay = Uuid::randomBytes();
-        $connection->insert('payment_method', ['id' => $alipay, 'handler_identifier' => AliPaymentHandler::class, 'technical_name' => 'alipay', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $alipay, 'language_id' => $languageEN, 'name' => 'Alipay', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $alipay, 'language_id' => $languageZH, 'name' => '支付宝', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method', ['id' => $wechat, 'handler_identifier' => CashPayment::class, 'technical_name' => 'wechat', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method_translation', ['payment_method_id' => $wechat, 'language_id' => $languageEN, 'name' => 'Cash Payment', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method_translation', ['payment_method_id' => $wechat, 'language_id' => $languageZH, 'name' => '现金支付', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createSystemConfigOptions(Connection $connection): void

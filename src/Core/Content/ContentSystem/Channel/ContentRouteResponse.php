@@ -4,13 +4,13 @@ namespace HeyFrame\Core\Content\ContentSystem\Channel;
 
 use HeyFrame\Core\Content\ContentSystem\Channel\Struct\ContentPageStruct;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<ContentPageStruct>
+ * @extends FrontApiResponse<ContentPageStruct>
  */
 #[Package('discovery')]
-class ContentRouteResponse extends StoreApiResponse
+class ContentRouteResponse extends FrontApiResponse
 {
     public function getContentPage(): ContentPageStruct
     {

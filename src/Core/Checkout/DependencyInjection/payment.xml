@@ -13,13 +13,7 @@
             <tag name="heyframe.channel.entity.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\WeChatPaymentHandler">
-            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
-
-            <tag name="heyframe.payment.method"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\AliPaymentHandler">
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\CashPayment">
             <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
 
             <tag name="heyframe.payment.method"/>

@@ -11,13 +11,13 @@ use HeyFrame\Core\Content\ContentSystem\Response\ContentResponseGenerator;
 use HeyFrame\Core\Content\ContentSystem\Routing\ContentRouter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('discovery')]
 class ContentRoute extends AbstractContentRoute
 {
@@ -40,8 +40,8 @@ class ContentRoute extends AbstractContentRoute
     }
 
     #[Route(
-        path: '/store-api/content/{path}',
-        name: 'store-api.content.detail',
+        path: '/front-api/content/{path}',
+        name: 'front-api.content.detail',
         requirements: ['path' => '.+'],
         defaults: ['_httpCache' => true],
         methods: ['GET', 'POST']

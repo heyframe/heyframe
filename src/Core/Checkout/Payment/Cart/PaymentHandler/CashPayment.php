@@ -5,6 +5,6 @@ namespace HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler;
 use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('checkout')]
-class AliPaymentHandler extends DefaultPayment
+class CashPayment extends DefaultPayment
 {
 }

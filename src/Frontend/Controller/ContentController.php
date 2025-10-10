@@ -43,7 +43,7 @@ class ContentController extends FrontendController
     {
         $pathInfo = $request->getPathInfo();
 
-        // Call Store-API route to get content page
+        // Call Front-API route to get content page
         $response = $this->contentRoute->load($pathInfo, $request, $context);
 
         $contentPage = $response->getContentPage();

@@ -10,7 +10,7 @@ use HeyFrame\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
 use HeyFrame\Core\Checkout\Order\Event\OrderStateMachineStateChangeEvent;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
-use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\WeChatPaymentHandler;
+use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\CashPayment;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
@@ -169,7 +169,7 @@ class OrderStateChangeEventListenerTest extends TestCase
         $criteria = (new Criteria())
             ->setLimit(1)
             ->addFilter(new EqualsFilter('active', true))
-            ->addFilter(new EqualsFilter('handlerIdentifier', WeChatPaymentHandler::class));
+            ->addFilter(new EqualsFilter('handlerIdentifier', CashPayment::class));
 
         $id = $repository->searchIds($criteria, Context::createDefaultContext())->getIds()[0];
         static::assertIsString($id);
