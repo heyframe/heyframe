@@ -24,12 +24,6 @@ export default {
 
     provide() {
         return {
-            /** @deprecated tag:v6.8.0 - swOrderDetailOnCreatedByIdChange will be removed */
-            swOrderDetailOnCreatedByIdChange: this.updateCreatedById,
-            /** @deprecated tag:v6.8.0 - swOrderDetailOnLoadingChange will be removed */
-            swOrderDetailOnLoadingChange: this.onUpdateLoading,
-            /** @deprecated tag:v6.8.0 - swOrderDetailOnEditingChange will be removed */
-            swOrderDetailOnEditingChange: this.onUpdateEditing,
             swOrderDetailOnSaveAndRecalculate: this.onSaveAndRecalculate,
             swOrderDetailOnRecalculateAndReload: this.onRecalculateAndReload,
             swOrderDetailOnReloadEntityData: this.reloadEntityData,
@@ -244,13 +238,7 @@ export default {
                 // clean up recently created version
                 await this.orderRepository.deleteVersion(this.orderId, oldVersionContext.versionId, oldVersionContext);
             }
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - createdById will be removed (there is a template usage that needs to be removed as well)
-         */
-        updateCreatedById(createdById) {
-            this.createdById = createdById;
+            window.removeEventListener('beforeunload', this.beforeDestroyComponent);
         },
 
         /**
@@ -449,20 +437,6 @@ export default {
                     false,
                 ]);
             }
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - isLoading will be removed, use loading.order instead
-         */
-        onUpdateLoading(loadingValue) {
-            this.isLoading = loadingValue;
-        },
-
-        /**
-         * @deprecated tag:v6.8.0 - isEditing will be removed, use editing instead
-         */
-        onUpdateEditing(editingValue) {
-            this.isEditing = editingValue;
         },
 
         onError(error) {

@@ -3,7 +3,7 @@
  */
 import template from './sw-settings-cache-modal.twig';
 
-const { Mixin } = HeyFrame;
+const {Mixin} = HeyFrame;
 
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 export default {
@@ -44,13 +44,23 @@ export default {
         this.createdComponent();
     },
 
+    beforeUnmount() {
+        this.beforeUnmountComponent();
+    },
+
     methods: {
         createdComponent() {
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Alt' || (event.key === 'c' && event.altKey)) {
-                    event.preventDefault();
-                }
-            });
+            document.addEventListener('keydown', this.keydownEventListener);
+        },
+
+        beforeUnmountComponent() {
+            document.removeEventListener('keydown', this.keydownEventListener);
+        },
+
+        keydownEventListener(event) {
+            if (event.key === 'Alt' || (event.key === 'c' && event.altKey)) {
+                event.preventDefault();
+            }
         },
 
         openModal() {

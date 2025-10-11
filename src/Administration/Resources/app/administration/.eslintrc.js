@@ -8,7 +8,7 @@ const baseRules = {
     // Disabled because it hides some warnings
     'file-progress/activate': 0,
     // Match the max line length with the phpstorm default settings
-    'max-len': ['error', 125, { ignoreRegExpLiterals: true }],
+    'max-len': ['error', 125, {ignoreRegExpLiterals: true}],
     // Warn about useless path segment in import statements
     'import/no-useless-path-segments': 0,
     // don't require .vue and .js extensions
@@ -17,8 +17,8 @@ const baseRules = {
         ts: 'never',
         vue: 'never',
     }],
-    'no-console': ['error', { allow: ['warn', 'error'] }],
-    'no-warning-comments': ['error', { location: 'anywhere' }],
+    'no-console': ['error', {allow: ['warn', 'error']}],
+    'no-warning-comments': ['error', {location: 'anywhere'}],
     'inclusive-language/use-inclusive-words': 'error',
     'comma-dangle': ['error', 'always-multiline'],
     'sw-core-rules/require-position-identifier': ['error', {
@@ -37,6 +37,9 @@ const baseRules = {
         ignores: ['index.html'],
     }],
     'func-names': 'off',
+    'listeners/no-missing-remove-event-listener': "error",
+    'listeners/matching-remove-event-listener': "error",
+    'listeners/no-inline-function-event-listener': "error",
 };
 
 module.exports = {
@@ -70,6 +73,7 @@ module.exports = {
         'sw-deprecation-rules',
         'sw-test-rules',
         'filename-rules',
+        'listeners',
     ],
 
     settings: {
@@ -174,7 +178,7 @@ module.exports = {
                 'test/eslint/**/*.html.twig',
             ],
             rules: {
-                'no-warning-comments': ['error', { location: 'anywhere' }],
+                'no-warning-comments': ['error', {location: 'anywhere'}],
                 'vue/component-name-in-template-casing': ['error', 'kebab-case', {
                     registeredComponentsOnly: true,
                     ignores: [],
@@ -182,7 +186,7 @@ module.exports = {
                 'vue/html-indent': ['error', 4, {
                     baseIndent: 0,
                 }],
-                'no-multiple-empty-lines': ['error', { max: 1 }],
+                'no-multiple-empty-lines': ['error', {max: 1}],
                 'vue/attribute-hyphenation': 'error',
                 'vue/multiline-html-element-content-newline': 'off', // allow more spacy templates
                 'vue/html-self-closing': ['error', {
@@ -265,7 +269,7 @@ module.exports = {
                 'jest/require-top-level-describe': 'error',
                 'jest/prefer-to-contain': 'error',
                 'jest/prefer-to-have-length': 'error',
-                'jest/consistent-test-it': ['error', { fn: 'it', withinDescribe: 'it' }],
+                'jest/consistent-test-it': ['error', {fn: 'it', withinDescribe: 'it'}],
                 'jest/valid-expect': [
                     'error',
                     {
@@ -327,7 +331,7 @@ module.exports = {
                 'no-unused-vars': 'off',
                 '@typescript-eslint/no-unused-vars': [
                     'error',
-                    { caughtErrors: 'none' },
+                    {caughtErrors: 'none'},
                 ],
                 '@typescript-eslint/prefer-promise-reject-errors': 'warn',
                 'sw-deprecation-rules/no-compat-conditions': ['error'],
