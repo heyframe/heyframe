@@ -1561,12 +1561,6 @@ parameters:
 			path: src/Core/Framework/Util/Random.php
 
 		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 3
-			path: src/Core/Framework/Uuid/Uuid.php
-
-		-
 			message: '#^Method HeyFrame\\Core\\Framework\\Validation\\DataValidator\:\:getViolations\(\) has parameter \$data with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1889,12 +1883,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Core/System/SystemConfig/SystemConfigLoader.php
-
-		-
-			message: '#^Throwing new exceptions within classes are not allowed\.$#'
-			identifier: heyframe.domainException
-			count: 6
-			path: src/Core/System/SystemConfig/SystemConfigService.php
 
 		-
 			message: '#^Method HeyFrame\\Core\\System\\User\\Aggregate\\UserAccessKey\\UserAccessKeyCollection\:\:getUserIds\(\) return type has no value type specified in iterable type array\.$#'

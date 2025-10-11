@@ -7,9 +7,6 @@
     "psr-4": {
       "HeyFrame\\Frontend\\": ""
     },
-    "exclude-from-classmap": [
-      "*/Test/"
-    ]
   },
   "config": {
     "sort-packages": true

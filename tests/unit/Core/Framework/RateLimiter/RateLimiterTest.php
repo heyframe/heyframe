@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Tests\Unit\Core\Framework\RateLimiter;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\RateLimiter\RateLimiter;
 use HeyFrame\Core\Framework\RateLimiter\RateLimiterException;
 use HeyFrame\Core\Framework\RateLimiter\RateLimiterFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\RateLimiter\Policy\FixedWindowLimiter;
 use Symfony\Component\RateLimiter\Storage\InMemoryStorage;
 

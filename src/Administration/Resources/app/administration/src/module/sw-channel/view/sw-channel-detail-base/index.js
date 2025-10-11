@@ -12,6 +12,7 @@ const HeyFrameError = HeyFrame.Classes.HeyFrameError;
 const utils = HeyFrame.Utils;
 
 const { mapPropertyErrors } = Component.getComponentHelper();
+const FOREIGN_KEY_CONSTRAINT_VIOLATION_CODE = '1451';
 
 // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 export default {
@@ -570,17 +571,57 @@ export default {
         onConfirmDelete() {
             this.showDeleteModal = false;
 
-            this.$nextTick(() => {
-                this.deleteChannel(this.channel.id);
+            this.$nextTick(async () => {
+                const success = await this.deleteChannel(this.channel.id);
+
+                if (!success) {
+                    return;
+                }
+
                 this.$router.push({ name: 'sw.dashboard.index' });
             });
         },
 
         deleteChannel(channelId) {
-            this.channelRepository.delete(channelId, Context.api).then(() => {
-                HeyFrame.Utils.EventBus.emit('sw-channel-detail-base-channel-change');
-                this.channelFavoritesService.refresh();
-            });
+            return this.channelRepository
+                .delete(channelId, Context.api)
+                .then(() => {
+                    Shopware.Utils.EventBus.emit('sw-sales-channel-detail-base-sales-channel-change');
+                    this.channelFavoritesService.refresh();
+
+                    return true;
+                })
+                .catch((error) => {
+                    const current = error?.response?.data?.errors?.[0];
+                    const assignment = this.extractFkInfo(current?.detail);
+
+                    if (current?.code === FOREIGN_KEY_CONSTRAINT_VIOLATION_CODE && assignment) {
+                        Shopware.Store.get('error').resetApiErrors();
+                        const translated = this.$t(`global.entities.${assignment}`, 0).toLowerCase();
+
+                        this.createNotificationError({
+                            message: this.$t('sw-sales-channel.detail.foreignKeyDelete', {
+                                assignment: translated,
+                            }),
+                        });
+
+                        return false;
+                    }
+
+                    throw error;
+                });
+        },
+
+        extractFkInfo(detail = '') {
+            if (!detail.includes('Integrity constraint violation: 1451')) return null;
+
+            // matches e.g. "CONSTRAINT `fk.customer."
+            const match = detail.match(/CONSTRAINT `fk\.([^.]+)\./);
+
+            if (!match) return null;
+
+            // returns e.g. "customer"
+            return match[1];
         },
 
         async copyToClipboard() {

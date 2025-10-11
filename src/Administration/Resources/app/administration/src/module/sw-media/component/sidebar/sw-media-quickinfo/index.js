@@ -93,6 +93,12 @@ export default {
             // we need to check the media url since media.fileExtension is set directly after upload
             return this.item?.fileExtension === 'glb' || !!this.item?.url?.endsWith('.glb');
         },
+
+        extensionSdkButtons() {
+            return HeyFrame.Store.get('actionButtons').buttons.filter((button) => {
+                return button.entity === 'media' && button.view === 'item';
+            });
+        },
     },
 
     watch: {

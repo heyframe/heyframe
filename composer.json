@@ -419,7 +419,6 @@
       "HeyFrame\\": "src/"
     },
     "exclude-from-classmap": [
-      "src/**/Test/",
       "tests/"
     ]
   },

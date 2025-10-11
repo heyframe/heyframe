@@ -100,6 +100,7 @@
       "labelInputSnippet": "文本片段",
       "buttonDeleteDomain": "删除域名",
       "messageDeleteDomainError": "域名 \"{url}\" 无法删除，因为它与现有产品导出绑定。",
+      "foreignKeyDelete": "无法删除此渠道，因为它仍被 {assignment} 使用。",
       "buttonAddDomain": "新增域名",
       "deleteDomainModalTitle": "删除域名",
       "textConfirmDeleteDomain": "确定要删除这个域名吗？删除后，渠道将无法通过 \"{url}\" 访问。",

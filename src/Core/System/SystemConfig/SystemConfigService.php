@@ -11,7 +11,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\MultiInsertQueryQueue;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ConfigJsonField;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
-use HeyFrame\Core\Framework\Util\XmlReader;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\SystemConfig\Event\BeforeSystemConfigChangedEvent;
@@ -20,9 +19,6 @@ use HeyFrame\Core\System\SystemConfig\Event\SystemConfigChangedEvent;
 use HeyFrame\Core\System\SystemConfig\Event\SystemConfigDomainLoadedEvent;
 use HeyFrame\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent;
 use HeyFrame\Core\System\SystemConfig\Exception\BundleConfigNotFoundException;
-use HeyFrame\Core\System\SystemConfig\Exception\InvalidDomainException;
-use HeyFrame\Core\System\SystemConfig\Exception\InvalidKeyException;
-use HeyFrame\Core\System\SystemConfig\Exception\InvalidSettingValueException;
 use HeyFrame\Core\System\SystemConfig\Util\ConfigReader;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Service\ResetInterface;
@@ -30,16 +26,6 @@ use Symfony\Contracts\Service\ResetInterface;
 #[Package('framework')]
 class SystemConfigService implements ResetInterface
 {
-    /**
-     * @var array<string, true>
-     */
-    private array $keys = ['all' => true];
-
-    /**
-     * @var array<string, array<string, true>>
-     */
-    private array $traces = [];
-
     /**
      * @var array<string, string>|null
      */
@@ -100,7 +86,7 @@ class SystemConfigService implements ResetInterface
             return (string) $value;
         }
 
-        throw new InvalidSettingValueException($key, 'string', \gettype($value));
+        throw SystemConfigException::invalidSettingValueException($key, 'string', \gettype($value));
     }
 
     public function getInt(string $key, ?string $channelId = null): int
@@ -110,7 +96,7 @@ class SystemConfigService implements ResetInterface
             return (int) $value;
         }
 
-        throw new InvalidSettingValueException($key, 'int', \gettype($value));
+        throw SystemConfigException::invalidSettingValueException($key, 'int', \gettype($value));
     }
 
     public function getFloat(string $key, ?string $channelId = null): float
@@ -120,7 +106,7 @@ class SystemConfigService implements ResetInterface
             return (float) $value;
         }
 
-        throw new InvalidSettingValueException($key, 'float', \gettype($value));
+        throw SystemConfigException::invalidSettingValueException($key, 'float', \gettype($value));
     }
 
     public function getBool(string $key, ?string $channelId = null): bool
@@ -143,7 +129,7 @@ class SystemConfigService implements ResetInterface
     /**
      * @internal should not be used in frontend or store api. The cache layer caches all accessed config keys and use them as cache tag.
      *
-     * @throws InvalidDomainException
+     * @throws SystemConfigException
      *
      * @return array<mixed>
      */
@@ -151,7 +137,7 @@ class SystemConfigService implements ResetInterface
     {
         $domain = trim($domain);
         if ($domain === '') {
-            throw new InvalidDomainException('Empty domain');
+            throw SystemConfigException::invalidDomain('Empty domain');
         }
 
         $queryBuilder = $this->connection->createQueryBuilder()
@@ -379,9 +365,8 @@ class SystemConfigService implements ResetInterface
                     continue;
                 }
 
-                $value = XmlReader::phpize($element['defaultValue']);
                 if ($override || !isset($relevantSettings[$key])) {
-                    $this->set($key, $value);
+                    $this->set($key, $element['defaultValue']);
                 }
             }
         }
@@ -434,55 +419,24 @@ class SystemConfigService implements ResetInterface
         }
     }
 
-    /**
-     * @template TReturn of mixed
-     *
-     * @param \Closure(): TReturn $param
-     *
-     * @return TReturn All kind of data could be cached
-     */
-    public function trace(string $key, \Closure $param)
-    {
-        $this->traces[$key] = [];
-        $this->keys[$key] = true;
-
-        $result = $param();
-
-        unset($this->keys[$key]);
-
-        return $result;
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function getTrace(string $key): array
-    {
-        $trace = isset($this->traces[$key]) ? array_keys($this->traces[$key]) : [];
-        unset($this->traces[$key]);
-
-        return $trace;
-    }
-
     public function reset(): void
     {
-        $this->traces = [];
-        $this->keys = ['all' => true];
         $this->appMapping = null;
     }
 
     /**
-     * @throws InvalidKeyException
+     * @throws SystemConfigException
      * @throws InvalidUuidException
      */
     private function validate(string $key, ?string $channelId): void
     {
         $key = trim($key);
         if ($key === '') {
-            throw new InvalidKeyException('key may not be empty');
+            throw SystemConfigException::invalidKey('key may not be empty');
         }
-        if ($channelId && !Uuid::isValid($channelId)) {
-            throw new InvalidUuidException($channelId);
+        if ($channelId) {
+            // will throw if ID is invalid UUID
+            Uuid::fromHexToBytes($channelId);
         }
     }
 

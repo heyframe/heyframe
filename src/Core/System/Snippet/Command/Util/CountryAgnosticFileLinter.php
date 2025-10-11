@@ -24,9 +24,9 @@ use Symfony\Component\Finder\Finder;
 #[Package('discovery')]
 class CountryAgnosticFileLinter
 {
-    public const PLATFORM_DOMAINS = [
+    public const PLATFORM_DOMAIN_LABELS = [
         'administration' => 'Administration',
-        'messages' => 'Core',
+        'messages' => 'Base',
         'Frontend' => 'Frontend',
     ];
 

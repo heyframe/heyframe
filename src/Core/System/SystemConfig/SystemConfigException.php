@@ -17,6 +17,8 @@ class SystemConfigException extends HttpException
     public const INVALID_DOMAIN = 'SYSTEM__INVALID_DOMAIN';
     public const CONFIG_NOT_FOUND = 'SYSTEM__SCOPE_NOT_FOUND';
     public const BUNDLE_CONFIG_NOT_FOUND = 'SYSTEM__BUNDLE_CONFIG_NOT_FOUND';
+    public const INVALID_SETTING_VALUE = 'SYSTEM__INVALID_SETTING_VALUE';
+    public const INVALID_KEY = 'SYSTEM__INVALID_KEY';
 
     public static function systemConfigKeyIsManagedBySystems(string $configKey): self
     {
@@ -30,12 +32,13 @@ class SystemConfigException extends HttpException
         );
     }
 
-    public static function invalidDomain(): self
+    public static function invalidDomain(string $domain): self
     {
         return new self(
             Response::HTTP_BAD_REQUEST,
             self::INVALID_DOMAIN,
-            'Invalid domain',
+            'Invalid domain \'{{ domain }}\'',
+            ['domain' => $domain]
         );
     }
 
@@ -53,5 +56,27 @@ class SystemConfigException extends HttpException
     {
         // Exception is intended to be catched, therefore we keep separate exception class
         return new BundleConfigNotFoundException($configPath, $bundleName);
+    }
+
+    public static function invalidSettingValueException(string $key, string $expectedType, string $actualType): self
+    {
+        return new self(
+            Response::HTTP_BAD_REQUEST,
+            self::INVALID_SETTING_VALUE,
+            'Invalid setting value for key "{{ key }}". Expected type "{{ expectedType }}", got "{{ actualType }}".',
+            ['key' => $key, 'expectedType' => $expectedType, 'actualType' => $actualType]
+        );
+    }
+
+    public static function invalidKey(string $key): self
+    {
+        $exception = new self(
+            Response::HTTP_BAD_REQUEST,
+            self::INVALID_KEY,
+            'Invalid key \'{{ key }}\'',
+            ['key' => $key]
+        );
+
+        return $exception;
     }
 }

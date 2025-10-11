@@ -304,7 +304,7 @@ class InfoControllerTest extends TestCase
         ];
 
         foreach ($expected as $event) {
-            $actualEvents = array_values(array_filter($response, static fn($x) => $x['name'] === $event['name']));
+            $actualEvents = array_values(array_filter($response, static fn ($x) => $x['name'] === $event['name']));
             sort($event['aware']);
             sort($actualEvents[0]['aware']);
             static::assertNotEmpty($actualEvents, 'Event with name "' . $event['name'] . '" not found');
@@ -365,7 +365,7 @@ class InfoControllerTest extends TestCase
 
         static::assertStringEndsWith(
             '/bundles/somefunctionality/administration/js/some-functionality-bundle.js',
-            (string)$config['bundles']['SomeFunctionalityBundle']['js'][0]
+            (string) $config['bundles']['SomeFunctionalityBundle']['js'][0]
         );
     }
 
@@ -477,7 +477,7 @@ class InfoControllerTest extends TestCase
         ];
 
         foreach ($expected as $action) {
-            $actualActions = array_values(array_filter($response, static fn($x) => $x['name'] === $action['name']));
+            $actualActions = array_values(array_filter($response, static fn ($x) => $x['name'] === $action['name']));
             static::assertNotEmpty($actualActions, 'Event with name "' . $action['name'] . '" not found');
             static::assertCount(1, $actualActions);
             static::assertSame($action, $actualActions[0]);
@@ -511,7 +511,7 @@ class InfoControllerTest extends TestCase
         ];
 
         foreach ($expected as $action) {
-            $actualActions = array_values(array_filter($response, static fn($x) => $x['name'] === $action['name']));
+            $actualActions = array_values(array_filter($response, static fn ($x) => $x['name'] === $action['name']));
             static::assertNotEmpty($actualActions, 'Event with name "' . $action['name'] . '" not found');
             static::assertCount(1, $actualActions);
             static::assertSame($action, $actualActions[0]);
