@@ -213,6 +213,7 @@ export default defineConfig(({ command }) => {
                     entryFileNames: 'assets/[name]-[hash].js',
                 },
             },
+            chunkSizeWarningLimit: 5000,
         },
     };
 });
