@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\Layout\Entity;
 
+use HeyFrame\Core\Content\ContentSystem\Routing\Entity\ContentRouteEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
@@ -15,17 +16,25 @@ class ContentLayoutAssignmentEntity extends Entity
 {
     use EntityIdTrait;
 
+    protected string $routeId;
+
     protected ?string $entityType = null;
 
     protected ?string $entityId = null;
 
-    protected string $channelId;
+    protected ?string $associationPath = null;
+
+    protected ?string $salesChannelId = null;
 
     protected string $layoutId;
 
+    protected int $priority = 0;
+
+    protected ?ContentRouteEntity $route = null;
+
     protected ?ContentLayoutEntity $layout = null;
 
-    protected ?ChannelEntity $channel = null;
+    protected ?ChannelEntity $salesChannel = null;
 
     public function getEntityType(): ?string
     {
@@ -47,14 +56,54 @@ class ContentLayoutAssignmentEntity extends Entity
         $this->entityId = $entityId;
     }
 
-    public function getChannelId(): string
+    public function getAssociationPath(): ?string
     {
-        return $this->channelId;
+        return $this->associationPath;
     }
 
-    public function setChannelId(string $channelId): void
+    public function setAssociationPath(?string $associationPath): void
     {
-        $this->channelId = $channelId;
+        $this->associationPath = $associationPath;
+    }
+
+    public function getRouteId(): string
+    {
+        return $this->routeId;
+    }
+
+    public function setRouteId(string $routeId): void
+    {
+        $this->routeId = $routeId;
+    }
+
+    public function getChannelId(): ?string
+    {
+        return $this->salesChannelId;
+    }
+
+    public function setChannelId(?string $salesChannelId): void
+    {
+        $this->salesChannelId = $salesChannelId;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): void
+    {
+        $this->priority = $priority;
+    }
+
+    public function getRoute(): ?ContentRouteEntity
+    {
+        return $this->route;
+    }
+
+    public function setRoute(?ContentRouteEntity $route): void
+    {
+        $this->route = $route;
     }
 
     public function getLayoutId(): string
@@ -79,11 +128,11 @@ class ContentLayoutAssignmentEntity extends Entity
 
     public function getChannel(): ?ChannelEntity
     {
-        return $this->channel;
+        return $this->salesChannel;
     }
 
-    public function setChannel(?ChannelEntity $channel): void
+    public function setChannel(?ChannelEntity $salesChannel): void
     {
-        $this->channel = $channel;
+        $this->salesChannel = $salesChannel;
     }
 }

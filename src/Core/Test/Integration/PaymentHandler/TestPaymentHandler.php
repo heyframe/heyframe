@@ -48,7 +48,7 @@ class TestPaymentHandler extends AbstractPaymentHandler
         return new ArrayStruct(['testValue']);
     }
 
-    public function pay(Request $request, PaymentTransactionStruct $transaction, Context $context, ?Struct $validateStruct): ?RedirectResponse
+    public function pay(Request $request, PaymentTransactionStruct $transaction, Context $context, ?Struct $validateStruct): RedirectResponse|ArrayStruct|null
     {
         if ($request->request->getBoolean('fail')) {
             throw PaymentException::asyncProcessInterrupted(

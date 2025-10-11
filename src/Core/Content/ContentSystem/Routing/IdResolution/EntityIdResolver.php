@@ -162,11 +162,11 @@ class EntityIdResolver
 
     protected function addVisibilityFilter(Criteria $criteria, string $entityType, ChannelContext $context): void
     {
-        $channelId = $context->getChannel()->getId();
+        $salesChannelId = $context->getChannel()->getId();
 
         match ($entityType) {
             'product' => $criteria->addFilter(
-                new EqualsFilter('visibilities.channelId', $channelId)
+                new EqualsFilter('visibilities.salesChannelId', $salesChannelId)
             ),
             'category' => $criteria->addFilter(
                 new EqualsFilter('active', true)

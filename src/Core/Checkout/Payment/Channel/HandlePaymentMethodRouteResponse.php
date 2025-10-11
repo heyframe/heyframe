@@ -8,16 +8,20 @@ use HeyFrame\Core\System\Channel\FrontApiResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * @extends FrontApiResponse<ArrayStruct<array{redirectResponse: RedirectResponse|null}>>
+ * @extends FrontApiResponse<ArrayStruct<array{redirectUrl?: string}>>|ArrayStruct|null
  */
 #[Package('checkout')]
 class HandlePaymentMethodRouteResponse extends FrontApiResponse
 {
-    public function __construct(?RedirectResponse $response)
+    public function __construct(RedirectResponse|ArrayStruct|null $response)
     {
-        parent::__construct(
-            new ArrayStruct(['redirectResponse' => $response])
-        );
+        if ($response instanceof RedirectResponse) {
+            parent::__construct(
+                new ArrayStruct(['redirectResponse' => $response])
+            );
+        } else {
+            parent::__construct($response);
+        }
     }
 
     public function getRedirectResponse(): ?RedirectResponse
@@ -26,14 +30,18 @@ class HandlePaymentMethodRouteResponse extends FrontApiResponse
     }
 
     /**
-     * @return ArrayStruct<array{redirectUrl: string|null}>
+     * @return ArrayStruct<array{redirectUrl?: string}|array<string,mixed>>
      *
      * @phpstan-ignore method.childReturnType (it is intended to return a different ArrayStruct)
      */
     public function getObject(): ArrayStruct
     {
-        return new ArrayStruct([
-            'redirectUrl' => $this->getRedirectResponse()?->getTargetUrl(),
-        ]);
+        if ($this->getRedirectResponse()) {
+            return new ArrayStruct([
+                'redirectUrl' => $this->getRedirectResponse()->getTargetUrl(),
+            ]);
+        }
+
+        return $this->object ?? new ArrayStruct([]);
     }
 }

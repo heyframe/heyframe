@@ -5,15 +5,15 @@ namespace HeyFrame\Core\Content\ContentSystem\Channel;
 use HeyFrame\Core\Content\ContentSystem\Channel\Struct\ContentPage;
 use HeyFrame\Core\Content\ContentSystem\Channel\Struct\DecomposedContentPage;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
  * @final
  *
- * @extends StoreApiResponse<DecomposedContentPage>
+ * @extends FrontApiResponse<DecomposedContentPage>
  */
 #[Package('discovery')]
-class ContentRouteResponse extends StoreApiResponse
+class ContentRouteResponse extends FrontApiResponse
 {
     public function __construct(
         public readonly ContentPage $contentPage,

@@ -5,6 +5,7 @@ namespace HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler;
 use HeyFrame\Core\Checkout\Payment\Cart\PaymentTransactionStruct;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Struct\ArrayStruct;
 use HeyFrame\Core\Framework\Struct\Struct;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[Package('checkout')]
 class DefaultPayment extends AbstractPaymentHandler
 {
-    public function pay(Request $request, PaymentTransactionStruct $transaction, Context $context, ?Struct $validateStruct): ?RedirectResponse
+    public function pay(Request $request, PaymentTransactionStruct $transaction, Context $context, ?Struct $validateStruct): RedirectResponse|ArrayStruct|null
     {
         // needed for payment methods like Cash on delivery and Paid in advance
         return null;

@@ -110,13 +110,13 @@ class ContentSystemException extends HttpException
         );
     }
 
-    public static function layoutAssignmentNotFound(string $entityType, string $entityId, string $channelId): self
+    public static function layoutAssignmentNotFound(string $entityType, string $entityId, string $salesChannelId): self
     {
         return new self(
             Response::HTTP_NOT_FOUND,
             self::LAYOUT_ASSIGNMENT_NOT_FOUND,
-            'No layout assignment found for {{ entityType }} "{{ entityId }}" in sales channel "{{ channelId }}"',
-            ['entityType' => $entityType, 'entityId' => $entityId, 'channelId' => $channelId]
+            'No layout assignment found for {{ entityType }} "{{ entityId }}" in sales channel "{{ salesChannelId }}"',
+            ['entityType' => $entityType, 'entityId' => $entityId, 'salesChannelId' => $salesChannelId]
         );
     }
 

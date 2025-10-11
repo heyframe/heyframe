@@ -8,6 +8,7 @@ use HeyFrame\Core\Checkout\Payment\Cart\RefundPaymentTransactionStruct;
 use HeyFrame\Core\Checkout\Payment\PaymentException;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Struct\ArrayStruct;
 use HeyFrame\Core\Framework\Struct\Struct;
 use HeyFrame\Core\Framework\Validation\DataBag\RequestDataBag;
 use HeyFrame\Core\System\Channel\ChannelContext;
@@ -36,7 +37,7 @@ abstract class AbstractPaymentHandler
         PaymentTransactionStruct $transaction,
         Context $context,
         ?Struct $validateStruct
-    ): ?RedirectResponse;
+    ): RedirectResponse|ArrayStruct|null;
 
     /**
      * Will be called, before the order is persisted.

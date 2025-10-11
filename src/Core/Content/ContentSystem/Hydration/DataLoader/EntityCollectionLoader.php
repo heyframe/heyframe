@@ -25,7 +25,7 @@ use HeyFrame\Core\System\Channel\Exception\ChannelRepositoryNotFoundException;
 readonly class EntityCollectionLoader implements ContentDataLoaderInterface
 {
     public function __construct(
-        private ChannelDefinitionInstanceRegistry $channelDefinitionRegistry,
+        private ChannelDefinitionInstanceRegistry $salesChannelDefinitionRegistry,
         private DefinitionInstanceRegistry $definitionRegistry
     ) {
     }
@@ -97,8 +97,8 @@ readonly class EntityCollectionLoader implements ContentDataLoaderInterface
         }
 
         try {
-            $channelRepository = $this->channelDefinitionRegistry->getChannelRepository($entityName);
-            $result = $channelRepository->search($criteria, $context);
+            $salesChannelRepository = $this->salesChannelDefinitionRegistry->getChannelRepository($entityName);
+            $result = $salesChannelRepository->search($criteria, $context);
         } catch (ChannelRepositoryNotFoundException) {
             $repository = $this->definitionRegistry->getRepository($entityName);
             $result = $repository->search($criteria, $context->getContext());

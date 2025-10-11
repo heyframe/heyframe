@@ -57,7 +57,7 @@ class PaymentProcessor
         ChannelContext $channelContext,
         ?string $finishUrl = null,
         ?string $errorUrl = null,
-    ): ?RedirectResponse {
+    ): RedirectResponse|ArrayStruct|null {
         $transaction = $this->getCurrentOrderTransaction($orderId, $channelContext->getContext());
         if (!$transaction) {
             return null;

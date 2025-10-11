@@ -1,7 +1,0 @@
-pay:
-    security:
-        token_storage:
-            HeyPay\Bundle\PayBundle\Core\Model\Token:
-                filesystem:
-                    id_property: 'hash'
-                    storage_dir: '%kernel.cache_dir%'

@@ -74,6 +74,7 @@
     "ext-zip": "*",
     "ext-zlib": "*",
     "composer-runtime-api": "^2.1",
+    "alipaysdk/openapi": "^3.0",
     "async-aws/core": "^1.22",
     "cocur/slugify": "^4.3.0",
     "composer/composer": "^2.8.5",
@@ -98,6 +99,7 @@
     "monolog/monolog": "^3.3.1",
     "nyholm/psr7": "^1.5",
     "pentatrion/vite-bundle": "^8.1",
+    "php-di/php-di": "^7.1",
     "phpseclib/phpseclib": "^3.0",
     "psr/cache": "^3.0.0",
     "psr/event-dispatcher": "^1.0.0",
@@ -166,6 +168,7 @@
     "twig/intl-extra": "^3.10.0",
     "twig/string-extra": "^3.10.0",
     "twig/twig": "^3.21.1",
+    "wechatpay/wechatpay": "^1.4",
     "zircote/swagger-php": "^4.9.2"
   },
   "require-dev": {
