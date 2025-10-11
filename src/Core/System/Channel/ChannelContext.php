@@ -219,6 +219,11 @@ class ChannelContext extends Struct
         return $this->context->getStates();
     }
 
+    public function state(\Closure $closure, string ...$states): mixed
+    {
+        return $this->context->state(fn () => $closure($this), ...$states);
+    }
+
     public function getDomainId(): ?string
     {
         return $this->domainId;
