@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\RateLimiter;
 
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\RateLimiter\Exception\RateLimitExceededException;
 
 #[Package('framework')]
 class RateLimiter
@@ -17,10 +16,6 @@ class RateLimiter
     final public const OAUTH = 'oauth';
 
     final public const USER_RECOVERY = 'user_recovery';
-
-    final public const CONTACT_FORM = 'contact_form';
-
-    final public const NEWSLETTER_FORM = 'newsletter_form';
 
     final public const CART_ADD_LINE_ITEM = 'cart_add_line_item';
 
@@ -39,7 +34,7 @@ class RateLimiter
         $limiter = $this->getFactory($route)->create($key)->consume();
 
         if (!$limiter->isAccepted()) {
-            throw new RateLimitExceededException($limiter->getRetryAfter()->getTimestamp());
+            throw RateLimiterException::limitExceeded($limiter->getRetryAfter()->getTimestamp());
         }
     }
 
@@ -53,7 +48,7 @@ class RateLimiter
         $factory = $this->factories[$route] ?? null;
 
         if ($factory === null) {
-            throw new \RuntimeException('Invalid factory.');
+            throw RateLimiterException::factoryNotFound($route);
         }
 
         return $factory;
