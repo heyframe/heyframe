@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Tests\Integration\Core\Checkout\Wallet\Subscriber;
+namespace HeyFrame\Tests\Integration\Core\Checkout\Points\Subscriber;
 
 use HeyFrame\Core\Checkout\Customer\CustomerEntity;
-use HeyFrame\Core\Checkout\Wallet\WalletEntity;
+use HeyFrame\Core\Checkout\Points\PointsEntity;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -41,23 +41,23 @@ class CustomerSubscriberTest extends TestCase
         /** @var CustomerEntity $customer */
         $customer = static::getContainer()
             ->get('customer.repository')
-            ->search((new Criteria([$customerId]))->addAssociation('wallet'), Context::createDefaultContext())
+            ->search((new Criteria([$customerId]))->addAssociation('points'), Context::createDefaultContext())
             ->getEntities()->first();
-        static::assertNotNull($customer->getWallet());
+        static::assertNotNull($customer->getPoints());
     }
 
     public function testCustomerWritten(): void
     {
         $customerId = $this->createCustomer();
 
-        $wallet = static::getContainer()
-            ->get('wallet.repository')
+        $points = static::getContainer()
+            ->get('points.repository')
             ->search((new Criteria())->addFilter(
                 new EqualsFilter('customerId', $customerId)
             ), Context::createDefaultContext())
             ->getEntities()->first();
 
-        static::assertInstanceOf(WalletEntity::class, $wallet);
-        static::assertSame(0.0, $wallet->getBalance());
+        static::assertInstanceOf(PointsEntity::class, $points);
+        static::assertSame(0.0, $points->getBalance());
     }
 }

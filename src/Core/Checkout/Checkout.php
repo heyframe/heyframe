@@ -33,5 +33,6 @@ class Checkout extends Bundle
         $loader->load('rule.xml');
         $loader->load('promotion.xml');
         $loader->load('wallet.xml');
+        $loader->load('points.xml');
     }
 }

@@ -13,12 +13,6 @@
             <tag name="heyframe.channel.entity.definition"/>
         </service>
 
-        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\CashPayment">
-            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
-
-            <tag name="heyframe.payment.method"/>
-        </service>
-
         <service id="HeyFrame\Core\Checkout\Payment\Aggregate\PaymentMethodTranslation\PaymentMethodTranslationDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>
@@ -77,12 +71,6 @@
         <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\PaymentHandlerRegistry">
             <argument type="tagged_locator" tag="heyframe.payment.method"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
-
-        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\DefaultPayment">
-            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
-
-            <tag name="heyframe.payment.method"/>
         </service>
 
         <service id="HeyFrame\Core\Checkout\Payment\DataAbstractionLayer\PaymentHandlerIdentifierSubscriber">

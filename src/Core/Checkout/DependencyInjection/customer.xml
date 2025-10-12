@@ -10,6 +10,10 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
+        <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMembership\CustomerMembershipDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
         <service id="HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroupTranslation\CustomerGroupTranslationDefinition">
             <tag name="heyframe.entity.definition"/>
         </service>

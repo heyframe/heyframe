@@ -3,8 +3,10 @@
 namespace HeyFrame\Core\Checkout\Customer;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupEntity;
+use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMembership\CustomerMembershipCollection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
+use HeyFrame\Core\Checkout\Points\PointsEntity;
 use HeyFrame\Core\Checkout\Wallet\WalletEntity;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
@@ -112,6 +114,10 @@ class CustomerEntity extends Entity implements \Stringable
     protected ?UserEntity $updatedBy = null;
 
     protected ?WalletEntity $wallet = null;
+
+    protected ?PointsEntity $points = null;
+
+    protected ?CustomerMembershipCollection $memberships = null;
 
     public function __toString(): string
     {
@@ -541,5 +547,25 @@ class CustomerEntity extends Entity implements \Stringable
     public function setWallet(?WalletEntity $wallet): void
     {
         $this->wallet = $wallet;
+    }
+
+    public function getPoints(): ?PointsEntity
+    {
+        return $this->points;
+    }
+
+    public function setPoints(?PointsEntity $points): void
+    {
+        $this->points = $points;
+    }
+
+    public function getMemberships(): ?CustomerMembershipCollection
+    {
+        return $this->memberships;
+    }
+
+    public function setMemberships(CustomerMembershipCollection $memberships): void
+    {
+        $this->memberships = $memberships;
     }
 }

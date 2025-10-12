@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Checkout\Wallet\Subscriber;
+namespace HeyFrame\Core\Checkout\Points\Subscriber;
 
 use HeyFrame\Core\Checkout\Customer\CustomerEvents;
-use HeyFrame\Core\Checkout\Wallet\WalletCollection;
+use HeyFrame\Core\Checkout\Points\PointsCollection;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityWriteResult;
@@ -14,14 +14,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @internal
  */
-#[Package('checkout')]
+#[Package('discovery')]
 class CustomerSubscriber implements EventSubscriberInterface
 {
     /**
-     * @param EntityRepository<WalletCollection> $walletRepository
+     * @param EntityRepository<PointsCollection> $pointsRepository
      */
     public function __construct(
-        protected readonly EntityRepository $walletRepository,
+        protected readonly EntityRepository $pointsRepository,
     ) {
     }
 
@@ -46,16 +46,15 @@ class CustomerSubscriber implements EventSubscriberInterface
             $customerId = $payload['id'] ?? null;
 
             if ($customerId) {
-                $this->createWallet($customerId, $event->getContext());
+                $this->createPoints($customerId, $event->getContext());
             }
         }
     }
 
-    private function createWallet(string $customerId, Context $context): void
+    private function createPoints(string $customerId, Context $context): void
     {
-        $this->walletRepository->create([[
+        $this->pointsRepository->create([[
             'customerId' => $customerId,
-            'currencyId' => $context->getCurrencyId(),
         ]], $context);
     }
 }

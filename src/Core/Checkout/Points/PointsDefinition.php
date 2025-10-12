@@ -1,12 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Checkout\Wallet;
+namespace HeyFrame\Core\Checkout\Points;
 
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
-use HeyFrame\Core\Checkout\Wallet\Aggregate\WalletTransactions\WalletTransactionsDefinition;
+use HeyFrame\Core\Checkout\Points\Aggregate\PointsLog\PointsLogDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ExtraFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
@@ -14,18 +13,16 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\WriteProtected;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FloatField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IntField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Currency\CurrencyDefinition;
 
-#[Package('checkout')]
-class WalletDefinition extends EntityDefinition
+#[Package('discovery')]
+class PointsDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'wallet';
+    public const ENTITY_NAME = 'points';
 
     public function getEntityName(): string
     {
@@ -34,12 +31,20 @@ class WalletDefinition extends EntityDefinition
 
     public function getCollectionClass(): string
     {
-        return WalletCollection::class;
+        return PointsCollection::class;
     }
 
     public function getEntityClass(): string
     {
-        return WalletEntity::class;
+        return PointsEntity::class;
+    }
+
+    public function getDefaults(): array
+    {
+        return [
+            'balance' => 0,
+            'frozen' => 0,
+        ];
     }
 
     protected function defineFields(): FieldCollection
@@ -47,16 +52,12 @@ class WalletDefinition extends EntityDefinition
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new ApiAware(), new PrimaryKey(), new Required()),
             (new FkField('customer_id', 'customerId', CustomerDefinition::class))->addFlags(new ApiAware(), new Required()),
-            (new FloatField('balance', 'balance'))->addFlags(new ApiAware(), new WriteProtected(Context::SYSTEM_SCOPE)),
-            (new FloatField('frozen_balance', 'frozenBalance'))->addFlags(new ApiAware(), new WriteProtected(Context::SYSTEM_SCOPE)),
-            (new FloatField('bonus_balance', 'bonusBalance'))->addFlags(new ApiAware(), new WriteProtected(Context::SYSTEM_SCOPE)),
-            (new BoolField('active', 'active'))->addFlags(new ApiAware()),
+            (new IntField('balance', 'balance'))->addFlags(new ApiAware(), new Required(), new WriteProtected(Context::SYSTEM_SCOPE)),
+            (new IntField('frozen', 'frozen'))->addFlags(new ApiAware(), new Required(), new WriteProtected(Context::SYSTEM_SCOPE)),
             (new CustomFields())->addFlags(new ApiAware()),
             (new ExtraFields())->addFlags(new ApiAware()),
-            (new FkField('currency_id', 'currencyId', CurrencyDefinition::class))->addFlags(new ApiAware(), new Required()),
-            (new ManyToOneAssociationField('currency', 'currency_id', CurrencyDefinition::class, 'id', false))->addFlags(new ApiAware()),
             (new FkField('customer_id', 'customerId', CustomerDefinition::class))->addFlags(new Required()),
-            new OneToManyAssociationField('transactions', WalletTransactionsDefinition::class, 'wallet_id'),
+            new OneToManyAssociationField('logs', PointsLogDefinition::class, 'points_id'),
         ]);
     }
 }
