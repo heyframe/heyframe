@@ -4,13 +4,13 @@ namespace HeyFrame\Tests\Unit\Core\Framework\DependencyInjection\CompilerPass;
 
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Content\Product\ProductDefinition;
-use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\AttributeEntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DependencyInjection\CompilerPass\EntityCompilerPass;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Role\CustomerRoleDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 

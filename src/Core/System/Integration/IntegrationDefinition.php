@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\System\Integration;
 
-use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\CustomFields;

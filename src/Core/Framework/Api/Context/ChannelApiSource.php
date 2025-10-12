@@ -14,11 +14,6 @@ class ChannelApiSource implements ContextSource, \JsonSerializable
 
     private readonly ?string $customerId;
 
-    /**
-     * @var array<string>
-     */
-    private array $permissions = [];
-
     public function __construct(private readonly string $channelId)
     {
     }
@@ -31,27 +26,6 @@ class ChannelApiSource implements ContextSource, \JsonSerializable
     public function setType(string $type): void
     {
         $this->type = $type;
-    }
-
-    public function isAllowed(string $privilege): bool
-    {
-        return \in_array($privilege, $this->permissions, true);
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function getPermissions(): array
-    {
-        return $this->permissions;
-    }
-
-    /**
-     * @param array<string> $permissions
-     */
-    public function setPermissions(array $permissions): void
-    {
-        $this->permissions = $permissions;
     }
 
     public function getChannelId(): string

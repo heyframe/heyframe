@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\System\Integration;
 
-use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleCollection;
+use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;

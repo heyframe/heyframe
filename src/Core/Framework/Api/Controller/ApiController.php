@@ -3,8 +3,8 @@
 namespace HeyFrame\Core\Framework\Api\Controller;
 
 use HeyFrame\Core\Defaults;
-use HeyFrame\Core\Framework\Api\Acl\Admin\AclCriteriaValidator;
-use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\AclCriteriaValidator;
+use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Api\Response\ResponseFactoryInterface;
 use HeyFrame\Core\Framework\Context;

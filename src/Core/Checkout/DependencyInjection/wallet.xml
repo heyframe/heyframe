@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="HeyFrame\Core\Checkout\Wallet\WalletDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Wallet\Aggregate\WalletTransactions\WalletTransactionsDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Wallet\Service\WalletService">
+            <argument type="service" id="wallet.repository"/>
+        </service>
+
+        <service id="HeyFrame\Core\Checkout\Wallet\Subscriber\CustomerSubscriber">
+            <argument type="service" id="wallet.repository"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+    </services>
+</container>

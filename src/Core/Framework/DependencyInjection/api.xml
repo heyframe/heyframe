@@ -42,7 +42,7 @@
             <argument type="service" id="serializer"/>
             <argument type="service" id="api.request_criteria_builder"/>
             <argument type="service" id="HeyFrame\Core\Framework\DataAbstractionLayer\EntityProtection\EntityProtectionValidator"/>
-            <argument type="service" id="HeyFrame\Core\Framework\Api\Acl\Admin\AclCriteriaValidator"/>
+            <argument type="service" id="HeyFrame\Core\Framework\Api\Acl\AclCriteriaValidator"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>

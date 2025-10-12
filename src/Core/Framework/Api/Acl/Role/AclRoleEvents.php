@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Framework\Api\Acl\Admin\Role;
+namespace HeyFrame\Core\Framework\Api\Acl\Role;
 
 use HeyFrame\Core\Framework\Log\Package;
 

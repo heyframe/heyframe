@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Tests\Unit\Core\Maintenance\User\Command;
 
-use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleEntity;
+use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Maintenance\MaintenanceException;
 use HeyFrame\Core\Maintenance\User\Command\UserListCommand;

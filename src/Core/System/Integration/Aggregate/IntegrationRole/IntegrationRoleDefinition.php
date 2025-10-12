@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\System\Integration\Aggregate\IntegrationRole;
 
-use HeyFrame\Core\Framework\Api\Acl\Admin\Role\AclRoleDefinition;
+use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
