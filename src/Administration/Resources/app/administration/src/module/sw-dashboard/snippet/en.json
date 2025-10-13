@@ -1,8 +1,0 @@
-{
-  "sw-dashboard": {
-    "general": {
-      "mainMenuItemGeneral": "Dashboard",
-      "descriptionTextModule": "The Administration's front page, displaying statistics and system information"
-    }
-  }
-}

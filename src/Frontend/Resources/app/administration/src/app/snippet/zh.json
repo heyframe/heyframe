@@ -1,17 +1,17 @@
 {
   "channel-theme": {
-    "title": "Theme-Zuweisung",
-    "changeTheme": "Theme ändern",
-    "changeThemeEmpty": "Theme zuweisen",
-    "createTheme": "Neues Theme erstellen",
-    "editContent": "Theme bearbeiten",
-    "defaultTitle": "Kein Theme zugewiesen",
-    "defaultAuthor": "Autor",
+    "title": "主题分配",
+    "changeTheme": "更换主题",
+    "changeThemeEmpty": "分配主题",
+    "createTheme": "创建新主题",
+    "editContent": "编辑主题",
+    "defaultTitle": "未分配主题",
+    "defaultAuthor": "作者",
     "modal": {
-      "modalTitleChange": "Theme wechseln",
-      "textChangeTheme": "Möchtest Du wirklich das Theme wechseln? Dies kann die Darstellung Deines Shops verändern.",
-      "buttonChange": "Theme wechseln",
-      "buttonCancel": "Abbrechen"
+      "modalTitleChange": "更换主题",
+      "textChangeTheme": "您确定要更换主题吗？这可能会改变商店的显示效果。",
+      "buttonChange": "更换主题",
+      "buttonCancel": "取消"
     }
   }
 }
