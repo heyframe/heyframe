@@ -2,7 +2,7 @@
 
 namespace HeyFrame\Core\Framework\Api\Controller;
 
-use HeyFrame\Core\Framework\Api\Acl\Admin\Event\AclGetAdditionalPrivilegesEvent;
+use HeyFrame\Core\Framework\Api\Acl\Event\AclGetAdditionalPrivilegesEvent;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
