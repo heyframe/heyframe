@@ -5,6 +5,7 @@ namespace HeyFrame\Core\System\Dict\Aggregate\DictItem;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ChildCountField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ConfigJsonField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Inherited;
@@ -13,7 +14,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TreeLevelField;
@@ -65,7 +65,7 @@ class DictItemDefinition extends EntityDefinition
             (new TreeLevelField('level', 'level'))->addFlags(new ApiAware()),
             (new TreePathField('path', 'path'))->addFlags(new ApiAware()),
             (new ChildCountField())->addFlags(new ApiAware()),
-            (new StringField('value', 'value'))->addFlags(new ApiAware(), new Required()),
+            (new ConfigJsonField('value', 'value'))->addFlags(new ApiAware(), new Required()),
             (new BoolField('active', 'active'))->addFlags(new ApiAware(), new Inherited()),
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),
             (new ManyToOneAssociationField('dict', 'dict_id', DictDefinition::class, 'id'))->addFlags(new ApiAware()),

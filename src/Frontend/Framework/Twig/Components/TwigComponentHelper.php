@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Frontend\Framework\Twig\Components;
 
-use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\NamespaceHierarchyBuilder;
 use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\Filesystem\Path;
@@ -11,7 +10,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\UX\TwigComponent\ComponentFactory;
 
 #[Package('framework')]
-class UxComponentHelper
+class TwigComponentHelper
 {
     private const MAIN_NAMESPACE = 'Frontend';
 
@@ -22,17 +21,15 @@ class UxComponentHelper
      */
     public function __construct(
         private string $componentDirectory,
-        private string $projectDir,
         private array $bundlesMetadata,
         private readonly NamespaceHierarchyBuilder $namespaceHierarchyBuilder,
         private readonly ComponentFactory $componentFactory,
-        private readonly Connection $connection,
     ) {
     }
 
-    public function getComponents(bool $includeMetadata = false): UxComponentCollection
+    public function getComponents(bool $includeMetadata = false): TwigComponentCollection
     {
-        $components = new UxComponentCollection();
+        $components = new TwigComponentCollection();
 
         foreach ($this->findComponentsByTemplate() as $component) {
             if ($includeMetadata) {
@@ -46,11 +43,11 @@ class UxComponentHelper
         return $components;
     }
 
-    public function getComponentFromTemplate(SplFileInfo $template, string $componentNamespace): UxComponent
+    public function getComponentFromTemplate(SplFileInfo $template, string $componentNamespace): TwigComponent
     {
         $componentName = $this->getComponentNameFromPath($template->getRelativePathname());
 
-        $component = new UxComponent(
+        $component = new TwigComponent(
             $componentName,
             $template->getRealPath(),
             $componentNamespace
@@ -60,7 +57,7 @@ class UxComponentHelper
     }
 
     /**
-     * @return array<string, UxComponent>
+     * @return array<string, TwigComponent>
      */
     private function findComponentsByTemplate(): array
     {
@@ -133,6 +130,15 @@ class UxComponentHelper
         }
 
         return $dirs;
+    }
+
+    private function getComponentAppPath(string $appPath, string $templatePath): string
+    {
+        if (str_starts_with($templatePath, 'components/')) {
+            $templatePath = str_replace('components/', '', $templatePath);
+        }
+
+        return Path::join($appPath, $this->componentDirectory, $templatePath);
     }
 
     private function getComponentNameFromPath(string $templateRelativePath): string

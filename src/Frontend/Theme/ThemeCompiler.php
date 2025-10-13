@@ -11,7 +11,7 @@ use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Frontend\Event\ThemeCompilerConcatenatedStylesEvent;
-use HeyFrame\Frontend\Framework\Twig\Components\UxComponentHelper;
+use HeyFrame\Frontend\Framework\Twig\Components\TwigComponentHelper;
 use HeyFrame\Frontend\Theme\Event\ThemeCompilerEnrichScssVariablesEvent;
 use HeyFrame\Frontend\Theme\Exception\ThemeException;
 use HeyFrame\Frontend\Theme\FrontendPluginConfiguration\File;
@@ -44,7 +44,7 @@ class ThemeCompiler implements ThemeCompilerInterface
         private readonly FilesystemOperator $tempFilesystem,
         private readonly CopyBatchInputFactory $copyBatchInputFactory,
         private readonly ThemeFileResolver $themeFileResolver,
-        private readonly UxComponentHelper $uxComponentHelper,
+        private readonly TwigComponentHelper $twigComponentHelper,
         private readonly bool $debug,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ThemeFilesystemResolver $themeFilesystemResolver,
@@ -206,9 +206,12 @@ class ThemeCompiler implements ThemeCompilerInterface
         return $copyFiles;
     }
 
+    /**
+     * @return list<CopyBatchInput>
+     */
     private function copyComponentScriptFiles(string $themePrefix): array
     {
-        $componentScriptFiles = $this->uxComponentHelper->getComponents();
+        $componentScriptFiles = $this->twigComponentHelper->getComponents();
         $themeComponentsPath = 'theme/' . $themePrefix . '/js/components/';
 
         $copyFiles = [];

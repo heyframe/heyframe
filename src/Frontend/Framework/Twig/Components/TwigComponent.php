@@ -8,7 +8,7 @@ use Symfony\Component\Filesystem\Path;
 use Symfony\UX\TwigComponent\ComponentMetadata;
 
 #[Package('framework')]
-class UxComponent extends Struct
+class TwigComponent extends Struct
 {
     private const MAIN_NAMESPACE = 'Frontend';
 
@@ -19,8 +19,6 @@ class UxComponent extends Struct
     protected string $namespace;
 
     protected ?ComponentMetadata $metadata = null;
-
-    protected array $properties = [];
 
     public function __construct(
         string $name,
@@ -131,15 +129,5 @@ class UxComponent extends Struct
     public function setMetadata(ComponentMetadata $metadata): void
     {
         $this->metadata = $metadata;
-    }
-
-    public function getProperties(): array
-    {
-        return $this->properties;
-    }
-
-    public function setProperties(array $properties): void
-    {
-        $this->properties = $properties;
     }
 }

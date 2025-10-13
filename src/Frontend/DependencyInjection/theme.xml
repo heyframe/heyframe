@@ -24,7 +24,7 @@
             <argument type="service" id="heyframe.filesystem.temp"/>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Filesystem\Plugin\CopyBatchInputFactory" />
             <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFileResolver" />
-            <argument type="service" id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentHelper" />
+            <argument type="service" id="HeyFrame\Frontend\Framework\Twig\Components\TwigComponentHelper" />
             <argument>%kernel.debug%</argument>
             <argument type="service" id="Symfony\Component\EventDispatcher\EventDispatcherInterface" />
             <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFilesystemResolver" />
@@ -56,7 +56,7 @@
 
         <service id="HeyFrame\Frontend\Theme\ThemeFileResolver">
             <argument type="service" id="HeyFrame\Frontend\Theme\ThemeFilesystemResolver"/>
-            <argument type="service" id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentHelper"/>
+            <argument type="service" id="HeyFrame\Frontend\Framework\Twig\Components\TwigComponentHelper"/>
         </service>
 
         <service id="HeyFrame\Frontend\Theme\ThemeScripts">

@@ -63,6 +63,8 @@ class ConfigExtension extends AbstractExtension
 
     /**
      * Returns all scripts that belong to a component.
+     *
+     * @return array<int, string>
      */
     public function componentScripts(): array
     {
@@ -71,6 +73,8 @@ class ConfigExtension extends AbstractExtension
 
     /**
      * Returns all scripts of components that have been mounted in the template.
+     *
+     * @return array<int, string>
      */
     public function mountedComponentScripts(): array
     {

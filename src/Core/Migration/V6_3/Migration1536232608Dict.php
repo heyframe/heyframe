@@ -26,10 +26,12 @@ class Migration1536232608Dict extends MigrationStep
               `id`                  BINARY(16)                              NOT NULL,
               `key`                VARCHAR(50) COLLATE utf8mb4_unicode_ci  NOT NULL,
               `active` TINYINT(1) unsigned NOT NULL DEFAULT 1,
+              `extra_fields` JSON NULL,
               `created_at`          DATETIME(3)                             NOT NULL,
               `updated_at`          DATETIME(3)                             NULL,
               PRIMARY KEY (`id`),
-              UNIQUE `uniq.key` (`key`)
+              UNIQUE `uniq.key` (`key`),
+              CONSTRAINT `json.dict.extra_fields` CHECK (JSON_VALID(`extra_fields`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
@@ -58,14 +60,14 @@ class Migration1536232608Dict extends MigrationStep
               `dict_id`             BINARY(16)                              NOT NULL,
               `parent_id`           BINARY(16)                             NULL,
               `active` TINYINT(1) unsigned NOT NULL DEFAULT 1,
-              `value`                VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `value`                json NOT NULL,
               `path` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
               `level` int unsigned NOT NULL DEFAULT 1,
               `child_count` int unsigned NOT NULL DEFAULT 0,
               `created_at`          DATETIME(3)                             NOT NULL,
               `updated_at`          DATETIME(3)                             NULL,
               PRIMARY KEY (`id`),
-              UNIQUE `uniq.dict_id.key` (`dict_id`,`value`),
+              CONSTRAINT `json.dict_item.value` CHECK (json_valid(`value`)),
               CONSTRAINT `fk.dict_item.parent_id` FOREIGN KEY (`parent_id`)
                 REFERENCES `dict_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

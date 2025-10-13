@@ -139,6 +139,16 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('dict', ['id' => $id, '`key`' => 'gender', 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('dict_translation', ['dict_id' => $id, 'language_id' => $languageEN, 'label' => 'Gender', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('dict_translation', ['dict_id' => $id, 'language_id' => $languageZH, 'label' => '性别', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        $maleId = Uuid::randomBytes();
+        $connection->insert('dict_item', ['id' => $maleId, 'dict_id' => $id, 'value' => '{"_value": 1}', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $maleId, 'language_id' => $languageEN, 'label' => 'Male', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $maleId, 'language_id' => $languageZH, 'label' => '男', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        $female = Uuid::randomBytes();
+        $connection->insert('dict_item', ['id' => $female, 'dict_id' => $id, 'value' => '{"_value": 2}', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $female, 'language_id' => $languageEN, 'label' => 'Female', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('dict_item_translation', ['dict_item_id' => $female, 'language_id' => $languageZH, 'label' => '女', 'position' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createChannel(Connection $connection): void

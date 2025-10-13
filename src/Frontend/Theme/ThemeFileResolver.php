@@ -3,8 +3,8 @@
 namespace HeyFrame\Frontend\Theme;
 
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Frontend\Framework\Twig\Components\UxComponent;
-use HeyFrame\Frontend\Framework\Twig\Components\UxComponentHelper;
+use HeyFrame\Frontend\Framework\Twig\Components\TwigComponent;
+use HeyFrame\Frontend\Framework\Twig\Components\TwigComponentHelper;
 use HeyFrame\Frontend\Theme\Exception\ThemeCompileException;
 use HeyFrame\Frontend\Theme\Exception\ThemeException;
 use HeyFrame\Frontend\Theme\FrontendPluginConfiguration\File;
@@ -23,7 +23,7 @@ class ThemeFileResolver
      */
     public function __construct(
         private readonly ThemeFilesystemResolver $themeFilesystemResolver,
-        private readonly UxComponentHelper $uxComponentHelper
+        private readonly TwigComponentHelper $twigComponentHelper
     ) {
     }
 
@@ -204,8 +204,8 @@ class ThemeFileResolver
 
             // Handle @Components namespace - include all Twig UX components
             if ($filepath === '@Components') {
-                foreach ($this->uxComponentHelper->getComponents() as $component) {
-                    /** @var UxComponent $component */
+                foreach ($this->twigComponentHelper->getComponents() as $component) {
+                    /** @var TwigComponent $component */
                     if ($fileType === self::SCRIPT_FILES) {
                         /** @var string|null $componentPath */
                         $componentPath = $component->getScriptPath();

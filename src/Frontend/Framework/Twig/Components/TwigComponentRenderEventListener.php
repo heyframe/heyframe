@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace HeyFrame\Frontend\Framework\Twig\Components;
 
@@ -8,10 +6,13 @@ use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\UX\TwigComponent\Event\PostRenderEvent;
 
-#[Package('core')]
+#[Package('framework')]
 #[AsEventListener]
-class UxComponentRenderEventListener
+class TwigComponentRenderEventListener
 {
+    /**
+     * @var array<string>
+     */
     private array $mountedComponents = [];
 
     /**
@@ -29,6 +30,8 @@ class UxComponentRenderEventListener
 
     /**
      * Get all components that were rendered in this request
+     *
+     * @return array<string>
      */
     public function getMountedComponents(): array
     {
@@ -57,11 +60,6 @@ class UxComponentRenderEventListener
     private function trackComponentUsage(PostRenderEvent $event): void
     {
         $mountedComponent = $event->getMountedComponent();
-
-        if (!$mountedComponent) {
-            return;
-        }
-
         $componentName = $mountedComponent->getName();
 
         if ($componentName) {

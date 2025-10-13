@@ -5,7 +5,7 @@ namespace HeyFrame\Frontend\Framework\Twig;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
-use HeyFrame\Frontend\Framework\Twig\Components\UxComponentRenderEventListener;
+use HeyFrame\Frontend\Framework\Twig\Components\TwigComponentRenderEventListener;
 use HeyFrame\Frontend\Theme\ThemeConfigValueAccessor;
 use HeyFrame\Frontend\Theme\ThemeScripts;
 
@@ -19,7 +19,7 @@ class TemplateConfigAccessor
         private readonly SystemConfigService $systemConfigService,
         private readonly ThemeConfigValueAccessor $themeConfigAccessor,
         private readonly ThemeScripts $themeScripts,
-        private readonly UxComponentRenderEventListener $uxComponentRenderEventListener
+        private readonly TwigComponentRenderEventListener $twigComponentRenderEventListener
     ) {
     }
 
@@ -61,6 +61,9 @@ class TemplateConfigAccessor
         return $scripts;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function componentScripts(): array
     {
         $scripts = [];
@@ -74,11 +77,14 @@ class TemplateConfigAccessor
         return $scripts;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function mountedComponentScripts(): array
     {
         $scripts = [];
         $mountedScripts = [];
-        $mountedComponents = $this->uxComponentRenderEventListener->getMountedComponents();
+        $mountedComponents = $this->twigComponentRenderEventListener->getMountedComponents();
 
         foreach ($mountedComponents as $component) {
             $mountedScripts[] = 'js/components/' . str_replace(':', '/', $component) . '.js';
@@ -99,6 +105,7 @@ class TemplateConfigAccessor
     private function getStatic(): array
     {
         return [
+            'seo.descriptionMaxLength' => 255,
         ];
     }
 }

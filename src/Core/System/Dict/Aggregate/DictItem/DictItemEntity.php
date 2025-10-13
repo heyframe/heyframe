@@ -19,7 +19,10 @@ class DictItemEntity extends Entity
 
     protected bool $active;
 
-    protected string $value;
+    /**
+     * @var array<mixed>|bool|float|int|string|null
+     */
+    protected array|bool|float|int|string|null $value = null;
 
     protected ?string $label = null;
 
@@ -51,12 +54,18 @@ class DictItemEntity extends Entity
         $this->active = $active;
     }
 
-    public function getValue(): string
+    /**
+     * @return array<mixed>|bool|float|int|string|null
+     */
+    public function getValue(): array|bool|float|int|string|null
     {
         return $this->value;
     }
 
-    public function setValue(string $value): void
+    /**
+     * @param array<mixed>|bool|float|int|string|null $value
+     */
+    public function setValue(array|bool|float|int|string|null $value): void
     {
         $this->value = $value;
     }

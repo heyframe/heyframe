@@ -4,6 +4,7 @@ namespace HeyFrame\Core\System\Dict;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Dict\Aggregate\DictItem\DictItemCollection;
@@ -12,6 +13,7 @@ use HeyFrame\Core\System\Dict\Aggregate\DictItem\DictItemCollection;
 class DictEntity extends Entity
 {
     use EntityCustomFieldsTrait;
+    use EntityExtraFieldsTrait;
     use EntityIdTrait;
 
     protected string $key;

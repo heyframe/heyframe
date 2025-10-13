@@ -53,7 +53,7 @@
             <argument type="service" id="HeyFrame\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="HeyFrame\Frontend\Theme\ThemeConfigValueAccessor"/>
             <argument type="service" id="HeyFrame\Frontend\Theme\ThemeScripts" />
-            <argument type="service" id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentRenderEventListener"/>
+            <argument type="service" id="HeyFrame\Frontend\Framework\Twig\Components\TwigComponentRenderEventListener" />
         </service>
 
         <service id="HeyFrame\Frontend\Framework\Routing\Router" decorates="router">
@@ -100,13 +100,12 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
-        <service id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentRenderEventListener">
+        <service id="HeyFrame\Frontend\Framework\Twig\Components\TwigComponentRenderEventListener">
             <tag name="kernel.event_listener" />
         </service>
 
-        <service id="HeyFrame\Frontend\Framework\Twig\Components\UxComponentHelper">
+        <service id="HeyFrame\Frontend\Framework\Twig\Components\TwigComponentHelper">
             <argument>Resources/views/components/</argument>
-            <argument>%kernel.project_dir%</argument>
             <argument>%kernel.bundles_metadata%</argument>
             <argument type="service" id="HeyFrame\Core\Framework\Adapter\Twig\NamespaceHierarchy\NamespaceHierarchyBuilder"/>
             <argument type="service" id="ux.twig_component.component_factory"/>
