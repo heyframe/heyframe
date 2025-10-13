@@ -11,6 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\IdAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Contract\RuleIdAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
@@ -20,6 +21,7 @@ use HeyFrame\Core\System\Channel\ChannelCollection;
 class PaymentMethodEntity extends Entity implements IdAware, RuleIdAware
 {
     use EntityCustomFieldsTrait;
+    use EntityExtraFieldsTrait;
     use EntityIdTrait;
 
     protected ?string $pluginId = null;

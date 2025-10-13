@@ -31,6 +31,7 @@ class Migration1536232920PaymentMethod extends MigrationStep
               `availability_rule_id` binary(16) DEFAULT NULL,
               `plugin_id` binary(16) DEFAULT NULL,
               `media_id` binary(16) DEFAULT NULL,
+              `extra_fields` json DEFAULT NULL,
               `created_at` datetime(3) NOT NULL,
               `updated_at` datetime(3) DEFAULT NULL,
               `technical_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -41,7 +42,8 @@ class Migration1536232920PaymentMethod extends MigrationStep
               KEY `fk.payment_method.availability_rule_id` (`availability_rule_id`),
               CONSTRAINT `fk.payment_method.availability_rule_id` FOREIGN KEY (`availability_rule_id`) REFERENCES `rule` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
               CONSTRAINT `fk.payment_method.media_id` FOREIGN KEY (`media_id`) REFERENCES `media` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-              CONSTRAINT `fk.payment_method.plugin_id` FOREIGN KEY (`plugin_id`) REFERENCES `plugin` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+              CONSTRAINT `fk.payment_method.plugin_id` FOREIGN KEY (`plugin_id`) REFERENCES `plugin` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+              CONSTRAINT `json.payment_method.extra_fields` CHECK (json_valid(`extra_fields`))
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 

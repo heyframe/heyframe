@@ -61,43 +61,27 @@ class Migration1580746806AddPaymentStates extends MigrationStep
 
         $chineseId = $this->fetchLanguageId('zh-CN', $connection);
 
-        $defaultLangId = $this->fetchLanguageId('en-GB', $connection);
-
-        $translationEN = [];
-        if ($defaultLangId !== $chineseId) {
-            $translationEN = ['language_id' => $defaultLangId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
-        }
-        $translationDE = [];
-        if ($chineseId) {
-            $translationDE = ['language_id' => $chineseId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
-        }
+        $translationZH = ['language_id' => $chineseId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
 
         // states
         $connection->insert('state_machine_state', ['id' => $stateInProgressId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_IN_PROGRESS, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-
-        if ($defaultLangId !== $chineseId) {
-            $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $stateInProgressId, 'name' => 'In Progress']));
-        }
 
         if ($chineseId) {
             $connection->insert(
                 'state_machine_state_translation',
                 array_merge(
-                    $translationDE,
+                    $translationZH,
                     ['state_machine_state_id' => $stateInProgressId, 'name' => '处理中']
                 )
             );
         }
 
         $connection->insert('state_machine_state', ['id' => $stateFailedId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_FAILED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        if ($defaultLangId !== $chineseId) {
-            $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $stateFailedId, 'name' => 'Failed']));
-        }
 
         if ($chineseId) {
             $connection->insert(
                 'state_machine_state_translation',
-                array_merge($translationDE, ['state_machine_state_id' => $stateFailedId, 'name' => '失败'])
+                array_merge($translationZH, ['state_machine_state_id' => $stateFailedId, 'name' => '失败'])
             );
         }
 

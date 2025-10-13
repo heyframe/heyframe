@@ -73,6 +73,12 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
+        <service id="HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\DefaultPayment">
+            <argument type="service" id="HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+
+            <tag name="heyframe.payment.method"/>
+        </service>
+
         <service id="HeyFrame\Core\Checkout\Payment\DataAbstractionLayer\PaymentHandlerIdentifierSubscriber">
             <tag name="kernel.event_subscriber"/>
         </service>

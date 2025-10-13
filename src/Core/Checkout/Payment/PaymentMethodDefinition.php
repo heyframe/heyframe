@@ -10,6 +10,7 @@ use HeyFrame\Core\Content\Rule\RuleDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ExtraFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
@@ -84,7 +85,7 @@ class PaymentMethodDefinition extends EntityDefinition
             (new OneToManyAssociationField('customers', CustomerDefinition::class, 'last_payment_method_id', 'id'))->addFlags(new RestrictDelete()),
             (new OneToManyAssociationField('orderTransactions', OrderTransactionDefinition::class, 'payment_method_id', 'id'))->addFlags(new RestrictDelete()),
             new ManyToManyAssociationField('channels', ChannelDefinition::class, ChannelPaymentMethodDefinition::class, 'payment_method_id', 'channel_id'),
-
+            new ExtraFields(),
             // runtime fields
             (new StringField('short_name', 'shortName'))->addFlags(new ApiAware(), new Runtime()),
         ]);
